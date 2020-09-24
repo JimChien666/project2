@@ -117,4 +117,164 @@ public class JdbcDao {
 		}
 		return list;
 	}
+	
+	
+	
+	
+	// fourms DAO start point TODO
+	
+	public int insertForum(Forums forum) {
+		try (
+				Connection conn = getDataSource().getConnection();
+				Statement stmt = conn.createStatement();
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO forums (id,member_Id,content,create_At) VALUES (?,?,?,?)");){
+		  	  int deptno = 1;
+			    String getForumsIdSql = "SELECT forums_id.nextval FROM DUAL";
+		  	  
+		  	  //╀¾많업¾켹톝끝�疲볐―豊N많
+			    ResultSet rs = stmt.executeQuery(getForumsIdSql);
+
+		      if (rs.next()) deptno = rs.getInt(1);
+
+		      rs.close();		      
+		      
+		      pstmt.setInt(1, forum.getId());
+		      pstmt.setInt(2, forum.getMemberId());
+		      pstmt.setString(3, forum.getContent());
+		      pstmt.setDate(4, forum.getCreateAt());
+		      pstmt.executeUpdate();
+			  pstmt.clearParameters();
+		      
+		      stmt.close();
+		    return deptno;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public boolean updateForums(Forums forum) {
+		try(
+				Connection conn = getDataSource().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("update forums member_Id=?,content=?,create_At=? where id=?");) {
+//			  java.sql.Date adoptedAt = new java.sql.Date(adoptedRecord.getAdoptedAt().getTime());
+//		      pstmt.setDate(2, adoptedAt);
+		      
+		      pstmt.setInt(1, forum.getMemberId());
+		      pstmt.setString(2, forum.getContent());
+		      pstmt.setDate(3, forum.getCreateAt());
+		      pstmt.setInt(4, forum.getId());
+		      pstmt.executeUpdate();
+			  pstmt.clearParameters();
+		      
+		    return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public List<Forums> listForums() {
+		List<Forums> list = new ArrayList<>();
+		try (
+				Connection conn = getDataSource().getConnection();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("select * from Forums");){
+		  	  
+			while (rs.next()) {
+				Forums forum = new Forums();
+				forum.setId(rs.getInt("id"));
+				forum.setMemberId(rs.getInt("member_id"));
+				forum.setContent(rs.getString("Content"));
+				forum.setCreateAt(rs.getDate("create_at"));
+				list.add(forum);
+			}
+			return list;
+		      
+		      
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	// fourms DAO end point TODO
+	// comments DAO start point
+
+	public int insertComments(Comments comment) {
+		try (
+				Connection conn = getDataSource().getConnection();
+				Statement stmt = conn.createStatement();
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO comments (id,forum_Id,comment,member_Id) VALUES (?,?,?,?)");){
+		  	  int deptno = 1;
+			    String getcommentsIdSql = "SELECT comments_id.nextval FROM DUAL";
+		  	  
+		  	  //╀¾많업¾켹톝끝�疲볐―豊N많
+			    ResultSet rs = stmt.executeQuery(getcommentsIdSql);
+
+		      if (rs.next()) deptno = rs.getInt(1);
+
+		      rs.close();		      
+		      
+		      pstmt.setInt(1, comment.getId());
+		      pstmt.setInt(2, comment.getForumId());
+		      pstmt.setString(3, comment.getComment());
+		      pstmt.setInt(4, comment.getMemberId());
+		      pstmt.executeUpdate();
+			  pstmt.clearParameters();
+		      
+		      stmt.close();
+		    return deptno;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public boolean updateComments(Comments comment) {
+		try(
+				Connection conn = getDataSource().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("update forums_Id=?,comment=?,MEMBER_ID=? where id=?");) {
+//			  java.sql.Date adoptedAt = new java.sql.Date(adoptedRecord.getAdoptedAt().getTime());
+//		      pstmt.setDate(2, adoptedAt);
+		      
+		      pstmt.setInt(1, comment.getForumId());
+		      pstmt.setString(2, comment.getComment());
+		      pstmt.setInt(3, comment.getMemberId());
+		      pstmt.setInt(4, comment.getId());
+		      pstmt.executeUpdate();
+			  pstmt.clearParameters();
+		      
+		    return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public List<Comments> listComments() {
+		List<Comments> list = new ArrayList<>();
+		try (
+				Connection conn = getDataSource().getConnection();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("select * from Forums");){
+		  	  
+			while (rs.next()) {
+				Comments comment = new Comments();
+				comment.setId(rs.getInt("id"));
+				comment.setForumId(rs.getInt("FORUM_ID"));
+				comment.setComment(rs.getString("comment"));
+				comment.setMemberId(rs.getInt("MEMBER_ID"));
+				list.add(comment);
+			}
+			return list;
+		      
+		      
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
 }

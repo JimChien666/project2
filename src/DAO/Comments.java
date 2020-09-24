@@ -1,10 +1,10 @@
 package DAO;
 
-public class Comment {
+public class Comments {
 	private int id;
 	private int memberId;
 	private int forumId;
-	private String commentS;
+	private String comment;
 	public int getId() {
 		return id;
 	}
@@ -23,10 +23,10 @@ public class Comment {
 	public void setForumId(int forumId) {
 		this.forumId = forumId;
 	}
-	public String getCommentS() {
-		return commentS;
+	public String getComment() {
+		return comment;
 	}
-	public void setCommentS(String commentS) {
-		this.commentS = commentS;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 }

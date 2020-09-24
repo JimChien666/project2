@@ -2,7 +2,7 @@ package DAO;
 
 import java.sql.Date;
 
-public class Forum {
+public class Forums {
 	private int memberId;
 	private int id;
 	private String content;
