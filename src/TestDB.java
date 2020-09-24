@@ -37,6 +37,12 @@ public class TestDB extends HttpServlet {
 		JdbcDao jdbcDao = new JdbcDao();
 		request.setCharacterEncoding("UTF-8");
 		
+		Animals animals=new Animals();
+		animals.setId(1);		
+//		memberque.setEmail("EEE"); //員工1，Email改成EEE		
+		boolean aa=jdbcDao.updateAnimal(animals);
+		System.out.println(aa); //T or F
+		
 		System.out.println(jdbcDao.listAnimals());
 		List<Animals> list = jdbcDao.listAnimals();
 		for(Animals aml :list) {

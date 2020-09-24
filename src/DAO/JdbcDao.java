@@ -122,7 +122,7 @@ public class JdbcDao {
 	
 	
 	// fourms DAO start point TODO
-	
+	// 新增
 	public int insertForum(Forums forum) {
 		try (
 				Connection conn = getDataSource().getConnection();
@@ -152,7 +152,7 @@ public class JdbcDao {
 		}
 		return 0;
 	}
-	
+	// 修改
 	public boolean updateForums(Forums forum) {
 		try(
 				Connection conn = getDataSource().getConnection();
@@ -173,7 +173,7 @@ public class JdbcDao {
 		}
 		return false;
 	}
-	
+	// Forums list
 	public List<Forums> listForums() {
 		List<Forums> list = new ArrayList<>();
 		try (
@@ -189,18 +189,69 @@ public class JdbcDao {
 				forum.setCreateAt(rs.getDate("create_at"));
 				list.add(forum);
 			}
-			return list;
-		      
+			return list;		      
 		      
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
+	//查詢
+	public boolean queryForums(Forums forum) {
+		try(
+				Connection conn = getDataSource().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("select * from forums where id=?");) {
+		  	  
+		      pstmt.setInt(1, forum.getId());
+//		      pstmt.setInt(2, forum.getMemberId());
+//		      pstmt.setString(3, forum.getContent());
+//		      pstmt.setDate(4, forum.getCreateAt());
+
+		      ResultSet rs = pstmt.executeQuery(); 
+
+		      while(rs.next()){            
+		          System.out.print(rs.getInt("id"));
+		          System.out.print(rs.getString("MEMBER_ID"));
+		          System.out.print(rs.getString("CONTENT"));
+		          System.out.print(rs.getString("CREATED_AT"));        
+		      }
+			  pstmt.clearParameters();
+		      
+		    return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	//刪除
+	public boolean deleteForums(Forums forum) {
+		try(
+				Connection conn = getDataSource().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("delete from forums where id=?");) {
+		  	  
+			  pstmt.setInt(1, forum.getId());
+//		      pstmt.setInt(2, forum.getMemberId());
+//		      pstmt.setString(3, forum.getContent());
+//		      pstmt.setDate(4, forum.getCreateAt());
+
+		      pstmt.executeUpdate();
+			  pstmt.clearParameters();
+		      
+		    return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}		
+	
+	
 	
 	// fourms DAO end point TODO
 	// comments DAO start point
-
+	
+	
+	// 新增
 	public int insertComments(Comments comment) {
 		try (
 				Connection conn = getDataSource().getConnection();
@@ -230,7 +281,7 @@ public class JdbcDao {
 		}
 		return 0;
 	}
-	
+	// 修改
 	public boolean updateComments(Comments comment) {
 		try(
 				Connection conn = getDataSource().getConnection();
@@ -251,7 +302,7 @@ public class JdbcDao {
 		}
 		return false;
 	}
-	
+	// Comments list
 	public List<Comments> listComments() {
 		List<Comments> list = new ArrayList<>();
 		try (
@@ -275,6 +326,55 @@ public class JdbcDao {
 		}
 		return list;
 	}
+	
+	//查詢
+	public boolean queryComments(Comments comment) {
+		try(
+				Connection conn = getDataSource().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("select * from forums where id=?");) {
+		  	  
+		      pstmt.setInt(1, comment.getId());
+//		      pstmt.setInt(2, comment.getForumId());
+//		      pstmt.setString(3, comment.getComment());
+//		      pstmt.setInt(4, comment.getMemberId());
+
+		      ResultSet rs = pstmt.executeQuery(); 
+
+		      while(rs.next()){            
+		          System.out.print(rs.getInt("id"));
+		          System.out.print(rs.getInt("MEMBER_ID"));
+		          System.out.print(rs.getString("CONTENT"));
+		          System.out.print(rs.getInt("CREATED_AT"));        
+		      }
+			  pstmt.clearParameters();
+		      
+		    return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	//刪除
+	public boolean deleteComments(Comments comment) {
+		try(
+				Connection conn = getDataSource().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("delete from forums where id=?");) {
+		  	  
+			  pstmt.setInt(1, comment.getId());
+//		      pstmt.setInt(2, comment.getForumId());
+//		      pstmt.setString(3, comment.getComment());
+//		      pstmt.setInt(4, comment.getMemberId());
+
+		      pstmt.executeUpdate();
+			  pstmt.clearParameters();
+		      
+		    return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}		
 	
 	
 }
