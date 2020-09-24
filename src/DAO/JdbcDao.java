@@ -39,7 +39,7 @@ public class JdbcDao {
 		  	  int deptno = 1;
 			    String getAnimalIdSql = "SELECT animal_id.nextval FROM DUAL";
 		  	  
-		  	  //è‡ªå–è™Ÿæ©Ÿå–å¾—æ–°éƒ¨é–€çš„éƒ¨é–€ä»£è™Ÿ
+		  	  //¦Û¨ú¸¹¾÷¨ú±o·s³¡ªùªº³¡ªù¥N¸¹
 			    ResultSet rs = stmt.executeQuery(getAnimalIdSql);
 
 		      if (rs.next()) deptno = rs.getInt(1);
