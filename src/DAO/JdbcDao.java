@@ -117,4 +117,137 @@ public class JdbcDao {
 		}
 		return list;
 	}
+
+
+public int insertProduct(Products product) {
+	try (
+			Connection conn = getDataSource().getConnection();
+			Statement stmt = conn.createStatement();
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO products (id,name,price) VALUES (?,?,?)");){
+	  	  int productId = 1;
+		    String getProductIdSql = "SELECT product_id.nextval FROM DUAL";
+	  	  
+	  	  //自取號機取得新部門的部門代號
+		  ResultSet rs = stmt.executeQuery(getProductIdSql);
+
+	      if (rs.next()) productId = rs.getInt(1);
+
+	      rs.close();
+	      
+	      
+	      pstmt.setInt(1, productId);
+	      pstmt.setString(2, product.getName());
+	      pstmt.setInt(3, product.getPrice());
+	      pstmt.executeUpdate();
+		  pstmt.clearParameters();
+	      
+	      stmt.close();
+	    return productId;
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
+	return 0;
 }
+
+public boolean updateProduct(Products product) {
+	try(
+			Connection conn = getDataSource().getConnection();
+			PreparedStatement pstmt = conn.prepareStatement("update products set name=?,price=? where id=?");) {
+	  	  
+	      
+	      pstmt.setString(1, product.getName());
+	      pstmt.setInt(2, product.getPrice());
+	      pstmt.setInt(3, product.getId());
+	      pstmt.executeUpdate();
+		  pstmt.clearParameters();
+	      
+	    return true;
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
+	return false;
+}
+
+public int searchProduct(Products product) {
+	try (Connection conn = getDataSource().getConnection();
+	      PreparedStatement pstmt = conn.prepareStatement("select * from products where id=?");){
+	  	 
+		  pstmt.setString(1, product.getName());
+	      pstmt.executeUpdate();
+		  pstmt.clearParameters();
+	      
+
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
+	return 0;
+}
+
+public int deleteProduct(Products product) {
+	try (Connection conn = getDataSource().getConnection();
+	      PreparedStatement pstmt = conn.prepareStatement("delete from products where id=?");){
+	  	 
+		  pstmt.setInt(1, product.getId());
+
+	      pstmt.executeUpdate();
+		  pstmt.clearParameters();
+	      
+
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+public List<Products> listProducts() {
+	List<Products> list = new ArrayList<>();
+	try (
+			Connection conn = getDataSource().getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from products");){
+	  	  
+		while (rs.next()) {
+			Products product = new Products();
+			product.setId(rs.getInt("id"));
+			product.setName(rs.getString("name"));
+			product.setPrice(rs.getInt("price"));
+			list.add(product);
+		}
+		return list;
+	      
+	      
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
+	return list;
+}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
