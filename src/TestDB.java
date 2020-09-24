@@ -33,6 +33,7 @@ public class TestDB extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("hi");
+		System.out.println("how are u?");
 		JdbcDao jdbcDao = new JdbcDao();
 		request.setCharacterEncoding("UTF-8");
 		
