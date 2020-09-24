@@ -34,6 +34,8 @@ public class TestDB extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("hi");
 		System.out.println("how are u?");
+		System.out.println("how are u?");
+		
 		JdbcDao jdbcDao = new JdbcDao();
 		request.setCharacterEncoding("UTF-8");
 		
