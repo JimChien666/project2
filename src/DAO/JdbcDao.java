@@ -11,6 +11,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.apache.naming.java.javaURLContextFactory;
+
 
 public class JdbcDao {
 	private DataSource dataSource;
@@ -137,11 +139,11 @@ public class JdbcDao {
 		      if (rs.next()) deptno = rs.getInt(1);
 
 		      rs.close();		      
-		      
+		      java.sql.Date createAt = new java.sql.Date(forum.getCreateAt().getTime());
 		      pstmt.setInt(1, forum.getId());
 		      pstmt.setInt(2, forum.getMemberId());
 		      pstmt.setString(3, forum.getContent());
-		      pstmt.setDate(4, forum.getCreateAt());
+		      pstmt.setDate(4, createAt);
 		      pstmt.executeUpdate();
 			  pstmt.clearParameters();
 		      
@@ -157,12 +159,11 @@ public class JdbcDao {
 		try(
 				Connection conn = getDataSource().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement("update forums member_Id=?,content=?,create_At=? where id=?");) {
-//			  java.sql.Date adoptedAt = new java.sql.Date(adoptedRecord.getAdoptedAt().getTime());
-//		      pstmt.setDate(2, adoptedAt);
 		      
 		      pstmt.setInt(1, forum.getMemberId());
 		      pstmt.setString(2, forum.getContent());
-		      pstmt.setDate(3, forum.getCreateAt());
+		      java.sql.Date createAt = new java.sql.Date(forum.getCreateAt().getTime());
+		      pstmt.setDate(3, createAt);
 		      pstmt.setInt(4, forum.getId());
 		      pstmt.executeUpdate();
 			  pstmt.clearParameters();
@@ -213,7 +214,7 @@ public class JdbcDao {
 		          System.out.print(rs.getInt("id"));
 		          System.out.print(rs.getString("MEMBER_ID"));
 		          System.out.print(rs.getString("CONTENT"));
-		          System.out.print(rs.getString("CREATED_AT"));        
+		          System.out.print(rs.getDate("CREATED_AT"));        
 		      }
 			  pstmt.clearParameters();
 		      
