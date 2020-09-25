@@ -634,9 +634,9 @@ public class JdbcDao {
 		try (
 				Connection conn = getDataSource().getConnection();
 				Statement stmt = conn.createStatement();
-				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO forums (id,member_Id,content,create_At) VALUES (?,?,?,?)");){
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO forums (id,member_Id,content,created_At) VALUES (?,?,?,?)");){
 		  	  int deptno = 1;
-			    String getForumsIdSql = "SELECT forums_id.nextval FROM DUAL";
+			    String getForumsIdSql = "SELECT forum_id.nextval FROM DUAL";
 		  	  
 		  	  //�ۨ��������o�s�����������N��
 			    ResultSet rs = stmt.executeQuery(getForumsIdSql);
@@ -644,11 +644,11 @@ public class JdbcDao {
 		      if (rs.next()) deptno = rs.getInt(1);
 
 		      rs.close();		      
-		      java.sql.Date createAt = new java.sql.Date(forum.getCreateAt().getTime());
 		      pstmt.setInt(1, forum.getId());
 		      pstmt.setInt(2, forum.getMemberId());
 		      pstmt.setString(3, forum.getContent());
-		      pstmt.setDate(4, createAt);
+		      java.sql.Date CreateAt = new java.sql.Date(forum.getCreateAt().getTime());
+		      pstmt.setDate(4, CreateAt);
 		      pstmt.executeUpdate();
 			  pstmt.clearParameters();
 		      
@@ -663,7 +663,7 @@ public class JdbcDao {
 	public boolean updateForums(Forums forum) {
 		try(
 				Connection conn = getDataSource().getConnection();
-				PreparedStatement pstmt = conn.prepareStatement("update forums member_Id=?,content=?,create_At=? where id=?");) {
+				PreparedStatement pstmt = conn.prepareStatement("update forums member_Id=?,content=?,created_at=? where id=?");) {
 		      
 		      pstmt.setInt(1, forum.getMemberId());
 		      pstmt.setString(2, forum.getContent());
