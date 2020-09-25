@@ -34,11 +34,6 @@ public class TestDB extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("hi");
-		System.out.println("how are u?");
-		System.out.println("how are u?");
-		System.out.println("Only only you~you~you~");
-		System.out.println("你吃我的洨蝴蝶");
-		System.out.println("然後蕭敬騰就被羅志祥打了");
 		
 		JdbcDao jdbcDao = new JdbcDao();
 		request.setCharacterEncoding("UTF-8");

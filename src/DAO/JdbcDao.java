@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -36,18 +37,16 @@ public class JdbcDao {
 				Connection conn = getDataSource().getConnection();
 				Statement stmt = conn.createStatement();
 				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO animals (id,age,animal_type,breed,coat,sex,img_url,is_alive) VALUES (?,?,?,?,?,?,?,?)");){
-		  	  int deptno = 1;
+		  	  int animalId = 1;
 			    String getAnimalIdSql = "SELECT animal_id.nextval FROM DUAL";
-		  	  
-		  	  //��������������隞����
 			    ResultSet rs = stmt.executeQuery(getAnimalIdSql);
 
-		      if (rs.next()) deptno = rs.getInt(1);
+		      if (rs.next()) animalId = rs.getInt(1);
 
 		      rs.close();
 		      
 		      
-		      pstmt.setInt(1, animal.getId());
+		      pstmt.setInt(1, animalId);
 		      pstmt.setString(2, animal.getAge());
 		      pstmt.setString(3, animal.getAnimalType());
 		      pstmt.setString(4, animal.getBreed());
@@ -59,7 +58,7 @@ public class JdbcDao {
 			  pstmt.clearParameters();
 		      
 		      stmt.close();
-		    return deptno;
+		    return animalId;
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -117,6 +116,7 @@ public class JdbcDao {
 		}
 		return list;
 	}
+
 	//新增會員
 	public int insertMembers(Members members) {
 		try (
@@ -264,6 +264,95 @@ public class JdbcDao {
 				member.setAdoptedLevelId(rs.getInt("adopted_level_id"));
 				member.setMemberType(rs.getString("member_type"));
 				list.add(member);
+			}
+			return list;
+		      
+		      
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	
+	public int insertAdopedRecord(AdoptedRecords adoptedRecord) {
+		try (
+				Connection conn = getDataSource().getConnection();
+				Statement stmt = conn.createStatement();
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO adopted_records (id,member_id,adopted_at,unadopted_at,animal_id,status) VALUES (?,?,?,?,?,?)");){
+		  	  int adoptedRecordId = 1;
+			    String getAdoptedRecordIdSql = "SELECT adopted_record_id.nextval FROM DUAL";
+		  	  
+			    ResultSet rs = stmt.executeQuery(getAdoptedRecordIdSql);
+
+		      if (rs.next()) adoptedRecordId = rs.getInt(1);
+
+		      rs.close();
+		      
+		      
+		      pstmt.setInt(1, adoptedRecordId);
+		      pstmt.setInt(2, adoptedRecord.getMemberId());
+		      java.sql.Date adoptedAt = new java.sql.Date(adoptedRecord.getAdoptedAt().getTime());
+		      pstmt.setDate(3, adoptedAt);
+		      java.sql.Date nuadoptedAt = new java.sql.Date(adoptedRecord.getUnadoptedAt().getTime());
+		      pstmt.setDate(4, nuadoptedAt);
+		      
+		      pstmt.setInt(5, adoptedRecord.getAnimalId());
+		      pstmt.setString(6, adoptedRecord.getStatus());
+		      
+		      pstmt.executeUpdate();
+			  pstmt.clearParameters();
+		      
+		      stmt.close();
+		    return adoptedRecordId;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public boolean updateAdoptedRecord(AdoptedRecords adoptedRecord) {
+		try(
+				Connection conn = getDataSource().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("update adopted_records set member_id=?,adopted_at=?,unadopted_at=?,animal_id=?,status=? where id=?");) {
+		  	  
+		      
+			  
+		      pstmt.setInt(1, adoptedRecord.getMemberId());
+		      java.sql.Date adoptedAt = new java.sql.Date(adoptedRecord.getAdoptedAt().getTime());
+		      pstmt.setDate(2, adoptedAt);
+		      java.sql.Date nuadoptedAt = new java.sql.Date(adoptedRecord.getUnadoptedAt().getTime());
+		      pstmt.setDate(3, nuadoptedAt);
+		      pstmt.setInt(4, adoptedRecord.getAnimalId());
+		      pstmt.setString(5, adoptedRecord.getStatus());
+		      pstmt.setInt(6, adoptedRecord.getId());    
+		      pstmt.executeUpdate();
+			  pstmt.clearParameters();
+		      
+		    return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public List<AdoptedRecords> listAdoptedRecords() {
+		List<AdoptedRecords> list = new ArrayList<>();
+		try (
+				Connection conn = getDataSource().getConnection();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("select * from adopted_records");){
+		  	  
+			while (rs.next()) {
+				AdoptedRecords adoptedRecord = new AdoptedRecords();
+				adoptedRecord.setId(rs.getInt("id"));
+				adoptedRecord.setMemberId(rs.getInt("member_id"));;
+				adoptedRecord.setAdoptedAt(rs.getDate("adopted_at"));
+				adoptedRecord.setUnadoptedAt(rs.getDate("unadopted_at"));
+				adoptedRecord.setAnimalId(rs.getInt("animal_id"));
+				adoptedRecord.setStatus(rs.getString("status"));
+				
+				list.add(adoptedRecord);
 			}
 			return list;
 		      
