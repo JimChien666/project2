@@ -10,6 +10,7 @@ public class Animals {
 	private String imgUrl;
 	private boolean isAlive;
 	private String name;
+//	public Animals() {}
 	public int getId() {
 		return id;
 	}
