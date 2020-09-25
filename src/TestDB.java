@@ -1,6 +1,8 @@
 
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,7 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.naming.java.javaURLContextFactory;
+
 import DAO.Animals;
+import DAO.Forums;
 import DAO.JdbcDao;
 import DAO.Members;
 
@@ -38,17 +43,34 @@ public class TestDB extends HttpServlet {
 		JdbcDao jdbcDao = new JdbcDao();
 		request.setCharacterEncoding("UTF-8");
 		
-		Animals animals=new Animals();
-		animals.setId(1);		
-//		memberque.setEmail("EEE"); //員工1，Email改成EEE		
-		boolean aa=jdbcDao.updateAnimal(animals);
-		System.out.println(aa); //T or F
+		Forums forum = new Forums();
+		forum.setId(123321);
+		forum.setMemberId(7527825);
+		forum.setContent("bitch yo");
+//		Date date=new Date(0, 0, 0);
 		
-		System.out.println(jdbcDao.listAnimals());
-		List<Animals> list = jdbcDao.listAnimals();
-		for(Animals aml :list) {
-			System.out.println(aml.getAge());
-		}
+
+		java.util.Date date = new java.util.Date();
+		
+		forum.setCreateAt(date);
+		jdbcDao.insertForum(forum);
+
+		
+		
+		
+		
+		
+//		Animals animals=new Animals();
+//		animals.setId(1);		
+//		memberque.setEmail("EEE"); //員工1，Email改成EEE		
+//		boolean aa=jdbcDao.updateAnimal(animals);
+//		System.out.println(aa); //T or F
+		
+//		System.out.println(jdbcDao.listAnimals());
+//		List<Animals> list = jdbcDao.listAnimals();
+//		for(Animals aml :list) {
+//			System.out.println(aml.getAge());
+//		}
 		//Test members insert
 //		Members member= new Members();
 //		member.setId(2);
@@ -75,12 +97,12 @@ public class TestDB extends HttpServlet {
 //		memberdel.setId(1);	
 //		jdbcDao.deleteMembers(memberdel);
 		
-		System.out.println(jdbcDao.listMembers());
-		List<Members> list2 = jdbcDao.listMembers();
-		for(Members mem :list2) {
-			
-			System.out.println(mem.getEmail());//Members Email 全印
-		}
+//		System.out.println(jdbcDao.listMembers());
+//		List<Members> list2 = jdbcDao.listMembers();
+//		for(Members mem :list2) {
+//			
+//			System.out.println(mem.getEmail());//Members Email 全印
+//		}
 	}
 
 	/**
