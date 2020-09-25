@@ -18,6 +18,7 @@ public class JdbcDao {
 	
 	
 	public DataSource getDataSource() {
+		System.out.println("我就是要commit");
 		if (this.dataSource == null) {
 			try {
 				InitialContext ctxt = new InitialContext();
