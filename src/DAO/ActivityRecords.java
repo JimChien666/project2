@@ -6,24 +6,6 @@ public class ActivityRecords {
 	private int activityId;
 	private int animalId;
 	
-	/**
-	 * 礚把计篶
-	 * @return
-	 */
-	public ActivityRecords() {
-		
-	}
-	
-	/**
-	 * Τ把计篶
-	 * @return
-	 */
-	
-	public ActivityRecords(int id, int activityId, int animalId) {
-		this.id = id;
-		this.activityId = id;
-		this.animalId = animalId;
-	}
 	
 	public int getId() {
 		return id;
