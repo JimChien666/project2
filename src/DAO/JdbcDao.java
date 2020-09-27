@@ -700,35 +700,7 @@ public class JdbcDao {
 		return false;
 	}
 
-	public int insertProduct(Products product) {
-		try (Connection conn = getDataSource().getConnection();
-				Statement stmt = conn.createStatement();
-				PreparedStatement pstmt = conn
-						.prepareStatement("INSERT INTO products (id,name,price) VALUES (?,?,?)");) {
-			int productId = 1;
-			String getProductIdSql = "SELECT product_id.nextval FROM DUAL";
 
-			// 自取號機取得新部門的部門代號
-			ResultSet rs = stmt.executeQuery(getProductIdSql);
-
-			if (rs.next())
-				productId = rs.getInt(1);
-
-			rs.close();
-
-			pstmt.setInt(1, productId);
-			pstmt.setString(2, product.getName());
-			pstmt.setInt(3, product.getPrice());
-			pstmt.executeUpdate();
-			pstmt.clearParameters();
-
-			stmt.close();
-			return productId;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
 
 	public int insertActivityRecords(ActivityRecords activityRecord) {
 		try (Connection conn = getDataSource().getConnection();
@@ -937,6 +909,36 @@ public class JdbcDao {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public int insertProduct(Products product) {
+		try (
+				Connection conn = getDataSource().getConnection();
+				Statement stmt = conn.createStatement();
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO products (id,name,price) VALUES (?,?,?)");){
+		  	  int productId = 1;
+			    String getProductIdSql = "SELECT product_id.nextval FROM DUAL";
+		  	  
+		  	  //自取號機取得新部門的部門代號
+			  ResultSet rs = stmt.executeQuery(getProductIdSql);
+
+		      if (rs.next()) productId = rs.getInt(1);
+
+		      rs.close();
+		      
+		      
+		      pstmt.setInt(1, productId);
+		      pstmt.setString(2, product.getName());
+		      pstmt.setInt(3, product.getPrice());
+		      pstmt.executeUpdate();
+			  pstmt.clearParameters();
+		      
+		      stmt.close();
+		    return productId;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	public boolean updateProduct(Products product) {
