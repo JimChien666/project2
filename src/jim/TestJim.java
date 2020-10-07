@@ -1,3 +1,4 @@
+package jim;
 
 
 import java.io.IOException;
@@ -16,20 +17,18 @@ import org.apache.naming.java.javaURLContextFactory;
 import DAO.Animals;
 import DAO.Forums;
 import DAO.Members;
-import jim.JdbcDao;
-import jim.ProductsBean;
 
 /**
  * Servlet implementation class TestDB
  */
-@WebServlet("/TestDB")
-public class TestDB extends HttpServlet {
+@WebServlet("/TestJim")
+public class TestJim extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestDB() {
+    public TestJim() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,8 +38,7 @@ public class TestDB extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("hi");
-		
+		System.out.println("hi");		
 		JdbcDao jdbcDao = new JdbcDao();//new class
 		
 		request.setCharacterEncoding("UTF-8");
@@ -60,16 +58,15 @@ public class TestDB extends HttpServlet {
 			System.out.println(listp.getDescript());
 		}
 		
+		//Test products insert
+		ProductsBean product= new ProductsBean();
 		
+		product.setDescript("此店絕不賣滯銷書、二手書、過期書");	
+		jdbcDao.insertProducts(product);
 		
 		
 //		forum.setCreateAt(date);
-//		jdbcDao.insertForum(forum);
-
-		
-		
-		
-		
+//		jdbcDao.insertForum(forum);		
 		
 //		Animals animals=new Animals();
 //		animals.setId(1);		
