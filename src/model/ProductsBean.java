@@ -1,4 +1,4 @@
-package jim;
+package model;
 import java.io.Serializable;
 public class ProductsBean implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -14,26 +14,26 @@ public class ProductsBean implements Serializable{
 	int memberId;
 	int animalTypeId;
 	int categoryId;
-//	public ProductsBean(int id, String name, int price, String img, String descript, int quantity, int specialPrice,
-//	String rewardpoints, boolean isThumb, int memberId, int animalTypeId, int categoryId) {
-//super();
-//this.id = id;
-//this.name = name;
-//this.price = price;
-//this.img = img;
-//this.descript = descript;
-//this.quantity = quantity;
-//this.specialPrice = specialPrice;
-//this.rewardpoints = rewardpoints;
-//this.isThumb = isThumb;
-//this.memberId = memberId;
-//this.animalTypeId = animalTypeId;
-//this.categoryId = categoryId;
-//}
-//
-//public ProductsBean() {
-//super();
-//}
+	public ProductsBean(String name, int price, String img, String descript, int quantity, int specialPrice,
+	String rewardpoints, boolean isThumb, int memberId, int animalTypeId, int categoryId) {
+
+		this.name = name;
+		this.price = price;
+		this.img = img;
+		this.descript = descript;
+		this.quantity = quantity;
+		this.specialPrice = specialPrice;
+		this.rewardpoints = rewardpoints;
+		this.isThumb = isThumb;
+		this.memberId = memberId;
+		this.animalTypeId = animalTypeId;
+		this.categoryId = categoryId;
+	}
+
+	public ProductsBean() {
+	
+	}
+	
 	public int getId() {
 		return id;
 	}

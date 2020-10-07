@@ -17,7 +17,7 @@ import DAO.Animals;
 import DAO.Forums;
 import DAO.Members;
 import jim.JdbcDao;
-import jim.ProductsBean;
+import model.ProductsBean;
 
 /**
  * Servlet implementation class TestDB

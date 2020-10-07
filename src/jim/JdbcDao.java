@@ -23,6 +23,7 @@ import DAO.Animals;
 import DAO.Comments;
 import DAO.Forums;
 import DAO.Members;
+import model.ProductsBean;
 
 public class JdbcDao {
 	private DataSource dataSource;

@@ -17,6 +17,7 @@ import org.apache.naming.java.javaURLContextFactory;
 import DAO.Animals;
 import DAO.Forums;
 import DAO.Members;
+import model.ProductsBean;
 
 /**
  * Servlet implementation class TestDB
