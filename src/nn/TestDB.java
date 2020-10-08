@@ -4,13 +4,16 @@ package nn;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.naming.java.javaURLContextFactory;
 
@@ -18,12 +21,16 @@ import DAO.Animals;
 import DAO.Forums;
 import DAO.JdbcDao;
 import DAO.Members;
-import mvcdemo.bean.StudentBean;
+import nn.service.GlobalService;
+
 
 /**
  * Servlet implementation class TestDB
  */
-@WebServlet("/TestDB")
+@WebServlet("/nn/TestDB")
+@MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
+maxFileSize=1024*1024*10,      // 10MB
+maxRequestSize=1024*1024*50)   // 50MB
 public class TestDB extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
@@ -40,39 +47,31 @@ public class TestDB extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding(CHARSET_CODE);
-	    response.setContentType(CONTENT_TYPE);
-		System.out.println(request.getParameter("name"));
-		if (request.getParameter("submit")!=null)
-		     gotoSubmitProcess(request, response);
+		
+
+//		if (request.getParameter("submit")!=null)
+//		     gotoSubmitProcess(request, response);
 	}
 	public void gotoSubmitProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	  {
-	    String name;
-	    String birthyear, birthmonth, birthday;
-	    String id;
-	    String zipcode;
-	    String address;
-	    String phone;
-	    String mailaddress;
-	   
-	    name = request.getParameter("name").trim();
-	    birthyear = request.getParameter("birthyear").trim();
-	    birthmonth = request.getParameter("birthmonth").trim();
-	    birthday = request.getParameter("birthday").trim();
-	    id = request.getParameter("id").trim();
-	    zipcode = request.getParameter("zipcode").trim();
-	    address = request.getParameter("address").trim();
-	    phone = request.getParameter("phone").trim();
-	    mailaddress = request.getParameter("mailaddress").trim();
-	    StudentBean reg_student =  new StudentBean(name, birthyear, birthmonth, birthday, id, zipcode, address, phone, mailaddress);
-	    request.getSession(true).setAttribute("reg_student",reg_student);
-	    request.getRequestDispatcher("/DisplayStudent.jsp").forward(request,response);
+	    
 	  }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding(CHARSET_CODE);
+	    response.setContentType(CONTENT_TYPE);
+	    Collection<Part> parts = request.getParts();
+		GlobalService.exploreParts(parts, request);
+		// 由parts != null來判斷此上傳資料是否為HTTP multipart request
+		if (parts != null) { // 如果這是一個上傳資料的表單
+			for (Part p : parts) {
+				String fldName = p.getName();
+				String value = request.getParameter(fldName);
+				System.out.println(value);
+				}
+			}
 	}
 
 }

@@ -14,16 +14,15 @@ public class AttractionBean implements Serializable {
 	private String address;
 	private Date createdAt;
 	private Date updatedAt;
-	private Date deletedat;
+	private Date deletedAt;
 	private int cityId;
 	
 	
 	public AttractionBean() {};
 	
-	public AttractionBean(int id, String name, int memberId, int attractionTypeId, String content, String tel,
-			String email, String attress, Date createdAt, Date updatedAt, Date deletedat, int cityId) {
+	public AttractionBean(String name, int memberId, int attractionTypeId, String content, String tel,
+			String email, String address, int cityId) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.memberId = memberId;
 		this.attractionTypeId = attractionTypeId;
@@ -31,9 +30,6 @@ public class AttractionBean implements Serializable {
 		this.tel = tel;
 		this.email = email;
 		this.address = address;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-		this.deletedat = deletedat;
 		this.cityId = cityId;
 	}
 	public int getId() {
@@ -97,10 +93,10 @@ public class AttractionBean implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 	public Date getDeletedat() {
-		return deletedat;
+		return deletedAt;
 	}
-	public void setDeletedat(Date deletedat) {
-		this.deletedat = deletedat;
+	public void setDeletedat(Date deletedAt) {
+		this.deletedAt = deletedAt;
 	}
 	public int getCityId() {
 		return cityId;
