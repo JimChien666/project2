@@ -38,7 +38,7 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 	private static final String CHARSET_CODE = "UTF-8";
-	private static final String SAVE_DIR = "uploadFiles";
+	private static final String SAVE_DIR = "nn/uploadFiles";
 	
 	
 	
@@ -64,6 +64,7 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 	    response.setContentType(CONTENT_TYPE);
 	    String appPath = request.getServletContext().getRealPath("");
 	    String savePath = appPath + File.separator + SAVE_DIR;
+	    String writePath = request.getContextPath() + File.separator + SAVE_DIR;
 	    Collection<Part> parts = request.getParts();
 		GlobalService.exploreParts(parts, request);
 		HttpSession session = request.getSession();
@@ -121,7 +122,7 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 						sizeInBytes = p.getSize();
 						is = p.getInputStream();
 						p.write(savePath + File.separator + coverFileName);
-						coverFileUrl = savePath + File.separator + coverFileName;
+						coverFileUrl = File.separator + SAVE_DIR + File.separator + coverFileName;
 					} else {
 						errorMsg.put("errCoverImg", "必須挑選圖片檔");
 					}
@@ -134,7 +135,7 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 						sizeInBytes = p.getSize();
 						is = p.getInputStream();
 						p.write(savePath + File.separator + contentFileName);
-						contentUrlList.add(savePath + File.separator + contentFileName);
+						contentUrlList.add(File.separator + SAVE_DIR + File.separator + contentFileName);
 					} else {
 						errorMsg.put("errContentImg", "必須挑選圖片檔");
 					}
@@ -182,9 +183,7 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 		Date createAt = new Date();
 		AttractionBean attractionBean = new AttractionBean(name, 1, typeId, content, tel, email, address, cityId, createAt);
 		InsertAttractionDao dao = new InsertAttractionDao();
-		int attractionId = dao.insertAttraction(attractionBean);
-		
-		System.out.println("done");
+		int attractionId = dao.insertAttraction(attractionBean);		
 		//insert COVERFILES
 		FileBean coverFileBean = new FileBean("image", coverFileUrl, attractionId, 0);
 		FileBean contetnFileBean = new FileBean();

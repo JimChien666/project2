@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 
 import DAO.Animals;
 import nn.vo.AttractionBean;
+import nn.vo.AttractionIntroduction;
 import nn.vo.AttractionTypeBean;
 import nn.vo.CityBean;
 import nn.vo.FileBean;
@@ -35,6 +36,25 @@ public class InsertAttractionDao {
 			}
 			return dataSource;
 		}
+		
+		
+		public List<AttractionIntroduction> getAttractionIntroductionList(){
+			List<AttractionIntroduction> list = new ArrayList<>();
+			try (Connection conn = getDataSource().getConnection();
+					Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery("SELECT atr.id, atr.name,atr.tel, atr.address, f1.file_url, f2.file_url,c.name FROM attractions atr left join files f1 on atr.id = f1.cover_attraction_id left join files f2 on atr.id = f2.content_attraction_id left join citys c on atr.city_id = c.id");) {
+				while (rs.next()) {
+					AttractionIntroduction attractionIntroduction = new AttractionIntroduction(rs.getInt(1), rs.getString(2), rs.getString(7), rs.getString(4), rs.getString(3), rs.getString(5), rs.getNString(6));
+					list.add(attractionIntroduction);
+				}
+				return list;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return list;
+		}
+		
 		
 		public int insertAttraction(AttractionBean attraction) {
 			try (Connection conn = getDataSource().getConnection();
