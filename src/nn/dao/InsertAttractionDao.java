@@ -16,6 +16,7 @@ import DAO.Animals;
 import nn.vo.AttractionBean;
 import nn.vo.AttractionTypeBean;
 import nn.vo.CityBean;
+import nn.vo.FileBean;
 
 public class InsertAttractionDao {
 		private DataSource dataSource;
@@ -35,7 +36,7 @@ public class InsertAttractionDao {
 			return dataSource;
 		}
 		
-		public boolean insertAttraction(AttractionBean attraction) {
+		public int insertAttraction(AttractionBean attraction) {
 			try (Connection conn = getDataSource().getConnection();
 
 					Statement stmt = conn.createStatement();
@@ -53,8 +54,51 @@ public class InsertAttractionDao {
 				pstmt.setInt(9, attraction.getAttractionTypeId());
 				pstmt.executeUpdate();
 				pstmt.clearParameters();
-				return true;
+				ResultSet rs = stmt.executeQuery("select id from attractions order by id desc");
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					return id;
+				}
 				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return 0;
+		}
+		
+		public boolean insertCoverAttractionFile(FileBean file) {
+			try (Connection conn = getDataSource().getConnection();
+
+					Statement stmt = conn.createStatement();
+					PreparedStatement pstmt = conn.prepareStatement(
+							"INSERT INTO files (file_type, file_url, cover_attraction_id) VALUES (?,?,?)");) {
+				pstmt.setString(1, "image");
+				pstmt.setString(2, file.getFileUrl());
+				pstmt.setInt(3, file.getCoverAttractionId());
+				pstmt.executeUpdate();
+				pstmt.clearParameters();
+				return true;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+		}
+		
+		public boolean insertContentAttractionFile(FileBean file) {
+			try (Connection conn = getDataSource().getConnection();
+
+					Statement stmt = conn.createStatement();
+					PreparedStatement pstmt = conn.prepareStatement(
+							"INSERT INTO files (file_type, file_url, content_attraction_id) VALUES (?,?,?)");) {
+				pstmt.setString(1, "image");
+				pstmt.setString(2, file.getFileUrl());
+				pstmt.setInt(3, file.getContentAttractionId());
+				pstmt.executeUpdate();
+				pstmt.clearParameters();
+				return true;
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -21,7 +21,7 @@ public class AttractionBean implements Serializable {
 	public AttractionBean() {};
 	
 	public AttractionBean(String name, int memberId, int attractionTypeId, String content, String tel,
-			String email, String address, int cityId) {
+			String email, String address, int cityId, Date createdAt) {
 		super();
 		this.name = name;
 		this.memberId = memberId;
@@ -31,6 +31,7 @@ public class AttractionBean implements Serializable {
 		this.email = email;
 		this.address = address;
 		this.cityId = cityId;
+		this.createdAt = createdAt;
 	}
 	public int getId() {
 		return id;

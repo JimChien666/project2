@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ import nn.service.GlobalService;
 import nn.vo.AttractionBean;
 import nn.vo.AttractionTypeBean;
 import nn.vo.CityBean;
+import nn.vo.FileBean;
 
 /**
  * Servlet implementation class CheckInsertAttractionServlet
@@ -42,7 +44,8 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding(CHARSET_CODE);
+	    response.setContentType(CONTENT_TYPE);
 		InsertAttractionDao dao = new InsertAttractionDao();
 		List<CityBean> cityList = dao.getCityList();
 		List<AttractionTypeBean> attractionTypeList = dao.getAttractionTypeList();
@@ -50,7 +53,7 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 		session.setAttribute("attractionTypeList", attractionTypeList);
 		session.setAttribute("cityList", cityList);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/insertAttraction.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/nn/insertAttraction.jsp");
 		rd.forward(request, response);
 		
 		return;
@@ -81,8 +84,9 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 		String tel = "";
 		String content = "";
 		String contentFileName = "";
+		String coverFileUrl = "";
 		String coverFileName = "";
-		List<String> contentFileList = new ArrayList<String>();
+		List<String> contentUrlList = new ArrayList<String>();
 		long sizeInBytes = 0;
 		InputStream is = null;
 		
@@ -117,7 +121,7 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 						sizeInBytes = p.getSize();
 						is = p.getInputStream();
 						p.write(savePath + File.separator + coverFileName);
-						System.out.println("done");
+						coverFileUrl = savePath + File.separator + coverFileName;
 					} else {
 						errorMsg.put("errCoverImg", "必須挑選圖片檔");
 					}
@@ -130,8 +134,7 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 						sizeInBytes = p.getSize();
 						is = p.getInputStream();
 						p.write(savePath + File.separator + contentFileName);
-						System.out.println("done");
-						contentFileList.add(contentFileName);
+						contentUrlList.add(savePath + File.separator + contentFileName);
 					} else {
 						errorMsg.put("errContentImg", "必須挑選圖片檔");
 					}
@@ -166,16 +169,32 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 		if (!errorMsg.isEmpty()) {
 			// 導向原來輸入資料的畫面，這次會顯示錯誤訊息
 			System.out.println(errorMsg);
-			RequestDispatcher rd = request.getRequestDispatcher("/insertAttraction.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/nn/insertAttraction.jsp");
 			rd.forward(request, response);
 			return;
 		}
 		
 		//寫進資料庫
+		System.out.println("寫進資料庫");
+		//insert attraction
 		int typeId=Integer.parseInt(type);
 		int cityId=Integer.parseInt(city);
-		AttractionBean attractionBean = new AttractionBean(name, 1, typeId, content, tel, email, address, cityId);
+		Date createAt = new Date();
+		AttractionBean attractionBean = new AttractionBean(name, 1, typeId, content, tel, email, address, cityId, createAt);
+		InsertAttractionDao dao = new InsertAttractionDao();
+		int attractionId = dao.insertAttraction(attractionBean);
 		
+		System.out.println("done");
+		//insert COVERFILES
+		FileBean coverFileBean = new FileBean("image", coverFileUrl, attractionId, 0);
+		FileBean contetnFileBean = new FileBean();
+		contetnFileBean.setFileType("image");
+		contetnFileBean.setContentAttractionId(attractionId);
+		dao.insertCoverAttractionFile(coverFileBean);
+		for(String contentUrl:contentUrlList) {
+			contetnFileBean.setFileUrl(contentUrl);
+			dao.insertContentAttractionFile(contetnFileBean);
+		}
 		
 	}
 }
