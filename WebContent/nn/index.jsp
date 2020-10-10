@@ -60,7 +60,6 @@
 	  position: absolute;
 	  top: -50px;
 	  left: 20px;
-	  background-image: url("");
 	  background-size: cover;
 	  border: solid 2px white;
 	  border-radius: 50%;
@@ -122,7 +121,8 @@
   <div class="container" style="margin-top: 200px;">
   	<c:forEach items="${attractionTypeList}" var="attractionType" varStatus="id">
   		<h2>熱門${attractionType.getName()}:</h2>
-  		<div class="row"  style=" padding: 30px; border-radius: 10px;">
+  			<jsp:include page="/nn/controler/ShowOneTypeAttractionServlet?attrId=${attractionType.getId()}" />
+  		<%-- <div class="row"  style=" padding: 30px; border-radius: 10px;">
   		  <c:forEach items="${attractionIntroductionList}" var="attractionIntroduction" varStatus="id">
 	      <div class="col-lg-4">
 	        <div class="phone">
@@ -137,7 +137,7 @@
 			</div>
 	      </div>
 	      </c:forEach>
-    	</div>
+    	</div> --%>
     	
   	</c:forEach>
     

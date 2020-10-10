@@ -3,6 +3,8 @@ package nn.controler;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -87,9 +89,11 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 		String contentFileName = "";
 		String coverFileUrl = "";
 		String coverFileName = "";
-		List<String> contentUrlList = new ArrayList<String>();
+		List<List<Object>> contentUrlList = new ArrayList<>();
 		long sizeInBytes = 0;
 		InputStream is = null;
+		long coverSizeInBytes = 0;
+		InputStream coverIs = null;
 		
 		
 		// 由parts != null來判斷此上傳資料是否為HTTP multipart request
@@ -119,8 +123,8 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 					// 調整圖片檔檔名的長度，需要檔名中的附檔名，所以調整主檔名以免檔名太長無法寫入表格
 					coverFileName = GlobalService.adjustFileName(coverFileName, GlobalService.IMAGE_FILENAME_LENGTH);
 					if (coverFileName != null && coverFileName.trim().length() > 0) {
-						sizeInBytes = p.getSize();
-						is = p.getInputStream();
+						coverSizeInBytes = p.getSize();
+						coverIs = p.getInputStream();
 						p.write(savePath + File.separator + coverFileName);
 						coverFileUrl = File.separator + SAVE_DIR + File.separator + coverFileName;
 					} else {
@@ -128,6 +132,7 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 					}
 				} else {
 					// 取出圖片檔的檔名
+					List<Object> list = new ArrayList<>();
 					contentFileName = GlobalService.getFileName(p);
 					// 調整圖片檔檔名的長度，需要檔名中的附檔名，所以調整主檔名以免檔名太長無法寫入表格
 					contentFileName = GlobalService.adjustFileName(contentFileName, GlobalService.IMAGE_FILENAME_LENGTH);
@@ -135,7 +140,10 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 						sizeInBytes = p.getSize();
 						is = p.getInputStream();
 						p.write(savePath + File.separator + contentFileName);
-						contentUrlList.add(File.separator + SAVE_DIR + File.separator + contentFileName);
+						list.add(sizeInBytes);
+						list.add(is);
+						list.add(File.separator + SAVE_DIR + File.separator + contentFileName);
+						contentUrlList.add(list);
 					} else {
 						errorMsg.put("errContentImg", "必須挑選圖片檔");
 					}
@@ -183,15 +191,34 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 		Date createAt = new Date();
 		AttractionBean attractionBean = new AttractionBean(name, 1, typeId, content, tel, email, address, cityId, createAt);
 		InsertAttractionDao dao = new InsertAttractionDao();
-		int attractionId = dao.insertAttraction(attractionBean);		
+		int attractionId = dao.insertAttraction(attractionBean);
+		Blob coverBlob = null;
+		try {
+			coverBlob = nn.service.SystemUtils2018.fileToBlob(coverIs, coverSizeInBytes);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		//insert COVERFILES
-		FileBean coverFileBean = new FileBean("image", coverFileUrl, attractionId, 0);
+		FileBean coverFileBean = new FileBean("image", coverFileUrl, attractionId, 0, coverBlob);
 		FileBean contetnFileBean = new FileBean();
 		contetnFileBean.setFileType("image");
 		contetnFileBean.setContentAttractionId(attractionId);
 		dao.insertCoverAttractionFile(coverFileBean);
-		for(String contentUrl:contentUrlList) {
-			contetnFileBean.setFileUrl(contentUrl);
+		for(List<Object> list:contentUrlList) {
+			contetnFileBean.setFileUrl((String)list.get(2));
+			Blob contentBlob = null;
+			try {
+				contentBlob = nn.service.SystemUtils2018.fileToBlob((InputStream)list.get(1), (Long)list.get(0));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			contetnFileBean.setFileBlob(contentBlob);
 			dao.insertContentAttractionFile(contetnFileBean);
 		}
 		

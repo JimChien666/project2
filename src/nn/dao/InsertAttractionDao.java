@@ -1,5 +1,6 @@
 package nn.dao;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,22 +39,6 @@ public class InsertAttractionDao {
 		}
 		
 		
-		public List<AttractionIntroduction> getAttractionIntroductionList(){
-			List<AttractionIntroduction> list = new ArrayList<>();
-			try (Connection conn = getDataSource().getConnection();
-					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery("SELECT atr.id, atr.name,atr.tel, atr.address, f1.file_url, f2.file_url,c.name FROM attractions atr left join files f1 on atr.id = f1.cover_attraction_id left join files f2 on atr.id = f2.content_attraction_id left join citys c on atr.city_id = c.id");) {
-				while (rs.next()) {
-					AttractionIntroduction attractionIntroduction = new AttractionIntroduction(rs.getInt(1), rs.getString(2), rs.getString(7), rs.getString(4), rs.getString(3), rs.getString(5), rs.getNString(6));
-					list.add(attractionIntroduction);
-				}
-				return list;
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return list;
-		}
 		
 		
 		public int insertAttraction(AttractionBean attraction) {
@@ -89,14 +74,17 @@ public class InsertAttractionDao {
 		}
 		
 		public boolean insertCoverAttractionFile(FileBean file) {
+			InputStream blobStream = null;
 			try (Connection conn = getDataSource().getConnection();
 
 					Statement stmt = conn.createStatement();
 					PreparedStatement pstmt = conn.prepareStatement(
-							"INSERT INTO files (file_type, file_url, cover_attraction_id) VALUES (?,?,?)");) {
+							"INSERT INTO files (file_type, file_url, cover_attraction_id, file_blob) VALUES (?,?,?,?)");) {
 				pstmt.setString(1, "image");
 				pstmt.setString(2, file.getFileUrl());
 				pstmt.setInt(3, file.getCoverAttractionId());
+				if(file.getFileBlob() != null) blobStream = file.getFileBlob().getBinaryStream();
+				pstmt.setBlob(4, blobStream);
 				pstmt.executeUpdate();
 				pstmt.clearParameters();
 				return true;
@@ -108,14 +96,17 @@ public class InsertAttractionDao {
 		}
 		
 		public boolean insertContentAttractionFile(FileBean file) {
+			InputStream blobStream = null;
 			try (Connection conn = getDataSource().getConnection();
 
 					Statement stmt = conn.createStatement();
 					PreparedStatement pstmt = conn.prepareStatement(
-							"INSERT INTO files (file_type, file_url, content_attraction_id) VALUES (?,?,?)");) {
+							"INSERT INTO files (file_type, file_url, content_attraction_id, file_blob) VALUES (?,?,?,?)");) {
 				pstmt.setString(1, "image");
 				pstmt.setString(2, file.getFileUrl());
 				pstmt.setInt(3, file.getContentAttractionId());
+				if(file.getFileBlob() != null) blobStream = file.getFileBlob().getBinaryStream();
+				pstmt.setBlob(4, blobStream);
 				pstmt.executeUpdate();
 				pstmt.clearParameters();
 				return true;

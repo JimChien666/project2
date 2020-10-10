@@ -19,7 +19,7 @@
 .top {
   width: 100%;
   height: 150px;
-  background-image: url("");
+  /* background-image: url("${pageContext.servletContext.contextPath}/nn/service/RetrieveImageServlet?id=${attractionIntroduction.getCoverFileId()}"); */
   background-size: cover;
   background-position: center center;
 }
@@ -36,7 +36,7 @@
   position: absolute;
   top: -50px;
   left: 20px;
-  background-image: url("");
+  /* background-image: url("https://scontent.ftpe8-2.fna.fbcdn.net/v/t1.0-9/1385703_10202411620279813_1569948950_n.jpg?_nc_cat=103&_nc_sid=f9d7a1&_nc_ohc=RgYi4fFpvHMAX9OuXsR&_nc_ht=scontent.ftpe8-2.fna&oh=97c394bfe7f411932ac0052f75606a42&oe=5FA7C510"); */
   background-size: cover;
   border: solid 2px white;
   border-radius: 50%;
@@ -50,11 +50,13 @@
 }
 
 </style>
+
 	<div class="phone">
-  		<div class="top"></div>
+  		<div class="top" style='background-image: url("${pageContext.servletContext.contextPath}/nn/service/RetrieveImageServlet?id=${attractionIntroduction.getCoverFileId()}");'></div>
+  			
  			 <div class="bottom">
-    			<div class="headpic">
-     			 <div class="name">${attractionIntroduction}</div>
+    			<div class="headpic" style='background-image: url("${pageContext.servletContext.contextPath}/nn/service/RetrieveImageServlet?id=${attractionIntroduction.getContentFileId()}");'>
+     			 <div class="name">${attractionIntroduction.getName()}</div>
     			</div>
   	</div>
 </div>

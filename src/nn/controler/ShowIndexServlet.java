@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import nn.dao.InsertAttractionDao;
+import nn.dao.ShowIndexDao;
 import nn.vo.AttractionIntroduction;
 import nn.vo.AttractionTypeBean;
 
@@ -29,13 +29,10 @@ public class ShowIndexServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding(CHARSET_CODE);
 	    response.setContentType(CONTENT_TYPE);
-	    InsertAttractionDao dao = new InsertAttractionDao();
+	    ShowIndexDao dao = new ShowIndexDao();
 	    List<AttractionTypeBean> attractionTypeList = dao.getAttractionTypeList();
-	    List<AttractionIntroduction> attractionIntroductionList = dao.getAttractionIntroductionList();
 	    HttpSession session = request.getSession();
 	    request.setAttribute("attractionTypeList", attractionTypeList);
-	    request.setAttribute("attractionIntroductionList", attractionIntroductionList);
-	    System.out.println(attractionIntroductionList);
 	    RequestDispatcher rd = request.getRequestDispatcher("/nn/index.jsp");
 		rd.forward(request, response);
 		

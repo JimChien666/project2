@@ -1,6 +1,7 @@
 package nn.vo;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 public class AttractionIntroduction implements Serializable {
 	private int id;
@@ -8,21 +9,21 @@ public class AttractionIntroduction implements Serializable {
 	private String city;
 	private String address;
 	private String tel;
-	private String coverImgUrl;
-	private String contentImgUrl;
+	private int coverFileId;
+	private int contentFileId;
 	
 	public AttractionIntroduction() {};
 	
-	public AttractionIntroduction(int id, String name, String city, String address, String tel, String coverImgUrl,
-			String contentImgUrl) {
+	public AttractionIntroduction(int id, String name, String city, String address, String tel, int coverFileId,
+			int contentFileId) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.city = city;
 		this.address = address;
 		this.tel = tel;
-		this.coverImgUrl = coverImgUrl;
-		this.contentImgUrl = contentImgUrl;
+		this.coverFileId = coverFileId;
+		this.contentFileId = contentFileId;
 	}
 	
 	public int getId() {
@@ -54,21 +55,26 @@ public class AttractionIntroduction implements Serializable {
 	public String getTel() {
 		return tel;
 	}
+	public int getCoverFileId() {
+		return coverFileId;
+	}
+
+	public void setCoverFileId(int coverFileId) {
+		this.coverFileId = coverFileId;
+	}
+
+	public int getContentFileId() {
+		return contentFileId;
+	}
+
+	public void setContentFileId(int contentFileId) {
+		this.contentFileId = contentFileId;
+	}
+
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public String getCoverImgUrl() {
-		return coverImgUrl;
-	}
-	public void setCoverImgUrl(String coverImgUrl) {
-		this.coverImgUrl = coverImgUrl;
-	}
-	public String getContentImgUrl() {
-		return contentImgUrl;
-	}
-	public void setContentImgUrl(String contentImgUrl) {
-		this.contentImgUrl = contentImgUrl;
-	}
-	
+
+
 	
 }

@@ -1,6 +1,8 @@
 package nn.vo;
 
 import java.io.Serializable;
+import java.sql.Blob;
+
 
 public class FileBean implements Serializable {
 	private int fileId;
@@ -8,14 +10,22 @@ public class FileBean implements Serializable {
 	private String fileUrl;
 	private int coverAttractionId;
 	private int contentAttractionId;
+	private Blob fileBlob;
 	
 	public FileBean() {};
-	public FileBean(String fileType, String fileUrl, int coverAttractionId, int contentAttractionId) {
+	public FileBean(String fileType, String fileUrl, int coverAttractionId, int contentAttractionId, Blob fileBlob) {
 		super();
 		this.fileType = fileType;
 		this.fileUrl = fileUrl;
 		this.coverAttractionId = coverAttractionId;
 		this.contentAttractionId = contentAttractionId;
+		this.fileBlob = fileBlob;
+	}
+	public Blob getFileBlob() {
+		return fileBlob;
+	}
+	public void setFileBlob(Blob fileBlob) {
+		this.fileBlob = fileBlob;
 	}
 	public String getFileUrl() {
 		return fileUrl;
