@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
+
     .circle{
       width:100px;
       height: 100px;
@@ -37,7 +38,7 @@
 	
 	.phone {
 	  width: 300px;
-	  border: solid 1px #888; 
+	 /*  border: solid 1px #888;  */
 	  border-radius: 10px;
 	}
 	
@@ -90,7 +91,7 @@
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active" style="overflow: hidden; height: 600px;">
-        <img src="<c:url value='/nn/images/狗狗1.jpeg' />" class="d-block w-100" alt="...">
+        <img src="<c:url value='/nn/images/狗狗1.jpg' />" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item" style="overflow: hidden; height: 600px;">
         <img src="<c:url value='/nn/images/狗狗2.jpg' />" class="d-block w-100" alt="...">
@@ -120,27 +121,13 @@
 
   <div class="container" style="margin-top: 200px;">
   	<c:forEach items="${attractionTypeList}" var="attractionType" varStatus="id">
-  		<h2>熱門${attractionType.getName()}:</h2>
-  			<jsp:include page="/nn/controler/ShowOneTypeAttractionServlet?attrId=${attractionType.getId()}" />
-  		<%-- <div class="row"  style=" padding: 30px; border-radius: 10px;">
-  		  <c:forEach items="${attractionIntroductionList}" var="attractionIntroduction" varStatus="id">
-	      <div class="col-lg-4">
-	        <div class="phone">
-	        <style>
-	        		</style>
-			  		<div class="top" style="background-image: '<c:url value='/nn/images/狗狗1.jpeg' />'"></div>
-			 			 <div class="bottom">
-			    			<div class="headpic">
-			     			 <div class="name">${attractionIntroduction.getName()}</div>
-			    			</div>
-			  	</div>
-			</div>
-	      </div>
-	      </c:forEach>
-    	</div> --%>
-    	
+  		<h2 style="margin-bottom: 50px;margin-top: 50px;">熱門${attractionType.getName()}:</h2>
+  			<div class="row"  style=" padding: 30px; border-radius: 10px;">
+  					<jsp:include page="/nn/controler/ShowOneTypeAttractionServlet?attrId=${attractionType.getId()}" />
+  			</div>
   	</c:forEach>
     
   </div>
+  <div class="circle" style="font-size: 30px; width: 50px; height: 50px;line-height:50px; position: fixed; top: 80%; left: 80%;"><a href="<c:url value='/nn/controler/CheckInsertAttractionServlet' /> " style="text-decoration:none; color: white;">+</a></div>
 </body>
 </html>

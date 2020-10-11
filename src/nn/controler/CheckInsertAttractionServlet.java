@@ -3,6 +3,7 @@ package nn.controler;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -90,8 +91,8 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 		String coverFileUrl = "";
 		String coverFileName = "";
 		List<List<Object>> contentUrlList = new ArrayList<>();
-		long sizeInBytes = 0;
-		InputStream is = null;
+		long contentSizeInBytes = 0;
+		InputStream contentIs = null;
 		long coverSizeInBytes = 0;
 		InputStream coverIs = null;
 		
@@ -118,30 +119,37 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 						content = value;
 					}
 				} else if (p.getContentType() != null && fldName.equals("coverimg")) {
+					
 					// 取出圖片檔的檔名
 					coverFileName = GlobalService.getFileName(p);
 					// 調整圖片檔檔名的長度，需要檔名中的附檔名，所以調整主檔名以免檔名太長無法寫入表格
 					coverFileName = GlobalService.adjustFileName(coverFileName, GlobalService.IMAGE_FILENAME_LENGTH);
 					if (coverFileName != null && coverFileName.trim().length() > 0) {
+						
 						coverSizeInBytes = p.getSize();
 						coverIs = p.getInputStream();
 						p.write(savePath + File.separator + coverFileName);
 						coverFileUrl = File.separator + SAVE_DIR + File.separator + coverFileName;
+						
 					} else {
 						errorMsg.put("errCoverImg", "必須挑選圖片檔");
 					}
 				} else {
+					
 					// 取出圖片檔的檔名
 					List<Object> list = new ArrayList<>();
 					contentFileName = GlobalService.getFileName(p);
 					// 調整圖片檔檔名的長度，需要檔名中的附檔名，所以調整主檔名以免檔名太長無法寫入表格
 					contentFileName = GlobalService.adjustFileName(contentFileName, GlobalService.IMAGE_FILENAME_LENGTH);
 					if (contentFileName != null && contentFileName.trim().length() > 0) {
-						sizeInBytes = p.getSize();
-						is = p.getInputStream();
+						contentSizeInBytes = p.getSize();
+						
+						contentIs = p.getInputStream();
 						p.write(savePath + File.separator + contentFileName);
-						list.add(sizeInBytes);
-						list.add(is);
+						
+						list.add(contentSizeInBytes);
+						list.add(contentIs);
+						
 						list.add(File.separator + SAVE_DIR + File.separator + contentFileName);
 						contentUrlList.add(list);
 					} else {
@@ -221,6 +229,9 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 			contetnFileBean.setFileBlob(contentBlob);
 			dao.insertContentAttractionFile(contetnFileBean);
 		}
-		
+        PrintWriter out = response.getWriter();
+        out.println("<script type=text/javascript>alert('hi');</script>");
+        response.sendRedirect("/Project2/nn/controler/ShowIndexServlet");
+		return;
 	}
 }

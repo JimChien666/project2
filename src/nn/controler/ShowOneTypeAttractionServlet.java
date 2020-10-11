@@ -1,7 +1,6 @@
 package nn.controler;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -25,15 +24,8 @@ public class ShowOneTypeAttractionServlet extends HttpServlet {
 		String attrIdstr = request.getParameter("attrId");
 		int atrId = Integer.parseInt(attrIdstr);
 		ShowIndexDao dao = new ShowIndexDao();
-		PrintWriter out = response.getWriter();
 		List<AttractionIntroduction> AttractionIntroductionList =  dao.getAttractionIntroductionList(atrId);
 		for(AttractionIntroduction attractionIntroduction:AttractionIntroductionList) {
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			request.setAttribute("attractionIntroduction", attractionIntroduction);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/nn/block.jsp");
 	        dispatcher.include(request, response);

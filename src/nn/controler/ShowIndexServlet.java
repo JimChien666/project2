@@ -27,11 +27,11 @@ public class ShowIndexServlet extends HttpServlet {
        
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		request.setCharacterEncoding(CHARSET_CODE);
 	    response.setContentType(CONTENT_TYPE);
 	    ShowIndexDao dao = new ShowIndexDao();
 	    List<AttractionTypeBean> attractionTypeList = dao.getAttractionTypeList();
-	    HttpSession session = request.getSession();
 	    request.setAttribute("attractionTypeList", attractionTypeList);
 	    RequestDispatcher rd = request.getRequestDispatcher("/nn/index.jsp");
 		rd.forward(request, response);

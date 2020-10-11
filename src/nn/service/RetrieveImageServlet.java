@@ -22,12 +22,13 @@ import nn.dao.ShowIndexDao;
 @WebServlet("/nn/service/RetrieveImageServlet")
 public class RetrieveImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	InputStream is = null;
-	String mimeType = null;
-	OutputStream os = null;
+	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
+		InputStream is = null;
+		String mimeType = null;
+		OutputStream os = null;
 		int nId = Integer.parseInt(id);
 		ShowIndexDao dao = new ShowIndexDao();
 		try {
