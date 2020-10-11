@@ -16,9 +16,11 @@ import javax.sql.DataSource;
 import DAO.Animals;
 import nn.vo.AttractionBean;
 import nn.vo.AttractionIntroduction;
+import nn.vo.AttractionTagRefsBean;
 import nn.vo.AttractionTypeBean;
 import nn.vo.CityBean;
 import nn.vo.FileBean;
+import nn.vo.TagBean;
 
 public class InsertAttractionDao {
 		private DataSource dataSource;
@@ -137,6 +139,26 @@ public class InsertAttractionDao {
 			return list;
 		}
 		
+		public List<TagBean> getTagList() {
+			List<TagBean> list = new ArrayList<>();
+			try (Connection conn = getDataSource().getConnection();
+					Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery("select id, name from tags order by id");) {
+
+				while (rs.next()) {
+					TagBean bean = new TagBean();
+					bean.setId(rs.getInt(1));
+					bean.setName(rs.getString(2));
+					list.add(bean);
+				}
+				return list;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return list;
+		}
+		
 		public List<AttractionTypeBean> getAttractionTypeList() {
 			List<AttractionTypeBean> list = new ArrayList<>();
 			try (Connection conn = getDataSource().getConnection();
@@ -155,6 +177,26 @@ public class InsertAttractionDao {
 				e.printStackTrace();
 			}
 			return list;
+		}
+		
+		public void insertAttractionTagRefs(AttractionTagRefsBean attractionTagRefs) {
+			try (Connection conn = getDataSource().getConnection();
+
+					Statement stmt = conn.createStatement();
+					PreparedStatement pstmt = conn.prepareStatement(
+							"INSERT INTO attraction_tag_refs (tag_id, attraction_id) VALUES (?,?)");) {
+				pstmt.setInt(1, attractionTagRefs.getTagId());
+				pstmt.setInt(2, attractionTagRefs.getAttractionId());
+
+				pstmt.executeUpdate();
+				pstmt.clearParameters();
+
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 

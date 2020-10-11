@@ -50,6 +50,7 @@
 
 .name {
   right: -110px;
+  width: 160px;
   top: 10px;
   color: white;
   letter-spacing: 2px;

@@ -58,7 +58,7 @@ public class ShowIndexDao {
 		try (Connection conn = getDataSource().getConnection();
 				Statement stmt = conn.createStatement();
 				PreparedStatement pstmt = conn.prepareStatement(
-						"SELECT atr.id, atr.name,atr.tel, atr.address, f1.file_id, f2.file_id,c.name FROM attractions atr left join attraction_types at on at.id = atr.attraction_type_id left join files f1 on atr.id = f1.cover_attraction_id left join files f2 on atr.id = f2.content_attraction_id left join citys c on atr.city_id = c.id where at.id = ?");) {
+						"SELECT atr.id, atr.name,atr.tel, atr.address, f1.file_id, f2.file_id,c.name FROM attractions atr left join attraction_types at on at.id = atr.attraction_type_id left join files f1 on atr.id = f1.cover_attraction_id left join files f2 on atr.id = f2.content_attraction_id left join citys c on atr.city_id = c.id where at.id = ? and ROWNUM <4");) {
 			pstmt.setInt(1, atrId);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {

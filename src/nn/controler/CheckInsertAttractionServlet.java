@@ -26,9 +26,11 @@ import javax.servlet.http.Part;
 import nn.dao.InsertAttractionDao;
 import nn.service.GlobalService;
 import nn.vo.AttractionBean;
+import nn.vo.AttractionTagRefsBean;
 import nn.vo.AttractionTypeBean;
 import nn.vo.CityBean;
 import nn.vo.FileBean;
+import nn.vo.TagBean;
 
 /**
  * Servlet implementation class CheckInsertAttractionServlet
@@ -51,10 +53,12 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 	    response.setContentType(CONTENT_TYPE);
 		InsertAttractionDao dao = new InsertAttractionDao();
 		List<CityBean> cityList = dao.getCityList();
+		List<TagBean> tagList = dao.getTagList();
 		List<AttractionTypeBean> attractionTypeList = dao.getAttractionTypeList();
 		HttpSession session = request.getSession();
 		session.setAttribute("attractionTypeList", attractionTypeList);
 		session.setAttribute("cityList", cityList);
+		session.setAttribute("tagList", tagList);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/nn/insertAttraction.jsp");
 		rd.forward(request, response);
@@ -96,6 +100,7 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 		long coverSizeInBytes = 0;
 		InputStream coverIs = null;
 		
+		String[] tagList = request.getParameterValues("tag");
 		
 		// 由parts != null來判斷此上傳資料是否為HTTP multipart request
 		if (parts != null) { // 如果這是一個上傳資料的表單
@@ -229,6 +234,13 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 			contetnFileBean.setFileBlob(contentBlob);
 			dao.insertContentAttractionFile(contetnFileBean);
 		}
+		//inset attraction_tag_refs
+		for(String tagIdString:tagList) {
+			int tagId = Integer.parseInt(tagIdString);
+			AttractionTagRefsBean attractionTagRefs = new AttractionTagRefsBean(tagId, attractionId);
+			dao.insertAttractionTagRefs(attractionTagRefs);
+		}
+		
         PrintWriter out = response.getWriter();
         out.println("<script type=text/javascript>alert('hi');</script>");
         response.sendRedirect("/Project2/nn/controler/ShowIndexServlet");
