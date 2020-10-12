@@ -21,7 +21,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <jsp:include page="top.jsp" />
 <div class="container" style="padding-top: 100px;">
 <h2>
-報名資料登入
+新增旅遊點
 </h2>
 <form ENCTYPE="multipart/form-data" method="POST" action="<c:url value='/nn/controler/CheckInsertAttractionServlet' />">
   <div class="form-group">

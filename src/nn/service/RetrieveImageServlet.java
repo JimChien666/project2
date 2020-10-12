@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import nn.dao.ShowIndexDao;
+import nn.dao.ShowAttractionInfosDao;
 
 // 
 // 程式功能：
@@ -30,7 +30,7 @@ public class RetrieveImageServlet extends HttpServlet {
 		String mimeType = null;
 		OutputStream os = null;
 		int nId = Integer.parseInt(id);
-		ShowIndexDao dao = new ShowIndexDao();
+		ShowAttractionInfosDao dao = new ShowAttractionInfosDao();
 		try {
 			Blob blob = dao.getFileBlob(nId);
 			if (blob != null) {

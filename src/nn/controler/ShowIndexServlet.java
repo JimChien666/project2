@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import nn.dao.ShowIndexDao;
+import nn.dao.ShowAttractionInfosDao;
 import nn.vo.AttractionIntroduction;
 import nn.vo.AttractionTypeBean;
+import nn.vo.FavoriteBean;
 
 /**
  * Servlet implementation class ShowIndexServlet
@@ -27,10 +28,13 @@ public class ShowIndexServlet extends HttpServlet {
        
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
+		FavoriteBean favoriteBean = new FavoriteBean();
+		
+		
 		request.setCharacterEncoding(CHARSET_CODE);
 	    response.setContentType(CONTENT_TYPE);
-	    ShowIndexDao dao = new ShowIndexDao();
+	    ShowAttractionInfosDao dao = new ShowAttractionInfosDao();
 	    List<AttractionTypeBean> attractionTypeList = dao.getAttractionTypeList();
 	    request.setAttribute("attractionTypeList", attractionTypeList);
 	    RequestDispatcher rd = request.getRequestDispatcher("/nn/index.jsp");

@@ -29,49 +29,7 @@
 	    	box-shadow: 2px 2px 2px black;
 	    	cursor: pointer;
 	    }
-	    @charset "UTF-8";
-	* {
-	  font-family: 微軟正黑體;
-	  position: relative;
-	}
-	
-	
-	.phone {
-	  width: 300px;
-	 /*  border: solid 1px #888;  */
-	  border-radius: 10px;
-	}
-	
-	.top {
-	  width: 100%;
-	  height: 150px;
-	  background-size: cover;
-	  background-position: center center;
-	}
-	
-	.bottom {
-	  width: 100%;
-	  height: 200px;
-	  background: white;
-	}
-	
-	.headpic {
-	  width: 80px;
-	  height: 80px;
-	  position: absolute;
-	  top: -50px;
-	  left: 20px;
-	  background-size: cover;
-	  border: solid 2px white;
-	  border-radius: 50%;
-	}
-	
-	.name {
-	  right: -110px;
-	  top: 10px;
-	  color: white;
-	  letter-spacing: 2px;
-	}
+
   </style>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -113,7 +71,7 @@
     <div class="row">
     <c:forEach items="${attractionTypeList}" var="attractionType" varStatus="id">
     	<div class="col-sm">
-        	<div class="circle">${attractionType.getName()}</div>
+        	<div class="circle"><a href="${pageContext.servletContext.contextPath}/nn/controler/ShowAllAttractionsServlet?attrId=${attractionType.getId()}&page=1&showNum=9&name=${attractionType.getName()}" style="text-decoration:none; color: white;">${attractionType.getName()}</a></div>
         </div>
     </c:forEach>
     </div>
@@ -128,6 +86,6 @@
   	</c:forEach>
     
   </div>
-  <div class="circle" style="font-size: 30px; width: 50px; height: 50px;line-height:50px; position: fixed; top: 80%; left: 80%;"><a href="<c:url value='/nn/controler/CheckInsertAttractionServlet' /> " style="text-decoration:none; color: white;">+</a></div>
+  <div class="circle" style="font-size: 30px; width: 50px; height: 50px;line-height:50px; position: fixed; top: 80%; left: 80%;"><a href="<c:url value='/nn/controler/CheckInsertAttractionServlet' />" style="text-decoration:none; color: white;">+</a></div>
 </body>
 </html>

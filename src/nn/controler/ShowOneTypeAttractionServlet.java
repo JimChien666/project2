@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import nn.dao.ShowIndexDao;
+import nn.dao.ShowAttractionInfosDao;
 import nn.vo.AttractionIntroduction;
 
 /**
@@ -23,8 +23,8 @@ public class ShowOneTypeAttractionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String attrIdstr = request.getParameter("attrId");
 		int atrId = Integer.parseInt(attrIdstr);
-		ShowIndexDao dao = new ShowIndexDao();
-		List<AttractionIntroduction> AttractionIntroductionList =  dao.getAttractionIntroductionList(atrId);
+		ShowAttractionInfosDao dao = new ShowAttractionInfosDao();
+		List<AttractionIntroduction> AttractionIntroductionList =  dao.getAttractionIntroductionList("", atrId, 0, 3);
 		for(AttractionIntroduction attractionIntroduction:AttractionIntroductionList) {
 			request.setAttribute("attractionIntroduction", attractionIntroduction);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/nn/block.jsp");
