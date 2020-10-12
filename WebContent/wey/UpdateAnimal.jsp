@@ -17,7 +17,7 @@
 }
 
 .span1 {
-	display: inline-block;
+ 	display: inline-block;
 	width: 120px;
 	text-align: right;
 }
@@ -28,47 +28,24 @@
 	color:red;
 }
 </style>
+<script type="text/javascript">
+function confirmDelete() {
+	if(confirm("確定刪除此筆動物資料(動物編號:${valueObjectAnimal.animalId})?")){
+		document.forms[0].action="ServletDeleteAnimal?animalId=${valueObjectAnimal.animalId}";
+		document.forms[0].method="POST";
+		document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
+	}
+}
+</script>
 </head>
 <body>
-	<div class="page1">
-		<a href="<%=application.getContextPath()%>/ServletReadAnimal" class="btn btn-secondary div2">回維護首頁</a>
-		<form action="<%=application.getContextPath()%>/ServletCreateAnimal" method="post">
-			<label for="" class="span1">動物編號：</label>
-			<input type="text" name="animalId" placeholder="自動產生" id="animalId" onblur="checkanimalId()" required><br>
-			<span id="animalIdSpan" class="spanHidden"><br></span>
-			<script type="text/javascript">
-				function checkanimalId(){
-					let animalId = document.getElementById("animalId").value;
-					let animalIdLength = animalId.length;
-					let animalIdSpan = document.getElementById("animalIdSpan");
-					let flag1 = false;
-					if (animalId == ""){
-            			document.getElementById("animalIdSpan").style.display = "block";
-						animalIdSpan.innerHTML = "不可空白";
-					}else if (animalIdLength <= 10) {
-                		for (let i = 0; i < animalIdLength; i++) {
-                    		let ch = animalId.charAt(i);
-                    		if ((ch >= "\u0030" && ch <= "\u0039")) {//判斷數字
-                      			flag1 = true;
-                    		}else{
-                        		flag1 = false;
-                        		break;
-                    		}
-                		}
-                		if (flag1) {
-                			animalIdSpan.innerHTML = "";
-                		} else {
-                			document.getElementById("animalIdSpan").style.display = "block";
-                			animalIdSpan.innerHTML = "只能輸入數字";
-                		}
-            		} else {
-            			document.getElementById("animalIdSpan").style.display = "block";
-            			animalIdSpan.innerHTML = "只能輸入10碼";
-            		}
-				}
-			</script>
-			<label for="" class="span1">會員編號：</label>
-			<input type="text" name="memberId" placeholder="自動抓取會員編號" onblur="checkmemberId()" id="memberId" required><br>
+<div class="page1">
+	<a href="ServletReadAnimal" class="btn btn-secondary div2">回維護首頁</a>
+	<form action="<%=application.getContextPath() %>/ServletUpdateAnimal" method="post">
+		<label for="" class="span1">動物編號：</label>
+		<input type="text" name="animalId" value="${valueObjectAnimal.animalId}" readonly><br> 
+		<label for="" class="span1">會員編號：</label>
+		<input type="text" name="memberId" value="${valueObjectAnimal.memberId}" onblur="checkmemberId()" id="memberId" required><br>
 			<span id="memberIdSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
 				function checkmemberId(){
@@ -101,8 +78,8 @@
             		}
 				}
 			</script>
-			<label for="" class="span1">收容動物編號：</label>
-			<input type="text" name="acceptionId" onblur="checkacceptionId()" id="acceptionId">收容所需填<br>
+		<label for="" class="span1">收容動物編號：</label> 
+		<input type="text" name="acceptionId" value="${valueObjectAnimal.acceptionId}" onblur="checkacceptionId()" id="acceptionId"><br>
 			<span id="acceptionIdSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
 				function checkacceptionId(){
@@ -134,8 +111,8 @@
             		}
 				}
 			</script>
-			<label for="" class="span1">品種編號：</label>
-			<input type="text" name="breedId" onblur="checkbreedId()" id="breedId" required>需查詢填入<br>
+		<label for="" class="span1">品種編號：</label> 
+		<input type="text" name="breedId" value="${valueObjectAnimal.breedId}" onblur="checkbreedId()" id="breedId" required><br>
 			<span id="breedIdSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
 				function checkbreedId(){
@@ -168,13 +145,21 @@
             		}
 				}
 			</script>
-			<label for="gender" class="span1">性別：</label>
-			<select name="gender" id="">
-				<option value="1">公</option>
-				<option value="0">母</option>
-			</select><br>
-			<label for="" class="span1">毛色：</label>
-			<input type="text" name="coatColor" onblur="checkcoatColor()" id="coatColor"><br>
+		<label for="" class="span1">性別：</label>
+		<select name="gender" id="">
+		<c:choose>
+		<c:when test="${valueObjectAnimal.gender == 1}">
+			<option value="1" selected>公</option>
+			<option value="0">母</option>
+		</c:when>
+		<c:otherwise>
+			<option value="1">公</option>
+			<option value="0" selected>母</option>
+		</c:otherwise>
+		</c:choose>
+		</select><br> 
+		<label for="" class="span1">毛色：</label> 
+		<input type="text" name="coatColor" value="${valueObjectAnimal.coatColor}" onblur="checkcoatColor()" id="coatColor"><br>
 			<span id="coatColorSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
 				function checkcoatColor(){
@@ -203,20 +188,25 @@
             		}
 				}
 			</script>
-			<label for="" class="span1">是否開放領養：</label>
-			<select name="isAdoptionAvailable" id="">
-				<option value="1">開放</option>
-				<option value="0">不開放</option>
-			</select><br>
-			<label for="" class="span1" style="position: absolute">備註：</label>
-			<textarea id="" name="note" rows="5" cols="18" placeholder="可輸入寵物年齡" style="margin-left: 125px"></textarea><br>
-			<a href="<%=application.getContextPath()%>/wey/CreateAnimal.jsp" class="btn btn-secondary">重填</a>
-			<c:choose>
-			<c:when test="">
-			</c:when>
-			</c:choose>
-			<button type="submit" name="submit" class="btn btn-primary">送出</button>
-		</form>
-	</div>
+		<label for="" class="span1">是否開放領養：</label>
+		<select name="isAdoptionAvailable" id="">
+		<c:choose>
+		<c:when test="${valueObjectAnimal.isAdoptionAvailable == 1}">
+			<option value="1" selected>開放</option>
+			<option value="0">不開放</option>
+		</c:when>
+		<c:otherwise>
+			<option value="1">開放</option>
+			<option value="0" selected>不開放</option>
+		</c:otherwise>
+		</c:choose>
+		</select><br> 
+		<label for="" class="span1" style="position:absolute">備註：</label>
+		<textarea id="" name="note" rows="5" cols="18" style="margin-left:125px">${valueObjectAnimal.note}</textarea><br>
+		<a href="ServletPreUpdateAnimal?animalId=${valueObjectAnimal.animalId}" class="btn btn-secondary">回復修改</a>
+		<button type="submit" name="update" class="btn btn-primary">修改</button>
+		<input type="button" name="delete" value="刪除" onclick="confirmDelete()" class="btn btn-danger" />
+	</form>
+</div>
 </body>
 </html>
