@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class AllArticleBean implements Serializable {
-
+	private int id;
 	private int articleId;
 	private String title;
 	private String content;
@@ -22,7 +22,8 @@ public class AllArticleBean implements Serializable {
 	 * @param createdAt
 	 * @param memberId
 	 */
-	public AllArticleBean(int articleId, String title, String content, Date createdAt, int memberId) {
+	public AllArticleBean(int id,int articleId, String title, String content, Date createdAt, int memberId) {
+		this.id = id;
 		this.articleId = articleId;
 		this.title = title;
 		this.content = content;
@@ -88,6 +89,12 @@ public class AllArticleBean implements Serializable {
 	 */
 	public void setMemberId(int memberId) {
 		this.memberId = memberId;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

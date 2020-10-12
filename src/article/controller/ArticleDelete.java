@@ -37,12 +37,14 @@ public class ArticleDelete extends HttpServlet {
 //			String nameString=attributeNames.nextElement();
 //			System.out.println(nameString);
 //		}
+
 		String aId = request.getParameter("articleId").trim();
 		
 		int articleId = Integer.parseInt(aId);
 		WriteArticleImpl_Jdbc dao = new WriteArticleImpl_Jdbc();
 		
-		dao.deleteArticle(articleId);		
+		dao.deleteArticle(articleId);
+
 		request.getRequestDispatcher("article/showAllArticles.jsp").forward(request, response);
 				
 		doGet(request, response);

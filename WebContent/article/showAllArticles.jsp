@@ -20,7 +20,9 @@
 </div>
 
 	<c:forEach items="${ArticleList}" var="Article" varStatus="id">
+		${Article.getId()}
 		${Article.getTitle()}
+		<br>
 	</c:forEach>
 	
 <form action="<c:url value='/ArticleDelete' />" enctype="text/html"

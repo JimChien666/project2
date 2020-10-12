@@ -66,7 +66,7 @@ public class ArticleShowImpl_Jdbc {
 //		+" WHERE A.ID = F.ARTICLE_ID(+) "
 //		+" WHERE ACTIVITYS_ID = ? "
 //		+" ORDER BY A.ID "
-		String sql0 = "select title, member_id from article where articletypes_id = ? order by id desc";//where show_article = true
+		String sql0 = "select id,title, member_id from article where articletypes_id = ? order by id desc";//where show_article = true
 		String sql = sql0;
 		
 		try (
@@ -77,8 +77,9 @@ public class ArticleShowImpl_Jdbc {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				AllArticleBean allArticleBean = new AllArticleBean();
-				allArticleBean.setTitle(rs.getString(1));
-				allArticleBean.setMemberId(rs.getInt(2));
+				allArticleBean.setId(rs.getInt(1));
+				allArticleBean.setTitle(rs.getString(2));
+				allArticleBean.setMemberId(rs.getInt(3));
 				list.add(allArticleBean);				
 			}
 			ps.clearParameters();

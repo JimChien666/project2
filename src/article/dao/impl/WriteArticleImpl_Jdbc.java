@@ -83,6 +83,7 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 			try (ResultSet rs = ps.executeQuery();) {
 				if (rs.next()) {
 					ab = new ArticleBean(
+							rs.getInt(1),							
 							rs.getString(2),
 							rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
 				}

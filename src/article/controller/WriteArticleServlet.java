@@ -95,7 +95,7 @@ public class WriteArticleServlet extends HttpServlet {
 				memberId = Integer.parseInt(request.getParameter("memberId").trim());
 		      
 		      
-		      ArticleBean reg_article = new ArticleBean(title, activitysId, articleType, showArticle, memberId);
+		      ArticleBean reg_article = new ArticleBean(id, title, activitysId, articleType, showArticle, memberId);
 			  request.getSession(true).setAttribute("reg_article",reg_article);		      
 		      ArticleBasicDAO articleDAO = new ArticleBasicDAO(conn);
 		      ArticleBean articleData = (ArticleBean)request.getSession(true).getAttribute("reg_article");

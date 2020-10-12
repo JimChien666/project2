@@ -53,12 +53,12 @@ public class ArticleInsert extends HttpServlet {
 				int articleType = 0;
 				int showArticle = 0;
 				int memberId = 0;
-				
+				int id = 0;
 				String activitysIdStr = "";
 				String articleTypeStr = "";
 				String showArticleStr = "";
 				String memberIdStr = "";
-
+				String idStr = "";
 //				InputStream is = null;
 				// request.getParts()方法傳回一個由javax.servlet.http.Part物件所組成的Collection
 				// javax.servlet.http.Part: 代表上傳到Server的資料，可以是正常的表單資料(form data)，
@@ -79,17 +79,16 @@ public class ArticleInsert extends HttpServlet {
 						if (p.getContentType() == null) {   // 表示 p 為一般欄位而非上傳的表單
 							// 根據欄位名稱來讀取欄位的內容，然後存入適當的變數內	
 							
-//							if (fldName.equals("id")) {
+							if (fldName.equals("id")) {
 //								 || id.trim().length() == 0
 //								if (value == null) {
 //									errorMsgs.put("errTitle", "必須輸入id");
 //								} else {
-//								idStr = value;
-//								idStr = idStr.trim();
-//								id = Integer.parseInt(idStr);								
-//								request.setAttribute("id", id);
-//							} else 
-								if (fldName.equals("title")) {
+								idStr = value;
+								idStr = idStr.trim();
+								id = Integer.parseInt(idStr);								
+								request.setAttribute("id", id);
+							} else if (fldName.equals("title")) {
 								title = value;
 //								if (title == null || title.trim().length() == 0) {
 //									errorMsgs.put("errTitle", "必須輸入作者");
@@ -172,7 +171,7 @@ public class ArticleInsert extends HttpServlet {
 				
 				ArticleDao articleDao = new WriteArticleImpl_Jdbc();
 				
-				ArticleBean ab = new ArticleBean(title, activitysId, articleType, showArticle, memberId);
+				ArticleBean ab = new ArticleBean(id, title, activitysId, articleType, showArticle, memberId);
 
 				articleDao.saveArticle(ab);
 				

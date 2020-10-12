@@ -3,7 +3,7 @@ package article.model;
 import java.io.Serializable;
 
 public class ArticleBean implements Serializable {
-
+	private int id;
 	private String title;
 	private int activitysId;
 	private int articleType;
@@ -15,18 +15,26 @@ public class ArticleBean implements Serializable {
 	public ArticleBean() {
 	}
 	/**
+	 * @param id
 	 * @param title
 	 * @param activitysId
 	 * @param articleType
 	 * @param showArticle
 	 * @param memberId
 	 */
-	public ArticleBean(String title, int activitysId, int articleType, int showArticle, int memberId) {
+	public ArticleBean(int id, String title, int activitysId, int articleType, int showArticle, int memberId) {
+		this.id = id;
 		this.title = title;
 		this.activitysId = activitysId;
 		this.articleType = articleType;
 		this.showArticle = showArticle;
 		this.memberId = memberId;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getTitle() {
 		return title;
@@ -58,5 +66,6 @@ public class ArticleBean implements Serializable {
 	public void setMemberId(int memberId) {
 		this.memberId = memberId;
 	}
+
 
 }
