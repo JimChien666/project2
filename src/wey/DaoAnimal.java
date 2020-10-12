@@ -59,22 +59,21 @@ public class DaoAnimal {
 	
 	//create改回傳AnimalId
 	public boolean createAnimal(ValueObjectAnimal valueObjectAnimal) {
-		String sql = "insert into ANIMALS values(?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into ANIMALS(member_id,acception_id,breed_id,gender,coat_color,is_adoption_available,note) values(?,?,?,?,?,?,?)";
 		try (
 				Connection conn = getDataSource().getConnection();
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				){
-			pStmt.setInt(1, valueObjectAnimal.getAnimalId());
-			pStmt.setInt(2, valueObjectAnimal.getMemberId());
-			pStmt.setString(3, valueObjectAnimal.getAcceptionId());
-			pStmt.setInt(4, valueObjectAnimal.getBreedId());
-			pStmt.setInt(5, valueObjectAnimal.getGender());
-			pStmt.setString(6, valueObjectAnimal.getCoatColor());
-			pStmt.setInt(7, valueObjectAnimal.getIsAdoptionAvailable());
-			pStmt.setString(8, valueObjectAnimal.getNote());
-			pStmt.setDate(9, null);
-			pStmt.setDate(10, null);
-			pStmt.setDate(11, null);
+			pStmt.setInt(1, valueObjectAnimal.getMemberId());
+			pStmt.setString(2, valueObjectAnimal.getAcceptionId());
+			pStmt.setInt(3, valueObjectAnimal.getBreedId());
+			pStmt.setInt(4, valueObjectAnimal.getGender());
+			pStmt.setString(5, valueObjectAnimal.getCoatColor());
+			pStmt.setInt(6, valueObjectAnimal.getIsAdoptionAvailable());
+			pStmt.setString(7, valueObjectAnimal.getNote());
+//			pStmt.setDate(9, null);
+//			pStmt.setDate(10, null);
+//			pStmt.setDate(11, null);
 			int updatecount = pStmt.executeUpdate();
 			if(updatecount>=1)return true;
 			else return false;

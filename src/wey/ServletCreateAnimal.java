@@ -78,24 +78,27 @@ public class ServletCreateAnimal extends HttpServlet {
 					String fldName = p.getName();
 					String value = request.getParameter(fldName);
 					if (p.getContentType() == null) {
-						if(fldName.equals("animalId")) {
-							animalId = Integer.parseInt(value);
-							request.setAttribute("animalId", animalId);
-						}else if (fldName.equals("memberId")) {
+						if (fldName.equals("memberId")) {
 							memberId = Integer.parseInt(value);
 							request.setAttribute("memberId", memberId);
 						}else if (fldName.equals("acceptionId")) {
-							request.setAttribute("acceptionId", value);
+							acceptionId = value;
+							request.setAttribute("acceptionId", acceptionId);
 						}else if (fldName.equals("breedId")) {
-							request.setAttribute("breedId", Integer.parseInt(value));
+							breedId = Integer.parseInt(value);
+							request.setAttribute("breedId", breedId);
 						}else if (fldName.equals("gender")){
-							request.setAttribute("gender", Integer.parseInt(value));
+							gender = Integer.parseInt(value);
+							request.setAttribute("gender", gender);
 						}else if (fldName.equals("coatColor")) {
-							request.setAttribute("coatColor", value);
+							coatColor = value;
+							request.setAttribute("coatColor", coatColor);
 						}else if (fldName.equals("isAdoptionAvailable")) {
-							request.setAttribute("isAdoptionAvailable", Integer.parseInt(value));
+							isAdoptionAvailable = Integer.parseInt(value);
+							request.setAttribute("isAdoptionAvailable", isAdoptionAvailable);
 						}else if (fldName.equals("note")) {
-							request.setAttribute("note", value);
+							note = value;
+							request.setAttribute("note", note);
 						}
 					}else {
 						fileName = GlobalService.getFileName(p);
@@ -118,7 +121,7 @@ public class ServletCreateAnimal extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace(); 
-			RequestDispatcher rd = request.getRequestDispatcher("CreateAnimal.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/wey/CreateAnimal.jsp");
 			rd.forward(request, response);
 		}
 	}

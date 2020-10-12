@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>更新動物</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
 .div2{
@@ -13,7 +13,7 @@
 
 .page1 {
 	margin: 0 auto;
-	width: 450px;
+	width: 400px;
 }
 
 .span1 {

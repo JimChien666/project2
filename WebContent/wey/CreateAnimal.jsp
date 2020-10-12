@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>新增動物</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
 .div2{
@@ -13,7 +13,7 @@
 
 .page1 {
 	margin: 0 auto;
-	width: 450px;
+	width: 400px;
 }
 
 .span1 {
@@ -34,41 +34,7 @@
 		<a href="<%=application.getContextPath()%>/ServletReadAnimal" class="btn btn-secondary div2">回維護首頁</a>
 		<form action="<%=application.getContextPath()%>/ServletCreateAnimal" method="post" enctype="multipart/form-data">
 			<label for="" class="span1">照片：</label>
-			<input type="file" name="animalFile" id="animalFile" multiple required><br>
-			<label for="" class="span1">動物編號：</label>
-			<input type="text" name="animalId" placeholder="自動產生" id="animalId" onblur="checkanimalId()" required><br>
-			<span id="animalIdSpan" class="spanHidden"><br></span>
-			<script type="text/javascript">
-				function checkanimalId(){
-					let animalId = document.getElementById("animalId").value;
-					let animalIdLength = animalId.length;
-					let animalIdSpan = document.getElementById("animalIdSpan");
-					let flag1 = false;
-					if (animalId == ""){
-            			document.getElementById("animalIdSpan").style.display = "block";
-						animalIdSpan.innerHTML = "不可空白";
-					}else if (animalIdLength <= 10) {
-                		for (let i = 0; i < animalIdLength; i++) {
-                    		let ch = animalId.charAt(i);
-                    		if ((ch >= "\u0030" && ch <= "\u0039")) {//判斷數字
-                      			flag1 = true;
-                    		}else{
-                        		flag1 = false;
-                        		break;
-                    		}
-                		}
-                		if (flag1) {
-                			animalIdSpan.innerHTML = "";
-                		} else {
-                			document.getElementById("animalIdSpan").style.display = "block";
-                			animalIdSpan.innerHTML = "只能輸入數字";
-                		}
-            		} else {
-            			document.getElementById("animalIdSpan").style.display = "block";
-            			animalIdSpan.innerHTML = "只能輸入10碼";
-            		}
-				}
-			</script>
+			<input type="file" name="animalFile" id="animalFile" multiple style="width:200px"><br>
 			<label for="" class="span1">會員編號：</label>
 			<input type="text" name="memberId" placeholder="自動抓取會員編號" onblur="checkmemberId()" id="memberId" required><br>
 			<span id="memberIdSpan" class="spanHidden"><br></span>
