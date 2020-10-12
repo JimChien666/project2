@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
 public class DaoAnimal {
@@ -56,6 +57,7 @@ public class DaoAnimal {
 		return list;
 	}
 	
+	//create改回傳AnimalId
 	public boolean createAnimal(ValueObjectAnimal valueObjectAnimal) {
 		String sql = "insert into ANIMALS values(?,?,?,?,?,?,?,?,?,?,?)";
 		try (

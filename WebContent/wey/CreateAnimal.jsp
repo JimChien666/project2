@@ -13,7 +13,7 @@
 
 .page1 {
 	margin: 0 auto;
-	width: 400px;
+	width: 450px;
 }
 
 .span1 {
@@ -32,7 +32,9 @@
 <body>
 	<div class="page1">
 		<a href="<%=application.getContextPath()%>/ServletReadAnimal" class="btn btn-secondary div2">回維護首頁</a>
-		<form action="<%=application.getContextPath()%>/ServletCreateAnimal" method="post">
+		<form action="<%=application.getContextPath()%>/ServletCreateAnimal" method="post" enctype="multipart/form-data">
+			<label for="" class="span1">照片：</label>
+			<input type="file" name="animalFile" id="animalFile" multiple required><br>
 			<label for="" class="span1">動物編號：</label>
 			<input type="text" name="animalId" placeholder="自動產生" id="animalId" onblur="checkanimalId()" required><br>
 			<span id="animalIdSpan" class="spanHidden"><br></span>

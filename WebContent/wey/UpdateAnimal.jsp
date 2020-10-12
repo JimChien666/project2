@@ -13,7 +13,7 @@
 
 .page1 {
 	margin: 0 auto;
-	width: 400px;
+	width: 450px;
 }
 
 .span1 {
