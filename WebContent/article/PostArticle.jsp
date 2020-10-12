@@ -14,7 +14,7 @@
 <main role="main" class="container">
       
       <div class="starter-template" style="margin: 3% 3% 3% 3%;">
-        <h1>我好想發廢文</h1>
+        <h1>文章發表</h1>
         <p class="lead">Use this document as a way to quickly fuck any new project.<br> ...</p>
       </div>
 
@@ -27,7 +27,7 @@
 <form action="<c:url value='/ArticleInsert' />" enctype="multipart/form-data"
  method="post" class="was-validated" style="margin: 1% 10% 3% 3%;">
 
-<!-- ID-->
+<!-- ID
       <div class="mb-3">
         <div class="input-group is-invalid">
           <div class="input-group-prepend">
@@ -38,10 +38,10 @@
         
         </div>
         <div class="invalid-feedback">
-          <!-- Example invalid input group feedback -->
+           Example invalid input group feedback 
         </div>
       </div>
-
+-->
       <br>
 
 
@@ -62,7 +62,7 @@
 
       <br>
       
-      <!-- actID-->
+      <!-- actID
       <div class="mb-3">
         <div class="input-group is-invalid">
           <div class="input-group-prepend">
@@ -73,12 +73,12 @@
         
         </div>
         <div class="invalid-feedback">
-          <!-- Example invalid input group feedback -->
+          Example invalid input group feedback
         </div>
       </div>
 
       <br>
-      
+      -->
       
 
       <!-- 選擇文章主題-->
@@ -117,7 +117,7 @@
       </div>
     </div>
     
-    <!-- showArticle-->
+    <!-- showArticle
       <div class="mb-3">
         <div class="input-group is-invalid">
           <div class="input-group-prepend">
@@ -128,14 +128,14 @@
         
         </div>
         <div class="invalid-feedback">
-          <!-- Example invalid input group feedback -->
+           Example invalid input group feedback 
         </div>
       </div>
 
       <br>
+    -->
     
-    
-    <!-- memID-->
+    <!-- 會員帳號-->
       <div class="mb-3">
         <div class="input-group is-invalid">
           <div class="input-group-prepend">

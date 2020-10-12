@@ -31,11 +31,12 @@ public class ArticleShow extends HttpServlet {
         super();
     }
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding(CHARSET_CODE);
 	    response.setContentType(CONTENT_TYPE);
 	    ArticleShowImpl_Jdbc articleDao = new ArticleShowImpl_Jdbc();
+	    
+	    
 		String articletypesIdStr = request.getParameter("articletypesId");
 		System.out.println(articletypesIdStr);
 		if (articletypesIdStr != null) {

@@ -143,7 +143,8 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 //				pStmt.setInt(6, ab.getArticleType());			
 				
 				pStmt.setString(1, ab.getTitle());
-				pStmt.setInt(2, ab.getActivitysId());
+//				pStmt.setInt(2, ab.getActivitysId());
+				pStmt.setInt(2, 1);
 				pStmt.setInt(3, ab.getShowArticle());
 				pStmt.setInt(4, ab.getMemberId());
 				pStmt.setInt(5, ab.getArticleType());			
