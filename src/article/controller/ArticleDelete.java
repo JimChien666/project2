@@ -1,6 +1,8 @@
 package article.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,15 +32,19 @@ public class ArticleDelete extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String aId = request.getParameter("articleId");
+//		Enumeration<String> attributeNames = request.getAttributeNames();
+//		while(attributeNames.hasMoreElements()) {
+//			String nameString=attributeNames.nextElement();
+//			System.out.println(nameString);
+//		}
+		String aId = request.getParameter("articleId").trim();
+		
 		int articleId = Integer.parseInt(aId);
 		WriteArticleImpl_Jdbc dao = new WriteArticleImpl_Jdbc();
 		
-		int n = dao.deleteArticle(articleId);
-		
+		dao.deleteArticle(articleId);		
 		request.getRequestDispatcher("article/showAllArticles.jsp").forward(request, response);
 				
-		
 		doGet(request, response);
 	}
 

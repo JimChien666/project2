@@ -39,7 +39,13 @@ public class ArticleShow extends HttpServlet {
 	    
 		String articletypesIdStr = request.getParameter("articletypesId");
 		System.out.println(articletypesIdStr);
-		if (articletypesIdStr != null) {
+		if (articletypesIdStr == null) {
+			int articletypesId = 1;
+			System.out.println(articletypesId);
+			Collection<AllArticleBean> ArticleList = articleDao.getAllArticles(articletypesId);
+			request.setAttribute("ArticleList", ArticleList);
+		}
+		else if(articletypesIdStr != null) {
 			int articletypesId = Integer.parseInt(articletypesIdStr);
 			System.out.println(articletypesId);
 			Collection<AllArticleBean> ArticleList = articleDao.getAllArticles(articletypesId);
@@ -48,10 +54,7 @@ public class ArticleShow extends HttpServlet {
 		
 		
 		List<ArticleTypeBean> allArticleTypes = articleDao.getAllArticleTypes();
-		
-
-		PrintWriter out = response.getWriter();
-		
+				
 		request.setAttribute("allArticleTypes", allArticleTypes);
 		request.getRequestDispatcher("article/showAllArticles.jsp").forward(request, response);
 	}

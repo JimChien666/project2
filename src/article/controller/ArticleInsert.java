@@ -186,7 +186,7 @@ public class ArticleInsert extends HttpServlet {
 				
 				successMsgs.put("success", "資料新增成功");
 	            // 新增成功，通知瀏覽器對新網址發出請求
-				response.sendRedirect(response.encodeRedirectURL("/article/PostArticle"));
+				response.sendRedirect(response.encodeRedirectURL("/article/PostArticle.jsp"));
 				return;
 			} catch (Exception e) {
 				e.printStackTrace(); 
