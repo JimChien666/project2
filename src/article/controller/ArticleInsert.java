@@ -168,7 +168,6 @@ public class ArticleInsert extends HttpServlet {
 					rd.forward(request, response);
 					return;
 				}
-				
 				ArticleDao articleDao = new WriteArticleImpl_Jdbc();
 				
 				ArticleBean ab = new ArticleBean(id, title, activitysId, articleType, showArticle, memberId);
@@ -185,13 +184,15 @@ public class ArticleInsert extends HttpServlet {
 				
 				successMsgs.put("success", "資料新增成功");
 	            // 新增成功，通知瀏覽器對新網址發出請求
-				response.sendRedirect(response.encodeRedirectURL("/article/PostArticle.jsp"));
+//				response.sendRedirect(response.encodeRedirectURL("/article/ArticleShow"));
+//				response.sendRedirect("/article/ArticleShow");
+				RequestDispatcher rd = request.getRequestDispatcher("/ArticleShow");
+				rd.forward(request, response);
+				System.out.println("123");
 				return;
 			} catch (Exception e) {
 				e.printStackTrace(); 
 				errorMsgs.put("Exception", e.getMessage());
-				RequestDispatcher rd = request.getRequestDispatcher("/article/PostArticle");
-				rd.forward(request, response);
 			}
 		}	
 	}

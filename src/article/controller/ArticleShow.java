@@ -36,7 +36,7 @@ public class ArticleShow extends HttpServlet {
 	    response.setContentType(CONTENT_TYPE);
 	    ArticleShowImpl_Jdbc articleDao = new ArticleShowImpl_Jdbc();
 	    
-	    
+	    System.out.println("456");
 		String articletypesIdStr = request.getParameter("articletypesId");
 		System.out.println(articletypesIdStr);
 		if (articletypesIdStr == null) {
