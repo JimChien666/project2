@@ -45,7 +45,55 @@
       <br>
         
         <button type="submit" name="delete" id="delete" class="btn btn-primary">刪除</button>
-    </form>        
+    </form>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <form action="<c:url value='ArticleUpdate' />" enctype="multipart/form-data"
+ method="post" class="was-validated" style="margin: 1% 10% 3% 3%;">	
+        
+        <div class="mb-3">
+        <div class="input-group is-invalid">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="validatedInputGroupPrepend">根據文章id修改</span>
+          </div>
+          
+          <input type="text" name="id" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" placeholder="enter Something ..."  required>
+        
+        </div>
+        <div class="invalid-feedback">
+          <!-- Example invalid input group feedback -->
+        </div>
+      </div>
+      <br>
+      
+            <div class="mb-3">
+        <div class="input-group is-invalid">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="validatedInputGroupPrepend">文章標題</span>
+          </div>
+          
+          <input type="text" name="title" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" placeholder="enter Something bitxx"  required>
+        
+        </div>
+        <div class="invalid-feedback">
+          <!-- Example invalid input group feedback -->
+        </div>
+      </div>
+      <br>
+        
+        <button type="submit" name="update" id="update" class="btn btn-primary">修改</button>
+    </form>     
 
 
 </body>

@@ -146,7 +146,8 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 				pStmt.setString(1, ab.getTitle());
 //				pStmt.setInt(2, ab.getActivitysId());
 				pStmt.setInt(2, 1);
-				pStmt.setInt(3, ab.getShowArticle());
+//				pStmt.setInt(3, ab.getShowArticle());
+				pStmt.setInt(3, 1);
 				pStmt.setInt(4, ab.getMemberId());
 				pStmt.setInt(5, ab.getArticleType());			
 								
@@ -173,8 +174,8 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 //						+ " VALUES (?, ?, ?, ?, ?, ?)";
 				
 				String sql = "UPDATE Article SET" 
-						+ " (title=?, ACTIVITYS_ID=?,"
-						+ " VALUES (?, ?)";
+						+ " title=?"
+						+ " WHERE ID = ?";
 
 				try (
 					Connection connection = ds.getConnection();
@@ -185,14 +186,11 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 //					pStmt.setInt(3, ab.getActivitysId());
 //					pStmt.setInt(4, ab.getShowArticle());
 //					pStmt.setInt(5, ab.getMemberId());
-//					pStmt.setInt(6, ab.getArticleType());
-					
+//					pStmt.setInt(6, ab.getArticleType());					
+//					pStmt.setInt(2, ab.getActivitysId());					
 					
 					pStmt.setString(1, ab.getTitle());
-					pStmt.setInt(2, ab.getActivitysId());
-
-					
-									
+					pStmt.setInt(2, ab.getId());				
 					n = pStmt.executeUpdate();
 				} catch (SQLException ex) {
 					ex.printStackTrace();

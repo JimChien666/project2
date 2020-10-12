@@ -10,5 +10,5 @@ public interface ArticleDao {
 	public int saveArticle(ArticleBean ab);
 	public int deleteArticle(int no);
 	List<AllArticleBean> getAllArticles(int articletypesId);
-	
+	public int updateArticle(ArticleBean ab);
 }
