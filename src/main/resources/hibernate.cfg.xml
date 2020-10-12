@@ -12,7 +12,7 @@
 		<property name="hibernate.connection.username">project2</property>
 		<property name="hibernate.connection.password">project2</property>
 		<property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/XEPDB1</property>
-		<property name="hibernate.hbm2ddl.auto">validates</property>
+		<property name="hibernate.hbm2ddl.auto">none</property>
 		
 		<property name="hibernate.c3p0.min_size">5</property>
 		<property name="hibernate.c3p0.max_size">20</property>
