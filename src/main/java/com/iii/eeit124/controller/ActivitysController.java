@@ -35,9 +35,15 @@ public class ActivitysController {
 	}
 	
 	@GetMapping("update/activitys/{id}")
-	public String getOne(@PathVariable(value = "id") Integer id, Locale locale, Model model) {
+	public String getUpdatePage(@PathVariable(value = "id") Integer id, Locale locale, Model model) {
 		model.addAttribute("activitys", activitysService.findById(id));
 		return "activitys/update";
+	}
+	
+	@GetMapping("delete/activitys/{id}")
+	public String getDeletePage(@PathVariable(value = "id") Integer id, Locale locale, Model model) {
+		model.addAttribute("activitys", activitysService.findById(id));
+		return "activitys/delete";
 	}
 
 	@PostMapping("addActivitys")
@@ -81,6 +87,22 @@ public class ActivitysController {
 		
 		model.addAttribute("activitys", entity);
 		return "activitys/update";
+	}
+	
+	@PostMapping("deleteActivitys")
+	public String deleteActivitys(@ModelAttribute("activitys") @Valid Activitys entity, BindingResult result, Model model) {
+		System.out.println("entity:" + entity);
+		
+		if (result.hasErrors()) {
+			model.addAttribute("activitysList", activitysService.list());
+			return "redirect:/";
+		}
+		
+		if (entity != null && entity.getId() != null) {
+			activitysService.delete(entity);
+		}
+		
+		return "redirect:/";
 	}
 
 }
