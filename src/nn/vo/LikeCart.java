@@ -1,25 +1,25 @@
 package nn.vo;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 
 
 
 public class LikeCart {
-	private Map<Integer, AttractionIntroduction> cart = new LinkedHashMap< >();
+	private List<AttractionIntroduction> cart = new ArrayList();
 	
 	public LikeCart() {};
 	
 	
-	public Map<Integer, AttractionIntroduction>  getContent() { // ${ShoppingCart.content}
+	public List<AttractionIntroduction> getContent() { // ${ShoppingCart.content}
 		return cart;
 	}
 	
-	public void addToCart(int bookID, AttractionIntroduction  attractionIntroduction) {
-		if ( cart.get(bookID) == null ) {
-		    cart.put(bookID, attractionIntroduction);
-		}
+	public void addToCart(AttractionIntroduction  attractionIntroduction) {
+		    cart.add(attractionIntroduction);
 		
 	}
 }
