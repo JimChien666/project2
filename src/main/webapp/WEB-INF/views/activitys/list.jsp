@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Spring5 MVC Hibernate Demo</title>
+<title>Activitys</title>
 <style type="text/css">
 .error {
 	color: red;
@@ -28,10 +28,10 @@ table td {
 	<h1>Input Form</h1>
 	<form:form action="addActivitys" method="post" modelAttribute="activitys">
 		<table>
-			<tr>
-				<td>ID</td>
-				<td><form:input path="id" /><br /><form:errors path="id" cssClass="error" /></td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td>ID</td> -->
+<%-- 				<td><form:input path="id" /><br /><form:errors path="id" cssClass="error" /></td> --%>
+<!-- 			</tr> -->
 			<tr>
 				<td>Name</td>
 				<td><form:input path="name" /><br /><form:errors path="name" cssClass="error" /></td>
