@@ -184,18 +184,20 @@ public class ArticleInsert extends HttpServlet {
 				
 				successMsgs.put("success", "資料新增成功");
 	            // 新增成功，通知瀏覽器對新網址發出請求
-//				response.sendRedirect(response.encodeRedirectURL("/article/ArticleShow"));
-				
-//				response.sendRedirect("/article/ArticleShow");
-				
-				
-//				RequestDispatcher rd =getServletContext().getNamedDispatcher("/ArticleShow");				
-//				rd.forward( request, response);
+//				response.sendRedirect(response.encodeRedirectURL("article/controller/ArticleShow"));
+//				response.sendRedirect("article/controller/ArticleShow");
 				
 				
-				RequestDispatcher rd = request.getRequestDispatcher("/ArticleShow");
-				rd.forward(request, response);
+//				RequestDispatcher rd = getServletContext().getNamedDispatcher("/ArticleShow");				
+//				rd.forward(request, response);
+				
 				System.out.println("123");
+//				String conpath = request.getContextPath();
+//				response.sendRedirect(conpath + "/article/controller/ArticleShow");				
+				RequestDispatcher rd =request.getRequestDispatcher("/ArticleShow");
+				rd.forward(request, response);
+				
+				System.out.println("123456");
 				return;
 			} catch (Exception e) {
 				e.printStackTrace(); 

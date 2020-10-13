@@ -14,8 +14,8 @@
 
 <main role="main" class="container">
       
-      <div class="starter-template" style="margin: 3% 3% 3% 3%;">
-        <h1 font-family: 'Noto Sans TC', sans-serif;>文章發表</h1>
+      <div class="starter-template font-family: 'Noto Sans TC', sans-serif" style="margin: 3% 3% 3% 3%;">
+        <h1>文章發表</h1>
         <p class="lead">Use this document as a way to quickly fuck any new project.<br> ...</p>
       </div>
 
