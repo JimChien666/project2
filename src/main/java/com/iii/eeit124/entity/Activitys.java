@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,8 +16,9 @@ import javax.persistence.TemporalType;
 public class Activitys {
 
 	@Id
-	@GeneratedValue
 	@Column(name = "activitys_id")
+	@SequenceGenerator(name = "activitysSeqGen", sequenceName = "activitys_seq")
+	@GeneratedValue(generator = "activitysSeqGen")
 	private Integer id;
 
 	@Column(name = "create_date")
