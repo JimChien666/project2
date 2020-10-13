@@ -1,6 +1,7 @@
 package wey.animal;
 
 import java.io.IOException;
+import java.sql.Blob;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,8 @@ public class ServletUpdateAnimal extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		int animalId = Integer.parseInt(request.getParameter("animalId").trim());
 		int memberId = Integer.parseInt(request.getParameter("memberId").trim());
 		String acceptionId = request.getParameter("acceptionId").trim();
@@ -28,8 +31,11 @@ public class ServletUpdateAnimal extends HttpServlet {
 		Date createdAt = null;
 		Date updatedAt = null;
 		Date deletedAt = null;
+		String fileType = null;
+		String fileUrl = null;
+		Blob fileBlob = null;
 	   
-		ValueObjectAnimal reg_Animal = new ValueObjectAnimal(animalId, memberId, acceptionId, breedId, gender, coatColor, isAdoptionAvailable, note, createdAt, updatedAt, deletedAt);
+		ValueObjectAnimal reg_Animal = new ValueObjectAnimal(animalId, memberId, acceptionId, breedId, gender, coatColor, isAdoptionAvailable, note, createdAt, updatedAt, deletedAt, fileType, fileUrl, fileBlob);
 		DaoAnimal daoAnimal = new DaoAnimal();
 		if (daoAnimal.updateAnimal(reg_Animal)){
           System.out.println("Get some SQL commands done!");

@@ -1,5 +1,6 @@
 package wey.animal;
 
+import java.sql.Blob;
 import java.util.Date;
 
 public class ValueObjectAnimal {
@@ -14,12 +15,17 @@ public class ValueObjectAnimal {
 	private Date createdAt;
 	private Date updatedAt;
 	private Date deletedAt;
-	
+	private String fileType;
+	private String fileUrl;
+	private Blob fileBlob;
+	private String fileName;
+
 	public ValueObjectAnimal() {
 	}
-	
+
 	public ValueObjectAnimal(int animalId, int memberId, String acceptionId, int breedId, int gender, String coatColor,
-			int isAdoptionAvailable, String note, Date createdAt, Date updatedAt, Date deletedAt) {
+			int isAdoptionAvailable, String note, Date createdAt, Date updatedAt, Date deletedAt, String fileType,
+			String fileUrl, Blob fileBlob) {
 		super();
 		this.animalId = animalId;
 		this.memberId = memberId;
@@ -32,14 +38,9 @@ public class ValueObjectAnimal {
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.deletedAt = deletedAt;
-	}
-
-	@Override
-	public String toString() {
-		return "ValueObjectAnimal [animalId=" + animalId + ", memberId=" + memberId + ", acceptionId=" + acceptionId
-				+ ", breedId=" + breedId + ", gender=" + gender + ", coatColor=" + coatColor + ", isAdoptionAvailable="
-				+ isAdoptionAvailable + ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-				+ ", deletedAt=" + deletedAt + "]";
+		this.fileType = fileType;
+		this.fileUrl = fileUrl;
+		this.fileBlob = fileBlob;
 	}
 
 	public int getAnimalId() {
@@ -128,5 +129,37 @@ public class ValueObjectAnimal {
 
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
+	}
+
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
+	public String getFileUrl() {
+		return fileUrl;
+	}
+
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
+	}
+
+	public Blob getFileBlob() {
+		return fileBlob;
+	}
+
+	public void setFileBlob(Blob fileBlob) {
+		this.fileBlob = fileBlob;
+	}
+	
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 }

@@ -22,7 +22,7 @@ public class DaoAnimal {
 				DataSource dataSource = (DataSource) ctxt.lookup("java:comp/env/jdbc/xe");
 				return dataSource;
 			} catch (NamingException e) {
-				System.out.println("MyAdoptions getDatasource出問題");
+				System.out.println("DaoAnimal/getDatasource出問題");
 				e.printStackTrace();
 			}
 		}
@@ -32,38 +32,47 @@ public class DaoAnimal {
 	//可參考/eDMoee/src/main/java/_03_listBooks/dao/impl/BookDaoImpl_Jdbc.java line61
 	public List<ValueObjectAnimal> listAnimals(){
 		List<ValueObjectAnimal> list = new ArrayList<>();
+		String sql = "select * from ANIMALS a, files f where a.animal_id = f.animal_id(+) order by a.ANIMAL_ID";
 		try (
 				Connection conn = getDataSource().getConnection();
 				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery("select * from ANIMALS order by ANIMAL_ID");
+				ResultSet rs = stmt.executeQuery(sql);
 				){
 			while(rs.next()) {
-				ValueObjectAnimal animals = new ValueObjectAnimal();
-				animals.setAnimalId(rs.getInt("ANIMAL_ID"));
-				animals.setMemberId(rs.getInt("MEMBER_ID"));
-				animals.setAcceptionId(rs.getString("ACCEPTION_ID"));
-				animals.setGender(rs.getInt("GENDER"));
-				animals.setBreedId(rs.getInt("BREED_ID"));
-				animals.setCoatColor(rs.getString("COAT_COLOR"));
-				animals.setIsAdoptionAvailable(rs.getInt("IS_ADOPTION_AVAILABLE"));
-				animals.setNote(rs.getString("NOTE"));
-				list.add(animals);
+				ValueObjectAnimal valueObjectAnimal = new ValueObjectAnimal();
+				valueObjectAnimal.setAnimalId(rs.getInt("ANIMAL_ID"));
+				valueObjectAnimal.setMemberId(rs.getInt("MEMBER_ID"));
+				valueObjectAnimal.setAcceptionId(rs.getString("ACCEPTION_ID"));
+				valueObjectAnimal.setGender(rs.getInt("GENDER"));
+				valueObjectAnimal.setBreedId(rs.getInt("BREED_ID"));
+				valueObjectAnimal.setCoatColor(rs.getString("COAT_COLOR"));
+				valueObjectAnimal.setIsAdoptionAvailable(rs.getInt("IS_ADOPTION_AVAILABLE"));
+				valueObjectAnimal.setNote(rs.getString("NOTE"));
+				valueObjectAnimal.setFileType(rs.getString("FILE_TYPE"));
+				valueObjectAnimal.setFileUrl(rs.getString("FILE_URL"));
+				valueObjectAnimal.setFileBlob(rs.getBlob("FILE_BLOB"));
+				list.add(valueObjectAnimal);
 			}
-			return list;
+			System.out.println("listAnimals查詢成功");
 		} catch (SQLException e) {
-			System.out.println("listAdoptionRecords出問題");
+			System.out.println("listAnimals error");
 			e.printStackTrace();
 		}
 		return list;
 	}
 	
-	//create改回傳AnimalId
-	public boolean createAnimal(ValueObjectAnimal valueObjectAnimal) {
-		String sql = "insert into ANIMALS(member_id,acception_id,breed_id,gender,coat_color,is_adoption_available,note) values(?,?,?,?,?,?,?)";
+	//create
+	public int createAnimal(ValueObjectAnimal valueObjectAnimal) {
+		String sql1 = "insert into ANIMALS(member_id,acception_id,breed_id,gender,coat_color,is_adoption_available,note) values(?,?,?,?,?,?,?)";
+		String sql2 = "select max(animal_id) from animals";
+		int animalId = 0;
 		try (
 				Connection conn = getDataSource().getConnection();
-				PreparedStatement pStmt = conn.prepareStatement(sql);
 				){
+			conn.setAutoCommit(false);
+			try {
+			PreparedStatement pStmt = conn.prepareStatement(sql1);
+			Statement stmt = conn.createStatement();
 			pStmt.setInt(1, valueObjectAnimal.getMemberId());
 			pStmt.setString(2, valueObjectAnimal.getAcceptionId());
 			pStmt.setInt(3, valueObjectAnimal.getBreedId());
@@ -74,20 +83,35 @@ public class DaoAnimal {
 //			pStmt.setDate(9, null);
 //			pStmt.setDate(10, null);
 //			pStmt.setDate(11, null);
-			int updatecount = pStmt.executeUpdate();
-			if(updatecount>=1)return true;
-			else return false;
+//			int updatecount = 
+			pStmt.executeUpdate();
+			conn.commit();
+			ResultSet rs = stmt.executeQuery(sql2);
+			while (rs.next()) {
+			animalId = rs.getInt("max(animal_id)");
+			}
+			return animalId;
+//			if(updatecount>=1)return true;
+//			else return false;
+			} catch (Exception e) {
+				System.out.println("DaoAnimal.java/createAnimal error");
+				conn.rollback();
+				e.printStackTrace();
+//				return false;
+				return -1;
+			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			System.out.println("DaoAnimal.java/createAnimal error");
-			return false;
+			e.printStackTrace();
+//			return false;
+			return -1;
 		}
 	}
 
 	//查詢一筆資料修改刪除
 	public ValueObjectAnimal getAnimal(int animalId) {
 		ValueObjectAnimal valueObjectAnimal = null;
-		String sql = "select * from ANIMALS where ANIMAL_ID = ?";
+		String sql = "select a.animal_id,a.member_id,a.acception_id,a.breed_id,a.gender,a.coat_color,a.is_adoption_available,a.note, f.file_blob from ANIMALS a left join Files f on f.animal_id = a.animal_id where a.ANIMAL_ID = ?";
 		try (
 				Connection conn = getDataSource().getConnection();
 				PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -104,6 +128,7 @@ public class DaoAnimal {
 			valueObjectAnimal.setCoatColor(rs.getString(6));
 			valueObjectAnimal.setIsAdoptionAvailable(rs.getInt(7));
 			valueObjectAnimal.setNote(rs.getString(8));
+			valueObjectAnimal.setFileBlob(rs.getBlob(9));
 				}
 			}
 		} catch (SQLException e) {

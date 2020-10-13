@@ -111,16 +111,28 @@ public class ServletCreateAnimal extends HttpServlet {
 					}
 				}
 			}
-			
+			//新增檔案到files資料庫
+			String fileType = "";
+			String fileUrl = "";
 			Blob blob = SystemUtils2018.fileToBlob(is, sizeInBytes);
+			
 			DaoAnimal daoAnimal = new DaoAnimal();
-			ValueObjectAnimal reg_Animal = new ValueObjectAnimal(animalId, memberId, acceptionId, breedId, gender, coatColor, isAdoptionAvailable, note, createdAt, updatedAt, deletedAt);
-			if (daoAnimal.createAnimal(reg_Animal))
-	        {
-	          System.out.println("Get some SQL commands done!");
-	          request.getSession(true).invalidate();
-	          request.getRequestDispatcher("/ServletReadAnimal").forward(request,response);
-	        }
+			ValueObjectAnimal valueObjectAnimal = new ValueObjectAnimal(animalId, memberId, acceptionId, breedId, gender, coatColor, isAdoptionAvailable, note, createdAt, updatedAt, deletedAt, fileType, fileUrl, blob);
+			int newAnimalId = daoAnimal.createAnimal(valueObjectAnimal);
+			if (newAnimalId>0)
+			{
+				System.out.println("Get some SQL commands done! Create No."+newAnimalId+" animal.");
+				request.getSession(true).invalidate();
+				request.getRequestDispatcher("/ServletReadAnimal").forward(request,response);
+			}
+			
+			//TODO 合併到上面
+			DaoFilesOfAnimal daoFilesOfAnimal = new DaoFilesOfAnimal();
+			ValueObjectFilesOfAnimal valueObjectFilesOfAnimal = new ValueObjectFilesOfAnimal(fileType, fileUrl, newAnimalId, blob);
+			boolean success = daoFilesOfAnimal.createFilesOfAnimal(valueObjectFilesOfAnimal);
+			if (success) {
+				System.out.println("File successfully saved to DB.");
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace(); 

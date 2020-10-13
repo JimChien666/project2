@@ -32,7 +32,7 @@
 
 .page1 {
 	margin: 0 auto;
-	width: 1100px;
+	width: 87%;
 }
 
 .span1 {
@@ -50,7 +50,7 @@
 <!-- card來源https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_card_image&stacked=h -->
 		<c:forEach var="AnimalsList" items="${AnimalsList}">
 			<div class="card card2">
-				<img class="card-img-top" src="" alt="Animal image">
+				<img class="card-img-top" src="${pageContext.servletContext.contextPath}/ServletRetrieveImage?id=${AnimalsList.animalId}&type=ANIMAL" alt="Animal image">
 				<div class="card-body">
 					<span class="span1">動物編號：</span><span>${AnimalsList.animalId}</span><br>
 					<span class="span1">會員編號：</span>${AnimalsList.memberId}<br>

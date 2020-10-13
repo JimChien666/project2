@@ -19,10 +19,15 @@ public class ServletReadAnimal extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		
 		DaoAnimal daoAnimal = new DaoAnimal();
 		List<ValueObjectAnimal> list = daoAnimal.listAnimals();
 		request.setAttribute("AnimalsList", list);
+		
+//		DaoFilesOfAnimal daoFilesOfAnimal = new DaoFilesOfAnimal();
+//		List<ValueObjectFilesOfAnimal> list2 = daoFilesOfAnimal.listFilesOfAnimal();
+//		request.setAttribute("listFilesOfAnimal", list2);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/wey/animal/ReadAnimal.jsp");
 		rd.forward(request, response);
