@@ -26,18 +26,17 @@ public class ArticleShow extends HttpServlet {
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 	private static final String CHARSET_CODE = "UTF-8";
 
+	public ArticleShow() {
+		super();
+	}
 
-    public ArticleShow() {
-        super();
-    }
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("456");
 		request.setCharacterEncoding(CHARSET_CODE);
-	    response.setContentType(CONTENT_TYPE);
-	    ArticleShowImpl_Jdbc articleDao = new ArticleShowImpl_Jdbc();
-	    
-	    
+		response.setContentType(CONTENT_TYPE);
+		ArticleShowImpl_Jdbc articleDao = new ArticleShowImpl_Jdbc();
+
 		String articletypesIdStr = request.getParameter("articletypesId");
 		System.out.println(articletypesIdStr);
 		if (articletypesIdStr == null) {
@@ -45,23 +44,21 @@ public class ArticleShow extends HttpServlet {
 			System.out.println(articletypesId);
 			Collection<AllArticleBean> ArticleList = articleDao.getAllArticles(articletypesId);
 			request.setAttribute("ArticleList", ArticleList);
-		}
-		else if(articletypesIdStr != null) {
+		} else if (articletypesIdStr != null) {
 			int articletypesId = Integer.parseInt(articletypesIdStr);
 			System.out.println(articletypesId);
 			Collection<AllArticleBean> ArticleList = articleDao.getAllArticles(articletypesId);
 			request.setAttribute("ArticleList", ArticleList);
 		}
-		
-		
+
 		List<ArticleTypeBean> allArticleTypes = articleDao.getAllArticleTypes();
-				
+
 		request.setAttribute("allArticleTypes", allArticleTypes);
 		request.getRequestDispatcher("article/showAllArticles.jsp").forward(request, response);
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 //		request.setCharacterEncoding(CHARSET_CODE);
 //	    response.setContentType(CONTENT_TYPE);
@@ -88,7 +85,7 @@ public class ArticleShow extends HttpServlet {
 //		}else {
 //			System.out.println("404");
 //		}
-		
+
 		// TODO Auto-generated method stub
 	}
 
