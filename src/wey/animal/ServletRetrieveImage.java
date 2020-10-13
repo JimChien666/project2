@@ -21,7 +21,6 @@ public class ServletRetrieveImage extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("進入ServletRetrieveImage");
 		OutputStream os = null;
 		InputStream is = null;
 		String fileName = null;
@@ -31,8 +30,7 @@ public class ServletRetrieveImage extends HttpServlet {
 			// 讀取瀏覽器傳送來的主鍵
 			String id = request.getParameter("id");
 			// 讀取瀏覽器傳送來的type，以分辨要處理哪個表格
-			String type = request.getParameter("type"); 
-			System.out.println(type);
+			String type = request.getParameter("type");
 			//switch(type.toUpperCase()){}希望is有值
 			switch(type.toUpperCase()){
 				case "ANIMAL":
@@ -46,7 +44,6 @@ public class ServletRetrieveImage extends HttpServlet {
 						ex.printStackTrace();
 					}
 					ValueObjectAnimal valueObjectAnimal = daoAnimal.getAnimal(nId);
-					System.out.println(valueObjectAnimal.getFileBlob());
 					if (valueObjectAnimal != null) {
 						blob = valueObjectAnimal.getFileBlob();
 						if (blob != null) {
