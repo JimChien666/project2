@@ -45,7 +45,7 @@
 <body>
 	<div class="page1">
 		<div class="div1">
-			<a href="<%=application.getContextPath()%>/wey/CreateAnimal.jsp" class="btn btn-primary">新增</a>
+			<a href="<%=application.getContextPath()%>/wey/animal/CreateAnimal.jsp" class="btn btn-primary">新增</a>
 		</div>
 <!-- card來源https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_card_image&stacked=h -->
 		<c:forEach var="AnimalsList" items="${AnimalsList}">

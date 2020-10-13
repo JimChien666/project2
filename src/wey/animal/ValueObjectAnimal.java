@@ -1,4 +1,4 @@
-package wey;
+package wey.animal;
 
 import java.util.Date;
 

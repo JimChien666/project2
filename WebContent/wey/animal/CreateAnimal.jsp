@@ -178,7 +178,7 @@
 			</select><br>
 			<label for="" class="span1" style="position: absolute">備註：</label>
 			<textarea id="" name="note" rows="5" cols="18" placeholder="可輸入寵物年齡" style="margin-left: 125px"></textarea><br>
-			<a href="<%=application.getContextPath()%>/wey/CreateAnimal.jsp" class="btn btn-secondary">重填</a>
+			<a href="<%=application.getContextPath()%>/wey/animal/CreateAnimal.jsp" class="btn btn-secondary">重填</a>
 			<c:choose>
 			<c:when test="">
 			</c:when>

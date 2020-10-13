@@ -1,4 +1,4 @@
-package wey;
+package wey.animal;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import wey.GlobalService;
+import wey.SystemUtils2018;
 
 @WebServlet("/ServletCreateAnimal")
 @MultipartConfig(location = "", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 500, maxRequestSize = 1024
@@ -121,7 +124,7 @@ public class ServletCreateAnimal extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace(); 
-			RequestDispatcher rd = request.getRequestDispatcher("/wey/CreateAnimal.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/wey/animal/CreateAnimal.jsp");
 			rd.forward(request, response);
 		}
 	}

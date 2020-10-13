@@ -1,4 +1,4 @@
-package wey;
+package wey.animal;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
