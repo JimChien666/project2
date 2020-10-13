@@ -22,7 +22,9 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <c:set var="funcName" value="BMT" scope="session"/>
 <!-- 引入共同的頁首 -->
 <jsp:include page="../nn/top.jsp" />
-
+<a class="dropdown-item" href="<c:url value='/jim/InsertProduct.jsp' />">新增商品</a>
+            <a class="dropdown-item" href="<c:url value='/jim/QueryProduct.jsp' />">查詢商品</a>
+            <a class="dropdown-item" href="<c:url value='/jim/DeleteProduct.jsp' />">刪除商品</a>
 <h2>
 刪除產品資料
 </h2>
