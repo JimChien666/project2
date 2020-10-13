@@ -40,7 +40,7 @@ public class TestJim extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("hi");		
-		JdbcDao jdbcDao = new JdbcDao();//new class
+
 		
 		request.setCharacterEncoding("UTF-8");
 		
@@ -53,7 +53,7 @@ public class TestJim extends HttpServlet {
 
 		java.util.Date date = new java.util.Date();
 		
-		
+		JdbcDao jdbcDao = new JdbcDao();//new class
 		List<ProductsBean> list = jdbcDao.listProducts();
 		for(ProductsBean listp :list) {
 			System.out.println(listp.getDescript());

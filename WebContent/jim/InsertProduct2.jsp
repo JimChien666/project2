@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap 4 Website Example</title>
+  <title>Insert Product Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,17 +21,23 @@
   }
   </style>
 </head>
+
+
 <body style="background-color: orange;">
 
 <div class="jumbotron text-center" style="margin-bottom:0">
-  <h1>My First Bootstrap 4 Page</h1>
+  <h1>Insert Products Page</h1>
   
 	<FORM ACTION="./DeptServletDS">
-	  Department No  :  <INPUT TYPE="TEXT" NAME="deptid"><BR>
-	  Department Name:  <INPUT TYPE="TEXT" NAME="deptname"><BR>
-
-	    <INPUT NAME="QUERY"  TYPE="SUBMIT" VALUE="QUERY" style=" align-items: center;">
-	    <INPUT NAME="UPDATE" TYPE="SUBMIT" VALUE="UPDATE" style=" align-items: center;">
+	  	Product Id  :  <INPUT TYPE="TEXT" NAME="prodid"><BR>
+	  	Product Name:  <INPUT TYPE="TEXT" NAME="prodname"><BR>
+	  	Product Price:  <INPUT TYPE="TEXT" NAME="prodprice"><BR>
+	  	Product Img:  <INPUT TYPE="TEXT" NAME="prodimg"><BR>
+	  	Product Descript:  <INPUT TYPE="TEXT" NAME="proddescript"><BR>
+	  	Product Quantity:  <INPUT TYPE="TEXT" NAME="prodquantity"><BR>
+		Product Special Price:  <INPUT TYPE="TEXT" NAME="prodspecialprice"><BR>
+		<INPUT NAME="SUBMIT"  TYPE="SUBMIT" VALUE="SUBMIT" style=" align-items: center;">
+	    <INPUT NAME="CANCEL" TYPE="SUBMIT" VALUE="CANCEL" style=" align-items: center;">
 
 	</FORM>
 

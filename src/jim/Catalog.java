@@ -85,11 +85,12 @@ public class Catalog {
 		    }
 		    for(int i=0; i<items.length; i++) {
 		      item = items[i];
-		      if (itemID.equals(item.getItemID())) {
+//		      if (itemID.equals(item.getItemID())) {
 		        return(item);
-		      }
+//		      }
 		    }
 		    return(null);
 		  }
+
 		}
 		               

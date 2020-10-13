@@ -1,5 +1,6 @@
 package jim;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -136,46 +137,17 @@ public class JdbcDao {
 		return false;
 	}
 
-	// 會員ArrayList
-	public List<Members> listMembers() {
-		List<Members> list = new ArrayList<>();
-		try (Connection conn = getDataSource().getConnection();
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery("select * from members");) {
-
-			while (rs.next()) {
-				Members member = new Members();
-				member.setId(rs.getInt("id"));
-				member.setName(rs.getString("name"));
-				member.setIncome(rs.getInt("income"));
-				member.setTel(rs.getString("tel"));
-				member.setAccount(rs.getString("account"));
-				member.setPassword(rs.getString("password"));
-				member.setEmail(rs.getString("email"));
-				member.setAddress(rs.getString("address"));
-				member.setAdoptedLevelId(rs.getInt("adopted_level_id"));
-				member.setMemberType(rs.getString("member_type"));
-				list.add(member);
-			}
-			return list;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-
-
-	
 	public boolean insertProducts(ProductsBean products) {
 		try (
 				Connection conn = getDataSource().getConnection();
 				Statement stmt = conn.createStatement();
-				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO products (name,price,img,descript,quantity,special_price,rewardpoints,is_thumb,member_id,animal_type_id,category_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)");){
-	      
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO products (name,price,img,descript,quantity,special_price,rewardpoints,is_thumb,member_id,animal_type_id,category_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+				){
+				
 		      pstmt.setString(1, products.getName());
 		      pstmt.setInt(2, products.getPrice());
-		      pstmt.setString(3, products.getImg());
+//		      pstmt.setString(3, products.getImg());
+		      pstmt.setBlob(3, products.getImg().getBinaryStream());
 		      pstmt.setString(4, products.getDescript());
 		      pstmt.setInt(5, products.getQuantity());
 		      pstmt.setInt(6, products.getSpecialPrice());
@@ -184,77 +156,152 @@ public class JdbcDao {
 		      pstmt.setInt(9, products.getMemberId());
 		      pstmt.setInt(10, products.getAnimalTypeId());
 		      pstmt.setInt(11, products.getCategoryId());
-		      
+//		      pstmt.setInt(12, products.getId());
 		      pstmt.executeUpdate();
 			  pstmt.clearParameters();
-		      
-		      stmt.close();
+		      conn.close();
+
 		    return true;
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
 	}	
+	public boolean updateProduct(ProductsBean product) {
+		try (Connection conn = getDataSource().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("update products set name=?,price=? where id=?");) {
+
+			pstmt.setString(1, product.getName());
+			pstmt.setInt(2, product.getPrice());
+			pstmt.setInt(3, product.getId());
+			pstmt.executeUpdate();
+			pstmt.clearParameters();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+//	讀BLOB用
+	// 由參數 id 到Product表格中 取得某個產品所有資料，傳回值為一個ProductBean物件，
+	// 如果找不到對應的產品資料，傳回值為null。
+	public ProductsBean queryProduct(String id) {
+		ProductsBean pb=null;
+		String sql="select * from products where id=?";
+		try (Connection conn = getDataSource().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				) {
+
+			pstmt.setString(1, id);
+			try (ResultSet rs = pstmt.executeQuery();) {
+				if (rs.next()) {
+					pb = new ProductsBean();
+					pb.setId(rs.getInt("id"));
+					pb.setName(rs.getString("name"));
+					pb.setPrice(rs.getInt("price"));
+//					pb.setImg(rs.getString("img"));
+					pb.setImg(rs.getBlob("img"));
+					pb.setDescript(rs.getString("descript"));
+					pb.setQuantity(rs.getInt("quantity"));
+					pb.setSpecialPrice(rs.getInt("special_price"));
+					pb.setRewardpoints(rs.getString("rewardpoints"));
+					pb.setIsThumb(rs.getBoolean("is_thumb"));
+					pb.setMemberId(rs.getInt("member_id"));
+					pb.setAnimalTypeId(rs.getInt("animal_type_id"));
+					pb.setCategoryId(rs.getInt("Category_id"));
+
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("JdbaDao.queryProduct()發生例外: " 
+					+ e.getMessage());
+		}
+		return pb;
+	}
+	
+//		public List<ProductsBean> searchProducts() {
+//			List<ProductsBean> list = new ArrayList<>();
+//			try (Connection conn = getDataSource().getConnection();
+//					PreparedStatement pstmt = conn.prepareStatement("select * from products where name like ? order by id");
 //
-//	public boolean updateProduct(Products product) {
-//		try (Connection conn = getDataSource().getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement("update products set name=?,price=? where id=?");) {
+//					) {
+//				ResultSet rs = pstmt.executeQuery();
 //
-//			pstmt.setString(1, product.getName());
-//			pstmt.setInt(2, product.getPrice());
-//			pstmt.setInt(3, product.getId());
-//			pstmt.executeUpdate();
-//			pstmt.clearParameters();
+//				while (rs.next()) {
+//					ProductsBean product = new ProductsBean();
+//					product.setId(rs.getInt("id"));
+//					product.setName(rs.getString("name"));
+//					product.setPrice(rs.getInt("price"));
+////					product.setImg(rs.getString("img"));
+//					product.setImg(rs.getBlob("img"));
+//					product.setDescript(rs.getString("descript"));
+//					product.setQuantity(rs.getInt("quantity"));
+//					product.setSpecialPrice(rs.getInt("special_price"));
+//					product.setRewardpoints(rs.getString("rewardpoints"));
+//					product.setIsThumb(rs.getBoolean("is_thumb"));
+//					product.setMemberId(rs.getInt("member_id"));
+//					product.setAnimalTypeId(rs.getInt("animal_type_id"));
+//					product.setCategoryId(rs.getInt("Category_id"));
+//					
+//					list.add(product);
+//				}
+//				return list;
 //
-//			return true;
-//		} catch (Exception e) {
-//			e.printStackTrace();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return list;
 //		}
-//		return false;
-//	}
-//
-//	public int searchProduct(Products product) {
-//		try (Connection conn = getDataSource().getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement("select * from products where id=?");) {
-//
-//			pstmt.setString(1, product.getName());
-//			pstmt.executeUpdate();
-//			pstmt.clearParameters();
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return 0;
-//	}
-//
-//	public int deleteProduct(Products product) {
-//		try (Connection conn = getDataSource().getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement("delete from products where id=?");) {
-//
-//			pstmt.setInt(1, product.getId());
-//
-//			pstmt.executeUpdate();
-//			pstmt.clearParameters();
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return 0;
-//	}
+		
+	public int searchProduct(ProductsBean product) {
+		int n=0;
+		try (Connection conn = getDataSource().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("select * from products where name like ? order by id");) {
+
+			pstmt.setString(1, "%"+product.getName()+"%");
+			n=pstmt.executeUpdate();
+			pstmt.clearParameters();
+			return n;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
+
+	public int deleteProduct(ProductsBean product) {
+		int n=0;
+		try (Connection conn = getDataSource().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("delete from products where id=?");
+				) {
+
+			pstmt.setInt(1, product.getId());
+
+			n=pstmt.executeUpdate();
+			pstmt.clearParameters();
+			pstmt.close();
+			return n;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
 
 	//產品List
 	public List<ProductsBean> listProducts() {
 		List<ProductsBean> list = new ArrayList<>();
 		try (Connection conn = getDataSource().getConnection();
 				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery("select * from products");) {
+				ResultSet rs = stmt.executeQuery("select * from products order by id");) {
 
 			while (rs.next()) {
 				ProductsBean product = new ProductsBean();
 				product.setId(rs.getInt("id"));
 				product.setName(rs.getString("name"));
 				product.setPrice(rs.getInt("price"));
-				product.setImg(rs.getString("img"));
+//				product.setImg(rs.getString("img"));
+				product.setImg(rs.getBlob("img"));
 				product.setDescript(rs.getString("descript"));
 				product.setQuantity(rs.getInt("quantity"));
 				product.setSpecialPrice(rs.getInt("special_price"));
@@ -265,6 +312,7 @@ public class JdbcDao {
 				product.setCategoryId(rs.getInt("Category_id"));
 
 				list.add(product);
+	
 			}
 			return list;
 

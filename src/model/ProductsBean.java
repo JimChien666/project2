@@ -1,20 +1,24 @@
 package model;
 import java.io.Serializable;
+import java.sql.Blob;
 public class ProductsBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	int id;
-	String name;
-	int price;
-	String img;
-	String descript;
-	int quantity;
-	int specialPrice;
-	String rewardpoints;
-	boolean isThumb;
-	int memberId;
-	int animalTypeId;
-	int categoryId;
-	public ProductsBean(String name, int price, String img, String descript, int quantity, int specialPrice,
+	private int id;
+	private String name;
+	private int price;
+	private Blob img;
+//	private String img;
+	private String descript;
+	private int quantity;
+	private int specialPrice;
+	private String rewardpoints;
+	private boolean isThumb;
+	private int memberId;
+	private int animalTypeId;
+	private int categoryId;
+	private String filename;
+	
+	public ProductsBean(String name, int price, Blob img, String descript, int quantity, int specialPrice,
 	String rewardpoints, boolean isThumb, int memberId, int animalTypeId, int categoryId) {
 
 		this.name = name;
@@ -29,7 +33,37 @@ public class ProductsBean implements Serializable{
 		this.animalTypeId = animalTypeId;
 		this.categoryId = categoryId;
 	}
-
+	public ProductsBean(int id,String name, int price, Blob img, String descript, int quantity, int specialPrice,
+	String rewardpoints, boolean isThumb, int memberId, int animalTypeId, int categoryId) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.img = img;
+		this.descript = descript;
+		this.quantity = quantity;
+		this.specialPrice = specialPrice;
+		this.rewardpoints = rewardpoints;
+		this.isThumb = isThumb;
+		this.memberId = memberId;
+		this.animalTypeId = animalTypeId;
+		this.categoryId = categoryId;
+	}	
+	public ProductsBean(int id,String name, int price, Blob img, String descript, int quantity, int specialPrice,
+	String rewardpoints, boolean isThumb, int memberId, int animalTypeId, int categoryId,String filename) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.img = img;
+		this.descript = descript;
+		this.quantity = quantity;
+		this.specialPrice = specialPrice;
+		this.rewardpoints = rewardpoints;
+		this.isThumb = isThumb;
+		this.memberId = memberId;
+		this.animalTypeId = animalTypeId;
+		this.categoryId = categoryId;
+		this.filename = filename;
+	}
 	public ProductsBean() {
 	
 	}
@@ -52,10 +86,16 @@ public class ProductsBean implements Serializable{
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public String getImg() {
+//	public String getImg() {
+//		return img;
+//	}
+//	public void setImg(String img) {
+//		this.img = img;
+//	}
+	public Blob getImg() {
 		return img;
 	}
-	public void setImg(String img) {
+	public void setImg(Blob img) {
 		this.img = img;
 	}
 	public String getDescript() {
@@ -85,6 +125,7 @@ public class ProductsBean implements Serializable{
 	public boolean getIsThumb() {
 		return isThumb;
 	}
+	
 	public void setIsThumb(boolean isThumb) {
 		this.isThumb = isThumb;
 	}
@@ -109,6 +150,13 @@ public class ProductsBean implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
 	
 
 

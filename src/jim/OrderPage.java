@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class OrderPage
  */
-@WebServlet("/OrderPage")
+
 public class OrderPage extends HttpServlet {
 	public void doGet(HttpServletRequest request,
 	              HttpServletResponse response)
@@ -88,7 +88,7 @@ public class OrderPage extends HttpServlet {
 	    NumberFormat.getCurrencyInstance();
 	
 	  String formURL =
-	    "/WebDemo2/OrderPage";
+	    "/Project2/OrderPage";
 	  // Pass URLs that reference own site through encodeURL.
 	  formURL = response.encodeURL(formURL);
 	  

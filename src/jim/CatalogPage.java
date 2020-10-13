@@ -65,6 +65,7 @@ public class CatalogPage extends HttpServlet {
 	                    HttpServletResponse response)
 	      throws ServletException, IOException {
 	    response.setContentType("text/html");
+	    response.setCharacterEncoding("UTF-8");
 	    if (items == null) {
 	      response.sendError(response.SC_NOT_FOUND,
 	                         "Missing Items.");
