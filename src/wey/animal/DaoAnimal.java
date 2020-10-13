@@ -53,7 +53,6 @@ public class DaoAnimal {
 				valueObjectAnimal.setFileBlob(rs.getBlob("FILE_BLOB"));
 				list.add(valueObjectAnimal);
 			}
-			System.out.println("listAnimals查詢成功");
 		} catch (SQLException e) {
 			System.out.println("listAnimals error");
 			e.printStackTrace();
