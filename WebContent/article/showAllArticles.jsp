@@ -41,43 +41,31 @@ table {
 	font-size: 2em;
 }
 
+.box {
+	width: 40px;
+	background: lightskyblue;
+	transition: .6s;
+}
 
-
-	.box{
-            width: 40px;
-            background: lightskyblue;
-            transition: .6s;
-        	}
-	.active{
-            width: 250px;
-            background: pink;
-            border-radius: 5%;
-            transition: .5s;
-			}
-
-
-
-
-
-
-
-
-
-
-
-
-
+.active {
+	width: 250px;
+	background: pink;
+	border-radius: 5%;
+	transition: .5s;
+}
 </style>
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap"
 	rel="stylesheet">
 
 <title>討論區</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 
-	<div class="btn btn-secondary float-right fixed0"  id="idbox" class="box" >
+	<div class="btn btn-secondary float-right fixed0" id="idbox"
+		class="box">
 
 		<form action="<c:url value='/ArticleDelete' />" enctype="text/html"
 			method="post" class="was-validated">
@@ -103,7 +91,7 @@ table {
 		</form>
 	</div>
 
-	<div class="btn btn-secondary float-right fixed1 box"  id="idbox1">
+	<div class="btn btn-secondary float-right fixed1 box" id="idbox1">
 
 		<form action="<c:url value='ArticleUpdate' />"
 			enctype="multipart/form-data" method="post" class="was-validated">
@@ -171,31 +159,31 @@ table {
 			</c:forEach>
 		</table>
 	</div>
-    <script>
-        $(function(){
-            
-            $("#idbox").hover(over,out);
+	<script>
+		$(function() {
 
-            function over(){
-                $('#idbox').removeClass("box").addClass("active");                               
-            }
-            function out(){
-                $('#idbox').removeClass("active").addClass("box");                           
-            }           
-        })
+			$("#idbox").hover(over, out);
+
+			function over() {
+				$('#idbox').removeClass("box").addClass("active");
+			}
+			function out() {
+				$('#idbox').removeClass("active").addClass("box");
+			}
+		})
 	</script>
-	    <script>
-			$(function(){
-				
-				$("#idbox1").hover(over,out);
-	
-				function over(){
-					$('#idbox1').removeClass("box").addClass("active");                               
-				}
-				function out(){
-					$('#idbox1').removeClass("active").addClass("box");                           
-				}           
-			})
-		</script>
+	<script>
+		$(function() {
+
+			$("#idbox1").hover(over, out);
+
+			function over() {
+				$('#idbox1').removeClass("box").addClass("active");
+			}
+			function out() {
+				$('#idbox1').removeClass("active").addClass("box");
+			}
+		})
+	</script>
 </body>
 </html>
