@@ -38,6 +38,9 @@
 .forum {
 	font-size: 4.5em;
 }
+table{
+	font-size: 2em;
+}
 </style>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
 
@@ -139,7 +142,9 @@
 	</div>
 
 	<div align="center" >
-	<table border=1>
+	<table border=1 >
+		<th>文章ID</th>
+		<th>文章標題</th>
 		<c:forEach items="${ArticleList}" var="Article" varStatus="id">
 		<tr>		
 		<td>${Article.getId()}</td>
