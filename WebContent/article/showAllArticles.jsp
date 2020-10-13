@@ -20,16 +20,32 @@
   bottom: 3%;
   right: 2%;
 }
+
+.fixed0 {
+  position: fixed;
+  top: 12%;  
+  right: 1%;
+  	
+}
+
+.fixed1 {
+  position: fixed;
+  top: 40%;  
+  right: 1%;
+  	
+}
+
 .forum {
 	font-size: 4.5em;
 }
 </style>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
 
 <title>討論區</title>
 </head>
 <body>
 
-	<div class="row justify-content-center align-items-center">
+	<div class="btn btn-secondary float-right fixed0"  style="width: 150px;">
 
 		<form action="<c:url value='/ArticleDelete' />" enctype="text/html"
 			method="post" class="was-validated">
@@ -53,6 +69,7 @@
 			<button type="submit" name="delete" id="delete"
 				class="btn btn-primary">刪除</button>
 		</form>
+	</div>
 
 
 
@@ -64,7 +81,7 @@
 
 
 
-
+	<div class="btn btn-secondary float-right fixed1"  style="width: 150px;">
 
 		<form action="<c:url value='ArticleUpdate' />"
 			enctype="multipart/form-data" method="post" class="was-validated">
@@ -104,9 +121,7 @@
 			<button type="submit" name="update" id="update"
 				class="btn btn-primary">修改</button>
 		</form>
-		
-
-	</div>
+</div>
 
 			<a href="<c:url value='/article/PostArticle.jsp' />" class="fixed">
 			<button type="button" name="delete" class="btn btn-success">發文				         
@@ -123,12 +138,16 @@
 		</c:forEach>
 	</div>
 
-	<div align="center">
+	<div align="center" >
+	<table border=1>
 		<c:forEach items="${ArticleList}" var="Article" varStatus="id">
-		${Article.getId()}
-		${Article.getTitle()}
-		<br>
+		<tr>		
+		<td>${Article.getId()}</td>
+		<td>${Article.getTitle()}</td>
+		<tr>
+		
 		</c:forEach>
+	</table>	
 	</div>
 
 

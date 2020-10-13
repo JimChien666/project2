@@ -115,7 +115,7 @@ font-family: 'Noto Sans TC', sans-serif
         </div>
       </label>
       
-      <textarea class="form-control is-invalid" id="validationTextarea" placeholder="Required example textarea" required></textarea>
+      <textarea class="form-control is-invalid" id="validationTextarea" placeholder="Required example textarea"  style="height: 160px" required></textarea>
 
       <div style="float: right;">
         可以下拉調整大小
