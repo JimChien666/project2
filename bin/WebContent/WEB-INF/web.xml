@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>Project2</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <resource-ref>
+    <description>Oracle DataSource Example</description>
+    <res-ref-name>jdbc/xe</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+
+  <servlet>
+    <description></description>
+    <display-name>ConnectDB</display-name>
+    <servlet-name>ConnectDB</servlet-name>
+    <servlet-class>ConnectDB</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConnectDB</servlet-name>
+    <url-pattern>/ConnectDB</url-pattern>
+  </servlet-mapping>
+<!--   <servlet> -->
+<!--     <description></description> -->
+<!--     <display-name>ProductsPage</display-name> -->
+<!--     <servlet-name>ProductsPage</servlet-name> -->
+<!--     <servlet-class>jim.ProductsPage</servlet-class> -->
+<!--   </servlet> -->
+<!--   <servlet-mapping> -->
+<!--     <servlet-name>ProductsPage</servlet-name> -->
+<!--     <url-pattern>/ProductsPage</url-pattern> -->
+<!--   </servlet-mapping> -->
+    <servlet>
+    <description></description>
+    <display-name>OrderPage</display-name>
+    <servlet-name>OrderPage</servlet-name>
+    <servlet-class>jim.OrderPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrderPage</servlet-name>
+    <url-pattern>/OrderPage</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>CatalogPage</display-name>
+    <servlet-name>CatalogPage</servlet-name>
+    <servlet-class>jim.CatalogPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CatalogPage</servlet-name>
+    <url-pattern>/CatalogPage</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>ShowSession</display-name>
+    <servlet-name>ShowSession</servlet-name>
+    <servlet-class>jim.ShowSession</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowSession</servlet-name>
+    <url-pattern>/ShowSession</url-pattern>
+  </servlet-mapping>
+  
+</web-app>

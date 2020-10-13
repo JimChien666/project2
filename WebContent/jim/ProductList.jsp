@@ -10,6 +10,14 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 %>
 <html>
 <head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/eDM.css" type="text/css" />
+<script
+	src="${pageContext.request.contextPath}/javascript/jquery-1.9.1.js"></script>
+<script src="${pageContext.request.contextPath}/javascript/eDM.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Using jsp:setProperty</title>
 <link REL=STYLESHEET
@@ -18,13 +26,13 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 </head>
 
 <BODY>
+<jsp:include page="../nn/top.jsp" />
 <h2>
 產品購物商城
 </h2>
 <!-- 設定變數funcName的值, top.jsp會使用此變數-->
 <c:set var="funcName" value="SHO" scope="session"/>
 <!-- 引入共同的頁首 -->
-<jsp:include page="/jim/fragment/top.jsp" />
 
 <div align='center'>
 <TABLE  BORDER=1>
