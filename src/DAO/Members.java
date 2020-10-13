@@ -11,26 +11,31 @@ public class Members implements Serializable {
 	private int id;
 	private String name;
 	private int income;
-	private String tel;
+	private String phone;
 	private String account;
 	private String password;
 	private String email;
 	private String address;
 	private int adoptedLevelId;
 	private String memberType;
+	private String sex;
 //	public Members(int id, String name) {
-//		this.id = id;
-//		this.name = name;
-//	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+//	this.id = id;
+//	this.name = name;
+//}
+	public Members() {};
+
 	public String getName() {
 		return name;
 	}
+	public Members(String name, int income, String phone, String account, String password) {
+	super();
+	this.name = name;
+	this.income = income;
+	this.phone = phone;
+	this.account = account;
+	this.password = password;
+}
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -40,11 +45,11 @@ public class Members implements Serializable {
 	public void setIncome(int income) {
 		this.income = income;
 	}
-	public String getTel() {
-		return tel;
+	public String getPhone() {
+		return phone;
 	}
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getAccount() {
 		return account;
@@ -55,7 +60,7 @@ public class Members implements Serializable {
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
+	public void Email(String password) {
 		this.password = password;
 	}
 	public String getEmail() {
@@ -82,5 +87,23 @@ public class Members implements Serializable {
 	public void setMemberType(String memberType) {
 		this.memberType = memberType;
 	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getId() {
+		return id;
+	}
+	
 	
 }
+
+	

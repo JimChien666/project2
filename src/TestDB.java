@@ -15,8 +15,9 @@ import org.apache.naming.java.javaURLContextFactory;
 
 import DAO.Animals;
 import DAO.Forums;
-import DAO.JdbcDao;
 import DAO.Members;
+import jim.JdbcDao;
+import model.ProductsBean;
 
 /**
  * Servlet implementation class TestDB
@@ -40,7 +41,8 @@ public class TestDB extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("hi");
 		
-		JdbcDao jdbcDao = new JdbcDao();
+		JdbcDao jdbcDao = new JdbcDao();//new class
+		
 		request.setCharacterEncoding("UTF-8");
 		
 		Forums forum = new Forums();
@@ -52,8 +54,17 @@ public class TestDB extends HttpServlet {
 
 		java.util.Date date = new java.util.Date();
 		
-		forum.setCreateAt(date);
-		jdbcDao.insertForum(forum);
+		
+		List<ProductsBean> list = jdbcDao.listProducts();
+		for(ProductsBean listp :list) {
+			System.out.println(listp.getDescript());
+		}
+		
+		
+		
+		
+//		forum.setCreateAt(date);
+//		jdbcDao.insertForum(forum);
 
 		
 		
@@ -62,7 +73,7 @@ public class TestDB extends HttpServlet {
 		
 //		Animals animals=new Animals();
 //		animals.setId(1);		
-//		memberque.setEmail("EEE"); //員工1，Email改成EEE		
+//		memberque.setEmail("EEE"); //嚙踝蕭嚙線1嚙璀Email嚙踝成EEE		
 //		boolean aa=jdbcDao.updateAnimal(animals);
 //		System.out.println(aa); //T or F
 		
@@ -78,17 +89,17 @@ public class TestDB extends HttpServlet {
 //		jdbcDao.insertMembers(member);
 		
 		//Test members query		
-		Members memberque= new Members();
-		memberque.setId(1);
-//		memberque.setEmail("EEE"); //員工1，Email改成EEE		
-		jdbcDao.queryMembers(memberque);
+//		Members memberque= new Members();
+//		memberque.setId(1);
+//		memberque.setEmail("EEE"); //嚙踝蕭嚙線1嚙璀Email嚙踝成EEE		
+//		jdbcDao.queryMembers(memberque);
 		
 		
 		
 		//Test members update		
 //		Members memberupd= new Members();
 //		memberupd.setId(1);
-//		memberupd.setEmail("AEE"); //員工1，Email改成EEE		
+//		memberupd.setEmail("AEE"); //嚙踝蕭嚙線1嚙璀Email嚙踝成EEE		
 //		jdbcDao.updateMembers(memberupd);
 //		
 		
@@ -101,7 +112,7 @@ public class TestDB extends HttpServlet {
 //		List<Members> list2 = jdbcDao.listMembers();
 //		for(Members mem :list2) {
 //			
-//			System.out.println(mem.getEmail());//Members Email 全印
+//			System.out.println(mem.getEmail());//Members Email 嚙踝蕭嚙盤
 //		}
 	}
 
