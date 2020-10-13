@@ -21,7 +21,7 @@ font-family: 'Noto Sans TC', sans-serif
       
       <div class="starter-template">
         <h1>文章發表</h1>
-        <p class="lead">Use this document as a way to quickly fuck any new project.<br> ...</p>
+        <p class="lead">Share your story.<br> ...</p>
       </div>
 
     </main><!-- /.container -->   
@@ -56,7 +56,7 @@ font-family: 'Noto Sans TC', sans-serif
             <span class="input-group-text" id="validatedInputGroupPrepend">文章標題</span>
           </div>
           
-          <input type="text" name="title" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" placeholder="enter Something bitxx"  required>
+          <input type="text" name="title" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" placeholder="請輸入文章標題"  required>
         
         </div>
         <div class="invalid-feedback">
@@ -115,7 +115,7 @@ font-family: 'Noto Sans TC', sans-serif
         </div>
       </label>
       
-      <textarea class="form-control is-invalid" id="validationTextarea" placeholder="Required example textarea"  style="height: 160px" required></textarea>
+      <textarea class="form-control is-invalid" id="validationTextarea" placeholder="請輸入文章內容"  style="height: 160px" required></textarea>
 
       <div style="float: right;">
         可以下拉調整大小
@@ -147,7 +147,7 @@ font-family: 'Noto Sans TC', sans-serif
             <span class="input-group-text" id="validatedInputGroupPrepend">memIDID</span>
           </div>
           
-          <input type="text" name="memberId" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" placeholder="enter Something bitxx"  required>
+          <input type="text" name="memberId" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" placeholder="請輸入會員帳號"  required>
         
         </div>
         <div class="invalid-feedback">

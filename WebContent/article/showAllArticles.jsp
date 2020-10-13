@@ -61,7 +61,7 @@ table{
 
 					<input type="text" name="articleId" class="form-control is-invalid"
 						aria-describedby="validatedInputGroupPrepend"
-						placeholder="enter Something ..." required>
+						placeholder="enter id" required>
 
 				</div>
 				<div class="invalid-feedback">
@@ -97,7 +97,7 @@ table{
 
 					<input type="text" name="id" class="form-control is-invalid"
 						aria-describedby="validatedInputGroupPrepend"
-						placeholder="enter Something ..." required>
+						placeholder="enter id" required>
 
 				</div>
 				<div class="invalid-feedback">
@@ -114,7 +114,7 @@ table{
 
 					<input type="text" name="title" class="form-control is-invalid"
 						aria-describedby="validatedInputGroupPrepend"
-						placeholder="enter Something bitxx" required>
+						placeholder="enter title" required>
 
 				</div>
 				<div class="invalid-feedback">
