@@ -15,6 +15,11 @@
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap"
 	rel="stylesheet">
 <style type="text/css">
+.fixed {
+  position: fixed;
+  bottom: 3%;
+  right: 2%;
+}
 .forum {
 	font-size: 4.5em;
 }
@@ -100,13 +105,13 @@
 				class="btn btn-primary">修改</button>
 		</form>
 		
-			<a href="<c:url value='/article/PostArticle.jsp' />" >
-			<button type="button" name="delete" class="btn btn-success">發文				         
-			</button>
-				  </a>
 
 	</div>
 
+			<a href="<c:url value='/article/PostArticle.jsp' />" class="fixed">
+			<button type="button" name="delete" class="btn btn-success">發文				         
+			</button>
+				  </a>
 
 
 	<div class="row justify-content-center align-items-center forum">

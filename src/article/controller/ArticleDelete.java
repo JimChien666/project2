@@ -3,6 +3,7 @@ package article.controller;
 import java.io.IOException;
 import java.util.Enumeration;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,9 +46,11 @@ public class ArticleDelete extends HttpServlet {
 		
 		dao.deleteArticle(articleId);
 
-		request.getRequestDispatcher("article/showAllArticles.jsp").forward(request, response);
-				
-		doGet(request, response);
+//		request.getRequestDispatcher("article/showAllArticles.jsp").forward(request, response);
+//				
+//		doGet(request, response);
+		RequestDispatcher rd =request.getRequestDispatcher("/ArticleShow");
+		rd.forward(request, response);
 	}
 
 }

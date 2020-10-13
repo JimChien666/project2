@@ -72,8 +72,9 @@ public class ArticleUpdate extends HttpServlet {
 			ArticleBean ab = new ArticleBean(id, title, 1, 1 ,1 , 1);		
 			
 			articleDao.updateArticle(ab);
-			request.getRequestDispatcher("article/showAllArticles.jsp").forward(request, response);
-
+//			request.getRequestDispatcher("article/showAllArticles.jsp").forward(request, response);
+			RequestDispatcher rd =request.getRequestDispatcher("/ArticleShow");
+			rd.forward(request, response);
 			
 		} catch (Exception e) {
 			e.printStackTrace(); 
