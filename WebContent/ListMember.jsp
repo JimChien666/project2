@@ -18,6 +18,7 @@
 <jsp:include page="/nn/top.jsp" />
 <table border="1" width="1600px" align"center">
 	<tr>
+		<th align="center" bgcolor="lightgreen"><h2>編號</h2></td>
 		<th align="center" bgcolor="lightgreen"><h2>姓名</h2></td>
 		<th align="center" bgcolor="lightgreen"><h2>性別</h2></td>
 		<th align="center" bgcolor="lightgreen"><h2>電話</h2></td>
@@ -32,6 +33,7 @@
 
 <c:forEach var="Members" items="${alist}">
 	<tr>
+		<td aligh="center" width="200px" height="20px">${Members.id}</td>
 		<td aligh="center" width="200px" height="20px">${Members.name}</td>
 		<td aligh="center" width="200px" height="20px">${Members.sex}</td>
 	    <td aligh="center" width="200px" height="20px">${Members.tel}</td>

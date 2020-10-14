@@ -44,7 +44,8 @@ public class ShowAllAttractionsServlet extends HttpServlet {
 		if (searchStr == null) {
 			searchStr ="";
 		}
-		
+		searchStr = searchStr.trim();
+		System.out.println(searchStr);
 			
 		
 		

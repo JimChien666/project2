@@ -41,6 +41,9 @@
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/FormMember.jsp' />" tabindex="-1" aria-disabled="true">會員中心</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://172.16.39.61:8080/project2" tabindex="-1" aria-disabled="true">活動專區</a>
+        </li>
         
         
       </ul>

@@ -43,6 +43,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/nn/top.jsp" />
 	<div class="page1">
 		<div class="div1">
 			<a href="<%=application.getContextPath()%>/wey/animal/CreateAnimal.jsp" class="btn btn-primary">新增</a>

@@ -30,6 +30,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/nn/top.jsp" />
 	<div class="page1">
 		<a href="<%=application.getContextPath()%>/ServletReadAnimal" class="btn btn-secondary div2">回維護首頁</a>
 		<form action="<%=application.getContextPath()%>/ServletCreateAnimal" method="post" enctype="multipart/form-data">
