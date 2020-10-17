@@ -64,16 +64,27 @@
 }
 
 </style>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 
 function like(id) {
-	var aa = document.getElementById(id);
-	if(aa.innerHTML.search("bi-heart-fill") == -1){
-		aa.innerHTML='<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg>';
-	}
-	else{
-		aa.innerHTML='<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>'
-	}
+	$.ajax({
+        type:"POST",
+        url:"${pageContext.servletContext.contextPath}/nn/controler/AttractionLikeServlet?id=" + id,
+        success:function (result) {
+            if("Yes"==result){
+                alert("登入成功！");
+            }else{
+                alert("使用者名稱或密碼錯誤");
+                $("#password").val("");  //將密碼input清空
+                $("#password").focus();  //將游標定位到密碼input
+            }
+        },
+        error:function (err) {
+            alert("系統錯誤-loginPage.jsp-ajax");
+        }
+    });
+	
 }
 
 </script>
@@ -98,9 +109,11 @@ function like(id) {
      			 	
     			</div>
     			<div id=${attractionIntroduction.getId()} style="right:0px; margin-left: 100px; cursor: pointer; width: 1em;" onclick="like(${attractionIntroduction.getId()})">
-    			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    			<button type="button" class="btn btn-danger"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						  <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-						</svg>
+						</svg></button>
+    			
+				
 				</div>
   		</div>
   	</div>

@@ -11,12 +11,11 @@ public class AttractionIntroduction implements Serializable {
 	private String tel;
 	private int coverFileId;
 	private int contentFileId;
-	private Boolean isFavoriteAvailable;
 	
 	public AttractionIntroduction() {};
 	
 	public AttractionIntroduction(int id, String name, String city, String address, String tel, int coverFileId,
-			int contentFileId,Boolean isFavoriteAvailable) {
+			int contentFileId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -25,16 +24,9 @@ public class AttractionIntroduction implements Serializable {
 		this.tel = tel;
 		this.coverFileId = coverFileId;
 		this.contentFileId = contentFileId;
-		this.isFavoriteAvailable = isFavoriteAvailable;
 	}
 	
-	public Boolean getIsFavoriteAvailable() {
-		return isFavoriteAvailable;
-	}
 
-	public void setIsFavoriteAvailable(Boolean isFavoriteAvailable) {
-		this.isFavoriteAvailable = isFavoriteAvailable;
-	}
 
 	public int getId() {
 		return id;

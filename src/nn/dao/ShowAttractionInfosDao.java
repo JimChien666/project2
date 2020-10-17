@@ -118,7 +118,7 @@ public class ShowAttractionInfosDao {
 		try (Connection conn = getDataSource().getConnection();
 				Statement stmt = conn.createStatement();
 				PreparedStatement pstmt = conn.prepareStatement(
-						"SELECT atr.id, atr.name,atr.tel, atr.address, f1.file_id, f2.file_id,c.name, f.is_favorite_available FROM attractions atr left join attraction_types at on at.id = atr.attraction_type_id left join files f1 on atr.id = f1.cover_attraction_id left join favorites f on atr.id=f.attraction_id left join files f2 on atr.id = f2.content_attraction_id left join citys c on atr.city_id = c.id where at.id = ? and atr.name like ? order by id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");) {
+						"SELECT atr.id, atr.name,atr.tel, atr.address, f1.file_id, f2.file_id,c.name FROM attractions atr left join attraction_types at on at.id = atr.attraction_type_id left join files f1 on atr.id = f1.cover_attraction_id left join files f2 on atr.id = f2.content_attraction_id left join citys c on atr.city_id = c.id where at.id = ? and atr.name like ? order by id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");) {
 			pstmt.setInt(1, atrId);
 			pstmt.setString(2, "%" + searchStr + "%");
 			pstmt.setInt(3, initNum);
@@ -126,7 +126,7 @@ public class ShowAttractionInfosDao {
 			pstmt.setInt(4, showNum);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				AttractionIntroduction attractionIntroduction = new AttractionIntroduction(rs.getInt(1), rs.getString(2), rs.getString(7), rs.getString(4), rs.getString(3), rs.getInt(5), rs.getInt(6), rs.getBoolean(8));
+				AttractionIntroduction attractionIntroduction = new AttractionIntroduction(rs.getInt(1), rs.getString(2), rs.getString(7), rs.getString(4), rs.getString(3), rs.getInt(5), rs.getInt(6));
 				list.add(attractionIntroduction);
 			}
 			return list;
@@ -142,7 +142,7 @@ public class ShowAttractionInfosDao {
 		try (Connection conn = getDataSource().getConnection();
 				Statement stmt = conn.createStatement();
 				PreparedStatement pstmt = conn.prepareStatement(
-						"SELECT atr.id, atr.name,atr.tel, atr.address, f1.file_id, f2.file_id,c.name, f.is_favorite_available FROM attractions atr left join favorites f on atr.id=f.attraction_id left join attraction_types at on at.id = atr.attraction_type_id left join files f1 on atr.id = f1.cover_attraction_id left join files f2 on atr.id = f2.content_attraction_id left join citys c on atr.city_id = c.id where at.id = ? and city_id=? and atr.name like ? order by id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");) {
+						"SELECT atr.id, atr.name,atr.tel, atr.address, f1.file_id, f2.file_id,c.name FROM attractions atr left join attraction_types at on at.id = atr.attraction_type_id left join files f1 on atr.id = f1.cover_attraction_id left join files f2 on atr.id = f2.content_attraction_id left join citys c on atr.city_id = c.id where at.id = ? and city_id=? and atr.name like ? order by id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");) {
 			pstmt.setInt(1, atrId);
 			pstmt.setInt(2, cityId);
 			pstmt.setString(3, "%" + searchStr + "%");
@@ -150,7 +150,7 @@ public class ShowAttractionInfosDao {
 			pstmt.setInt(5, showNum);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				AttractionIntroduction attractionIntroduction = new AttractionIntroduction(rs.getInt(1), rs.getString(2), rs.getString(7), rs.getString(4), rs.getString(3), rs.getInt(5), rs.getInt(6), rs.getBoolean(8));
+				AttractionIntroduction attractionIntroduction = new AttractionIntroduction(rs.getInt(1), rs.getString(2), rs.getString(7), rs.getString(4), rs.getString(3), rs.getInt(5), rs.getInt(6));
 				list.add(attractionIntroduction);
 			}
 			return list;

@@ -65,11 +65,7 @@
 			</ul>
 		</c:if>
 		<c:if test="${empty LoginOK}">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link"
-					href="<c:url value='/_02_login/login.jsp' />" tabindex="-1"
-					aria-disabled="true">登入</a></li>
-			</ul>
+		<a class="btn btn-success" href="<c:url value='/_02_login/login.jsp' /> " role="button">登入</a>
 		</c:if>
 
 	</div>
