@@ -38,13 +38,31 @@
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/ArticleShow' />">討論區</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<c:url value='/FormMember.jsp' />" tabindex="-1" aria-disabled="true">會員中心</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="http://172.16.39.61:8080/project2" tabindex="-1" aria-disabled="true">活動專區</a>
-        </li>
-        
+        <c:if test="${!empty LoginOK}">
+	        <li class="nav-item">
+	          <a class="nav-link" href="<c:url value='/FormMember.jsp' />" tabindex="-1" aria-disabled="true">會員中心</a>
+	        </li>
+        </c:if>
+        <c:if test="${empty LoginOK}">
+	        <li class="nav-item">
+	          <a class="nav-link" href="<c:url value='/_01_register/register.jsp' />" tabindex="-1" aria-disabled="true">註冊會員</a>
+	        </li>
+        </c:if>
+        <c:if test="${empty LoginOK}">
+	        <li class="nav-item">
+	          <a class="nav-link" href="<c:url value='/_02_login/login.jsp' />" tabindex="-1" aria-disabled="true">登入</a>
+	        </li>
+        </c:if>
+        <c:if test="${!empty LoginOK}">
+	        <li class="nav-item">
+	          <a class="nav-link" href="<c:url value='/_02_login/logout.jsp' />" tabindex="-1" aria-disabled="true">登出</a>
+	        </li>
+        </c:if>
+        <c:if test="${!empty LoginOK}">
+	        <li class="nav-item">
+	          <a class="nav-link disabled" href="" tabindex="-1" aria-disabled="true">你好：${LoginOK.getName()}</a>
+	        </li>
+        </c:if>
         
       </ul>
     </div>
