@@ -1,5 +1,6 @@
 package _01_register.dao.impl;
 
+import java.beans.Statement;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -38,14 +39,16 @@ public class MemberDaoImpl_Jdbc implements MemberDao {
 	public int saveMember(MemberBean mb) {
 		String sql = "insert into Members " 
 				+ " (account, name, password, address, email, "
-				+ " tel, type, sex, income) "
+				+ " tel, membertype, sex, income) "
 				+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		int n = 0;
+		int id = 0;
 		InputStream blobStream = null;
 		Reader commentStream = null;
 		try (
 			Connection con = ds.getConnection(); 
 			PreparedStatement ps = con.prepareStatement(sql);
+			java.sql.Statement stmt= con.createStatement();
 		) {
 			ps.setString(1, mb.getAccount());
 			ps.setString(2, mb.getName());
@@ -71,6 +74,12 @@ public class MemberDaoImpl_Jdbc implements MemberDao {
 //			ps.setClob(12, commentStream);
 //			ps.setDouble(13, mb.getUnpaid_amount());
 			n = ps.executeUpdate();
+				
+			ResultSet rs = stmt.executeQuery("select id from members where account='" + mb.getAccount() + "'");
+			while(rs.next()) {
+				id = rs.getInt(1);
+			}
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new RuntimeException("MemberDaoImpl_Jdbc類別#saveMember()發生例外: " 
@@ -83,7 +92,7 @@ public class MemberDaoImpl_Jdbc implements MemberDao {
 				e.printStackTrace();
 			}
 		}
-		return n;
+		return id;
 	}
 	// 判斷參數id(會員帳號)是否已經被現有客戶使用，如果是，傳回true，表示此id不能使用，
 	// 否則傳回false，表示此id可使用。
@@ -114,7 +123,7 @@ public class MemberDaoImpl_Jdbc implements MemberDao {
 	@Override
 	public MemberBean queryMember(String id) {
 		MemberBean mb = null;
-		String sql = "SELECT * FROM Members WHERE memberID = ?";
+		String sql = "SELECT m.id, m.account, m.name, m.password, m.address, m.email, m.tel, m.membertype, f.file_id FROM Members m left join Files f on f.member_id = m.id WHERE m.memberID = ?";
 		try (
 			Connection connection = ds.getConnection(); 
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -123,14 +132,15 @@ public class MemberDaoImpl_Jdbc implements MemberDao {
 			try (ResultSet rs = ps.executeQuery();) {
 				if (rs.next()) {
 					mb = new MemberBean();
-					mb.setId(rs.getInt("id"));
-					mb.setAccount(rs.getString("account"));
-					mb.setName(rs.getString("name"));
-					mb.setPassword(rs.getString("password"));
-					mb.setAddress(rs.getString("address"));
-					mb.setEmail(rs.getString("email"));
-					mb.setTel(rs.getString("tel"));
-					mb.setType(rs.getString("type"));
+					mb.setId(rs.getInt(1));
+					mb.setAccount(rs.getString(2));
+					mb.setName(rs.getString(3));
+					mb.setPassword(rs.getString(4));
+					mb.setAddress(rs.getString(5));
+					mb.setEmail(rs.getString(6));
+					mb.setTel(rs.getString(7));
+					mb.setType(rs.getString(8));
+					mb.setFileId(rs.getInt(9));
 //					mb.setRegisterTime(rs.getTimestamp("RegisterTime"));
 //					mb.setTotalAmt(rs.getDouble("totalAmt"));
 //					mb.setMemberImage(rs.getBlob("MemberImage"));
@@ -151,7 +161,7 @@ public class MemberDaoImpl_Jdbc implements MemberDao {
 	@Override
 	public MemberBean checkIDPassword(String userId, String password) {
 		MemberBean mb = null;
-		String sql = "SELECT * FROM Members m WHERE m.account = ? and m.password = ?";
+		String sql = "SELECT m.id, m.account, m.name, m.password, m.address, m.email, m.tel, m.membertype, f.file_id FROM Members m left join Files f on f.member_id = m.id  WHERE m.account = ? and m.password = ?";
 		try (
 			Connection con = ds.getConnection(); 
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -161,14 +171,15 @@ public class MemberDaoImpl_Jdbc implements MemberDao {
 			try (ResultSet rs = ps.executeQuery();) {
 				if (rs.next()) {
 					mb = new MemberBean();
-					mb.setId(rs.getInt("id"));
-					mb.setAccount(rs.getString("account"));
-					mb.setName(rs.getString("name"));
-					mb.setPassword(rs.getString("password"));
-					mb.setAddress(rs.getString("address"));
-					mb.setEmail(rs.getString("email"));
-					mb.setTel(rs.getString("tel"));
-					mb.setType(rs.getString("type"));
+					mb.setId(rs.getInt(1));
+					mb.setAccount(rs.getString(2));
+					mb.setName(rs.getString(3));
+					mb.setPassword(rs.getString(4));
+					mb.setAddress(rs.getString(5));
+					mb.setEmail(rs.getString(6));
+					mb.setTel(rs.getString(7));
+					mb.setType(rs.getString(8));
+					mb.setFileId(rs.getInt(9));
 //					mb.setRegisterTime(rs.getTimestamp("RegisterTime"));
 //					mb.setTotalAmt(rs.getDouble("totalAmt"));
 //					mb.setMemberImage(rs.getBlob("MemberImage"));

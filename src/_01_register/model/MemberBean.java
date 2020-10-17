@@ -17,7 +17,18 @@ public class MemberBean implements Serializable {
 	String password;
 	String email;
 	String address;
+	int fileId;
 	
+	public int getFileId() {
+		return fileId;
+	}
+
+
+	public void setFileId(int fileId) {
+		this.fileId = fileId;
+	}
+
+
 	public MemberBean() {};
 	
 	

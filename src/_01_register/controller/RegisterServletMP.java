@@ -20,11 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import _01_register.dao.InsertFileDao;
 import _01_register.model.MemberBean;
+import _01_register.model.MemberFileBean;
 import _01_register.service.MemberService;
 import _01_register.service.impl.MemberServiceImpl;
 import nn.service.GlobalService;
 import nn.service.SystemUtils2018;
+import nn.vo.FileBean;
 
 /*
  * 本程式在後端執行，它會
@@ -219,8 +222,12 @@ public class RegisterServletMP extends HttpServlet {
 				MemberBean mem = new MemberBean(type, name, sex, tel, Integer.parseInt(income), memberID, 
 						password, email, addr);
 				// 呼叫MemberDao的saveMember方法
-				int n = service.saveMember(mem);
-				if (n == 1) {
+				int id = service.saveMember(mem);
+				mem.setId(id);
+				System.out.println(blob);
+				InsertFileDao fileDao = new InsertFileDao();
+				fileDao.insertFile(id, blob);
+				if (id != 0) {
 					msgOK.put("InsertOK", "<Font color='red'>新增成功，請開始使用本系統</Font>");
 					response.sendRedirect("/Project2/nn/controler/ShowIndexServlet");
 					return;
