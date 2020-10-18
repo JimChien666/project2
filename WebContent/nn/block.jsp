@@ -73,12 +73,13 @@ function like(id) {
         url:"${pageContext.servletContext.contextPath}/nn/controler/AttractionLikeServlet?id=" + id,
         success:function (result) {
             if("yes"==result){
-                alert("登入成功！");
+            	var aa = document.getElementById(id);
+            	aa.innerHTML='<button type="button" class="btn btn-danger"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg></button>';
             }else{
-                alert("使用者名稱或密碼錯誤");
-                $("#password").val("");  //將密碼input清空
-                $("#password").focus();  //將游標定位到密碼input
+            	alert("尚未登入");
+            	window.location.replace("<c:url value='/_02_login/login.jsp' />");
             }
+                
         },
         error:function (err) {
             alert("系統錯誤-loginPage.jsp-ajax");

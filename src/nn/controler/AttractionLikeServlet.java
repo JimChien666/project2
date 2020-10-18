@@ -24,13 +24,26 @@ public class AttractionLikeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String attractionIdStr = request.getParameter("id");
 		int attractionId = Integer.parseInt(attractionIdStr);
+		PrintWriter out=response.getWriter();
+		InsertLikeDao insertLikeDao = new InsertLikeDao();
 		HttpSession session = request.getSession(false);
 		MemberBean member = (MemberBean) session.getAttribute("LoginOK");
+		if (member == null) {
+			out.write("no");
+			out.flush();
+	        out.close();
+			return;
+		}
 		int memberId = member.getId();
+		if(insertLikeDao.checkFavoriteStatus(memberId, attractionId) == 1) {
+			
+		}
+		
+		
 		FavoriteBean favorite = new FavoriteBean(attractionId, memberId, 1);
-		InsertLikeDao insertLikeDao = new InsertLikeDao();
+		
 		insertLikeDao.insertFavorite(favorite);
-		PrintWriter out=response.getWriter();
+		
         out.write("yes");
         out.flush();
         out.close();
