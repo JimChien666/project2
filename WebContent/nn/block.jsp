@@ -72,7 +72,7 @@ function like(id) {
         type:"POST",
         url:"${pageContext.servletContext.contextPath}/nn/controler/AttractionLikeServlet?id=" + id,
         success:function (result) {
-            if("Yes"==result){
+            if("yes"==result){
                 alert("登入成功！");
             }else{
                 alert("使用者名稱或密碼錯誤");
