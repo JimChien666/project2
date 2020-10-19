@@ -109,10 +109,10 @@
 					        danger: {text: "刪除",visible: true}
 					    },
 					    dangerMode: true
-					}).then((value)=>{
+					}).then((value) => {
 						switch(value){
 							case "danger":
-								console.log(132);
+// 								swal("成功刪除動物編號"+animalId+"這筆資料", "", "success");
 								document.forms[0].action="ServletDeleteAnimal?animalId="+animalId;
 								document.forms[0].method="POST";
 								document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
