@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>新增動物</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <style>
 .div2{
 	margin:10px 0;
@@ -34,7 +35,6 @@
 	color:red;
 }
 </style>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 </head>
 <body>
 <jsp:include page="/nn/top.jsp" />
@@ -43,7 +43,7 @@
 		<form action="<%=application.getContextPath()%>/ServletCreateAnimal" method="post" enctype="multipart/form-data">
 			<label for="" class="span1">照片：</label>
 			<input type="file" name="animalFile" id="animalFile" multiple style="width:200px">
-			<span id="animalFileSpan" class="spanHidden" style="height: 260px"><img id="preview_animalFile" src="#" style="height:250px;"/><br></span>
+			<span id="animalFileSpan" class="spanHidden" style="height: 260px"><img id="preview_animalFile" src="#" style="height:250px;width:250px;"/><br></span>
 			<label for="" class="span1">會員編號：</label>
 			<input type="text" name="memberId" placeholder="自動抓取會員編號" onblur="checkmemberId()" id="memberId" required><br>
 			<span id="memberIdSpan" class="spanHidden"><br></span>

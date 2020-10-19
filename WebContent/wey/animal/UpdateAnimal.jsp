@@ -6,9 +6,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>更新動物</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <style>
 .div2{
 	margin:10px 0;
+}
+
+.img1{
+	height:250px;
+	width:250px;
+	margin-left: 125px;
 }
 
 .page1 {
@@ -22,6 +29,10 @@
 	text-align: right;
 }
 
+.span2{
+	display:block;
+}
+
 .spanHidden{
 	margin-left: 125px;
 	display:none;
@@ -33,14 +44,33 @@
 <jsp:include page="/nn/top.jsp" />
 <div class="page1">
 	<a href="ServletReadAnimal" class="btn btn-secondary div2">回維護首頁</a>
-	<form action="<%=application.getContextPath() %>/ServletUpdateAnimal" method="post">
+	<form action="<%=application.getContextPath() %>/ServletUpdateAnimal" method="post" enctype="multipart/form-data">
+	<label for="" class="span1">照片：</label>
+	<input type="file" name="animalFile" id="animalFile" multiple style="width:200px">
+	<span id="animalFileSpan2" class="span2" style="height: 260px"><img class="card-img-top img1" src="${pageContext.servletContext.contextPath}/ServletRetrieveImage?id=${valueObjectAnimal.animalId}&type=ANIMAL" alt="Animal image"></span>
+	<span id="animalFileSpan1" class="spanHidden" style="height: 260px"><img id="preview_animalFile" src="#" style="height:250px;"/><br></span>
 		<label for="" class="span1">動物編號：</label>
 		<input type="text" name="animalId" value="${valueObjectAnimal.animalId}" readonly><br> 
 		<label for="" class="span1">會員編號：</label>
 		<input type="text" name="memberId" value="${valueObjectAnimal.memberId}" onblur="checkmemberId()" id="memberId" required><br>
 			<span id="memberIdSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
-				function checkmemberId(){
+			$("#animalFile").change(function(){
+				document.getElementById("animalFileSpan2").style.display = "none";
+				document.getElementById("animalFileSpan1").style.display = "block";
+				  readURL(this);
+				});
+				function readURL(input){
+				  if(input.files && input.files[0]){
+				    var reader = new FileReader();
+				    reader.onload = function (e) {
+				    	$("#preview_animalFile").attr('src', e.target.result);
+				    }
+				    reader.readAsDataURL(input.files[0]);
+				  }
+				}
+
+			function checkmemberId(){
 					let memberId = document.getElementById("memberId").value;
 					let memberIdLength = memberId.length;
 					let memberIdSpan = document.getElementById("memberIdSpan");
