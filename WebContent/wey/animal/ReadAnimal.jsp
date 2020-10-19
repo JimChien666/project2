@@ -58,6 +58,12 @@
 	<div class="page1">
 		<div class="div1">
 			<a href="<%=application.getContextPath()%>/wey/animal/CreateAnimal.jsp" class="btn btn-primary">新增</a>
+<!-- 			<div class="input-group mb-3 search1"> -->
+<!-- 			  <input type="text" class="form-control" placeholder="Search"> -->
+<!-- 			  <div class="input-group-append"> -->
+<!-- 			    <button class="btn btn-success" type="submit">Go</button> -->
+<!-- 			  </div> -->
+<!-- 			</div> -->
 		</div>
 		<!-- card來源https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_card_image&stacked=h -->
 		<c:forEach var="AnimalsList" items="${AnimalsList}">

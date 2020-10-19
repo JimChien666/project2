@@ -46,7 +46,7 @@ public class InsertFileDao {
 			if(blob != null) blobStream = blob.getBinaryStream();
 			ps.setBlob(2, blobStream);
 			ps.executeUpdate();
-			ResultSet rs =stmt.executeQuery("select id from files where member_id =" +  memberId);
+			ResultSet rs =stmt.executeQuery("select file_id from files where member_id =" +  memberId);
 			while(rs.next()) {
 				id = rs.getInt(1);
 			}
