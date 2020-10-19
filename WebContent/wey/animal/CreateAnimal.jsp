@@ -11,6 +11,12 @@
 	margin:10px 0;
 }
 
+.img1{
+	width:200px;
+	margin:0 0 0 125px;
+	padding-bottom:5px;
+}
+
 .page1 {
 	margin: 0 auto;
 	width: 400px;
@@ -28,6 +34,7 @@
 	color:red;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 </head>
 <body>
 <jsp:include page="/nn/top.jsp" />
@@ -35,11 +42,26 @@
 		<a href="<%=application.getContextPath()%>/ServletReadAnimal" class="btn btn-secondary div2">回維護首頁</a>
 		<form action="<%=application.getContextPath()%>/ServletCreateAnimal" method="post" enctype="multipart/form-data">
 			<label for="" class="span1">照片：</label>
-			<input type="file" name="animalFile" id="animalFile" multiple style="width:200px"><br>
+			<input type="file" name="animalFile" id="animalFile" multiple style="width:200px">
+			<span id="animalFileSpan" class="spanHidden" style="height: 260px"><img id="preview_animalFile" src="#" style="height:250px;"/><br></span>
 			<label for="" class="span1">會員編號：</label>
 			<input type="text" name="memberId" placeholder="自動抓取會員編號" onblur="checkmemberId()" id="memberId" required><br>
 			<span id="memberIdSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
+			$("#animalFile").change(function(){
+				document.getElementById("animalFileSpan").style.display = "block";
+				  readURL(this);
+				});
+				function readURL(input){
+				  if(input.files && input.files[0]){
+				    var reader = new FileReader();
+				    reader.onload = function (e) {
+				    	$("#preview_animalFile").attr('src', e.target.result);
+				    }
+				    reader.readAsDataURL(input.files[0]);
+				  }
+				}
+			
 				function checkmemberId(){
 					let memberId = document.getElementById("memberId").value;
 					let memberIdLength = memberId.length;
