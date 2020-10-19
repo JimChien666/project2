@@ -45,12 +45,11 @@ public class InsertLikeDao {
 				return rs.getInt(1);
 			}
 			
-			
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return 0;
+		return -1;
 	}
 	
 	public void insertFavorite(FavoriteBean favorite) {
@@ -61,6 +60,27 @@ public class InsertLikeDao {
 						"INSERT INTO favorites (member_id, attraction_id, is_favorite_available) VALUES (?,?, 1)");) {
 			pstmt.setInt(1, favorite.getMemberId());
 			pstmt.setInt(2, favorite.getAttractionId());
+
+			pstmt.executeUpdate();
+			pstmt.clearParameters();
+
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void updateFavoriteStatus(int memberId, int attractionId, int i) {
+		try (Connection conn = getDataSource().getConnection();
+
+				Statement stmt = conn.createStatement();
+				PreparedStatement pstmt = conn.prepareStatement(
+						"update favorites set is_favorite_available=? where member_id=? and attraction_id=?");) {
+			pstmt.setInt(1, i);
+			pstmt.setInt(2, memberId);
+			pstmt.setInt(3, attractionId);
 
 			pstmt.executeUpdate();
 			pstmt.clearParameters();

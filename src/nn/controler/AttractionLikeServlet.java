@@ -34,19 +34,34 @@ public class AttractionLikeServlet extends HttpServlet {
 	        out.close();
 			return;
 		}
+		
 		int memberId = member.getId();
-		if(insertLikeDao.checkFavoriteStatus(memberId, attractionId) == 1) {
-			
-		}
-		
-		
+		int checkStatusNum = insertLikeDao.checkFavoriteStatus(memberId, attractionId);
+		System.out.println(checkStatusNum);
+		if(checkStatusNum == 1) {
+			 insertLikeDao.updateFavoriteStatus(memberId, attractionId, 0);
+			 System.out.println("我在這");
+			 out.write("0");
+			 out.flush();
+		     out.close();
+			 return;
+		} else if(checkStatusNum == 0) {
+			insertLikeDao.updateFavoriteStatus(memberId, attractionId, 1);
+			out.write("1");
+			out.flush();
+	        out.close();
+			return;
+		} 
 		FavoriteBean favorite = new FavoriteBean(attractionId, memberId, 1);
-		
 		insertLikeDao.insertFavorite(favorite);
-		
-        out.write("yes");
-        out.flush();
+		out.write("1");
+		out.flush();
         out.close();
+		return;
+		
+		
+		
+
 	}
 
 }
