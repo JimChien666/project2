@@ -167,16 +167,21 @@ public class DaoAnimal {
 	
 	//刪除動物
 	public boolean deleteAnimal(int animalId) {
-		String sql = "delete from ANIMALS where Animal_Id=?";
+		String sql1 = "delete from ANIMALS where Animal_Id=?";
+		String sql2 = "delete from FILES where Animal_Id=?";
 		try (
 				Connection conn = getDataSource().getConnection();
 				){
 			conn.setAutoCommit(false);
 			try {
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setInt(1, animalId);
-			pStmt.executeUpdate();
-			pStmt.clearParameters();
+			PreparedStatement pStmt1 = conn.prepareStatement(sql1);
+			PreparedStatement pStmt2 = conn.prepareStatement(sql2);
+			pStmt1.setInt(1, animalId);
+			pStmt2.setInt(1, animalId);
+			pStmt1.executeUpdate();
+			pStmt2.executeUpdate();
+			pStmt1.clearParameters();
+			pStmt2.clearParameters();
 			conn.commit();
 			return true;
 			} catch (Exception e) {
