@@ -81,7 +81,7 @@
 					let flag1 = false;
 					if (acceptionId == ""){
 						acceptionIdSpan.innerHTML = "";
-					}else if (acceptionIdLength <= 10) {
+					}else if (acceptionIdLength > 0) {
                 		for (let i = 0; i < acceptionIdLength; i++) {
                     		let ch = acceptionId.charAt(i);
                     		if ((ch >= "\u0030" && ch <= "\u0039") || (ch >= "\u0061" && ch <= "\u007a") || (ch >= "\u0041" && ch <= "\u005a")) {//判斷數字或英文大小寫
@@ -99,7 +99,7 @@
                 		}
             		} else {
             			document.getElementById("acceptionIdSpan").style.display = "block";
-            			acceptionIdSpan.innerHTML = "只能輸入10碼";
+            			acceptionIdSpan.innerHTML = "";
             		}
 				}
 			</script>

@@ -28,6 +28,10 @@ public class ServletCreateAnimal extends HttpServlet {
 	public ServletCreateAnimal() {
 		super();
 	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding(CHARSET_CODE);

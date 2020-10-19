@@ -28,15 +28,6 @@
 	color:red;
 }
 </style>
-<script type="text/javascript">
-function confirmDelete() {
-	if(confirm("確定刪除此筆動物資料(動物編號:${valueObjectAnimal.animalId})?")){
-		document.forms[0].action="ServletDeleteAnimal?animalId=${valueObjectAnimal.animalId}";
-		document.forms[0].method="POST";
-		document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
-	}
-}
-</script>
 </head>
 <body>
 <jsp:include page="/nn/top.jsp" />
@@ -90,7 +81,7 @@ function confirmDelete() {
 					let flag1 = false;
 					if (acceptionId == ""){
 						acceptionIdSpan.innerHTML = "";
-					}else if (acceptionIdLength <= 10) {
+					}else if (acceptionIdLength > 0) {
                 		for (let i = 0; i < acceptionIdLength; i++) {
                     		let ch = acceptionId.charAt(i);
                     		if ((ch >= "\u0030" && ch <= "\u0039") || (ch >= "\u0061" && ch <= "\u007a") || (ch >= "\u0041" && ch <= "\u005a")) {//判斷數字或英文大小寫
@@ -108,7 +99,7 @@ function confirmDelete() {
                 		}
             		} else {
             			document.getElementById("acceptionIdSpan").style.display = "block";
-            			acceptionIdSpan.innerHTML = "只能輸入10碼";
+            			acceptionIdSpan.innerHTML = "";
             		}
 				}
 			</script>
@@ -206,7 +197,6 @@ function confirmDelete() {
 		<textarea id="" name="note" rows="5" cols="18" style="margin-left:125px">${valueObjectAnimal.note}</textarea><br>
 		<a href="ServletPreUpdateAnimal?animalId=${valueObjectAnimal.animalId}" class="btn btn-secondary">回復修改</a>
 		<button type="submit" name="update" class="btn btn-primary">修改</button>
-		<input type="button" name="delete" value="刪除" onclick="confirmDelete()" class="btn btn-danger" />
 	</form>
 </div>
 </body>
