@@ -30,7 +30,7 @@ public class ServletCreateAnimal extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		request.getRequestDispatcher("/ServletReadAnimal").forward(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -125,7 +125,7 @@ public class ServletCreateAnimal extends HttpServlet {
 			int newAnimalId = daoAnimal.createAnimal(valueObjectAnimal);
 			if (newAnimalId>0)
 			{
-				System.out.println("Get some SQL commands done! Create No."+newAnimalId+" animal.");
+				System.out.println("Create animal No."+newAnimalId+".");
 				request.getSession(true).invalidate();
 				request.getRequestDispatcher("/ServletReadAnimal").forward(request,response);
 			}
@@ -135,11 +135,12 @@ public class ServletCreateAnimal extends HttpServlet {
 			ValueObjectFilesOfAnimal valueObjectFilesOfAnimal = new ValueObjectFilesOfAnimal(fileType, fileUrl, newAnimalId, blob);
 			boolean success = daoFilesOfAnimal.createFilesOfAnimal(valueObjectFilesOfAnimal);
 			if (success) {
-				System.out.println("File successfully saved to DB.");
+				System.out.println("File of animal No."+newAnimalId+" successfully saved to DB.");
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace(); 
+			System.out.println("ServletCreateAnimal error");
 			RequestDispatcher rd = request.getRequestDispatcher("/wey/animal/CreateAnimal.jsp");
 			rd.forward(request, response);
 		}
