@@ -52,26 +52,7 @@
 <!--     <servlet-name>ProductsPage</servlet-name> -->
 <!--     <url-pattern>/ProductsPage</url-pattern> -->
 <!--   </servlet-mapping> -->
-    <servlet>
-    <description></description>
-    <display-name>OrderPage</display-name>
-    <servlet-name>OrderPage</servlet-name>
-    <servlet-class>jim.OrderPage</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>OrderPage</servlet-name>
-    <url-pattern>/OrderPage</url-pattern>
-  </servlet-mapping>
-    <servlet>
-    <description></description>
-    <display-name>CatalogPage</display-name>
-    <servlet-name>CatalogPage</servlet-name>
-    <servlet-class>jim.CatalogPage</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CatalogPage</servlet-name>
-    <url-pattern>/CatalogPage</url-pattern>
-  </servlet-mapping>
+
     <servlet>
     <description></description>
     <display-name>ShowSession</display-name>

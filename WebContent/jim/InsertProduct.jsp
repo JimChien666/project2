@@ -1,10 +1,7 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>  
- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <% 
 response.setContentType("text/html;charset=UTF-8");
@@ -16,6 +13,10 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>產品新增資料</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -24,12 +25,56 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <c:set var="funcName" value="CHE" scope="session"/>
 <!-- 引入共同的頁首 -->
 <jsp:include page="../nn/top.jsp" />
-<a class="dropdown-item" href="<c:url value='/jim/InsertProduct.jsp' />">新增商品</a>
-            <a class="dropdown-item" href="<c:url value='/jim/QueryProduct.jsp' />">查詢商品</a>
-            <a class="dropdown-item" href="<c:url value='/jim/DeleteProduct.jsp' />">刪除商品</a>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="#" >Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar" ">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/jim/InsertProduct.jsp' />">新增商品</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/jim/QueryProduct.jsp' />">查詢商品</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/jim/DeleteProduct.jsp' />">刪除商品</a>
+      </li>    
+    </ul>
+  </div>  
+</nav>
+
+
+
 <h2>
 產品新增資料
 </h2>
+<!-- 	產品價格判斷 -->
+	<script type="text/javascript">
+		function checkProductPrice() {
+			let productPrice = document.getElementById("price").value;
+			let productPriceLength = productPrice.length;
+			let productPriceSpan = document.getElementById("productPriceSpan");
+			let flag1 = false;
+			if (price == "") {
+				document.getElementById("productPriceSpan").style.display = "block";
+				memberIdSpan.innerHTML = "不可空白";
+			}
+		}
+		function checkProductQuantity() {
+			let productQuantity = document.getElementById("quantity").value;
+			let productQuantityLength = productQuantity.length;
+			let productPriceSpan = document.getElementById("productQuantitySpan");
+			let flag1 = false;
+			if (price == "") {
+				document.getElementById("productQuantitySpan").style.display = "block";
+				memberIdSpan.innerHTML = "不可空白";
+			}
+		}
+		
+	</script>
 <form enctype='multipart/form-data' action="../InsertProduct" method="post">
 <table  cellspacing="2" cellpadding="1" border="1" width="100%">
 <tr>
@@ -38,7 +83,9 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 </tr>
 <tr>
     <td>產品價格:</td>
-    <td><input type="text" name="price" size="10" maxlength="10"></td>
+    <td><input type="text" name="price" size="10" maxlength="10" onblur="checkProductPrice()" id="price" onkeyup="this.value=this.value.replace(/[^\d]/,'')" required>
+    <span id="productPriceSpan" class="spanHidden"><br></span>
+    </td>
 </tr>
 <tr>
     <td>產品圖片:</td>
@@ -50,11 +97,19 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 </tr>
 <tr>
     <td>產品數量:</td>
-    <td><input type="text" name="quantity" size="10" maxlength="500"></td>
+    <td><input type="text" name="quantity" size="10" maxlength="500" onblur="checkProductquantity()" id="quantity" onkeyup="this.value=this.value.replace(/[^\d]/,'')" required>
+        <span id="productQuantitySpan" class="spanHidden"><br></span>
+    </td>
 </tr>
 </table>
 <center>
-<input type="submit" name="submit" value="送出">
+			<a href="<%=application.getContextPath()%>/jim/InsertProduct.jsp" class="btn btn-secondary">重填</a>
+			<c:choose>
+			<c:when test="">
+			</c:when>
+			</c:choose>
+			<button type="submit" name="submit" class="btn btn-primary">送出</button>
+
 </center>
 </form>
 </body>
