@@ -34,7 +34,6 @@ public class DemoHibernateServletAction1 extends HttpServlet {
 	protected void processAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.getCurrentSession();
-		session.beginTransaction();
 		HouseBeanDAO hDao = new HouseBeanDAO(session);
 		HouseBean hBean = hDao.select(1001);
 		
