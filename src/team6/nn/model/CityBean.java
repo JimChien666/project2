@@ -1,4 +1,4 @@
-package nn.vo;
+package team6.nn.model;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package tw.reicheng.util;
+package team6.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

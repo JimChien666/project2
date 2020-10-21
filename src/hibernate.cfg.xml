@@ -18,7 +18,8 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         
-        <mapping resource="tw/reicheng/model/HouseBean.hbm.xml"/>
+        <mapping resource="team6/model/HouseBean.hbm.xml"/>
+        <mapping class="team6.nn.model.CityBean"/>
 <!--         <mapping class="tw.reicheng.model.Department"/> -->
         
 <!--         <mapping class="tw.reicheng.model.Books"/> -->

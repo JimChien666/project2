@@ -12,7 +12,7 @@
   
   <filter>
 		<filter-name>OpenSessionViewFilter</filter-name>
-		<filter-class>tw.reicheng.util.OpenSessionViewFilter</filter-class>
+		<filter-class>team6.util.OpenSessionViewFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>OpenSessionViewFilter</filter-name>
@@ -21,7 +21,7 @@
   
   
   <listener>
-  	<listener-class>tw.reicheng.util.SessionFactoryListener</listener-class>
+  	<listener-class>team6.util.SessionFactoryListener</listener-class>
   </listener>
   
   

@@ -4,7 +4,7 @@
 <!-- Generated 2020/8/24 ?W?? 10:38:12 by Hibernate Tools 3.5.0.Final -->
 
 <hibernate-mapping>
-    <class name="tw.reicheng.model.HouseBean" table="HOUSE">
+    <class name="team6.model.HouseBean" table="HOUSE">
         <id name="houseid" type="int">
             <column name="HOUSEID" />
             <generator class="assigned" />

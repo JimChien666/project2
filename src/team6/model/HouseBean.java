@@ -1,4 +1,4 @@
-package tw.reicheng.model;
+package team6.model;
 
 public class HouseBean {
 	private int houseid;

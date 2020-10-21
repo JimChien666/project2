@@ -1,4 +1,4 @@
-package tw.reicheng.model;
+package team6.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

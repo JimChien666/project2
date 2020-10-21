@@ -1,4 +1,4 @@
-package tw.reicheng.action;
+package team6.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import tw.reicheng.model.HouseBean;
-import tw.reicheng.model.HouseBeanDAO;
-import tw.reicheng.util.HibernateUtil;
+import team6.model.HouseBean;
+import team6.model.HouseBeanDAO;
+import team6.util.HibernateUtil;
 
 /**
  * Servlet implementation class DemoHibernateServletAction1
