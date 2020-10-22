@@ -5,46 +5,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>新增動物</title>
+<link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-<style>
-.div2{
-	margin:10px 0;
-}
-
-.img1{
-	width:200px;
-	margin:0 0 0 125px;
-	padding-bottom:5px;
-}
-
-.page1 {
-	margin: 0 auto;
-	width: 400px;
-}
-
-.span1 {
-	display: inline-block;
-	width: 120px;
-	text-align: right;
-}
-
-.spanHidden{
-	margin-left: 125px;
-	display:none;
-	color:red;
-}
-</style>
 </head>
 <body>
 <jsp:include page="/nn/top.jsp" />
-	<div class="page1">
-		<a href="<%=application.getContextPath()%>/ServletReadAnimal" class="btn btn-secondary div2">回維護首頁</a>
+	<div class="wid400px">
+		<a href="<%=application.getContextPath()%>/ServletReadAnimal" class="btn btn-secondary marginTopBot10px">回維護首頁</a>
 		<form action="<%=application.getContextPath()%>/ServletCreateAnimal" method="post" enctype="multipart/form-data">
-			<label for="" class="span1">照片：</label>
-			<input type="file" name="animalFile" id="animalFile" multiple style="width:200px">
-			<span id="animalFileSpan" class="spanHidden" style="height: 260px"><img id="preview_animalFile" src="#" style="height:250px;width:250px;"/><br></span>
-			<label for="" class="span1">會員編號：</label>
+			<label for="" class="label1">照片：</label>
+			<input type="file" name="animalFile" id="animalFile" multiple class="wid200px">
+			<span id="animalFileSpan" class="spanHidden height260px"><img id="preview_animalFile" src="#" class="square250px"/><br></span>
+			<label for="" class="label1">會員編號：</label>
 			<input type="text" name="memberId" placeholder="自動抓取會員編號" onblur="checkmemberId()" id="memberId" required><br>
 			<span id="memberIdSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
@@ -92,7 +65,7 @@
             		}
 				}
 			</script>
-			<label for="" class="span1">收容動物編號：</label>
+			<label for="" class="label1">收容動物編號：</label>
 			<input type="text" name="acceptionId" onblur="checkacceptionId()" id="acceptionId">收容所需填<br>
 			<span id="acceptionIdSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
@@ -125,7 +98,7 @@
             		}
 				}
 			</script>
-			<label for="" class="span1">品種編號：</label>
+			<label for="" class="label1">品種編號：</label>
 			<input type="text" name="breedId" onblur="checkbreedId()" id="breedId" required>需查詢填入<br>
 			<span id="breedIdSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
@@ -159,12 +132,12 @@
             		}
 				}
 			</script>
-			<label for="gender" class="span1">性別：</label>
+			<label for="gender" class="label1">性別：</label>
 			<select name="gender" id="">
 				<option value="1">公</option>
 				<option value="0">母</option>
 			</select><br>
-			<label for="" class="span1">毛色：</label>
+			<label for="" class="label1">毛色：</label>
 			<input type="text" name="coatColor" onblur="checkcoatColor()" id="coatColor"><br>
 			<span id="coatColorSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
@@ -194,13 +167,13 @@
             		}
 				}
 			</script>
-			<label for="" class="span1">是否開放領養：</label>
+			<label for="" class="label1">是否開放領養：</label>
 			<select name="isAdoptionAvailable" id="">
 				<option value="1">開放</option>
 				<option value="0">不開放</option>
 			</select><br>
-			<label for="" class="span1" style="position: absolute">備註：</label>
-			<textarea id="" name="note" rows="5" cols="18" placeholder="可輸入寵物年齡" style="margin-left: 125px"></textarea><br>
+			<label for="" class="label1 posAbs">備註：</label>
+			<textarea id="" name="note" rows="5" cols="18" placeholder="可輸入寵物年齡" class="margleft125px"></textarea><br>
 			<a href="<%=application.getContextPath()%>/wey/animal/CreateAnimal.jsp" class="btn btn-secondary">重填</a>
 			<c:choose>
 			<c:when test="">

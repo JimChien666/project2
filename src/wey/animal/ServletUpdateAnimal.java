@@ -49,5 +49,4 @@ public class ServletUpdateAnimal extends HttpServlet {
         	System.out.println("ServletUpdateAnimal error");
         }
 	}
-
 }

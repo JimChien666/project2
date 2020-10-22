@@ -30,6 +30,7 @@ public class ServletPreUpdateAnimal extends HttpServlet {
 		
 		DaoAnimal daoAnimal = new DaoAnimal();
 		ValueObjectAnimal valueObjectAnimal = daoAnimal.getAnimal(animalId);
+//		System.out.println(valueObjectAnimal.getAnimalId()+" ServletPreUpdateAnimal doGet");//TODO 為什麼會印兩次
 		session.setAttribute("valueObjectAnimal", valueObjectAnimal);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/wey/animal/UpdateAnimal.jsp");

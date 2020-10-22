@@ -1,0 +1,37 @@
+@charset "UTF-8";
+.dispblok{
+	display:block;
+}
+.height260px{
+	height: 260px;
+}
+.label1 {
+	display: inline-block;
+	width: 120px;
+	text-align: right;
+}
+.marginTopBot10px{
+	margin:10px 0;
+}
+.margleft125px{
+	margin-left: 125px;
+}
+.posAbs{
+	position: absolute;
+}
+.spanHidden{
+	margin-left: 125px;
+	display:none;
+	color:red;
+}
+.square250px{
+	height:250px;
+	width:250px;
+}
+.wid200px{
+	width:200px;
+}
+.wid400px {
+	margin: 0 auto;
+	width: 400px;
+}
