@@ -29,11 +29,15 @@ public class ProductPreUpdateServlet extends HttpServlet {
 		int productId = 0;
 		String strProduct = request.getParameter("productId");
 		
+		System.out.println(strProduct);
+		
 		if (strProduct != null) {
 			productId = Integer.parseInt(strProduct);
 		}
 		JdbcDao proJdbcDao = new JdbcDao();
 		ProductsBean product = proJdbcDao.getProduct(productId);
+		System.out.println(product);
+		
 		session.setAttribute("product", product);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/jim/UpdateProduct.jsp");

@@ -332,7 +332,7 @@ public class JdbcDao {
 			try(ResultSet rs=pstmt.executeQuery();){
 			while (rs.next()) {
 				product = new ProductsBean();
-				product.setId(rs.getInt("productId"));
+				product.setId(rs.getInt("id"));
 				product.setName(rs.getString(2));
 				product.setPrice(rs.getInt(3));
 //				product.setImg(rs.getString("img"));
