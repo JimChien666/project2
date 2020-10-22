@@ -19,7 +19,16 @@
         <property name="hibernate.format_sql">true</property>
         
         <mapping resource="team6/model/HouseBean.hbm.xml"/>
+        
+        
+        
+		<!--佳恩 -->
         <mapping class="team6.nn.model.CityBean"/>
+        
+        
+        
+		<!--仲康 -->
+        <mapping class="team6.johnny.model.Article"/>
 <!--         <mapping class="tw.reicheng.model.Department"/> -->
         
 <!--         <mapping class="tw.reicheng.model.Books"/> -->
