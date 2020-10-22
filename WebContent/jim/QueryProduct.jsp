@@ -23,9 +23,25 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <!-- 引入共同的頁首 -->
 <jsp:include page="../nn/top.jsp" />
 
-<a class="dropdown-item" href="<c:url value='/jim/InsertProduct.jsp' />">新增商品</a>
-            <a class="dropdown-item" href="<c:url value='/jim/QueryProduct.jsp' />">查詢商品</a>
-            <a class="dropdown-item" href="<c:url value='/jim/DeleteProduct.jsp' />">刪除商品</a>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="#" >Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar" ">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/jim/InsertProduct.jsp' />">新增商品</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/jim/QueryProduct.jsp' />">查詢商品</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/jim/DeleteProduct.jsp' />">刪除商品</a>
+      </li>    
+    </ul>
+  </div>  
+</nav>
 <h2>
 查詢產品資料${param.noResult}
 </h2>
@@ -40,7 +56,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 
 </table>
 <center>
-<input type="submit" name="submit" value="送出">
+<input class="btn btn-primary" type="submit" name="submit" value="送出">
 </center>
 </form>
 </body>

@@ -41,9 +41,9 @@ public class InsertProduct extends HttpServlet {
 	    response.setHeader("Pragma","no-cache"); // HTTP 1.0
 	    response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 	    System.out.println(request.getParameter("submit"));
-//	   if (request.getParameter("submit")!=null) {
+	   if (request.getParameter("submit")!=null) {
 		   gotoSubmitProcess(request, response);
-//	   }
+	   }
 	}
 	public void gotoSubmitProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	  {
@@ -96,7 +96,11 @@ public class InsertProduct extends HttpServlet {
 						sizeInBytes = p.getSize();
 						is = p.getInputStream();
 					} else {
+						
 						out.write( "必須挑選圖片檔");
+			        	 RequestDispatcher rd = request.getRequestDispatcher("/ProductsPage");			
+			        	 rd.forward(request,response);
+			        	 return;
 					}					
 				}				
 			}	
@@ -125,11 +129,14 @@ public class InsertProduct extends HttpServlet {
         {
           System.out.println("Get some SQL commands done!");
 //          request.getSession(true).invalidate();
-          response.sendRedirect("/Project2/jim/Thanks.jsp");
+          response.sendRedirect("/Project2/ProductsPage");
 //          RequestDispatcher rd = request.getRequestDispatcher("/jim/Thanks.jsp");
 //          rd.forward(request, response);
         }else {
         	 out.println("對不起，新增產品失敗!");
+        	 RequestDispatcher rd = request.getRequestDispatcher("/ProductsPage");			
+        	 rd.forward(request,response);
+        	 return;
         }
 	    
 	  }    

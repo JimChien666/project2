@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+<!-- 		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property> -->
+<!--         <property name="hibernate.connection.password">hr</property> -->
+<!--         <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521/xepdb1</property> -->
+<!--         <property name="hibernate.connection.username">hr</property> -->
+
+		
+        <property name="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</property>
+        <property name="hibernate.connection.datasource">java:comp/env/jdbc/xe</property>
+        
+		<property name="hibernate.current_session_context_class">thread</property>
+        
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        
+        <mapping resource="team6/model/HouseBean.hbm.xml"/>
+        
+        
+        
+		<!--佳恩 -->
+        <mapping class="team6.nn.model.CityBean"/>
+        
+        
+        
+		<!--仲康 -->
+        <mapping class="team6.johnny.model.Article"/>
+<!--         <mapping class="tw.reicheng.model.Department"/> -->
+        
+<!--         <mapping class="tw.reicheng.model.Books"/> -->
+<!--         <mapping class="tw.reicheng.model.BooksDetail"/> -->
+        
+<!--         <mapping class="tw.reicheng.model.Stock"/> -->
+<!--         <mapping class="tw.reicheng.model.StockTransaction"/> -->
+        
+<!--         <mapping class="tw.reicheng.model.Profiles"/> -->
+        
+    </session-factory>
+</hibernate-configuration>

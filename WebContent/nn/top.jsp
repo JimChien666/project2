@@ -65,7 +65,7 @@
 			</ul>
 		</c:if>
 		<c:if test="${empty LoginOK}">
-		<a class="btn btn-success" href="<c:url value='/_02_login/login.jsp' /> " role="button">登入</a>
+		<a class="btn btn-success" href="<c:url value='/_02_login/login.jsp' />" role="button">登入</a>
 		</c:if>
 
 	</div>
