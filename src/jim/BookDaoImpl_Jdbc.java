@@ -16,7 +16,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import model.ProductsBean;
+import jim.model.ProductsBean;
 
 // 本類別使用純JDBC的技術來存取資料庫。
 // 所有SQLException都以catch區塊捕捉，然後一律再次丟出RuntimeException。

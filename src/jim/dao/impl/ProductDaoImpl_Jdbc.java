@@ -16,7 +16,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import org.apache.jasper.runtime.JspSourceImports;
 import jim.GlobalService;
-import model.ProductsBean;
+import jim.model.ProductsBean;
 
 
 // 本類別使用純JDBC的技術來存取資料庫。

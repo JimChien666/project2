@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.ProductsBean;
+import jim.model.ProductsBean;
 
 @WebServlet("/_03_listBooks/DisplayPageProducts")
 // 本控制器負責進行必要的前置作業，以便Dao取回某一頁的商品資料

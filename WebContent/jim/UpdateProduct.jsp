@@ -52,9 +52,9 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 	<a href="<c:url value='/jim/ProductsPage.jsp' />" class="btn btn-secondary div2">回產品首頁</a>
 	<form action="<%=application.getContextPath() %>/ProductUpdate" method="post">
 		<label for="" class="span1">產品編號：</label>
-		<input type="text" name="productId" value="${product.id}" readonly><br> 
-		<label for="" class="span1">會員編號：</label>
-		<input type="text" name="memberId" value="${valueObjectAnimal.memberId}" onblur="checkmemberId()" id="memberId" required><br>
+		<input type="text" name="productId" value="${product.id}" readonly>(無法修改)<br> 
+		<label for="" class="span1">產品名稱：</label>
+		<input type="text" name="memberId" value="${product.name}" onblur="checkmemberId()" id="memberId" required><br>
 			<span id="memberIdSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
 				function checkmemberId(){

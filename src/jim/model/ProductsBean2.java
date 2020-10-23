@@ -1,4 +1,4 @@
-package model;
+package jim.model;
 import java.io.Serializable;
 import java.sql.Blob;
 public class ProductsBean2 implements Serializable{

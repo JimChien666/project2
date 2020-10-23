@@ -16,7 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import model.ProductsBean;
+import jim.model.ProductsBean;
 
 public class EDMTableReset {
 	public static final String UTF8_BOM = "\uFEFF"; // 定義 UTF-8的BOM字元

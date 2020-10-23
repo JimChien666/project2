@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.ProductsBean;
+import jim.model.ProductsBean;
 
 @WebServlet("/ProductPreUpdate")
 public class ProductPreUpdateServlet extends HttpServlet {

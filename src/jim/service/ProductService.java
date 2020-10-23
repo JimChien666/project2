@@ -2,7 +2,7 @@ package jim.service;
 
 import java.util.List;
 
-import model.ProductsBean;
+import jim.model.ProductsBean;
 
 public interface ProductService {
 	// 依bookID來刪除單筆記錄

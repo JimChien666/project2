@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ProductsBean;
-import model.ProductsBean2;
+import jim.model.ProductsBean;
+import jim.model.ProductsBean2;
 
 /**
  * Servlet implementation class InsertProduct

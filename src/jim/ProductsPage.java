@@ -10,7 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.ProductsBean;
+
+import jim.model.ProductsBean;
 
 /**
  * Servlet implementation class ProductsPage

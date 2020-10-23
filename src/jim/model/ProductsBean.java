@@ -1,4 +1,4 @@
-package model;
+package jim.model;
 import java.io.Serializable;
 import java.sql.Blob;
 public class ProductsBean implements Serializable{
@@ -17,7 +17,9 @@ public class ProductsBean implements Serializable{
 	private int animalTypeId;
 	private int categoryId;
 	private String filename;
-	
+	public ProductsBean() {
+		
+	}
 	public ProductsBean(String name, int price, Blob img, String descript, int quantity, int specialPrice,
 	String rewardpoints, boolean isThumb, int memberId, int animalTypeId, int categoryId) {
 
@@ -64,9 +66,7 @@ public class ProductsBean implements Serializable{
 		this.categoryId = categoryId;
 		this.filename = filename;
 	}
-	public ProductsBean() {
-	
-	}
+
 	
 	public int getId() {
 		return id;
@@ -157,10 +157,4 @@ public class ProductsBean implements Serializable{
 		this.filename = filename;
 	}
 
-	
-
-
-
-
-	
 }
