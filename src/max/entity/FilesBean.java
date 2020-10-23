@@ -8,7 +8,7 @@ public class FilesBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int fileId;
 	private String fileType;
-	private String fileURL;
+	private String fileUrl;
 	private int memberId;
 	private int forumId;
 	private int animalId;
@@ -21,12 +21,12 @@ public class FilesBean implements Serializable{
 	public FilesBean() {
 	}
 	
-	public FilesBean(int fileId, String fileType, String fileURL, int memberId, int forumId, int animalId,
+	public FilesBean(int fileId, String fileType, String fileUrl, int memberId, int forumId, int animalId,
 			int activityId, int productId, int contentAttractionId, Blob fileBlob, int coverAttractionId) {
 		super();
 		this.fileId = fileId;
 		this.fileType = fileType;
-		this.fileURL = fileURL;
+		this.fileUrl = fileUrl;
 		this.memberId = memberId;
 		this.forumId = forumId;
 		this.animalId = animalId;
@@ -57,12 +57,12 @@ public class FilesBean implements Serializable{
 		this.fileType = fileType;
 	}
 
-	public String getFileURL() {
-		return fileURL;
+	public String getFileUrl() {
+		return fileUrl;
 	}
 
-	public void setFileURL(String fileURL) {
-		this.fileURL = fileURL;
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
 	}
 
 	public int getMemberId() {
