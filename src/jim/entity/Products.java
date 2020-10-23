@@ -1,7 +1,7 @@
-package jim.model;
+package jim.entity;
 import java.io.Serializable;
 import java.sql.Blob;
-public class ProductsBean implements Serializable{
+public class Products implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
@@ -17,10 +17,10 @@ public class ProductsBean implements Serializable{
 	private int animalTypeId;
 	private int categoryId;
 	private String filename;
-	public ProductsBean() {
+	public Products() {
 		
 	}
-	public ProductsBean(String name, int price, Blob img, String descript, int quantity, int specialPrice,
+	public Products(String name, int price, Blob img, String descript, int quantity, int specialPrice,
 	String rewardpoints, boolean isThumb, int memberId, int animalTypeId, int categoryId) {
 
 		this.name = name;
@@ -35,7 +35,7 @@ public class ProductsBean implements Serializable{
 		this.animalTypeId = animalTypeId;
 		this.categoryId = categoryId;
 	}
-	public ProductsBean(int id,String name, int price, Blob img, String descript, int quantity, int specialPrice,
+	public Products(int id,String name, int price, Blob img, String descript, int quantity, int specialPrice,
 	String rewardpoints, boolean isThumb, int memberId, int animalTypeId, int categoryId) {
 		this.id = id;
 		this.name = name;
@@ -50,7 +50,7 @@ public class ProductsBean implements Serializable{
 		this.animalTypeId = animalTypeId;
 		this.categoryId = categoryId;
 	}	
-	public ProductsBean(int id,String name, int price, Blob img, String descript, int quantity, int specialPrice,
+	public Products(int id,String name, int price, Blob img, String descript, int quantity, int specialPrice,
 	String rewardpoints, boolean isThumb, int memberId, int animalTypeId, int categoryId,String filename) {
 		this.id = id;
 		this.name = name;

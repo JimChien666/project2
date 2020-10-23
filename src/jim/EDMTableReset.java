@@ -16,7 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import jim.model.ProductsBean;
+import jim.entity.Products;
 
 public class EDMTableReset {
 	public static final String UTF8_BOM = "\uFEFF"; // 定義 UTF-8的BOM字元
@@ -54,7 +54,7 @@ public class EDMTableReset {
 //						line = line.substring(1);
 //					}
 					String[] token = line.split(",");
-					ProductsBean product = new ProductsBean();					
+					Products product = new Products();					
 					product.setName(token[0].trim());
 					product.setPrice(Integer.parseInt(token[1].trim()));		
 					// 讀取圖片檔
@@ -89,7 +89,7 @@ public class EDMTableReset {
 			}
 		}
 	}
-	public static int insertCsvToProducts(ProductsBean products, Connection conn) {
+	public static int insertCsvToProducts(Products products, Connection conn) {
 		int n = 0;
 		String sqlS= "INSERT INTO products (name,price,img,descript,quantity,special_price,rewardpoints,is_thumb,member_id,animal_type_id,category_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		try (	PreparedStatement pstmt = conn.prepareStatement(sqlS);

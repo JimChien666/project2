@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import jim.model.ProductsBean;
+import jim.entity.Products;
 
 @WebServlet("/_03_listBooks/DisplayPageProducts")
 // 本控制器負責進行必要的前置作業，以便Dao取回某一頁的商品資料
@@ -78,7 +78,7 @@ public class RetrievePageProducts extends HttpServlet {
 		service.setPageNo(pageNo);
 		request.setAttribute("baBean", service);
 //		 service.getPageBooks()方法開始讀取一頁的書籍資料
-		Collection<ProductsBean> coll = service.getPageBooks();
+		Collection<Products> coll = service.getPageBooks();
 		session.setAttribute("pageNo", String.valueOf(pageNo));
 		request.setAttribute("totalPages", service.getTotalPages());
 		// 將讀到的一頁資料放入request物件內，成為它的屬性物件

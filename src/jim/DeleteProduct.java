@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jim.model.ProductsBean;
-import jim.model.ProductsBean2;
+import jim.entity.Products;
+import jim.entity.Products2;
 
 /**
  * Servlet implementation class InsertProduct
@@ -56,7 +56,7 @@ public class DeleteProduct extends HttpServlet {
 		id = Integer.parseInt(request.getParameter("id").trim()); //把空白去掉!!
 //	    img = request.getParameter("img").trim(); //把空白去掉!!
 
-	    ProductsBean product =  new ProductsBean(id,name,price,img,descript,quantity,specialPrice,
+	    Products product =  new Products(id,name,price,img,descript,quantity,specialPrice,
 	    		rewardpoints,isThumb,memberId,animalTypeId,categoryId);
 	    JdbcDao jdbcdao = new JdbcDao();
 

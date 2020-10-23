@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jim.model.ProductsBean;
+import jim.entity.Products;
 
 /**
  * Servlet implementation class ProductsPage
@@ -27,7 +27,7 @@ public class ProductsPage extends HttpServlet {
 		    PrintWriter out = response.getWriter();
 		    
 			JdbcDao jdbcDao = new JdbcDao();
-			List<ProductsBean> list = jdbcDao.listProducts();	
+			List<Products> list = jdbcDao.listProducts();	
 //			List<ProductsBean> searchlist = jdbcDao.listProducts();	
 //			for(ProductsBean listp :list) {	
 //				if(listp.getName().contains("程小乖")) {

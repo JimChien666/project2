@@ -17,7 +17,7 @@ import org.apache.naming.java.javaURLContextFactory;
 import DAO.Animals;
 import DAO.Forums;
 import DAO.Members;
-import jim.model.ProductsBean;
+import jim.entity.Products;
 
 /**
  * Servlet implementation class TestDB
@@ -54,13 +54,13 @@ public class TestJim extends HttpServlet {
 		java.util.Date date = new java.util.Date();
 		
 		JdbcDao jdbcDao = new JdbcDao();//new class
-		List<ProductsBean> list = jdbcDao.listProducts();
-		for(ProductsBean listp :list) {
+		List<Products> list = jdbcDao.listProducts();
+		for(Products listp :list) {
 			System.out.println(listp.getDescript());
 		}
 		
 		//Test products insert
-		ProductsBean product= new ProductsBean();
+		Products product= new Products();
 		
 		product.setDescript("此店絕不賣滯銷書、二手書、過期書");	
 		jdbcDao.insertProducts(product);

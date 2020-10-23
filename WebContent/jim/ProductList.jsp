@@ -53,7 +53,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <div align='center'>
 
 <TABLE  BORDER=1>
-	<TR> <TH>產品編號</TH><TH>商品名稱</TH><TH>圖片</TH><TH>產品價格</TH><TH>產品描述</TH></TR>
+	<TR> <TH>產品編號</TH><TH>商品名稱</TH><TH>圖片</TH><TH>產品價格</TH><TH>產品描述</TH><TH>產品維護</TH></TR>
 <c:forEach var="ProductList" items="${ProductList}" >
 <TR>
 

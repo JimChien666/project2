@@ -16,7 +16,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import jim.model.ProductsBean;
+import jim.entity.Products;
 
 // 本類別使用純JDBC的技術來存取資料庫。
 // 所有SQLException都以catch區塊捕捉，然後一律再次丟出RuntimeException。
@@ -54,8 +54,8 @@ public class BookDaoImpl_Jdbc implements Serializable {
 	}
 	
 	// 查詢某一頁的商品(書籍)資料，執行本方法前，一定要先設定實例變數pageNo的初值
-	public List<ProductsBean> getPageBooks() {
-		List<ProductsBean> list = new ArrayList<ProductsBean>();
+	public List<Products> getPageBooks() {
+		List<Products> list = new ArrayList<Products>();
 
 		String sql0 = "select * from( "
 				+"select rownum as rn, b.BookId, b.author, b.bookNo, b.category, b.TITLE, b.PRICE, b.discount, b.companyID, b.fileName, b.coverImage, bc.name "
@@ -88,7 +88,7 @@ public class BookDaoImpl_Jdbc implements Serializable {
 				// 迴圈內將逐筆取出ResultSet內的紀錄
 				while (rs.next()) {
 					// 準備一個新的BookBean，將ResultSet內的一筆紀錄移植到BookBean內
-					ProductsBean pb = new ProductsBean();    	
+					Products pb = new Products();    	
 					pb.setId(rs.getInt("id"));
 					pb.setName(rs.getString("name"));
 					pb.setPrice(rs.getInt("price"));

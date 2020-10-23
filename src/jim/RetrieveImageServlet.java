@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jim.model.ProductsBean;
+import jim.entity.Products;
 
 @WebServlet("/_00_init/getImage")
 public class RetrieveImageServlet extends HttpServlet {
@@ -33,7 +33,7 @@ public class RetrieveImageServlet extends HttpServlet {
 			switch(type.toUpperCase()){
 				case "PRODUCTS":
 					JdbcDao jdbcdao = new JdbcDao();
-					ProductsBean bean2 = jdbcdao.queryProduct(id);
+					Products bean2 = jdbcdao.queryProduct(id);
 					if (bean2 != null) {
 						blob = bean2.getImg();
 						if (blob != null) { 

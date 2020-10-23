@@ -24,7 +24,7 @@ import DAO.Animals;
 import DAO.Comments;
 import DAO.Forums;
 import DAO.Members;
-import jim.model.ProductsBean;
+import jim.entity.Products;
 
 public class JdbcDao {
 	private DataSource dataSource;
@@ -137,7 +137,7 @@ public class JdbcDao {
 		return false;
 	}
 
-	public boolean insertProducts(ProductsBean products) {
+	public boolean insertProducts(Products products) {
 		try (
 				Connection conn = getDataSource().getConnection();
 				Statement stmt = conn.createStatement();
@@ -167,7 +167,7 @@ public class JdbcDao {
 		}
 		return false;
 	}	
-	public boolean updateProduct(ProductsBean product) {
+	public boolean updateProduct(Products product) {
 		try (Connection conn = getDataSource().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement("update products set name=?,price=? where id=?");) {
 
@@ -186,8 +186,8 @@ public class JdbcDao {
 //	讀BLOB用
 	// 由參數 id 到Product表格中 取得某個產品所有資料，傳回值為一個ProductBean物件，
 	// 如果找不到對應的產品資料，傳回值為null。
-	public ProductsBean queryProduct(String id) {
-		ProductsBean pb=null;
+	public Products queryProduct(String id) {
+		Products pb=null;
 		String sql="select * from products where id=?";
 		try (Connection conn = getDataSource().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -196,7 +196,7 @@ public class JdbcDao {
 			pstmt.setString(1, id);
 			try (ResultSet rs = pstmt.executeQuery();) {
 				if (rs.next()) {
-					pb = new ProductsBean();
+					pb = new Products();
 					pb.setId(rs.getInt("id"));
 					pb.setName(rs.getString("name"));
 					pb.setPrice(rs.getInt("price"));
@@ -255,7 +255,7 @@ public class JdbcDao {
 //			return list;
 //		}
 		
-	public int searchProduct(ProductsBean product) {
+	public int searchProduct(Products product) {
 		int n=0;
 		try (Connection conn = getDataSource().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement("select * from products where name like ? order by id");) {
@@ -270,7 +270,7 @@ public class JdbcDao {
 		return n;
 	}
 
-	public int deleteProduct(ProductsBean product) {
+	public int deleteProduct(Products product) {
 		int n=0;
 		try (Connection conn = getDataSource().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement("delete from products where id=?");
@@ -289,14 +289,14 @@ public class JdbcDao {
 	}
 
 	//產品List
-	public List<ProductsBean> listProducts() {
-		List<ProductsBean> list = new ArrayList<>();
+	public List<Products> listProducts() {
+		List<Products> list = new ArrayList<>();
 		try (Connection conn = getDataSource().getConnection();
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery("select * from products order by id");) {
 
 			while (rs.next()) {
-				ProductsBean product = new ProductsBean();
+				Products product = new Products();
 				product.setId(rs.getInt("id"));
 				product.setName(rs.getString("name"));
 				product.setPrice(rs.getInt("price"));
@@ -322,8 +322,8 @@ public class JdbcDao {
 		return list;
 	}
 	//查詢一筆資料修改
-	public ProductsBean getProduct(int productId) {
-		ProductsBean product = null; 
+	public Products getProduct(int productId) {
+		Products product = null; 
 		String sql = "select a.id,a.name,a.price,a.descript,a.quantity,a.special_price,a.rewardpoints,a.is_thumb,a.member_id,a.animal_type_id,a.category_id, f.file_blob from products a left join files f on f.product_id=a.id where a.id= ?";
 		try (Connection conn = getDataSource().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -331,7 +331,7 @@ public class JdbcDao {
 			pstmt.setInt(1, productId);
 			try(ResultSet rs=pstmt.executeQuery();){
 			while (rs.next()) {
-				product = new ProductsBean();
+				product = new Products();
 				product.setId(rs.getInt("id"));
 				product.setName(rs.getString(2));
 				product.setPrice(rs.getInt(3));
