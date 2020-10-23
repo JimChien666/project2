@@ -1,4 +1,4 @@
-package tw.johnny.model;
+package team6.johnny.model;
 
 import java.util.Date;
 
