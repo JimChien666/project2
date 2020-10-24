@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Citys")
+@Table(name = "CITYS")
 public class Citys implements Serializable {
 	private int id;
 	private String name;
@@ -44,7 +44,7 @@ public class Citys implements Serializable {
 		this.name = name;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "attractions", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "city", cascade = CascadeType.ALL)
 	public Set<Attractions> getAttractions() {
 		return attractions;
 	}

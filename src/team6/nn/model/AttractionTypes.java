@@ -7,18 +7,19 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "Attraction_Types")
+@Table(name = "ATTRACTION_TYPES")
 public class AttractionTypes {
 	private int id;
 	private String name;
 	private Set<Attractions> attractions = new HashSet<Attractions>();
 	
-	
+	@Id
 	@Column(name="ID")
 	public int getId() {
 		return id;
@@ -34,7 +35,7 @@ public class AttractionTypes {
 		this.name = name;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "attractions", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "attractionType", cascade = CascadeType.ALL)
 	public Set<Attractions> getAttractions() {
 		return attractions;
 	}

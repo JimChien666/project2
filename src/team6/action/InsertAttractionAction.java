@@ -14,8 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import team6.model.HouseBean;
-import team6.model.HouseBeanDAO;
+
 import team6.nn.model.AttractionTypes;
 import team6.nn.model.AttractionTypesDAO;
 import team6.nn.model.Attractions;
@@ -27,7 +26,7 @@ import team6.util.HibernateUtil;
  * Servlet implementation class DemoHibernateServletAction1
  */
 @WebServlet("/DemoCityBeanAction1")
-public class DemoCityBeanAction1 extends HttpServlet {
+public class InsertAttractionAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -66,8 +65,8 @@ public class DemoCityBeanAction1 extends HttpServlet {
 		attraction.setCity(city);
 		attraction.setAttractionType(attractionType);
 		
-		session.save(city);
-		session.save(attractionType);
+		
+		session.save(attraction);
 	}
 
 }

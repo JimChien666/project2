@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "Attractions")
+@Table(name = "ATTRACTIONS")
 public class Attractions implements Serializable {
 	private int id;
 	private String name;
@@ -29,6 +29,9 @@ public class Attractions implements Serializable {
 	private Date deletedAt;
 	private int AttractionTypeId;
 	private int cityId;
+	private int memberId;
+	
+
 	private AttractionTypes attractionType;
 	private Citys city;
 
@@ -88,7 +91,7 @@ public class Attractions implements Serializable {
 		this.address = address;
 	}
 
-	@Column(name = "CREATEDAT")
+	@Column(name = "CREATED_AT")
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -97,7 +100,7 @@ public class Attractions implements Serializable {
 		this.createdAt = createdAt;
 	}
 
-	@Column(name = "UPDATEDAT")
+	@Column(name = "UPDATED_AT")
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
@@ -106,7 +109,7 @@ public class Attractions implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	@Column(name = "DELETEDAT")
+	@Column(name = "DELETED_AT")
 	public Date getDeletedAt() {
 		return deletedAt;
 	}
@@ -132,8 +135,18 @@ public class Attractions implements Serializable {
 	public void setCityId(int cityId) {
 		this.cityId = cityId;
 	}
+	
+	@Column(name="MEMBER_ID")
+	public int getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
+	}
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ID")
+	@JoinColumn(name="CITY_ID")
 	public Citys getCity() {
 		return city;
 	}
@@ -142,7 +155,7 @@ public class Attractions implements Serializable {
 		this.city = city;
 	}
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ID")
+	@JoinColumn(name="ATTRACTION_TYPE_ID")
 	public AttractionTypes getAttractionType() {
 		return attractionType;
 	}
@@ -150,4 +163,6 @@ public class Attractions implements Serializable {
 	public void setAttractionType(AttractionTypes attractionType) {
 		this.attractionType = attractionType;
 	}
+	
+	
 }
