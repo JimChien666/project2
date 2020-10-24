@@ -13,9 +13,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import DAO.Animals;
 import nn.vo.AttractionBean;
-import nn.vo.AttractionIntroduction;
 import nn.vo.AttractionTagRefsBean;
 import nn.vo.AttractionTypeBean;
 import nn.vo.CityBean;
