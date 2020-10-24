@@ -1,7 +1,7 @@
 package max.entity;
 
 import java.io.Serializable;
-
+//TODO
 public class FavoritesBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
