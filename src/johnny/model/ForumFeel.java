@@ -1,4 +1,4 @@
-package team6.johnny.model;
+package johnny.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package team6.johnny.model;
+package johnny.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,10 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "FEEL_TYPE")
-public class FeelType {
+@Table(name = "VOTE")
+public class Vote {
 	private int id;
-	private String feelname;
+	private String title;
 
 	@Id @Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +23,13 @@ public class FeelType {
 		this.id = id;
 	}
 
-	@Column(name = "FEEL_NAME")
-	public String getFeelname() {
-		return feelname;
+	@Column(name = "TITLE")
+	public String getTitle() {
+		return title;
 	}
 
-	public void setFeelname(String feelname) {
-		this.feelname = feelname;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }
