@@ -53,7 +53,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <div align='center'>
 
 <TABLE  BORDER=1>
-	<TR> <TH>產品編號</TH><TH>商品名稱</TH><TH>圖片</TH><TH>產品價格</TH><TH>產品描述</TH></TR>
+	<TR> <TH>產品編號</TH><TH>商品名稱</TH><TH>圖片</TH><TH>產品價格</TH><TH>產品描述</TH><TH>產品維護</TH></TR>
 <c:forEach var="ProductList" items="${ProductList}" >
 <TR>
 
@@ -73,38 +73,38 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 </TABLE>
 </div>
 
-<div id="bpaging">以下為控制第一頁、前一頁、下一頁、最末頁 等超連結
-<table border="1">
-	<tr align="center">
-		<td width='80' height='20'><c:if test="${pageNo > 1}">
-			<div id="blfirst"><a
-				href="<c:url value='ProductsPage?pageNo=1' />"> <img
-				border='0' alt='第一頁' height='30' width='30'
-				src='../jim/images/first-icon.png' /> </a></div>
-		</c:if></td>
-		<td width='80'><c:if test="${pageNo > 1}">
-			<div id="blprev"><a
-				href="<c:url value='ProductsPage?pageNo=${pageNo-1}' />">
-			<img border='0' alt='前一頁' height='30' width='30'
-				src='../jim/images/prev-icon.png' /></a></div>
-		</c:if></td>
-		<td width='76'>${pageNo} / ${totalPages}</td>
-		<td width='80'><c:if test="${pageNo != totalPages}">
+<!-- <div id="bpaging">以下為控制第一頁、前一頁、下一頁、最末頁 等超連結 -->
+<!-- <table border="1"> -->
+<!-- 	<tr align="center"> -->
+<%-- 		<td width='80' height='20'><c:if test="${pageNo > 1}"> --%>
+<!-- 			<div id="blfirst"><a -->
+<%-- 				href="<c:url value='ProductsPage?pageNo=1' />"> <img --%>
+<!-- 				border='0' alt='第一頁' height='30' width='30' -->
+<!-- 				src='../jim/images/first-icon.png' /> </a></div> -->
+<%-- 		</c:if></td> --%>
+<%-- 		<td width='80'><c:if test="${pageNo > 1}"> --%>
+<!-- 			<div id="blprev"><a -->
+<%-- 				href="<c:url value='ProductsPage?pageNo=${pageNo-1}' />"> --%>
+<!-- 			<img border='0' alt='前一頁' height='30' width='30' -->
+<!-- 				src='../jim/images/prev-icon.png' /></a></div> -->
+<%-- 		</c:if></td> --%>
+<%-- 		<td width='76'>${pageNo} / ${totalPages}</td> --%>
+<%-- 		<td width='80'><c:if test="${pageNo != totalPages}"> --%>
 		
-			<div id="blnext"><a
-				href="<c:url value='ProductsPage?pageNo=${pageNo+1}' />">
-			<img border='0' alt='下一頁' height='30' width='30'
-				src='/jim/images/next-icon.png' /> </a></div>
-		</c:if></td>
-		<td width='80'><c:if test="${pageNo != totalPages}">
-			<div id="bllast"><a
-				href="<c:url value='ProductsPage?pageNo=${totalPages}' />">
-			<img border='0' alt='最末頁' height='30' width='30'
-				src='../jim/images/last-icon.png' /> </a></div>
-		</c:if></td>
-	</tr>
-</table>
-</div>
+<!-- 			<div id="blnext"><a -->
+<%-- 				href="<c:url value='ProductsPage?pageNo=${pageNo+1}' />"> --%>
+<!-- 			<img border='0' alt='下一頁' height='30' width='30' -->
+<!-- 				src='/jim/images/next-icon.png' /> </a></div> -->
+<%-- 		</c:if></td> --%>
+<%-- 		<td width='80'><c:if test="${pageNo != totalPages}"> --%>
+<!-- 			<div id="bllast"><a -->
+<%-- 				href="<c:url value='ProductsPage?pageNo=${totalPages}' />"> --%>
+<!-- 			<img border='0' alt='最末頁' height='30' width='30' -->
+<!-- 				src='../jim/images/last-icon.png' /> </a></div> -->
+<%-- 		</c:if></td> --%>
+<!-- 	</tr> -->
+<!-- </table> -->
+<!-- </div> -->
 
              
 </BODY>

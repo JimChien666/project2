@@ -16,7 +16,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import org.apache.jasper.runtime.JspSourceImports;
 import jim.GlobalService;
-import model.ProductsBean;
+import jim.entity.Products;
 
 
 // 本類別使用純JDBC的技術來存取資料庫。
@@ -55,8 +55,8 @@ public class ProductDaoImpl_Jdbc implements Serializable  {
 	}
 	
 	// 查詢某一頁的商品(書籍)資料，執行本方法前，一定要先設定實例變數pageNo的初值
-	public List<ProductsBean> getPageBooks() {
-		List<ProductsBean> list = new ArrayList<ProductsBean>();
+	public List<Products> getPageBooks() {
+		List<Products> list = new ArrayList<Products>();
 
 		String sql0 = "select * from( "
 				+"select rownum as rn,id,name,price,img,descript,quantity,special_price,rewardpoints,is_thumb,member_id,animal_type_id,category_id " 
@@ -93,7 +93,7 @@ public class ProductDaoImpl_Jdbc implements Serializable  {
 				// 只要還有紀錄未取出，rs.next()會傳回true
 				// 迴圈內將逐筆取出ResultSet內的紀錄
 				while (rs.next()) {
-					ProductsBean product = new ProductsBean();
+					Products product = new Products();
 					product.setId(rs.getInt("id"));
 					product.setName(rs.getString("name"));
 					product.setPrice(rs.getInt("price"));

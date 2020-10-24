@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.ProductsBean;
+import jim.entity.Products;
 
 @WebServlet("/ProductPreUpdate")
 public class ProductPreUpdateServlet extends HttpServlet {
@@ -35,7 +35,7 @@ public class ProductPreUpdateServlet extends HttpServlet {
 			productId = Integer.parseInt(strProduct);
 		}
 		JdbcDao proJdbcDao = new JdbcDao();
-		ProductsBean product = proJdbcDao.getProduct(productId);
+		Products product = proJdbcDao.getProduct(productId);
 		System.out.println(product);
 		
 		session.setAttribute("product", product);

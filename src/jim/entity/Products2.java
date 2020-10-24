@@ -1,7 +1,7 @@
-package model;
+package jim.entity;
 import java.io.Serializable;
 import java.sql.Blob;
-public class ProductsBean2 implements Serializable{
+public class Products2 implements Serializable{
 	private static final long serialVersionUID = 1L;
 	int id;
 	String name;
@@ -15,7 +15,7 @@ public class ProductsBean2 implements Serializable{
 	int memberId;
 	int animalTypeId;
 	int categoryId;
-	public ProductsBean2(String name, int price, Blob img, String descript, int quantity, int specialPrice,
+	public Products2(String name, int price, Blob img, String descript, int quantity, int specialPrice,
 	String rewardpoints, boolean isThumb, int memberId, int animalTypeId, int categoryId) {
 
 		this.name = name;
@@ -31,7 +31,7 @@ public class ProductsBean2 implements Serializable{
 		this.categoryId = categoryId;
 	}
 
-	public ProductsBean2() {
+	public Products2() {
 	
 	}
 	

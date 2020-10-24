@@ -49,12 +49,37 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
   </div>  
 </nav>
 <div class="page1">
-	<a href="<c:url value='/jim/ProductsPage.jsp' />" class="btn btn-secondary div2">回產品首頁</a>
-	<form action="<%=application.getContextPath() %>/ProductUpdate" method="post">
+	<a href="<c:url value='/ProductsPage' />" class="btn btn-secondary div2">回產品首頁</a>
+<form action="<%=application.getContextPath() %>/UpdateProduct" method="post"> 
 		<label for="" class="span1">產品編號：</label>
-		<input type="text" name="productId" value="${product.id}" readonly><br> 
-		<label for="" class="span1">會員編號：</label>
-		<input type="text" name="memberId" value="${valueObjectAnimal.memberId}" onblur="checkmemberId()" id="memberId" required><br>
+		<input type="text" name="id" value="${product.id}" readonly>(無法修改)<br> 
+		<label for="" class="span1">產品名稱：</label>
+		<input type="text" name="name" value="${product.name}"  required><br>
+		<label for="" class="span1">產品圖片：</label>
+		<img height='200px' width='100px'
+			src='${pageContext.request.contextPath}/_00_init/getImage?id=${product.id}&type=PRODUCTS'>
+			
+		
+		<input enctype="multipart/form-data" type="file" name="img" size="10" maxlength="10"><br>
+<%-- 		<input type="text" name="productImg" value="${product.img}"  required><br> --%>
+		<label for="" class="span1">產品價格：</label>
+		<input type="text" name="price" value="${product.price}"  required><br>
+		<label for="" class="span1">產品描述：</label>
+		<input type="text" name="descript" value="${product.descript}"  required><br>
+		
+		<center>
+			<a href="<%=application.getContextPath()%>/jim/InsertProduct.jsp" class="btn btn-secondary">重填</a>
+			<c:choose>
+			<c:when test="">
+			</c:when>
+			</c:choose>
+			<button type="submit" name="submit" class="btn btn-primary">送出</button>
+
+		</center>
+</form>
+		
+		
+		
 			<span id="memberIdSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
 				function checkmemberId(){
@@ -87,73 +112,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
             		}
 				}
 			</script>
-		<label for="" class="span1">收容動物編號：</label> 
-		<input type="text" name="acceptionId" value="${valueObjectAnimal.acceptionId}" onblur="checkacceptionId()" id="acceptionId"><br>
-			<span id="acceptionIdSpan" class="spanHidden"><br></span>
-			<script type="text/javascript">
-				function checkacceptionId(){
-					let acceptionId = document.getElementById("acceptionId").value;
-					let acceptionIdLength = acceptionId.length;
-					let acceptionIdSpan = document.getElementById("acceptionIdSpan");
-					let flag1 = false;
-					if (acceptionId == ""){
-						acceptionIdSpan.innerHTML = "";
-					}else if (acceptionIdLength <= 10) {
-                		for (let i = 0; i < acceptionIdLength; i++) {
-                    		let ch = acceptionId.charAt(i);
-                    		if ((ch >= "\u0030" && ch <= "\u0039") || (ch >= "\u0061" && ch <= "\u007a") || (ch >= "\u0041" && ch <= "\u005a")) {//判斷數字或英文大小寫
-                      			flag1 = true;
-                    		}else{
-                        		flag1 = false;
-                        		break;
-                    		}
-                		}
-                		if (flag1) {
-                			acceptionIdSpan.innerHTML = "";
-                		} else {
-                			document.getElementById("acceptionIdSpan").style.display = "block";
-                			acceptionIdSpan.innerHTML = "只能輸入英文字母、數字";
-                		}
-            		} else {
-            			document.getElementById("acceptionIdSpan").style.display = "block";
-            			acceptionIdSpan.innerHTML = "只能輸入10碼";
-            		}
-				}
-			</script>
-		<label for="" class="span1">品種編號：</label> 
-		<input type="text" name="breedId" value="${valueObjectAnimal.breedId}" onblur="checkbreedId()" id="breedId" required><br>
-			<span id="breedIdSpan" class="spanHidden"><br></span>
-			<script type="text/javascript">
-				function checkbreedId(){
-					let breedId = document.getElementById("breedId").value;
-					let breedIdLength = breedId.length;
-					let breedIdSpan = document.getElementById("breedIdSpan");
-					let flag1 = false;
-					if (breedId == ""){
-            			document.getElementById("breedIdSpan").style.display = "block";
-						breedIdSpan.innerHTML = "不可空白";
-					}else if (breedIdLength <= 10) {
-                		for (let i = 0; i < breedIdLength; i++) {
-                    		let ch = breedId.charAt(i);
-                    		if ((ch >= "\u0030" && ch <= "\u0039")) {//判斷數字
-                      			flag1 = true;
-                    		}else{
-                        		flag1 = false;
-                        		break;
-                    		}
-                		}
-                		if (flag1) {
-                			breedIdSpan.innerHTML = "";
-                		} else {
-                			document.getElementById("breedIdSpan").style.display = "block";
-                			breedIdSpan.innerHTML = "只能輸入數字";
-                		}
-            		} else {
-            			document.getElementById("breedIdSpan").style.display = "block";
-            			breedIdSpan.innerHTML = "只能輸入10碼";
-            		}
-				}
-			</script>
+		
 		<label for="" class="span1">性別：</label>
 		<select name="gender" id="">
 		<c:choose>
@@ -165,78 +124,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 			<option value="1">公</option>
 			<option value="0" selected>母</option>
 		</c:otherwise>
-		</c:choose>
-		</select><br> 
-		<label for="" class="span1">毛色：</label> 
-		<input type="text" name="coatColor" value="${valueObjectAnimal.coatColor}" onblur="checkcoatColor()" id="coatColor"><br>
-			<span id="coatColorSpan" class="spanHidden"><br></span>
-			<script type="text/javascript">
-				function checkcoatColor(){
-					let coatColor = document.getElementById("coatColor").value;
-					let coatColorLength = coatColor.length;
-					let coatColorSpan = document.getElementById("coatColorSpan");
-					let flag1 = false;
-					if (coatColor == ""){
-						coatColorSpan.innerHTML = "";
-					}else {
-                		for (let i = 0; i < coatColorLength; i++) {
-                    		let ch = coatColor.charAt(i);
-                    		if ((ch >= "\u4e00" && ch <= "\u9fa5") || (ch >= "\u0061" && ch <= "\u007a") || (ch >= "\u0041" && ch <= "\u005a")) {//判斷數字或英文大小寫
-                      			flag1 = true;
-                    		}else{
-                        		flag1 = false;
-                        		break;
-                    		}
-                		}
-                		if (flag1) {
-                			coatColorSpan.innerHTML = "";
-                		} else {
-                			document.getElementById("coatColorSpan").style.display = "block";
-                			coatColorSpan.innerHTML = "只能輸入英文字母、中文";
-                		}
-            		}
-				}
-			</script>
-		<label for="" class="span1">是否開放領養：</label>
-		<select name="isAdoptionAvailable" id="">
-		<c:choose>
-		<c:when test="${valueObjectAnimal.isAdoptionAvailable == 1}">
-			<option value="1" selected>開放</option>
-			<option value="0">不開放</option>
-		</c:when>
-		<c:otherwise>
-			<option value="1">開放</option>
-			<option value="0" selected>不開放</option>
-		</c:otherwise>
-		</c:choose>
-		</select><br> 
-		<label for="" class="span1" style="position:absolute">備註：</label>
-		<textarea id="" name="note" rows="5" cols="18" style="margin-left:125px">${valueObjectAnimal.note}</textarea><br>
-		<a href="ServletPreUpdateAnimal?animalId=${valueObjectAnimal.animalId}" class="btn btn-secondary">回復修改</a>
-		<button type="submit" name="update" class="btn btn-primary">修改</button>
-		<input type="button" name="delete" value="刪除" onclick="confirmDelete()" class="btn btn-danger" />
-	</form>
-</div>
-
-
-
-<div align='center'>
-<TABLE  BORDER=1>
-	<TR> <TH>產品編號</TH><TH>商品名稱</TH><TH>圖片</TH><TH>產品價格</TH><TH>產品描述</TH></TR>
-<c:forEach var="ProductList" items="${ProductList}" >
-<TR>
-
-			<TD>${ProductList.id}</TD>
-			<TD>${ProductList.name}</TD>
-			<TD><img height='200px' width='100px'
-			src='${pageContext.request.contextPath}/_00_init/getImage?id=${ProductList.id}&type=PRODUCTS'>
-			</TD>
-			<TD>${ProductList.price}</TD>
-			<TD>${ProductList.descript}</TD>
-</TR>	
-</c:forEach>
-</TABLE>
-</div>
+		</c:choose>		
 
 <!-- <div id="bpaging">以下為控制第一頁、前一頁、下一頁、最末頁 等超連結 -->
 <!-- <table border="1"> -->

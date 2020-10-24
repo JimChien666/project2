@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ProductsBean;
-import model.ProductsBean2;
+import jim.entity.Products;
+import jim.entity.Products2;
 
 /**
  * Servlet implementation class InsertProduct
@@ -53,9 +53,9 @@ public class QueryProduct extends HttpServlet {
 
 	    JdbcDao jdbcdao = new JdbcDao();
 
-    	List<ProductsBean> SearchList = new ArrayList<>();
-    	List<ProductsBean> list = jdbcdao.listProducts();
-    	for(ProductsBean product:list) {
+    	List<Products> SearchList = new ArrayList<>();
+    	List<Products> list = jdbcdao.listProducts();
+    	for(Products product:list) {
     		if(product.getName().contains(searchName)) {
     			SearchList.add(product);
     		}

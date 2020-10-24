@@ -6,8 +6,6 @@ import java.io.PrintWriter;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Collection;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -15,20 +13,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import model.ProductsBean;
+import jim.entity.Products;
 
-/**
- * Servlet implementation class InsertProduct
- */
-@WebServlet("/ProductUpdate")
+@WebServlet("/UpdateProduct")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
 maxFileSize=1024*1024*10,      // 10MB
 maxRequestSize=1024*1024*50)   // 50MB
-public class ProductUpdate extends HttpServlet {
+public class UpdateProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	 private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 	 private static final String CHARSET_CODE = "UTF-8";
-    public ProductUpdate() {
+    public UpdateProduct() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -109,15 +104,13 @@ public class ProductUpdate extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		
+		}		
 
 //	    img = request.getParameter("img"); //把空白去掉!!
 	    descript = request.getParameter("descript").trim(); //把空白去掉!!
 	    quantity = Integer.parseInt(request.getParameter("quantity").trim());
 
-	    ProductsBean product =  new ProductsBean(name,price,img,descript,quantity,specialPrice,
+	    Products product =  new Products(name,price,img,descript,quantity,specialPrice,
 	    		rewardpoints,isThumb,memberId,animalTypeId,categoryId);
 	    JdbcDao jdbcdao = new JdbcDao();
 
