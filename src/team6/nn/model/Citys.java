@@ -1,22 +1,28 @@
 package team6.nn.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Citys")
-public class CityBean implements Serializable {
+public class Citys implements Serializable {
 	private int id;
 	private String name;
+	private Set<Attractions> attractions = new HashSet<Attractions>();;
 	
-	public CityBean() {};
-	public CityBean(int id, String name) {
+	public Citys() {};
+	public Citys(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -37,5 +43,15 @@ public class CityBean implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "attractions", cascade = CascadeType.ALL)
+	public Set<Attractions> getAttractions() {
+		return attractions;
+	}
+	public void setAttractions(Set<Attractions> attractions) {
+		this.attractions = attractions;
+	}
+	
+	
 	
 }
