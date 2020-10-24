@@ -321,4 +321,37 @@ public class JdbcDao {
 		}
 		return list;
 	}
+	//查詢一筆資料修改
+	public ProductsBean getProduct(int productId) {
+		ProductsBean product = null; 
+		String sql = "select a.id,a.name,a.price,a.descript,a.quantity,a.special_price,a.rewardpoints,a.is_thumb,a.member_id,a.animal_type_id,a.category_id, f.file_blob from products a left join files f on f.product_id=a.id where a.id= ?";
+		try (Connection conn = getDataSource().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+			) {
+			pstmt.setInt(1, productId);
+			try(ResultSet rs=pstmt.executeQuery();){
+			while (rs.next()) {
+				product = new ProductsBean();
+				product.setId(rs.getInt("id"));
+				product.setName(rs.getString(2));
+				product.setPrice(rs.getInt(3));
+//				product.setImg(rs.getString("img"));
+				product.setImg(rs.getBlob(4));
+				product.setDescript(rs.getString(5));
+				product.setQuantity(rs.getInt(6));
+				product.setSpecialPrice(rs.getInt(7));
+				product.setRewardpoints(rs.getString(8));
+				product.setIsThumb(rs.getBoolean(9));
+				product.setMemberId(rs.getInt(10));
+				product.setAnimalTypeId(rs.getInt(11));
+				product.setCategoryId(rs.getInt(12));
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("JdbcDao.getProduct error");
+			e.printStackTrace();
+		}
+		return product;
+	}
+	
 }

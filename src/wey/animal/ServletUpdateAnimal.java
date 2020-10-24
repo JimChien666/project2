@@ -17,6 +17,10 @@ public class ServletUpdateAnimal extends HttpServlet {
         super();
     }
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/ServletReadAnimal").forward(request,response);
+	}
+    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
@@ -38,12 +42,11 @@ public class ServletUpdateAnimal extends HttpServlet {
 		ValueObjectAnimal reg_Animal = new ValueObjectAnimal(animalId, memberId, acceptionId, breedId, gender, coatColor, isAdoptionAvailable, note, createdAt, updatedAt, deletedAt, fileType, fileUrl, fileBlob);
 		DaoAnimal daoAnimal = new DaoAnimal();
 		if (daoAnimal.updateAnimal(reg_Animal)){
-          System.out.println("Get some SQL commands done!");
+          System.out.println("Update animal No."+animalId+".");
           request.getSession(true).invalidate();
           request.getRequestDispatcher("/ServletReadAnimal").forward(request,response);
         }else {
         	System.out.println("ServletUpdateAnimal error");
         }
 	}
-
 }

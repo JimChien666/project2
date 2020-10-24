@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
 public class DaoAnimal {
@@ -32,7 +31,7 @@ public class DaoAnimal {
 	//可參考/eDMoee/src/main/java/_03_listBooks/dao/impl/BookDaoImpl_Jdbc.java line61
 	public List<ValueObjectAnimal> listAnimals(){
 		List<ValueObjectAnimal> list = new ArrayList<>();
-		String sql = "select * from ANIMALS a, files f where a.animal_id = f.animal_id(+) order by a.ANIMAL_ID";
+		String sql = "select * from ANIMALS a, files f where a.animal_id = f.animal_id(+) order by a.ANIMAL_ID desc";
 		try (
 				Connection conn = getDataSource().getConnection();
 				Statement stmt = conn.createStatement();
@@ -82,7 +81,6 @@ public class DaoAnimal {
 //			pStmt.setDate(9, null);
 //			pStmt.setDate(10, null);
 //			pStmt.setDate(11, null);
-//			int updatecount = 
 			pStmt.executeUpdate();
 			conn.commit();
 			ResultSet rs = stmt.executeQuery(sql2);
@@ -90,19 +88,15 @@ public class DaoAnimal {
 			animalId = rs.getInt("max(animal_id)");
 			}
 			return animalId;
-//			if(updatecount>=1)return true;
-//			else return false;
 			} catch (Exception e) {
 				System.out.println("DaoAnimal.java/createAnimal error");
 				conn.rollback();
 				e.printStackTrace();
-//				return false;
 				return -1;
 			}
 		} catch (SQLException e) {
 			System.out.println("DaoAnimal.java/createAnimal error");
 			e.printStackTrace();
-//			return false;
 			return -1;
 		}
 	}
@@ -173,16 +167,21 @@ public class DaoAnimal {
 	
 	//刪除動物
 	public boolean deleteAnimal(int animalId) {
-		String sql = "delete from ANIMALS where Animal_Id=?";
+		String sql1 = "delete from ANIMALS where Animal_Id=?";
+		String sql2 = "delete from FILES where Animal_Id=?";
 		try (
 				Connection conn = getDataSource().getConnection();
 				){
 			conn.setAutoCommit(false);
 			try {
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setInt(1, animalId);
-			pStmt.executeUpdate();
-			pStmt.clearParameters();
+			PreparedStatement pStmt1 = conn.prepareStatement(sql1);
+			PreparedStatement pStmt2 = conn.prepareStatement(sql2);
+			pStmt1.setInt(1, animalId);
+			pStmt2.setInt(1, animalId);
+			pStmt1.executeUpdate();
+			pStmt2.executeUpdate();
+			pStmt1.clearParameters();
+			pStmt2.clearParameters();
 			conn.commit();
 			return true;
 			} catch (Exception e) {

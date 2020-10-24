@@ -15,6 +15,10 @@ public class ServletDeleteAnimal extends HttpServlet {
     public ServletDeleteAnimal() {
         super();
     }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.getRequestDispatcher("/ServletReadAnimal").forward(request,response);
+    }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -31,6 +35,7 @@ public class ServletDeleteAnimal extends HttpServlet {
 		}else {
 			session.setAttribute("AnimalDeleteMsg", "動物編號(" + animalId + ")刪除失敗");
 		}
+		System.out.println("Delete animal No."+animalId+".");
 		request.getRequestDispatcher("/ServletReadAnimal").forward(request,response);
 		return;
 	}

@@ -20,15 +20,15 @@ import model.ProductsBean;
 /**
  * Servlet implementation class InsertProduct
  */
-@WebServlet("/UpdateProduct")
+@WebServlet("/ProductUpdate")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
 maxFileSize=1024*1024*10,      // 10MB
 maxRequestSize=1024*1024*50)   // 50MB
-public class UpdateProduct extends HttpServlet {
+public class ProductUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	 private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 	 private static final String CHARSET_CODE = "UTF-8";
-    public UpdateProduct() {
+    public ProductUpdate() {
         super();
         // TODO Auto-generated constructor stub
     }
