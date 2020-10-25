@@ -27,7 +27,7 @@ public class AnimalsDao {
 	}
 	
 	public List<Animals> readAll(){
-		Query<Animals> query = hSession.createQuery("from Animals order by animalid");
+		Query<Animals> query = hSession.createQuery("from Animals order by animalid", Animals.class);
 		List<Animals> list = query.list();
 		return list;
 	}
