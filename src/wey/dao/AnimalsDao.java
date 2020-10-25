@@ -3,7 +3,6 @@ package wey.dao;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 import wey.entity.Animals;
 
 public class AnimalsDao {
@@ -22,8 +21,8 @@ public class AnimalsDao {
 		return null;
 	}
 	
-	public Animals read(int animalId) {
-		return hSession.get(Animals.class, animalId);
+	public Animals read(int animalsId) {
+		return hSession.get(Animals.class, animalsId);
 	}
 	
 	public List<Animals> readAll(){
@@ -35,4 +34,13 @@ public class AnimalsDao {
 //	public Animals update() {
 //		
 //	}
+	
+	public boolean delete(int animalsId) {
+		Animals result = hSession.get(Animals.class, animalsId);
+		if (result!=null) {
+			hSession.delete(result);
+			return true;
+		}
+		return false;
+	}
 }
