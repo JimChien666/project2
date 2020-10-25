@@ -28,7 +28,7 @@ public class Favorites {
 	private int productId;
 	private int attractionId;
 	private int tripId;
-	private String isFavoriteAvailable;
+	private int isFavoriteAvailable;
 //	//Members
 //	private Members members;
 //	//
@@ -85,11 +85,11 @@ public class Favorites {
 	}
 	
 	@Column(name = "IS_FAVORITE_AVAILABLE")
-	public String getIsFavoriteAvailable() {
+	public int getIsFavoriteAvailable() {
 		return isFavoriteAvailable;
 	}
 
-	public void setIsFavoriteAvailable(String isFavoriteAvailable) {
+	public void setIsFavoriteAvailable(int isFavoriteAvailable) {
 		this.isFavoriteAvailable = isFavoriteAvailable;
 	}
 	
