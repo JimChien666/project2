@@ -56,10 +56,8 @@ public class InsertAttractionComments extends HttpServlet {
 		attraction.setAttractionComments(attractionComments);
 		attractionComment1.setAttraction(attraction);
 		attractionComment2.setAttraction(attraction);
-		
 		session.save(attractionComment2);
 		session.save(attractionComment1);
-
 	}
 
 }
