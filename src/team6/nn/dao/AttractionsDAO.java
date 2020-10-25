@@ -1,10 +1,12 @@
-package team6.nn.model;
+package team6.nn.dao;
 
 import java.util.List;
 
 import org.hibernate.Session;
 
 import org.hibernate.query.Query;
+
+import team6.nn.entity.Attractions;
 
 public class AttractionsDAO {
 

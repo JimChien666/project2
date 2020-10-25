@@ -18,14 +18,15 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         
-        <mapping resource="team6/model/HouseBean.hbm.xml"/>
         
         
         
 		<!--佳恩 -->
-        <mapping class="team6.nn.model.Citys"/>
-        <mapping class="team6.nn.model.Attractions"/>
-        <mapping class="team6.nn.model.AttractionTypes"/>
+        <mapping class="team6.nn.entity.Citys"/>
+        <mapping class="team6.nn.entity.Attractions"/>
+        <mapping class="team6.nn.entity.AttractionTypes"/>
+        <mapping class="team6.nn.entity.Tags"/>
+        <mapping class="team6.nn.entity.AttractionComments"/>
         
 
         

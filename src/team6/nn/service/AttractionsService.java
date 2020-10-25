@@ -1,8 +1,11 @@
-package team6.nn.model;
+package team6.nn.service;
 
 import java.util.List;
 
 import org.hibernate.Session;
+
+import team6.nn.dao.AttractionsDAO;
+import team6.nn.entity.Attractions;
 
 public class AttractionsService implements IAttractionsService {
 	

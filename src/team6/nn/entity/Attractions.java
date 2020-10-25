@@ -1,9 +1,12 @@
-package team6.nn.model;
+package team6.nn.entity;
 
 import java.io.Serializable;
 import java.sql.Clob;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +14,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -30,10 +36,11 @@ public class Attractions implements Serializable {
 	private int AttractionTypeId;
 	private int cityId;
 	private int memberId;
-	
 
 	private AttractionTypes attractionType;
 	private Citys city;
+	private Set<Tags> tags = new HashSet<Tags>();
+	private Set<AttractionComments> attractionComments = new HashSet<AttractionComments>();
 
 	@Id
 	@Column(name = "ID")
@@ -135,8 +142,8 @@ public class Attractions implements Serializable {
 	public void setCityId(int cityId) {
 		this.cityId = cityId;
 	}
-	
-	@Column(name="MEMBER_ID")
+
+	@Column(name = "MEMBER_ID")
 	public int getMemberId() {
 		return memberId;
 	}
@@ -144,9 +151,9 @@ public class Attractions implements Serializable {
 	public void setMemberId(int memberId) {
 		this.memberId = memberId;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="CITY_ID")
+	@JoinColumn(name = "CITY_ID")
 	public Citys getCity() {
 		return city;
 	}
@@ -154,8 +161,9 @@ public class Attractions implements Serializable {
 	public void setCity(Citys city) {
 		this.city = city;
 	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ATTRACTION_TYPE_ID")
+	@JoinColumn(name = "ATTRACTION_TYPE_ID")
 	public AttractionTypes getAttractionType() {
 		return attractionType;
 	}
@@ -163,6 +171,24 @@ public class Attractions implements Serializable {
 	public void setAttractionType(AttractionTypes attractionType) {
 		this.attractionType = attractionType;
 	}
-	
-	
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "ATTRACTION_TAG_REFS", joinColumns = {
+			@JoinColumn(name = "ATTRACTION_ID") }, inverseJoinColumns = { @JoinColumn(name = "TAG_ID") })
+	public Set<Tags> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tags> tags) {
+		this.tags = tags;
+	}
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "attraction", cascade = CascadeType.ALL)
+	public Set<AttractionComments> getAttractionComments() {
+		return attractionComments;
+	}
+
+	public void setAttractionComments(Set<AttractionComments> attractionComments) {
+		this.attractionComments = attractionComments;
+	}
+
 }

@@ -1,6 +1,8 @@
-package team6.nn.model;
+package team6.nn.service;
 
 import java.util.List;
+
+import team6.nn.entity.AttractionTypes;
 
 public interface IAttractionTypesService {
 	public AttractionTypes insert(AttractionTypes bean);
