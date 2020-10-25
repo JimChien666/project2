@@ -1,6 +1,7 @@
 package wey.entity;
 
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
 import max.entity.FilesBean;
 import max.entity.MembersBean;
 
@@ -35,7 +35,7 @@ public class Animals {
 	private AdoptionRecords adoptionRecords;
 	private MembersBean membersBean;
 	private Breeds breeds;
-	private FilesBean filesBean;
+	private Set<FilesBean> filesBean;
 	
 	@Id @Column(name = "ANIMAL_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -139,10 +139,10 @@ public class Animals {
 		this.breeds = breeds;
 	}
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "files")
-	public FilesBean getFilesBean() {
+	public Set<FilesBean> getFilesBean() {
 		return filesBean;
 	}
-	public void setFilesBean(FilesBean filesBean) {
+	public void setFilesBean(Set<FilesBean> filesBean) {
 		this.filesBean = filesBean;
 	}
 }
