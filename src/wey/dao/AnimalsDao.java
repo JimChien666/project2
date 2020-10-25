@@ -30,7 +30,7 @@ public class AnimalsDao {
 		List<Animals> list = query.list();
 		return list;
 	}
-	//test
+	//test1 TODO
 //	public Animals update() {
 //		
 //	}
