@@ -10,9 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import max.entity.FilesBean;
+import max.entity.MembersBean;
 
 @Entity
 @Table(name = "animals")
@@ -29,9 +33,9 @@ public class Animals {
 	private Date updatedAt;
 	private Date deletedAt;
 	private AdoptionRecords adoptionRecords;
-	//private member TODO
+	private MembersBean membersBean;
 	private Breeds breeds;
-	//private file TODO
+	private FilesBean filesBean;
 	
 	@Id @Column(name = "ANIMAL_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -118,12 +122,14 @@ public class Animals {
 	public void setAdoptionRecords(AdoptionRecords adoptionRecords) {
 		this.adoptionRecords=adoptionRecords;
 	}
-	//TODO
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "ID")
-//	public MemberBean getMemberBean() {
-//		return memberBean;
-//	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID")
+	public MembersBean getMembersBean() {
+		return membersBean;
+	}
+	public void setMembersBean(MembersBean membersBean) {
+		this.membersBean = membersBean;
+	}
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BREED_ID")
 	public Breeds getBreeds() {
@@ -131,5 +137,12 @@ public class Animals {
 	}
 	public void setBreeds(Breeds breeds) {
 		this.breeds = breeds;
+	}
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "files")
+	public FilesBean getFilesBean() {
+		return filesBean;
+	}
+	public void setFilesBean(FilesBean filesBean) {
+		this.filesBean = filesBean;
 	}
 }

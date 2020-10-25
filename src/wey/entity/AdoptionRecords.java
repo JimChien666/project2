@@ -8,9 +8,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import max.entity.MembersBean;
 
 @Entity
 @Table(name = "adoptionRecords")
@@ -24,7 +28,7 @@ public class AdoptionRecords {
 	private Date createAt;
 	private Date updatedAt;
 	private Date deleteAt;
-	//private member TODO
+	private MembersBean membersBean;
 	private Animals animals;
 	
 	@Id @Column(name = "ADOPTION_ID")
@@ -91,12 +95,14 @@ public class AdoptionRecords {
 	public void setDeleteAt(Date deleteAt) {
 		this.deleteAt = deleteAt;
 	}
-	//TODO
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "ID")
-//	public MemberBean getMemberBean() {
-//		return memberBean;
-//	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID")
+	public MembersBean getMembersBean() {
+		return membersBean;
+	}
+	public void setMembersBean(MembersBean membersBean) {
+		this.membersBean = membersBean;
+	}
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)
 	public Animals getAnimals() {
 		return animals;
