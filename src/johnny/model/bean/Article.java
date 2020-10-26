@@ -87,8 +87,13 @@ public class Article {
 		super();
 	}
 
-	public Article(int id2, String title2, int i, int j, int k, int l) {
-		// TODO Auto-generated constructor stub
+	public Article(int id, String title, int activitysid, int showarticle, int memberid, int articletypesid) {
+		this.id = id;
+		this.title = title;
+		this.activitysid = activitysid;
+		this.showarticle = showarticle;
+		this.memberid = memberid;
+		this.articletypesid = articletypesid;
 	}
 
 }
