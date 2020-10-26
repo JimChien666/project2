@@ -42,11 +42,14 @@ public class DemoHibernateServletAction1 extends HttpServlet {
 		Session session = factory.openSession();
 		
 		ArticleDAO aDAO = new ArticleDAO(session);
-		Article aBean = aDAO.select(1);
+		Article aBean = aDAO.select(1003);
 		
 		PrintWriter out = response.getWriter();
-
+		
+	
 		out.write(aBean.getId());
+//		System.out.println(aBean.getId());
+		
 		out.write(aBean.getTitle());
 		
 		
