@@ -115,7 +115,7 @@ public class DemoHibernateServletAction2 extends HttpServlet {
 
 			ArticleDAO aDAO = new ArticleDAO(session);
 
-			Article article = new Article(id, title, activitysId, articleType, showArticle, memberId);
+			Article article = new Article(id, title, 1, articleType, 1, 1);
 
 			aDAO.insert(article);
 			RequestDispatcher rd = request.getRequestDispatcher("/DemoHibernateServletAction1");

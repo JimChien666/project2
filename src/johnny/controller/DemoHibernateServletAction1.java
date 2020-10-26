@@ -66,8 +66,6 @@ public class DemoHibernateServletAction1 extends HttpServlet {
 //		request.getRequestDispatcher("article/showAllArticles.jsp").forward(request, response);
 		request.getRequestDispatcher("johnny/ShowAllArticle.jsp").forward(request, response);
 
-
-
 	}
 
 }
