@@ -35,14 +35,16 @@ public class ArticleDAO {
 //		return list;
 //	}
 	
-	public List<Article> getAllArticles(int article){
-		Query<Article> query = session.createQuery("select article.id article.title article.member_id Form Article as article where articletypes_id = ? order by id desc", Article.class);
+	public List<Article> getAllArticles(int articletypesId){
+		Query<Article> query = session.createQuery("from Article where articletypesid = ?1 order by id desc", Article.class);
+		query.setParameter(1, articletypesId);
 		List<Article> list = query.list();
 		return list;
 	}	
 	
 	public List<ArticleTypes> getAllArticleTypes(){
-		Query<ArticleTypes> query = session.createQuery("select t.id t.ArticleType Form articleTypes as t", ArticleTypes.class);
+		Query<ArticleTypes> query = session.createQuery("From ArticleTypes", ArticleTypes.class);
+//		Query<ArticleTypes> query = session.createQuery("select id, articletype From ArticleTypes", ArticleTypes.class);
 		List<ArticleTypes> list = query.list();
 		return list;
 	}

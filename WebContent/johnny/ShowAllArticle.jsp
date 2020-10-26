@@ -141,46 +141,22 @@ table {
 		</button>
 	</a>
 
-<!-- 
+
 	<div class="row justify-content-center align-items-center forum">
 		<c:forEach items="${allArticleTypes}" var="ArticleType" varStatus="id">
 			<div style="border: 3px solid black; width: 50%; text-align:center;">
-				<a href="<c:url value='DemoHibernateServletAction1?articletypesId=${ArticleType.getId()}' />">
+				<a href="<c:url value='ArticleShow?articletypesId=${ArticleType.getId()}' />">
 					<c:if test="${ArticleType.getId()=='1'}">
 						<img src="https://image.flaticon.com/icons/png/512/194/194279.png" style="height: 80px; margin-bottom:10px;">
 					</c:if> 
 					<c:if test="${ArticleType.getId()=='2'}">
 						<img src="https://cdn4.iconfinder.com/data/icons/animal-3/100/animal-08-512.png" style="height: 80px; margin-bottom:10px;">
 					</c:if> 
-					${ArticleType.getArticletype()}${ArticleType.getId()}
+					${ArticleType.getArticletype()}${Articletype.getId()}
 					</a>
 			</div>
 		</c:forEach>
 	</div>
- -->
-
-	<div class="row justify-content-center align-items-center forum">
-		<c:forEach items="${allArticleTypes}" var="ArticleType" varStatus="id">
-			<div style="border: 3px solid black; width: 50%; text-align:center;">
-					<c:if test="${ArticleType.getId()=='1'}">
-					<a href="<c:url value='ArticleShow?articletypesId=${ArticleType.getId()}' />">
-						<img src="https://image.flaticon.com/icons/png/512/194/194279.png" style="height: 80px; margin-bottom:10px;">
-					</a>
-					</c:if> 
-					<c:if test="${ArticleType.getId()=='2'}">
-							<a href="<c:url value='ArticleShow?articletypesId=${ArticleType.getId()}' />">
-					<img src="https://cdn4.iconfinder.com/data/icons/animal-3/100/animal-08-512.png" style="height: 80px; margin-bottom:10px;">
-							</a>					
-					</c:if> 
-					${ArticleType.getArticleType()}${ArticleType.getId()}
-			</div>
-		</c:forEach>
-	</div>
-
-
-
-
-
 
 	<div align="center">
 		<table border=1>

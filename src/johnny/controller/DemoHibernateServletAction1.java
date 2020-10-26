@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-
 import johnny.model.bean.Article;
 import johnny.model.bean.ArticleTypes;
 import johnny.model.dao.ArticleDAO;
@@ -37,7 +36,8 @@ public class DemoHibernateServletAction1 extends HttpServlet {
 		processAction(request, response);
 	}
 
-	private void processAction(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	private void processAction(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
 		response.setContentType("text/html;charset=UTF-8");
 
@@ -46,50 +46,27 @@ public class DemoHibernateServletAction1 extends HttpServlet {
 
 		ArticleDAO aDAO = new ArticleDAO(session);
 
-		
 		String articletypesIdStr = request.getParameter("articletypesId");
 
-		
-		
 		if (articletypesIdStr == null) {
 			int articletypesId = 1;
 			System.out.println(articletypesId);
 			List<Article> ArticleList = aDAO.getAllArticles(articletypesId);
 			request.setAttribute("ArticleList", ArticleList);
-		} else if(articletypesIdStr != null){
+		} else if (articletypesIdStr != null) {
 			int articletypesId = Integer.parseInt(articletypesIdStr);
 			System.out.println(articletypesId);
 			List<Article> ArticleList = aDAO.getAllArticles(articletypesId);
 			request.setAttribute("ArticleList", ArticleList);
 		}
-		
+
 		List<ArticleTypes> allArticleTypes = aDAO.getAllArticleTypes();
 
 		request.setAttribute("allArticleTypes", allArticleTypes);
-		request.getRequestDispatcher("article/showAllArticles.jsp").forward(request, response);
-			
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-//		Article aBean = aDAO.select(1003);
-//		PrintWriter out = response.getWriter();
-//
-//		out.write(aBean.getId());
-//		System.out.println(aBean.getId());
-//
-//		out.write(aBean.getTitle());
-//
-//		out.close();
-//		factory.close();
+//		request.getRequestDispatcher("article/showAllArticles.jsp").forward(request, response);
+		request.getRequestDispatcher("johnny/ShowAllArticle.jsp").forward(request, response);
+
+
 
 	}
 

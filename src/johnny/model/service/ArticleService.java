@@ -27,10 +27,10 @@ public class ArticleService implements IArticleService {
 		return aDao.select(id);
 	}
 
-	@Override
-	public List<Article> selectAll() {
-		return aDao.selectAll();
-	}
+//	@Override
+//	public List<Article> selectAll() {
+//		return aDao.selectAll();
+//	}
 
 	@Override
 	public Article update(int id, String title, int activitysid, int articletypesid) {
