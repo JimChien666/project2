@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import johnny.model.bean.Article;
+import johnny.model.bean.ArticleTypes;
 
 public class ArticleDAO {
 
@@ -28,9 +29,21 @@ public class ArticleDAO {
 		return session.get(Article.class, id);
 	}
 	
-	public List<Article> selectAll(){
-		Query<Article> query = session.createQuery("Form Article", Article.class);
+//	public List<Article> selectAll(){
+//		Query<Article> query = session.createQuery("Form Article as article order by id desc", Article.class);
+//		List<Article> list = query.list();
+//		return list;
+//	}
+	
+	public List<Article> getAllArticles(int article){
+		Query<Article> query = session.createQuery("select article.id article.title article.member_id Form Article as article where articletypes_id = ? order by id desc", Article.class);
 		List<Article> list = query.list();
+		return list;
+	}	
+	
+	public List<ArticleTypes> getAllArticleTypes(){
+		Query<ArticleTypes> query = session.createQuery("select t.id t.ArticleType Form articleTypes as t", ArticleTypes.class);
+		List<ArticleTypes> list = query.list();
 		return list;
 	}
 	

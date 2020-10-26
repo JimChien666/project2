@@ -2,6 +2,8 @@ package johnny.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,7 @@ import org.hibernate.SessionFactory;
 
 
 import johnny.model.bean.Article;
+import johnny.model.bean.ArticleTypes;
 import johnny.model.dao.ArticleDAO;
 import johnny.util.HibernateUtil;
 
@@ -34,45 +37,60 @@ public class DemoHibernateServletAction1 extends HttpServlet {
 		processAction(request, response);
 	}
 
-	private void processAction(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		
+	private void processAction(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
 		response.setContentType("text/html;charset=UTF-8");
 
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.openSession();
-		
+
 		ArticleDAO aDAO = new ArticleDAO(session);
-		Article aBean = aDAO.select(1003);
+
 		
-		PrintWriter out = response.getWriter();
-		
-	
-		out.write(aBean.getId());
-//		System.out.println(aBean.getId());
-		
-		out.write(aBean.getTitle());
+		String articletypesIdStr = request.getParameter("articletypesId");
+
 		
 		
-		out.close();
-		factory.close();
+		if (articletypesIdStr == null) {
+			int articletypesId = 1;
+			System.out.println(articletypesId);
+			List<Article> ArticleList = aDAO.getAllArticles(articletypesId);
+			request.setAttribute("ArticleList", ArticleList);
+		} else if(articletypesIdStr != null){
+			int articletypesId = Integer.parseInt(articletypesIdStr);
+			System.out.println(articletypesId);
+			List<Article> ArticleList = aDAO.getAllArticles(articletypesId);
+			request.setAttribute("ArticleList", ArticleList);
+		}
+		
+		List<ArticleTypes> allArticleTypes = aDAO.getAllArticleTypes();
+
+		request.setAttribute("allArticleTypes", allArticleTypes);
+		request.getRequestDispatcher("article/showAllArticles.jsp").forward(request, response);
+			
 		
 		
 		
 		
-//		SessionFactory factory = HibernateUtil.getSessionFactory();
-//		Session session = factory.getCurrentSession();
-//
-//		HouseBeanDAO hDao = new HouseBeanDAO(session);
-//		HouseBean hBean = hDao.select(1001);
-//
-//		response.setContentType("text/html;charset=UTF-8");
+		
+		
+		
+		
+		
+		
+		
+		
+//		Article aBean = aDAO.select(1003);
 //		PrintWriter out = response.getWriter();
 //
-//		out.write("HouseId:" + hBean.getHouseid() + "<br/>");
-//		out.write("HouseName:" + hBean.getHousename() + "<br/>");
+//		out.write(aBean.getId());
+//		System.out.println(aBean.getId());
+//
+//		out.write(aBean.getTitle());
 //
 //		out.close();
+//		factory.close();
+
 	}
 
 }

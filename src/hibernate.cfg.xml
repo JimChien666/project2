@@ -32,6 +32,8 @@
         
 		<!--仲康 -->
         <mapping class="johnny.model.bean.Article"/>
+        <mapping class="johnny.model.bean.ArticleTypes"/>
+        
 <!--         <mapping class="tw.reicheng.model.Department"/> -->
         
 <!--         <mapping class="tw.reicheng.model.Books"/> -->
