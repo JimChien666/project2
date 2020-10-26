@@ -1,8 +1,11 @@
-package team6.nn.model;
+package team6.nn.service;
 
 import java.util.List;
 
 import org.hibernate.Session;
+
+import team6.nn.dao.CitysDAO;
+import team6.nn.entity.Citys;
 
 public class CitysService implements ICitysService {
 	

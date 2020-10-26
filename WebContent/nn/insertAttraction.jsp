@@ -16,6 +16,45 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){
+  $.ajax({
+        type:"POST",
+        url:"${pageContext.servletContext.contextPath}/GetInsertPageDataServlet",
+        success:function (result) {
+            var json = JSON.parse(result); 
+            console.log(json.citys);
+            var citys = json.citys;
+            var attractionTypes= json.attractionTypes;
+            var tags = json.tags;
+            for(var i=0; i<citys.length; i++){
+            	if("${param.city}"==citys[i].name){
+            		$("#city").append('<option selected="selected" value="'+ citys[i].id +'">'+ citys[i].name + '</option>');
+               	}
+            	else{
+            		$("#city").append('<option value="'+ citys[i].id +'">'+ citys[i].name + '</option>');
+                }
+            }
+            for(var i=0; i<attractionTypes.length; i++){
+            	if("${param.type}"==attractionTypes[i].name){
+            		$("#attractionType").append('<option selected="selected" value="'+ attractionTypes[i].id +'">'+ attractionType[i].name + '</option>');
+               	}
+            	else{
+            		$("#attractionType").append('<option value="'+ attractionType[i].id +'">'+ attractionTypes[i].name + '</option>');
+                }
+            }
+            for(var i=0; i<tags.length; i++){
+            	$("#tag").append('<div class="form-check form-check-inline"><input name="tag" class="form-check-input" type="checkbox" value='+ tags[i].id+'><label class="form-check-label" for="inlineCheckbox1">'+ tags[i].name + '</label></div>');
+            }
+        },
+        error:function (err) {
+           
+        }
+	});
+});
+</script>
 </head>
 <body>
 <jsp:include page="top.jsp" />
@@ -26,9 +65,9 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <form ENCTYPE="multipart/form-data" method="POST" action="<c:url value='/nn/controler/CheckInsertAttractionServlet' />">
   <div class="form-group">
     <label for="exampleFormControlSelect1">新增類型</label><font color="red" size="-1">${MsgMap.errorType}</font>
-    <select class="form-control" id="exampleFormControlSelect1" name="type">
+    <select class="form-control" id="attractionType" name="type">
       <option disabled selected>- 選擇類型 -</option>
-      <c:forEach items="${attractionTypeList}" var="attractionType" varStatus="id">
+      <%-- <c:forEach items="${attractionTypeList}" var="attractionType" varStatus="id">
       	<c:if test="${param.type==attractionType.getId()}" >
       		<option selected="selected" value="${attractionType.getId()}">${attractionType.getName()}</option>
       	</c:if>
@@ -36,7 +75,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
       		<option value="${attractionType.getId()}">${attractionType.getName()}</option>
       	</c:if>
       	
-      </c:forEach>
+      </c:forEach> --%>
 
       
     </select>
@@ -64,16 +103,16 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
   <div class="form-row">
 	  <div class="form-group col-md-3">
 	      <label for="inputState">城市</label><font color="red" size="-1">${MsgMap.errorCity}</font>
-	      <select name="city" id="inputState" class="form-control">
+	      <select name="city" id="city" class="form-control">
 	          <option disabled selected>- 選擇類型 -</option>
-		      <c:forEach items="${cityList}" var="city" varStatus="id">
+		      <%-- <c:forEach items="${cityList}" var="city" varStatus="id">
 		      	<c:if test="${param.city==city.getId()}" >
 		      		<option selected="selected" value="${city.getId()}">${city.getName()}</option>
 		      	</c:if>
 		      	<c:if test="${param.city!=city.getId()}" >
 		      		<option value="${city.getId()}">${city.getName()}</option>
 		      	</c:if>
-      		  </c:forEach>
+      		  </c:forEach> --%>
 	      </select>
 	    </div>
     <div class="col-9">
@@ -92,6 +131,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
   <div>
   <label for="exampleFormControlInput1">熱門標籤(可複選)</label>
   </div>
+  <div id="tag">
   <c:forEach items="${tagList}" var="tag" varStatus="id">
 		  <div class="form-check form-check-inline">
 			  <input name="tag" class="form-check-input" type="checkbox" value=${tag.getId()}>
@@ -99,6 +139,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 			</div>
       	
   </c:forEach>
+  </div>
 	<div class="form-group">
 	    <label for="exampleFormControlFile1">環境照片</label><font color="red" size="-1">${MsgMap.errContentImg}</font>
 	    <input name="contentimg" value="${param.contentimg}" type="file" class="form-control-file" id="exampleFormControlFile1" accept="image/*,.pdf" multiple>

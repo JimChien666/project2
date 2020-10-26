@@ -14,21 +14,24 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import team6.model.HouseBean;
-import team6.model.HouseBeanDAO;
-import team6.nn.model.AttractionTypes;
-import team6.nn.model.AttractionTypesDAO;
-import team6.nn.model.Attractions;
-import team6.nn.model.Citys;
-import team6.nn.model.CitysDAO;
+import team6.nn.dao.AttractionTypesDAO;
+import team6.nn.dao.CitysDAO;
+import team6.nn.dao.TagsDAO;
+import team6.nn.entity.AttractionTypes;
+import team6.nn.entity.Attractions;
+import team6.nn.entity.Citys;
+import team6.nn.entity.Files;
+import team6.nn.entity.Tags;
 import team6.util.HibernateUtil;
 
 /**
  * Servlet implementation class DemoHibernateServletAction1
  */
 @WebServlet("/DemoCityBeanAction1")
-public class DemoCityBeanAction1 extends HttpServlet {
+public class InsertAttractionAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
+	private static final String CHARSET_CODE = "UTF-8";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processAction(request,response);
@@ -52,8 +55,11 @@ public class DemoCityBeanAction1 extends HttpServlet {
 //		
 //		out.close();
 		Attractions attraction = new Attractions();
+		
+		//選擇city
 		CitysDAO cityDao = new CitysDAO(session);
 		Citys city = cityDao.select(1);
+		//選擇Attractiontypes
 		AttractionTypesDAO attractionTypeDao = new AttractionTypesDAO(session);
 		AttractionTypes attractionType = attractionTypeDao.select(1);
 		attraction.setId(100);
@@ -66,8 +72,18 @@ public class DemoCityBeanAction1 extends HttpServlet {
 		attraction.setCity(city);
 		attraction.setAttractionType(attractionType);
 		
-		session.save(city);
-		session.save(attractionType);
+		TagsDAO tagsDAO = new TagsDAO(session);
+		Tags tag1 = tagsDAO.select(1);
+		Tags tag2 = tagsDAO.select(2);
+		Set<Tags> tags = new HashSet<Tags>();
+		tags.add(tag1);
+		tags.add(tag2);
+		attraction.setTags(tags);
+		Files file = new Files();
+
+		
+		
+		session.save(attraction);
 	}
 
 }

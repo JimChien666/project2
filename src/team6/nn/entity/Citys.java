@@ -1,4 +1,4 @@
-package team6.nn.model;
+package team6.nn.entity;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -15,8 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Citys")
+@Table(name = "CITYS")
 public class Citys implements Serializable {
+	
 	private int id;
 	private String name;
 	private Set<Attractions> attractions = new HashSet<Attractions>();;
@@ -44,14 +45,17 @@ public class Citys implements Serializable {
 		this.name = name;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "attractions", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "city", cascade = CascadeType.ALL)
 	public Set<Attractions> getAttractions() {
 		return attractions;
 	}
 	public void setAttractions(Set<Attractions> attractions) {
 		this.attractions = attractions;
 	}
-	
+	@Override
+	public String toString() {
+		return "{\"id\":\"" + id + "\", \"name\":\"" + name + "\"}";
+	}
 	
 	
 }
