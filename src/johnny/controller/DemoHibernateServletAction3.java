@@ -75,7 +75,7 @@ public class DemoHibernateServletAction3 extends HttpServlet {
 			ArticleDAO aDAO = new ArticleDAO(session);
 
 			Article article = new Article(id,title, 1, 1, 1, 1);
-			aDAO.update(article);
+			aDAO.update();
 		
 		}catch (Exception e) {
 			e.printStackTrace(); 
