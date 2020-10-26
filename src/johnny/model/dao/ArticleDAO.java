@@ -67,6 +67,6 @@ public class ArticleDAO {
 		}
 		return false;
 	}
-	
+
 	
 }

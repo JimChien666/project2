@@ -136,7 +136,7 @@ table {
 		</form>
 	</div>
 
-	<a href="<c:url value='/article/PostArticle.jsp' />" class="fixed">
+	<a href="<c:url value='/johnny\PostArticle.jsp' />" class="fixed">
 		<button type="button" name="delete" class="btn btn-success">發文
 		</button>
 	</a>

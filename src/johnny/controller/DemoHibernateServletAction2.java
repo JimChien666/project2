@@ -2,16 +2,20 @@ package johnny.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 
 import johnny.model.bean.Article;
 import johnny.model.dao.ArticleDAO;
@@ -20,6 +24,7 @@ import johnny.util.HibernateUtil;
 /**
  * Servlet implementation class DemoHibernateServletAction1
  */
+@MultipartConfig
 @WebServlet("/DemoHibernateServletAction2")
 public class DemoHibernateServletAction2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -35,44 +40,92 @@ public class DemoHibernateServletAction2 extends HttpServlet {
 	}
 
 	private void processAction(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		
-		response.setContentType("text/html;charset=UTF-8");
+
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.openSession();
-		
-		ArticleDAO aDAO = new ArticleDAO(session);
-		Article aBean = aDAO.select(1003);
-		
-		PrintWriter out = response.getWriter();
-		
-	
-		out.write(aBean.getId());
-//		System.out.println(aBean.getId());
-		
-		out.write(aBean.getTitle());
-		
-		
-		out.close();
-		factory.close();
-		
-		
-		
-		
-//		SessionFactory factory = HibernateUtil.getSessionFactory();
-//		Session session = factory.getCurrentSession();
+		HttpSession hSession = request.getSession();
+
+		try {
+			String title = "";
+			int activitysId = 0;
+			int articleType = 0;
+			int showArticle = 0;
+			int memberId = 0;
+			int id = 0;
+			String activitysIdStr = "";
+			String articleTypeStr = "";
+			String showArticleStr = "";
+			String memberIdStr = "";
+			String idStr = "";
+
+			Collection<Part> parts = request.getParts();
+
+			if (parts != null) {
+				for (Part p : parts) {
+					String fldName = p.getName();
+					String value = request.getParameter(fldName);
+
+					if (p.getContentType() == null) {
+						if (fldName.equals("id")) {
+							idStr = value;
+							idStr = idStr.trim();
+							id = Integer.parseInt(idStr);
+							request.setAttribute("id", id);
+						} else if (fldName.equals("title")) {
+							title = value;
+							request.setAttribute("title", title);
+						} else if (fldName.equals("activitysId")) {
+							activitysIdStr = value;
+							activitysIdStr = activitysIdStr.trim();
+							activitysId = Integer.parseInt(activitysIdStr);
+							request.setAttribute("activitysId", activitysId);
+						} else if (fldName.equals("articleType")) {
+							articleTypeStr = value;
+							articleTypeStr = articleTypeStr.trim();
+							articleType = Integer.parseInt(articleTypeStr);
+							request.setAttribute("articleType", articleType);
+						} else if (fldName.equals("showArticle")) {
+							showArticleStr = value;
+							showArticleStr = showArticleStr.trim();
+							showArticle = Integer.parseInt(showArticleStr);
+							request.setAttribute("showArticle", showArticle);
+						} else if (fldName.equals("memberId")) {
+							memberIdStr = value;
+							memberIdStr = memberIdStr.trim();
+							memberId = Integer.parseInt(memberIdStr);
+							request.setAttribute("memberId", memberId);
+						}
+					} else {
+						System.out.println("錯誤，缺少必要的資料");
+					}
+
+				}
+			} else {
+				System.out.println("錯誤，缺少必要的資料");
+			}
+
+//			ArticleDao articleDao = new WriteArticleImpl_Jdbc();
 //
-//		HouseBeanDAO hDao = new HouseBeanDAO(session);
-//		HouseBean hBean = hDao.select(1001);
+//			ArticleBean ab = new ArticleBean(id, title, activitysId, articleType, showArticle, memberId);
 //
-//		response.setContentType("text/html;charset=UTF-8");
-//		PrintWriter out = response.getWriter();
-//
-//		out.write("HouseId:" + hBean.getHouseid() + "<br/>");
-//		out.write("HouseName:" + hBean.getHousename() + "<br/>");
-//
-//		out.close();
+//			articleDao.saveArticle(ab);
+
+			ArticleDAO aDAO = new ArticleDAO(session);
+
+			Article article = new Article(id, title, activitysId, articleType, showArticle, memberId);
+
+			aDAO.insert(article);
+			RequestDispatcher rd = request.getRequestDispatcher("/DemoHibernateServletAction1");
+			rd.forward(request, response);
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
 	}
 
 }
