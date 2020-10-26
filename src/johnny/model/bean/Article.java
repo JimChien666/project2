@@ -20,7 +20,7 @@ public class Article {
 
 	@Id
 	@Column(name = "id")
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -74,9 +74,8 @@ public class Article {
 		this.articletypesid = articletypesid;
 	}
 
-	public Article(int id, String title, int activitysid, int showarticle, int memberid, int articletypesid) {
+	public Article(String title, int activitysid, int showarticle, int memberid, int articletypesid) {
 		super();
-		this.id = id;
 		this.title = title;
 		this.activitysid = activitysid;
 		this.showarticle = showarticle;
