@@ -185,16 +185,16 @@ public class JdbcDao {
 	
 	public boolean updateProduct(Products product) {
 		try (Connection conn = getDataSource().getConnection();								
-				PreparedStatement pstmt = conn.prepareStatement("update products set name=?,price=?,descript=?,quantity=?,special_price=?,img=? where id=?");
+				PreparedStatement pstmt = conn.prepareStatement("update products set name=?,price=?,img=?,descript=?,quantity=?,special_price=? where id=?");
 			) {
 
 			pstmt.setString(1, product.getName());
 			pstmt.setInt(2, product.getPrice());
-			pstmt.setInt(3, product.getId());			
+		    pstmt.setBlob(3, product.getImg().getBinaryStream());						
 			pstmt.setString(4, product.getDescript());
 		    pstmt.setInt(5, product.getQuantity());
 		    pstmt.setInt(6, product.getSpecialPrice());
-		    pstmt.setBlob(7, product.getImg());
+		    pstmt.setInt(7, product.getId());
 		    
 //		    pstmt.setString(7, product.getRewardpoints());		      
 //		    pstmt.setBoolean(8, product.getIsThumb());

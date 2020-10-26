@@ -147,9 +147,6 @@ public class Products implements Serializable{
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	public String getFilename() {
 		return filename;
 	}

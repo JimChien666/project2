@@ -43,6 +43,7 @@ public class UpdateProduct extends HttpServlet {
 	  {
 	    
         PrintWriter out = response.getWriter();
+        int id;
 		String name = ""; 
 		int price = 0;
 //		String img =null;
@@ -59,7 +60,7 @@ public class UpdateProduct extends HttpServlet {
 		long sizeInBytes = 0;
 		InputStream is = null;
 	    
-		
+	    id = Integer.parseInt(request.getParameter("id").trim()); //把空白去掉!!
 		name = request.getParameter("name").trim(); //把空白去掉!!
 	    price = Integer.parseInt(request.getParameter("price").trim()); //把空白去掉!!
 	    
@@ -80,8 +81,8 @@ public class UpdateProduct extends HttpServlet {
 					if (fileName != null && fileName.trim().length() > 0) {
 						sizeInBytes = p.getSize();
 						is = p.getInputStream();
-//					} else {
-//						out.write( "必須挑選圖片檔");
+					} else {
+						out.write( "必須挑選圖片檔");
 					}					
 				}				
 			}	
@@ -100,7 +101,7 @@ public class UpdateProduct extends HttpServlet {
 	    descript = request.getParameter("descript").trim(); //把空白去掉!!
 	    quantity = Integer.parseInt(request.getParameter("quantity").trim());
 
-	    Products product =  new Products(name,price,img,descript,quantity,specialPrice,
+	    Products product =  new Products(id,name,price,img,descript,quantity,specialPrice,
 	    		rewardpoints,isThumb,memberId,animalTypeId,categoryId);
 	    JdbcDao jdbcdao = new JdbcDao();
 
