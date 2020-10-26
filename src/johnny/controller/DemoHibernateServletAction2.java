@@ -47,39 +47,45 @@ public class DemoHibernateServletAction2 extends HttpServlet {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.openSession();
 		HttpSession hSession = request.getSession();
-
+		System.out.println("try");
 		try {
 			String title = "";
 			int activitysId = 0;
 			int articleType = 0;
 			int showArticle = 0;
 			int memberId = 0;
-			int id = 0;
+//			int id = 0;
 			String activitysIdStr = "";
 			String articleTypeStr = "";
 			String showArticleStr = "";
 			String memberIdStr = "";
-			String idStr = "";
+//			String idStr = "";
 
 			Collection<Part> parts = request.getParts();
-
+			System.out.println("if");
 			if (parts != null) {
 				for (Part p : parts) {
 					String fldName = p.getName();
 					String value = request.getParameter(fldName);
 
 					if (p.getContentType() == null) {
-						if (fldName.equals("id")) {
-							idStr = value;
-							idStr = idStr.trim();
-							id = Integer.parseInt(idStr);
-							request.setAttribute("id", id);
-						} else if (fldName.equals("title")) {
+						if (fldName.equals("title")) {
 							title = value;
 							request.setAttribute("title", title);
-						} else if (fldName.equals("activitysId")) {
+							
+//							idStr = value;
+//							idStr = idStr.trim();
+//							System.out.println(idStr);
+//							id = Integer.parseInt(idStr);
+//							request.setAttribute("id", id);
+//						} else if (fldName.equals("title")) {
+//							title = value;
+//							request.setAttribute("title", title);
+						} 	
+						else if (fldName.equals("activitysId")) {
 							activitysIdStr = value;
 							activitysIdStr = activitysIdStr.trim();
+							System.out.println(activitysIdStr);
 							activitysId = Integer.parseInt(activitysIdStr);
 							request.setAttribute("activitysId", activitysId);
 						} else if (fldName.equals("articleType")) {
@@ -115,9 +121,10 @@ public class DemoHibernateServletAction2 extends HttpServlet {
 
 			ArticleDAO aDAO = new ArticleDAO(session);
 
-			Article article = new Article(id, title, 1, articleType, 1, 1);
+			Article article = new Article(title, 1, articleType, 1, 1);
 
 			aDAO.insert(article);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/DemoHibernateServletAction1");
 			rd.forward(request, response);
 			return;
