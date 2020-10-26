@@ -24,6 +24,30 @@ public class Files implements Serializable {
 	private int contentAttractionId;
 	private int coverAttractionId;
 	private Blob fileBlob;
+	/////////////TODO
+	public Files() {
+	}
+	public Files(int animalId, Blob fileBlob) {
+		this.animalId = animalId;
+		this.fileBlob = fileBlob;
+	}
+	
+	public Files(int id, String fileType, String fileUrl, int memberId, int forumId, int animalId, int activityId,
+			int productId, int contentAttractionId, int coverAttractionId, Blob fileBlob) {
+		super();
+		this.id = id;
+		FileType = fileType;
+		FileUrl = fileUrl;
+		this.memberId = memberId;
+		this.forumId = forumId;
+		this.animalId = animalId;
+		this.activityId = activityId;
+		this.productId = productId;
+		this.contentAttractionId = contentAttractionId;
+		this.coverAttractionId = coverAttractionId;
+		this.fileBlob = fileBlob;
+	}
+	///////////////////
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

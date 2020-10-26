@@ -7,11 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.servlet.annotation.MultipartConfig;
 
 @Entity
 @Table(name = "animals")
-@MultipartConfig
 public class Animals {
 	private int animalId;
 	private int memberId;
