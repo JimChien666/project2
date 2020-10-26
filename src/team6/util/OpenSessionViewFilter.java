@@ -1,6 +1,8 @@
 package team6.util;
 
 
+import java.util.List;
+
 import javax.imageio.IIOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,6 +13,11 @@ import javax.servlet.ServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import team6.nn.dao.AttractionTypesDAO;
+import team6.nn.entity.AttractionTypes;
+import wey.dao.AnimalsDao;
+import wey.entity.Animals;
+
 public class OpenSessionViewFilter implements Filter {
 
 	@Override
@@ -20,18 +27,18 @@ public class OpenSessionViewFilter implements Filter {
 			
 			try {
 				session.beginTransaction();
-				System.out.println("Transaction Begin.");
+				System.out.println("Filter Transaction Begin.");
 				
 				chain.doFilter(request, response);
 				
 				session.getTransaction().commit();
-				System.out.println("Transaction Commit.");
+				System.out.println("Filter Transaction Commit.");
 			} catch (Exception e) {
 				session.getTransaction().rollback();
-				System.out.println("Transaction Rollback.");
+				System.out.println("Filter Transaction Rollback.");
 				e.printStackTrace();
 			}finally {
-				System.out.println("Session Closed");				
+				System.out.println("Filter Session Closed");				
 			}
 	}
 }

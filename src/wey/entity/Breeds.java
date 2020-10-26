@@ -1,15 +1,11 @@
 package wey.entity;
 
 import java.util.Date;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +17,7 @@ public class Breeds {
 	private Date createAt;
 	private Date updatedAt;
 	private Date deleteAt;
-	private Set<Animals> animals;
+//	private Set<Animals> animals = new HashSet<Animals>();
 	
 	@Id @Column(name = "BREED_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,11 +62,11 @@ public class Breeds {
 	public void setDeleteAt(Date deleteAt) {
 		this.deleteAt = deleteAt;
 	}
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "animals")
-	public Set<Animals> getAnimals() {
-		return animals;
-	}
-	public void setAnimals(Set<Animals> animals) {
-		this.animals = animals;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "animals")
+//	public Set<Animals> getAnimals() {
+//		return animals;
+//	}
+//	public void setAnimals(Set<Animals> animals) {
+//		this.animals = animals;
+//	}
 }

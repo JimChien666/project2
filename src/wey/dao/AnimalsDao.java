@@ -13,7 +13,6 @@ public class AnimalsDao {
 	
 	public Animals create(Animals animals) {
 		Animals result = hSession.get(Animals.class, animals.getAnimalId());
-	
 		if (result == null) {
 			hSession.save(animals);
 			return animals;
@@ -26,7 +25,7 @@ public class AnimalsDao {
 	}
 	
 	public List<Animals> readAll(){
-		Query<Animals> query = hSession.createQuery("from Animals order by animalid", Animals.class);
+		Query<Animals> query = hSession.createQuery("from Animals order by animal_id desc", Animals.class);
 		List<Animals> list = query.list();
 		return list;
 	}

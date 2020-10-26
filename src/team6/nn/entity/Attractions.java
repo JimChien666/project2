@@ -198,17 +198,17 @@ public class Attractions implements Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
-	@JoinColumns(value = { @JoinColumn(name="conetnt_attraction_id",referencedColumnName="id")})
+	@JoinColumns(value = { @JoinColumn(name="CONTENT_ATTRACTION_ID",referencedColumnName="ID")})
 	public Set<Files> getContentImgs() {
 		return contentImgs;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
-	@JoinColumns(value = { @JoinColumn(name="cover_attraction_id",referencedColumnName="id")})
+	
 	public void setContentImgs(Set<Files> contentImgs) {
 		this.contentImgs = contentImgs;
 	}
-
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
+	@JoinColumns(value = { @JoinColumn(name="COVER_ATTRACTION_ID",referencedColumnName="ID")})
 	public Set<Files> getCoverImgs() {
 		return coverImgs;
 	}

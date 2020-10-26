@@ -12,7 +12,7 @@
 <body>
 	<jsp:include page="/nn/top.jsp" />
 	<div class="wid400px">
-		<a href="ServletReadAnimal" class="btn btn-secondary marginTopBot10px">回維護首頁</a>
+		<a href="<c:url value='/ReadAllAnimals' />" class="btn btn-secondary marginTopBot10px">回維護首頁</a>
 		<form action="<c:url value='/ServletUpdateAnimal' />" method="post">
 <%-- 		<form action="<c:url value='/ServletUpdateAnimal' />" method="post" enctype="multipart/form-data"> --%>
 			<label for="" class="label1">照片：</label>
