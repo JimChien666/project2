@@ -32,7 +32,8 @@ public class CreateAnimals extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		processAction(request, response);
+//		processAction(request, response);
+		request.getRequestDispatcher("/ReadAllAnimals").forward(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,17 +57,17 @@ public class CreateAnimals extends HttpServlet {
 			Date updatedAt = null;
 			Date deletedAt = null;
 			
-			int id = 0;
-			String FileType = "";
-			String FileUrl = "";
-			int fmemberId = 0;
-			int forumId = 0;
-			int fanimalId = 0;
-			int activityId = 0;
-			int productId = 0;
-			int contentAttractionId = 0;
-			int coverAttractionId = 0;
-			Blob fileBlob;
+//			int id = 0;
+//			String FileType = "";
+//			String FileUrl = "";
+//			int fmemberId = 0;
+//			int forumId = 0;
+//			int fanimalId = 0;
+//			int activityId = 0;
+//			int productId = 0;
+//			int contentAttractionId = 0;
+//			int coverAttractionId = 0;
+//			Blob fileBlob;
 			
 			String fileName = "";
 			long sizeInBytes = 0;
@@ -116,10 +117,10 @@ public class CreateAnimals extends HttpServlet {
 			Animals animals = new Animals(animalId, memberId, acceptionId, breedId, gender, coatColor, isAdoptionAvailable, note, createdAt, updatedAt, deletedAt);
 			animalsDao.create(animals);
 			
-			fileBlob = SystemUtils2018.fileToBlob(is, sizeInBytes);
-			FilesDao filesDao = new FilesDao(hSession);
-			Files files = new Files(id, FileType, FileUrl, fmemberId, forumId, fanimalId, activityId, productId, contentAttractionId, coverAttractionId, fileBlob);
-			filesDao.create(files);
+//			fileBlob = SystemUtils2018.fileToBlob(is, sizeInBytes);
+//			FilesDao filesDao = new FilesDao(hSession);
+//			Files files = new Files(id, FileType, FileUrl, fmemberId, forumId, fanimalId, activityId, productId, contentAttractionId, coverAttractionId, fileBlob);
+//			filesDao.create(files);
 			request.getRequestDispatcher("/ReadAllAnimals").forward(request,response);
 			
 			
