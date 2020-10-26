@@ -1,11 +1,12 @@
-package johnny.model;
-/*
- * 
- */
+package johnny.model.dao;
+
+
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+
+import johnny.model.bean.Article;
 
 public class ArticleDAO {
 

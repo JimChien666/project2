@@ -1,10 +1,13 @@
-package johnny.model;
+package johnny.model.service;
 /*
  * 
  */
 import java.util.List;
 
 import org.hibernate.Session;
+
+import johnny.model.bean.Article;
+import johnny.model.dao.ArticleDAO;
 
 public class ArticleService implements IArticleService {
 

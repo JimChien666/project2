@@ -1,4 +1,4 @@
-package johnny.model;
+package johnny.model.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

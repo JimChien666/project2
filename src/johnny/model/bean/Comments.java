@@ -1,4 +1,4 @@
-package johnny.model;
+package johnny.model.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,11 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "BANNED_RESTRICTED_LIST")
-public class BannedList {
+@Table(name = "COMMENTS")
+public class Comments {
 	private int id;
+	private String comment;
+	private int forumid;
 	private int memberid;
-	private int status;
 
 	@Id @Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +25,24 @@ public class BannedList {
 		this.id = id;
 	}
 
+	@Column(name = "COMMENT")
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	
+	@Column(name = "FORUM_ID")
+	public int getForumid() {
+		return forumid;
+	}
+
+	public void setForumid(int forumid) {
+		this.forumid = forumid;
+	}
+
 	@Column(name = "MEMBER_ID")
 	public int getMemberid() {
 		return memberid;
@@ -31,15 +50,6 @@ public class BannedList {
 
 	public void setMemberid(int memberid) {
 		this.memberid = memberid;
-	}
-
-	@Column(name = "STATUS")
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
 	}
 
 }

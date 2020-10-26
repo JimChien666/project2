@@ -1,8 +1,10 @@
-package johnny.model;
+package johnny.model.service;
 /*
  * 
  */
 import java.util.List;
+
+import johnny.model.bean.Article;
 
 public interface IArticleService {
 

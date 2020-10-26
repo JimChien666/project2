@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import johnny.model.Article;
-import johnny.model.ArticleDAO;
+
+import johnny.model.bean.Article;
+import johnny.model.dao.ArticleDAO;
 import johnny.util.HibernateUtil;
 
 /**
