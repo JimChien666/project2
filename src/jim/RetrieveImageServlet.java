@@ -11,8 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import jim.entity.Products;
+
 
 @WebServlet("/_00_init/getImage")
 public class RetrieveImageServlet extends HttpServlet {
@@ -31,17 +31,38 @@ public class RetrieveImageServlet extends HttpServlet {
 			// 讀取瀏覽器傳送來的type，以分辨要處理哪個表格
 			String type = request.getParameter("type"); 
 			switch(type.toUpperCase()){
+				//Product IMG 
 				case "PRODUCTS":
 					JdbcDao jdbcdao = new JdbcDao();
 					Products bean2 = jdbcdao.queryProduct(id);
 					if (bean2 != null) {
 						blob = bean2.getImg();
+						
 						if (blob != null) { 
 							is = blob.getBinaryStream();
 						}
 						fileName = bean2.getFilename();
 					}
 					break;
+				//File Blob
+				case "PRODUCTS_BLOB":			
+					JdbcDao jdbcdao1 = new JdbcDao();
+				int nId = 0;
+				try {
+					nId = Integer.parseInt(id);
+				} catch(NumberFormatException ex) {
+					System.out.println("ServletRetrieveImage line57");
+					ex.printStackTrace();
+				}
+				ValueObjectProduct valueObjectProduct = jdbcdao1.getProduct(nId);
+				if (valueObjectProduct != null) {
+					blob = valueObjectProduct.getFileBlob();
+					if (blob != null) {
+						is = blob.getBinaryStream();
+					}
+					fileName = valueObjectProduct.getFileName();
+				}
+				break;
 			}
 
 			// 如果圖片的來源有問題，就送回預設圖片(/images/NoImage.png)	

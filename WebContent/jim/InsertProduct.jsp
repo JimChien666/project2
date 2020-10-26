@@ -102,15 +102,15 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
     </td>
 </tr>
 </table>
-<center>
-			<a href="<%=application.getContextPath()%>/jim/InsertProduct.jsp" class="btn btn-secondary">重填</a>
-			<c:choose>
-			<c:when test="">
-			</c:when>
-			</c:choose>
-			<button type="submit" name="submit" class="btn btn-primary">送出</button>
-
-</center>
+	<center>
+				<a href="<%=application.getContextPath()%>/jim/InsertProduct.jsp" class="btn btn-secondary">重填</a>
+				<c:choose>
+				<c:when test="">
+				</c:when>
+				</c:choose>
+				<button type="submit" name="submit" class="btn btn-primary">送出</button>
+	
+	</center>
 </form>
 </body>
 </html>

@@ -18,7 +18,7 @@ import java.sql.Statement;
 
 import jim.entity.Products;
 
-public class EDMTableReset {
+public class EDMTableReset2 {
 	public static final String UTF8_BOM = "\uFEFF"; // 定義 UTF-8的BOM字元
 
 	public static void main(String args[]) throws FileNotFoundException, IOException, SQLException {
@@ -77,7 +77,7 @@ public class EDMTableReset {
 //					book.setCategory(token[8].trim());
 					int n=insertCsvToProducts(product,conn);
 //					int n = saveBook(book, con);
-					System.out.println("新增一筆Product紀錄是否成功=" + n);
+					System.out.println("新增一Product紀錄是否成功=" + n);
 				}
 				// 印出資料新增成功的訊息
 				System.out.println("Product資料新增成功");
@@ -94,6 +94,7 @@ public class EDMTableReset {
 	public static int insertCsvToProducts(ValueObjectProduct product, Connection conn) {
 		int n = 0;
 		String sqlS= "INSERT INTO products (name,price,img,descript,quantity,special_price,rewardpoints,is_thumb,member_id,animal_type_id,category_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+		String sql1= "select max(id) from products";
 		String sql2= "INSERT INTO files (file_blob,product_id) VALUES (?,?)";
 		try (	PreparedStatement pstmt = conn.prepareStatement(sqlS);
 				PreparedStatement pstmt2 = conn.prepareStatement(sql2);
@@ -111,11 +112,22 @@ public class EDMTableReset {
 		      pstmt.setInt(9, product.getMemberId());
 		      pstmt.setInt(10, product.getAnimalTypeId());
 		      pstmt.setInt(11, product.getCategoryId());
-		      
-		      
+//		      pstmt.setInt(12, products.getId());	      
 		      n=pstmt.executeUpdate();
+
+		      ResultSet rs = pstmt.executeQuery(sql1);	
+		      
+			while (rs.next()) {
+				  pstmt2.setBlob(1, product.getImg().getBinaryStream());
+			      pstmt2.setInt(2, rs.getInt("max(id)"));
+			      
+			      
+			}
+			pstmt2.executeUpdate();
+		      
+		      
 			  pstmt.clearParameters();
-			  
+			  pstmt2.clearParameters();
 		    return n;
 		}catch (Exception e) {
 			e.printStackTrace();

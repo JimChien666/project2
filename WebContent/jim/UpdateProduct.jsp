@@ -77,55 +77,9 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 
 		</center>
 </form>
+</div>
 		
-		
-		
-			<span id="memberIdSpan" class="spanHidden"><br></span>
-			<script type="text/javascript">
-				function checkmemberId(){
-					let memberId = document.getElementById("memberId").value;
-					let memberIdLength = memberId.length;
-					let memberIdSpan = document.getElementById("memberIdSpan");
-					let flag1 = false;
-					if (memberId == ""){
-            			document.getElementById("memberIdSpan").style.display = "block";
-						memberIdSpan.innerHTML = "不可空白";
-					}else if (memberIdLength <= 10) {
-                		for (let i = 0; i < memberIdLength; i++) {
-                    		let ch = memberId.charAt(i);
-                    		if ((ch >= "\u0030" && ch <= "\u0039")) {//判斷數字
-                      			flag1 = true;
-                    		}else{
-                        		flag1 = false;
-                        		break;
-                    		}
-                		}
-                		if (flag1) {
-                			memberIdSpan.innerHTML = "";
-                		} else {
-                			document.getElementById("memberIdSpan").style.display = "block";
-                			memberIdSpan.innerHTML = "只能輸入數字";
-                		}
-            		} else {
-            			document.getElementById("memberIdSpan").style.display = "block";
-            			memberIdSpan.innerHTML = "只能輸入10碼";
-            		}
-				}
-			</script>
-		
-		<label for="" class="span1">性別：</label>
-		<select name="gender" id="">
-		<c:choose>
-		<c:when test="${valueObjectAnimal.gender == 1}">
-			<option value="1" selected>公</option>
-			<option value="0">母</option>
-		</c:when>
-		<c:otherwise>
-			<option value="1">公</option>
-			<option value="0" selected>母</option>
-		</c:otherwise>
-		</c:choose>		
-
+	
 <!-- <div id="bpaging">以下為控制第一頁、前一頁、下一頁、最末頁 等超連結 -->
 <!-- <table border="1"> -->
 <!-- 	<tr align="center"> -->

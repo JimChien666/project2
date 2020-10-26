@@ -25,7 +25,6 @@ public class UpdateProduct extends HttpServlet {
 	 private static final String CHARSET_CODE = "UTF-8";
     public UpdateProduct() {
         super();
-        // TODO Auto-generated constructor stub
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -114,7 +113,7 @@ public class UpdateProduct extends HttpServlet {
 	    		rewardpoints,isThumb,memberId,animalTypeId,categoryId);
 	    JdbcDao jdbcdao = new JdbcDao();
 
-	    if (jdbcdao.insertProducts(product))  //新增成功
+	    if (jdbcdao.updateProduct(product))  //新增成功
         {
           System.out.println("Get some SQL commands done!");
 //          request.getSession(true).invalidate();

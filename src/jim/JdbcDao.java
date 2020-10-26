@@ -137,43 +137,68 @@ public class JdbcDao {
 		return false;
 	}
 
-	public boolean insertProducts(Products products) {
+	public int insertProducts(ValueObjectProduct valueObjectProduct) {
+		String sql1 = "INSERT INTO products (name,price,img,descript,quantity,special_price,rewardpoints,is_thumb,member_id,animal_type_id,category_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+		String sql2 = "select max(id) from products";
+		int id=0;
 		try (
 				Connection conn = getDataSource().getConnection();
-				Statement stmt = conn.createStatement();
-				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO products (name,price,img,descript,quantity,special_price,rewardpoints,is_thumb,member_id,animal_type_id,category_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 				){
-				
-		      pstmt.setString(1, products.getName());
-		      pstmt.setInt(2, products.getPrice());
-//		      pstmt.setString(3, products.getImg());
-		      pstmt.setBlob(3, products.getImg().getBinaryStream());
-		      pstmt.setString(4, products.getDescript());
-		      pstmt.setInt(5, products.getQuantity());
-		      pstmt.setInt(6, products.getSpecialPrice());
-		      pstmt.setString(7, products.getRewardpoints());		      
-		      pstmt.setBoolean(8, products.getIsThumb());
-		      pstmt.setInt(9, products.getMemberId());
-		      pstmt.setInt(10, products.getAnimalTypeId());
-		      pstmt.setInt(11, products.getCategoryId());
-//		      pstmt.setInt(12, products.getId());
-		      pstmt.executeUpdate();
-			  pstmt.clearParameters();
-		      conn.close();
-
-		    return true;
+			conn.setAutoCommit(false);
+			try {
+				PreparedStatement pstmt = conn.prepareStatement(sql1);
+				Statement stmt = conn.createStatement();
+				pstmt.setString(1, valueObjectProduct.getName());
+				pstmt.setInt(2, valueObjectProduct.getPrice());
+//			      pstmt.setString(3, products.getImg());
+				pstmt.setBlob(3, valueObjectProduct.getImg().getBinaryStream());
+				pstmt.setString(4, valueObjectProduct.getDescript());
+				pstmt.setInt(5, valueObjectProduct.getQuantity());
+				pstmt.setInt(6, valueObjectProduct.getSpecialPrice());
+				pstmt.setString(7, valueObjectProduct.getRewardpoints());
+				pstmt.setBoolean(8, valueObjectProduct.getIsThumb());
+				pstmt.setInt(9, valueObjectProduct.getMemberId());
+				pstmt.setInt(10, valueObjectProduct.getAnimalTypeId());
+				pstmt.setInt(11, valueObjectProduct.getCategoryId());
+//			      pstmt.setInt(12, products.getId());
+				pstmt.executeUpdate();
+				conn.commit();
+				ResultSet rs = stmt.executeQuery(sql2);
+				while (rs.next()) {
+				id = rs.getInt("max(id)");
+				}
+				return id;
+//				pstmt.clearParameters();
+				} catch (Exception e) {
+					System.out.println("JdbcDao.java/insertProducts error");
+					conn.rollback();
+					e.printStackTrace();
+//					return false;
+					return -1;
+			}
 		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}	
+			System.out.println("JdbcDao.java/insertProducts error");
+			e.printStackTrace();		
+			return -1;
+		}	
+	}
+	
 	public boolean updateProduct(Products product) {
 		try (Connection conn = getDataSource().getConnection();
-				PreparedStatement pstmt = conn.prepareStatement("update products set name=?,price=? where id=?");) {
+				PreparedStatement pstmt = conn.prepareStatement("update products set name=?,price=?,descript=?,quantity=?,special_price=?,rewardpoints=?,is_thumb=?,member_id=?,animal_type_id=?,category_id=? where id=?");) {
 
 			pstmt.setString(1, product.getName());
 			pstmt.setInt(2, product.getPrice());
-			pstmt.setInt(3, product.getId());
+			pstmt.setInt(3, product.getId());			
+			pstmt.setString(4, product.getDescript());
+		    pstmt.setInt(5, product.getQuantity());
+		    pstmt.setInt(6, product.getSpecialPrice());
+		    pstmt.setString(7, product.getRewardpoints());		      
+		    pstmt.setBoolean(8, product.getIsThumb());
+		    pstmt.setInt(9, product.getMemberId());
+		    pstmt.setInt(10, product.getAnimalTypeId());
+		    pstmt.setInt(11, product.getCategoryId());			
+			
 			pstmt.executeUpdate();
 			pstmt.clearParameters();
 
@@ -322,8 +347,8 @@ public class JdbcDao {
 		return list;
 	}
 	//查詢一筆資料修改
-	public Products getProduct(int productId) {
-		Products product = null; 
+	public ValueObjectProduct getProduct(int productId) {
+		ValueObjectProduct valueObjectProduct = null; 
 		String sql = "select a.id,a.name,a.price,a.descript,a.quantity,a.special_price,a.rewardpoints,a.is_thumb,a.member_id,a.animal_type_id,a.category_id, f.file_blob from products a left join files f on f.product_id=a.id where a.id= ?";
 		try (Connection conn = getDataSource().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -331,27 +356,29 @@ public class JdbcDao {
 			pstmt.setInt(1, productId);
 			try(ResultSet rs=pstmt.executeQuery();){
 			while (rs.next()) {
-				product = new Products();
-				product.setId(rs.getInt("id"));
-				product.setName(rs.getString(2));
-				product.setPrice(rs.getInt(3));
-//				product.setImg(rs.getString("img"));
-				product.setImg(rs.getBlob(4));
-				product.setDescript(rs.getString(5));
-				product.setQuantity(rs.getInt(6));
-				product.setSpecialPrice(rs.getInt(7));
-				product.setRewardpoints(rs.getString(8));
-				product.setIsThumb(rs.getBoolean(9));
-				product.setMemberId(rs.getInt(10));
-				product.setAnimalTypeId(rs.getInt(11));
-				product.setCategoryId(rs.getInt(12));
+				valueObjectProduct = new ValueObjectProduct();
+				valueObjectProduct.setId(rs.getInt("id"));
+				valueObjectProduct.setName(rs.getString(2));
+				valueObjectProduct.setPrice(rs.getInt(3));
+//				valueObjectProduct.setImg(rs.getString("img"));
+//				valueObjectProduct.setImg(rs.getBlob(4));
+				valueObjectProduct.setDescript(rs.getString(4));
+				valueObjectProduct.setQuantity(rs.getInt(5));
+				valueObjectProduct.setSpecialPrice(rs.getInt(6));
+				valueObjectProduct.setRewardpoints(rs.getString(7));
+				valueObjectProduct.setIsThumb(rs.getBoolean(8));
+				valueObjectProduct.setMemberId(rs.getInt(9));
+				valueObjectProduct.setAnimalTypeId(rs.getInt(10));
+				valueObjectProduct.setCategoryId(rs.getInt(11));
+				valueObjectProduct.setFileBlob(rs.getBlob(12));
+				
 				}
 			}
 		} catch (SQLException e) {
 			System.out.println("JdbcDao.getProduct error");
 			e.printStackTrace();
 		}
-		return product;
+		return valueObjectProduct;
 	}
 	
 }
