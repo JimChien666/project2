@@ -42,8 +42,12 @@ public class Attractions implements Serializable {
 	private Citys city;
 	private Set<Tags> tags = new HashSet<Tags>();
 	private Set<AttractionComments> attractionComments = new HashSet<AttractionComments>();
-	private Set<Files> files = new HashSet<Files>();
+//	private Set<Files> files = new HashSet<Files>();
+	private Set<Files> contentImgs = new HashSet<Files>();
+	private Set<Files> coverImgs = new HashSet<Files>();
 	
+	
+
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -194,13 +198,35 @@ public class Attractions implements Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
-	@JoinColumns(value = { @JoinColumn(name="cover_attraction_id",referencedColumnName="id")})
-	public Set<Files> getFiles() {
-		return files;
+	@JoinColumns(value = { @JoinColumn(name="conetnt_attraction_id",referencedColumnName="id")})
+	public Set<Files> getContentImgs() {
+		return contentImgs;
 	}
 
-	public void setFiles(Set<Files> files) {
-		this.files = files;
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
+	@JoinColumns(value = { @JoinColumn(name="cover_attraction_id",referencedColumnName="id")})
+	public void setContentImgs(Set<Files> contentImgs) {
+		this.contentImgs = contentImgs;
 	}
+
+	public Set<Files> getCoverImgs() {
+		return coverImgs;
+	}
+
+	public void setCoverImgs(Set<Files> coverImgs) {
+		this.coverImgs = coverImgs;
+	}
+
+	
+	
+//	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
+//	@JoinColumns(value = { @JoinColumn(name="cover_attraction_id",referencedColumnName="id")})
+//	public Set<Files> getFiles() {
+//		return files;
+//	}
+//
+//	public void setFiles(Set<Files> files) {
+//		this.files = files;
+//	}
 
 }

@@ -80,9 +80,7 @@ public class InsertAttractionAction extends HttpServlet {
 		tags.add(tag2);
 		attraction.setTags(tags);
 		Files file = new Files();
-		Set<Files> files = new HashSet<Files>();
-		files.add(file);
-		attraction.setFiles(files);
+
 		
 		
 		session.save(attraction);
