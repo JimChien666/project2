@@ -184,8 +184,9 @@ public class JdbcDao {
 	}
 	
 	public boolean updateProduct(Products product) {
-		try (Connection conn = getDataSource().getConnection();
-				PreparedStatement pstmt = conn.prepareStatement("update products set name=?,price=?,descript=?,quantity=?,special_price=?,rewardpoints=?,is_thumb=?,member_id=?,animal_type_id=?,category_id=? where id=?");) {
+		try (Connection conn = getDataSource().getConnection();								
+				PreparedStatement pstmt = conn.prepareStatement("update products set name=?,price=?,descript=?,quantity=?,special_price=?,img=? where id=?");
+			) {
 
 			pstmt.setString(1, product.getName());
 			pstmt.setInt(2, product.getPrice());
@@ -193,15 +194,16 @@ public class JdbcDao {
 			pstmt.setString(4, product.getDescript());
 		    pstmt.setInt(5, product.getQuantity());
 		    pstmt.setInt(6, product.getSpecialPrice());
-		    pstmt.setString(7, product.getRewardpoints());		      
-		    pstmt.setBoolean(8, product.getIsThumb());
-		    pstmt.setInt(9, product.getMemberId());
-		    pstmt.setInt(10, product.getAnimalTypeId());
-		    pstmt.setInt(11, product.getCategoryId());			
-			
+		    pstmt.setBlob(7, product.getImg());
+		    
+//		    pstmt.setString(7, product.getRewardpoints());		      
+//		    pstmt.setBoolean(8, product.getIsThumb());
+//		    pstmt.setInt(9, product.getMemberId());
+//		    pstmt.setInt(10, product.getAnimalTypeId());
+//		    pstmt.setInt(11, product.getCategoryId());			
+		    
 			pstmt.executeUpdate();
 			pstmt.clearParameters();
-
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -64,15 +64,6 @@ public class UpdateProduct extends HttpServlet {
 	    price = Integer.parseInt(request.getParameter("price").trim()); //把空白去掉!!
 	    
 		// 讀取圖片檔
-//		try {
-//			img = SystemUtils2018.fileToBlob(request.getParameter("img"));
-//		} catch (IOException | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		
-		
 		Collection<Part> parts = request.getParts();
 		GlobalService.exploreParts(parts, request);
 		// 由parts != null來判斷此上傳資料是否為HTTP multipart request
@@ -89,13 +80,14 @@ public class UpdateProduct extends HttpServlet {
 					if (fileName != null && fileName.trim().length() > 0) {
 						sizeInBytes = p.getSize();
 						is = p.getInputStream();
-					} else {
-						out.write( "必須挑選圖片檔");
+//					} else {
+//						out.write( "必須挑選圖片檔");
 					}					
 				}				
 			}	
 		}
 		try {
+			//轉成二進位，塞進Img
 			img = SystemUtils2018.fileToBlob(is, sizeInBytes);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -105,7 +97,6 @@ public class UpdateProduct extends HttpServlet {
 			e.printStackTrace();
 		}		
 
-//	    img = request.getParameter("img"); //把空白去掉!!
 	    descript = request.getParameter("descript").trim(); //把空白去掉!!
 	    quantity = Integer.parseInt(request.getParameter("quantity").trim());
 
@@ -113,7 +104,7 @@ public class UpdateProduct extends HttpServlet {
 	    		rewardpoints,isThumb,memberId,animalTypeId,categoryId);
 	    JdbcDao jdbcdao = new JdbcDao();
 
-	    if (jdbcdao.updateProduct(product))  //新增成功
+	    if (jdbcdao.updateProduct(product))  //更新成功
         {
           System.out.println("Get some SQL commands done!");
 //          request.getSession(true).invalidate();
@@ -121,7 +112,7 @@ public class UpdateProduct extends HttpServlet {
 //          RequestDispatcher rd = request.getRequestDispatcher("/jim/Thanks.jsp");
 //          rd.forward(request, response);
         }else {
-        	 out.println("對不起，新增產品失敗!");
+        	 out.println("對不起，更新產品失敗!");
         }
 	    
 	  }    
