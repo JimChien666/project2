@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -41,7 +42,8 @@ public class Attractions implements Serializable {
 	private Citys city;
 	private Set<Tags> tags = new HashSet<Tags>();
 	private Set<AttractionComments> attractionComments = new HashSet<AttractionComments>();
-
+	private Set<Files> files = new HashSet<Files>();
+	
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -189,6 +191,16 @@ public class Attractions implements Serializable {
 
 	public void setAttractionComments(Set<AttractionComments> attractionComments) {
 		this.attractionComments = attractionComments;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
+	@JoinColumns(value = { @JoinColumn(name="cover_attraction_id",referencedColumnName="id")})
+	public Set<Files> getFiles() {
+		return files;
+	}
+
+	public void setFiles(Set<Files> files) {
+		this.files = files;
 	}
 
 }

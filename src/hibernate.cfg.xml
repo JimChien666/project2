@@ -27,6 +27,7 @@
         <mapping class="team6.nn.entity.AttractionTypes"/>
         <mapping class="team6.nn.entity.Tags"/>
         <mapping class="team6.nn.entity.AttractionComments"/>
+        <mapping class="team6.nn.entity.Files"/>
         
 
         

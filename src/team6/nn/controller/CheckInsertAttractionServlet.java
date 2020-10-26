@@ -1,4 +1,4 @@
-package nn.controler;
+package team6.nn.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,11 +31,12 @@ import nn.vo.AttractionTypeBean;
 import nn.vo.CityBean;
 import nn.vo.FileBean;
 import nn.vo.TagBean;
+import team6.nn.entity.Attractions;
 
 /**
  * Servlet implementation class CheckInsertAttractionServlet
  */
-@WebServlet("/CheckInsertAttractionServlet")
+@WebServlet("/nn/controler/CheckInsertAttractionServlet")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
 maxFileSize=1024*1024*10,      // 10MB
 maxRequestSize=1024*1024*50)   // 50MB
@@ -45,26 +46,6 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 	private static final String CHARSET_CODE = "UTF-8";
 	private static final String SAVE_DIR = "nn/uploadFiles";
 	
-	
-	
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding(CHARSET_CODE);
-	    response.setContentType(CONTENT_TYPE);
-		InsertAttractionDao dao = new InsertAttractionDao();
-		List<CityBean> cityList = dao.getCityList();
-		List<TagBean> tagList = dao.getTagList();
-		List<AttractionTypeBean> attractionTypeList = dao.getAttractionTypeList();
-		HttpSession session = request.getSession();
-		session.setAttribute("attractionTypeList", attractionTypeList);
-		session.setAttribute("cityList", cityList);
-		session.setAttribute("tagList", tagList);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/nn/insertAttraction.jsp");
-		rd.forward(request, response);
-		
-		return;
-	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding(CHARSET_CODE);
@@ -201,8 +182,12 @@ public class CheckInsertAttractionServlet extends HttpServlet {
 		//insert attraction
 		int typeId=Integer.parseInt(type);
 		int cityId=Integer.parseInt(city);
-		Date createAt = new Date();
-		AttractionBean attractionBean = new AttractionBean(name, 1, typeId, content, tel, email, address, cityId, createAt);
+		Date createdAt = new Date();
+		
+		
+		
+		
+		AttractionBean attractionBean = new AttractionBean(name, 1, typeId, content, tel, email, address, cityId, createdAt);
 		InsertAttractionDao dao = new InsertAttractionDao();
 		int attractionId = dao.insertAttraction(attractionBean);
 		Blob coverBlob = null;

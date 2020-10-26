@@ -39,6 +39,11 @@ public class AttractionTypes {
 	public Set<Attractions> getAttractions() {
 		return attractions;
 	}
+	
+	@Override
+	public String toString() {
+		return "{\"id\":\"" + id + "\", \"name\":\"" + name + "\"}";
+	}
 	public void setAttractions(Set<Attractions> attractions) {
 		this.attractions = attractions;
 	}

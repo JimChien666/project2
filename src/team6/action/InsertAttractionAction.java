@@ -20,6 +20,7 @@ import team6.nn.dao.TagsDAO;
 import team6.nn.entity.AttractionTypes;
 import team6.nn.entity.Attractions;
 import team6.nn.entity.Citys;
+import team6.nn.entity.Files;
 import team6.nn.entity.Tags;
 import team6.util.HibernateUtil;
 
@@ -29,6 +30,8 @@ import team6.util.HibernateUtil;
 @WebServlet("/DemoCityBeanAction1")
 public class InsertAttractionAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
+	private static final String CHARSET_CODE = "UTF-8";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processAction(request,response);
@@ -76,7 +79,10 @@ public class InsertAttractionAction extends HttpServlet {
 		tags.add(tag1);
 		tags.add(tag2);
 		attraction.setTags(tags);
-		
+		Files file = new Files();
+		Set<Files> files = new HashSet<Files>();
+		files.add(file);
+		attraction.setFiles(files);
 		
 		
 		session.save(attraction);

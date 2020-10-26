@@ -38,7 +38,7 @@ public class AttractionCommentsDAO {
 	public AttractionComments update(int id, String comment) {
 		AttractionComments result = session.get(AttractionComments.class, id);
 		if (result != null) {
-			result.setComment(comment);
+			result.setContent(comment);
 		}
 		return result;
 	}

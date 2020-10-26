@@ -17,6 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "CITYS")
 public class Citys implements Serializable {
+	
 	private int id;
 	private String name;
 	private Set<Attractions> attractions = new HashSet<Attractions>();;
@@ -51,7 +52,10 @@ public class Citys implements Serializable {
 	public void setAttractions(Set<Attractions> attractions) {
 		this.attractions = attractions;
 	}
-	
+	@Override
+	public String toString() {
+		return "{\"id\":\"" + id + "\", \"name\":\"" + name + "\"}";
+	}
 	
 	
 }

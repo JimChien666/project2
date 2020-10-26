@@ -43,9 +43,14 @@ public class Tags {
 	}
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name="ATTRACTION_TAG_REFS", joinColumns = {@JoinColumn(name="TAGS_ID")}, inverseJoinColumns = {@JoinColumn(name="ATTRACTION_ID")})
+	@JoinTable(name="ATTRACTION_TAG_REFS", joinColumns = {@JoinColumn(name="TAG_ID")}, inverseJoinColumns = {@JoinColumn(name="ATTRACTION_ID")})
 	public Set<Attractions> getAttractions() {
 		return attractions;
+	}
+
+	@Override
+	public String toString() {
+		return " {\"id\":\"" + id + "\", \"name\":\"" + name + "\"}";
 	}
 
 	public void setAttractions(Set<Attractions> attractions) {
