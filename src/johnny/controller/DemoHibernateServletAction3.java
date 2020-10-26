@@ -25,7 +25,7 @@ import johnny.util.HibernateUtil;
  * Servlet implementation class DemoHibernateServletAction1
  */
 @MultipartConfig
-@WebServlet("/DemoHibernateServletAction2")
+@WebServlet("/DemoHibernateServletAction3")
 public class DemoHibernateServletAction3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
