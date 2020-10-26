@@ -49,7 +49,7 @@ public class ArticleDAO {
 		return list;
 	}
 	
-	public Article update(int id, String title, int activitysid, int articletypesid) {
+	public Article update(int id, String title, int activitysid, int memberid, int showarticle, int articletypesid) {
 		Article result = session.get(Article.class, id);
 		if (result!=null) {
 			result.setTitle(title);
