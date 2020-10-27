@@ -48,15 +48,14 @@ public class ShowArticle extends HttpServlet {
 		ArticleDAO aDAO = new ArticleDAO(session);
 
 		String articletypesIdStr = request.getParameter("articletypesId");
-
+		System.out.println(articletypesIdStr);
 		if (articletypesIdStr == null) {
 			int articletypesId = 1;
-			System.out.println(articletypesId);
 			List<Article> ArticleList = aDAO.getAllArticles(articletypesId);
 			request.setAttribute("ArticleList", ArticleList);
 		} else if (articletypesIdStr != null) {
 			int articletypesId = Integer.parseInt(articletypesIdStr);
-			System.out.println(articletypesId);
+
 			List<Article> ArticleList = aDAO.getAllArticles(articletypesId);
 			request.setAttribute("ArticleList", ArticleList);
 		}

@@ -156,8 +156,7 @@ table {
 	<div class="row justify-content-center align-items-center forum">
 		<c:forEach items="${allArticleTypes}" var="ArticleType" varStatus="id">
 			<div style="border: 3px solid black; width: 50%; text-align: center;">
-				<a
-					href="<c:url value='ShowAllArticle?articletypesId=${ArticleType.getId()}' />">
+				<a href="<c:url value='ShowArticle?articletypesId=${ArticleType.getId()}' />">
 					<c:if test="${ArticleType.getId()=='1'}">
 						<img src="https://image.flaticon.com/icons/png/512/194/194279.png"
 							style="height: 80px; margin-bottom: 10px;">

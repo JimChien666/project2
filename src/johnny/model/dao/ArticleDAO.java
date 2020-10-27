@@ -35,7 +35,7 @@ public class ArticleDAO {
 //	}
 
 	public List<Article> getAllArticles(int articletypesId) {
-		Query<Article> query = session.createQuery("from Article where articletypesid = ?1 order by id desc",
+		Query<Article> query = session.createQuery("from Article where articletypes_id = ?1 order by id desc",
 				Article.class);
 		query.setParameter(1, articletypesId);
 		List<Article> list = query.list();
