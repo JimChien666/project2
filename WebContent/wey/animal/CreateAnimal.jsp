@@ -12,11 +12,13 @@
 <body>
 <jsp:include page="/nn/top.jsp" />
 	<div class="wid400px">
-		<a href="<%=application.getContextPath()%>/ServletReadAnimal" class="btn btn-secondary marginTopBot10px">回維護首頁</a>
-		<form action="<%=application.getContextPath()%>/ServletCreateAnimal" method="post" enctype="multipart/form-data">
+		<a href="<c:url value='/ReadAllAnimals' />" class="btn btn-secondary marginTopBot10px">回維護首頁</a>
+		<form action="<c:url value='/ServletCreateAnimal' />" method="post" enctype="multipart/form-data">
+<%-- 		<form action="<c:url value='/CreateAnimals' />" method="post" enctype="multipart/form-data"> --%>
+<%-- 		<form action="<%=application.getContextPath()%>/ServletCreateAnimal" method="post" enctype="multipart/form-data"> --%>
 			<label for="" class="label1">照片：</label>
 			<input type="file" name="animalFile" id="animalFile" multiple class="wid200px">
-			<span id="animalFileSpan" class="spanHidden height260px"><img id="preview_animalFile" src="#" class="square250px"/><br></span>
+			<span id="animalFileSpan" class="spanHidden height260px"><img id="preview_animalFile" src="#" class="square250px"/><br></span><br>
 			<label for="" class="label1">會員編號：</label>
 			<input type="text" name="memberId" placeholder="自動抓取會員編號" onblur="checkmemberId()" id="memberId" required><br>
 			<span id="memberIdSpan" class="spanHidden"><br></span>

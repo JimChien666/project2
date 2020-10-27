@@ -1,14 +1,11 @@
 package wey.entity;
 
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -24,8 +21,8 @@ public class AdoptionRecords {
 	private Date createAt;
 	private Date updatedAt;
 	private Date deleteAt;
-	//private member TODO
-	private Animals animals;
+//	private MembersBean membersBean;
+//	private Animals animals;
 	
 	@Id @Column(name = "ADOPTION_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -91,17 +88,20 @@ public class AdoptionRecords {
 	public void setDeleteAt(Date deleteAt) {
 		this.deleteAt = deleteAt;
 	}
-	//TODO
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "ID")
-//	public MemberBean getMemberBean() {
-//		return memberBean;
+//	public MembersBean getMembersBean() {
+//		return membersBean;
 //	}
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)
-	public Animals getAnimals() {
-		return animals;
-	}
-	public void setAnimals(Animals animals) {
-		this.animals = animals;
-	}
+//	public void setMembersBean(MembersBean membersBean) {
+//		this.membersBean = membersBean;
+//	}
+//	@OneToOne(fetch = FetchType.LAZY, mappedBy = "adoptionRecords", cascade = CascadeType.ALL)
+//	@JoinColumn(name = "ADOPTION_ID", nullable = false)
+//	public Animals getAnimals() {
+//		return animals;
+//	}
+//	public void setAnimals(Animals animals) {
+//		this.animals = animals;
+//	}
 }

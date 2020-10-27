@@ -58,6 +58,7 @@
 	<div class="page1">
 		<div class="div1">
 			<a href="<%=application.getContextPath()%>/wey/animal/CreateAnimal.jsp" class="btn btn-primary">新增</a>
+<!-- 			搜尋框框 -->
 <!-- 			<div class="input-group mb-3 search1"> -->
 <!-- 			  <input type="text" class="form-control" placeholder="Search"> -->
 <!-- 			  <div class="input-group-append"> -->

@@ -18,7 +18,7 @@ public class ServletUpdateAnimal extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/ServletReadAnimal").forward(request,response);
+		request.getRequestDispatcher("/ReadAllAnimals").forward(request,response);
 	}
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,7 +44,7 @@ public class ServletUpdateAnimal extends HttpServlet {
 		if (daoAnimal.updateAnimal(reg_Animal)){
           System.out.println("Update animal No."+animalId+".");
           request.getSession(true).invalidate();
-          request.getRequestDispatcher("/ServletReadAnimal").forward(request,response);
+          request.getRequestDispatcher("/ReadAllAnimals").forward(request,response);
         }else {
         	System.out.println("ServletUpdateAnimal error");
         }

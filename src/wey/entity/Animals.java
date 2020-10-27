@@ -1,18 +1,12 @@
 package wey.entity;
 
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "animals")
@@ -28,10 +22,29 @@ public class Animals {
 	private Date createdAt;
 	private Date updatedAt;
 	private Date deletedAt;
-	private AdoptionRecords adoptionRecords;
-	//private member TODO
-	private Breeds breeds;
-	//private file TODO
+//	private AdoptionRecords adoptionRecords;
+//	private MembersBean membersBean;
+//	private Breeds breeds;
+//	private Set<FilesBean> filesBean;
+	
+	public Animals() {
+	}
+	
+	public Animals(int animalId, int memberId, String acceptionId, int breedId, int gender, String coatColor,
+			int isAdoptionAvailable, String note, Date createdAt, Date updatedAt, Date deletedAt) {
+		super();
+		this.animalId = animalId;
+		this.memberId = memberId;
+		this.acceptionId = acceptionId;
+		this.breedId = breedId;
+		this.gender = gender;
+		this.coatColor = coatColor;
+		this.isAdoptionAvailable = isAdoptionAvailable;
+		this.note = note;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.deletedAt = deletedAt;
+	}
 	
 	@Id @Column(name = "ANIMAL_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +54,7 @@ public class Animals {
 	public void setAnimalId(int animalId) {
 		this.animalId = animalId;
 	}
-	@Transient
+	@Column(name = "MEMBER_ID")
 	public int getMemberId() {
 		return memberId;
 	}
@@ -55,7 +68,7 @@ public class Animals {
 	public void setAcceptionId(String acceptionId) {
 		this.acceptionId = acceptionId;
 	}
-	@Transient
+	@Column(name = "BREED_ID")
 	public int getBreedId() {
 		return breedId;
 	}
@@ -111,25 +124,34 @@ public class Animals {
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
 	}
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)
-	public AdoptionRecords getAdoptionRecords() {
-		return adoptionRecords;
-	}
-	public void setAdoptionRecords(AdoptionRecords adoptionRecords) {
-		this.adoptionRecords=adoptionRecords;
-	}
-	//TODO
+//	@OneToOne(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)
+//	public AdoptionRecords getAdoptionRecords() {
+//		return adoptionRecords;
+//	}
+//	public void setAdoptionRecords(AdoptionRecords adoptionRecords) {
+//		this.adoptionRecords=adoptionRecords;
+//	}
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "ID")
-//	public MemberBean getMemberBean() {
-//		return memberBean;
+//	public MembersBean getMembersBean() {
+//		return membersBean;
 //	}
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BREED_ID")
-	public Breeds getBreeds() {
-		return breeds;
-	}
-	public void setBreeds(Breeds breeds) {
-		this.breeds = breeds;
-	}
+//	public void setMembersBean(MembersBean membersBean) {
+//		this.membersBean = membersBean;
+//	}
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "BREED_ID")
+//	public Breeds getBreeds() {
+//		return breeds;
+//	}
+//	public void setBreeds(Breeds breeds) {
+//		this.breeds = breeds;
+//	}
+//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "files")
+//	public Set<FilesBean> getFilesBean() {
+//		return filesBean;
+//	}
+//	public void setFilesBean(Set<FilesBean> filesBean) {
+//		this.filesBean = filesBean;
+//	}
 }
