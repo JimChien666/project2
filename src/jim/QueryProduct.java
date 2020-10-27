@@ -19,7 +19,6 @@ import org.hibernate.SessionFactory;
 import global.util.HibernateUtil;
 import jim.dao.ProductsDAO;
 import jim.entity.Products;
-import jim.entity.Products2;
 
 /**
  * Servlet implementation class InsertProduct
