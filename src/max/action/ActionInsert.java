@@ -41,7 +41,7 @@ public class ActionInsert extends HttpServlet {
 		
 		try {
 			
-			
+			System.out.println(request.getParameter("adoptedlevelId").trim());
 			MembersDAO mDAO=new MembersDAO(session);
 //			String id=request.getParameter("id");		
 			String account = request.getParameter("account");			
@@ -52,10 +52,10 @@ public class ActionInsert extends HttpServlet {
 			String email = request.getParameter("email");
 			String income = request.getParameter("income");
 			String address = request.getParameter("address");
-			int adoptedLevelId =  Integer.parseInt(request.getParameter("adoptedLevelId"));
+			int adoptedLevelid =  Integer.parseInt(request.getParameter("adoptedlevelId").trim());
 			String memberType = request.getParameter("memberType");
  
-			Members newMembers = new Members( memberType, name, sex, tel, income, account, password, email, address, adoptedLevelId);
+			Members newMembers = new Members( memberType, name, sex, tel, income, account, password, email, address, adoptedLevelid);
 			
 			mDAO.insert(newMembers);
 

@@ -51,10 +51,10 @@
 						<td>使用者密碼:</td>
 						<td><input type="text" name="password" size="20" /></td>
 					</tr>
-					<tr>
+				<!--  <tr>
 						<td>再次確認密碼:</td>
 						<td><input type="text" name="password2" size="20" /></td>
-					<tr>
+					<tr>-->
 					<tr>
 						<td>使用者名稱:</td>
 						<td><input type="text" name="name" size="20" /></td>

@@ -11,14 +11,14 @@ import javax.persistence.Transient;
 import jim.entity.Categories;
 import max.entity.Favorites;
 import max.entity.Files;
-import team6.johnny.model.Article;
-import team6.johnny.model.BannedList;
-import team6.johnny.model.Comments;
-import team6.johnny.model.ForumFeel;
-import team6.johnny.model.Forums;
-import team6.johnny.model.MemberOption;
-import wey.entity.AdoptionRecords;
-import wey.entity.Animals;
+//import team6.johnny.model.Article;
+//import team6.johnny.model.BannedList;
+//import team6.johnny.model.Comments;
+//import team6.johnny.model.ForumFeel;
+//import team6.johnny.model.Forums;
+//import team6.johnny.model.MemberOption;
+//import wey.entity.AdoptionRecords;
+//import wey.entity.Animals;
 
 @Entity
 @Table(name = "members")
@@ -57,25 +57,25 @@ public class Members {
 
 
 	// Animals.Member_Id
-	private Animals animals;
-	// AdoptionRecords.Member_Id
-	private AdoptionRecords adoptionRecords;
-	// Article
-	private Article article;
-//	//AttractionBean
-//	private AttractionBean attractionBean;
-	// BannedList
-	private BannedList bannedList;
-	// Comments
-	private Comments comments;
-	// ForumFeel
-	private ForumFeel forumFeel;
-	// Forums
-	private Forums forums;
-	// MemberOption
-	private MemberOption memberOption;
-	// Categories
-	private Categories categories;
+//	private Animals animals;
+//	// AdoptionRecords.Member_Id
+//	private AdoptionRecords adoptionRecords;
+//	// Article
+//	private Article article;
+////	//AttractionBean
+////	private AttractionBean attractionBean;
+//	// BannedList
+//	private BannedList bannedList;
+//	// Comments
+//	private Comments comments;
+//	// ForumFeel
+//	private ForumFeel forumFeel;
+//	// Forums
+//	private Forums forums;
+//	// MemberOption
+//	private MemberOption memberOption;
+//	// Categories
+//	private Categories categories;
 	// ActivityApply
 //	private ActivityApply activityApply;
 	// Favorites
