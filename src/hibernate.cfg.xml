@@ -30,7 +30,7 @@
         
         
 		<!--仲康 -->
-        <mapping class="team6.johnny.model.Article"/>
+                 <mapping class="team6.johnny.model.Article"/>
 <!--         <mapping class="tw.reicheng.model.Department"/> -->
         
 <!--         <mapping class="tw.reicheng.model.Books"/> -->
@@ -40,6 +40,11 @@
 <!--         <mapping class="tw.reicheng.model.StockTransaction"/> -->
         
 <!--         <mapping class="tw.reicheng.model.Profiles"/> -->
-        
+
+		<!--Max -->
+         <mapping class="max.model.Members"/>
+         
+         
+         
     </session-factory>
 </hibernate-configuration>

@@ -1,21 +1,16 @@
-package max.entity;
+package max.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import jim.entity.Categories;
-
+import max.entity.Favorites;
+import max.entity.Files;
 import team6.johnny.model.Article;
 import team6.johnny.model.BannedList;
 import team6.johnny.model.Comments;
@@ -26,7 +21,7 @@ import wey.entity.AdoptionRecords;
 import wey.entity.Animals;
 
 @Entity
-@Table(name ="members")
+@Table(name = "members")
 public class Members {
 	private int id;
 	private String memberType;
@@ -39,48 +34,71 @@ public class Members {
 	private String email;
 	private String address;
 	private int adoptedLevelId;
+
+	public Members() {
+		
+	}
 	
-    //Animals.Member_Id
+	public Members(String memberType, String name, String sex, String tel, String income, String account,
+			String password, String email, String address, int adoptedLevelId) {
+//		this.id=id;
+		this.memberType = memberType;
+		this.name = name;
+		this.sex = sex;
+		this.tel = tel;
+		this.income = income;
+		this.account = account;
+		this.password = password;
+		this.email = email;
+		this.address = address;
+		this.adoptedLevelId = adoptedLevelId;
+	}
+
+
+
+	// Animals.Member_Id
 	private Animals animals;
-	//AdoptionRecords.Member_Id
+	// AdoptionRecords.Member_Id
 	private AdoptionRecords adoptionRecords;
-	//Article
+	// Article
 	private Article article;
 //	//AttractionBean
 //	private AttractionBean attractionBean;
-	//BannedList
+	// BannedList
 	private BannedList bannedList;
-	//Comments
+	// Comments
 	private Comments comments;
-	//ForumFeel
+	// ForumFeel
 	private ForumFeel forumFeel;
-	//Forums
+	// Forums
 	private Forums forums;
-	//MemberOption
+	// MemberOption
 	private MemberOption memberOption;
-	//Categories
+	// Categories
 	private Categories categories;
-	//ActivityApply
+	// ActivityApply
 //	private ActivityApply activityApply;
-	//Favorites
+	// Favorites
 	private Favorites favorites;
-	//Files
+	// Files
 	private Files files;
-	//Favorites
+	// Favorites
 //	private Set<Animals> Animals = new HashSet<Animals>();
 //	private Set<Tags> tags = new HashSet<Tags>();
 //	private Set<AttractionComments> attractionComments = new HashSet<AttractionComments>();
 //	
-	
-	
-    @Id @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Id
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	@Column(name = "MEMBERTYPE")
 	public String getMemberType() {
 		return memberType;
@@ -89,6 +107,7 @@ public class Members {
 	public void setMemberType(String memberType) {
 		this.memberType = memberType;
 	}
+
 	@Column(name = "NAME")
 	public String getName() {
 		return name;
@@ -97,6 +116,7 @@ public class Members {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Column(name = "SEX")
 	public String getSex() {
 		return sex;
@@ -105,6 +125,7 @@ public class Members {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+
 	@Column(name = "TEL")
 	public String getTel() {
 		return tel;
@@ -113,6 +134,7 @@ public class Members {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
+
 	@Column(name = "INCOME")
 	public String getIncome() {
 		return income;
@@ -121,6 +143,7 @@ public class Members {
 	public void setIncome(String income) {
 		this.income = income;
 	}
+
 	@Column(name = "ACCOUNT")
 	public String getAccount() {
 		return account;
@@ -129,6 +152,7 @@ public class Members {
 	public void setAccount(String account) {
 		this.account = account;
 	}
+
 	@Column(name = "PASSWORD")
 	public String getPassword() {
 		return password;
@@ -137,6 +161,7 @@ public class Members {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	@Column(name = "EMAIL")
 	public String getEmail() {
 		return email;
@@ -145,6 +170,7 @@ public class Members {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	@Column(name = "ADDRESS")
 	public String getAddress() {
 		return address;
@@ -153,15 +179,17 @@ public class Members {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	@Transient
 	public int getAdoptedLevelId() {
 		return adoptedLevelId;
 	}
+
 	public void setAdoptedLevelId(int adoptedLevelId) {
 		this.adoptedLevelId = adoptedLevelId;
 	}
 
-	//  關聯
+	// 關聯
 //	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "animals")
 //	public Animals getAnimals() {
 //		return animals;
@@ -185,7 +213,7 @@ public class Members {
 //	public void setArticle(Article article) {
 //		this.article = article;
 //	}
-	
+
 //	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "attractionBean")
 //	public AttractionBean getAttractionBean() {
 //		return attractionBean;
@@ -193,7 +221,7 @@ public class Members {
 //	public void setAttractionBean(AttractionBean attractionBean) {
 //		this.attractionBean = attractionBean;
 //	}
-	
+
 //	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "bannedList")
 //	public BannedList getBannedList() {
 //		return bannedList;
@@ -250,7 +278,7 @@ public class Members {
 //	public void setActivityApply(ActivityApply activityApply) {
 //		this.activityApply = activityApply;
 //	}
-	
+
 //	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "favorites")
 //	public Favorites getFavorites() {
 //		return favorites;
@@ -277,6 +305,5 @@ public class Members {
 //	public void setTags(Set<Tags> tags) {
 //		this.tags = tags;
 //	}
-	
-	
+
 }

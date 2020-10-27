@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import jim.entity.Products;
+import max.model.Members;
 import team6.johnny.model.Forums;
 import wey.entity.Animals;
 import wey.entity.Breeds;
