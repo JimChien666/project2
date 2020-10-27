@@ -35,7 +35,7 @@
         
         
 		<!--仲康 -->
-        <mapping class="team6.johnny.model.Article"/>
+        <mapping class="johnny.model.bean.Article"/>
         
         <!--品睿 -->
         <mapping class="jim.entity.Products"/>
