@@ -30,7 +30,7 @@ public class ServletCreateAnimal extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/ServletReadAnimal").forward(request,response);
+		request.getRequestDispatcher("/ReadAllAnimals").forward(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -127,7 +127,7 @@ public class ServletCreateAnimal extends HttpServlet {
 			{
 				System.out.println("Create animal No."+newAnimalId+".");
 				request.getSession(true).invalidate();
-				request.getRequestDispatcher("/ServletReadAnimal").forward(request,response);
+				request.getRequestDispatcher("/ReadAllAnimals").forward(request,response);
 			}
 			
 			//TODO 合併到上面
