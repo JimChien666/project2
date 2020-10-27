@@ -55,16 +55,15 @@ public class ArticleDelete extends HttpServlet {
 			System.out.println(aId);
 			System.out.println(articleId);
 			ArticleDAO aDAO = new ArticleDAO(session);
-			
+
 			aDAO.delete(articleId);
-			
+
 			RequestDispatcher rd = request.getRequestDispatcher("/ShowArticle");
 			rd.forward(request, response);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 
 	}
 

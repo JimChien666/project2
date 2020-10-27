@@ -25,7 +25,7 @@ import johnny.util.HibernateUtil;
  * Servlet implementation class DemoHibernateServletAction1
  */
 @MultipartConfig
-@WebServlet("/PostArticle") //DemoHibernateServletAction2
+@WebServlet("/PostArticle") // DemoHibernateServletAction2
 public class PostArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -74,7 +74,7 @@ public class PostArticle extends HttpServlet {
 						if (fldName.equals("title")) {
 							title = value;
 							request.setAttribute("title", title);
-							
+
 //							idStr = value;
 //							idStr = idStr.trim();
 //							System.out.println(idStr);
@@ -83,8 +83,7 @@ public class PostArticle extends HttpServlet {
 //						} else if (fldName.equals("title")) {
 //							title = value;
 //							request.setAttribute("title", title);
-						} 	
-						else if (fldName.equals("activitysId")) {
+						} else if (fldName.equals("activitysId")) {
 							activitysIdStr = value;
 							activitysIdStr = activitysIdStr.trim();
 							System.out.println(activitysIdStr);
@@ -126,7 +125,7 @@ public class PostArticle extends HttpServlet {
 			Article article = new Article(title, 1, articleType, 1, 1);
 
 			aDAO.insert(article);
-			
+
 			RequestDispatcher rd = request.getRequestDispatcher("/ShowArticle");
 			rd.forward(request, response);
 //			response.sendRedirect("/Project2/ShowArticle");

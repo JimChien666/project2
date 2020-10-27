@@ -22,7 +22,7 @@ import johnny.util.HibernateUtil;
 /**
  * Servlet implementation class DemoHibernateServletAction1
  */
-@WebServlet("/ShowArticle")//DemoHibernateServletAction1
+@WebServlet("/ShowArticle") // DemoHibernateServletAction1
 public class ShowArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
