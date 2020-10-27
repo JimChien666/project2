@@ -1,4 +1,4 @@
-package johnny.model;
+package johnny.model.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,11 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MEMBER_OPTION")
-public class MemberOption {
+@Table(name = "BANNED_RESTRICTED_LIST")
+public class BannedList {
 	private int id;
-	private int optionid;
 	private int memberid;
+	private int status;
 
 	@Id @Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,15 +24,6 @@ public class MemberOption {
 		this.id = id;
 	}
 
-	@Column(name = "OPTION_ID")
-	public int getOptionid() {
-		return optionid;
-	}
-
-	public void setOptionid(int optionid) {
-		this.optionid = optionid;
-	}
-
 	@Column(name = "MEMBER_ID")
 	public int getMemberid() {
 		return memberid;
@@ -40,6 +31,15 @@ public class MemberOption {
 
 	public void setMemberid(int memberid) {
 		this.memberid = memberid;
+	}
+
+	@Column(name = "STATUS")
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 }

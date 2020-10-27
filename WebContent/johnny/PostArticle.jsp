@@ -32,7 +32,7 @@ font-family: 'Noto Sans TC', sans-serif
     
     
 
-<form action="<c:url value='/ArticleInsert' />" enctype="multipart/form-data"
+<form action="<c:url value='/PostArticle' />" enctype="multipart/form-data"
  method="post" class="was-validated" style="margin: 1% 10% 3% 3%;">
 
 <!-- ID

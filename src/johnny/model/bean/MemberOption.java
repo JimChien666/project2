@@ -1,4 +1,4 @@
-package johnny.model;
+package johnny.model.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,11 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "COMMENTS")
-public class Comments {
+@Table(name = "MEMBER_OPTION")
+public class MemberOption {
 	private int id;
-	private String comment;
-	private int forumid;
+	private int optionid;
 	private int memberid;
 
 	@Id @Column(name = "ID")
@@ -25,22 +24,13 @@ public class Comments {
 		this.id = id;
 	}
 
-	@Column(name = "COMMENT")
-	public String getComment() {
-		return comment;
+	@Column(name = "OPTION_ID")
+	public int getOptionid() {
+		return optionid;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-	
-	@Column(name = "FORUM_ID")
-	public int getForumid() {
-		return forumid;
-	}
-
-	public void setForumid(int forumid) {
-		this.forumid = forumid;
+	public void setOptionid(int optionid) {
+		this.optionid = optionid;
 	}
 
 	@Column(name = "MEMBER_ID")
