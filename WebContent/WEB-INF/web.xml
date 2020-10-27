@@ -33,7 +33,7 @@
 
 	<resource-ref>
 		<description>HibernateOracleJDBCConnection</description> <!-- 與context.xml的名字要一樣 -->
-		<res-ref-name>connectOracleJdbc/HibernateService</res-ref-name>
+		<res-ref-name>jdbc/xe</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
