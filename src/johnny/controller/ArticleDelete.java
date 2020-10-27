@@ -42,21 +42,29 @@ public class ArticleDelete extends HttpServlet {
 	private void processAction(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		SessionFactory factory = HibernateUtil.getSessionFactory();
-		Session session = factory.openSession();
-		String aId = request.getParameter("articleId").trim();
+		try {
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
+			SessionFactory factory = HibernateUtil.getSessionFactory();
+			Session session = factory.getCurrentSession();
+			String aId = request.getParameter("articleId").trim();
 
-		int articleId = Integer.parseInt(aId);
-//		WriteArticleImpl_Jdbc dao = new WriteArticleImpl_Jdbc();		
-//		dao.deleteArticle(articleId);
-		ArticleDAO aDAO = new ArticleDAO(session);
-		Article article = new Article();
-		aDAO.delete(articleId);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/ArticleShow");
-		rd.forward(request, response);
+			int articleId = Integer.parseInt(aId);
+//			WriteArticleImpl_Jdbc dao = new WriteArticleImpl_Jdbc();		
+//			dao.deleteArticle(articleId);
+			System.out.println(aId);
+			System.out.println(articleId);
+			ArticleDAO aDAO = new ArticleDAO(session);
+			
+			aDAO.delete(articleId);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/ShowArticle");
+			rd.forward(request, response);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 
 	}
 

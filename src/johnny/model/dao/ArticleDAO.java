@@ -70,9 +70,12 @@ public class ArticleDAO {
 //	}
 	
 	public boolean delete(int id) {
+		System.out.println("123");
 		Article result = session.get(Article.class, id);
 		if (result!=null) {
 			session.delete(result);
+			System.out.println("456");
+//			session.getTransaction().commit();
 			return true;
 		}
 		return false;

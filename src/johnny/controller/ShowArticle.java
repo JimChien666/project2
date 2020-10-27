@@ -42,7 +42,8 @@ public class ShowArticle extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		SessionFactory factory = HibernateUtil.getSessionFactory();
-		Session session = factory.openSession();
+//		Session session = factory.openSession();
+		Session session = factory.getCurrentSession();
 
 		ArticleDAO aDAO = new ArticleDAO(session);
 

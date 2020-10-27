@@ -44,7 +44,9 @@ public class UpdateArticle extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		SessionFactory factory = HibernateUtil.getSessionFactory();
-		Session session = factory.openSession();
+//		Session session = factory.openSession();
+		Session session = factory.getCurrentSession();
+
 		String aId = request.getParameter("id").trim();
 		
 		try {
@@ -81,8 +83,10 @@ public class UpdateArticle extends HttpServlet {
 		
 		}catch (Exception e) {
 			e.printStackTrace(); 
-			RequestDispatcher rd = request.getRequestDispatcher("/DemoHibernateServletAction1");
+			RequestDispatcher rd = request.getRequestDispatcher("/ShowArticle");
 			rd.forward(request, response);
+			
+			
 		}
 		
 		

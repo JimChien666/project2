@@ -45,8 +45,10 @@ public class PostArticle extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 
 		SessionFactory factory = HibernateUtil.getSessionFactory();
-		Session session = factory.openSession();
-		HttpSession hSession = request.getSession();
+//		Session session = factory.openSession();
+		Session session = factory.getCurrentSession();
+
+//		HttpSession hSession = request.getSession();
 		System.out.println("try");
 		try {
 			String title = "";
@@ -125,8 +127,9 @@ public class PostArticle extends HttpServlet {
 
 			aDAO.insert(article);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/DemoHibernateServletAction1");
+			RequestDispatcher rd = request.getRequestDispatcher("/ShowArticle");
 			rd.forward(request, response);
+//			response.sendRedirect("/Project2/ShowArticle");
 			return;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -108,7 +108,7 @@ table {
 
 	<div class="btn btn-secondary float-right fixed1 box" id="idbox1">
 
-		<form action="<c:url value='/ArticleUpdate' />"
+		<form action="<c:url value='/UpdateArticle' />"
 			enctype="multipart/form-data" method="post" class="was-validated">
 
 			<div class="mb-3">
