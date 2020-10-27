@@ -101,6 +101,8 @@ public class UpdateProduct extends HttpServlet {
 	    descript = request.getParameter("descript").trim(); //把空白去掉!!
 	    quantity = Integer.parseInt(request.getParameter("quantity").trim());
 
+	    
+	    
 	    Products product =  new Products(id,name,price,img,descript,quantity,specialPrice,
 	    		rewardpoints,isThumb,memberId,animalTypeId,categoryId);
 	    JdbcDao jdbcdao = new JdbcDao();

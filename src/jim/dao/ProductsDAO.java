@@ -29,6 +29,12 @@ public class ProductsDAO {
 	public Products select(int id) {//查單筆
 		return session.get(Products.class, id);
 	}
+	public List<Products> selectByName(String name) {//查單筆
+		Query<Products> query = session.createQuery("from Products where name like ?0 order by id", Products.class);
+		query.setParameter(0, "%"+name+"%");
+		List<Products> list = query.list();
+		return list;
+	}
 
 	public List<Products> selectAll() {//查所有,用ID排序
 		Query<Products> query = session.createQuery("from Products order by id", Products.class);

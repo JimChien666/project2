@@ -6,6 +6,9 @@ import java.io.PrintWriter;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,7 +17,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import global.util.HibernateUtil;
 import jim.entity.Products;
+import nn.entity.Files;
 
 @WebServlet("/InsertProduct")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
@@ -117,30 +126,39 @@ public class InsertProduct extends HttpServlet {
 
 		try {
 			String fileType = "";
-			String fileUrl = "";			
-
-
+			String fileUrl = "";
 			
-			JdbcDao daoProduct = new JdbcDao();
-			ValueObjectProduct valueObjectProduct = new ValueObjectProduct(name,price,blob,descript,quantity,specialPrice,
-					rewardpoints,isThumb,memberId,animalTypeId,categoryId, fileType,fileUrl,blob);
-			int newProductId = daoProduct.insertProducts(valueObjectProduct);
-			System.out.println(newProductId);
-			if (newProductId>0)
-			{
-				System.out.println("Get some SQL commands done! Create No."+newProductId+" Product.");
-				response.sendRedirect("/Project2/ProductsPage");
-			}
+			SessionFactory factory = HibernateUtil.getSessionFactory();
+			Session hSession = factory.getCurrentSession();
+
+			Products product = new Products(name, price, blob, descript, quantity, specialPrice, rewardpoints, isThumb, memberId, animalTypeId, categoryId);
+			
+			Set<Files> files = new HashSet<Files>();
+			files.add(new Files("image", blob));
+			product.setFiles(files);
+			hSession.save(product);
+			
+			
+			
+//			JdbcDao daoProduct = new JdbcDao();
+//			ValueObjectProduct valueObjectProduct = new ValueObjectProduct(name,price,blob,descript,quantity,specialPrice,
+//					rewardpoints,isThumb,memberId,animalTypeId,categoryId, fileType,fileUrl,blob);
+//			int newProductId = daoProduct.insertProducts(valueObjectProduct);
+//			System.out.println(newProductId);
+	
+			System.out.println(" Create Product done!");
+			response.sendRedirect("/Project2/ProductsPage");
+
 			
 			//TODO 合併到上面
-			DaoFilesOfProduct daoFilesOfProduct = new DaoFilesOfProduct();
-			ValueObjectFilesOfProduct valueObjectFilesOfProduct = new ValueObjectFilesOfProduct(fileType, fileUrl, newProductId, blob);
-			boolean success = daoFilesOfProduct.createFilesOfProduct(valueObjectFilesOfProduct);
-			if (success) {
-				System.out.println("File successfully saved to DB.");
-				request.getSession(true).invalidate();
-
-			}
+//			DaoFilesOfProduct daoFilesOfProduct = new DaoFilesOfProduct();
+//			ValueObjectFilesOfProduct valueObjectFilesOfProduct = new ValueObjectFilesOfProduct(fileType, fileUrl, newProductId, blob);
+//			boolean success = daoFilesOfProduct.createFilesOfProduct(valueObjectFilesOfProduct);
+//			if (success) {
+//				System.out.println("File successfully saved to DB.");
+//				request.getSession(true).invalidate();
+//
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			out.println("對不起，新增產品失敗!");

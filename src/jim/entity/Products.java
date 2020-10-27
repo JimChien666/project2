@@ -1,14 +1,23 @@
 package jim.entity;
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import nn.entity.Files;
 
 @Entity
 @Table(name = "PRODUCTS")
@@ -28,6 +37,9 @@ public class Products implements Serializable{
 	private int animalTypeId;
 	private int categoryId;
 	private String filename;
+	private Set<Files> files = new HashSet<Files>(); 
+	 
+	
 	public Products() {
 		
 	}
@@ -176,6 +188,15 @@ public class Products implements Serializable{
 	}
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "FILES")
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class,cascade = CascadeType.ALL)
+	@JoinColumns( value = {@JoinColumn(name="PRODUCT_ID",referencedColumnName="ID")})
+	public Set<Files> getFiles() {
+		return files;
+	}
+	public void setFiles(Set<Files> files) {
+		this.files = files;
 	}
 
 }

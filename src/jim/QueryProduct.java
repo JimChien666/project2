@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import global.util.HibernateUtil;
+import jim.dao.ProductsDAO;
 import jim.entity.Products;
 import jim.entity.Products2;
 
@@ -51,22 +56,33 @@ public class QueryProduct extends HttpServlet {
 		String searchName = search.trim(); //把空白去掉!!
 //	    img = request.getParameter("img").trim(); //把空白去掉!!
 
-	    JdbcDao jdbcdao = new JdbcDao();
 
-    	List<Products> SearchList = new ArrayList<>();
-    	List<Products> list = jdbcdao.listProducts();
-    	for(Products product:list) {
-    		if(product.getName().contains(searchName)) {
-    			SearchList.add(product);
-    		}
-
-//			    out.println(list.getDescript());
-    	}
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session Session = factory.getCurrentSession();
+		
+		ProductsDAO productsDao = new ProductsDAO(Session);
+		List<Products> list = productsDao.selectByName(searchName);
+		request.setAttribute("ProductList", list);
+		
+		
+		
+//	    JdbcDao jdbcdao = new JdbcDao();
+//
+//    	List<Products> SearchList = new ArrayList<>();
+//    	List<Products> list = jdbcdao.listProducts();
+//    	for(Products product:list) {
+//    		if(product.getName().contains(searchName)) {
+//    			SearchList.add(product);
+//    		}
+//
+////			    out.println(list.getDescript());
+//    	}
+		
       System.out.println("Get some SQL commands done!");
-      int size = SearchList.size();
+      int size = list.size();
       if(size>0) {
     	  
-    	  request.setAttribute("ProductList", SearchList);
+    	  request.setAttribute("ProductList", list);
           RequestDispatcher rd= request.getRequestDispatcher("/jim/ProductList.jsp");
           rd.forward(request, response);
           return;
