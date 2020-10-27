@@ -1,6 +1,5 @@
 package jim;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -10,12 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import global.util.HibernateUtil;
+import jim.dao.ProductsDAO;
 import jim.entity.Products;
 
-/**
- * Servlet implementation class ProductsPage
- */
+
 @WebServlet("/ProductsPage")
 public class ProductsPage extends HttpServlet {	
 	int pageNo = 1;
@@ -26,18 +26,20 @@ public class ProductsPage extends HttpServlet {
 		    response.setCharacterEncoding("UTF-8");
 		    PrintWriter out = response.getWriter();
 		    
-			JdbcDao jdbcDao = new JdbcDao();
-			List<Products> list = jdbcDao.listProducts();	
-//			List<ProductsBean> searchlist = jdbcDao.listProducts();	
-//			for(ProductsBean listp :list) {	
-//				if(listp.getName().contains("程小乖")) {
-//					searchlist.add(listp);
-//				}
-//			    out.println(listp.getId());				    
-//			    out.println(listp.getName());			    
-//			    out.println(listp.getDescript());	    
-//			}
+		    //Hibernate
+			SessionFactory factory = HibernateUtil.getSessionFactory();
+			Session Session = factory.getCurrentSession();
+			
+			ProductsDAO productsDao = new ProductsDAO(Session);
+			List<Products> list = productsDao.selectAll();
 			request.setAttribute("ProductList", list);
+			//
+			
+			//SQL
+//			JdbcDao jdbcDao = new JdbcDao();
+//			List<Products> list = jdbcDao.listProducts();
+//			request.setAttribute("ProductList", list);
+			//
 			RequestDispatcher rd= request.getRequestDispatcher("/jim/ProductList.jsp");
 			rd.forward(request, response);
 			return;

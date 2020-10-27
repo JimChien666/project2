@@ -61,7 +61,8 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 			<TD>${ProductList.name}</TD>
 			<TD><img height='200px' width='100px'
 			src='${pageContext.request.contextPath}/_00_init/getImage?id=${ProductList.id}&type=PRODUCTS'>
-			</TD>
+<!-- 																							type=PRODUCTS_BLOB -->
+			</TD>												
 			<TD>${ProductList.price}</TD>
 			<TD>${ProductList.descript}</TD>
 			<TD><input class="btn btn-primary" type ="button" onclick="javascript:location.href='/Project2/ProductPreUpdate?productId=${ProductList.id}&pageNo=${pageNo}'" value="修改"></input></TD>

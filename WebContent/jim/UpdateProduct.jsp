@@ -11,7 +11,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Using jsp:setProperty</title>
+<title>產品更新</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
@@ -50,7 +50,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 </nav>
 <div class="page1">
 	<a href="<c:url value='/ProductsPage' />" class="btn btn-secondary div2">回產品首頁</a>
-<form action="<%=application.getContextPath() %>/UpdateProduct" method="post"> 
+<form action="<%=application.getContextPath() %>/UpdateProduct" enctype='multipart/form-data'  method="post"> 
 		<label for="" class="span1">產品編號：</label>
 		<input type="text" name="id" value="${product.id}" readonly>(無法修改)<br> 
 		<label for="" class="span1">產品名稱：</label>
@@ -64,9 +64,11 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <%-- 		<input type="text" name="productImg" value="${product.img}"  required><br> --%>
 		<label for="" class="span1">產品價格：</label>
 		<input type="text" name="price" value="${product.price}"  required><br>
-		<label for="" class="span1">產品描述：</label>
-		<input type="text" name="descript" value="${product.descript}"  required><br>
-		
+		<label for="" class="span1">產品數量：</label>
+		<input type="text" name="quantity" value="${product.quantity}"  required><br>
+		<label for="" class="span1" text-align="top">產品描述：
+		<textarea rows="5" cols="100" name="descript" value=""  required>${product.descript}</textarea> <br>
+		</label>
 		<center>
 			<a href="<%=application.getContextPath()%>/jim/InsertProduct.jsp" class="btn btn-secondary">重填</a>
 			<c:choose>
@@ -77,55 +79,9 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 
 		</center>
 </form>
+</div>
 		
-		
-		
-			<span id="memberIdSpan" class="spanHidden"><br></span>
-			<script type="text/javascript">
-				function checkmemberId(){
-					let memberId = document.getElementById("memberId").value;
-					let memberIdLength = memberId.length;
-					let memberIdSpan = document.getElementById("memberIdSpan");
-					let flag1 = false;
-					if (memberId == ""){
-            			document.getElementById("memberIdSpan").style.display = "block";
-						memberIdSpan.innerHTML = "不可空白";
-					}else if (memberIdLength <= 10) {
-                		for (let i = 0; i < memberIdLength; i++) {
-                    		let ch = memberId.charAt(i);
-                    		if ((ch >= "\u0030" && ch <= "\u0039")) {//判斷數字
-                      			flag1 = true;
-                    		}else{
-                        		flag1 = false;
-                        		break;
-                    		}
-                		}
-                		if (flag1) {
-                			memberIdSpan.innerHTML = "";
-                		} else {
-                			document.getElementById("memberIdSpan").style.display = "block";
-                			memberIdSpan.innerHTML = "只能輸入數字";
-                		}
-            		} else {
-            			document.getElementById("memberIdSpan").style.display = "block";
-            			memberIdSpan.innerHTML = "只能輸入10碼";
-            		}
-				}
-			</script>
-		
-		<label for="" class="span1">性別：</label>
-		<select name="gender" id="">
-		<c:choose>
-		<c:when test="${valueObjectAnimal.gender == 1}">
-			<option value="1" selected>公</option>
-			<option value="0">母</option>
-		</c:when>
-		<c:otherwise>
-			<option value="1">公</option>
-			<option value="0" selected>母</option>
-		</c:otherwise>
-		</c:choose>		
-
+	
 <!-- <div id="bpaging">以下為控制第一頁、前一頁、下一頁、最末頁 等超連結 -->
 <!-- <table border="1"> -->
 <!-- 	<tr align="center"> -->

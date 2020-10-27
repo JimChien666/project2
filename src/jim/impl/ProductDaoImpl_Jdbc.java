@@ -1,4 +1,4 @@
-package jim.dao.impl;
+package jim.impl;
 
 import java.io.IOException;
 import java.io.InputStream;

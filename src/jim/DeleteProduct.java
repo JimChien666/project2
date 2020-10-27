@@ -3,15 +3,17 @@ package jim;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Blob;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import global.util.HibernateUtil;
+import jim.dao.ProductsDAO;
 import jim.entity.Products;
-import jim.entity.Products2;
+
 
 /**
  * Servlet implementation class InsertProduct
@@ -54,16 +56,22 @@ public class DeleteProduct extends HttpServlet {
 		int categoryId = 0;
 	    
 		id = Integer.parseInt(request.getParameter("id").trim()); //把空白去掉!!
-//	    img = request.getParameter("img").trim(); //把空白去掉!!
-
-	    Products product =  new Products(id,name,price,img,descript,quantity,specialPrice,
-	    		rewardpoints,isThumb,memberId,animalTypeId,categoryId);
-	    JdbcDao jdbcdao = new JdbcDao();
-
-	    if (jdbcdao.deleteProduct(product)!=0)  
+		//Hibernate
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session Session = factory.getCurrentSession();		
+		ProductsDAO productsDao = new ProductsDAO(Session);
+		boolean delete = productsDao.delete(id);
+		//
+		
+		//SQL
+//	    Products product =  new Products(id,name,price,img,descript,quantity,specialPrice,
+//	    		rewardpoints,isThumb,memberId,animalTypeId,categoryId);
+//	    JdbcDao jdbcdao = new JdbcDao();
+		//
+	    if (delete)  
         {
           System.out.println("Get some SQL commands done!");
-          System.out.println(jdbcdao.deleteProduct(product));
+//          System.out.println(jdbcdao.deleteProduct(product));
 //          request.getSession(true).invalidate(); //關掉session
           request.getRequestDispatcher("jim/Thanks.jsp").include(request,response);
           

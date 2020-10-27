@@ -6,6 +6,8 @@ import java.io.PrintWriter;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,11 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import jim.entity.Products;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-/**
- * Servlet implementation class InsertProduct
- */
+import global.util.HibernateUtil;
+import jim.entity.Products;
+import nn.entity.Files;
+
 @WebServlet("/InsertProduct")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
 maxFileSize=1024*1024*10,      // 10MB
@@ -34,7 +38,6 @@ public class InsertProduct extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		request.setCharacterEncoding(CHARSET_CODE);
 	    response.setContentType(CONTENT_TYPE);
 	    // To prevent caching 
@@ -42,12 +45,13 @@ public class InsertProduct extends HttpServlet {
 	    response.setHeader("Pragma","no-cache"); // HTTP 1.0
 	    response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 	    System.out.println(request.getParameter("submit"));
-	   if (request.getParameter("submit")!=null) {
+//	   if (request.getParameter("submit")!=null) {
 		   gotoSubmitProcess(request, response);
-	   }
+//	   }
 	}
-	public void gotoSubmitProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	  {
+	
+	public void gotoSubmitProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
 	    
         PrintWriter out = response.getWriter();
 		String name = ""; 
@@ -65,7 +69,8 @@ public class InsertProduct extends HttpServlet {
 		String fileName = "";
 		long sizeInBytes = 0;
 		InputStream is = null;
-	    
+		Blob fileblob = null;
+		Blob blob = null;
 		
 		name = request.getParameter("name").trim(); //把空白去掉!!
 	    price = Integer.parseInt(request.getParameter("price").trim()); //把空白去掉!!
@@ -106,44 +111,59 @@ public class InsertProduct extends HttpServlet {
 				}				
 			}	
 		}
-		try {
-			img = SystemUtils2018.fileToBlob(is, sizeInBytes);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-
 //	    img = request.getParameter("img"); //把空白去掉!!
 	    descript = request.getParameter("descript").trim(); //把空白去掉!!
 	    quantity = Integer.parseInt(request.getParameter("quantity").trim());
 
-	    Products product =  new Products(name,price,img,descript,quantity,specialPrice,
-	    		rewardpoints,isThumb,memberId,animalTypeId,categoryId);
-	    JdbcDao jdbcdao = new JdbcDao();
+		try {
+			blob = SystemUtils2018.fileToBlob(is, sizeInBytes);
+		} catch (IOException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-	    if (jdbcdao.insertProducts(product))  //新增成功
-        {
-          System.out.println("Get some SQL commands done!");
-//          request.getSession(true).invalidate();
-          response.sendRedirect("/Project2/ProductsPage");
-//          RequestDispatcher rd = request.getRequestDispatcher("/jim/Thanks.jsp");
-//          rd.forward(request, response);
-        }else {
-        	 out.println("對不起，新增產品失敗!");
-        	 RequestDispatcher rd = request.getRequestDispatcher("/ProductsPage");			
-        	 rd.forward(request,response);
-        	 return;
-        }
-	    
-	  }    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		//新增檔案到files資料庫
+
+		try {
+			String fileType = "";
+			String fileUrl = "";
+			
+			SessionFactory factory = HibernateUtil.getSessionFactory();
+			Session hSession = factory.getCurrentSession();
+
+			Products product = new Products(name, price, blob, descript, quantity, specialPrice, rewardpoints, isThumb, memberId, animalTypeId, categoryId);
+			
+			Set<Files> files = new HashSet<Files>();
+			files.add(new Files("image", blob));
+			product.setFiles(files);
+			hSession.save(product);
+			
+			
+			
+//			JdbcDao daoProduct = new JdbcDao();
+//			ValueObjectProduct valueObjectProduct = new ValueObjectProduct(name,price,blob,descript,quantity,specialPrice,
+//					rewardpoints,isThumb,memberId,animalTypeId,categoryId, fileType,fileUrl,blob);
+//			int newProductId = daoProduct.insertProducts(valueObjectProduct);
+//			System.out.println(newProductId);
+	
+			System.out.println(" Create Product done!");
+			response.sendRedirect("/Project2/ProductsPage");
+
+			
+			//TODO 合併到上面
+//			DaoFilesOfProduct daoFilesOfProduct = new DaoFilesOfProduct();
+//			ValueObjectFilesOfProduct valueObjectFilesOfProduct = new ValueObjectFilesOfProduct(fileType, fileUrl, newProductId, blob);
+//			boolean success = daoFilesOfProduct.createFilesOfProduct(valueObjectFilesOfProduct);
+//			if (success) {
+//				System.out.println("File successfully saved to DB.");
+//				request.getSession(true).invalidate();
+//
+//			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			out.println("對不起，新增產品失敗!");
+			RequestDispatcher rd = request.getRequestDispatcher("/ProductsPage");
+			rd.forward(request, response);
+		}	
 	}
-
-
 }

@@ -50,5 +50,8 @@
         <mapping class="wey.entity.AdoptionRecords"/>
         <mapping class="wey.entity.Breeds"/>
         
+        
+        <!-- 品睿 -->
+        <mapping class="jim.entity.Products"/>
     </session-factory>
 </hibernate-configuration>

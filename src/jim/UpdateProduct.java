@@ -6,6 +6,9 @@ import java.io.PrintWriter;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +16,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import global.util.HibernateUtil;
+import jim.dao.ProductsDAO;
 import jim.entity.Products;
+import nn.entity.Files;
 
 @WebServlet("/UpdateProduct")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
@@ -25,7 +35,6 @@ public class UpdateProduct extends HttpServlet {
 	 private static final String CHARSET_CODE = "UTF-8";
     public UpdateProduct() {
         super();
-        // TODO Auto-generated constructor stub
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -42,8 +51,10 @@ public class UpdateProduct extends HttpServlet {
 	}
 	public void gotoSubmitProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	  {
-	    
+	    try {
+		
         PrintWriter out = response.getWriter();
+        int id;
 		String name = ""; 
 		int price = 0;
 //		String img =null;
@@ -60,20 +71,11 @@ public class UpdateProduct extends HttpServlet {
 		long sizeInBytes = 0;
 		InputStream is = null;
 	    
-		
+	    id = Integer.parseInt(request.getParameter("id").trim()); //把空白去掉!!
 		name = request.getParameter("name").trim(); //把空白去掉!!
 	    price = Integer.parseInt(request.getParameter("price").trim()); //把空白去掉!!
 	    
 		// 讀取圖片檔
-//		try {
-//			img = SystemUtils2018.fileToBlob(request.getParameter("img"));
-//		} catch (IOException | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		
-		
 		Collection<Part> parts = request.getParts();
 		GlobalService.exploreParts(parts, request);
 		// 由parts != null來判斷此上傳資料是否為HTTP multipart request
@@ -97,6 +99,7 @@ public class UpdateProduct extends HttpServlet {
 			}	
 		}
 		try {
+			//轉成二進位，塞進Img
 			img = SystemUtils2018.fileToBlob(is, sizeInBytes);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -106,25 +109,48 @@ public class UpdateProduct extends HttpServlet {
 			e.printStackTrace();
 		}		
 
-//	    img = request.getParameter("img"); //把空白去掉!!
 	    descript = request.getParameter("descript").trim(); //把空白去掉!!
 	    quantity = Integer.parseInt(request.getParameter("quantity").trim());
 
-	    Products product =  new Products(name,price,img,descript,quantity,specialPrice,
-	    		rewardpoints,isThumb,memberId,animalTypeId,categoryId);
-	    JdbcDao jdbcdao = new JdbcDao();
+	    
+	    
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session hSession = factory.getCurrentSession();
 
-	    if (jdbcdao.insertProducts(product))  //新增成功
-        {
+//		Products product = new Products(name, price, img, descript, quantity, specialPrice, rewardpoints, isThumb, memberId, animalTypeId, categoryId);
+		ProductsDAO productDao = new ProductsDAO(hSession);
+		Products product =productDao.select(id);
+		product.setName(name);
+		product.setPrice(price);
+		product.setImg(img);
+		product.setDescript(descript);
+		product.setQuantity(quantity);
+	
+		
+		Set<Files> files = new HashSet<Files>();
+		files.add(new Files("image", img));
+		product.setFiles(files);
+		hSession.update(product);
+		
+		
+		
+		//SQL	    
+//	    Products product =  new Products(id,name,price,img,descript,quantity,specialPrice,
+//	    		rewardpoints,isThumb,memberId,animalTypeId,categoryId);
+//	    JdbcDao jdbcdao = new JdbcDao();
+		//
+
           System.out.println("Get some SQL commands done!");
 //          request.getSession(true).invalidate();
           response.sendRedirect("/Project2/jim/Thanks.jsp");
 //          RequestDispatcher rd = request.getRequestDispatcher("/jim/Thanks.jsp");
 //          rd.forward(request, response);
-        }else {
-        	 out.println("對不起，新增產品失敗!");
-        }
-	    
+      	
+		} catch (Exception e) {
+	        PrintWriter out = response.getWriter();
+			 out.println("對不起，更新產品失敗!");
+		}
+        	
 	  }    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
