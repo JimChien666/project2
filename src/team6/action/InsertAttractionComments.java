@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import global.util.HibernateUtil;
 import team6.nn.dao.AttractionCommentsDAO;
 import team6.nn.dao.AttractionTypesDAO;
 import team6.nn.dao.AttractionsDAO;
@@ -23,7 +24,6 @@ import team6.nn.entity.AttractionTypes;
 import team6.nn.entity.Attractions;
 import team6.nn.entity.Citys;
 import team6.nn.entity.Tags;
-import team6.util.HibernateUtil;
 
 /**
  * Servlet implementation class InsertAttractionComments

@@ -1,4 +1,4 @@
-package team6.nn.entity;
+package nn.entity;
 
 import java.io.Serializable;
 import java.sql.Blob;

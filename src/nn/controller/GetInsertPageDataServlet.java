@@ -1,4 +1,4 @@
-package team6.nn.controller;
+package nn.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;

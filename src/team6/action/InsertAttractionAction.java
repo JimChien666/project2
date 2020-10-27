@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import global.util.HibernateUtil;
 import team6.nn.dao.AttractionTypesDAO;
 import team6.nn.dao.CitysDAO;
 import team6.nn.dao.TagsDAO;
@@ -22,7 +23,6 @@ import team6.nn.entity.Attractions;
 import team6.nn.entity.Citys;
 import team6.nn.entity.Files;
 import team6.nn.entity.Tags;
-import team6.util.HibernateUtil;
 
 /**
  * Servlet implementation class DemoHibernateServletAction1
@@ -79,7 +79,18 @@ public class InsertAttractionAction extends HttpServlet {
 		tags.add(tag1);
 		tags.add(tag2);
 		attraction.setTags(tags);
-		Files file = new Files();
+		Files file1 = new Files();
+		Files file2 = new Files();
+		Files file3 = new Files();
+		
+		Set<Files> contentImgs = new HashSet<Files>();
+		contentImgs.add(file1);
+		contentImgs.add(file3);
+		
+		Set<Files> coverImgs = new HashSet<Files>();
+		coverImgs.add(file2);
+		attraction.setContentImgs(contentImgs);
+		attraction.setCoverImgs(coverImgs);
 
 		
 		

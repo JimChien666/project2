@@ -7,10 +7,10 @@
         <c:if test="${param.page > 1}">
            <div id="pfirst">
            		<c:if test="${param.cityName != null}">
-              		<a href="${pageContext.servletContext.contextPath}/nn/controler/ShowAllAttractionsServlet?attrId=${param.attrId}&page=1&showNum=9&name=${param.name}&cityName=${param.cityName} }&cityId={param.cityId}">第一頁</a>
+              		<a href="${pageContext.servletContext.contextPath}/ShowAllAttractionsServlet?attrId=${param.attrId}&page=1&showNum=9&name=${param.name}&cityName=${param.cityName} }&cityId={param.cityId}">第一頁</a>
              	 </c:if>
              	 <c:if test="${param.cityName == null}">
-              		<a href="${pageContext.servletContext.contextPath}/nn/controler/ShowAllAttractionsServlet?attrId=${param.attrId}&page=1&showNum=9&name=${param.name}">第一頁</a>
+              		<a href="${pageContext.servletContext.contextPath}/ShowAllAttractionsServlet?attrId=${param.attrId}&page=1&showNum=9&name=${param.name}">第一頁</a>
              	 </c:if>
            </div>
         </c:if>
@@ -19,10 +19,10 @@
         <c:if test="${param.page > 1}">
            <div id="pprev">
            <c:if test="${param.cityName != null}">
-              <a href="${pageContext.servletContext.contextPath}/nn/controler/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${param.page - 1}&showNum=9&name=${param.name}&cityName=${param.cityName} }&cityId={param.cityId}">上一頁</a>
+              <a href="${pageContext.servletContext.contextPath}/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${param.page - 1}&showNum=9&name=${param.name}&cityName=${param.cityName} }&cityId={param.cityId}">上一頁</a>
               </c:if>  
            <c:if test="${param.cityName == null}">
-              <a href="${pageContext.servletContext.contextPath}/nn/controler/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${param.page - 1}&showNum=9&name=${param.name}">上一頁</a>
+              <a href="${pageContext.servletContext.contextPath}/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${param.page - 1}&showNum=9&name=${param.name}">上一頁</a>
            </c:if>  
            </div>
         </c:if>  
@@ -31,10 +31,10 @@
             <c:if test="${param.page < maxPage}">
                 <div id="pnext">
                 <c:if test="${param.cityName != null}">
-                   <a href="${pageContext.servletContext.contextPath}/nn/controler/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${param.page + 1}&showNum=9&name=${param.name}&cityName=${param.cityName} }&cityId={param.cityId}">下一頁</a>
+                   <a href="${pageContext.servletContext.contextPath}/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${param.page + 1}&showNum=9&name=${param.name}&cityName=${param.cityName} }&cityId={param.cityId}">下一頁</a>
                	</c:if>
                 <c:if test="${param.cityName == null}">
-                   <a href="${pageContext.servletContext.contextPath}/nn/controler/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${param.page + 1}&showNum=9&name=${param.name}">下一頁</a>
+                   <a href="${pageContext.servletContext.contextPath}/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${param.page + 1}&showNum=9&name=${param.name}">下一頁</a>
                	</c:if>
                 </div>
             </c:if>
@@ -43,10 +43,10 @@
             <c:if test="${param.page < maxPage}">
                 <div id="plast">
                 <c:if test="${param.cityName != null}">
-                    <a href="${pageContext.servletContext.contextPath}/nn/controler/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${maxPage}&showNum=9&name=${param.name}&cityName=${param.cityName} }&cityId={param.cityId}">最末頁</a>
+                    <a href="${pageContext.servletContext.contextPath}/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${maxPage}&showNum=9&name=${param.name}&cityName=${param.cityName} }&cityId={param.cityId}">最末頁</a>
                </c:if>
                <c:if test="${param.cityName == null}">
-                    <a href="${pageContext.servletContext.contextPath}/nn/controler/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${maxPage}&showNum=9&name=${param.name}">最末頁</a>
+                    <a href="${pageContext.servletContext.contextPath}/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${maxPage}&showNum=9&name=${param.name}">最末頁</a>
                </c:if>
                 </div>
             </c:if>

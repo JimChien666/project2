@@ -45,38 +45,7 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-	$(document)
-			.ready(
-					function() {
-						$
-								.ajax({
-									type : "POST",
-									url : "${pageContext.servletContext.contextPath}/GetIndexPageDataServlet",
-									success : function(result) {
-										var json = JSON.parse(result);
-										
-										for(var i=0;i<json.length;i++){
-											var attractionType=json[i];
-											$("#showAttractions").append('<h2 style="margin-bottom: 50px; margin-top: 50px;">熱門' + attractionType.name + ':</h2>');
-											for(var j=0;j<attractionType.attractions.length;j++){
-													var tmpl = 
-														`
-														
-														`
-													var attraction = attractionType.attractions[j];
-													console.log(attraction.coverImgs[0].id)
-												}
-											}
-										
-									},
-									error : function(err) {
 
-									}
-								});
-					});
-</script>
 </head>
 <body>
 	<jsp:include page="top.jsp" />
@@ -123,7 +92,7 @@
 				<div class="col-sm">
 					<div class="circle">
 						<a
-							href="${pageContext.servletContext.contextPath}/nn/controler/ShowAllAttractionsServlet?attrId=${attractionType.getId()}&page=1&showNum=9&name=${attractionType.getName()}"
+							href="${pageContext.servletContext.contextPath}/ShowAllAttractionsServlet?attrId=${attractionType.getId()}&page=1&showNum=9&name=${attractionType.getName()}"
 							style="text-decoration: none; color: white;">${attractionType.getName()}</a>
 					</div>
 				</div>
@@ -131,20 +100,20 @@
 		</div>
 	</div>
 
-	<div class="container" style="margin-top: 200px;" id="showAttractions">
+	<div class="container" style="margin-top: 200px;">
 		<c:forEach items="${attractionTypeList}" var="attractionType"
 			varStatus="id">
 			<h2 style="margin-bottom: 50px; margin-top: 50px;">熱門${attractionType.getName()}:</h2>
 			<div class="row" style="padding: 30px; border-radius: 10px;">
 				<jsp:include
-					page="/nn/controler/ShowOneTypeAttractionServlet?attrId=${attractionType.getId()}" />
+					page="/ShowOneTypeAttractionServlet?attrId=${attractionType.getId()}" />
 			</div>
 		</c:forEach>
 
 	</div>
 	<div class="circle"
 		style="font-size: 30px; width: 50px; height: 50px; line-height: 50px; position: fixed; top: 80%; left: 80%;">
-		<a href="<c:url value='/nn/controler/CheckInsertAttractionServlet' />"
+		<a href="<c:url value='/nn/insertAttraction.jsp' />"
 			style="text-decoration: none; color: white;">+</a>
 	</div>
 </body>

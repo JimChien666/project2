@@ -20,14 +20,14 @@
  	 </button>
 	  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 		  <c:forEach items="${attractionTypeList}" var="attractionType" varStatus="id">
-		    <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/nn/controler/ShowAllAttractionsServlet?attrId=${attractionType.getId()}&page=1&showNum=9&name=${attractionType.getName()}">${attractionType.getName()}</a>
+		    <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/ShowAllAttractionsServlet?attrId=${attractionType.getId()}&page=1&showNum=9&name=${attractionType.getName()}">${attractionType.getName()}</a>
 		   </c:forEach>
 	  </div>
 	 <div class="btn-group">
 	  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	    ${param.cityName}<c:if test="${param.cityName == null}">請選擇城市</c:if>
 	  </button>
-	  <form class="form-inline my-2 my-lg-0" style="margin-left: 80px;" method="get" action="${pageContext.servletContext.contextPath}/nn/controler/ShowAllAttractionsServlet">
+	  <form class="form-inline my-2 my-lg-0" style="margin-left: 80px;" method="get" action="${pageContext.servletContext.contextPath}/ShowAllAttractionsServlet">
         <input class="form-control mr-sm-2" type="search" placeholder="輸入景點名稱" aria-label="Search" name="search" value=${param.search}>
         <c:if test="${param.cityName != null}">
         	<input name="cityName" value=${param.cityName}  type="hidden">
@@ -43,7 +43,7 @@
       </form>
 	  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 		  <c:forEach items="${cityList}" var="city" varStatus="id">
-		    <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/nn/controler/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${param.page}&showNum=9&name=${param.name}&cityName=${city.getName()}&cityId=${city.getId()}">${city.getName()}</a>
+		    <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/ShowAllAttractionsServlet?attrId=${param.attrId}&page=${param.page}&showNum=9&name=${param.name}&cityName=${city.getName()}&cityId=${city.getId()}">${city.getName()}</a>
 		   </c:forEach>
 	  </div>
 	  </div>

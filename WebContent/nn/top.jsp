@@ -30,7 +30,7 @@
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value='/ProductsPage' />">購物</a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/nn/controler/ShowIndexServlet' />">寵物旅遊</a></li>
+				href="<c:url value='/ShowIndexServlet' />">寵物旅遊</a></li>
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value='/ServletReadAnimal' />">寵物領養</a></li>
 			<li class="nav-item"><a class="nav-link"

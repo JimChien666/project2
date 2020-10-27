@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import team6.util.HibernateUtil;
+import global.util.HibernateUtil;
 import team6.johnny.model.Article;
 import team6.johnny.model.ArticleDAO;
 

@@ -39,10 +39,10 @@ $(document).ready(function(){
             }
             for(var i=0; i<attractionTypes.length; i++){
             	if("${param.type}"==attractionTypes[i].name){
-            		$("#attractionType").append('<option selected="selected" value="'+ attractionTypes[i].id +'">'+ attractionType[i].name + '</option>');
+            		$("#attractionType").append('<option selected="selected" value="'+ attractionTypes[i].id +'">'+ attractionTypes[i].name + '</option>');
                	}
             	else{
-            		$("#attractionType").append('<option value="'+ attractionType[i].id +'">'+ attractionTypes[i].name + '</option>');
+            		$("#attractionType").append('<option value="'+ attractionTypes[i].id +'">'+ attractionTypes[i].name + '</option>');
                 }
             }
             for(var i=0; i<tags.length; i++){
@@ -62,20 +62,12 @@ $(document).ready(function(){
 <h2>
 新增旅遊點
 </h2>
-<form ENCTYPE="multipart/form-data" method="POST" action="<c:url value='/nn/controler/CheckInsertAttractionServlet' />">
+<form ENCTYPE="multipart/form-data" method="POST" action="<c:url value='/CheckInsertAttractionServlet' />">
   <div class="form-group">
     <label for="exampleFormControlSelect1">新增類型</label><font color="red" size="-1">${MsgMap.errorType}</font>
     <select class="form-control" id="attractionType" name="type">
       <option disabled selected>- 選擇類型 -</option>
-      <%-- <c:forEach items="${attractionTypeList}" var="attractionType" varStatus="id">
-      	<c:if test="${param.type==attractionType.getId()}" >
-      		<option selected="selected" value="${attractionType.getId()}">${attractionType.getName()}</option>
-      	</c:if>
-      	<c:if test="${param.type!=attractionType.getId()}" >
-      		<option value="${attractionType.getId()}">${attractionType.getName()}</option>
-      	</c:if>
-      	
-      </c:forEach> --%>
+
 
       
     </select>
