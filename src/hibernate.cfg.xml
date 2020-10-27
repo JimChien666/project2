@@ -17,6 +17,7 @@
         
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
+
         
         
         
@@ -35,8 +36,12 @@
         
 		<!--仲康 -->
         <mapping class="team6.johnny.model.Article"/>
-<!--         <mapping class="tw.reicheng.model.Department"/> -->
         
+        <!--品睿 -->
+        <mapping class="jim.entity.Products"/>
+         
+<!--         <mapping resource="tw/reicheng/model/HouseBean.hbm.xml"/> -->
+<!--         <mapping class="tw.reicheng.model.Department"/> -->
 <!--         <mapping class="tw.reicheng.model.Books"/> -->
 <!--         <mapping class="tw.reicheng.model.BooksDetail"/> -->
         

@@ -1,19 +1,25 @@
 package jim.entity;
 import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name = "SHOPPING_CART")
 public class ShoppingCart implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private String color;
-	private String living;
-	private String bowl;
-	private String toilet;
-	private String toy;
-	private String shampoo;
-	private String outdoor;	
+	private int membersId;
+	private int productId;
+	private int quantity;
 	
 	public ShoppingCart() {		
 	}
-
+	@Id @Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -21,62 +27,31 @@ public class ShoppingCart implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getColor() {
-		return color;
+	@Column(name = "MEMBERS_ID")
+	public int getMembersId() {
+		return membersId;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public void setMembersId(int membersId) {
+		this.membersId = membersId;
+	}
+	@Column(name = "PRODUCTS_ID")
+	public int getProductId() {
+		return productId;
 	}
 
-	public String getLiving() {
-		return living;
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+	@Column(name = "QUANTITY")
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setLiving(String living) {
-		this.living = living;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
-	public String getBowl() {
-		return bowl;
-	}
-
-	public void setBowl(String bowl) {
-		this.bowl = bowl;
-	}
-
-	public String getToilet() {
-		return toilet;
-	}
-
-	public void setToilet(String toilet) {
-		this.toilet = toilet;
-	}
-
-	public String getToy() {
-		return toy;
-	}
-
-	public void setToy(String toy) {
-		this.toy = toy;
-	}
-
-	public String getShampoo() {
-		return shampoo;
-	}
-
-	public void setShampoo(String shampoo) {
-		this.shampoo = shampoo;
-	}
-
-	public String getOutdoor() {
-		return outdoor;
-	}
-
-	public void setOutdoor(String outdoor) {
-		this.outdoor = outdoor;
-	}
 	
 	
 }

@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import jim.entity.Products;
-
 @WebServlet("/ProductPreUpdate")
 public class ProductPreUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -35,7 +32,7 @@ public class ProductPreUpdateServlet extends HttpServlet {
 			productId = Integer.parseInt(strProduct);
 		}
 		JdbcDao proJdbcDao = new JdbcDao();
-		Products product = proJdbcDao.getProduct(productId);
+		ValueObjectProduct product = proJdbcDao.getProduct(productId);
 		System.out.println(product);
 		
 		session.setAttribute("product", product);

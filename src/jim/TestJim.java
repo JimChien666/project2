@@ -60,10 +60,10 @@ public class TestJim extends HttpServlet {
 		}
 		
 		//Test products insert
-		Products product= new Products();
-		
-		product.setDescript("此店絕不賣滯銷書、二手書、過期書");	
-		jdbcDao.insertProducts(product);
+//		Products product= new Products();
+//		
+//		product.setDescript("此店絕不賣滯銷書、二手書、過期書");	
+//		jdbcDao.insertProducts(product);
 		
 		
 //		forum.setCreateAt(date);
