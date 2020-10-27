@@ -16,14 +16,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.sql.DataSource;
 import org.apache.naming.java.javaURLContextFactory;
 
-import DAO.ActivityRecords;
-import DAO.Activitys;
-import DAO.AdoptedLevels;
-import DAO.AdoptedRecords;
-import DAO.Animals;
-import DAO.Comments;
-import DAO.Forums;
-import DAO.Members;
 import jim.entity.Products;
 
 public class JdbcDao {
@@ -45,98 +37,6 @@ public class JdbcDao {
 	}
 
 	
-
-	// 查詢會員
-	// ID查
-	public boolean queryMembers(Members members) {
-		try (Connection conn = getDataSource().getConnection();
-				PreparedStatement pstmt = conn.prepareStatement("select * from members where id=?");) {
-//				PreparedStatement pstmt = conn.prepareStatement("select * from members where id=?,name=?,income=?,tel=?,account=?,password=?,email=?,address=?,adopted_level_id=?,member_type=?");) {
-
-			pstmt.setInt(1, members.getId());
-//		      pstmt.setString(2, members.getName());
-//		      pstmt.setInt(3, members.getIncome());
-//		      pstmt.setString(4, members.getTel());
-//		      pstmt.setString(5, members.getAccount());
-//		      pstmt.setString(6, members.getPassword());
-//		      pstmt.setString(7, members.getEmail());
-//		      pstmt.setString(8, members.getAddress());		      
-//		      pstmt.setInt(9, members.getAdoptedLevelId());
-//		      pstmt.setString(10, members.getMemberType());
-
-			ResultSet rs = pstmt.executeQuery();
-			// TODO
-			while (rs.next()) {
-				System.out.print(rs.getInt("id"));
-				System.out.print(rs.getString("name"));
-				System.out.print(rs.getString("email"));
-				System.out.print(rs.getString("password"));
-				System.out.println(rs.getString("adopted_level_id"));
-
-			}
-			pstmt.clearParameters();
-
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	// 修改會員
-	// ID查
-	public boolean updateMembers(Members members) {
-		try (Connection conn = getDataSource().getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(
-						"update members set name=?,income=?,tel=?,account=?,password=?,email=?,address=?,adopted_level_id=?,member_type=? where id=?");) {
-
-			pstmt.setString(1, members.getName());
-			pstmt.setInt(2, members.getIncome());
-//			pstmt.setString(3, members.getTel());
-			pstmt.setString(4, members.getAccount());
-			pstmt.setString(5, members.getPassword());
-			pstmt.setString(6, members.getEmail());
-			pstmt.setString(7, members.getAddress());
-			pstmt.setInt(8, members.getAdoptedLevelId());
-			pstmt.setString(9, members.getMemberType());
-			pstmt.setInt(10, members.getId());
-			pstmt.executeUpdate();
-			pstmt.clearParameters();
-
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	// 刪除會員
-	// ID查
-	public boolean deleteMembers(Members members) {
-		try (Connection conn = getDataSource().getConnection();
-				PreparedStatement pstmt = conn.prepareStatement("delete from members where id=?");) {
-//					PreparedStatement pstmt = conn.prepareStatement("delete from members where id=?,name=?,income=?,tel=?,account=?,password=?,email=?,address=?,adopted_level_id=?,member_type=?");) {
-
-			pstmt.setInt(1, members.getId());
-//			      pstmt.setString(2, members.getName());
-//			      pstmt.setInt(3, members.getIncome());
-//			      pstmt.setString(4, members.getTel());
-//			      pstmt.setString(5, members.getAccount());
-//			      pstmt.setString(6, members.getPassword());
-//			      pstmt.setString(7, members.getEmail());
-//			      pstmt.setString(8, members.getAddress());		      
-//			      pstmt.setInt(9, members.getAdoptedLevelId());
-//			      pstmt.setString(10, members.getMemberType());
-			pstmt.executeUpdate();
-			pstmt.clearParameters();
-
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
 	public int insertProducts(ValueObjectProduct valueObjectProduct) {
 		String sql1 = "INSERT INTO products (name,price,img,descript,quantity,special_price,rewardpoints,is_thumb,member_id,animal_type_id,category_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		String sql2 = "select max(id) from products";

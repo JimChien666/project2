@@ -1,4 +1,4 @@
-package johnny.model;
+package johnny.model.bean;
 
 import java.util.Date;
 

@@ -14,9 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.naming.java.javaURLContextFactory;
 
-import DAO.Animals;
-import DAO.Forums;
-import DAO.Members;
 import jim.entity.Products;
 
 /**
@@ -44,12 +41,7 @@ public class TestJim extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		Forums forum = new Forums();
-		forum.setId(123321);
-		forum.setMemberId(7527825);
-		forum.setContent("bitch yo");
-//		Date date=new Date(0, 0, 0);
-		
+
 
 		java.util.Date date = new java.util.Date();
 		

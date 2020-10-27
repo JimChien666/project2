@@ -1,4 +1,4 @@
-package johnny.model;
+package johnny.model.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,11 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "OPTIONS")
-public class Options {
+@Table(name = "articletypes")
+public class ArticleTypes {
 	private int id;
-	private int voteid;
-	private String content;
+	private String articletype;
 
 	@Id @Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,23 +22,14 @@ public class Options {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	@Column(name = "VOTE_ID")
-	public int getVoteid() {
-		return voteid;
+	
+	@Column(name = "ARTICLETYPE")
+	public String getArticletype() {
+		return articletype;
 	}
 
-	public void setVoteid(int voteid) {
-		this.voteid = voteid;
-	}
-
-	@Column(name = "CONTENT")
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
+	public void setArticletype(String articletype) {
+		this.articletype = articletype;
 	}
 
 }
