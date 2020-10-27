@@ -49,6 +49,16 @@ public class ArticleDAO {
 		return list;
 	}
 	
+	public Article update(Article article) {
+//		Query query = session.createQuery("from Article where articletypesid = ?1 order by id desc", Article.class);
+		Article result = session.get(Article.class, article.getId());
+		if (result!=null) {
+			result.setTitle(article.getTitle());
+			result.setActivitysid(article.getActivitysid());
+		}		
+		return result;		
+	}
+	
 //	public Article update(int id, String title, int activitysid, int memberid, int showarticle, int articletypesid) {
 //		Article result = session.get(Article.class, id);
 //		if (result!=null) {
@@ -59,15 +69,6 @@ public class ArticleDAO {
 //		return result;		
 //	}
 	
-//	public Article update(Article article) {
-//		Article result = session.get(Article.class, Article);
-//		if (result!=null) {
-//			result.setTitle(title);
-//			result.setActivitysid(activitysid);
-//			result.setArticletypesid(articletypesid);
-//		}		
-//		return result;		
-//	}
 	
 	public boolean delete(int id) {
 		System.out.println("123");

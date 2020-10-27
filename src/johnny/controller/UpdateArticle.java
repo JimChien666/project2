@@ -76,15 +76,15 @@ public class UpdateArticle extends HttpServlet {
 		
 			ArticleDAO aDAO = new ArticleDAO(session);
 
-//			Article article = new Article(id,title, 1, 1, 1, 1);
-			Article article = new Article();
-//			aDAO.update(article.getId(), article.getTitle(), 1, 1, 1, 1);
-//			aDAO.update(article);
+			Article article = new Article(id,title, 1, 1, 1, 1);
+			aDAO.update(article);
+
+			RequestDispatcher rd = request.getRequestDispatcher("/ShowArticle");
+			rd.forward(request, response);
+			
 		
 		}catch (Exception e) {
 			e.printStackTrace(); 
-			RequestDispatcher rd = request.getRequestDispatcher("/ShowArticle");
-			rd.forward(request, response);
 			
 			
 		}
