@@ -25,8 +25,8 @@ import johnny.util.HibernateUtil;
  * Servlet implementation class DemoHibernateServletAction1
  */
 @MultipartConfig
-@WebServlet("/DemoHibernateServletAction3")
-public class DemoHibernateServletAction3 extends HttpServlet {
+@WebServlet("/ArticleDelete") // DemoHibernateServletAction3
+public class ArticleDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,54 +39,24 @@ public class DemoHibernateServletAction3 extends HttpServlet {
 		processAction(request, response);
 	}
 
-	private void processAction(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	private void processAction(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.openSession();
-		String aId = request.getParameter("id").trim();
-		
-		try {
-			String title = "";		
-			String idStr = "";
-			int id = 0;
-			int articleId = Integer.parseInt(aId);
-			Collection<Part> parts = request.getParts();
-			
-			if (parts != null) { 
-				for (Part p : parts) {
-					String fldName = p.getName();
-					String value = request.getParameter(fldName);
-					if (p.getContentType() == null) {   
-						if (fldName.equals("id")) {
-							idStr = value;
-							idStr = idStr.trim();
-							id = Integer.parseInt(idStr);								
-							request.setAttribute("id", id);					
-						}else if (fldName.equals("title")) {
-							title = value;
-							request.setAttribute("title", title);
-						}
-					}
-				}
-			}
-		
-			ArticleDAO aDAO = new ArticleDAO(session);
+		String aId = request.getParameter("articleId").trim();
 
-			Article article = new Article(id,title, 1, 1, 1, 1);
-			aDAO.update(article.getId(), article.getTitle(), 1, 1, 1, 1);
+		int articleId = Integer.parseInt(aId);
+//		WriteArticleImpl_Jdbc dao = new WriteArticleImpl_Jdbc();		
+//		dao.deleteArticle(articleId);
+		ArticleDAO aDAO = new ArticleDAO(session);
+		Article article = new Article();
+		aDAO.delete(articleId);
 		
-		}catch (Exception e) {
-			e.printStackTrace(); 
-			RequestDispatcher rd = request.getRequestDispatcher("/DemoHibernateServletAction1");
-			rd.forward(request, response);
-		}
-		
-		
-		
-		
-		
+		RequestDispatcher rd = request.getRequestDispatcher("/ArticleShow");
+		rd.forward(request, response);
 
 	}
 

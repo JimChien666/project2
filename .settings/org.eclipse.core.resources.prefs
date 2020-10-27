@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
 encoding//WebContent/nn/Page.jsp=UTF-8
-encoding//src/johnny/controller/DemoHibernateServletAction3.java=UTF-8
+encoding//src/johnny/controller/ArticleDelete.java=UTF-8
+encoding//src/johnny/controller/UpdateArticle.java=UTF-8
