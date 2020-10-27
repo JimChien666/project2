@@ -6,6 +6,9 @@ import java.io.PrintWriter;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +16,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import global.util.HibernateUtil;
+import jim.dao.ProductsDAO;
 import jim.entity.Products;
+import nn.entity.Files;
 
 @WebServlet("/UpdateProduct")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
@@ -41,7 +51,8 @@ public class UpdateProduct extends HttpServlet {
 	}
 	public void gotoSubmitProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	  {
-	    
+	    try {
+		
         PrintWriter out = response.getWriter();
         int id;
 		String name = ""; 
@@ -103,21 +114,43 @@ public class UpdateProduct extends HttpServlet {
 
 	    
 	    
-	    Products product =  new Products(id,name,price,img,descript,quantity,specialPrice,
-	    		rewardpoints,isThumb,memberId,animalTypeId,categoryId);
-	    JdbcDao jdbcdao = new JdbcDao();
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session hSession = factory.getCurrentSession();
 
-	    if (jdbcdao.updateProduct(product))  //更新成功
-        {
+//		Products product = new Products(name, price, img, descript, quantity, specialPrice, rewardpoints, isThumb, memberId, animalTypeId, categoryId);
+		ProductsDAO productDao = new ProductsDAO(hSession);
+		Products product =productDao.select(id);
+		product.setName(name);
+		product.setPrice(price);
+		product.setImg(img);
+		product.setDescript(descript);
+		product.setQuantity(quantity);
+	
+		
+		Set<Files> files = new HashSet<Files>();
+		files.add(new Files("image", img));
+		product.setFiles(files);
+		hSession.update(product);
+		
+		
+		
+		//SQL	    
+//	    Products product =  new Products(id,name,price,img,descript,quantity,specialPrice,
+//	    		rewardpoints,isThumb,memberId,animalTypeId,categoryId);
+//	    JdbcDao jdbcdao = new JdbcDao();
+		//
+
           System.out.println("Get some SQL commands done!");
 //          request.getSession(true).invalidate();
           response.sendRedirect("/Project2/jim/Thanks.jsp");
 //          RequestDispatcher rd = request.getRequestDispatcher("/jim/Thanks.jsp");
 //          rd.forward(request, response);
-        }else {
-        	 out.println("對不起，更新產品失敗!");
-        }
-	    
+      	
+		} catch (Exception e) {
+	        PrintWriter out = response.getWriter();
+			 out.println("對不起，更新產品失敗!");
+		}
+        	
 	  }    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
