@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import team6.nn.dao.AttractionTypesDAO;
-import team6.nn.entity.AttractionTypes;
+import nn.dao.AttractionTypesDAO;
+import nn.entity.AttractionTypes;
+
+
 
 public class AttractionTypesService implements IAttractionTypesService {
 	

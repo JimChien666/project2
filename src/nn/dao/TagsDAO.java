@@ -6,8 +6,8 @@ import org.hibernate.Session;
 
 import org.hibernate.query.Query;
 
-import team6.nn.entity.Citys;
-import team6.nn.entity.Tags;
+import nn.entity.Tags;
+
 
 public class TagsDAO {
 

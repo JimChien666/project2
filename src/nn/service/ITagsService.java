@@ -2,8 +2,7 @@ package nn.service;
 
 import java.util.List;
 
-import team6.nn.entity.Citys;
-import team6.nn.entity.Tags;
+import nn.entity.Tags;
 
 public interface ITagsService {
 	public Tags insert(Tags bean);

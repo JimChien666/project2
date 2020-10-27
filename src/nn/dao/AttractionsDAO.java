@@ -6,7 +6,8 @@ import org.hibernate.Session;
 
 import org.hibernate.query.Query;
 
-import team6.nn.entity.Attractions;
+import nn.entity.Attractions;
+
 
 public class AttractionsDAO {
 

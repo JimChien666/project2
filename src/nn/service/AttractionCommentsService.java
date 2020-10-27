@@ -4,10 +4,9 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import team6.nn.dao.AttractionCommentsDAO;
-import team6.nn.dao.AttractionsDAO;
-import team6.nn.entity.AttractionComments;
-import team6.nn.entity.Attractions;
+import nn.dao.AttractionCommentsDAO;
+import nn.entity.AttractionComments;
+
 
 public class AttractionCommentsService implements IAttractionCommentsService {
 	

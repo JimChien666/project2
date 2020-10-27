@@ -6,11 +6,11 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import team6.nn.entity.AttractionTypes;
-import team6.nn.entity.Attractions;
-import team6.nn.entity.Citys;
-import team6.nn.entity.Files;
-import team6.nn.entity.Tags;
+import nn.entity.AttractionTypes;
+import nn.entity.Attractions;
+import nn.entity.Citys;
+
+
 
 public class GetAllAttractionsDataDAO {
 	private Session session;

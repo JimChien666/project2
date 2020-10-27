@@ -15,10 +15,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import global.util.HibernateUtil;
-import team6.nn.dao.GetAllAttractionsDataDAO;
-import team6.nn.entity.AttractionTypes;
-import team6.nn.entity.Attractions;
-import team6.nn.entity.Citys;
+import nn.dao.GetAllAttractionsDataDAO;
+import nn.entity.AttractionTypes;
+import nn.entity.Attractions;
+import nn.entity.Citys;
+
 
 /**
  * Servlet implementation class ShowAllAttractionsServlet

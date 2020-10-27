@@ -2,7 +2,8 @@ package nn.service;
 
 import java.util.List;
 
-import team6.nn.entity.AttractionComments;
+import nn.entity.AttractionComments;
+
 
 public interface IAttractionCommentsService {
 

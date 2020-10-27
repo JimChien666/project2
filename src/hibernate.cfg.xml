@@ -22,12 +22,12 @@
         
         
 		<!--佳恩 -->
-        <mapping class="team6.nn.entity.Citys"/>
-        <mapping class="team6.nn.entity.Attractions"/>
-        <mapping class="team6.nn.entity.AttractionTypes"/>
-        <mapping class="team6.nn.entity.Tags"/>
-        <mapping class="team6.nn.entity.AttractionComments"/>
-        <mapping class="team6.nn.entity.Files"/>
+        <mapping class="nn.entity.Citys"/>
+        <mapping class="nn.entity.Attractions"/>
+        <mapping class="nn.entity.AttractionTypes"/>
+        <mapping class="nn.entity.Tags"/>
+        <mapping class="nn.entity.AttractionComments"/>
+        <mapping class="nn.entity.Files"/>
         
 
         

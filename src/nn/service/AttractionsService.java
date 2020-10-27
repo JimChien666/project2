@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import team6.nn.dao.AttractionsDAO;
-import team6.nn.entity.Attractions;
+import nn.dao.AttractionsDAO;
+import nn.entity.Attractions;
+
 
 public class AttractionsService implements IAttractionsService {
 	

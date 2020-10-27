@@ -27,13 +27,14 @@ import org.hibernate.SessionFactory;
 
 import global.service.GlobalService;
 import global.util.HibernateUtil;
-import team6.nn.dao.InsertAttractionDAO;
-import team6.nn.dao.TagsDAO;
-import team6.nn.entity.AttractionTypes;
-import team6.nn.entity.Attractions;
-import team6.nn.entity.Citys;
-import team6.nn.entity.Files;
-import team6.nn.entity.Tags;
+import nn.dao.InsertAttractionDAO;
+import nn.dao.TagsDAO;
+import nn.entity.AttractionTypes;
+import nn.entity.Attractions;
+import nn.entity.Citys;
+import nn.entity.Files;
+import nn.entity.Tags;
+
 
 /**
  * Servlet implementation class CheckInsertAttractionServlet

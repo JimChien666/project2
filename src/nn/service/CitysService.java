@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import team6.nn.dao.CitysDAO;
-import team6.nn.entity.Citys;
+import nn.dao.CitysDAO;
+import nn.entity.Citys;
+
 
 public class CitysService implements ICitysService {
 	

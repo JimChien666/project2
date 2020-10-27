@@ -2,7 +2,8 @@ package nn.service;
 
 import java.util.List;
 
-import team6.nn.entity.Citys;
+import nn.entity.Citys;
+
 
 public interface ICitysService {
 	public Citys insert(Citys bean);

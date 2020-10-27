@@ -5,8 +5,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import team6.nn.entity.AttractionComments;
-import team6.nn.entity.Attractions;
+import nn.entity.AttractionComments;
+
 
 public class AttractionCommentsDAO {
 	private Session session;

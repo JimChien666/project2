@@ -15,11 +15,11 @@ import org.hibernate.SessionFactory;
 import org.json.simple.JSONArray;
 
 import global.util.HibernateUtil;
-import team6.nn.dao.AttractionTypesDAO;
-import team6.nn.dao.InsertAttractionDAO;
-import team6.nn.entity.AttractionTypes;
-import team6.nn.entity.Citys;
-import team6.nn.entity.Tags;
+import nn.dao.InsertAttractionDAO;
+import nn.entity.AttractionTypes;
+import nn.entity.Citys;
+import nn.entity.Tags;
+
 
 /**
  * Servlet implementation class GetInsertPageDataServlet

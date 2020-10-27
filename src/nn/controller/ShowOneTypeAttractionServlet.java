@@ -14,8 +14,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import global.util.HibernateUtil;
-import team6.nn.dao.GetOneAttractionTypeDataDAO;
-import team6.nn.entity.Attractions;
+import nn.dao.GetOneAttractionTypeDataDAO;
+import nn.entity.Attractions;
 
 /**
  * Servlet implementation class ShowOneTypeAttractionServlet

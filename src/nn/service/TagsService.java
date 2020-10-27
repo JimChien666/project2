@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import team6.nn.dao.CitysDAO;
-import team6.nn.dao.TagsDAO;
-import team6.nn.entity.Citys;
-import team6.nn.entity.Tags;
+import nn.dao.TagsDAO;
+import nn.entity.Tags;
+
+
 
 public class TagsService implements ITagsService {
 	

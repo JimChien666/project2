@@ -14,9 +14,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import global.util.HibernateUtil;
-
-import team6.nn.dao.GetIndexDataDAO;
-import team6.nn.entity.AttractionTypes;
+import nn.dao.GetIndexDataDAO;
+import nn.entity.AttractionTypes;
 
 /**
  * Servlet implementation class ShowIndexServlet

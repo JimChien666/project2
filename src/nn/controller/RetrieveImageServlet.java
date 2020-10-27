@@ -16,8 +16,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import global.util.HibernateUtil;
+import nn.dao.GetOneAttractionTypeDataDAO;
 
-import team6.nn.dao.GetOneAttractionTypeDataDAO;
+
 
 // 
 // 程式功能：
