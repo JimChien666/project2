@@ -27,18 +27,18 @@ public class OpenSessionViewFilter implements Filter {
 			
 			try {
 				session.beginTransaction();
-				System.out.println("Filter Transaction Begin.");
+//				System.out.println("Filter Transaction Begin.");
 				
 				chain.doFilter(request, response);
 				
 				session.getTransaction().commit();
-				System.out.println("Filter Transaction Commit.");
+//				System.out.println("Filter Transaction Commit.");
 			} catch (Exception e) {
 				session.getTransaction().rollback();
-				System.out.println("Filter Transaction Rollback.");
+//				System.out.println("Filter Transaction Rollback.");
 				e.printStackTrace();
 			}finally {
-				System.out.println("Filter Session Closed");				
+//				System.out.println("Filter Session Closed");				
 			}
 	}
 }
