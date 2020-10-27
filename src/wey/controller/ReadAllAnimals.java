@@ -10,11 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import global.util.HibernateUtil;
 import wey.dao.AnimalsDao;
 import wey.entity.Animals;
-
 
 @WebServlet("/ReadAllAnimals")
 public class ReadAllAnimals extends HttpServlet {

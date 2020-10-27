@@ -5,7 +5,10 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.imageio.stream.FileCacheImageInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +21,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import global.util.HibernateUtil;
+import nn.entity.Files;
 import wey.GlobalService;
 import wey.SystemUtils2018;
 import wey.dao.AnimalsDao;
@@ -56,17 +60,7 @@ public class CreateAnimals extends HttpServlet {
 			Date updatedAt = null;
 			Date deletedAt = null;
 			
-//			int id = 0;
-//			String FileType = "";
-//			String FileUrl = "";
-//			int fmemberId = 0;
-//			int forumId = 0;
-//			int fanimalId = 0;
-//			int activityId = 0;
-//			int productId = 0;
-//			int contentAttractionId = 0;
-//			int coverAttractionId = 0;
-//			Blob fileBlob;
+			Blob fileBlob;
 			
 			String fileName = "";
 			long sizeInBytes = 0;
@@ -112,16 +106,13 @@ public class CreateAnimals extends HttpServlet {
 			SessionFactory factory = HibernateUtil.getSessionFactory();
 			Session hSession = factory.getCurrentSession();
 			
-			AnimalsDao animalsDao = new AnimalsDao(hSession);
 			Animals animals = new Animals(animalId, memberId, acceptionId, breedId, gender, coatColor, isAdoptionAvailable, note, createdAt, updatedAt, deletedAt);
-			animalsDao.create(animals);
-			
-//			fileBlob = SystemUtils2018.fileToBlob(is, sizeInBytes);
-//			FilesDao filesDao = new FilesDao(hSession);
-//			Files files = new Files(id, FileType, FileUrl, fmemberId, forumId, fanimalId, activityId, productId, contentAttractionId, coverAttractionId, fileBlob);
-//			filesDao.create(files);
+			fileBlob = SystemUtils2018.fileToBlob(is, sizeInBytes);
+			Set<Files> files = new HashSet<Files>();
+			files.add(new Files("image", fileBlob));
+			animals.setFiles(files);
+			hSession.save(animals);
 			request.getRequestDispatcher("/ReadAllAnimals").forward(request,response);
-			
 			
 		} catch (Exception e) {
 			System.out.println("AnimalsController error");

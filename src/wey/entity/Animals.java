@@ -1,12 +1,22 @@
 package wey.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import nn.entity.Files;
 
 @Entity
 @Table(name = "animals")
@@ -25,7 +35,7 @@ public class Animals {
 //	private AdoptionRecords adoptionRecords;
 //	private MembersBean membersBean;
 //	private Breeds breeds;
-//	private Set<FilesBean> filesBean;
+	private Set<Files> files = new HashSet<Files>();
 	
 	public Animals() {
 	}
@@ -147,11 +157,15 @@ public class Animals {
 //	public void setBreeds(Breeds breeds) {
 //		this.breeds = breeds;
 //	}
-//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "files")
-//	public Set<FilesBean> getFilesBean() {
-//		return filesBean;
-//	}
-//	public void setFilesBean(Set<FilesBean> filesBean) {
-//		this.filesBean = filesBean;
-//	}
+//	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)//TODO
+//	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ID")})
+//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "animals")//TODO
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
+	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ANIMAL_ID")})
+	public Set<Files> getFiles() {
+		return files;
+	}
+	public void setFiles(Set<Files> files) {
+		this.files = files;
+	}
 }
