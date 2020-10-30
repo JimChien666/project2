@@ -7,8 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.imageio.stream.FileCacheImageInputStream;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -16,26 +15,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import global.util.HibernateUtil;
 import nn.entity.Files;
 import wey.GlobalService;
 import wey.SystemUtils2018;
-import wey.dao.AnimalsDao;
-import wey.dao.FilesDao;
 import wey.entity.Animals;
 
 @WebServlet("/CreateAnimals")
-@MultipartConfig(location = "", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 500, maxRequestSize = 1024
-* 1024 * 500 * 5)
+@MultipartConfig(location = "", 
+fileSizeThreshold = 1024 * 1024, 
+maxFileSize = 1024 * 1024 * 500, 
+maxRequestSize = 1024 * 1024 * 500 * 5)
 public class CreateAnimals extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		processAction(request, response);
 		request.getRequestDispatcher("/ReadAllAnimals").forward(request,response);
 	}
 
@@ -43,7 +39,7 @@ public class CreateAnimals extends HttpServlet {
 		processAction(request, response);
 	}
 
-	private void processAction(HttpServletRequest request, HttpServletResponse response) {
+	private void processAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
@@ -117,8 +113,8 @@ public class CreateAnimals extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println("AnimalsController error");
 			e.printStackTrace(); 
-//			RequestDispatcher rd = request.getRequestDispatcher("/wey/animal/CreateAnimal.jsp");
-//			rd.forward(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("/wey/animal/CreateAnimal.jsp");
+			rd.forward(request, response);
 		}
 	}
 

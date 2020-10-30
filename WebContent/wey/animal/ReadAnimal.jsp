@@ -97,7 +97,7 @@
 							<li><span class="span1">備註：&nbsp;</span><span class="span1 note1">${AnimalsList.note}</span><br></li>
 						</ul>
 					</div>
-					<a href="ServletPreUpdateAnimal?animalId=${AnimalsList.animalId}" class="btn btn-secondary" style="width: 49%;">維護</a>
+					<a href="PreUpdateAnimals?animalId=${AnimalsList.animalId}" class="btn btn-secondary" style="width: 49%;">維護</a>
 					<script type="text/javascript">
 				function confirmDelete(animalId) {
 					if(confirm("確定刪除此筆動物資料(動物編號:"+animalId+")?")){

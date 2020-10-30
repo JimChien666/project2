@@ -13,19 +13,19 @@
 	<jsp:include page="/nn/top.jsp" />
 	<div class="wid400px">
 		<a href="<c:url value='/ReadAllAnimals' />" class="btn btn-secondary marginTopBot10px">回維護首頁</a>
-		<form action="<c:url value='/ServletUpdateAnimal' />" method="post">
+		<form action="<c:url value='/UpdateAnimals' />" method="post" enctype="multipart/form-data">
 <%-- 		<form action="<c:url value='/ServletUpdateAnimal' />" method="post" enctype="multipart/form-data"> --%>
 			<label for="" class="label1">照片：</label>
 			<input type="file" name="animalFile" id="animalFile" multiple class="wid200px">
 			<span id="animalFileSpan2" class="dispblok height260px margleft125px">
 			<img class="card-img-top square250px" 
-			src="${pageContext.servletContext.contextPath}/ServletRetrieveImage?id=${valueObjectAnimal.animalId}&type=ANIMAL" alt="Animal image">
+			src="${pageContext.servletContext.contextPath}/ServletRetrieveImage?id=${animals.animalId}&type=ANIMAL" alt="Animal image">
 			</span>
 			<span id="animalFileSpan1" class="spanHidden height260px"><img id="preview_animalFile" src="#" class="square250px" /><br></span> 
 			<label for="" class="label1">動物編號：</label>
-			<input type="text" name="animalId" value="${valueObjectAnimal.animalId}" readonly><br> 
+			<input type="text" name="animalId" value="${animals.animalId}" readonly><br> 
 			<label for="" class="label1">會員編號：</label> 
-			<input type="text" name="memberId" value="${valueObjectAnimal.memberId}" onblur="checkmemberId()" id="memberId" required><br> 
+			<input type="text" name="memberId" value="${animals.memberId}" onblur="checkmemberId()" id="memberId" required><br> 
 			<span id="memberIdSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
 				$("#animalFile").change(function() {
@@ -74,7 +74,7 @@
 				}
 			</script>
 			<label for="" class="label1">收容動物編號：</label> <input type="text"
-				name="acceptionId" value="${valueObjectAnimal.acceptionId}"
+				name="acceptionId" value="${animals.acceptionId}"
 				onblur="checkacceptionId()" id="acceptionId"><br> <span
 				id="acceptionIdSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
@@ -111,7 +111,7 @@
 				}
 			</script>
 			<label for="" class="label1">品種編號：</label> <input type="text"
-				name="breedId" value="${valueObjectAnimal.breedId}"
+				name="breedId" value="${animals.breedId}"
 				onblur="checkbreedId()" id="breedId" required><br> <span
 				id="breedIdSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
@@ -147,7 +147,7 @@
 			</script>
 			<label for="" class="label1">性別：</label> <select name="gender" id="">
 				<c:choose>
-					<c:when test="${valueObjectAnimal.gender == 1}">
+					<c:when test="${animals.gender == 1}">
 						<option value="1" selected>公</option>
 						<option value="0">母</option>
 					</c:when>
@@ -157,7 +157,7 @@
 					</c:otherwise>
 				</c:choose>
 			</select><br> <label for="" class="label1">毛色：</label> <input type="text"
-				name="coatColor" value="${valueObjectAnimal.coatColor}"
+				name="coatColor" value="${animals.coatColor}"
 				onblur="checkcoatColor()" id="coatColor"><br> <span
 				id="coatColorSpan" class="spanHidden"><br></span>
 			<script type="text/javascript">
@@ -193,7 +193,7 @@
 			<label for="" class="label1">是否開放領養：</label> <select
 				name="isAdoptionAvailable" id="">
 				<c:choose>
-					<c:when test="${valueObjectAnimal.isAdoptionAvailable == 1}">
+					<c:when test="${animals.isAdoptionAvailable == 1}">
 						<option value="1" selected>開放</option>
 						<option value="0">不開放</option>
 					</c:when>
@@ -203,9 +203,9 @@
 					</c:otherwise>
 				</c:choose>
 			</select><br> <label for="" class="label1 posAbs">備註：</label>
-			<textarea id="" name="note" rows="5" cols="18" class="margleft125px">${valueObjectAnimal.note}</textarea>
+			<textarea id="" name="note" rows="5" cols="18" class="margleft125px">${animals.note}</textarea>
 			<br> <a
-				href="ServletPreUpdateAnimal?animalId=${valueObjectAnimal.animalId}"
+				href="PreUpdateAnimals?animalId=${animals.animalId}"
 				class="btn btn-secondary">回復修改</a>
 			<button type="submit" name="update" class="btn btn-primary">修改</button>
 		</form>

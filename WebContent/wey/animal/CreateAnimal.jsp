@@ -14,7 +14,6 @@
 	<div class="wid400px">
 		<a href="<c:url value='/ReadAllAnimals' />" class="btn btn-secondary marginTopBot10px">回維護首頁</a>
 		<form action="<c:url value='/CreateAnimals' />" method="post" enctype="multipart/form-data">
-<%-- 		<form action="<c:url value='/CreateAnimals' />" method="post" enctype="multipart/form-data"> --%>
 <%-- 		<form action="<%=application.getContextPath()%>/ServletCreateAnimal" method="post" enctype="multipart/form-data"> --%>
 			<label for="" class="label1">照片：</label>
 			<input type="file" name="animalFile" id="animalFile" multiple class="wid200px">
