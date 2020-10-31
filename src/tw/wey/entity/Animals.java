@@ -14,11 +14,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.stereotype.Component;
+
 import nn.entity.Files;
 
 @Entity
 @Table(name = "animals")
-//@Component
+@Component
 public class Animals {
 	private int animalId;
 	private int memberId;
@@ -36,12 +39,10 @@ public class Animals {
 //	private Breeds breeds;
 	private Set<Files> files = new HashSet<Files>();
 	
-	public Animals() {
-	}
+	public Animals() {}
 	
 	public Animals(int animalId, int memberId, String acceptionId, int breedId, int gender, String coatColor,
 			int isAdoptionAvailable, String note, Date createdAt, Date updatedAt, Date deletedAt) {
-		super();
 		this.animalId = animalId;
 		this.memberId = memberId;
 		this.acceptionId = acceptionId;
@@ -160,7 +161,7 @@ public class Animals {
 //	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ID")})
 //	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "animals")//TODO
 	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
-	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ANIMAL_ID")})
+	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ANIMAL_ID")})//第一個ANIMAL_ID為Files的，第二個為Animals的。
 	public Set<Files> getFiles() {
 		return files;
 	}
