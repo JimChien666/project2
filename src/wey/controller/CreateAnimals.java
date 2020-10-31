@@ -56,7 +56,7 @@ public class CreateAnimals extends HttpServlet {
 			Date updatedAt = null;
 			Date deletedAt = null;
 			
-			Blob fileBlob;
+			Blob fileBlob = null;
 			
 			String fileName = "";
 			long sizeInBytes = 0;
