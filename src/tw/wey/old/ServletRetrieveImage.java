@@ -1,4 +1,4 @@
-package wey.animal;
+package tw.wey.old;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package wey;
+package tw.wey.old;
 
 import java.io.BufferedReader;
 import java.io.File;

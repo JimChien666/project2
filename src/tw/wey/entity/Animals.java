@@ -1,4 +1,4 @@
-package wey.entity;
+package tw.wey.entity;
 
 import java.util.Date;
 import java.util.HashSet;

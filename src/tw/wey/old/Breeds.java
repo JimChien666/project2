@@ -1,4 +1,4 @@
-package wey.entity;
+package tw.wey.old;
 
 import java.util.Date;
 import javax.persistence.Column;

@@ -1,4 +1,4 @@
-package wey.dao;
+package tw.wey.old;
 
 import org.hibernate.Session;
 
