@@ -32,7 +32,7 @@ public class ReadAllAnimals extends HttpServlet {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session hSession = factory.getCurrentSession();
 		
-		AnimalsDao animalsDao = new AnimalsDao(hSession);
+		AnimalsDao animalsDao = new AnimalsDao(factory);
 		List<Animals> list = animalsDao.readAll();
 		request.setAttribute("AnimalsList", list);
 		

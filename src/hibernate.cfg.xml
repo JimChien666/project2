@@ -50,13 +50,7 @@
 <!--         <mapping class="tw.reicheng.model.StockTransaction"/> -->
         
 <!--         <mapping class="tw.reicheng.model.Profiles"/> -->
-        
-        <!-- 兆成 -->
-        <mapping class="wey.entity.Animals"/>
-        <mapping class="wey.entity.AdoptionRecords"/>
-        <mapping class="wey.entity.Breeds"/>
-        
-        
+               
         <!-- 品睿 -->
         <mapping class="jim.entity.Products"/>
     </session-factory>

@@ -157,9 +157,6 @@ public class Animals {
 //	public void setBreeds(Breeds breeds) {
 //		this.breeds = breeds;
 //	}
-//	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)//TODO
-//	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ID")})
-//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "animals")//TODO
 	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
 	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ANIMAL_ID")})//第一個ANIMAL_ID為Files的，第二個為Animals的。
 	public Set<Files> getFiles() {
