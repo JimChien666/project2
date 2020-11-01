@@ -1,4 +1,4 @@
-package tw.wey.old;
+package tw.wey.entity;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -8,8 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 @Entity
 @Table(name = "breeds")
+@Component
 public class Breeds {
 	private int breedId;
 	private String family;

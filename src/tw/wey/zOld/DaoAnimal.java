@@ -1,4 +1,4 @@
-package tw.wey.old;
+package tw.wey.zOld;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
