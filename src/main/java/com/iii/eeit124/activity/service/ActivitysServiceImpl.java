@@ -1,4 +1,4 @@
-package com.iii.eeit124.service;
+package com.iii.eeit124.activity.service;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iii.eeit124.dao.ActivitysDao;
+import com.iii.eeit124.activity.dao.ActivitysDao;
 import com.iii.eeit124.entity.Activitys;
 
 @Service

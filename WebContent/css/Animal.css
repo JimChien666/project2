@@ -1,0 +1,62 @@
+@charset "UTF-8";
+.card2 {
+	width: 250px;
+	float: left;
+	margin: 10px;
+	padding: 5px;
+}
+.card2 img {
+	height: 250px;
+}
+.dispblok{
+	display:block;
+}
+.form1 {
+	height: 300px;
+	overflow: auto;
+	margin: 5px 0 5px 0;
+}
+.height260px{
+	height: 260px;
+}
+.label1 {
+	display: inline-block;
+	width: 120px;
+	text-align: right;
+}
+.margin10px{
+	margin:10px;
+}
+.margleft125px{
+	margin-left: 125px;
+}
+.note1 {
+	height: auto;
+	word-wrap: break-word;
+}
+.page1 {
+	margin: 0 auto;
+	width: 87%;
+}
+.posAbs{
+	position: absolute;
+}
+.span1 {
+	display: inline-block;
+}
+.spanHidden{
+	margin-left: 125px;
+	display:none;
+	color:red;
+}
+.square250px{
+	height:250px;
+	width:250px;
+}
+.wid200px{
+	width:200px;
+}
+.wid400px {
+	margin: 0 auto;
+	width: 450px;
+}
