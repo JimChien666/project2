@@ -1,4 +1,4 @@
-package com.iii.eeit124.dao;
+package com.iii.eeit124.activity.dao;
 
 import java.util.List;
 
