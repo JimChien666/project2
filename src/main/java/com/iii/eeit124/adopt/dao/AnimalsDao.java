@@ -1,6 +1,7 @@
 package com.iii.eeit124.adopt.dao;
 
 import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -8,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
+
 import com.iii.eeit124.entity.Animals;
 
 @Repository("animalsDao")@Lazy
 public class AnimalsDao {
+	
 	private SessionFactory sessionFactory;//Hibernate SessionFactory
 
 	@Autowired
@@ -21,15 +24,15 @@ public class AnimalsDao {
 	
 	public Animals create(Animals entity) {
 		Session session = sessionFactory.getCurrentSession();
-		Animals result = session.get(Animals.class, entity.getAnimalId());
-		if (result == null) {
+//		Animals result = session.get(Animals.class, entity.getAnimalId());//TODO id會出錯
+//		if (result == null) {
 			session.save(entity);
 			return entity;
-		}
-		return null;
+//		}
+//		return null;
 	}
 	
-	public Animals read(int animalsId) {
+	public Animals read(String animalsId) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Animals.class, animalsId);
 	}

@@ -19,7 +19,7 @@
 </script>
 </head>
 <body>
-<%-- 	<jsp:include page="/nn/top.jsp" /> --%>
+<%--<jsp:include page="/nn/top.jsp" /> --%>
 	<div class="page1">
 		<div class="margin10px">
 			<a href="<c:url value='/preCreateAnimal.controller'/>" class="btn btn-primary">新增</a>
@@ -64,7 +64,7 @@
 							<li><span class="span1">備註：&nbsp;</span><span class="span1 note1">${AnimalsList.note}</span><br></li>
 						</ul>
 					</div>
-					<a href="PreUpdateAnimals?animalId=${AnimalsList.animalId}" class="btn btn-secondary" style="width: 49%;">維護</a>
+					<a href="<c:url value='/preUpdateAnimal.controller'/>?animalId=${AnimalsList.animalId}" class="btn btn-secondary" style="width: 49%;">維護</a>
 					<script type="text/javascript">
 				function confirmDelete(animalId) {
 					if(confirm("確定刪除此筆動物資料(動物編號:"+animalId+")?")){

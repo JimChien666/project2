@@ -23,7 +23,7 @@ public class AnimalsService implements IAnimalsService{
 		return animalsDao.create(animals);
 	}
 	
-	public Animals read(int animalsId) {
+	public Animals read(String animalsId) {
 		return animalsDao.read(animalsId);
 	}
 	
