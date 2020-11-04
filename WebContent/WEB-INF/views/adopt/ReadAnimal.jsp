@@ -13,11 +13,7 @@
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 <!-- sweetalert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-    if ( window.history.replaceState ) {
-        window.history.replaceState( null, null, window.location.href );
-    }
-</script>
+<script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 <body>
 <%--<jsp:include page="/nn/top.jsp" /> --%>
@@ -66,35 +62,6 @@
 						</ul>
 					</div>
 					<a href="<c:url value='/preUpdateAnimal.controller'/>?animalId=${AnimalsList.animalId}" class="btn btn-secondary" style="width: 49%;">維護</a>
-				<script type="text/javascript">
-				function confirmDelete(animalId) {
-					if(confirm("確定刪除此筆動物資料(動物編號:"+animalId+")?")){
-						document.forms[0].action="DeleteAnimal.controller?animalId="+animalId;
-						document.forms[0].method="POST";
-						document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
-					}
-				}
-
-				//SweetAlert
-				function deleteAnimal(animalId){
-					swal({
-					    title: "確定刪除動物編號"+animalId+"這筆資料?",
-					    icon: "warning",
-					    buttons: {Btn: false,
-					        cancel: {text: "取消",visible: true},
-					        danger: {text: "刪除",visible: true}
-					    },
-					    dangerMode: true
-					}).then((value) => {
-						switch(value){
-							case "danger":
-								document.forms[0].action="DeleteAnimal.controller?animalId="+animalId;
-								document.forms[0].method="POST";
-								document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
-								break;
-							  }});
-					}
-				</script>
 					<input type="button" value="刪除" onclick="deleteAnimal(${AnimalsList.animalId})" class="btn btn-danger" style="width: 49%;">
 				</form>
 			</div>
