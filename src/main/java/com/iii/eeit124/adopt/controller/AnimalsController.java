@@ -1,6 +1,9 @@
 package com.iii.eeit124.adopt.controller;
 
 import java.util.Date;
+
+import javax.persistence.Transient;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.entity.Animals;
 
@@ -74,7 +76,7 @@ public class AnimalsController {
 		return "adopt/UpdateAnimal";
 	}
 	
-	//UpdateAnimal.jsp更新
+	//UpdateAnimal.jsp更新，結束後回到ReadAnimal.jsp
 	@RequestMapping(path = "/UpdateAnimal.controller", method = RequestMethod.POST)
 	public String processUpdateAnimal(@ModelAttribute("AnimalsList2") Animals entity, BindingResult result, Model m) {
 		if (result.hasErrors()) {
@@ -86,4 +88,13 @@ public class AnimalsController {
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
 	}
+	
+	//更新完回到ReadAnimal.jsp重整頁面
+	@RequestMapping(path = "/UpdateAnimal.controller", method = RequestMethod.GET)//TODO 可簡化?
+	public String processUpdateAnimal(Model m) {
+		m.addAttribute("AnimalsList", animalsService.readAll());
+		return "adopt/ReadAnimal";
+	}
+	
+	
 }

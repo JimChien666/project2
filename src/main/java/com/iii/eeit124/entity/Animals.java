@@ -14,12 +14,15 @@ import javax.persistence.JoinColumns;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "animals")
 @Component
-//@DynamicInsert@DynamicUpdate
+@DynamicInsert@DynamicUpdate
 public class Animals {
 	
 	private String animalId;//TODO int Integer會出錯

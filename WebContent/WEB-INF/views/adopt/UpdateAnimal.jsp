@@ -26,6 +26,7 @@
 		<img id="preview_animalFile" src="#" class="square250px" /><br>
 		</span> 
 		
+<%-- 		<form:input path="createdAt" type="text" name="createdAt" value="${animals.createdAt}" class="spanHidden"/> --%>
 		<label for="" class="label1">動物編號：</label> 
 		<form:input path="animalId" type="text" name="animalId" value="${animals.animalId}" class="spanHidden"/>
 		<label>${animals.animalId}</label><br>
@@ -237,6 +238,7 @@
 		<form:textarea path="note" name="note" rows="5" cols="18" class="margleft125px"/>
 <%-- 		<textarea id="" name="note" rows="5" cols="18" class="margleft125px">${animals.note}</textarea> --%>
 		<br> 
+		
 		<a href="<c:url value='/preUpdateAnimal.controller' />?animalId=${animals.animalId}" class="btn btn-secondary">回復修改</a>
 		<form:button value="Send" name="update" class="btn btn-primary">修改</form:button>
 <!-- 		<button type="submit" name="update" class="btn btn-primary">修改</button> -->
