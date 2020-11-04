@@ -24,7 +24,7 @@ public class AnimalsDao {
 	
 	public Animals create(Animals entity) {
 		Session session = sessionFactory.getCurrentSession();
-//		Animals result = session.get(Animals.class, entity.getAnimalId());//TODO id會出錯
+//		Animals result = session.get(Animals.class, entity.getAnimalId());//TODO id會出錯誤訊息id to load is required for loading
 //		if (result == null) {
 			session.save(entity);
 			return entity;
@@ -46,12 +46,12 @@ public class AnimalsDao {
 	
 	public Animals update(Animals entity) {
 		Session session = sessionFactory.getCurrentSession();
-		Animals result = session.get(Animals.class, entity.getAnimalId());
-		if (result != null) {
+//		Animals result = session.get(Animals.class, entity.getAnimalId());
+//		if (result != null) {
 			session.update(entity);
 			return entity;
-		}
-		return null;
+//		}
+//		return null;
 	}
 	
 	public boolean delete(int animalsId) {
