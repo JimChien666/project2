@@ -18,8 +18,9 @@ public class Activitys {
 
 	@Id
 	@Column(name = "activitys_id")
-	@SequenceGenerator(name = "activitysSeqGen", sequenceName = "activitys_seq")
-	@GeneratedValue(generator = "activitysSeqGen")
+//	@SequenceGenerator(name = "activitysSeqGen", sequenceName = "activitys_seq")
+//	@GeneratedValue(generator = "activitysSeqGen")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
 	@Column(name = "create_date")

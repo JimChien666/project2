@@ -6,5 +6,5 @@ public interface MemberService {
 	boolean accountExists(String account);
 	int saveMember(Members mb);
 	Members queryMember(String id);
-	public Members checkIDPassword(String userId, String password) ;
+	public Members checkAccountPassword(String account, String password) ;
 }

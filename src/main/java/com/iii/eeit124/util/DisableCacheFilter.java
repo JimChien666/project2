@@ -45,7 +45,7 @@ public class DisableCacheFilter implements Filter {
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
-		System.out.println("112233");
+		System.out.println("cache");
 	}
 	
 }

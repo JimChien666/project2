@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>${msgOK.InsertOK}</h2>
+<jsp:include page="../public/top.jsp" />
+	<h2>註冊成功</h2>
 </body>
 </html>

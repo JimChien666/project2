@@ -1,6 +1,7 @@
 package com.iii.eeit124.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -15,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 
@@ -23,7 +26,7 @@ import javax.persistence.Transient;
 public class Members implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private String id;
 	private String name;
 	private String sex;
 	private String tel;
@@ -33,6 +36,7 @@ public class Members implements Serializable{
 	private String address;
 	private int adoptedLevelId;
 	private String memberType;
+	private Date createdAt;
 	private Set<Files> files = new HashSet<Files>();
 
 
@@ -54,10 +58,9 @@ public class Members implements Serializable{
 //		this.sex = sex;
 //	}
 	
-	public Members(int id, String name, String sex, String tel, String account, String password, String email,
+	public Members(String name, String sex, String tel, String account, String password, String email,
 			String address, int adoptedLevelId, String memberType) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.sex = sex;
 		this.tel = tel;
@@ -74,11 +77,11 @@ public class Members implements Serializable{
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	@Column(name="MEMBERTYPE")
@@ -145,8 +148,8 @@ public class Members implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-//	@Column(name="ADOPTED_LEVEL_ID")
-	@Transient
+	@Column(name="ADOPTED_LEVEL_ID")
+//	@Transient
 	public int getAdoptedLevelId() {
 		return adoptedLevelId;
 	}
@@ -156,9 +159,9 @@ public class Members implements Serializable{
 	}
 
 	@Transient
-	public int getFileId() {
+	public String getFileId() {
 		Iterator<Files> iterator = this.files.iterator();
-		int fileId = 0;
+		String fileId = "0";
 		if(iterator.hasNext()) {
 			Files contentImg = iterator.next();
 			fileId = contentImg.getId();
@@ -173,6 +176,19 @@ public class Members implements Serializable{
 
 	public void setFiles(Set<Files> files) {
 		this.files = files;
+	}
+
+
+	@Column(name = "CREATED_AT")
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 	
 	

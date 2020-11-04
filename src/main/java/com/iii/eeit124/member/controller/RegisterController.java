@@ -2,6 +2,7 @@ package com.iii.eeit124.member.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.iii.eeit124.entity.Files;
@@ -29,28 +31,26 @@ import com.iii.eeit124.member.service.MemberService;
 import com.iii.eeit124.util.GlobalService;
 
 
-
-
-
 @Controller
-public class RegisterService {
+@SessionAttributes(names={"member"})
+public class RegisterController {
 	@Autowired
 	private HttpServletRequest request;
 	@Autowired
 	MemberService memberService;
-	@Autowired
-	private SessionFactory sessionFactory;
+
 	
-	@GetMapping("/testInsert")
-	public String testInsert(Model m) {
-//		System.out.println(memberService.accountExists("s1875678"));
-		Members member=new Members(1, "d", "d", "d", "d", "d", "d", "d", 2, "d");
-//		m.addAttribute("member", member);
-		sessionFactory.getCurrentSession().save(member);
-//		memberService.saveMember(member);
-		
-		return "members/register";
-	}
+//	@GetMapping("/testInsert")
+//	public void testInsert(Model m) {
+////		System.out.println(memberService.accountExists("s1875678"));
+//		Members member=new Members("d", "d", "d", "d", "d", "d", "d", 2, "d");
+//		member.getId();
+////		m.addAttribute("member", member);
+//		sessionFactory.getCurrentSession().save(member);
+////		memberService.saveMember(member);
+//		
+////		return "members/register";
+//	}
 	
 	@GetMapping("/register")
 	public String getRegisterPage(Model m) {
@@ -138,13 +138,15 @@ public class RegisterService {
 			is1.close();
 			Set<Files> files = new HashSet<Files>();
 			Files file = new Files("image", b);
+			
 			files.add(file);
 			member.setFiles(files);
-			
+			System.out.println(member);
+			member.setCreatedAt(new Date());
 			int n = memberService.saveMember(member);
 			if (n == 1) {
 				msgOK.put("InsertOK", member);
-				return "registerSuccess";
+				return "members/registerSuccess";
 			} else {
 				errors.put("errorAccountDup", "新增此筆資料有誤(RegisterServlet)");
 			}

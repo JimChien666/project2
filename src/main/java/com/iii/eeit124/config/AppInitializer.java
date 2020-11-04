@@ -11,6 +11,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.iii.eeit124.util.FindUserPassword;
+import com.iii.eeit124.util.LoginCheckingFilter;
 import com.iii.eeit124.util.OpenSessionViewFilter;
 
 
@@ -39,8 +41,13 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		filterRegistration.setInitParameter("forceEncoding", "true");
 		filterRegistration.addMappingForUrlPatterns(null, false, "/*");
 		filterRegistration = servletContext.addFilter("OpenSessionViewFilter", OpenSessionViewFilter.class);
+		filterRegistration.addMappingForUrlPatterns(null, true, "/*");
+//		filterRegistration.addMappingForServletNames(null, true, "mvc");
+		filterRegistration = servletContext.addFilter("LoginCheckingFilter", LoginCheckingFilter.class);
 //		filterRegistration.setInitParameter("sessionFactoryBeanName", "sessionFactory");
 		filterRegistration.addMappingForUrlPatterns(null, true, "/*");
+		filterRegistration = servletContext.addFilter("FindUserPassword", FindUserPassword.class);
+		filterRegistration.addMappingForUrlPatterns(null, true, "/login");
 		filterRegistration.addMappingForServletNames(null, true, "mvc");
 
 		servletContext.addListener(new ContextLoaderListener(rootContext));

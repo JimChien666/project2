@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -25,6 +25,7 @@ table td {
 </style>
 </head>
 <body>
+<jsp:include page="../public/top.jsp" />
 	<h1>Input Form</h1>
 	<form:form action="addActivitys" method="post" modelAttribute="activitys">
 		<table>

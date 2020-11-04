@@ -9,7 +9,6 @@ public interface MemberDao {
 	public Members queryMember(String id);
 	
 	public Members checkIDPassword(String userId, String password);	
-	
 
 	boolean accountExists(String account);
 }

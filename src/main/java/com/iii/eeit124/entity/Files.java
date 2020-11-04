@@ -2,6 +2,7 @@ package com.iii.eeit124.entity;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +19,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="FILES")
 public class Files implements Serializable {
-	private int id;
+	private String id;
 	private String FileType;
 	private String FileUrl;
 	private int memberId;
@@ -44,10 +45,10 @@ public class Files implements Serializable {
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	@Column(name="FILE_TYPE")
@@ -120,7 +121,7 @@ public class Files implements Serializable {
 	public void setFileBlob(byte[] fileBlob) {
 		this.fileBlob = fileBlob;
 	}
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MEMBER_ID")
 	public Members getMember() {
 		return member;
@@ -132,6 +133,14 @@ public class Files implements Serializable {
 	
 	@Override
 	public String toString() {
-		return " {\"id\":\"" + id + "\"}";
+		StringBuilder builder = new StringBuilder();
+		builder.append(" {\"id\":\"").append(id).append("\", \"FileType\":\"").append(FileType)
+				.append("\", \"FileUrl\":\"").append(FileUrl).append("\", \"memberId\":\"").append(memberId)
+				.append("\", \"forumId\":\"").append(forumId).append("\", \"animalId\":\"").append(animalId)
+				.append("\", \"activityId\":\"").append(activityId).append("\", \"productId\":\"").append(productId)
+				.append("\", \"contentAttractionId\":\"").append(contentAttractionId)
+				.append("\", \"coverAttractionId\":\"").append(coverAttractionId).append("\", \"member\":\"")
+				.append(member).append("\", \"fileBlob\":\"").append(Arrays.toString(fileBlob)).append("}");
+		return builder.toString();
 	}
 }

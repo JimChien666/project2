@@ -36,8 +36,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public Members checkIDPassword(String userId, String password) {
-		Members mb = dao.checkIDPassword(userId, password);
+	public Members checkAccountPassword(String account, String password) {
+		Members mb = dao.checkIDPassword(account, password);
 		return mb;
 	}
 }

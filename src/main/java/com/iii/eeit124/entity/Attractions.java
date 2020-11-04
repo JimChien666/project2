@@ -239,9 +239,9 @@ public class Attractions implements Serializable {
 	
 
 	@Transient
-	public int getFirstCoverImgId() {
+	public String getFirstCoverImgId() {
 		Iterator<Files> iterator = this.coverImgs.iterator();
-		int fileId = 0;
+		String fileId = "0";
 		if(iterator.hasNext()) {
 			Files coverImg = iterator.next();
 			fileId = coverImg.getId();
@@ -250,9 +250,9 @@ public class Attractions implements Serializable {
 	}
 	
 	@Transient
-	public int getFirstContentImgId() {
+	public String getFirstContentImgId() {
 		Iterator<Files> iterator = this.contentImgs.iterator();
-		int fileId = 0;
+		String fileId = "0";
 		if(iterator.hasNext()) {
 			Files contentImg = iterator.next();
 			fileId = contentImg.getId();
