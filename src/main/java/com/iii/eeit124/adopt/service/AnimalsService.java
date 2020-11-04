@@ -35,7 +35,7 @@ public class AnimalsService implements IAnimalsService{
 		return animalsDao.update(animals);
 	}
 	
-	public boolean delete(int animalsId) {
+	public boolean delete(String animalsId) {
 		return animalsDao.delete(animalsId);
 	}
 }

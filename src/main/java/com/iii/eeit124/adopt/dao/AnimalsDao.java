@@ -54,7 +54,7 @@ public class AnimalsDao {
 //		return null;
 	}
 	
-	public boolean delete(int animalsId) {
+	public boolean delete(String animalsId) {
 		Session session = sessionFactory.getCurrentSession();
 		Animals result = session.get(Animals.class, animalsId);
 		if (result != null) {

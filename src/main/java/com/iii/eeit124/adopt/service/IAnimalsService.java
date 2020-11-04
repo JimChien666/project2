@@ -8,5 +8,5 @@ public interface IAnimalsService {
 	public Animals read(String animalsId);
 	public List<Animals> readAll();
 	public Animals update(Animals animals);
-	public boolean delete(int animalsId);
+	public boolean delete(String animalsId);
 }

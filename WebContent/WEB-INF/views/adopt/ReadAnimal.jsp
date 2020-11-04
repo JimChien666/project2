@@ -11,7 +11,8 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
-<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+<!-- sweetalert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
@@ -65,15 +66,16 @@
 						</ul>
 					</div>
 					<a href="<c:url value='/preUpdateAnimal.controller'/>?animalId=${AnimalsList.animalId}" class="btn btn-secondary" style="width: 49%;">維護</a>
-					<script type="text/javascript">
+				<script type="text/javascript">
 				function confirmDelete(animalId) {
 					if(confirm("確定刪除此筆動物資料(動物編號:"+animalId+")?")){
-						document.forms[0].action="ServletDeleteAnimal?animalId="+animalId;
+						document.forms[0].action="DeleteAnimal.controller?animalId="+animalId;
 						document.forms[0].method="POST";
 						document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
 					}
 				}
 
+				//SweetAlert
 				function deleteAnimal(animalId){
 					swal({
 					    title: "確定刪除動物編號"+animalId+"這筆資料?",
@@ -86,16 +88,14 @@
 					}).then((value) => {
 						switch(value){
 							case "danger":
-								document.forms[0].action="ServletDeleteAnimal?animalId="+animalId;
+								document.forms[0].action="DeleteAnimal.controller?animalId="+animalId;
 								document.forms[0].method="POST";
 								document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
 								break;
 							  }});
 					}
 				</script>
-					<input type="button" value="刪除"
-						onclick="deleteAnimal(${AnimalsList.animalId})"
-						class="btn btn-danger" style="width: 49%;">
+					<input type="button" value="刪除" onclick="deleteAnimal(${AnimalsList.animalId})" class="btn btn-danger" style="width: 49%;">
 				</form>
 			</div>
 		</c:forEach>

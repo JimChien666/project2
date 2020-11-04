@@ -15,7 +15,7 @@
 	<div class="wid400px">
 		<a href="<c:url value='/readAnimal' />" class="btn btn-secondary margin10px">回維護首頁</a>
 
-		<form:form action="UpdateAnimal.controller" method="POST" modelAttribute="AnimalsList2">
+		<form:form action="UpdateAnimal.controller" method="POST" modelAttribute="animals">
 <%-- 	<form action="<c:url value='/UpdateAnimals' />" method="post" enctype="multipart/form-data"> --%>
 		<label for="" class="label1">照片：</label> 
 <!-- 		<input type="file" name="animalFile" id="animalFile" multiple class="wid200px"> -->
@@ -26,7 +26,6 @@
 		<img id="preview_animalFile" src="#" class="square250px" /><br>
 		</span> 
 		
-<%-- 		<form:input path="createdAt" type="text" name="createdAt" value="${animals.createdAt}" class="spanHidden"/> --%>
 		<label for="" class="label1">動物編號：</label> 
 		<form:input path="animalId" type="text" name="animalId" value="${animals.animalId}" class="spanHidden"/>
 		<label>${animals.animalId}</label><br>
@@ -235,7 +234,7 @@
 		</form:select><br> 
 		
 		<label for="" class="label1 posAbs">備註：</label>
-		<form:textarea path="note" name="note" rows="5" cols="18" class="margleft125px"/>
+		<form:textarea path="note" name="note" rows="5" cols="18" class="margleft125px" value="${note}"/>
 <%-- 		<textarea id="" name="note" rows="5" cols="18" class="margleft125px">${animals.note}</textarea> --%>
 		<br> 
 		

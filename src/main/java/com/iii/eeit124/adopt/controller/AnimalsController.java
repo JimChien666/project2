@@ -1,9 +1,6 @@
 package com.iii.eeit124.adopt.controller;
 
 import java.util.Date;
-
-import javax.persistence.Transient;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +18,7 @@ public class AnimalsController {
 	@Autowired
 	public AnimalsService animalsService;
 	
-	//讀取全部動物的頁面
+	//瀏覽全部
 	@RequestMapping(path = "/readAnimal", method = RequestMethod.GET)
 	public String processReadAnimal(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readAll());
@@ -33,7 +30,7 @@ public class AnimalsController {
 //		return new Animals();
 //	}
 	
-	//準備一個Animals()進入到CreateAnimal.jsp
+	//PreCreate
 	@RequestMapping(path = "/preCreateAnimal.controller", method = RequestMethod.GET)
 	public String processPreCreateAnimal(Model m) {
 		Animals animals = new Animals();
@@ -41,7 +38,7 @@ public class AnimalsController {
 		return "adopt/CreateAnimal";
 	}
 	
-	//新增完回到ReadAnimal.jsp
+	//Create
 	@RequestMapping(path = "/CreateAnimal.controller", method = RequestMethod.POST)
 	public String processCreateAnimal(@ModelAttribute("AnimalsList1") Animals entity, BindingResult result, Model m) {
 		if (result.hasErrors()) {
@@ -54,7 +51,7 @@ public class AnimalsController {
 		return "adopt/ReadAnimal";
 	}
 	
-	//新增完回到ReadAnimal.jsp重整頁面
+	//Refresh
 	@RequestMapping(path = "/CreateAnimal.controller", method = RequestMethod.GET)//TODO 可簡化?
 	public String processCreateAnimal(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readAll());
@@ -66,35 +63,48 @@ public class AnimalsController {
 //		return null;
 //	}
 	
-	//ReadAnimal.jsp跳轉到修改頁
+	//PreUpdate
 	@RequestMapping(path = "/preUpdateAnimal.controller", method = RequestMethod.GET)
 	public String processPreUpdateAnimal(@RequestParam("animalId") String animalId, Model m) {
-		m.addAttribute("animals", animalsService.read(animalId));
-		Animals animals = new Animals();
-		animals.setNote(animalsService.read(animalId).getNote());//因form:textarea無法給值
-		m.addAttribute("AnimalsList2", animals);
+		Animals animals = animalsService.read(animalId);
+		m.addAttribute("animals", animals);
+		m.addAttribute("note", animals.getNote());
 		return "adopt/UpdateAnimal";
 	}
 	
-	//UpdateAnimal.jsp更新，結束後回到ReadAnimal.jsp
+	//Update
 	@RequestMapping(path = "/UpdateAnimal.controller", method = RequestMethod.POST)
-	public String processUpdateAnimal(@ModelAttribute("AnimalsList2") Animals entity, BindingResult result, Model m) {
+	public String processUpdateAnimal(@ModelAttribute("animals") Animals entity, BindingResult result, Model m) {
 		if (result.hasErrors()) {
 			m.addAttribute("AnimalsList", animalsService.readAll());
 			return "adopt/ReadAnimal";
 		}//TODO 要加更新失敗
 		entity.setUpdatedAt(new Date());
+		System.out.println(entity);
 		animalsService.update(entity);
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
 	}
 	
-	//更新完回到ReadAnimal.jsp重整頁面
+	//Refresh
 	@RequestMapping(path = "/UpdateAnimal.controller", method = RequestMethod.GET)//TODO 可簡化?
 	public String processUpdateAnimal(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
 	}
 	
+	//Delete
+	@RequestMapping(path = "/DeleteAnimal.controller", method = RequestMethod.POST)
+	public String processDeleteAnimal(@RequestParam("animalId") String animalId, Model m) {
+		animalsService.delete(animalId);
+		m.addAttribute("AnimalsList", animalsService.readAll());
+		return "adopt/ReadAnimal";
+	}
 	
+	//Refresh
+	@RequestMapping(path = "/DeleteAnimal.controller", method = RequestMethod.GET)//TODO 可簡化?
+	public String processDeleteAnimal(Model m) {
+		m.addAttribute("AnimalsList", animalsService.readAll());
+		return "adopt/ReadAnimal";
+	}
 }
