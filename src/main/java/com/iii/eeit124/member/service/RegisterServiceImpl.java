@@ -1,25 +1,33 @@
 package com.iii.eeit124.member.service;
 
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.iii.eeit124.entity.Files;
 import com.iii.eeit124.entity.Members;
-import com.iii.eeit124.member.dao.MemberDao;
+import com.iii.eeit124.member.dao.RegisterDao;
 
 
 @Service
-public class MemberServiceImpl implements MemberService {
+public class RegisterServiceImpl implements RegisterService {
 	
 	@Autowired
-	MemberDao dao ;
+	RegisterDao dao ;
 	
 
 	@Override
 	@Transactional
-	public int saveMember(Members mb) {
-		return dao.saveMember(mb);
+	public int saveRegister(Members mb, Set<Files> files) {
+		int num = dao.saveMember(mb);
+		for(Files file:files) {
+			file.setMember(mb);
+			dao.saveFile(file);
+		}
+		return num;
 	}
 
 	@Override
@@ -32,12 +40,5 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public Members queryMember(String id) {
 		return dao.queryMember(id);
-	}
-
-	@Override
-	@Transactional
-	public Members checkAccountPassword(String account, String password) {
-		Members mb = dao.checkIDPassword(account, password);
-		return mb;
 	}
 }

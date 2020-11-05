@@ -49,7 +49,7 @@
 		<c:if test="${!empty LoginOK}">
 			<div class="navbar-brand">
 				<img
-					src="${pageContext.servletContext.contextPath}/RetrieveImageServlet?id=${LoginOK.getFileId()}"
+					src="${pageContext.servletContext.contextPath}/filuploadAction.contoller?fileId=${LoginOK.getFileId()}"
 					width="30" height="30" class="d-inline-block align-top" alt=""
 					style="border-radius: 50%; border: 2px white solid;">
 

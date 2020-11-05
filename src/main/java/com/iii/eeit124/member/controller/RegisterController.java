@@ -8,16 +8,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.iii.eeit124.entity.Files;
 import com.iii.eeit124.entity.Members;
-import com.iii.eeit124.member.service.MemberService;
+import com.iii.eeit124.member.service.RegisterService;
 import com.iii.eeit124.util.GlobalService;
 
 
@@ -37,7 +34,7 @@ public class RegisterController {
 	@Autowired
 	private HttpServletRequest request;
 	@Autowired
-	MemberService memberService;
+	RegisterService registerService;
 
 	
 //	@GetMapping("/testInsert")
@@ -108,7 +105,7 @@ public class RegisterController {
 			return "members/register";
 		}
 		try {
-			if (memberService.accountExists(member.getAccount())){
+			if (registerService.accountExists(member.getAccount())){
 				errors.put("errorAccountDup", "此帳號已存在，請換新帳號");
 			} else {
 				member.setPassword(GlobalService.getMD5Endocing(GlobalService.encryptString(member.getPassword())));
@@ -143,7 +140,7 @@ public class RegisterController {
 			member.setFiles(files);
 			System.out.println(member);
 			member.setCreatedAt(new Date());
-			int n = memberService.saveMember(member);
+			int n = registerService.saveRegister(member, files);
 			if (n == 1) {
 				msgOK.put("InsertOK", member);
 				return "members/registerSuccess";

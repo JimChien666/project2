@@ -69,6 +69,7 @@ public class Files implements Serializable {
 		FileUrl = fileUrl;
 	}
 	@Transient
+//	@Column(name="MEMBER_ID")
 	public Integer getMemberId() {
 		return memberId;
 	}
@@ -124,7 +125,7 @@ public class Files implements Serializable {
 	public void setFileBlob(byte[] fileBlob) {
 		this.fileBlob = fileBlob;
 	}
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MEMBER_ID")
 	public Members getMember() {
 		return member;

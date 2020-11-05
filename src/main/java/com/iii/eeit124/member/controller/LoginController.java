@@ -1,25 +1,32 @@
 package com.iii.eeit124.member.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.SessionFactory;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.iii.eeit124.entity.Files;
 import com.iii.eeit124.entity.Members;
-import com.iii.eeit124.member.service.MemberService;
+import com.iii.eeit124.member.service.LoginService;
 import com.iii.eeit124.util.GlobalService;
 
 @Controller
@@ -29,7 +36,7 @@ public class LoginController {
 	@Autowired
 	private HttpServletResponse response;
 	@Autowired
-	private MemberService memberService;
+	private LoginService loginService;
 	@Autowired
 	private HttpSession session;
 
@@ -105,7 +112,7 @@ public class LoginController {
 		Members member = null;
 		try {
 			// 呼叫 loginService物件的 checkIDPassword()，傳入userid與password兩個參數
-			member = memberService.checkAccountPassword(account, password);
+			member = loginService.checkAccountPassword(account, password);
 			if (member != null) {
 				// OK, 登入成功, 將mb物件放入Session範圍內，識別字串為"LoginOK"
 				session.setAttribute("LoginOK", member);
@@ -134,5 +141,15 @@ public class LoginController {
 		} else {
 			return "members/login";
 		}
+	}
+	
+	@GetMapping("/filuploadAction.contoller")
+	@ResponseBody
+	public ResponseEntity<byte[]> processFileUploadAction(@RequestParam(name = "fileId") Integer fileId) throws Exception{
+		Files file = loginService.getFileById(fileId);
+		byte[] fileBlob = file.getFileBlob();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_JPEG);	
+		return new ResponseEntity<byte[]>(fileBlob, headers, HttpStatus.OK);
 	}
 }

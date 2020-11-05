@@ -171,7 +171,7 @@ public class Members implements Serializable{
 		return fileId;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "member", cascade = CascadeType.ALL)
 	public Set<Files> getFiles() {
 		return files;
 	}
