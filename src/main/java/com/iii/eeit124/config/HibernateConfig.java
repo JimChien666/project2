@@ -74,15 +74,10 @@ public class HibernateConfig {
 	
 	private Properties additionalProperties() {
 		Properties properties = new Properties();
-		properties.put("hibernate.dialect", org.hibernate.dialect.SQLServerDialect.class);
+		properties.put("hibernate.dialect", "org.hibernate.dialect.Oracle12cDialect");
 		properties.put("hibernate.show_sql", Boolean.TRUE);
 		properties.put("hibernate.format_sql", Boolean.TRUE);
 		properties.put("hibernate.current_session_context_class", "thread");
-		properties.put("hibernate.c3p0.min_size", 5);
-		properties.put("hibernate.c3p0.max_size", 20);
-		properties.put("hibernate.c3p0.acquire_increment", 2);
-		properties.put("hibernate.c3p0.acquire_increment", 1800);
-		properties.put("hibernate.c3p0.max_statements", 150);
 		return properties;
 	}
 	
