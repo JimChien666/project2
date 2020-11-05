@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,19 +21,14 @@ public class AnimalsController {
 	public AnimalsService animalsService;
 	
 	//瀏覽全部
-	@RequestMapping(path = "/readAnimal", method = RequestMethod.GET)
+	@GetMapping("/readAnimal")
 	public String processReadAnimal(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
 	}
 	
-//	@ModelAttribute("AnimalsList1") TODO
-//	public Animals formBackingObject() {
-//		return new Animals();
-//	}
-	
 	//PreCreate
-	@RequestMapping(path = "/preCreateAnimal.controller", method = RequestMethod.GET)
+	@GetMapping("/preCreateAnimal.controller")
 	public String processPreCreateAnimal(Model m) {
 		Animals animals = new Animals();
 		m.addAttribute("AnimalsList1", animals);
@@ -39,7 +36,7 @@ public class AnimalsController {
 	}
 	
 	//Create
-	@RequestMapping(path = "/CreateAnimal.controller", method = RequestMethod.POST)
+	@PostMapping("/CreateAnimal.controller")
 	public String processCreateAnimal(@ModelAttribute("AnimalsList1") Animals entity, BindingResult result, Model m) {
 		if (result.hasErrors()) {
 			m.addAttribute("AnimalsList", animalsService.readAll());
@@ -52,7 +49,7 @@ public class AnimalsController {
 	}
 	
 	//Refresh
-	@RequestMapping(path = "/CreateAnimal.controller", method = RequestMethod.GET)//TODO 可簡化?
+	@GetMapping({"/CreateAnimal.controller", "/UpdateAnimal.controller", "/DeleteAnimal.controller"})
 	public String processCreateAnimal(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
@@ -64,7 +61,7 @@ public class AnimalsController {
 //	}
 	
 	//PreUpdate
-	@RequestMapping(path = "/preUpdateAnimal.controller", method = RequestMethod.GET)
+	@GetMapping("/preUpdateAnimal.controller")
 	public String processPreUpdateAnimal(@RequestParam("animalId") String animalId, Model m) {
 		Animals animals = animalsService.read(animalId);
 		m.addAttribute("animals", animals);
@@ -73,37 +70,22 @@ public class AnimalsController {
 	}
 	
 	//Update
-	@RequestMapping(path = "/UpdateAnimal.controller", method = RequestMethod.POST)
+	@PostMapping("/UpdateAnimal.controller")
 	public String processUpdateAnimal(@ModelAttribute("animals") Animals entity, BindingResult result, Model m) {
 		if (result.hasErrors()) {
 			m.addAttribute("AnimalsList", animalsService.readAll());
 			return "adopt/ReadAnimal";
 		}//TODO 要加更新失敗
 		entity.setUpdatedAt(new Date());
-		System.out.println(entity);
 		animalsService.update(entity);
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
 	}
 	
-	//Refresh
-	@RequestMapping(path = "/UpdateAnimal.controller", method = RequestMethod.GET)//TODO 可簡化?
-	public String processUpdateAnimal(Model m) {
-		m.addAttribute("AnimalsList", animalsService.readAll());
-		return "adopt/ReadAnimal";
-	}
-	
 	//Delete
-	@RequestMapping(path = "/DeleteAnimal.controller", method = RequestMethod.POST)
+	@PostMapping("/DeleteAnimal.controller")
 	public String processDeleteAnimal(@RequestParam("animalId") String animalId, Model m) {
 		animalsService.delete(animalId);
-		m.addAttribute("AnimalsList", animalsService.readAll());
-		return "adopt/ReadAnimal";
-	}
-	
-	//Refresh
-	@RequestMapping(path = "/DeleteAnimal.controller", method = RequestMethod.GET)//TODO 可簡化?
-	public String processDeleteAnimal(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
 	}
