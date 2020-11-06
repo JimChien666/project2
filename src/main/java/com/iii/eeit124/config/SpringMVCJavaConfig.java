@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-//取代mvc-servlet.xml
+// mvc-servlet.xml
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.iii.eeit124")

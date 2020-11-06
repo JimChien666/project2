@@ -1,4 +1,4 @@
-package com.iii.eeit124.controller;
+package com.iii.eeit124.activity.controller;
 
 import java.util.Date;
 import java.util.Locale;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.iii.eeit124.activity.service.ActivitysService;
 import com.iii.eeit124.entity.Activitys;
-import com.iii.eeit124.service.ActivitysService;
 
 @Controller
 public class ActivitysController {

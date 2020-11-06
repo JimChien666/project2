@@ -29,21 +29,21 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		rootContext.register(SpringMVCJavaConfig.class);
+		rootContext.register(SpringMVCJavaConfig.class); //註冊及設定類別
 		rootContext.setServletContext(servletContext);
-		ServletRegistration.Dynamic mvc = servletContext.addServlet("mvc", new DispatcherServlet(rootContext));
-		mvc.setLoadOnStartup(1);
-		mvc.addMapping("/");
+		ServletRegistration.Dynamic mvc = servletContext.addServlet("mvc", new DispatcherServlet(rootContext)); // 動態註冊設定文件
+		mvc.setLoadOnStartup(1);									//servletcontext名字
+		mvc.addMapping("/"); //servlet讀取路徑
 		FilterRegistration.Dynamic filterRegistration = servletContext.addFilter("endcodingFilter", new CharacterEncodingFilter());
-		filterRegistration.setInitParameter("encoding", "UTF-8");
+		filterRegistration.setInitParameter("encoding", "UTF-8");				//動態註冊過濾器
 		filterRegistration.setInitParameter("forceEncoding", "true");
-		filterRegistration.addMappingForUrlPatterns(null, false, "/*");
+		filterRegistration.addMappingForUrlPatterns(null, false, "/*"); //全部都要編碼為utf-8(對象)
 		filterRegistration = servletContext.addFilter("OpenSessionViewFilter", OpenSessionViewFilter.class);
 //		filterRegistration.setInitParameter("sessionFactoryBeanName", "sessionFactory");
 		filterRegistration.addMappingForUrlPatterns(null, true, "/*");
-		filterRegistration.addMappingForServletNames(null, true, "mvc");
+		filterRegistration.addMappingForServletNames(null, true, "mvc"); // 設定映射servlet
 
-		servletContext.addListener(new ContextLoaderListener(rootContext));
+		servletContext.addListener(new ContextLoaderListener(rootContext)); //設定servletContext監聽者
 	}
 
 	@Override

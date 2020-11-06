@@ -1,0 +1,85 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+	crossorigin="anonymous"></script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet"> -->
+<title>文章發表</title>
+<style>
+h1 {
+	font-family: 'Noto Sans TC', sans-serif
+}
+</style>
+</head>
+<body>
+	<%-- <jsp:include page="../nn/top.jsp" /> --%>
+
+	<main role="main" class="container">
+
+		<div class="starter-template">
+			<h1>文章發表</h1>
+			<p class="lead">
+				Share your story.<br> ...
+			</p>
+		</div>
+
+	</main>
+	<!-- /.container -->
+	<form:form action="saveToDB" modelAttribute="article" method="POST">
+		<table>
+			<tr>
+				<td><form:label path="title">標題</form:label></td>
+				<td><form:input path="title" /></td>
+			</tr>
+
+			<tr>
+				<td><form:label path="articletypesid">選擇討論版</form:label></td>
+				<td><form:select path="articletypesid">
+						<form:option value="NONE" label="請選擇" />
+						<form:option value="1">狗</form:option>
+						<form:option value="2">貓</form:option>
+					</form:select>
+				</td>
+			</tr>
+			<tr>
+				<td><form:label path="memberid">會員id</form:label></td>
+				<td><form:input path="memberid" /></td>
+			</tr>
+			<input type="text">
+			<tr>
+				<td>文章內文</td>
+				<td><input type="text" name="content"></td>
+			</tr>
+		</table>
+
+		<form:button value="Send">送出</form:button>
+
+
+	</form:form>
+
+
+
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.iii.eeit124.controller;
+package com.iii.eeit124.activity.controller;
 
 import java.util.Locale;
 

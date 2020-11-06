@@ -1,4 +1,4 @@
-package com.iii.eeit124.service;
+package com.iii.eeit124.activity.service;
 
 import java.util.List;
 
