@@ -12,7 +12,7 @@
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 <body>
-	<%-- <jsp:include page="/nn/top.jsp" /> --%>
+<jsp:include page="../public/top.jsp" />
 	<div class="wid400px">
 		<a href="<c:url value='/readAnimal' />" class="btn btn-secondary margin10px">回維護首頁</a>
 

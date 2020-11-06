@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScans(value = { @ComponentScan("com.iii.eeit124")})
 public class HibernateConfig {
 
-Environment env;
+	Environment env;
 	
 	@Autowired
 	public void setEnv(Environment env) {
@@ -63,6 +63,14 @@ Environment env;
 		factory.setHibernateProperties(additionalProperties());
 		return factory;
 	}
+	/*
+	 * 
+	 * <property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.max_size">20</property>
+		<property name="hibernate.c3p0.acquire_increment">2</property>
+		<property name="hibernate.c3p0.acquire_increment">1800</property>
+		<property name="hibernate.c3p0.max_statements">150</property>
+	 * */
 	
 	private Properties additionalProperties() {
 		Properties properties = new Properties();
@@ -70,10 +78,9 @@ Environment env;
 		properties.put("hibernate.show_sql", Boolean.TRUE);
 		properties.put("hibernate.format_sql", Boolean.TRUE);
 		properties.put("hibernate.current_session_context_class", "thread");
-//		properties.put("default_batch_fetch_size", 10);
-//		properties.put("hibernate.hbm2ddl.auto", "validate");
 		return properties;
 	}
+	
 	
 	@Bean(name = "transactionManager")
 	@Autowired

@@ -1,6 +1,6 @@
 package com.iii.eeit124.member.service;
 
-import max.entity.Members;
+import com.iii.eeit124.entity.Members;
 
 public interface MemberService {
 	boolean accountExists(String account);

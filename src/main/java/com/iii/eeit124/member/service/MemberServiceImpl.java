@@ -2,10 +2,11 @@ package com.iii.eeit124.member.service;
 
 import org.hibernate.Session;
 
-import max.entity.Members;
-import max.register.dao.MemberDao;
-import max.register.dao.impl.MemberDaoImpl;
-import max.register.service.MemberService;
+import com.iii.eeit124.entity.Members;
+import com.iii.eeit124.member.dao.MemberDao;
+import com.iii.eeit124.member.dao.MemberDaoImpl;
+
+
 
 public class MemberServiceImpl implements MemberService {
 
