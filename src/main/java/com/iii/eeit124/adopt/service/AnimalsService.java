@@ -1,41 +1,18 @@
 package com.iii.eeit124.adopt.service;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Service;
-
-import com.iii.eeit124.adopt.dao.AnimalsDao;
 import com.iii.eeit124.entity.Animals;
 
-@Service("animalsService")@Lazy
-public class AnimalsService implements IAnimalsService{
+public interface AnimalsService {
 	
-	private AnimalsDao animalsDao;
+	public Animals create(Animals animals);
 	
-	@Autowired
-	public AnimalsService(@Qualifier("animalsDao")AnimalsDao animalsDao) {
-		this.animalsDao = animalsDao;
-	}
+	public Animals read(Integer animalsId);
 	
-	public Animals create(Animals animals) {
-		return animalsDao.create(animals);
-	}
+	public List<Animals> readAll();
 	
-	public Animals read(Integer animalsId) {
-		return animalsDao.read(animalsId);
-	}
+	public Animals update(Animals animals);
 	
-	public List<Animals> readAll(){
-		return animalsDao.readAll();
-	}
+	public boolean delete(Integer animalsId);
 	
-	public Animals update(Animals animals) {
-		return animalsDao.update(animals);
-	}
-	
-	public boolean delete(Integer animalsId) {
-		return animalsDao.delete(animalsId);
-	}
 }
