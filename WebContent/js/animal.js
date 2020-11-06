@@ -4,7 +4,7 @@ if ( window.history.replaceState ) {
     window.history.replaceState( null, null, window.location.href );
 }
 
-//SweetAlert
+//SweetAlert刪除
 function deleteAnimal(animalId){
 	swal({
 	    title: "確定刪除動物編號"+animalId+"這筆資料?",
@@ -24,7 +24,7 @@ function deleteAnimal(animalId){
 			  }});
 }
 	
-//傳統提示視窗刪除
+//傳統提示視窗刪除Delete
 function confirmDelete(animalId) {
 	if(confirm("確定刪除此筆動物資料(動物編號:"+animalId+")?")){
 		document.forms[0].action="DeleteAnimal.controller?animalId="+animalId;
@@ -58,6 +58,7 @@ function readURL(input) {
 	}
 }
 
+//檢查會員ID
 function checkmemberId() {
 	let memberId = document.getElementById("memberId").value;
 	let memberIdLength = memberId.length;
@@ -88,6 +89,7 @@ function checkmemberId() {
 	}
 }
 
+//檢查收容動物ID
 function checkacceptionId() {
 	let acceptionId = document.getElementById("acceptionId").value;
 	let acceptionIdLength = acceptionId.length;
@@ -120,6 +122,7 @@ function checkacceptionId() {
 	}
 }
 
+//檢查品種ID
 function checkbreedId() {
 	let breedId = document.getElementById("breedId").value;
 	let breedIdLength = breedId.length;
@@ -150,6 +153,7 @@ function checkbreedId() {
 	}
 }
 
+//檢查毛色
 function checkcoatColor() {
 	let coatColor = document.getElementById("coatColor").value;
 	let coatColorLength = coatColor.length;
