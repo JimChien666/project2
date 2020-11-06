@@ -81,6 +81,7 @@ table {
 
 </head>
 <body>
+<%-- ${LoginOK.getName()} --%>
 <%-- 	<jsp:include page="../nn/top.jsp" /> --%>
 	<div class="btn btn-secondary float-right fixed0 box" id="idbox">
 
