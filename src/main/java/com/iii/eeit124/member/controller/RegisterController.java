@@ -2,6 +2,7 @@ package com.iii.eeit124.member.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.sql.Blob;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -131,10 +133,12 @@ public class RegisterController {
 			headers.setContentType(MediaType.IMAGE_JPEG);
 			FileInputStream is1 = new FileInputStream(fileSavePath);
 			byte[] b = new byte[is1.available()];
+			
 			is1.read(b);
 			is1.close();
 			Set<Files> files = new HashSet<Files>();
-			Files file = new Files("image", b);
+			Blob blob = new SerialBlob(b);
+			Files file = new Files("image", blob);
 			
 			files.add(file);
 			member.setFiles(files);

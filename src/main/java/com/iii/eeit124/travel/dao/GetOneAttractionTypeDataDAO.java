@@ -34,7 +34,7 @@ public class GetOneAttractionTypeDataDAO {
 		return list;
 	}
 	
-	public byte[] getFileBlob(int id) {
+	public Blob getFileBlob(int id) {
 		Query<Files> query = sessionFactory.getCurrentSession().createQuery("from Files where ID = ?0", Files.class);
 		query.setParameter(0, id);
 		return query.uniqueResult().getFileBlob();

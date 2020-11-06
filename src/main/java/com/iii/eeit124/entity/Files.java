@@ -33,12 +33,12 @@ public class Files implements Serializable {
 	private Members member;
 	
 
-	private byte[] fileBlob;
+	private Blob fileBlob;
 	
 	
 	public Files() {};
 	
-	public Files(String fileType, byte[] fileBlob) {
+	public Files(String fileType, Blob fileBlob) {
 		super();
 		FileType = fileType;
 		this.fileBlob = fileBlob;
@@ -119,10 +119,10 @@ public class Files implements Serializable {
 		this.coverAttractionId = coverAttractionId;
 	}
 	@Column(name="FILE_BLOB")
-	public byte[] getFileBlob() {
+	public Blob getFileBlob() {
 		return fileBlob;
 	}
-	public void setFileBlob(byte[] fileBlob) {
+	public void setFileBlob(Blob fileBlob) {
 		this.fileBlob = fileBlob;
 	}
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -144,7 +144,7 @@ public class Files implements Serializable {
 				.append("\", \"activityId\":\"").append(activityId).append("\", \"productId\":\"").append(productId)
 				.append("\", \"contentAttractionId\":\"").append(contentAttractionId)
 				.append("\", \"coverAttractionId\":\"").append(coverAttractionId).append("\", \"member\":\"")
-				.append(member).append("\", \"fileBlob\":\"").append(Arrays.toString(fileBlob)).append("}");
+				.append(member).append("}");
 		return builder.toString();
 	}
 }

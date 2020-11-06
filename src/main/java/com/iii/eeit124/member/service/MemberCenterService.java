@@ -1,5 +1,7 @@
 package com.iii.eeit124.member.service;
 
-public interface MemberCenterService {
+import com.iii.eeit124.entity.Members;
 
+public interface MemberCenterService {
+	Members getMemberById(int id);
 }

@@ -1,5 +1,7 @@
 package com.iii.eeit124.member.dao;
 
-public interface MemberCenterDao {
+import com.iii.eeit124.entity.Members;
 
+public interface MemberCenterDao {
+	public Members getMemberById(int id);
 }
