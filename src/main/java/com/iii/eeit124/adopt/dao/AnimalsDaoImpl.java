@@ -7,7 +7,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import com.iii.eeit124.entity.Animals;
 
 @Repository("animalsDao")@Lazy
@@ -16,7 +15,6 @@ public class AnimalsDaoImpl implements AnimalsDao{
 	@Autowired
 	private SessionFactory sessionFactory;//Hibernate SessionFactory
 
-	@Transactional
 	public Animals create(Animals entity) {
 		Session session = sessionFactory.getCurrentSession();
 //		Animals result = session.get(Animals.class, entity.getAnimalId());//TODO id會出錯誤訊息id to load is required for loading
@@ -39,7 +37,6 @@ public class AnimalsDaoImpl implements AnimalsDao{
 		return list;
 	}
 	
-	@Transactional
 	public Animals update(Animals entity) {
 		Session session = sessionFactory.getCurrentSession();
 //		Animals result = session.get(Animals.class, entity.getAnimalId());
@@ -50,7 +47,6 @@ public class AnimalsDaoImpl implements AnimalsDao{
 //		return null;
 	}
 	
-	@Transactional
 	public boolean delete(Integer animalsId) {
 		Session session = sessionFactory.getCurrentSession();
 		Animals result = session.get(Animals.class, animalsId);
