@@ -1,16 +1,17 @@
 package com.iii.eeit124.member.controller;
 
-import java.io.File;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,11 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.iii.eeit124.entity.Files;
 import com.iii.eeit124.entity.Members;
@@ -32,6 +30,8 @@ import com.iii.eeit124.util.GlobalService;
 
 @Controller
 public class LoginController {
+	@Autowired
+	ServletContext ctx;
 	@Autowired
 	private HttpServletRequest request;
 	@Autowired
@@ -144,13 +144,32 @@ public class LoginController {
 		}
 	}
 	
+	
+	
 	@GetMapping("/filuploadAction.contoller")
 	@ResponseBody
 	public ResponseEntity<byte[]> processFileUploadAction(@RequestParam(name = "fileId") Integer fileId) throws Exception{
+		ResponseEntity<byte[]> re = null;
 		Files file = loginService.getFileById(fileId);
-		byte[] fileBlob = file.getFileBlob();
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.IMAGE_JPEG);	
-		return new ResponseEntity<byte[]>(fileBlob, headers, HttpStatus.OK);
+		Blob fileBlob = file.getFileBlob();
+		String mimeType = ctx.getMimeType("test.jpg");
+		MediaType mediaType = MediaType.valueOf(mimeType);
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			InputStream is = fileBlob.getBinaryStream();
+			byte[] b = new byte[81920];
+			int len = 0;
+			while ((len = is.read(b)) != -1) {
+				baos.write(b, 0, len);
+			}
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(mediaType);
+			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+			re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
+			return re;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return re;
 	}
 }

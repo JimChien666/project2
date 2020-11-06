@@ -59,6 +59,7 @@
 			<td style="color:red;">${errors.address}</td>
 		</tr>
 		<tr>
+			<td>會員圖片:</td>
 			<td>
 				<input type="file" name="myFiles"/><br/>
 				<td style="color:red;">${errors.file}</td>
