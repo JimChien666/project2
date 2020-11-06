@@ -16,7 +16,7 @@
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 <body>
-<%--<jsp:include page="/nn/top.jsp" /> --%>
+<jsp:include page="../public/top.jsp" />
 	<div class="page1">
 		<div class="margin10px">
 			<a href="<c:url value='/preCreateAnimal.controller'/>" class="btn btn-primary">新增</a>
@@ -30,6 +30,9 @@
 <!-- 			</div> -->
 		</div>
 		<!-- card來源https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_card_image&stacked=h -->
+			
+			<!-- ============================================================================== -->
+			
 		<c:forEach var="AnimalsList" items="${AnimalsList}">
 			<div class="card card2">
 <!--TODO:改圖片顯示方式 -->
@@ -66,6 +69,9 @@
 				</form>
 			</div>
 		</c:forEach>
+			
+			<!-- ============================================================================== -->
+			
 	</div>
 </body>
 </html>

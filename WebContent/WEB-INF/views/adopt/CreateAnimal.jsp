@@ -15,10 +15,14 @@
 <jsp:include page="../public/top.jsp" />
 	<div class="wid400px">
 		<a href="<c:url value='/readAnimal' />" class="btn btn-secondary margin10px">回維護首頁</a>
+		
+<!-- ====================================================================================================== -->
 
 		<form:form action="CreateAnimal.controller" method="POST" modelAttribute="AnimalsList1">
 			<!-- 		 enctype="multipart/form-data" -->
-
+			
+			<!-- ============================================================================== -->
+			
 			<label for="" class="label1">照片：</label>
 			<form:input path="files" type="file" name="animalFile" id="animalFile" class="wid200px"/>
 			<br>
@@ -26,23 +30,31 @@
 			<span id="animalFileSpan" class="spanHidden height260px">
 			<img id="preview_animalFile" src="#" class="square250px" /><br>
 			</span>
+			
+			<!-- ============================================================================== -->
 
 			<label for="" class="label1">會員編號：</label>
 			<form:input path="memberId" type="text" name="memberId" placeholder="自動抓取會員編號" onblur="checkmemberId()" id="memberId" /><br>
 		<!--<input type="text" name="memberId" placeholder="自動抓取會員編號" onblur="checkmemberId()" id="memberId" required><br> -->
 			<span id="memberIdSpan" class="spanHidden"><br></span>
+			
+			<!-- ============================================================================== -->
 
 			<label for="" class="label1">收容動物編號：</label>
 			<form:input path="acceptionId" type="text" name="acceptionId" onblur="checkacceptionId()" id="acceptionId" />收容所需填
 			<br>
 		<!--<input type="text" name="acceptionId" onblur="checkacceptionId()" id="acceptionId">收容所需填<br> -->
 			<span id="acceptionIdSpan" class="spanHidden"><br></span>
+			
+			<!-- ============================================================================== -->
 
 			<label for="" class="label1">品種編號：</label>
 			<form:input path="breedId" type="text" name="breedId" onblur="checkbreedId()" id="breedId" />需查詢填入
 			<br>
 		<!--<input type="text" name="breedId" onblur="checkbreedId()" id="breedId" required>需查詢填入<br> -->
 			<span id="breedIdSpan" class="spanHidden"><br></span>
+			
+			<!-- ============================================================================== -->
 
 			<label for="gender" class="label1">性別：</label>
 			<form:select path="gender">
@@ -54,12 +66,16 @@
 		<!-- 	<option value="1">公</option> -->
 		<!-- 	<option value="0">母</option> -->
 		<!--</select><br> -->
+			
+			<!-- ============================================================================== -->
 
 			<label for="" class="label1">毛色：</label>
 			<form:input path="coatColor" type="text" name="coatColor" onblur="checkcoatColor()" id="coatColor" />
 			<br>
 		<!--<input type="text" name="coatColor" onblur="checkcoatColor()" id="coatColor"><br> -->
 			<span id="coatColorSpan" class="spanHidden"><br></span>
+			
+			<!-- ============================================================================== -->
 
 			<label for="" class="label1">是否開放領養：</label>
 			<form:select path="isAdoptionAvailable">
@@ -71,17 +87,24 @@
 		<!-- 	<option value="1">開放</option> -->
 		<!-- 	<option value="0">不開放</option> -->
 		<!--</select><br> -->
+			
+			<!-- ============================================================================== -->
 
 			<label for="" class="label1 posAbs">備註：</label>
 			<form:textarea path="note" name="note" rows="5" cols="18" placeholder="可輸入寵物年齡" class="margleft125px" />
 			<br>
 		<!--<textarea id="" name="note" rows="5" cols="18" placeholder="可輸入寵物年齡" class="margleft125px"></textarea><br> -->
+			
+			<!-- ============================================================================== -->
 
 			<a href="<c:url value='/preCreateAnimal.controller' />" class="btn btn-secondary">重填</a>
 			<form:button value="Send" class="btn btn-primary">送出</form:button>
 		<!--<button type="submit" name="submit" class="btn btn-primary">送出</button> -->
 		<%--</form> --%>
 		</form:form>
+			
+<!-- ====================================================================================================== -->
+			
 	</div>
 </body>
 </html>

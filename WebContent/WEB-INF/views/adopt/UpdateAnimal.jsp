@@ -12,12 +12,17 @@
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 <body>
-	<%-- 	<jsp:include page="/nn/top.jsp" /> --%>
+<jsp:include page="../public/top.jsp" />
 	<div class="wid400px">
 		<a href="<c:url value='/readAnimal' />" class="btn btn-secondary margin10px">回維護首頁</a>
 
+<!-- ====================================================================================================== -->
+			
 		<form:form action="UpdateAnimal.controller" method="POST" modelAttribute="animals">
 <%-- 	<form action="<c:url value='/UpdateAnimals' />" method="post" enctype="multipart/form-data"> --%>
+			
+			<!-- ============================================================================== -->
+			
 		<label for="" class="label1">照片：</label> 
 		<input type="file" name="animalFile" id="animalFile1" multiple class="wid200px">
 		<span id="animalFileSpan2" class="dispblok height260px margleft125px">
@@ -25,10 +30,9 @@
 		</span> 
 		<span id="animalFileSpan1" class="spanHidden height260px">
 		<img id="preview_animalFile" src="#" class="square250px" /><br>
-		</span> 
-		<script type="text/javascript">
-
-		</script>
+		</span>
+			
+			<!-- ============================================================================== -->
 		
 		<label for="" class="label1">動物編號：</label> 
 		<form:input path="animalId" type="text" name="animalId" value="${animals.animalId}" class="spanHidden"/>
@@ -36,24 +40,32 @@
 		<br>
 <!-- 		label不能用value，input readonly="readonly", disable="disabled"無作用-->
 <%-- 		<input type="text" name="animalId" value="${animals.animalId}" readonly><br> --%>
+			
+			<!-- ============================================================================== -->
 		
 		<label for="" class="label1">會員編號：</label> 
 		<form:input path="memberId" type="text" name="memberId" value="${animals.memberId}" onblur="checkmemberId()" id="memberId"/>
 		<br>
 <%-- 		<input type="text" name="memberId" value="${animals.memberId}" onblur="checkmemberId()" id="memberId" required><br>  --%>
 		<span id="memberIdSpan" class="spanHidden"><br></span>
+			
+			<!-- ============================================================================== -->
 		
 		<label for="" class="label1">收容動物編號：</label> 
 		<form:input path="acceptionId" type="text" name="acceptionId" value="${animals.acceptionId}" onblur="checkacceptionId()" id="acceptionId"/>
 		<br>
 <%-- 		<input type="text" name="acceptionId" value="${animals.acceptionId}" onblur="checkacceptionId()" id="acceptionId"><br>  --%>
 		<span id="acceptionIdSpan" class="spanHidden"><br></span>
+			
+			<!-- ============================================================================== -->
 		
 		<label for="" class="label1">品種編號：</label> 
 		<form:input path="breedId" type="text" name="breedId" value="${animals.breedId}" onblur="checkbreedId()" id="breedId"/>
 		<br>
 <%-- 		<input type="text" name="breedId" value="${animals.breedId}" onblur="checkbreedId()" id="breedId" required><br>  --%>
 		<span id="breedIdSpan" class="spanHidden"><br></span>
+			
+			<!-- ============================================================================== -->
 		
 		<label for="" class="label1">性別：</label> 
 		<form:select path="gender" id="">
@@ -78,12 +90,16 @@
 <%-- 				</c:otherwise> --%>
 <%-- 			</c:choose> --%>
 		</form:select><br> 
+			
+			<!-- ============================================================================== -->
 		
 		<label for="" class="label1">毛色：</label> 
 		<form:input path="coatColor" type="text" name="coatColor" value="${animals.coatColor}" onblur="checkcoatColor()" id="coatColor"/>
 		<br>
 <%-- 		<input type="text" name="coatColor" value="${animals.coatColor}" onblur="checkcoatColor()" id="coatColor"><br>  --%>
 		<span id="coatColorSpan" class="spanHidden"><br></span>
+			
+			<!-- ============================================================================== -->
 		
 		<label for="" class="label1">是否開放領養：</label> 
 		<form:select path="isAdoptionAvailable" id="">
@@ -102,11 +118,15 @@
 				</c:otherwise>
 			</c:choose>
 		</form:select><br> 
+			
+			<!-- ============================================================================== -->
 		
 		<label for="" class="label1 posAbs">備註：</label>
 		<form:textarea path="note" name="note" rows="5" cols="18" class="margleft125px" value="${animals.note}"/>
 <%-- 		<textarea id="" name="note" rows="5" cols="18" class="margleft125px">${animals.note}</textarea> --%>
 		<br> 
+			
+			<!-- ============================================================================== -->
 		
 		<a href="<c:url value='/preUpdateAnimal.controller' />?animalId=${animals.animalId}" class="btn btn-secondary">回復修改</a>
 		<form:button value="Send" name="update" class="btn btn-primary">修改</form:button>
@@ -114,6 +134,9 @@
 <!-- 可加入新增修改刪除時間 -->
 		</form:form>
 <%-- 		</form> --%>
+			
+<!-- ====================================================================================================== -->
+			
 	</div>
 </body>
 </html>
