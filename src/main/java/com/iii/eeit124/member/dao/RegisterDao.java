@@ -9,7 +9,6 @@ public interface RegisterDao {
 	
 	public Members queryMember(String id);
 	
-
 	boolean accountExists(String account);
 	
 	public void saveFile(Files file);
