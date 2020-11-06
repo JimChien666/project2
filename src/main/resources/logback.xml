@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="false" scanPeriod="60000" debug="false">
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </layout>
+    </appender>
+    
+
+    <root level="ERROR">
+        <appender-ref ref="STDOUT" />
+    </root>
+    <Logger name="org.hibernate.SQL" level="DEBUG">
+        <AppenderRef ref="STDOUT"/>
+    </Logger>
+    <Logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE">
+        <AppenderRef ref="STDOUT"/>
+    </Logger>
+    <Logger name="org.hibernate.engine.transaction.internal.TransactionImpl" level="DEBUG">
+        <AppenderRef ref="STDOUT"/>
+    </Logger>
+    <Logger name="org.springframework.web.servlet.DispatcherServlet" level="DEBUG">
+        <AppenderRef ref="STDOUT"/>
+    </Logger>
+    <Logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="DEBUG">
+        <AppenderRef ref="STDOUT"/>
+    </Logger>
+    <Logger name="org.springframework.web.servlet.view" level="DEBUG">
+        <AppenderRef ref="STDOUT"/>
+    </Logger>
+
+</configuration>
+
