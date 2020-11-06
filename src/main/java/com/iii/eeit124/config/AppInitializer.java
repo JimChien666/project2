@@ -11,6 +11,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.iii.eeit124.util.FindUserPassword;
+import com.iii.eeit124.util.LoginCheckingFilter;
 import com.iii.eeit124.util.OpenSessionViewFilter;
 
 
@@ -29,21 +31,26 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		rootContext.register(SpringMVCJavaConfig.class); //µù¥U¤Î³]©wÃþ§O
+		rootContext.register(SpringMVCJavaConfig.class); //ï¿½ï¿½ï¿½Uï¿½Î³]ï¿½wï¿½ï¿½ï¿½O
 		rootContext.setServletContext(servletContext);
-		ServletRegistration.Dynamic mvc = servletContext.addServlet("mvc", new DispatcherServlet(rootContext)); // °ÊºAµù¥U³]©w¤å¥ó
-		mvc.setLoadOnStartup(1);									//servletcontext¦W¦r
-		mvc.addMapping("/"); //servletÅª¨ú¸ô®|
+		ServletRegistration.Dynamic mvc = servletContext.addServlet("mvc", new DispatcherServlet(rootContext)); // ï¿½ÊºAï¿½ï¿½ï¿½Uï¿½]ï¿½wï¿½ï¿½ï¿½
+		mvc.setLoadOnStartup(1);									//servletcontextï¿½Wï¿½r
+		mvc.addMapping("/"); //servletÅªï¿½ï¿½ï¿½ï¿½ï¿½|
 		FilterRegistration.Dynamic filterRegistration = servletContext.addFilter("endcodingFilter", new CharacterEncodingFilter());
-		filterRegistration.setInitParameter("encoding", "UTF-8");				//°ÊºAµù¥U¹LÂo¾¹
+		filterRegistration.setInitParameter("encoding", "UTF-8");				//ï¿½ÊºAï¿½ï¿½ï¿½Uï¿½Lï¿½oï¿½ï¿½
 		filterRegistration.setInitParameter("forceEncoding", "true");
-		filterRegistration.addMappingForUrlPatterns(null, false, "/*"); //¥þ³¡³£­n½s½X¬°utf-8(¹ï¶H)
+		filterRegistration.addMappingForUrlPatterns(null, false, "/*"); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½sï¿½Xï¿½ï¿½utf-8(ï¿½ï¿½H)
 		filterRegistration = servletContext.addFilter("OpenSessionViewFilter", OpenSessionViewFilter.class);
+		filterRegistration.addMappingForUrlPatterns(null, true, "/*");
+//		filterRegistration.addMappingForServletNames(null, true, "mvc");
+		filterRegistration = servletContext.addFilter("LoginCheckingFilter", LoginCheckingFilter.class);
 //		filterRegistration.setInitParameter("sessionFactoryBeanName", "sessionFactory");
 		filterRegistration.addMappingForUrlPatterns(null, true, "/*");
-		filterRegistration.addMappingForServletNames(null, true, "mvc"); // ³]©w¬M®gservlet
 
-		servletContext.addListener(new ContextLoaderListener(rootContext)); //³]©wservletContextºÊÅ¥ªÌ
+		filterRegistration = servletContext.addFilter("FindUserPassword", FindUserPassword.class);
+		filterRegistration.addMappingForUrlPatterns(null, true, "/login");
+		filterRegistration.addMappingForServletNames(null, true, "mvc");
+		servletContext.addListener(new ContextLoaderListener(rootContext)); //ï¿½]ï¿½wservletContextï¿½ï¿½Å¥ï¿½ï¿½
 	}
 
 	@Override

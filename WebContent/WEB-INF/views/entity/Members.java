@@ -26,7 +26,7 @@ import javax.persistence.Transient;
 public class Members implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private Integer id;
+	private String id;
 	private String name;
 	private String sex;
 	private String tel;
@@ -34,7 +34,7 @@ public class Members implements Serializable{
 	private String password;
 	private String email;
 	private String address;
-	private Integer adoptedLevelId;
+	private int adoptedLevelId;
 	private String memberType;
 	private Date createdAt;
 	private Set<Files> files = new HashSet<Files>();
@@ -59,7 +59,7 @@ public class Members implements Serializable{
 //	}
 	
 	public Members(String name, String sex, String tel, String account, String password, String email,
-			String address, Integer adoptedLevelId, String memberType) {
+			String address, int adoptedLevelId, String memberType) {
 		super();
 		this.name = name;
 		this.sex = sex;
@@ -76,14 +76,12 @@ public class Members implements Serializable{
 
 	@Id
 	@Column(name="ID")
-//	@SequenceGenerator(name = "membersSeqGen", sequenceName = "MEMBERS_SEQ4", allocationSize = 1, initialValue = 1)
-//	@GeneratedValue(generator = "membersSeqGen", strategy = GenerationType.SEQUENCE)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	@Column(name="MEMBERTYPE")
@@ -152,18 +150,18 @@ public class Members implements Serializable{
 	}
 	@Column(name="ADOPTED_LEVEL_ID")
 //	@Transient
-	public Integer getAdoptedLevelId() {
+	public int getAdoptedLevelId() {
 		return adoptedLevelId;
 	}
 
-	public void setAdoptedLevelId(Integer adoptedLevelId) {
+	public void setAdoptedLevelId(int adoptedLevelId) {
 		this.adoptedLevelId = adoptedLevelId;
 	}
 
 	@Transient
-	public Integer getFileId() {
+	public String getFileId() {
 		Iterator<Files> iterator = this.files.iterator();
-		Integer fileId = 0;
+		String fileId = "0";
 		if(iterator.hasNext()) {
 			Files contentImg = iterator.next();
 			fileId = contentImg.getId();
