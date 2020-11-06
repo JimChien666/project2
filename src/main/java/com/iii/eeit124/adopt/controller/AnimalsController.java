@@ -1,5 +1,6 @@
 package com.iii.eeit124.adopt.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,8 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.entity.Animals;
@@ -38,16 +37,18 @@ public class AnimalsController {
 	//Create
 	@PostMapping("/CreateAnimal.controller")
 	public String processCreateAnimal(@ModelAttribute("AnimalsList1") Animals entity, BindingResult result, Model m) {
-		if (result.hasErrors()) {
-			m.addAttribute("AnimalsList", animalsService.readAll());
-			return "adopt/ReadAnimal";
-		}//TODO 要加新增失敗
+//		if (result.hasErrors()) {
+//			System.out.println("errorrrrrrrrrrrrrrrrrrrrrr");
+//			m.addAttribute("AnimalsList", animalsService.readAll());
+//			return "adopt/ReadAnimal";
+//		}//TODO 要addAttribute新增失敗訊息，或用sweetalert
+//		SimpleDateFormat  sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		entity.setCreatedAt(new Date());
 		animalsService.create(entity);
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
 	}
-	
+
 	//Refresh
 	@GetMapping({"/CreateAnimal.controller", "/UpdateAnimal.controller", "/DeleteAnimal.controller"})
 	public String processCreateAnimal(Model m) {
@@ -62,10 +63,9 @@ public class AnimalsController {
 	
 	//PreUpdate
 	@GetMapping("/preUpdateAnimal.controller")
-	public String processPreUpdateAnimal(@RequestParam("animalId") String animalId, Model m) {
+	public String processPreUpdateAnimal(@RequestParam("animalId") Integer animalId, Model m) {
 		Animals animals = animalsService.read(animalId);
 		m.addAttribute("animals", animals);
-		m.addAttribute("note", animals.getNote());
 		return "adopt/UpdateAnimal";
 	}
 	
@@ -75,7 +75,7 @@ public class AnimalsController {
 		if (result.hasErrors()) {
 			m.addAttribute("AnimalsList", animalsService.readAll());
 			return "adopt/ReadAnimal";
-		}//TODO 要加更新失敗
+		}//TODO 要addAttribute更新失敗訊息
 		entity.setUpdatedAt(new Date());
 		animalsService.update(entity);
 		m.addAttribute("AnimalsList", animalsService.readAll());
@@ -84,7 +84,8 @@ public class AnimalsController {
 	
 	//Delete
 	@PostMapping("/DeleteAnimal.controller")
-	public String processDeleteAnimal(@RequestParam("animalId") String animalId, Model m) {
+	public String processDeleteAnimal(@RequestParam("animalId") Integer animalId, Model m) {
+		//TODO 要addAttribute刪除失敗訊息
 		animalsService.delete(animalId);
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";

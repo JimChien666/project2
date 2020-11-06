@@ -23,7 +23,7 @@ public class AnimalsService implements IAnimalsService{
 		return animalsDao.create(animals);
 	}
 	
-	public Animals read(String animalsId) {
+	public Animals read(Integer animalsId) {
 		return animalsDao.read(animalsId);
 	}
 	
@@ -35,7 +35,7 @@ public class AnimalsService implements IAnimalsService{
 		return animalsDao.update(animals);
 	}
 	
-	public boolean delete(String animalsId) {
+	public boolean delete(Integer animalsId) {
 		return animalsDao.delete(animalsId);
 	}
 }

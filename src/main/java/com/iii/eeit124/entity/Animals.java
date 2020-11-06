@@ -13,16 +13,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumns;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "animals")
 @Component
-//@DynamicInsert@DynamicUpdate
 public class Animals {
 	
-	private String animalId;//TODO int Integer會出錯
+	private Integer animalId;//TODO int Integer會出錯
 	private Integer memberId;
 	private String acceptionId;
 	private Integer breedId;
@@ -40,7 +40,7 @@ public class Animals {
 	
 	public Animals() {}
 	
-	public Animals(String animalId, Integer memberId, String acceptionId, Integer breedId, Integer gender, String coatColor,
+	public Animals(Integer animalId, Integer memberId, String acceptionId, Integer breedId, Integer gender, String coatColor,
 			Integer isAdoptionAvailable, String note, Date createdAt, Date updatedAt, Date deletedAt) {
 		this.animalId = animalId;
 		this.memberId = memberId;
@@ -54,16 +54,15 @@ public class Animals {
 		this.updatedAt = updatedAt;
 		this.deletedAt = deletedAt;
 	}
-	
-//	@SequenceGenerator(name = "animalsSeqGen", sequenceName = "ANIMALS_SEQ1")
-//	@GeneratedValue(generator = "animalsSeqGen")
-	@Id 
+//	@SequenceGenerator(name = "activitysSeqGen", sequenceName = "activitys_seq", allocationSize = 1)
+//	@GeneratedValue(generator = "activitysSeqGen", strategy = GenerationType.SEQUENCE)
+	@Id
 	@Column(name = "ANIMAL_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public String getAnimalId() {
+	public Integer getAnimalId() {
 		return animalId;
 	}
-	public void setAnimalId(String animalId) {
+	public void setAnimalId(Integer animalId) {
 		this.animalId = animalId;
 	}
 

@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -15,10 +16,12 @@ import javax.persistence.TemporalType;
 @Table(name = "activitys")
 public class Activitys {
 
+//	@SequenceGenerator(name = "activitysSeqGen", sequenceName = "activitys_seq")
+//	@GeneratedValue(generator = "activitysSeqGen")
 	@Id
 	@Column(name = "activitys_id")
-	@SequenceGenerator(name = "activitysSeqGen", sequenceName = "activitys_seq")
-	@GeneratedValue(generator = "activitysSeqGen")
+	@SequenceGenerator(name = "activitysSeqGen", sequenceName = "ACTIVITYS_SEQ", allocationSize = 1)
+	@GeneratedValue(generator = "activitysSeqGen", strategy = GenerationType.SEQUENCE)
 	private Integer id;
 
 	@Column(name = "create_date")

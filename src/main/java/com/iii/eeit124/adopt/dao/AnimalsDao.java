@@ -32,7 +32,7 @@ public class AnimalsDao {
 //		return null;
 	}
 	
-	public Animals read(String animalsId) {
+	public Animals read(Integer animalsId) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Animals.class, animalsId);
 	}
@@ -54,7 +54,7 @@ public class AnimalsDao {
 //		return null;
 	}
 	
-	public boolean delete(String animalsId) {
+	public boolean delete(Integer animalsId) {
 		Session session = sessionFactory.getCurrentSession();
 		Animals result = session.get(Animals.class, animalsId);
 		if (result != null) {

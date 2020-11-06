@@ -20,7 +20,7 @@
 			<!-- 		 enctype="multipart/form-data" -->
 
 			<label for="" class="label1">照片：</label>
-<%-- 			<form:input path="files" type="file" name="animalFile" id="animalFile" class="wid200px"/> --%>
+			<form:input path="files" type="file" name="animalFile" id="animalFile" class="wid200px"/>
 			<br>
 		<!--<input type="file" name="animalFile" id="animalFile" multiple class="wid200px"><br> -->
 			<span id="animalFileSpan" class="spanHidden height260px">

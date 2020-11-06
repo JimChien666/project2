@@ -104,13 +104,14 @@
 		</form:select><br> 
 		
 		<label for="" class="label1 posAbs">備註：</label>
-		<form:textarea path="note" name="note" rows="5" cols="18" class="margleft125px" value="${note}"/>
+		<form:textarea path="note" name="note" rows="5" cols="18" class="margleft125px" value="${animals.note}"/>
 <%-- 		<textarea id="" name="note" rows="5" cols="18" class="margleft125px">${animals.note}</textarea> --%>
 		<br> 
 		
 		<a href="<c:url value='/preUpdateAnimal.controller' />?animalId=${animals.animalId}" class="btn btn-secondary">回復修改</a>
 		<form:button value="Send" name="update" class="btn btn-primary">修改</form:button>
 <!-- 		<button type="submit" name="update" class="btn btn-primary">修改</button> -->
+<!-- 可加入新增修改刪除時間 -->
 		</form:form>
 <%-- 		</form> --%>
 	</div>
