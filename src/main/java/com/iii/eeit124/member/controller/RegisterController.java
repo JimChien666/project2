@@ -42,17 +42,6 @@ public class RegisterController {
 	private HttpSession session;
 
 	
-//	@GetMapping("/testInsert")
-//	public void testInsert(Model m) {
-////		System.out.println(memberService.accountExists("s1875678"));
-//		Members member=new Members("d", "d", "d", "d", "d", "d", "d", 2, "d");
-//		member.getId();
-////		m.addAttribute("member", member);
-//		sessionFactory.getCurrentSession().save(member);
-////		memberService.saveMember(member);
-//		
-////		return "members/register";
-//	}
 	
 	@GetMapping("/register")
 	public String getRegisterPage(Model m) {
@@ -102,9 +91,7 @@ public class RegisterController {
 			errors.put("file", "請選擇照片");
 		}
 		
-//		if(errors!=null&&!errors.isEmpty()) {
-//			return "members/register";
-//		}
+
 		if ((!checkPassword.equals(member.getPassword()))||(errors!=null&&!errors.isEmpty())) {
 			errors.put("errorCheck", "確認密碼不正確");
 			return "members/register";
