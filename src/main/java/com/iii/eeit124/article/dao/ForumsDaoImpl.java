@@ -23,4 +23,9 @@ public class ForumsDaoImpl implements ForumsDao {
 		return query.list();
 	}
 
+	@Override
+	public void save(Forums forums) {
+		sessionFactory.getCurrentSession().save(forums);		
+	}
+
 }

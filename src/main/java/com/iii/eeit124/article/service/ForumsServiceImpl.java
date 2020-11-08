@@ -8,15 +8,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.iii.eeit124.article.dao.ForumsDao;
 import com.iii.eeit124.entity.Forums;
+
 @Transactional
 @Service
-public class ForumsServiceImpl implements ForumsService{
+public class ForumsServiceImpl implements ForumsService {
+	
 	@Autowired(required = false)
 	ForumsDao forumsDao;
-	
+
 	@Override
 	public List<Forums> select(int id) {
 		return forumsDao.select(id);
+	}
+
+	@Override
+	public void save(Forums forums) {
+		forumsDao.save(forums);
 	}
 
 }

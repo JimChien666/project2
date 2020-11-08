@@ -1,6 +1,7 @@
 package com.iii.eeit124.entity;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.ForeignKey;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 @Entity
 @Table(name = "FORUMS")
 public class Forums {
@@ -32,12 +36,20 @@ public class Forums {
 		return id;
 	}
 
+	@Override
+	public String toString() {
+		return "Forums [id=" + id + ", articleid=" + articleid + ", content=" + content + ", createdat=" + createdat
+				+ ", voteid=" + voteid + ", memberid=" + memberid + ", article=" + article + "]";
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	@Column(name = "ARTICLE_ID")
-//	@Transient
+//	@Column(name = "ARTICLE_ID")
+//	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "article"))
+//	@GeneratedValue(generator = "generator")
+	@Transient
 	public int getArticleid() {
 		return articleid;
 	}
@@ -57,7 +69,7 @@ public class Forums {
 	}
 
 	@Column(name = "CREATED_AT")
-	@Temporal(TemporalType.TIMESTAMP)
+//	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreatedat() {
 		return createdat;
 	}
@@ -84,7 +96,8 @@ public class Forums {
 		this.memberid = memberid;
 	}
 	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "ID")
+//	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "ARTICLE_ID")
 	public Article getArticle() {
 		return article;
 	}

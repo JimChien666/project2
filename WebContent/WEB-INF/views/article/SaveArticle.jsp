@@ -46,38 +46,126 @@ h1 {
 
 	</main>
 	<!-- /.container -->
-	<form:form action="saveToDB" modelAttribute="article" method="POST">
-		<table>
-			<tr>
-				<td><form:label path="title">標題</form:label></td>
-				<td><form:input path="title" /></td>
-			</tr>
-
-			<tr>
-				<td><form:label path="articletypesid">選擇討論版</form:label></td>
-				<td><form:select path="articletypesid">
-						<form:option value="NONE" label="請選擇" />
-						<form:option value="1">狗</form:option>
-						<form:option value="2">貓</form:option>
-					</form:select>
-				</td>
-			</tr>
-			<tr>
-				<td><form:label path="memberid">會員id</form:label></td>
-				<td><form:input path="memberid" /></td>
-			</tr>
-			<input type="text">
-			<tr>
-				<td>文章內文</td>
-				<td><input type="text" name="content"></td>
-			</tr>
-		</table>
-
-		<form:button value="Send">送出</form:button>
 
 
-	</form:form>
 
+<form action="saveToDB" enctype="multipart/form-data"
+ method="post" class="was-validated" style="margin: 1% 10% 3% 3%;">
+      <br>
+
+      <!-- 標題-->
+      <div class="mb-3">
+        <div class="input-group is-invalid">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="validatedInputGroupPrepend">文章標題</span>
+          </div>
+          
+          <input type="text" name="article.title" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" placeholder="請輸入文章標題"  required>
+        
+        </div>
+        <div class="invalid-feedback">
+          <!-- Example invalid input group feedback -->
+        </div>
+      </div>
+
+      <br>
+      
+
+      <!-- 選擇文章主題-->
+      <div class="mb-3">
+        <div class="input-group is-invalid">
+
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="validatedInputGroupPrepend">文章主題</span>
+          </div>
+
+          <select class="custom-select" name="article.articletypesid" id="Choose" required>
+            <option value="">Choose...</option>
+            <option value="1">狗</option>
+            <option value="2">貓</option>
+
+          </select>        </div>
+        <div class="invalid-feedback">
+          <!-- Example invalid input group feedback -->
+        </div>
+      </div> 
+      
+
+      <br>
+      <!-- 輸入文章內文-->
+    <div class="mb-3">
+      <label for="validationTextarea">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="validatedInputGroupPrepend">文章內容</span>
+        </div>
+      </label>
+      
+      <textarea name="content" class="form-control is-invalid" id="validationTextarea" placeholder="請輸入文章內容"  style="height: 160px" required></textarea>
+
+      <div style="float: right;">
+        可以下拉調整大小
+      </div>
+    </div>
+
+
+
+    <!-- 會員帳號
+      <div class="mb-3">
+        <div class="input-group is-invalid">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="validatedInputGroupPrepend">memIDID</span>
+          </div>
+          
+          <input type="text" name="memberid" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" placeholder="請輸入會員帳號"  required>
+        
+        </div>
+        <div class="invalid-feedback">
+        </div>
+      </div>
+    -->
+    <!-- 會員帳號
+      <div class="mb-3">
+        <div class="input-group is-invalid">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="validatedInputGroupPrepend">memIDID</span>
+          </div>
+          
+          <input type="text" name="article.memberid" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" placeholder="請輸入會員帳號"  required>
+        
+        </div>
+        <div class="invalid-feedback">
+        </div>
+      </div>
+    -->
+   
+      
+      
+      
+      
+    
+        <button type="submit" name="submit" id="submit" class="btn btn-primary">發文</button>
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%-- <form:form action="saveToDB" method="POST" modelAttribute="forums"> --%>
+<%-- title:<form:input path="article.title"/><br> --%>
+
+<%-- articleType:<form:select path="articletype" items="${allArticleTypes}" itemLabel="articletype" itemValue="id"> --%>
+<%-- </form:select><br> --%>
+
+<%-- article:<form:textarea path="content"/> --%>
+<%-- </form:form> --%>
 
 
 

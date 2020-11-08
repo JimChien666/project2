@@ -115,4 +115,6 @@ public class Article {
 		this.forums = forums;
 	}
 
+
+
 }
