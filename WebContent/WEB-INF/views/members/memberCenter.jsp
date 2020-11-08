@@ -15,7 +15,7 @@
 		</tr>
 		<tr>
 			<td colspan="2" style="text-align: center;"><img
-				src="${pageContext.servletContext.contextPath}/filuploadAction.contoller?fileId=${LoginOK.getFileId()}"
+				src="<c:url value='/member/filuploadAction.contoller?fileId=${LoginOK.getFileId()}' />"
 				width="100" height="100" class="d-inline-block align-top" alt=""
 				style="border: 2px white solid;"></td>
 		</tr>

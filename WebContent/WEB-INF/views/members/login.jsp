@@ -9,7 +9,7 @@
 </head>
 <body>
 <jsp:include page="../public/top.jsp" />
-	<Form action="processLogin.controller" method="POST" name="loginForm">
+	<Form action="<c:url value='/member/processLogin.controller' />" method="POST" name="loginForm">
 		<table>
 		  <TR>
              <TD>帳號：　</TD>

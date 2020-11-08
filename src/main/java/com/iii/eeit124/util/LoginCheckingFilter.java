@@ -70,9 +70,9 @@ public class LoginCheckingFilter implements Filter {
 					} else {
 						// 記住原本的"requestURI"，稍後如果登入成功，系統可以自動轉入
 						// 原本要執行的程式。
-						session.setAttribute("requestURI", requestURI);	
+						session.setAttribute("requestURI", requestURI.replace(contextPath, ""));	
 					}
-					resp.sendRedirect(contextPath + "/_02_login/login.jsp");
+					resp.sendRedirect(contextPath + "/member/login");
 					return;
 				}
 			} else {   //不需要登入，直接去執行他要執行的程式

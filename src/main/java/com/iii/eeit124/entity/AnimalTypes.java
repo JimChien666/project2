@@ -1,5 +1,5 @@
 package com.iii.eeit124.entity;
-import java.io.Serializable;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,16 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 @Entity
-@Table(name = "CATEGORIES")
-public class Categories implements Serializable{
-	private static final long serialVersionUID = 1L;
+@Table(name="ANIMAL_TYPES")
+public class AnimalTypes {
 	private Integer id;
 	private String name;
 	private Set<Products> products = new HashSet<Products>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "animalType", cascade = CascadeType.ALL)
 	public Set<Products> getProducts() {
 		return products;
 	}
@@ -45,6 +43,4 @@ public class Categories implements Serializable{
 		this.name = name;
 	}
 	
-	
-
 }

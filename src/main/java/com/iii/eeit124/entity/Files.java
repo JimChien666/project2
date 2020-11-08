@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -31,7 +32,17 @@ public class Files implements Serializable {
 	private Integer contentAttractionId;
 	private Integer coverAttractionId;
 	private Members member;
+	private Products product;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PRODUCT_ID")
+	public Products getProduct() {
+		return product;
+	}
+
+	public void setProduct(Products product) {
+		this.product = product;
+	}
 
 	private Blob fileBlob;
 	
@@ -97,7 +108,7 @@ public class Files implements Serializable {
 	public void setActivityId(Integer activityId) {
 		this.activityId = activityId;
 	}
-	@Column(name="PRODUCT_ID")
+	@Transient
 	public Integer getProductId() {
 		return productId;
 	}

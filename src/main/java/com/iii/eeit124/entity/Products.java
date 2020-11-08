@@ -1,6 +1,7 @@
 package com.iii.eeit124.entity;
-import java.io.Serializable;
+
 import java.sql.Blob;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,169 +13,190 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
-@Table(name = "PRODUCTS")
-@DynamicInsert@DynamicUpdate
-public class Products implements Serializable{
- private static final long serialVersionUID = 1L;
- private Integer id;
- private String name;
- private Integer price;
- private Blob img;
-// private String img;
- private String descript;
- private Integer quantity;
- private Integer specialPrice;
- private String rewardpoints;
- private boolean isThumb;
- private Integer memberId;
- private Integer animalTypeId;
- private Integer categoryId;
- private String filename;
- private Set<Files> files = new HashSet<Files>();   
- private MultipartFile profileImage;
- 
- public Products() {
-  
- } 
-
- @Id @Column
-// @SequenceGenerator(name = "productsSeqGen", sequenceName = "PRODUCTS_SEQ1", allocationSize = 1, initialValue = 532)
- @GeneratedValue(strategy = GenerationType.IDENTITY)
- public Integer getId() {
-  return id;
- }
- public void setId(Integer id) {
-  this.id = id;
- }
- @Column(name = "NAME")
- public String getName() {
-  return name;
- }
- public void setName(String name) {
-  this.name = name;
- }
- @Column(name = "PRICE")
- public Integer getPrice() {
-  return price;
- }
- public void setPrice(Integer price) {
-  this.price = price;
- }
-
- @Column(name = "IMG")
- @Lob
- public Blob getImg() {
-  return img;
- }
- public void setImg(Blob img) {
-  this.img = img;
- }
- @Column(name = "descript")
- public String getDescript() {
-  return descript;
- }
- public void setDescript(String descript) {
-  this.descript = descript;
- }
- @Column(name = "QUANTITY")
- public Integer getQuantity() {
-  return quantity;
- }
- public void setQuantity(Integer quantity) {
-  this.quantity = quantity;
- }
- @Column(name = "SPECIAL_PRICE")
- public Integer getSpecialPrice() {
-  return specialPrice;
- }
- public void setSpecialPrice(Integer specialPrice) {
-  this.specialPrice = specialPrice;
- }
- @Column(name = "REWARDPOINTS")
- public String getRewardpoints() {
-  return rewardpoints;
- }
- public void setRewardpoints(String rewardpoints) {
-  this.rewardpoints = rewardpoints;
- }
- @Column(name = "IS_THUMB") 
- public boolean getIsThumb() {
-  return isThumb;
- }
- 
- public void setIsThumb(boolean isThumb) {
-  this.isThumb = isThumb;
- }
- @Column(name = "MEMBER_ID")
- public Integer getMemberId() {
-  return memberId;
- }
- public void setMemberId(Integer memberId) {
-  this.memberId = memberId;
- }
- @Column(name = "ANIMAL_TYPE_ID")
- public Integer getAnimalTypeId() {
-  return animalTypeId;
- }
- public void setAnimalTypeId(Integer animalTypeId) {
-  this.animalTypeId = animalTypeId;
- }
- @Column(name = "CATEGORY_ID")
- public Integer getCategoryId() {
-  return categoryId;
- }
- public void setCategoryId(Integer categoryId) {
-  this.categoryId = categoryId;
- }
- @Transient
- public String getFilename() {
-  return filename;
- }
- public void setFilename(String filename) {
-  this.filename = filename;
- }
-// @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "FILES")
- @OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class,cascade = CascadeType.ALL)
- @JoinColumns( value = {@JoinColumn(name="PRODUCT_ID",referencedColumnName="ID")})
- public Set<Files> getFiles() {
-  return files;
- }
- public void setFiles(Set<Files> files) {
-  this.files = files;
- }
-  
-@Transient 
-public MultipartFile getProfileImage() {
-	return profileImage;
-}
-
-public void setProfileImage(MultipartFile profileImage) {
-	this.profileImage = profileImage;
-}
-
-@Override
-public String toString() {
-	StringBuilder builder = new StringBuilder();
-	builder.append("Products [id=").append(id).append(", name=").append(name).append(", price=").append(price)
-			.append(", img=").append(img).append(", descript=").append(descript).append(", quantity=").append(quantity)
-			.append(", specialPrice=").append(specialPrice).append(", rewardpoints=").append(rewardpoints)
-			.append(", isThumb=").append(isThumb).append(", memberId=").append(memberId).append(", animalTypeId=")
-			.append(animalTypeId).append(", categoryId=").append(categoryId).append(", filename=").append(filename)
-			.append(", files=").append(files).append(", profileImage=").append(profileImage).append("]");
-	return builder.toString();
-}
-
- 
+@Table(name="PRODUCTS")
+public class Products {
+	private Integer id;
+	private String name;
+	private String description;
+	private Integer quantity;
+	private Double price;
+	private Double discount;
+	private Integer memberId;
+	private Integer categoryId;
+	private Integer colorId;
+	private Integer animalTypeId;
+	private Blob coverImg;
+	private Date createdAt;
+	private Date updatedAt;
+	private Date deletedAt;
+	private String status;
+	private MultipartFile multipartFile;
+	
+	private AnimalTypes animalType;
+	private Colors color;
+	private Members member;
+	private Categories category;
+	private Set<Files> contentImgs = new HashSet<>();
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ANIMAL_TYPE_ID")
+	public AnimalTypes getAnimalType() {
+		return animalType;
+	}
+	public void setAnimalType(AnimalTypes animalType) {
+		this.animalType = animalType;
+	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "COLOR_ID")
+	public Colors getColor() {
+		return color;
+	}
+	public void setColor(Colors color) {
+		this.color = color;
+	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MEMBER_ID")
+	public Members getMember() {
+		return member;
+	}
+	public void setMember(Members member) {
+		this.member = member;
+	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CATEGORY_ID")
+	public Categories getCategory() {
+		return category;
+	}
+	public void setCategory(Categories category) {
+		this.category = category;
+	}
+	@Id
+	@Column(name="ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	@Column(name="NAME")
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	@Column(name="DESCRIPTION")
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	@Column(name="QUANTITY")
+	public Integer getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+	@Column(name="PRICE")
+	public Double getPrice() {
+		return price;
+	}
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+	@Column(name="DISCOUNT")
+	public Double getDiscount() {
+		return discount;
+	}
+	public void setDiscount(Double discount) {
+		this.discount = discount;
+	}
+	@Transient
+	public Integer getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(Integer memberId) {
+		this.memberId = memberId;
+	}
+	@Transient
+	public Integer getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
+	@Transient
+	public Integer getColorId() {
+		return colorId;
+	}
+	public void setColorId(Integer colorId) {
+		this.colorId = colorId;
+	}
+	@Transient
+	public Integer getAnimalTypeId() {
+		return animalTypeId;
+	}
+	public void setAnimalTypeId(Integer animalTypeId) {
+		this.animalTypeId = animalTypeId;
+	}
+	@Column(name="COVER_IMG")
+	public Blob getCoverImg() {
+		return coverImg;
+	}
+	public void setCoverImg(Blob coverImg) {
+		this.coverImg = coverImg;
+	}
+	@Column(name="CREATED_AT")
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	@Column(name="UPDATED_AT")
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	@Column(name="DELETED_AT")
+	public Date getDeletedAt() {
+		return deletedAt;
+	}
+	public void setDeletedAt(Date deletedAt) {
+		this.deletedAt = deletedAt;
+	}
+	@Column(name="STATUS")
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	@Transient
+	public MultipartFile getMultipartFile() {
+		return multipartFile;
+	}
+	public void setMultipartFile(MultipartFile multipartFile) {
+		this.multipartFile = multipartFile;
+	}
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+	public Set<Files> getContentImgs() {
+		return contentImgs;
+	}
+	public void setContentImgs(Set<Files> contentImgs) {
+		this.contentImgs = contentImgs;
+	}
 }

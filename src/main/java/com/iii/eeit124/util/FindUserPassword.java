@@ -13,12 +13,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// 本過濾器監控 /_02_login/login.jsp。
+// 本過濾器監控 login.jsp。
 // 當使用者要求此jsp時，容器會將本jsp網頁轉譯為java程式，接者編譯為類別檔，然後載入並執行此jsp。
 // 當容器執行jsp之前會先執行本過濾器。其目的是要檢視瀏覽器送來的Cookie中是否含有帳、密等資料。
 // 如果有，取出來，將密碼解密，然後存入Request物件內，以便jsp能將其加入相關之input標籤的value屬性內。
 
-//@WebFilter("/_02_login/login.jsp")
+//@WebFilter("/login.jsp")
 public class FindUserPassword implements Filter {
 	String requestURI;
 	public FindUserPassword() {

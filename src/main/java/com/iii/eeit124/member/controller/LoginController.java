@@ -36,6 +36,7 @@ import com.iii.eeit124.member.service.LoginService;
 import com.iii.eeit124.util.GlobalService;
 
 @Controller
+@RequestMapping("/member")
 public class LoginController {
 	@Autowired
 	ServletContext ctx;
@@ -135,15 +136,12 @@ public class LoginController {
 		// 如果 errorMsgMap 是空的，表示沒有任何錯誤，交棒給下一棒
 		if (errors.isEmpty()) {
 			//回到登入前畫面
-//			if (requestURI != null) {
-////						System.out.println("requestURI=" + requestURI + "*");
-//				requestURI = (requestURI.length() == 0 ? request.getContextPath() : requestURI);
-//				response.sendRedirect(response.encodeRedirectURL(requestURI));
-//				return;
-//			} else {
-//				response.sendRedirect(request.getContextPath() + "/ShowIndexServlet");
-//				return;
-//			}
+			String requestURI = (String)session.getAttribute("requestURI");
+			if (requestURI != null) {
+//						System.out.println("requestURI=" + requestURI + "*");
+				requestURI = (requestURI.length() == 0 ? request.getContextPath() : requestURI);
+				return "redirect:" + requestURI;
+			}
 			//回首頁
 			return "redirect:/";
 		} else {
@@ -153,9 +151,9 @@ public class LoginController {
 	
 	
 	
-	@GetMapping("/filuploadAction.contoller")
+	@GetMapping("/processFileReadAction.contoller")
 	@ResponseBody
-	public ResponseEntity<byte[]> processFileUploadAction(@RequestParam(name = "fileId") Integer fileId) throws Exception{
+	public ResponseEntity<byte[]> processFileReadAction(@RequestParam(name = "fileId") Integer fileId) throws Exception{
 		ResponseEntity<byte[]> re = null;
 		Files file = loginService.getFileById(fileId);
 		Blob fileBlob = file.getFileBlob();

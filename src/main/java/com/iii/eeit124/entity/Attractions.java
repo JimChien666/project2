@@ -21,6 +21,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
@@ -116,6 +118,7 @@ public class Attractions implements Serializable {
 	}
 
 	@Column(name = "CREATED_AT")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -125,6 +128,7 @@ public class Attractions implements Serializable {
 	}
 
 	@Column(name = "UPDATED_AT")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
@@ -134,6 +138,7 @@ public class Attractions implements Serializable {
 	}
 
 	@Column(name = "DELETED_AT")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getDeletedAt() {
 		return deletedAt;
 	}

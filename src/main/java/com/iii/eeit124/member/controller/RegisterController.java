@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
@@ -21,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,9 +35,10 @@ import com.iii.eeit124.util.GlobalService;
 
 @Controller
 @SessionAttributes(names={"member"})
+@RequestMapping("/member")
 public class RegisterController {
 	@Autowired
-	private HttpServletRequest request;
+	ServletContext servletContext;
 	@Autowired
 	RegisterService registerService;
 	@Autowired
@@ -57,7 +60,6 @@ public class RegisterController {
 		System.out.println(member.getName());
 		System.out.println(mFile);
 		Map<String, String> errors = new HashMap<String, String>();
-		Map<String, Members> msgOK = new HashMap<String, Members>();
 		m.addAttribute("errors", errors);
 		
 		if("".equals(member.getName())||member.getName()==null) {
@@ -107,7 +109,7 @@ public class RegisterController {
 			//新增照片
 			
 			String fileName = mFile.getOriginalFilename();
-			String fileTempDirPath = request.getSession().getServletContext().getRealPath("/") + "UploadTempDir\\";
+			String fileTempDirPath = servletContext.getRealPath("/") + "UploadTempDir\\";
 			File dirPath = new File(fileTempDirPath);
 			if(!dirPath.exists()) {
 				boolean status = dirPath.mkdirs();

@@ -32,15 +32,15 @@
         </li> --%>
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value='/ProductsPage' />">購物</a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ShowIndexServlet' />">寵物旅遊</a></li>
+			<%-- <li class="nav-item"><a class="nav-link"
+				href="<c:url value='/ShowIndexServlet' />">寵物旅遊</a></li> --%>
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value='/ServletReadAnimal' />">寵物領養</a></li>
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value='/ArticleShow' />">討論區</a></li>
 			<c:if test="${empty LoginOK}">
 				<li class="nav-item"><a class="nav-link"
-					href="<c:url value='/register' />" tabindex="-1"
+					href="<c:url value='/member/register' />" tabindex="-1"
 					aria-disabled="true">註冊會員</a></li>
 			</c:if>
 
@@ -49,7 +49,7 @@
 		<c:if test="${!empty LoginOK}">
 			<div class="navbar-brand">
 				<img
-					src="${pageContext.servletContext.contextPath}/filuploadAction.contoller?fileId=${LoginOK.getFileId()}"
+					src="<c:url value='/member/processFileReadAction.contoller?fileId=${LoginOK.getFileId()}' />"
 					width="30" height="30" class="d-inline-block align-top" alt=""
 					style="border-radius: 50%; border: 2px white solid;">
 
@@ -63,12 +63,13 @@
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item" href="<c:url value='/FormMember.jsp' />">會員中心</a>
 						<a class="dropdown-item"
-							href="<c:url value='/logout' />">登出</a>
+							href="<c:url value='/member/logout' />">登出</a>
+							
 					</div></li>
 			</ul>
 		</c:if>
 		<c:if test="${empty LoginOK}">
-		<a class="btn btn-success" href="<c:url value='/login' />" role="button">登入</a>
+		<a class="btn btn-success" href="<c:url value='/member/login' />" role="button">登入</a>
 		</c:if>
 
 	</div>

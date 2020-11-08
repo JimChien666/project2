@@ -38,6 +38,23 @@ public class Members implements Serializable{
 	private String memberType;
 	private Date createdAt;
 	private Set<Files> files = new HashSet<Files>();
+	private Set<Products> products = new HashSet<Products>();
+	
+
+	
+
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	public Set<Products> getProducts() {
+		return products;
+	}
+
+
+
+	public void setProducts(Set<Products> products) {
+		this.products = products;
+	}
+
 
 
 	public Members() {
@@ -76,8 +93,6 @@ public class Members implements Serializable{
 
 	@Id
 	@Column(name="ID")
-//	@SequenceGenerator(name = "membersSeqGen", sequenceName = "MEMBERS_SEQ4", allocationSize = 1, initialValue = 1)
-//	@GeneratedValue(generator = "membersSeqGen", strategy = GenerationType.SEQUENCE)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
 		return id;
