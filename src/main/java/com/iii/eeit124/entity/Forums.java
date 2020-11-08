@@ -97,7 +97,7 @@ public class Forums {
 	}
 	@ManyToOne(fetch = FetchType.LAZY)
 //	@PrimaryKeyJoinColumn
-	@JoinColumn(name = "ARTICLE_ID")
+	@JoinColumn(name = "ID")  // TODO
 	public Article getArticle() {
 		return article;
 	}
