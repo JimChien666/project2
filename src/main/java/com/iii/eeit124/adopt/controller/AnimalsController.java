@@ -1,7 +1,16 @@
 package com.iii.eeit124.adopt.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.sql.Blob;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.sql.rowset.serial.SerialBlob;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,12 +18,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.entity.Animals;
+import com.iii.eeit124.entity.Files;
 
 @Controller
 public class AnimalsController {
-	
+
+	@Autowired
+	private HttpServletRequest request;
 	@Autowired
 	public AnimalsService animalsService;
 	
@@ -35,10 +48,53 @@ public class AnimalsController {
 	
 	//Create
 	@PostMapping("/CreateAnimal.controller")
-	public String processCreateAnimal(@ModelAttribute("AnimalsList1") Animals entity, Model m) {
-//		SimpleDateFormat  sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	public String processCreateAnimal(@ModelAttribute("AnimalsList1") Animals entity
+//			, @RequestParam(name = "animalFile") MultipartFile mFile
+			, Model m) throws Exception {
+		//新增照片部分
+//		System.out.println("AnimalId: " + entity.getAnimalId());
+//		System.out.println("mFile: " + mFile);
+//		
+//		String filename = mFile.getOriginalFilename();//取得檔名
+//		String fileTempDirPath = request.getSession().getServletContext().getRealPath("/")+"uploadTempDir\\";
+//		
+//		System.out.println("filename:" + filename);
+//		System.out.println("fileTempDirPath:" + fileTempDirPath);
+//		
+//		File dirPath = new File(fileTempDirPath);
+//		
+//		if (!dirPath.exists()) {
+//			boolean status = dirPath.mkdirs();
+//			System.out.println("status:" + status);
+//		}
+//		
+//		String fileSavePath = fileTempDirPath + filename;
+//		File saveFile = new File(fileSavePath);
+//		mFile.transferTo(saveFile);
+//		System.out.println("fileSavePath:" + fileSavePath);
+//		
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setContentType(MediaType.IMAGE_JPEG);
+//
+//		if (filename!=null && filename.length()!=0) {
+//			FileInputStream is1 = new FileInputStream(fileSavePath);
+//			byte[] b = new byte[is1.available()];
+//			is1.read(b);
+//			is1.close();
+//			
+//			Set<Files> files = new HashSet<Files>();
+//			Blob blob = new SerialBlob(b);
+//			Files file = new Files("image", blob);
+//			
+//			files.add(file);
+//			entity.setFiles(files);
+//			System.out.println(entity);
+//		}
+		
+		//新增文字部分
 		entity.setCreatedAt(new Date());
 		animalsService.create(entity);
+		
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
 	}
