@@ -29,6 +29,13 @@ public class RegisterServiceImpl implements RegisterService {
 		}
 		return num;
 	}
+	
+	@Override
+	@Transactional
+	public int saveMember(Members mb) {
+		int num = dao.saveMember(mb);
+		return num;
+	}
 
 	@Override
 	@Transactional

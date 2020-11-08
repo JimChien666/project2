@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class RegisterController {
 	private HttpServletRequest request;
 	@Autowired
 	RegisterService registerService;
+	@Autowired
+	private HttpSession session;
 
 	
 //	@GetMapping("/testInsert")
@@ -142,12 +145,14 @@ public class RegisterController {
 			
 			files.add(file);
 			member.setFiles(files);
-			System.out.println(member);
+			file.setMember(member);
+//			System.out.println(member);
 			member.setCreatedAt(new Date());
-			int n = registerService.saveRegister(member, files);
+//			int n = registerService.saveRegister(member, files);
+			int n = registerService.saveMember(member);
 			if (n == 1) {
-				msgOK.put("InsertOK", member);
-				return "members/registerSuccess";
+				session.setAttribute("LoginOK", member);
+				return "redirect:/";
 			} else {
 				errors.put("errorAccountDup", "新增此筆資料有誤(RegisterServlet)");
 			}
@@ -161,7 +166,7 @@ public class RegisterController {
 			return "members/register";
 		}
 
-		return "registerSuccess";
+		return "members/register";
 	}
 	
 }
