@@ -144,7 +144,7 @@ public class Files implements Serializable {
 				.append("\", \"activityId\":\"").append(activityId).append("\", \"productId\":\"").append(productId)
 				.append("\", \"contentAttractionId\":\"").append(contentAttractionId)
 				.append("\", \"coverAttractionId\":\"").append(coverAttractionId).append("\", \"member\":\"")
-				.append(member).append("}");
+				.append(member).append("\", \"fileBlob\":\"").append("").append("}");
 		return builder.toString();
 	}
 }
