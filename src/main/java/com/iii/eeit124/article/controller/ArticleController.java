@@ -44,7 +44,7 @@ public class ArticleController {
 	}  
 	// save article to db and return the articleList page
 	
-	
+	/*
 	@PostMapping(value = "/saveToDB")
 	public String saveToDB(Forums forums, BindingResult result, ModelMap model) {
 		
@@ -75,7 +75,20 @@ public class ArticleController {
 //		articleService.saveFullArticle(entity);
 //		return "redirect:/articleList"; //未來改為發表之文章頁面
 	}  
-	
+	*/
+	@PostMapping(value = "/saveToDB")
+	public String saveToDB(Forums forums, BindingResult result, ModelMap model) {
+		
+		
+		
+		
+		
+		return "redirect:/articleList";
+		
+		
+		
+	}
+
 	
 	//show one article
 	@GetMapping(value = "article")

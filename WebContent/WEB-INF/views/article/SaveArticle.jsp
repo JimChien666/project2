@@ -105,44 +105,7 @@ h1 {
       <div style="float: right;">
         可以下拉調整大小
       </div>
-    </div>
-
-
-
-    <!-- 會員帳號
-      <div class="mb-3">
-        <div class="input-group is-invalid">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="validatedInputGroupPrepend">memIDID</span>
-          </div>
-          
-          <input type="text" name="memberid" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" placeholder="請輸入會員帳號"  required>
-        
-        </div>
-        <div class="invalid-feedback">
-        </div>
-      </div>
-    -->
-    <!-- 會員帳號
-      <div class="mb-3">
-        <div class="input-group is-invalid">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="validatedInputGroupPrepend">memIDID</span>
-          </div>
-          
-          <input type="text" name="article.memberid" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" placeholder="請輸入會員帳號"  required>
-        
-        </div>
-        <div class="invalid-feedback">
-        </div>
-      </div>
-    -->
-   
-      
-      
-      
-      
-    
+    </div>    
         <button type="submit" name="submit" id="submit" class="btn btn-primary">發文</button>
     </form>
 
@@ -158,14 +121,21 @@ h1 {
 
 
 
-<%-- <form:form action="saveToDB" method="POST" modelAttribute="forums"> --%>
-<%-- title:<form:input path="article.title"/><br> --%>
+<form:form action="saveToDB" method="POST" modelAttribute="article">
+title:<form:input path="title"/><br>
 
-<%-- articleType:<form:select path="articletype" items="${allArticleTypes}" itemLabel="articletype" itemValue="id"> --%>
-<%-- </form:select><br> --%>
+articleType:
 
-<%-- article:<form:textarea path="content"/> --%>
-<%-- </form:form> --%>
+
+<%-- <form:select path="articletypesid" items="${allArticleTypes}" itemLabel="articletype" itemValue="id"> --%>
+<form:select path="articletypesid">
+<c:forEach items="${allArticleTypes}" var="ArticleType" varStatus="id">
+<form:option value="${ArticleType.getId()}">${ArticleType.getArticletype()}</form:option>
+</c:forEach>
+</form:select><br>
+article:<form:textarea path="forums.content"/><br>
+
+</form:form>
 
 
 
