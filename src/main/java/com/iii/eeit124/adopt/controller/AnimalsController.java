@@ -1,6 +1,5 @@
 package com.iii.eeit124.adopt.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,12 +35,7 @@ public class AnimalsController {
 	
 	//Create
 	@PostMapping("/CreateAnimal.controller")
-	public String processCreateAnimal(@ModelAttribute("AnimalsList1") Animals entity, BindingResult result, Model m) {
-//		if (result.hasErrors()) {
-//			System.out.println("errorrrrrrrrrrrrrrrrrrrrrr");
-//			m.addAttribute("AnimalsList", animalsService.readAll());
-//			return "adopt/ReadAnimal";
-//		}//TODO 要addAttribute新增失敗訊息，或用sweetalert
+	public String processCreateAnimal(@ModelAttribute("AnimalsList1") Animals entity, Model m) {
 //		SimpleDateFormat  sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		entity.setCreatedAt(new Date());
 		animalsService.create(entity);
@@ -56,6 +50,7 @@ public class AnimalsController {
 		return "adopt/ReadAnimal";
 	}
 	
+	//file
 //	@RequestMapping(path = "/CreateAnimal1.controller", method = RequestMethod.POST)
 //	public String processCreateAnimalFile(@ModelAttribute("AnimalsList1") Animals entity, BindingResult result, Model m) {
 //		return null;
@@ -73,6 +68,7 @@ public class AnimalsController {
 	@PostMapping("/UpdateAnimal.controller")
 	public String processUpdateAnimal(@ModelAttribute("animals") Animals entity, BindingResult result, Model m) {
 		if (result.hasErrors()) {
+			System.out.println("==========adopt/controller/AnimalsController.java processUpdateAnimal/result.hasErrors()==========");
 			m.addAttribute("AnimalsList", animalsService.readAll());
 			return "adopt/ReadAnimal";
 		}//TODO 要addAttribute更新失敗訊息

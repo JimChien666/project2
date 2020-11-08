@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "animals")
+@Table(name = "animals")//大小寫沒差別，跟資料庫名一樣就好
 @Component
 public class Animals {
 	
@@ -56,7 +56,7 @@ public class Animals {
 //	@SequenceGenerator(name = "activitysSeqGen", sequenceName = "activitys_seq", allocationSize = 1)
 //	@GeneratedValue(generator = "activitysSeqGen", strategy = GenerationType.SEQUENCE)
 	@Id
-	@Column(name = "ANIMAL_ID")
+	@Column(name = "ANIMAL_ID")//大小寫沒差別，跟資料庫名一樣就好
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getAnimalId() {
 		return animalId;

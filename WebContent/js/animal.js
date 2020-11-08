@@ -41,7 +41,7 @@ $("#animalFile").change(function() {
 });
 
 //UpdateAnimal
-還須確認可用性
+//當animalFile1有變動時，會將animalFileSpan1顯示
 $("#animalFile1").change(function() {
 	document.getElementById("animalFileSpan2").style.display = "none";
 	document.getElementById("animalFileSpan1").style.display = "block";
@@ -130,7 +130,7 @@ function checkbreedId() {
 	let flag1 = false;
 	if (breedId == "") {
 		document.getElementById("breedIdSpan").style.display = "block";
-		breedIdSpan.innerHTML = "不可空白";
+		breedIdSpan.innerHTML = "必須選擇品種";
 	} else if (breedIdLength <= 10) {
 		for (let i = 0; i < breedIdLength; i++) {
 			let ch = breedId.charAt(i);
