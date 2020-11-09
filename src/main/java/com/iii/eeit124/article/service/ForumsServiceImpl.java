@@ -32,6 +32,11 @@ public class ForumsServiceImpl implements ForumsService {
 		forumsDao.saveArticle(article);
 		
 	}
+
+	@Override
+	public void update(Article article) {
+		forumsDao.updateArticle(article);
+	}
 	
 
 }

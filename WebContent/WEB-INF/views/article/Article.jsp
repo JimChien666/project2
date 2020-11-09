@@ -6,13 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ID:<c:out value="${articleId.id}" />/<c:out
-		value="${articleId.title}" /></title>
+<title>ID:<c:out value="${article.getId()}" />/<c:out
+		value="${article.getTitle()}" /></title>
 </head>
 <body>
 	<table>
-		<th>標題:<c:out value="${articleId.title}"></c:out></th>
-				<th>文章內容</th>
+		<th>標題:<c:out value="${article.getTitle()}"></c:out></th>
+				<th>發文時間</th>
 
 		<c:forEach items="${forums}" var="Forums"  varStatus="id">
 			<tr>

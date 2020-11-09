@@ -40,6 +40,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	right: 2%;
 }
 
+
 .fixed0 {
 	position: fixed;
 	top: 12%;
@@ -150,6 +151,7 @@ table {
 		</form>
 	</div>
 
+
 	<a href="<c:url value='saveArticle' />" class="fixed">
 		<button type="button" class="btn btn-success">發文
 		</button>
@@ -178,11 +180,17 @@ table {
 		<table border=1>
 			<th>文章ID</th>
 			<th>文章標題</th>
+			<th>選擇修改</th>
 			<th>選擇刪除</th>
 			<c:forEach items="${Articles}" var="Article" varStatus="id">
 				<tr>
 					<td><a href="<c:url value='article?articleId=${Article.getId()}' />">${Article.getId()}</a></td>
 					<td>${Article.getTitle()}</td>
+					<td>
+	<a href="<c:url value='updateArticle?articleId=${Article.getId()}' />">
+		<button type="button" class="btn btn-info">修改</button>
+	</a>
+</td>
 					<td> 預計要做刪除的欄位 </td>
 				<tr>
 			</c:forEach>

@@ -9,4 +9,5 @@ public interface ForumsDao {
 	void save(Forums forums);
 	List<Forums> select(int id);
 	void saveArticle(Article article);
+	void updateArticle(Article article);
 }

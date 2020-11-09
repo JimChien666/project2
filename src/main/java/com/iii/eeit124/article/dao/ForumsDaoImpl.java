@@ -41,4 +41,9 @@ public class ForumsDaoImpl implements ForumsDao {
 		
 	}
 
+	@Override
+	public void updateArticle(Article article) {
+		sessionFactory.getCurrentSession().update(article);
+	}
+
 }

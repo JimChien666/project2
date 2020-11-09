@@ -1,6 +1,7 @@
 package com.iii.eeit124.entity;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "article")
@@ -98,6 +100,20 @@ public class Article {
 		this.showarticle = showarticle;
 		this.memberid = memberid;
 		this.articletypesid = articletypesid;
+	}
+	
+	@Transient
+	public Forums getFirstForum() {	
+		System.out.println("jdsgjofi");
+		System.out.println(this.getForums());
+		Iterator<Forums> iterator = this.getForums().iterator();
+//		String content = "";
+		if(iterator.hasNext()) {
+			Forums forum = iterator.next();				
+			return forum;
+
+		}
+		return null;
 	}
 
 	public Article() {
