@@ -12,10 +12,14 @@
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 <body>
-<jsp:include page="../public/top.jsp" />
+<div>
+	<jsp:include page="../public/top.jsp" />
+</div>
 	<div class="wid400px">
 		<a href="<c:url value='/readAnimal' />" class="btn btn-secondary margin10px">回維護首頁</a>
+	</div>
 		
+	<div class="wid400px">
 <!-- ====================================================================================================== -->
 
 		<form:form action="CreateAnimal.controller" method="POST" modelAttribute="AnimalsList1" enctype="multipart/form-data">

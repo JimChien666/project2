@@ -10,12 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class Animals {
 	
-	private Integer animalId;//TODO int Integer會出錯
+	private Integer animalId;
 	private Integer memberId;
 	private String acceptionId;
 	private Integer breedId;
@@ -39,12 +36,15 @@ public class Animals {
 //	private AdoptionRecords adoptionRecords;
 //	private MembersBean membersBean;
 //	private Breeds breeds;
-	private Set<Files> files = new HashSet<Files>();
+	private Set<AnimalsFiles> files = new HashSet<AnimalsFiles>();
 	
 	public Animals () {}
 	
 //	@SequenceGenerator(name = "activitysSeqGen", sequenceName = "activitys_seq", allocationSize = 1)
 //	@GeneratedValue(generator = "activitysSeqGen", strategy = GenerationType.SEQUENCE)
+//	@SequenceGenerator(name = "animalsSeqGen", sequenceName = "ANIMALS_SEQ", allocationSize = 1)
+//	@GeneratedValue(generator = "animalsSeqGen", strategy = GenerationType.SEQUENCE)
+
 	@Id
 	@Column(name = "ANIMAL_ID")//大小寫沒差別，跟資料庫名一樣就好
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -166,20 +166,18 @@ public class Animals {
 //	public void setBreeds(Breeds breeds) {
 //		this.breeds = breeds;
 //	}
-	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
-	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ANIMAL_ID")})//第一個ANIMAL_ID為Files的，第二個為Animals的。
-	public Set<Files> getFiles() {
+//	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
+//	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ANIMAL_ID")})//第一個ANIMAL_ID為Files的，第二個為Animals的。
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)
+	public Set<AnimalsFiles> getFiles() {
 		return files;
 	}
-	public void setFiles(Set<Files> files) {
+	public void setFiles(Set<AnimalsFiles> files) {
 		this.files = files;
 	}
 	
-	@Override
-	public String toString() {
-		return "Animals [animalId=" + animalId + ", memberId=" + memberId + ", acceptionId=" + acceptionId
-				+ ", breedId=" + breedId + ", gender=" + gender + ", coatColor=" + coatColor + ", isAdoptionAvailable="
-				+ isAdoptionAvailable + ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-				+ ", deletedAt=" + deletedAt + ", files=" + files + ", animalFiles=" + animalFiles + "]";
+	public String printAll() {
+		return animalId + ", " + memberId + ", " + acceptionId + ", " + breedId + ", " + gender + ", " + coatColor + ", " + 
+	isAdoptionAvailable + ", " + note + ", " + createdAt + ", " + updatedAt + ", " + deletedAt + ", " + files;
 	}
 }

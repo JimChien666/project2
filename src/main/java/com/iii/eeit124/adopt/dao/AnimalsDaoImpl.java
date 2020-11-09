@@ -41,7 +41,7 @@ public class AnimalsDaoImpl implements AnimalsDao{
 		Session session = sessionFactory.getCurrentSession();
 //		Animals result = session.get(Animals.class, entity.getAnimalId());
 //		if (result != null) {
-			session.update(entity);
+			session.merge(entity);
 			return entity;
 //		}
 //		return null;

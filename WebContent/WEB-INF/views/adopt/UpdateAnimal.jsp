@@ -12,21 +12,24 @@
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 <body>
-<jsp:include page="../public/top.jsp" />
+<div>
+	<jsp:include page="../public/top.jsp" />
+</div>
 	<div class="wid400px">
 		<a href="<c:url value='/readAnimal' />" class="btn btn-secondary margin10px">回維護首頁</a>
 
 <!-- ====================================================================================================== -->
 			
-		<form:form action="UpdateAnimal.controller" method="POST" modelAttribute="animals">
+		<form:form action="UpdateAnimal.controller" method="POST" modelAttribute="animals" enctype="multipart/form-data">
 <%-- 	<form action="<c:url value='/UpdateAnimals' />" method="post" enctype="multipart/form-data"> --%>
 			
 			<!-- ============================================================================== -->
 			
 		<label for="" class="label1">照片：</label> 
-		<input type="file" name="animalFile" id="animalFile1" multiple class="wid200px">
+		<form:input path="animalFiles" type="file" class="wid200px"/>
+<!-- 		<input type="file" name="animalFile" id="animalFile1" multiple class="wid200px"> -->
 		<span id="animalFileSpan2" class="dispblok height260px margleft125px">
-		<img class="card-img-top square250px" src="${pageContext.servletContext.contextPath}/ServletRetrieveImage?id=${animals.animalId}&type=ANIMAL" alt="Animal image">
+		<img class="card-img-top square250px" src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animals.animalId}" alt="Animal image">
 		</span> 
 		<span id="animalFileSpan1" class="spanHidden height260px">
 		<img id="preview_animalFile" src="#" class="square250px" /><br>

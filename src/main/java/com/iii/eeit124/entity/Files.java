@@ -29,6 +29,7 @@ public class Files implements Serializable {
 	private int contentAttractionId;
 	private int coverAttractionId;
 	private Members member;
+	private Animals animal;
 	
 
 	private Blob fileBlob;
@@ -78,7 +79,8 @@ public class Files implements Serializable {
 	public void setForumId(int forumId) {
 		this.forumId = forumId;
 	}
-	@Column(name="ANIMAL_ID")
+//	@Column(name="ANIMAL_ID")
+	@Transient
 	public int getAnimalId() {
 		return animalId;
 	}
@@ -130,6 +132,16 @@ public class Files implements Serializable {
 		this.member = member;
 	}
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ANIMAL_ID")
+	public Animals getAnimal() {
+		return animal;
+	}
+
+	public void setAnimal(Animals animal) {
+		this.animal = animal;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -143,4 +155,5 @@ public class Files implements Serializable {
 		return builder.toString();
 //		return " {\"id\":\"" + id + "\"}";
 	}
+	
 }
