@@ -59,7 +59,17 @@ public class ArticleController {
 		Article article = articleService.select(id);		
 		model.addAttribute("article", article);
 		return "article/UpdateArticle";
-	}  
+	}
+	@GetMapping(value = "deleteArticle")
+//	public String deleteArticle(Model model, @RequestParam(value = "articleId")Integer id) {
+	public String deleteArticle(@RequestParam(value = "articleId", required = false)Integer id) {
+		System.out.println("...........");
+		System.out.println(id);
+		System.out.println("...........");
+		articleService.delete(articleService.select(id));		
+		System.out.println("...........");
+		return "redirect:/articleList";		
+	}
 	
 	// save article to db and return the articleList page.
 	@PostMapping(value = "/saveToDB")

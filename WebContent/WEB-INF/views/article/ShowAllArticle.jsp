@@ -40,7 +40,6 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	right: 2%;
 }
 
-
 .fixed0 {
 	position: fixed;
 	top: 12%;
@@ -63,14 +62,14 @@ table {
 
 .box {
 	width: 40px;
-	height:260px;
+	height: 260px;
 	background: lightskyblue;
 	transition: .6s;
 }
 
 .active {
 	width: 250px;
-	height:260px;
+	height: 260px;
 	background: pink;
 	border-radius: 5%;
 	transition: .5s;
@@ -82,34 +81,36 @@ table {
 
 </head>
 <body>
-<%-- ${LoginOK.getName()} --%>
-<%-- 	<jsp:include page="../nn/top.jsp" /> --%>
-	<div class="btn btn-secondary float-right fixed0 box" id="idbox">
+	<%-- ${LoginOK.getName()} --%>
+	<%-- 	<jsp:include page="../nn/top.jsp" /> --%>
 
-		<form action="<c:url value='/ArticleDelete' />" enctype="text/html"
-			method="post" class="was-validated">
 
-			<div class="mb-3">
-				<div class="input-group is-invalid">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="validatedInputGroupPrepend">文章刪除</span>
-					</div>
+	<!-- 	<div class="btn btn-secondary float-right fixed0 box" id="idbox"> -->
 
-					<input type="text" name="articleId" class="form-control is-invalid"
-						aria-describedby="validatedInputGroupPrepend"
-						placeholder="enter id" required>
+	<%-- 		<form action="<c:url value='/ArticleDelete' />" enctype="text/html" --%>
+	<!-- 			method="post" class="was-validated"> -->
 
-				</div>
-				<div class="invalid-feedback">
-					<!-- Example invalid input group feedback -->
-				</div>
-			</div>
+	<!-- 			<div class="mb-3"> -->
+	<!-- 				<div class="input-group is-invalid"> -->
+	<!-- 					<div class="input-group-prepend"> -->
+	<!-- 						<span class="input-group-text" id="validatedInputGroupPrepend">文章刪除</span> -->
+	<!-- 					</div> -->
 
-			<button type="submit" name="delete" id="delete"
-				class="btn btn-primary">刪除</button>
-		</form>
-	</div>
+	<!-- 					<input type="text" name="articleId" class="form-control is-invalid" -->
+	<!-- 						aria-describedby="validatedInputGroupPrepend" -->
+	<!-- 						placeholder="enter id" required> -->
 
+	<!-- 				</div> -->
+	<!-- 				<div class="invalid-feedback"> -->
+	<!-- 					Example invalid input group feedback -->
+	<!-- 				</div> -->
+	<!-- 			</div> -->
+
+	<!-- 			<button type="submit" name="delete" id="delete" -->
+	<!-- 				class="btn btn-primary">刪除</button> -->
+	<!-- 		</form> -->
+	<!-- 	</div> -->
+	<!--
 	<div class="btn btn-secondary float-right fixed1 box" id="idbox1">
 
 		<form action="<c:url value='/UpdateArticle' />"
@@ -127,7 +128,6 @@ table {
 
 				</div>
 				<div class="invalid-feedback">
-					<!-- Example invalid input group feedback -->
 				</div>
 			</div>
 
@@ -143,30 +143,28 @@ table {
 
 				</div>
 				<div class="invalid-feedback">
-					<!-- Example invalid input group feedback -->
 				</div>
 			</div>
 			<button type="submit" name="update" id="update"
 				class="btn btn-primary">修改</button>
 		</form>
 	</div>
-
+-->
 
 	<a href="<c:url value='saveArticle' />" class="fixed">
-		<button type="button" class="btn btn-success">發文
-		</button>
+		<button type="button" class="btn btn-success">發文</button>
 	</a>
 
 
 	<div class="row justify-content-center align-items-center forum">
 		<c:forEach items="${allArticleTypes}" var="ArticleType" varStatus="id">
 			<div style="border: 3px solid black; width: 50%; text-align: center;">
-				<a href="<c:url value='articleList?articletypesId=${ArticleType.getId()}' />">
+				<a
+					href="<c:url value='articleList?articletypesId=${ArticleType.getId()}' />">
 					<c:if test="${ArticleType.getId()=='1'}">
 						<img src="https://image.flaticon.com/icons/png/512/194/194279.png"
 							style="height: 80px; margin-bottom: 10px;">
-					</c:if> 
-					<c:if test="${ArticleType.getId()=='2'}">
+					</c:if> <c:if test="${ArticleType.getId()=='2'}">
 						<img
 							src="https://cdn4.iconfinder.com/data/icons/animal-3/100/animal-08-512.png"
 							style="height: 80px; margin-bottom: 10px;">
@@ -184,14 +182,17 @@ table {
 			<th>選擇刪除</th>
 			<c:forEach items="${Articles}" var="Article" varStatus="id">
 				<tr>
-					<td><a href="<c:url value='article?articleId=${Article.getId()}' />">${Article.getId()}</a></td>
+					<td><a
+						href="<c:url value='article?articleId=${Article.getId()}' />">${Article.getId()}</a></td>
 					<td>${Article.getTitle()}</td>
-					<td>
-	<a href="<c:url value='updateArticle?articleId=${Article.getId()}' />">
-		<button type="button" class="btn btn-info">修改</button>
-	</a>
-</td>
-					<td> 預計要做刪除的欄位 </td>
+					<td><a
+						href="<c:url value='updateArticle?articleId=${Article.getId()}' />">
+							<button type="button" class="btn btn-info">修改</button>
+					</a></td>
+					<td><a
+						href="<c:url value='deleteArticle?articleId=${Article.getId()}' />">
+							<button type="button" class="btn btn-danger">刪除</button>
+					</a></td>
 				<tr>
 			</c:forEach>
 		</table>
