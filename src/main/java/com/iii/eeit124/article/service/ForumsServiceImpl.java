@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iii.eeit124.article.dao.ForumsDao;
+import com.iii.eeit124.entity.Article;
 import com.iii.eeit124.entity.Forums;
 
 @Transactional
@@ -25,5 +26,12 @@ public class ForumsServiceImpl implements ForumsService {
 	public void save(Forums forums) {
 		forumsDao.save(forums);
 	}
+
+	@Override
+	public void saveArticle(Article article) {
+		forumsDao.saveArticle(article);
+		
+	}
+	
 
 }

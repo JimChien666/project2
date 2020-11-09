@@ -1,7 +1,8 @@
 package com.iii.eeit124.entity;
 
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,12 +35,6 @@ public class Forums {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
-	}
-
-	@Override
-	public String toString() {
-		return "Forums [id=" + id + ", articleid=" + articleid + ", content=" + content + ", createdat=" + createdat
-				+ ", voteid=" + voteid + ", memberid=" + memberid + ", article=" + article + "]";
 	}
 
 	public void setId(int id) {
@@ -97,7 +92,7 @@ public class Forums {
 	}
 	@ManyToOne(fetch = FetchType.LAZY)
 //	@PrimaryKeyJoinColumn
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "ARTICLE_ID")
 	public Article getArticle() {
 		return article;
 	}
@@ -119,5 +114,9 @@ public class Forums {
 		this.memberid = memberid;
 		this.article = article;
 	}
-
+//	@Override
+//	public String toString() {
+//		return "Forums [id=" + id + ", articleid=" + articleid + ", content=" + content + ", createdat=" + createdat
+//				+ ", voteid=" + voteid + ", memberid=" + memberid + ", article=" + article + "]";
+//	}
 }

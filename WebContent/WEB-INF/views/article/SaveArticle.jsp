@@ -50,32 +50,36 @@ h1 {
 
 
 
-	<form:form action="saveToDB" method="POST" modelAttribute="article">
-title:<form:input path="title" />
+	<form:form action="saveToDB" method="POST" modelAttribute="forums">
+title:<form:input path="article.title" />
 		<br>
 
 articleType:
 
 
 <%-- <form:select path="articletypesid" items="${allArticleTypes}" itemLabel="articletype" itemValue="id"> --%>
-		<form:select path="articletypesid">
-			<c:forEach items="${allArticleTypes}" var="ArticleType"
-				varStatus="id">
-				<form:option value="${ArticleType.getId()}">${ArticleType.getArticletype()}</form:option>
-			</c:forEach>
+		<form:select path="article.articletypesid">
+<%-- 						<form:option value="NONE" label="請選擇" /> --%>
+						<form:option value="1" label="狗" />
+						<form:option value="2" label="貓" />
+		
+		
+<%-- 			<c:forEach items="${allArticleTypes}" var="ArticleType" --%>
+<%-- 				varStatus="id"> --%>
+<%-- 				<form:options >  --%>
+<%-- 				<form:option value="${ArticleType.getId()}">${ArticleType.getArticletype()}</form:option> --%>
+<%-- 				</form:options>  --%>
+<%-- 			</c:forEach> --%>
 		</form:select>
 		<br>
-article:<form:textarea path="forums.content" />
+article:<form:textarea path="content" />
 		<br>
-<form:hidden value="1" path="activitysid"/>		
-<form:hidden value="1" path="showarticle"/>		
+<form:hidden value="1" path="article.activitysid"/>		
+<form:hidden value="1" path="article.showarticle"/>		
+<form:hidden value="1" path="article.memberid"/>
 <form:hidden value="1" path="memberid"/>		
-<form:hidden value="1" path="forums.voteid"/>		
-		
-		
-		
-		
-		
+<form:hidden value="1" path="voteid"/>		
+		<form:button value="submit" type="submit">送出</form:button>
 		
 	</form:form>
 

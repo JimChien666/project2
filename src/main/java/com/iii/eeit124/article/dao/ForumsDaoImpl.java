@@ -8,6 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.iii.eeit124.entity.Article;
 import com.iii.eeit124.entity.Forums;
 @Repository
 public class ForumsDaoImpl implements ForumsDao {
@@ -26,6 +27,12 @@ public class ForumsDaoImpl implements ForumsDao {
 	@Override
 	public void save(Forums forums) {
 		sessionFactory.getCurrentSession().save(forums);		
+	}
+
+	@Override
+	public void saveArticle(Article article) {
+		sessionFactory.getCurrentSession().save(article);		
+		
 	}
 
 }

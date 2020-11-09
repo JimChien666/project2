@@ -1,10 +1,7 @@
 package com.iii.eeit124.article.controller;
 
-import java.sql.Date;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.Locale;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +37,9 @@ public class ArticleController {
 
 	@GetMapping(value = "saveArticle")
 	public String saveArticle(Model model) {
+//		Article article = new Article();
+		Forums forums = new Forums();
+		model.addAttribute(forums);
 //		model.addAttribute("allArticleTypes", articleService.getAllArticleTypes());
 		return "article/SaveArticle";
 	}  
@@ -65,9 +65,6 @@ public class ArticleController {
 //		article.setForums(forums);
 		article.getForums().add(forums);
 		
-//		System.out.println("....................");
-//		System.out.println(forums.toString());
-//		System.out.println("....................");
 		forumsService.save(forums);
 		return "redirect:/articleList";
 //		if (result.hasErrors()) {
@@ -78,12 +75,21 @@ public class ArticleController {
 	}  
 	*/
 	@PostMapping(value = "/saveToDB")
-	public String saveToDB(@ModelAttribute(name = "article")Article article, BindingResult result, ModelMap model) {
+	public String saveToDB(@ModelAttribute(name = "forums")Forums forums, BindingResult result, ModelMap model) {
+//		public String saveToDB(@ModelAttribute(name = "article")Article article, BindingResult result, ModelMap model) {
+//		Article article = forums.getArticle();
+//		Date date = new Date();
+		forums.setCreatedat(new Date());
+		Article article = forums.getArticle();
+		forums.setArticle(article);
+		article.getForums().add(forums);
+
 		
-		
-		
-		
-		
+//		System.out.println("....................");
+//		System.out.println(forums.toString());
+//		System.out.println("....................");
+//		forumsService.save(forums);
+		forumsService.saveArticle(article);
 		return "redirect:/articleList";
 		
 		

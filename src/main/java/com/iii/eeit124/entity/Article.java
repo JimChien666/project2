@@ -82,7 +82,7 @@ public class Article {
 		this.articletypesid = articletypesid;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, targetEntity = Forums.class, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
 //	@OneToMany(fetch = FetchType.LAZY, targetEntity = Forums.class, cascade = CascadeType.ALL, mappedBy = "article")
 	public Set<Forums> getForums() {
 		return forums;
@@ -115,6 +115,13 @@ public class Article {
 		this.articletypesid = articletypesid;
 		this.forums = forums;
 	}
+
+//	@Override
+//	public String toString() {
+//		return "Article [id=" + id + ", title=" + title + ", activitysid=" + activitysid + ", showarticle="
+//				+ showarticle + ", memberid=" + memberid + ", articletypesid=" + articletypesid + ", forums=" + forums
+//				+ "]";
+//	}
 
 
 
