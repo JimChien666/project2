@@ -1,3 +1,4 @@
+
 package com.iii.eeit124.entity;
 
 import java.io.Serializable;
@@ -165,8 +166,8 @@ public class Members implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	@Column(name="ADOPTED_LEVEL_ID")
-//	@Transient
+//	@Column(name="ADOPTED_LEVEL_ID")
+	@Transient
 	public Integer getAdoptedLevelId() {
 		return adoptedLevelId;
 	}

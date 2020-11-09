@@ -134,11 +134,13 @@ public class RegisterController {
 			
 			files.add(file);
 			member.setFiles(files);
+
 			file.setMember(member);
 //			System.out.println(member);
 			member.setCreatedAt(new Date());
 //			int n = registerService.saveRegister(member, files);
 			int n = registerService.saveMember(member);
+
 			if (n == 1) {
 				session.setAttribute("LoginOK", member);
 				return "redirect:/";

@@ -35,7 +35,7 @@
 			<%-- <li class="nav-item"><a class="nav-link"
 				href="<c:url value='/ShowIndexServlet' />">寵物旅遊</a></li> --%>
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ServletReadAnimal' />">寵物領養</a></li>
+				href="<c:url value='readAnimal' />">寵物領養</a></li>
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value='/ArticleShow' />">討論區</a></li>
 			<c:if test="${empty LoginOK}">
