@@ -82,7 +82,8 @@ public class Article {
 		this.articletypesid = articletypesid;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, targetEntity = Forums.class, cascade = CascadeType.ALL, mappedBy = "article")
+	@OneToMany(fetch = FetchType.LAZY, targetEntity = Forums.class, cascade = CascadeType.ALL)
+//	@OneToMany(fetch = FetchType.LAZY, targetEntity = Forums.class, cascade = CascadeType.ALL, mappedBy = "article")
 	public Set<Forums> getForums() {
 		return forums;
 	}

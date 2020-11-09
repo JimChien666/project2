@@ -49,93 +49,35 @@ h1 {
 
 
 
-<form action="saveToDB" enctype="multipart/form-data"
- method="post" class="was-validated" style="margin: 1% 10% 3% 3%;">
-      <br>
 
-      <!-- 標題-->
-      <div class="mb-3">
-        <div class="input-group is-invalid">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="validatedInputGroupPrepend">文章標題</span>
-          </div>
-          
-          <input type="text" name="article.title" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" placeholder="請輸入文章標題"  required>
-        
-        </div>
-        <div class="invalid-feedback">
-          <!-- Example invalid input group feedback -->
-        </div>
-      </div>
-
-      <br>
-      
-
-      <!-- 選擇文章主題-->
-      <div class="mb-3">
-        <div class="input-group is-invalid">
-
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="validatedInputGroupPrepend">文章主題</span>
-          </div>
-
-          <select class="custom-select" name="article.articletypesid" id="Choose" required>
-            <option value="">Choose...</option>
-            <option value="1">狗</option>
-            <option value="2">貓</option>
-
-          </select>        </div>
-        <div class="invalid-feedback">
-          <!-- Example invalid input group feedback -->
-        </div>
-      </div> 
-      
-
-      <br>
-      <!-- 輸入文章內文-->
-    <div class="mb-3">
-      <label for="validationTextarea">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="validatedInputGroupPrepend">文章內容</span>
-        </div>
-      </label>
-      
-      <textarea name="content" class="form-control is-invalid" id="validationTextarea" placeholder="請輸入文章內容"  style="height: 160px" required></textarea>
-
-      <div style="float: right;">
-        可以下拉調整大小
-      </div>
-    </div>    
-        <button type="submit" name="submit" id="submit" class="btn btn-primary">發文</button>
-    </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<form:form action="saveToDB" method="POST" modelAttribute="article">
-title:<form:input path="title"/><br>
+	<form:form action="saveToDB" method="POST" modelAttribute="article">
+title:<form:input path="title" />
+		<br>
 
 articleType:
 
 
 <%-- <form:select path="articletypesid" items="${allArticleTypes}" itemLabel="articletype" itemValue="id"> --%>
-<form:select path="articletypesid">
-<c:forEach items="${allArticleTypes}" var="ArticleType" varStatus="id">
-<form:option value="${ArticleType.getId()}">${ArticleType.getArticletype()}</form:option>
-</c:forEach>
-</form:select><br>
-article:<form:textarea path="forums.content"/><br>
-
-</form:form>
+		<form:select path="articletypesid">
+			<c:forEach items="${allArticleTypes}" var="ArticleType"
+				varStatus="id">
+				<form:option value="${ArticleType.getId()}">${ArticleType.getArticletype()}</form:option>
+			</c:forEach>
+		</form:select>
+		<br>
+article:<form:textarea path="forums.content" />
+		<br>
+<form:hidden value="1" path="activitysid"/>		
+<form:hidden value="1" path="showarticle"/>		
+<form:hidden value="1" path="memberid"/>		
+<form:hidden value="1" path="forums.voteid"/>		
+		
+		
+		
+		
+		
+		
+	</form:form>
 
 
 

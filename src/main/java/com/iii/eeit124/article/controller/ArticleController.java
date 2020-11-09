@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -77,7 +78,7 @@ public class ArticleController {
 	}  
 	*/
 	@PostMapping(value = "/saveToDB")
-	public String saveToDB(Forums forums, BindingResult result, ModelMap model) {
+	public String saveToDB(@ModelAttribute(name = "article")Article article, BindingResult result, ModelMap model) {
 		
 		
 		
