@@ -100,12 +100,21 @@ public class ArticleController {
 	//show one article
 	@GetMapping(value = "article")
 	public String article(Locale locale, Model model, @RequestParam(value = "articleId")Integer id) {
-		model.addAttribute("articleId", articleService.select(id));
-		model.addAttribute("forums", forumsService.select(id));
+		Article article = articleService.select(id);
+		System.out.println(".................");
+		System.out.println(article.getForums());
+		System.out.println(".................");
+		
+//		model.addAttribute("articleId", select);
+		
+		
+		
+		model.addAttribute("forums", article.getForums());
 //		if (condition) {
 //			
 //		}		
 		return "article/Article";		
+		
 	}
 	
 }

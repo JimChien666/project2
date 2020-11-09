@@ -16,6 +16,7 @@ public class ForumsDaoImpl implements ForumsDao {
 	@Autowired(required = false)
 	private SessionFactory sessionFactory;
 	
+
 	@Override
 	public List<Forums> select(int id) {
 		Session session = sessionFactory.getCurrentSession();
@@ -23,6 +24,11 @@ public class ForumsDaoImpl implements ForumsDao {
 		query.setParameter(1, id);
 		return query.list();
 	}
+	
+	
+	
+	
+	
 
 	@Override
 	public void save(Forums forums) {

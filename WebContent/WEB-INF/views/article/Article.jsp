@@ -12,7 +12,7 @@
 <body>
 	<table>
 		<th>標題:<c:out value="${articleId.title}"></c:out></th>
-		<!-- 		<th>文章內容</th> -->
+				<th>文章內容</th>
 
 		<c:forEach items="${forums}" var="Forums"  varStatus="id">
 			<tr>
