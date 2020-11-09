@@ -37,7 +37,7 @@ public class Members implements Serializable{
 	private Integer adoptedLevelId;
 	private String memberType;
 	private Date createdAt;
-	private Set<Files> files = new HashSet<Files>();
+	private Set<MemberFiles> files = new HashSet<MemberFiles>();
 	private Set<Products> products = new HashSet<Products>();
 	
 
@@ -177,21 +177,21 @@ public class Members implements Serializable{
 
 	@Transient
 	public Integer getFileId() {
-		Iterator<Files> iterator = this.files.iterator();
+		Iterator<MemberFiles> iterator = this.files.iterator();
 		Integer fileId = 0;
 		if(iterator.hasNext()) {
-			Files contentImg = iterator.next();
+			MemberFiles contentImg = iterator.next();
 			fileId = contentImg.getId();
 		}
 		return fileId;
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "member", cascade = CascadeType.ALL)
-	public Set<Files> getFiles() {
+	public Set<MemberFiles> getFiles() {
 		return files;
 	}
 
-	public void setFiles(Set<Files> files) {
+	public void setFiles(Set<MemberFiles> files) {
 		this.files = files;
 	}
 

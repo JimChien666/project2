@@ -7,7 +7,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iii.eeit124.entity.Files;
+import com.iii.eeit124.entity.MemberFiles;
 import com.iii.eeit124.entity.Members;
 
 
@@ -33,10 +33,10 @@ public class LoginDaoImpl implements LoginDao {
 
 	@Override
 	@Nullable
-	public Files getFileById(int id) {
-		Query<Files> query = sessionFactory.getCurrentSession().createQuery("from Files where ID = ?0", Files.class);
+	public MemberFiles getFileById(int id) {
+		Query<MemberFiles> query = sessionFactory.getCurrentSession().createQuery("from MemberFiles where ID = ?0", MemberFiles.class);
 		query.setParameter(0, id);
-		Files file = query.uniqueResult();
+		MemberFiles file = query.uniqueResult();
 		return file;
 	}
 }

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iii.eeit124.entity.AttractionTypes;
 import com.iii.eeit124.entity.Attractions;
-import com.iii.eeit124.entity.Files;
+import com.iii.eeit124.entity.MemberFiles;
 
 
 
@@ -35,7 +35,7 @@ public class GetOneAttractionTypeDataDAO {
 	}
 	
 	public Blob getFileBlob(int id) {
-		Query<Files> query = sessionFactory.getCurrentSession().createQuery("from Files where ID = ?0", Files.class);
+		Query<MemberFiles> query = sessionFactory.getCurrentSession().createQuery("from Files where ID = ?0", MemberFiles.class);
 		query.setParameter(0, id);
 		return query.uniqueResult().getFileBlob();
 		

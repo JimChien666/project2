@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iii.eeit124.entity.Files;
+import com.iii.eeit124.entity.MemberFiles;
 import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.member.dao.LoginDao;
 
@@ -26,8 +26,8 @@ public class LoginServiceImpl implements LoginService {
 	}
 	@Override
 	@Transactional
-	public Files getFileById(int id) {
-		Files file = dao.getFileById(id);
+	public MemberFiles getFileById(int id) {
+		MemberFiles file = dao.getFileById(id);
 		return file;
 	}
 }

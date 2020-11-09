@@ -61,7 +61,7 @@
 					aria-haspopup="true" aria-expanded="false">
 						${LoginOK.getName()} </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="<c:url value='/FormMember.jsp' />">會員中心</a>
+						<a class="dropdown-item" href="<c:url value='/member/memberCenter' />">會員中心</a>
 						<a class="dropdown-item"
 							href="<c:url value='/member/logout' />">登出</a>
 							

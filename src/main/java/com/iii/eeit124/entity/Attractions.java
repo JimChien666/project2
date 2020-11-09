@@ -46,8 +46,8 @@ public class Attractions implements Serializable {
 	private Set<Tags> tags = new HashSet<Tags>();
 	private Set<AttractionComments> attractionComments = new HashSet<AttractionComments>();
 //	private Set<Files> files = new HashSet<Files>();
-	private Set<Files> contentImgs = new HashSet<Files>();
-	private Set<Files> coverImgs = new HashSet<Files>();
+	private Set<MemberFiles> contentImgs = new HashSet<MemberFiles>();
+	private Set<MemberFiles> coverImgs = new HashSet<MemberFiles>();
 	
 	public Attractions() {};
 
@@ -213,23 +213,23 @@ public class Attractions implements Serializable {
 		this.attractionComments = attractionComments;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=MemberFiles.class, cascade = CascadeType.ALL)
 	@JoinColumns(value = { @JoinColumn(name="CONTENT_ATTRACTION_ID",referencedColumnName="ID")})
-	public Set<Files> getContentImgs() {
+	public Set<MemberFiles> getContentImgs() {
 		return contentImgs;
 	}
 
 	
-	public void setContentImgs(Set<Files> contentImgs) {
+	public void setContentImgs(Set<MemberFiles> contentImgs) {
 		this.contentImgs = contentImgs;
 	}
-	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=MemberFiles.class, cascade = CascadeType.ALL)
 	@JoinColumns(value = { @JoinColumn(name="COVER_ATTRACTION_ID",referencedColumnName="ID")})
-	public Set<Files> getCoverImgs() {
+	public Set<MemberFiles> getCoverImgs() {
 		return coverImgs;
 	}
 	
-	public void setCoverImgs(Set<Files> coverImgs) {
+	public void setCoverImgs(Set<MemberFiles> coverImgs) {
 		this.coverImgs = coverImgs;
 	}
 
@@ -245,10 +245,10 @@ public class Attractions implements Serializable {
 
 	@Transient
 	public Integer getFirstCoverImgId() {
-		Iterator<Files> iterator = this.coverImgs.iterator();
+		Iterator<MemberFiles> iterator = this.coverImgs.iterator();
 		Integer fileId = 0;
 		if(iterator.hasNext()) {
-			Files coverImg = iterator.next();
+			MemberFiles coverImg = iterator.next();
 			fileId = coverImg.getId();
 		}
 		return fileId;
@@ -256,10 +256,10 @@ public class Attractions implements Serializable {
 	
 	@Transient
 	public Integer getFirstContentImgId() {
-		Iterator<Files> iterator = this.contentImgs.iterator();
+		Iterator<MemberFiles> iterator = this.contentImgs.iterator();
 		Integer fileId = 0;
 		if(iterator.hasNext()) {
-			Files contentImg = iterator.next();
+			MemberFiles contentImg = iterator.next();
 			fileId = contentImg.getId();
 		}
 		return fileId;

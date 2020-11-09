@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.iii.eeit124.entity.Files;
+import com.iii.eeit124.entity.MemberFiles;
 import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.member.service.RegisterService;
 import com.iii.eeit124.util.GlobalService;
@@ -128,9 +128,9 @@ public class RegisterController {
 			
 			is1.read(b);
 			is1.close();
-			Set<Files> files = new HashSet<Files>();
+			Set<MemberFiles> files = new HashSet<MemberFiles>();
 			Blob blob = new SerialBlob(b);
-			Files file = new Files("image", blob);
+			MemberFiles file = new MemberFiles("image", blob);
 			
 			files.add(file);
 			member.setFiles(files);

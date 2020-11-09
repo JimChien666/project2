@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.iii.eeit124.entity.Files;
+import com.iii.eeit124.entity.MemberFiles;
 import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.member.service.LoginService;
 import com.iii.eeit124.util.GlobalService;
@@ -155,7 +155,7 @@ public class LoginController {
 	@ResponseBody
 	public ResponseEntity<byte[]> processFileReadAction(@RequestParam(name = "fileId") Integer fileId) throws Exception{
 		ResponseEntity<byte[]> re = null;
-		Files file = loginService.getFileById(fileId);
+		MemberFiles file = loginService.getFileById(fileId);
 		Blob fileBlob = file.getFileBlob();
 		String mimeType = ctx.getMimeType("test.jpg");
 		MediaType mediaType = MediaType.valueOf(mimeType);

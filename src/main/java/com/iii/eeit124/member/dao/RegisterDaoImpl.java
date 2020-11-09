@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iii.eeit124.entity.Files;
+import com.iii.eeit124.entity.MemberFiles;
 import com.iii.eeit124.entity.Members;
 
 
@@ -44,7 +44,7 @@ public class RegisterDaoImpl implements RegisterDao {
 	}
 
 	@Override
-	public void saveFile(Files file) {
+	public void saveFile(MemberFiles file) {
 		sessionFactory.getCurrentSession().save(file);
 	}
 }

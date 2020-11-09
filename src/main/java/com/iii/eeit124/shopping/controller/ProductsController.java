@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.iii.eeit124.entity.Files;
+import com.iii.eeit124.entity.MemberFiles;
 import com.iii.eeit124.entity.Products;
 import com.iii.eeit124.shopping.service.ProductsService;
 
@@ -107,7 +107,7 @@ public class ProductsController {
 				   
 				   is1.read(b);
 				   is1.close();
-				   Set<Files> files = new HashSet<Files>();
+				   Set<MemberFiles> files = new HashSet<MemberFiles>();
 				   Blob blob = new SerialBlob(b);
 //				   Files file = new Files("image", blob);
 				   products.setImg(blob);

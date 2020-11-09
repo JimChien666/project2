@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iii.eeit124.entity.Files;
+import com.iii.eeit124.entity.MemberFiles;
 import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.member.dao.RegisterDao;
 
@@ -21,9 +21,9 @@ public class RegisterServiceImpl implements RegisterService {
 
 	@Override
 	@Transactional
-	public int saveRegister(Members mb, Set<Files> files) {
+	public int saveRegister(Members mb, Set<MemberFiles> files) {
 		int num = dao.saveMember(mb);
-		for(Files file:files) {
+		for(MemberFiles file:files) {
 			file.setMember(mb);
 			dao.saveFile(file);
 		}

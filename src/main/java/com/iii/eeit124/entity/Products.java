@@ -23,6 +23,22 @@ import org.springframework.web.multipart.MultipartFile;
 @Entity
 @Table(name="PRODUCTS")
 public class Products {
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(" {\"id\":\"").append(id).append("\", \"name\":\"").append(name).append("\", \"description\":\"")
+				.append(description).append("\", \"quantity\":\"").append(quantity).append("\", \"price\":\"")
+				.append(price).append("\", \"discount\":\"").append(discount).append("\", \"memberId\":\"")
+				.append(memberId).append("\", \"categoryId\":\"").append(categoryId).append("\", \"colorId\":\"")
+				.append(colorId).append("\", \"animalTypeId\":\"").append(animalTypeId).append("\", \"coverImg\":\"")
+				.append(coverImg).append("\", \"createdAt\":\"").append(createdAt).append("\", \"updatedAt\":\"")
+				.append(updatedAt).append("\", \"deletedAt\":\"").append(deletedAt).append("\", \"status\":\"")
+				.append(status).append("\", \"multipartFile\":\"").append(multipartFile).append("\", \"animalType\":\"")
+				.append(animalType).append("\", \"color\":\"").append(color).append("\", \"member\":\"").append(member)
+				.append("\", \"category\":\"").append(category).append("\", \"contentImgs\":\"").append(contentImgs)
+				.append("}");
+		return builder.toString();
+	}
 	private Integer id;
 	private String name;
 	private String description;
@@ -44,7 +60,7 @@ public class Products {
 	private Colors color;
 	private Members member;
 	private Categories category;
-	private Set<Files> contentImgs = new HashSet<>();
+	private Set<ProductFiles> contentImgs = new HashSet<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ANIMAL_TYPE_ID")
@@ -193,10 +209,10 @@ public class Products {
 		this.multipartFile = multipartFile;
 	}
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-	public Set<Files> getContentImgs() {
+	public Set<ProductFiles> getContentImgs() {
 		return contentImgs;
 	}
-	public void setContentImgs(Set<Files> contentImgs) {
+	public void setContentImgs(Set<ProductFiles> contentImgs) {
 		this.contentImgs = contentImgs;
 	}
 }
