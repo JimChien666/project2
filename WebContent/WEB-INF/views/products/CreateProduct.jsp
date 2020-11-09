@@ -6,8 +6,34 @@
 <head>
 <meta charset="UTF-8">
 <title>Create Product</title>
+<script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />" ></script>
 <script>
 window.onload = function() {
+	/* getColors(); */
+	getCategories();
+	
+}
+
+function getCategories(){
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "<c:url value='/product/getCategories' />", true);
+	xhr.send();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var content = "商品分類：<select name='category'>";
+			content += "<option value='' disabled selected='selected'>請選擇商品分類</option>"
+			var categories = JSON.parse(xhr.responseText);
+			for(var i=0; i < categories.length; i++){
+				categories += 	"<option value='" + categories[i].id + "'>" + categories[i].name + "</option>";
+			}
+			content += "</select>";
+			var divs = document.getElementById("somedivS");
+			divs.innerHTML += content;
+		}
+	}
+}
+
+function getColors(){
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "<c:url value='/product/getColors' />", true);
 	xhr.send();
@@ -21,13 +47,10 @@ window.onload = function() {
 			}
 			content += "</select>";
 			var divs = document.getElementById("somedivS");
-			divs.innerHTML = content;
+			divs.innerHTML += content;
 		}
 	}
-		
 }
-
-
 
 
 </script>

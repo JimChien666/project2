@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.iii.eeit124.entity.Categories;
 import com.iii.eeit124.entity.Colors;
 import com.iii.eeit124.shopping.service.CreateProductService;
 
@@ -31,4 +32,11 @@ public class CreateProductController {
 		List<Colors> colors = service.findAllColors();
 		return colors;
 	}
+	
+	@GetMapping("/getCategories")
+	public @ResponseBody List<Categories> queryAllCategories(Model model) {
+		List<Categories> categories = service.findAllCatrgories();
+		return categories;
+	}
+	
 }
