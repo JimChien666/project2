@@ -18,17 +18,16 @@
 		
 <!-- ====================================================================================================== -->
 
-		<form:form action="CreateAnimal.controller" method="POST" modelAttribute="AnimalsList1">
-			<!-- 		 enctype="multipart/form-data" -->
+		<form:form action="CreateAnimal.controller" method="POST" modelAttribute="AnimalsList1" enctype="multipart/form-data">
 			
 			<!-- ============================================================================== -->
 			
 			<label for="" class="label1">照片：</label>
-<%-- 			<form:input path="files" type="file" name="animalFile" id="animalFile" class="wid200px"/> --%>
+			<form:input path="animalFiles" type="file" class="wid200px"/>
+<!-- 			<input type="file" name="animalFile" id="animalFile" multiple class="wid200px"><br> -->
 			<br>
-		<!--<input type="file" name="animalFile" id="animalFile" multiple class="wid200px"><br> -->
 			<span id="animalFileSpan" class="spanHidden height260px">
-			<img id="preview_animalFile" src="#" class="square250px" /><br>
+				<img id="preview_animalFile" src="#" class="square250px" /><br>
 			</span>
 			
 			<!-- ============================================================================== -->

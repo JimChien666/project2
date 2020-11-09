@@ -14,7 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "animals")//大小寫沒差別，跟資料庫名一樣就好
@@ -32,27 +35,14 @@ public class Animals {
 	private Date createdAt;
 	private Date updatedAt;
 	private Date deletedAt;
+	private MultipartFile animalFiles;
 //	private AdoptionRecords adoptionRecords;
 //	private MembersBean membersBean;
 //	private Breeds breeds;
 	private Set<Files> files = new HashSet<Files>();
 	
-	public Animals() {}
+	public Animals () {}
 	
-	public Animals(Integer animalId, Integer memberId, String acceptionId, Integer breedId, Integer gender, String coatColor,
-			Integer isAdoptionAvailable, String note, Date createdAt, Date updatedAt, Date deletedAt) {
-		this.animalId = animalId;
-		this.memberId = memberId;
-		this.acceptionId = acceptionId;
-		this.breedId = breedId;
-		this.gender = gender;
-		this.coatColor = coatColor;
-		this.isAdoptionAvailable = isAdoptionAvailable;
-		this.note = note;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-		this.deletedAt = deletedAt;
-	}
 //	@SequenceGenerator(name = "activitysSeqGen", sequenceName = "activitys_seq", allocationSize = 1)
 //	@GeneratedValue(generator = "activitysSeqGen", strategy = GenerationType.SEQUENCE)
 	@Id
@@ -144,6 +134,15 @@ public class Animals {
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
 	}
+	
+	@Transient
+	public MultipartFile getAnimalFiles() {
+		return animalFiles;
+	}
+	public void setAnimalFiles(MultipartFile animalFiles) {
+		this.animalFiles = animalFiles;
+	}
+	
 //	@OneToOne(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)
 //	public AdoptionRecords getAdoptionRecords() {
 //		return adoptionRecords;
@@ -167,7 +166,6 @@ public class Animals {
 //	public void setBreeds(Breeds breeds) {
 //		this.breeds = breeds;
 //	}
-
 	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
 	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ANIMAL_ID")})//第一個ANIMAL_ID為Files的，第二個為Animals的。
 	public Set<Files> getFiles() {
@@ -182,6 +180,6 @@ public class Animals {
 		return "Animals [animalId=" + animalId + ", memberId=" + memberId + ", acceptionId=" + acceptionId
 				+ ", breedId=" + breedId + ", gender=" + gender + ", coatColor=" + coatColor + ", isAdoptionAvailable="
 				+ isAdoptionAvailable + ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-				+ ", deletedAt=" + deletedAt + "]";
+				+ ", deletedAt=" + deletedAt + ", files=" + files + ", animalFiles=" + animalFiles + "]";
 	}
 }
