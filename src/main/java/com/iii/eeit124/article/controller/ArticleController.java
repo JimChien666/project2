@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.iii.eeit124.article.service.ArticleService;
 import com.iii.eeit124.article.service.ForumsService;
-import com.iii.eeit124.entity.Activitys;
 import com.iii.eeit124.entity.Article;
 import com.iii.eeit124.entity.Forums;
 import com.iii.eeit124.entity.Members;
@@ -51,6 +49,13 @@ public class ArticleController {
 	public String backArticle() {
 		return "redirect:/articleList";
 	}
+	
+	@GetMapping(value = "replyArticle")
+	public String replyArticle(Model model, @RequestParam(value = "articleId") Integer id) {
+		Article article = articleService.select(id);
+		model.addAttribute("article", article);		
+		return "replyArticle";
+	}
 
 	@GetMapping(value = "saveArticle")
 	public String saveArticle(Model model) {
@@ -68,9 +73,6 @@ public class ArticleController {
 
 	@GetMapping(value = "deleteArticle")
 	public String deleteArticle(@RequestParam(value = "articleId", required = false) Integer id) {
-		System.out.println("...........");
-		System.out.println(id);
-		System.out.println("...........");
 		articleService.delete(articleService.select(id));
 		System.out.println("...........");
 		return "redirect:/articleList";
