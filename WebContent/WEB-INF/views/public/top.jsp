@@ -37,7 +37,7 @@
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value='/ServletReadAnimal' />">寵物領養</a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ArticleShow' />">討論區</a></li>
+				href="<c:url value='/articleList' />">討論區</a></li>
 			<c:if test="${empty LoginOK}">
 				<li class="nav-item"><a class="nav-link"
 					href="<c:url value='/member/register' />" tabindex="-1"

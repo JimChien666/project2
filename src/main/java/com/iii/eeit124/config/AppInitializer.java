@@ -31,15 +31,15 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		rootContext.register(SpringMVCJavaConfig.class);
+		rootContext.register(SpringMVCJavaConfig.class); //���U�γ]�w���O
 		rootContext.setServletContext(servletContext);
-		ServletRegistration.Dynamic mvc = servletContext.addServlet("mvc", new DispatcherServlet(rootContext));
-		mvc.setLoadOnStartup(1);
-		mvc.addMapping("/");
+		ServletRegistration.Dynamic mvc = servletContext.addServlet("mvc", new DispatcherServlet(rootContext)); // �ʺA���U�]�w���
+		mvc.setLoadOnStartup(1);									//servletcontext�W�r
+		mvc.addMapping("/"); //servletŪ�����|
 		FilterRegistration.Dynamic filterRegistration = servletContext.addFilter("endcodingFilter", new CharacterEncodingFilter());
-		filterRegistration.setInitParameter("encoding", "UTF-8");
+		filterRegistration.setInitParameter("encoding", "UTF-8");				//�ʺA���U�L�o��
 		filterRegistration.setInitParameter("forceEncoding", "true");
-		filterRegistration.addMappingForUrlPatterns(null, false, "/*");
+		filterRegistration.addMappingForUrlPatterns(null, false, "/*"); //�������n�s�X��utf-8(��H)
 		filterRegistration = servletContext.addFilter("OpenSessionViewFilter", OpenSessionViewFilter.class);
 		filterRegistration.addMappingForUrlPatterns(null, true, "/*");
 //		filterRegistration.addMappingForServletNames(null, true, "mvc");
@@ -47,11 +47,12 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 //		filterRegistration.setInitParameter("sessionFactoryBeanName", "sessionFactory");
 		filterRegistration.addMappingForUrlPatterns(null, true, "/*");
 		filterRegistration.setInitParameter("mustLogin1", "/product/CreateProduct");
+		filterRegistration.setInitParameter("mustLogin2", "/saveArticle");
+
 		filterRegistration = servletContext.addFilter("FindUserPassword", FindUserPassword.class);
 		filterRegistration.addMappingForUrlPatterns(null, true, "/login");
 		filterRegistration.addMappingForServletNames(null, true, "mvc");
-
-		servletContext.addListener(new ContextLoaderListener(rootContext));
+		servletContext.addListener(new ContextLoaderListener(rootContext)); //�]�wservletContext��ť��
 	}
 
 	@Override
