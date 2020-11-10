@@ -5,8 +5,6 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,119 +23,96 @@ import com.iii.eeit124.entity.Article;
 import com.iii.eeit124.entity.Forums;
 import com.iii.eeit124.entity.Members;
 
-
-
 @Controller
-@SessionAttributes(names={"article"})
+@SessionAttributes(names = { "article" })
 public class ArticleController {
 
-	
 	@Autowired
 	HttpSession session;
 	@Autowired
 	ArticleService articleService;
 	@Autowired
 	ForumsService forumsService;
-	
-	 @ModelAttribute("article")
-	    public Article formBackingObject() {
-	        return new Article();
-	    }
-	
-	
+
+	@ModelAttribute("article")
+	public Article formBackingObject() {
+		return new Article();
+	}
+
 	@GetMapping(value = "articleList")
-	public String list(Locale locale, Model model, @RequestParam(value = "articletypesId", required = false, defaultValue = "1")Integer id) {
+	public String list(Locale locale, Model model,
+			@RequestParam(value = "articletypesId", required = false, defaultValue = "1") Integer id) {
 		model.addAttribute("allArticleTypes", articleService.getAllArticleTypes());
-		model.addAttribute("Articles", articleService.getAllArticles(id));		
+		model.addAttribute("Articles", articleService.getAllArticles(id));
 		return "article/ShowAllArticle";
 	}
+
 	@GetMapping(value = "backArticle")
 	public String backArticle() {
-		return "redirect:/articleList";		
+		return "redirect:/articleList";
 	}
-	
-	
+
 	@GetMapping(value = "saveArticle")
 	public String saveArticle(Model model) {
 		Forums forums = new Forums();
 		model.addAttribute(forums);
 		return "article/SaveArticle";
-	}  
-	
+	}
+
 	@GetMapping(value = "updateArticle")
-	public String updateArticle(Model model, @RequestParam(value = "articleId")Integer id) {
-		Article article = articleService.select(id);		
+	public String updateArticle(Model model, @RequestParam(value = "articleId") Integer id) {
+		Article article = articleService.select(id);
 		model.addAttribute("article", article);
 		return "article/UpdateArticle";
 	}
+
 	@GetMapping(value = "deleteArticle")
-//	public String deleteArticle(Model model, @RequestParam(value = "articleId")Integer id) {
-	public String deleteArticle(@RequestParam(value = "articleId", required = false)Integer id) {
+	public String deleteArticle(@RequestParam(value = "articleId", required = false) Integer id) {
 		System.out.println("...........");
 		System.out.println(id);
 		System.out.println("...........");
-		articleService.delete(articleService.select(id));		
+		articleService.delete(articleService.select(id));
 		System.out.println("...........");
-		return "redirect:/articleList";		
+		return "redirect:/articleList";
 	}
-	
+
 	// save article to db and return the articleList page.
 	@PostMapping(value = "/saveToDB")
-	public String saveToDB(@ModelAttribute(name = "forums")Forums forums, BindingResult result, ModelMap model) {
+	public String saveToDB(@ModelAttribute(name = "forums") Forums forums, BindingResult result, ModelMap model) {
 //		public String saveToDB(@ModelAttribute(name = "article")Article article, BindingResult result, ModelMap model) {
 //		Article article = forums.getArticle();
 //		Date date = new Date();
 		forums.setCreatedat(new Date());
 		Article article = forums.getArticle();
-		
+
 		forums.setArticle(article);
-		forums.setMember((Members)session.getAttribute("LoginOK"));
-		article.getForums().add(forums);		
-		article.setMember((Members)session.getAttribute("LoginOK"));
+		forums.setMember((Members) session.getAttribute("LoginOK"));
+		article.getForums().add(forums);
+		article.setMember((Members) session.getAttribute("LoginOK"));
 		forumsService.saveArticle(article);
-//		articleService.update(article);
-		return "redirect:/articleList";		
+		return "redirect:/articleList";
 	}
-	
-	
+
 	// update article to db and return the articleList page.
 	@PostMapping(value = "/updateToDB")
-	public String updateToDB(
-			@ModelAttribute(name = "article") Article article,
-			@RequestParam("content") String forumContent,
-			BindingResult result, 
-			Model model) {
+	public String updateToDB(@ModelAttribute(name = "article") Article article,
+			@RequestParam("content") String forumContent, BindingResult result, Model model) {
 		System.out.println(article.getTitle());
 		System.out.println(article.getFirstForum());
 		article.getFirstForum().setContent(forumContent);
-//		System.out.println(article);
-		
+
 		System.out.println(forumContent);
 		forumsService.update(article);
 		return "redirect:/articleList";
-//		Article article = forums.getArticle();
-//
-//		forums.setCreatedat(new Date());
-//		forums.setArticle(article);
-//		article.getForums().add(forums);		
-//
-//		forumsService.update(article);
-//		return "redirect:/articleList";		
 	}
 
-	
-	//show one article
+	// show one article
 	@GetMapping(value = "article")
-	public String article(Locale locale, Model model, @RequestParam(value = "articleId")Integer id) {
+	public String article(Locale locale, Model model, @RequestParam(value = "articleId") Integer id) {
 		Article article = articleService.select(id);
-		
-//		model.addAttribute("articleId", select);
-	
 		model.addAttribute("article", article);
 		model.addAttribute("forums", article.getForums());
-	
-		return "article/Article";		
-		
+		return "article/Article";
 	}
-	
+
 }
