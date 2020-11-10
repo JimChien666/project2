@@ -65,7 +65,9 @@ article:<textarea name="content">${article.getFirstForum().getContent()}</textar
 		
 	</form:form>
 
-
+<a href="<c:url value='backArticle' />" class="fixed">
+		<button type="button" class="btn btn-success">回討論版</button>
+	</a>
 
 </body>
 </html>

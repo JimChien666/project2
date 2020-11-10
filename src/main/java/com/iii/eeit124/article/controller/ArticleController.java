@@ -46,7 +46,12 @@ public class ArticleController {
 		model.addAttribute("Articles", articleService.getAllArticles(id));		
 		return "article/ShowAllArticle";
 	}
-
+	@GetMapping(value = "backArticle")
+	public String backArticle() {
+		return "redirect:/articleList";		
+	}
+	
+	
 	@GetMapping(value = "saveArticle")
 	public String saveArticle(Model model) {
 		Forums forums = new Forums();
