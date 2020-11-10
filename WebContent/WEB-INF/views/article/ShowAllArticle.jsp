@@ -81,6 +81,7 @@ table {
 
 </head>
 <body>
+<jsp:include page="../public/top.jsp" />
 	<%-- ${LoginOK.getName()} --%>
 	<%-- 	<jsp:include page="../nn/top.jsp" /> --%>
 

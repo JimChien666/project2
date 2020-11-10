@@ -30,6 +30,7 @@ public class Forums {
 	private int voteid;
 	private int memberid;
 	private Article article;
+	private Members member;
 
 	@Id @Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,7 +83,8 @@ public class Forums {
 		this.voteid = voteid;
 	}
 
-	@Column(name = "MEMBER_ID")
+//	@Column(name = "MEMBER_ID")
+	@Transient
 	public int getMemberid() {
 		return memberid;
 	}
@@ -113,6 +115,16 @@ public class Forums {
 		this.voteid = voteid;
 		this.memberid = memberid;
 		this.article = article;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MEMBER_ID")
+	public Members getMember() {
+		return member;
+	}
+
+	public void setMember(Members member) {
+		this.member = member;
 	}
 //	@Override
 //	public String toString() {

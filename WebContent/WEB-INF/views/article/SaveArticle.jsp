@@ -33,6 +33,7 @@ h1 {
 </style>
 </head>
 <body>
+<jsp:include page="../public/top.jsp" />
 	<%-- <jsp:include page="../nn/top.jsp" /> --%>
 
 	<main role="main" class="container">

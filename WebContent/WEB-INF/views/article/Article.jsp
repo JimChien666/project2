@@ -29,25 +29,36 @@
 	bottom: 3%;
 	right: 2%;
 }
+.fixed0 {
+	position: fixed;
+	bottom: 15%;
+	right: 2%;
+}
 </style>
 <meta charset="UTF-8">
 <title>ID:<c:out value="${article.getId()}" />/<c:out
 		value="${article.getTitle()}" /></title>
 </head>
 <body>
+<jsp:include page="../public/top.jsp" />
 	<table>
 		<th>標題:<c:out value="${article.getTitle()}"></c:out></th>
 				<th>發文時間</th>
+				<th>作者:<c:out value="${article.getMember().getName()}"></c:out></th>
 
 		<c:forEach items="${forums}" var="Forums"  varStatus="id">
 			<tr>
 				<td>${Forums.getContent()}</td>
 				<td>${Forums.getCreatedat()}</td>
+				<td>${Forums.getMember().getName()}</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<a href="<c:url value='backArticle' />" class="fixed">
 		<button type="button" class="btn btn-success">回討論版</button>
+	</a>
+	<a href="<c:url value='' />" class="fixed0">
+		<button type="button" class="btn btn-success">回覆文章</button>
 	</a>
 
 </body>

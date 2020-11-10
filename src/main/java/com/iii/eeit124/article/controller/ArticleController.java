@@ -3,6 +3,7 @@ package com.iii.eeit124.article.controller;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
@@ -22,6 +23,7 @@ import com.iii.eeit124.article.service.ForumsService;
 import com.iii.eeit124.entity.Activitys;
 import com.iii.eeit124.entity.Article;
 import com.iii.eeit124.entity.Forums;
+import com.iii.eeit124.entity.Members;
 
 
 
@@ -29,6 +31,9 @@ import com.iii.eeit124.entity.Forums;
 @SessionAttributes(names={"article"})
 public class ArticleController {
 
+	
+	@Autowired
+	HttpSession session;
 	@Autowired
 	ArticleService articleService;
 	@Autowired
@@ -86,8 +91,9 @@ public class ArticleController {
 		Article article = forums.getArticle();
 		
 		forums.setArticle(article);
+		forums.setMember((Members)session.getAttribute("LoginOK"));
 		article.getForums().add(forums);		
-
+		article.setMember((Members)session.getAttribute("LoginOK"));
 		forumsService.saveArticle(article);
 //		articleService.update(article);
 		return "redirect:/articleList";		

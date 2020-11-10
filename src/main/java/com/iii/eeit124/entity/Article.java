@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -27,6 +28,7 @@ public class Article {
 	private int memberid;
 	private int articletypesid;
 	private Set<Forums> forums = new HashSet<Forums>();
+	private Members member;
 
 	@Id
 	@Column(name = "ID")
@@ -66,7 +68,8 @@ public class Article {
 		this.showarticle = showarticle;
 	}
 
-	@Column(name = "MEMBER_ID")
+//	@Column(name = "MEMBER_ID")
+	@Transient
 	public int getMemberid() {
 		return memberid;
 	}
@@ -130,6 +133,16 @@ public class Article {
 		this.memberid = memberid;
 		this.articletypesid = articletypesid;
 		this.forums = forums;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MEMBER_ID")
+	public Members getMember() {
+		return member;
+	}
+
+	public void setMember(Members member) {
+		this.member = member;
 	}
 
 //	@Override
