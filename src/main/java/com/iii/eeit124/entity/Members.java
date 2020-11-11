@@ -20,6 +20,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="MEMBERS")
@@ -43,8 +45,8 @@ public class Members implements Serializable{
 
 	
 
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "member", cascade = CascadeType.ALL)
 	public Set<Products> getProducts() {
 		return products;
 	}
@@ -185,7 +187,7 @@ public class Members implements Serializable{
 		}
 		return fileId;
 	}
-
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "member", cascade = CascadeType.ALL)
 	public Set<MemberFiles> getFiles() {
 		return files;

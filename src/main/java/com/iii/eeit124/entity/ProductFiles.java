@@ -2,7 +2,7 @@ package com.iii.eeit124.entity;
 
 import java.io.Serializable;
 import java.sql.Blob;
-import java.util.Arrays;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,13 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -29,9 +26,9 @@ public class ProductFiles implements Serializable {
 	 */
 	private static final long serialVersionUID = -5108642249962869083L;
 	private Integer id;
-	private String FileType;
-	private String FileUrl;
-	private Integer ProdoctId;
+	private String fileType;
+	private String fileUrl;
+	private Integer prodoctId;
 	private Products product;
 
 	private Blob fileBlob;
@@ -41,7 +38,7 @@ public class ProductFiles implements Serializable {
 	
 	public ProductFiles(String fileType, Blob fileBlob) {
 		super();
-		FileType = fileType;
+		this.fileType = fileType;
 		this.fileBlob = fileBlob;
 	}
 	@Id
@@ -55,17 +52,17 @@ public class ProductFiles implements Serializable {
 	}
 	@Column(name="FILE_TYPE")
 	public String getFileType() {
-		return FileType;
+		return fileType;
 	}
 	public void setFileType(String fileType) {
-		FileType = fileType;
+		this.fileType = fileType;
 	}
 	@Column(name="FILE_URL")
 	public String getFileUrl() {
-		return FileUrl;
+		return fileUrl;
 	}
 	public void setFileUrl(String fileUrl) {
-		FileUrl = fileUrl;
+		this.fileUrl = fileUrl;
 	}
 	@Column(name="FILE_BLOB")
 	public Blob getFileBlob() {
@@ -86,11 +83,11 @@ public class ProductFiles implements Serializable {
 	}
 	@Transient
 	public Integer getProdoctId() {
-		return ProdoctId;
+		return prodoctId;
 	}
 
 	public void setProdoctId(Integer prodoctId) {
-		ProdoctId = prodoctId;
+		this.prodoctId = prodoctId;
 	}
 	
 

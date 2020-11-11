@@ -31,7 +31,7 @@
           </div>
         </li> --%>
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductsPage' />">購物</a></li>
+				href="<c:url value='/product/ProductList' />">購物</a></li>
 			<%-- <li class="nav-item"><a class="nav-link"
 				href="<c:url value='/ShowIndexServlet' />">寵物旅遊</a></li> --%>
 			<li class="nav-item"><a class="nav-link"

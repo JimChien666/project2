@@ -2,8 +2,6 @@ package com.iii.eeit124.entity;
 
 import java.io.Serializable;
 import java.sql.Blob;
-import java.util.Arrays;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -26,8 +22,8 @@ public class MemberFiles implements Serializable {
 	 */
 	private static final long serialVersionUID = 1651897310959690387L;
 	private Integer id;
-	private String FileType;
-	private String FileUrl;
+	private String fileType;
+	private String fileUrl;
 	private Integer memberId;
 	private Members member;
 
@@ -38,7 +34,7 @@ public class MemberFiles implements Serializable {
 	
 	public MemberFiles(String fileType, Blob fileBlob) {
 		super();
-		FileType = fileType;
+		this.fileType = fileType;
 		this.fileBlob = fileBlob;
 	}
 	@Id
@@ -52,17 +48,17 @@ public class MemberFiles implements Serializable {
 	}
 	@Column(name="FILE_TYPE")
 	public String getFileType() {
-		return FileType;
+		return fileType;
 	}
 	public void setFileType(String fileType) {
-		FileType = fileType;
+		this.fileType = fileType;
 	}
 	@Column(name="FILE_URL")
 	public String getFileUrl() {
-		return FileUrl;
+		return fileUrl;
 	}
 	public void setFileUrl(String fileUrl) {
-		FileUrl = fileUrl;
+		this.fileUrl = fileUrl;
 	}
 	@Transient
 //	@Column(name="MEMBER_ID")

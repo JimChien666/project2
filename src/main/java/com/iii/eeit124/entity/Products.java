@@ -88,7 +88,7 @@ public class Products {
 		this.color = color;
 	}
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MEMBER_ID")
 	public Members getMember() {
 		return member;
@@ -151,8 +151,14 @@ public class Products {
 	}
 	@Transient
 	public Integer getMemberId() {
-		return memberId;
+		return this.member.getId();
 	}
+	@Transient
+	public String getMemberName() {
+		return this.member.getName();
+	}
+	
+	
 	public void setMemberId(Integer memberId) {
 		this.memberId = memberId;
 	}

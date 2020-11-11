@@ -20,4 +20,17 @@ public class ProductListServiceImpl implements ProductListService {
 		return dao.findAllProducts();
 	}
 
+	public List<Products> getPageProducts(Integer pageNo){
+		return dao.getPageProducts(pageNo);
+	}
+
+	@Override
+	public Integer getTotalPages() {
+		return dao.getTotalPages();
+	}
+
+	@Override
+	public Products getProduct(Integer productId) {
+		return dao.getProduct(productId);
+	}
 }
