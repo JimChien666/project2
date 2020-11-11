@@ -1,7 +1,9 @@
 package com.iii.eeit124.article.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -50,15 +52,15 @@ public class ArticleController {
 	public String backArticle() {
 		return "redirect:/articleList";
 	}
-	
-	@GetMapping(value = "replyArticle") //TODO
+
+	@GetMapping(value = "replyArticle")
 	public String replyArticle(Model model, @RequestParam(value = "articleId") Integer id) {
 		System.out.println(id);
 		Forums forums = new Forums();
 		model.addAttribute(forums);
 		Article article = articleService.select(id);
 //		model.addAttribute("forum", forums);
-		model.addAttribute("article", article);		
+		model.addAttribute("article", article);
 		return "article/replyArticle";
 	}
 
@@ -83,18 +85,19 @@ public class ArticleController {
 		return "redirect:/articleList";
 	}
 
-	@PostMapping(value = "/replyToDB")  //TODO
-	public String replyToDB(@ModelAttribute(name = "forums") Forums forums, BindingResult result, ModelMap model, @RequestParam(value = "id", required = false) Integer id) {
+	@PostMapping(value = "/replyToDB")
+	public String replyToDB(@ModelAttribute(name = "forums") Forums forums, BindingResult result, ModelMap model,
+			@RequestParam(value = "id", required = false) Integer id) {
 		Article article = articleService.select(id);
 //		int id = forums.getArticle().getId();
 		forums.setCreatedat(new Date());
 		forums.setMember((Members) session.getAttribute("LoginOK"));
-		forums.setArticle(article);		
-		article.getForums().add(forums);		
+		forums.setArticle(article);
+		article.getForums().add(forums);
 		forumsService.save(forums);
 		return "redirect:/articleList";
 	}
-	
+
 	// save article to db and return the articleList page.
 	@PostMapping(value = "/saveToDB")
 	public String saveToDB(@ModelAttribute(name = "forums") Forums forums, BindingResult result, ModelMap model) {
@@ -110,6 +113,7 @@ public class ArticleController {
 		forumsService.saveArticle(article);
 		return "redirect:/articleList";
 	}
+
 	// update article to db and return the articleList page.
 	@PostMapping(value = "/updateToDB")
 	public String updateToDB(@ModelAttribute(name = "article") Article article,
@@ -126,8 +130,12 @@ public class ArticleController {
 	@GetMapping(value = "article")
 	public String article(Locale locale, Model model, @RequestParam(value = "articleId") Integer id) {
 		Article article = articleService.select(id);
+//		Set<Forums> forums = article.getForums();
+		
+		List<Forums> forums = forumsService.select(id);
+//		forums.
 		model.addAttribute("article", article);
-		model.addAttribute("forums", article.getForums());
+		model.addAttribute("forums", forums);
 		return "article/Article";
 	}
 

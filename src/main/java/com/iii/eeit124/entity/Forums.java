@@ -24,7 +24,7 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "FORUMS")
 public class Forums {
 	private int id;
-	private int articleid;
+//	private int articleid;
 	private String content;
 	private Date createdat;
 	private int voteid;
@@ -42,17 +42,8 @@ public class Forums {
 		this.id = id;
 	}
 
-//	@Column(name = "ARTICLE_ID")
-//	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "article"))
-//	@GeneratedValue(generator = "generator")
-	@Transient
-	public int getArticleid() {
-		return articleid;
-	}
 
-	public void setArticleid(int articleid) {
-		this.articleid = articleid;
-	}
+
 
 	@Column(name = "CONTENT")
 	@Lob
@@ -109,7 +100,7 @@ public class Forums {
 	public Forums(int id, int articleid, String content, Date createdat, int voteid, int memberid, Article article) {
 		super();
 		this.id = id;
-		this.articleid = articleid;
+//		this.articleid = articleid;
 		this.content = content;
 		this.createdat = createdat;
 		this.voteid = voteid;
