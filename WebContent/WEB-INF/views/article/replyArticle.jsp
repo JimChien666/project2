@@ -30,6 +30,7 @@
 h1 {
 	font-family: 'Noto Sans TC', sans-serif
 }
+
 .fixed0 {
 	position: fixed;
 	bottom: 15%;
@@ -38,7 +39,7 @@ h1 {
 </style>
 </head>
 <body>
-<jsp:include page="../public/top.jsp" />
+	<jsp:include page="../public/top.jsp" />
 	<%-- <jsp:include page="../nn/top.jsp" /> --%>
 
 	<main role="main" class="container">
@@ -52,111 +53,23 @@ h1 {
 
 	</main>
 	<!-- /.container -->
-
-
-
-	<form:form action="saveArticle" enctype="multipart/form-data"
-		modelAttribute="saveArticle" method=POST class="was-validated"
-		style="margin: 1% 10% 3% 3%;">
+	
+	
+	
+	<form:form action="replyToDB" method="POST" modelAttribute="forums">
 		<br>
-		<!-- 標題-->
-		<div class="mb-3">
-			<div class="input-group is-invalid">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="validatedInputGroupPrepend">文章標題</span>
-				</div>
-
-				<form:input type="text" path="title" class="form-control is-invalid"
-					aria-describedby="validatedInputGroupPrepend" placeholder="請輸入文章標題"
-					required />
-
-			</div>
-			<div class="invalid-feedback">
-				<!-- Example invalid input group feedback -->
-			</div>
-		</div>
-
+回覆內容:<form:textarea path="content" />
 		<br>
-
-
-		<!-- actID
-      <div class="mb-3">
-        <div class="input-group is-invalid">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="validatedInputGroupPrepend">activitysId</span>
-          </div>
-          
-          <input type="text" name="activitysId" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" placeholder="enter Something bitxx"  required>
-        
-        </div>
-        <div class="invalid-feedback">
-          Example invalid input group feedback
-        </div>
-      </div>
-
-      <br>
-      -->
-
-
-		<!-- 選擇文章主題-->
-		<div class="mb-3">
-			<div class="input-group is-invalid">
-
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="validatedInputGroupPrepend">文章主題</span>
-				</div>
-				<form:select path="articleType">
-					<select class="custom-select" id="Choose" required>
-						<form:option value="">Choose...</form:option>
-						<form:option value="1">狗</form:option>
-						<form:option value="2">貓</form:option>
-					</select>
-				</form:select>
-			</div>
-			<div class="invalid-feedback">
-				<!-- Example invalid input group feedback -->
-			</div>
-		</div>
-
-
-		<br>
-		<!-- 輸入文章內文-->
-		<div class="mb-3">
-			<label for="validationTextarea">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="validatedInputGroupPrepend">文章內容</span>
-				</div>
-			</label>
-			<form:textarea class="form-control is-invalid"
-				id="validationTextarea" placeholder="請輸入文章內容" style="height: 160px"
-				required path="content"></form:textarea>
-
-			<div style="float: right;">可以下拉調整大小</div>
-		</div>
-
-
-		<!-- 會員帳號-->
-		<div class="mb-3">
-			<div class="input-group is-invalid">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="validatedInputGroupPrepend">memIDID</span>
-				</div>
-
-				<input type="text" name="memberId" class="form-control is-invalid"
-					aria-describedby="validatedInputGroupPrepend" placeholder="請輸入會員帳號"
-					required>
-
-			</div>
-			<div class="invalid-feedback">
-				<!-- Example invalid input group feedback -->
-			</div>
-		</div>
-
-		<button type="submit" name="submit" id="submit"
-			class="btn btn-primary">發文</button>
+		<form:hidden value="1" path="voteid" />
+<%-- 		<form:hidden value="${article.getId()}" path="aricle.id" /> --%>
+<%-- 		<form:hidden value="${forum.getArticle().getId()}" path="forums.aricle.id" /> --%>
+<%--        <input type="hidden" name="id" value="${forums.getArticle().getId()}"> --%>
+       <input type="hidden" name="id" value="${article.getId()}">
+                                
+		<form:button value="submit" type="submit">送出</form:button>
 	</form:form>
-	<a href="<c:url value='backArticle' />" class="fixed">
-		<button type="button" class="btn btn-success">回討論版</button>
-	</a>
+	
+	<a href="<c:url value='backArticle' />" class="fixed0"><button
+			type="button" class="btn btn-success">回討論版</button></a>
 </body>
 </html>

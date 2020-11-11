@@ -57,7 +57,7 @@
 	<a href="<c:url value='backArticle' />" class="fixed">
 		<button type="button" class="btn btn-success">回討論版</button>
 	</a>
-	<a href="<c:url value='replyArticle' />" class="fixed0">
+	<a href="<c:url value='replyArticle?articleId=${article.getId()}' />" class="fixed0">
 		<button type="button" class="btn btn-success">回覆文章</button>
 	</a>
 
