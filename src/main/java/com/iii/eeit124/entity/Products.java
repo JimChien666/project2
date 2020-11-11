@@ -20,8 +20,15 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
+//import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="PRODUCTS")
+
 public class Products {
 	@Override
 	public String toString() {
@@ -62,6 +69,7 @@ public class Products {
 	private Categories category;
 	private Set<ProductFiles> contentImgs = new HashSet<>();
 	
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ANIMAL_TYPE_ID")
 	public AnimalTypes getAnimalType() {
@@ -70,6 +78,7 @@ public class Products {
 	public void setAnimalType(AnimalTypes animalType) {
 		this.animalType = animalType;
 	}
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COLOR_ID")
 	public Colors getColor() {
@@ -78,6 +87,7 @@ public class Products {
 	public void setColor(Colors color) {
 		this.color = color;
 	}
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID")
 	public Members getMember() {
@@ -86,6 +96,7 @@ public class Products {
 	public void setMember(Members member) {
 		this.member = member;
 	}
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CATEGORY_ID")
 	public Categories getCategory() {
@@ -166,6 +177,7 @@ public class Products {
 	public void setAnimalTypeId(Integer animalTypeId) {
 		this.animalTypeId = animalTypeId;
 	}
+	@JsonIgnore
 	@Column(name="COVER_IMG")
 	public Blob getCoverImg() {
 		return coverImg;
@@ -208,6 +220,7 @@ public class Products {
 	public void setMultipartFile(MultipartFile multipartFile) {
 		this.multipartFile = multipartFile;
 	}
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
 	public Set<ProductFiles> getContentImgs() {
 		return contentImgs;

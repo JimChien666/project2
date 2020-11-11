@@ -17,6 +17,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="PRODUCT_FILES")
@@ -71,7 +74,7 @@ public class ProductFiles implements Serializable {
 	public void setFileBlob(Blob fileBlob) {
 		this.fileBlob = fileBlob;
 	}
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PRODUCT_ID")
 	public Products getProduct() {

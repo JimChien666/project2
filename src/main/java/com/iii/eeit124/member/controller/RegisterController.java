@@ -57,8 +57,7 @@ public class RegisterController {
 	@PostMapping("/processRegister.controller")
  	public String processRegister(@ModelAttribute("member") Members member, @RequestParam(name = "checkPassword")String checkPassword, @RequestParam(name = "myFiles") MultipartFile mFile, Model m) {
 		//檢查資料正確性
-		System.out.println(member.getName());
-		System.out.println(mFile);
+
 		Map<String, String> errors = new HashMap<String, String>();
 		m.addAttribute("errors", errors);
 		

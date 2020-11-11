@@ -63,7 +63,7 @@ function getAnimalTypes(){
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			var content = "寵物類別：<select name='animalTypeId'>";
-			content += "<option value='' disabled selected='selected'>請選擇顏色</option>"
+			content += "<option value='' disabled selected='selected'>請選擇寵物類別</option>"
 			var animalTypes = JSON.parse(xhr.responseText);
 			for(var i=0; i < animalTypes.length; i++){
 			    content += 	"<option value='" + animalTypes[i].id + "'>" + animalTypes[i].name + "</option>";
@@ -81,15 +81,16 @@ function getAnimalTypes(){
 <body>
 <jsp:include page="../public/top.jsp" />
 	<form:form method="POST" action="${pageContext.servletContext.contextPath}/product/processCreateProduct.controller" modelAttribute="products" enctype="multipart/form-data"  >
-		商品名稱:<form:input path="name"/><br/>
-		商品價格:<form:input path="price"/><br/>
-		商品折扣:<form:input path="discount"/><br/>
-		商品圖片:<form:input path="multipartFile" type="file"/><br/>
-		商品描述:<form:input path="description"/><br/>
-		商品數量:<form:input path="quantity"/><br/>
+		商品名稱:<form:input path="name"/><span style="color: red;">${errors.name}</span><br/>
+		商品價格:<form:input path="price"/><span style="color: red;">${errors.price}</span><br/>
+		商品折扣:<form:input path="discount"/><span style="color: red;">${errors.discount}</span><br/>
+		商品圖片:<form:input path="multipartFile" type="file"/><span style="color: red;">${errors.multipartFile}</span><br/>
+		商品描述:<form:input path="description"/><span style="color: red;">${errors.description}</span><br/>
+		商品數量:<form:input path="quantity"/><span style="color: red;">${errors.quantity}</span><br/>
 		商品狀態:上架<form:radiobutton path="status" value="上架"/>
-          	   下架<form:radiobutton path="status" value="下架"/><br/>
+          	   下架<form:radiobutton path="status" value="下架"/><span style="color: red;">${errors.status}</span><br/>
         <div id='somedivS'></div>
+        ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/>
         <form:button value="Send">Submit</form:button>
 		
 	</form:form>

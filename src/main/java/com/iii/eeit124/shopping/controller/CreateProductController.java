@@ -6,14 +6,18 @@ import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -30,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.iii.eeit124.entity.AnimalTypes;
 import com.iii.eeit124.entity.Categories;
 import com.iii.eeit124.entity.Colors;
+import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.entity.ProductFiles;
 import com.iii.eeit124.entity.Products;
 import com.iii.eeit124.shopping.service.CreateProductService;
@@ -43,6 +48,8 @@ public class CreateProductController {
 	private ServletContext ctx;
 	@Autowired
 	CreateProductService service;
+	@Autowired
+	HttpSession session;
 	
 	@GetMapping("/CreateProduct")
 	public String goCreateProductPage(Model model) {
@@ -69,21 +76,58 @@ public class CreateProductController {
 		return animalTypes;
 	}
 	
-//	@SuppressWarnings("null")
+
 	@RequestMapping(value = "/processCreateProduct.controller", method = RequestMethod.POST)
 	public String processCreateProduct(
 			@ModelAttribute("products") Products product,
-			@RequestParam(name="animalTypeId") Integer animalTypeId,
-			@RequestParam(name="colorId") Integer colorId,
-			@RequestParam(name="categoryId") Integer categoryId,
+			@RequestParam(name="animalTypeId", required = false) Integer animalTypeId,
+			@RequestParam(name="colorId", required = false) Integer colorId,
+			@RequestParam(name="categoryId", required = false) Integer categoryId,
 			
 			BindingResult result, Model model)
 			throws SQLException {
-		MultipartFile multipartFile = product.getMultipartFile();
+		Map<String, String> errors = new HashMap<String, String>();
+		model.addAttribute("errors", errors);
+		System.out.println("yoyoyo");
 		System.out.println(product);
-		System.out.println("animalTypeId" + animalTypeId);
-		System.out.println("colorId" + colorId);
-		System.out.println("categoryId" + categoryId);
+		if("".equals(product.getName())||product.getName()==null) {
+			errors.put("name", "請填入商品名稱");
+		}
+		if(product.getPrice()==null) {
+			errors.put("price", "請填入價格");
+		}
+		if("".equals(product.getDescription())||product.getDescription()==null) {
+			errors.put("description", "請填入商品介紹");
+		}
+		if("".equals(product.getStatus())||product.getStatus()==null) {
+			errors.put("status", "請選擇商品狀態");
+		}
+		if(product.getQuantity()==null) {
+			errors.put("quantity", "請填入數量");
+		}
+		if(product.getPrice()==null) {
+			errors.put("price", "請填入價格");
+		}
+		if(product.getDiscount()==null) {
+			errors.put("discount", "請填入折扣");
+		}
+		
+		if(animalTypeId==null) {
+			errors.put("animalType", "請選擇寵物類別");
+		}
+		if(colorId==null) {
+			errors.put("color", "請選擇商品顏色");
+		}
+		if(categoryId==null) {
+			errors.put("category", "請選擇商品分類");
+		}
+		
+		if (errors!=null&&!errors.isEmpty()) {
+			return "products/CreateProduct";
+		}
+		
+		
+		MultipartFile multipartFile = product.getMultipartFile();
 		AnimalTypes animalType = service.findOneAnimalType(animalTypeId);
 		Colors color = service.findOneColor(colorId);
 		Categories category = service.findOneCatrgory(categoryId);
@@ -112,18 +156,21 @@ public class CreateProductController {
 			    is1.close();
 			    Set<ProductFiles> files = new HashSet<ProductFiles>();
 			    Blob blob = new SerialBlob(b);
-			    ProductFiles file = new ProductFiles("image", blob);
-			    file.setProduct(product);
-			    files.add(file);
-			    product.setContentImgs(files);
-			    
+//			    ProductFiles file = new ProductFiles("image", blob);
+//			    file.setProduct(product);
+//			    files.add(file);
+//			    product.setContentImgs(files);
+//			    
+			    product.setCoverImg(blob);
 //				   Files file = new Files("image", blob);
 //			    product.setCoverImg(blob);
 			}catch (IOException e) {
-				e.printStackTrace();
+				errors.put("errorAccountDup", "新增此筆資料有誤(RegisterServlet)");
+				return "products/CreateProduct";
 			}	
 		}
 		product.setCreatedAt(new Date());
+		product.setMember((Members)session.getAttribute("LoginOK"));
 	    service.insertProduct(product);
 		return "redirect:/";
 	}
