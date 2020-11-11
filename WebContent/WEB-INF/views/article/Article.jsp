@@ -34,6 +34,9 @@
 	bottom: 15%;
 	right: 2%;
 }
+table, th, td {
+  border: 1px solid black;
+}
 </style>
 <meta charset="UTF-8">
 <title>ID:<c:out value="${article.getId()}" />/<c:out
@@ -41,6 +44,21 @@
 </head>
 <body>
 <jsp:include page="../public/top.jsp" />
+	
+	<table>
+		<th colspan="5">標題:<c:out value="${article.getTitle()}"></c:out></th>
+		
+<!-- 		<tr> -->
+<%-- 			<td>${forums.getCreatedat()}</td>  --%>
+<!-- 		</tr> -->
+		<tr>
+			<td> </td> 
+			<td>${article.getFirstForum().getContent()}</td> 
+			<td> </td> 
+		</tr>
+		<br>
+	</table>
+	
 	<table>
 		<th>標題:<c:out value="${article.getTitle()}"></c:out></th>
 				<th>發文時間</th>
