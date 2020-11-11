@@ -12,7 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -86,40 +85,14 @@ public class ArticleController {
 
 	@PostMapping(value = "/replyToDB")  //TODO
 	public String replyToDB(@ModelAttribute(name = "forums") Forums forums, BindingResult result, ModelMap model, @RequestParam(value = "id", required = false) Integer id) {
-//		public String replyToDB(@ModelAttribute(name = "forums") Forums forums, BindingResult result, ModelMap model) {
-		System.out.println(id);
-		System.out.println("........1");
 		Article article = articleService.select(id);
-
 //		int id = forums.getArticle().getId();
-		System.out.println("........2");
-		System.out.println(id);
-		System.out.println("........3");
-		Article aId = articleService.select(id);
-		
-		System.out.println(article);
 		forums.setCreatedat(new Date());
 		forums.setMember((Members) session.getAttribute("LoginOK"));
 		forums.setArticle(article);		
 		article.getForums().add(forums);		
 		forumsService.save(forums);
 		return "redirect:/articleList";
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-//		Article article = forums.getArticle();
-//		forums.getArticle().getId();
-//		forums.setArticle(article);
-//		article.setMember((Members) session.getAttribute("LoginOK"));
 	}
 	
 	// save article to db and return the articleList page.
