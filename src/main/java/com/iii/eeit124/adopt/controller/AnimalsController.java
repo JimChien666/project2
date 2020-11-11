@@ -38,7 +38,7 @@ public class AnimalsController {
 	@Autowired
 	public AnimalsService animalsService;
 
-	// 瀏覽全部
+	// 瀏覽全部動物
 	@GetMapping("/readAnimal")
 	public String processReadAnimal(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readAll());
@@ -153,6 +153,8 @@ public class AnimalsController {
 	@GetMapping("/preUpdateAnimal.controller")
 	public String processPreUpdateAnimal(@RequestParam("animalId") Integer animalId, Model m) {
 		Animals animals = animalsService.read(animalId);
+		System.out.println("animals.getAnimalFiles()"+animals.getAnimalFiles());
+		System.out.println(animals.printAll());
 		m.addAttribute("animals", animals);
 		return "adopt/UpdateAnimal";
 	}
@@ -162,6 +164,7 @@ public class AnimalsController {
 	public String processUpdateAnimal(@ModelAttribute("animals") Animals entity, Model m) throws Exception {
 		// 更新照片部分
 		MultipartFile mFile = entity.getAnimalFiles();
+		System.out.println("mFile: "+mFile+" isEmpty():"+mFile.isEmpty());//mFile.isEmpty()為判斷是否有上傳圖片
 		if (!mFile.isEmpty()) {
 			String filename = mFile.getOriginalFilename();// 取得檔名
 			String fileTempDirPath = sc.getRealPath("/") + "uploadTempDir\\";// 存放的資料夾

@@ -37,11 +37,16 @@ public class AnimalsDaoImpl implements AnimalsDao{
 		return list;
 	}
 	
-	public Animals update(Animals entity) {
+	public Animals update(Animals entity) {//entity為更新的內容
 		Session session = sessionFactory.getCurrentSession();
 //		Animals result = session.get(Animals.class, entity.getAnimalId());
 //		if (result != null) {
-			session.merge(entity);
+//			session.saveOrUpdate(entity);//用update或saveOrUpdate會出錯A different object with the same identifier value was already associated with the session
+		System.out.println("entity.printAll()"+entity.printAll());	
+		if (entity.getAnimalFiles()==null) {
+			System.out.println("新增檔案");
+		}
+		session.merge(entity);
 			return entity;
 //		}
 //		return null;
