@@ -3,6 +3,7 @@ package com.iii.eeit124.shopping.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,15 +50,27 @@ public class ProdcutListController {
 	@GetMapping(value = "/pagingProducts.json", produces = { "application/json; charset=UTF-8" })
 	public @ResponseBody Map<String, Object> getPageProducts(
 		@RequestParam(value="pageNo", required = false, defaultValue = "1") Integer pageNo,
-		@RequestParam(value="totalPage", required = false) Integer totalPage		
-			) {
-		if (totalPage == null) {     		
-	       	totalPage = service.getTotalPages();
-	    }
+		@RequestParam(value="totalPage", required = false) Integer totalPage,
+		@RequestParam(value="colorId", required = false) Integer colorId,
+		@RequestParam(value="categoryId", required = false) Integer categoryId,
+		@RequestParam(value="animalTypeId", required = false) Integer animalTypeId
 		
-		Map<String, Object> map = new HashMap<>();
+			) {
+		
+		List<Products> list = new ArrayList<Products>();
+	    
 
-		List<Products> list = service.getPageProducts(pageNo);
+		Map<String, Object> map = new HashMap<>();
+		if (colorId != null||categoryId != null||animalTypeId != null) {
+			totalPage = service.getTotalPages(colorId, categoryId, animalTypeId);
+			list = service.getPageProducts(pageNo, colorId, categoryId, animalTypeId);
+		}
+		else {
+			totalPage = service.getTotalPages();
+			System.out.println("fucl");
+			System.out.println(totalPage);
+			list = service.getPageProducts(pageNo);
+		}
 		map.put("list", list);
 		map.put("totalPage", totalPage);
 		map.put("currPage", pageNo);

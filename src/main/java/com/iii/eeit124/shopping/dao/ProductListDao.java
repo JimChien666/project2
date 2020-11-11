@@ -9,7 +9,11 @@ public interface ProductListDao {
 
 	List<Products> getPageProducts(Integer pageNo);
 
-	Integer getTotalPages();
+	Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId);
 
 	Products getProduct(Integer productId);
+
+	List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId);
+
+	Integer getPageProducts();
 }

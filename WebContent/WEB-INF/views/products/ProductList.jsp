@@ -19,8 +19,8 @@ function getCategories(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "選擇分類：<select name='categoryId'>";
-			content += "<option value='' disabled selected='selected'>全部</option>"
+			var content = "選擇分類：<select id='categoryId' name='categoryId' onchange=getData()>";
+			content += "<option value='' selected='selected'>全部</option>"
 			var categories = JSON.parse(xhr.responseText);
 			for(var i=0; i < categories.length; i++){
 			    content += 	"<option value='" + categories[i].id + "'>" + categories[i].name + "</option>";
@@ -39,8 +39,8 @@ function getColors(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "商品顏色：<select name='colorId'>";
-			content += "<option value='' disabled selected='selected'>全部</option>"
+			var content = "商品顏色：<select id='colorId' name='colorId' onchange=getData()>";
+			content += "<option value='' selected='selected'>全部</option>"
 			var colors = JSON.parse(xhr.responseText);
 			for(var i=0; i < colors.length; i++){
 			    content += 	"<option value='" + colors[i].id + "'>" + colors[i].name + "</option>";
@@ -60,8 +60,8 @@ function getAnimalTypes(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "寵物類別：<select name='animalTypeId'>";
-			content += "<option value='' disabled selected='selected'>全部</option>"
+			var content = "寵物類別：<select id='animalTypeId' name='animalTypeId' onchange=getData()>";
+			content += "<option value='' selected='selected'>全部</option>"
 			var animalTypes = JSON.parse(xhr.responseText);
 			for(var i=0; i < animalTypes.length; i++){
 			    content += 	"<option value='" + animalTypes[i].id + "'>" + animalTypes[i].name + "</option>";
@@ -74,6 +74,28 @@ function getAnimalTypes(){
 	}
 }
 
+
+function getData(){
+	var animalTypeId = document.getElementById("animalTypeId").value;
+	var colorId = document.getElementById("colorId").value;
+	var categoryId = document.getElementById("categoryId").value;
+	var xhr = new XMLHttpRequest();
+	var condiction = "?animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId;
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "<c:url value='/product/pagingProducts.json' />" + condiction, true);
+	xhr.send();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 ) {
+			if (xhr.status == 200){
+				var responseData = xhr.responseText;
+				displayPageProducts(responseData);   // 顯示讀取到的非文字性資料
+			} else {
+				alert(xhr.status);
+			}
+		}
+	}
+	
+}
 
 var pageNo = 0;
 var totalPage  = 0;
@@ -105,9 +127,13 @@ function asynRequest(id) {
 	    } else if (id == "last") {
 	    	no = totalPage;	    	
 	    }
+	    var animalTypeId = document.getElementById("animalTypeId").value;
+		var colorId = document.getElementById("colorId").value;
+		var categoryId = document.getElementById("categoryId").value;
+		var condiction = "&animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId;
 	    // 查詢字串包含1.即將要讀取的頁數(pageNo), 2.總共有幾頁(totalPage)
 	    // 注意，查詢字串的前面有問號
-	    queryString = "?pageNo=" + no + "&totalPage=" + 	totalPage;
+	    queryString = "?pageNo=" + no + "&totalPage=" + totalPage + condiction;
 
 		xhr.open("GET", "<c:url value='/product/pagingProducts.json'/>" + queryString , true);
 		xhr.send();
@@ -125,7 +151,7 @@ function displayPageProducts(responseData){
       content +=  "<th width='50'>定價</th><th width='50'>折扣</th><th  width='50'>實售</th>";
       content +=  "<th  width='100'>出版社</th><th width='60'>封面</th>";
 	  content +=  "</tr>";
-// 	  alert(responseData);
+ 	  //alert(responseData);
 	var mapData = JSON.parse(responseData);
 	pageNo = mapData.currPage;
 	totalPage  = mapData.totalPage;
@@ -204,7 +230,7 @@ function displayPageProducts(responseData){
 <div align='center'>
 	<h3>商品資訊</h3>
 	<hr>
-	<div id="selectBar"><button onclick="asynRequest('first')">所有商品</button><br/></div>
+	<div id="selectBar"></div>
 	<div id='somedivS'  style='height:260px;'> </div>
 	<div id='navigation' style='height:60px;'></div>
 	<hr>

@@ -25,12 +25,23 @@ public class ProductListServiceImpl implements ProductListService {
 	}
 
 	@Override
-	public Integer getTotalPages() {
-		return dao.getTotalPages();
+	public Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId) {
+		return dao.getTotalPages(colorId, categoryId, animalTypeId);
 	}
 
 	@Override
 	public Products getProduct(Integer productId) {
 		return dao.getProduct(productId);
+	}
+
+	@Override
+	public List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId) {
+		return dao.getPageProducts(pageNo, colorId, categoryId, animalTypeId);
+	}
+
+	@Override
+	public Integer getTotalPages() {
+		
+		return dao.getPageProducts();
 	}
 }

@@ -7,6 +7,8 @@ import com.iii.eeit124.entity.Products;
 public interface ProductListService {
 	List<Products> findAllProducts();
 	List<Products> getPageProducts(Integer pageNo);
+	Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId);
+	Products getProduct(Integer productId);
+	List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId);
 	Integer getTotalPages();
-	Products getProduct(Integer productId);	
 }
