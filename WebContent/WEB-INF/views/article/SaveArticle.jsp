@@ -30,6 +30,11 @@
 h1 {
 	font-family: 'Noto Sans TC', sans-serif
 }
+.fixed0 {
+	position: fixed;
+	bottom: 15%;
+	right: 2%;
+}
 </style>
 </head>
 <body>
@@ -84,7 +89,8 @@ article:<form:textarea path="content" />
 		
 	</form:form>
 
-
+<a href="<c:url value='backArticle' />" class="fixed0"><button
+			type="button" class="btn btn-success">回討論版</button></a>
 
 </body>
 </html>
