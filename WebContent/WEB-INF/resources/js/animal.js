@@ -35,19 +35,30 @@ function confirmDelete(animalId) {
 
 //CreateAnimal
 //當animalFile有變動時，會將animalFileSpan顯示
-$("#animalFile").change(function() {
+//$("#animalFiles").change(function() {
+//	alert("good");
+//	document.getElementById("animalFileSpan").style.display = "block";
+//	readURL(this);
+//});
+function showImage(){
 	document.getElementById("animalFileSpan").style.display = "block";
-	readURL(this);
-});
+	readURL(document.getElementById("animalFiles"));
+};
 
 //UpdateAnimal
 //當animalFile1有變動時，會將animalFileSpan1顯示
-$("#animalFile1").change(function() {
+//$("#animalFiles1").change(function() {
+//	document.getElementById("animalFileSpan2").style.display = "none";
+//	document.getElementById("animalFileSpan1").style.display = "block";
+//	readURL(this);
+//});
+function showImage1(){
 	document.getElementById("animalFileSpan2").style.display = "none";
 	document.getElementById("animalFileSpan1").style.display = "block";
-	readURL(this);
-});
-				
+	readURL(document.getElementById("animalFiles1"));
+};
+			
+//給showImage的readURL用的
 function readURL(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();

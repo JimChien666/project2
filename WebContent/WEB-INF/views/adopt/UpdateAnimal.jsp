@@ -26,7 +26,7 @@
 			<!-- ============================================================================== -->
 			
 		<label for="" class="label1">照片：</label> 
-		<form:input path="animalFiles" type="file" class="wid200px"/>
+		<form:input path="animalFiles" type="file" class="wid200px" id="animalFiles1" onchange="showImage1()"/>
 <!-- 		<input type="file" name="animalFile" id="animalFile1" multiple class="wid200px"> -->
 		<span id="animalFileSpan2" class="dispblok height260px margleft125px">
 		<img class="card-img-top square250px" src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animals.animalId}" alt="Animal image">

@@ -2,7 +2,6 @@ package com.iii.eeit124.entity;
 
 import java.io.Serializable;
 import java.sql.Blob;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -85,7 +83,7 @@ public class AnimalsFiles implements Serializable{
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ANIMAL_ID")
+	@JoinColumn(name = "ANIMAL_ID")//@JoinColumn對映AnimalsFiles資料庫ANIMAL_ID欄位名
 	public Animals getAnimals() {
 		return animals;
 	}

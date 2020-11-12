@@ -43,9 +43,8 @@ public class AnimalsDaoImpl implements AnimalsDao{
 //		if (result != null) {
 //			session.saveOrUpdate(entity);//用update或saveOrUpdate會出錯A different object with the same identifier value was already associated with the session
 		System.out.println("entity.printAll()"+entity.printAll());	
-		if (entity.getAnimalFiles()==null) {
-			System.out.println("新增檔案");
-		}
+		System.out.println(entity.getAnimalFiles().isEmpty());//欲上傳圖片是否是空的
+		System.out.println(entity.getFiles().isEmpty());//欲上傳的一筆檔案是否是空的
 		session.merge(entity);
 			return entity;
 //		}

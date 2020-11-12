@@ -19,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -91,9 +90,10 @@ public class AnimalsController {
 	public String processCreateAnimal(@ModelAttribute("AnimalsList1") Animals entity, Model m) throws Exception {
 		// 新增照片部分
 		MultipartFile mFile = entity.getAnimalFiles();
+		String filename = mFile.getOriginalFilename();// 取得檔名
+		String fileTempDirPath = sc.getRealPath("/") + "uploadTempDir\\";// 存放的資料夾
+		InputStream is = null;
 		if (!mFile.isEmpty()) {
-			String filename = mFile.getOriginalFilename();// 取得檔名
-			String fileTempDirPath = sc.getRealPath("/") + "uploadTempDir\\";// 存放的資料夾
 		
 			File dirPath = new File(fileTempDirPath);
 		
@@ -126,9 +126,27 @@ public class AnimalsController {
 				files.add(file);
 				entity.setFiles(files);
 			}
+		}else {
+			//新增沒圖片給預設圖片
+			//設定圖片格式
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+			
+			filename = "NoImage.png" ; 
+			is = sc.getResourceAsStream(//getResourceAsStream開啟一個檔案
+					"/WEB-INF/resources/images/" + filename);// /images/為webapp/images/
+			byte[] b = new byte[4*1024*1024];
+			is.read(b);
+			is.close();
+			
+			Set<AnimalsFiles> files = new HashSet<AnimalsFiles>();
+			Blob blob = new SerialBlob(b);
+			AnimalsFiles file = new AnimalsFiles("image", filename, blob);
+			file.setAnimals(entity);
+			files.add(file);
+			entity.setFiles(files);
 		}
-		System.out.println("hekko");
-		System.out.println(entity);
+		
 		// 新增文字部分
 		entity.setCreatedAt(new Date());
 		animalsService.create(entity);
@@ -136,11 +154,6 @@ public class AnimalsController {
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
 	}
-	
-	// File
-//	public String processCreateAnimalFile(@ModelAttribute("AnimalsList1") Animals entity, BindingResult result, Model m) {
-//		return null;
-//	}
 
 	// Refresh
 	@GetMapping({ "/CreateAnimal.controller", "/UpdateAnimal.controller", "/DeleteAnimal.controller" })
@@ -153,8 +166,6 @@ public class AnimalsController {
 	@GetMapping("/preUpdateAnimal.controller")
 	public String processPreUpdateAnimal(@RequestParam("animalId") Integer animalId, Model m) {
 		Animals animals = animalsService.read(animalId);
-		System.out.println("animals.getAnimalFiles()"+animals.getAnimalFiles());
-		System.out.println(animals.printAll());
 		m.addAttribute("animals", animals);
 		return "adopt/UpdateAnimal";
 	}
@@ -162,10 +173,10 @@ public class AnimalsController {
 	// Update
 	@PostMapping("/UpdateAnimal.controller")
 	public String processUpdateAnimal(@ModelAttribute("animals") Animals entity, Model m) throws Exception {
+		AnimalsFiles content = new AnimalsFiles();
 		// 更新照片部分
 		MultipartFile mFile = entity.getAnimalFiles();
-		System.out.println("mFile: "+mFile+" isEmpty():"+mFile.isEmpty());//mFile.isEmpty()為判斷是否有上傳圖片
-		if (!mFile.isEmpty()) {
+		if (!mFile.isEmpty()) {//mFile.isEmpty()為判斷是否有上傳圖片
 			String filename = mFile.getOriginalFilename();// 取得檔名
 			String fileTempDirPath = sc.getRealPath("/") + "uploadTempDir\\";// 存放的資料夾
 		
@@ -192,40 +203,28 @@ public class AnimalsController {
 				byte[] b = new byte[is1.available()];
 				is1.read(b);
 				is1.close();
-	
-//				Set<AnimalsFiles> files = new HashSet<AnimalsFiles>();
-//				Blob blob = new SerialBlob(b);
-//				AnimalsFiles file = new AnimalsFiles("image", filename, blob);
-//				file.setAnimals(entity);
-//				files.add(file);
-//				entity.setFiles(files);
 				
 				Integer animalId = entity.getAnimalId();
-				System.out.println("11111: " + animalId);
 				Set<AnimalsFiles> AnimalsFiles = animalsService.read(animalId).getFiles();
-				System.out.println("11111: " + AnimalsFiles);
 				Blob blob = new SerialBlob(b);
 				
 				Iterator<AnimalsFiles> iterator = AnimalsFiles.iterator();
 				while (iterator.hasNext()) {
-					AnimalsFiles content = (AnimalsFiles) iterator.next();
+					content = (AnimalsFiles) iterator.next();
 					System.out.println("filename" + filename);
 					content.setFileType("image");
 					content.setFileName(filename);
 					content.setFileBlob(blob);
-//					content.setAnimals(entity);
-//					AnimalsFiles.removeAll(AnimalsFiles);
-					System.out.println("AnimalsFiles: "+AnimalsFiles);
-//					AnimalsFiles.add(content);
-					System.out.println("AnimalsFilesadd: "+AnimalsFiles);
+//					content.setAnimals(entity);//
 					entity.setFiles(AnimalsFiles);
 					System.out.println("entity: "+entity.printAll());
+					System.out.println("content"+content);
 				}
 			}
 		}
-			
 		entity.setUpdatedAt(new Date());
 		animalsService.update(entity);
+			
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
 	}

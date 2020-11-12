@@ -168,7 +168,7 @@ public class Animals {
 //	}
 //	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
 //	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ANIMAL_ID")})//第一個ANIMAL_ID為Files的，第二個為Animals的。
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)//mappedBy對映的是AnimalsFiles的private Animals animals;
 	public Set<AnimalsFiles> getFiles() {
 		return files;
 	}
