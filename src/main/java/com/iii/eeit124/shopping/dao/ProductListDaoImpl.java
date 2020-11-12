@@ -28,7 +28,7 @@ public class ProductListDaoImpl implements ProductListDao {
 	@Override
 	public List<Products> findAllProducts() {
 		@SuppressWarnings("unchecked")
-		TypedQuery<Products> query = sessionFactory.getCurrentSession().createQuery("from Products");
+		TypedQuery<Products> query = sessionFactory.getCurrentSession().createQuery("from Products order by id");
 		return query.getResultList();
 	}
 
@@ -37,7 +37,7 @@ public class ProductListDaoImpl implements ProductListDao {
 	public List<Products> getPageProducts(Integer pageNo) {
 		Integer startRecordNo = (pageNo - 1) * recordsPerPage;
 		List<Products> list = new ArrayList<Products>();
-		list = sessionFactory.getCurrentSession().createQuery("FROM Products")
+		list = sessionFactory.getCurrentSession().createQuery("FROM Products order by id")
   			  .setFirstResult(startRecordNo)
   			  .setMaxResults(recordsPerPage)
   			  .getResultList();
@@ -119,7 +119,7 @@ public class ProductListDaoImpl implements ProductListDao {
 			}
 		}
 		
-		Query query = sessionFactory.getCurrentSession().createQuery("FROM Products" + condiction);
+		Query query = sessionFactory.getCurrentSession().createQuery("FROM Products" + condiction + " order by id");
 		query.setFirstResult(startRecordNo);
 		query.setMaxResults(recordsPerPage);
 		if (colorId != null) {

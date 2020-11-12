@@ -7,10 +7,28 @@
 <meta charset="UTF-8">
 <script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />"></script>
 <script>
+
+var pageNo = 0;
+var totalPage  = 0;
+// 本網頁一開始時先向後端發出非同步請求：/product/pagingProducts.json，要求第一頁
+//並將 各個分類下拉選單載入
 window.onload = function() {
 	getColors();
 	getCategories();
 	getAnimalTypes();
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "<c:url value='/product/pagingProducts.json' />", true);
+	xhr.send();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 ) {
+			if (xhr.status == 200){
+				var responseData = xhr.responseText;
+				displayPageProducts(responseData);   // 顯示讀取到的非文字性資料
+			} else {
+				alert(xhr.status);
+			}
+		}
+	}
 }
 
 function getCategories(){
@@ -97,22 +115,8 @@ function getData(){
 	
 }
 
-var pageNo = 0;
-var totalPage  = 0;
-// 本網頁一開始時先向後端發出非同步請求：/ch04/_07/pagingBookData.json，要求第一頁
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "<c:url value='/product/pagingProducts.json' />", true);
-xhr.send();
-xhr.onreadystatechange = function() {
-	if (xhr.readyState == 4 ) {
-		if (xhr.status == 200){
-			var responseData = xhr.responseText;
-			displayPageProducts(responseData);   // 顯示讀取到的非文字性資料
-		} else {
-			alert(xhr.status);
-		}
-	}
-}
+
+
 // 當使用者按下『第一頁』、『前一頁』、『下一頁』、『最末頁』的連結時，由本方法發出非同步請求。
 function asynRequest(id) {
 	var xhr = new XMLHttpRequest();
@@ -147,11 +151,10 @@ function asynRequest(id) {
 
 function displayPageProducts(responseData){
   var content = "<table border='1'><tr height='42' bgcolor='#fbdb98'>";
-      content +=  "<th width='56'>編號</th><th width='360'>書名</th><th width='80'>作者</th>";
+      content +=  "<th width='56'>編號</th><th width='360'>商品名稱</th><th width='80'>簡介</th>";
       content +=  "<th width='50'>定價</th><th width='50'>折扣</th><th  width='50'>實售</th>";
-      content +=  "<th  width='100'>出版社</th><th width='60'>封面</th>";
+      content +=  "<th  width='100'>賣家</th><th width='60'>封面</th>";
 	  content +=  "</tr>";
- 	  //alert(responseData);
 	var mapData = JSON.parse(responseData);
 	pageNo = mapData.currPage;
 	totalPage  = mapData.totalPage;
@@ -160,7 +163,6 @@ function displayPageProducts(responseData){
 	var products = mapData.list;		// 傳回一個陣列
 	var bgColor = "";   // 每一項商品的背影 
 	var imageURL = "<c:url value='/product/getProductImage' />";
-/* 	var showRecordCounts = "<div>共蒐尋出<span style='color:red;'>" + recordCounts + "</span>項商品</div>"; */
 	document.getElementById("showRecordCounts").innerHTML = recordCounts;
 	for(var i=0; i < products.length; i++){
 		console.log(products[i]);
@@ -168,7 +170,7 @@ function displayPageProducts(responseData){
 		content += "<tr height='80' bgcolor='" + bgColor + "'>" + 
 		           "<td  align='right'>" + products[i].id + "&nbsp;</td>" + 
 	               "<td>" + products[i].name + "</td>" +
-	               "<td align='center'>" + products[i].description + "</td>" +
+	               "<td align='center'>" + products[i].description.substring(0, 100) + "</td>" +
 	               "<td align='right'>" + products[i].price + "&nbsp;</td>" +
 	               "<td align='center'>" + products[i].discount + "</td>" +
 	               "<td align='right'>" + (products[i].price * products[i].discount) + "</td>" +
