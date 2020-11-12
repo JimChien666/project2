@@ -52,7 +52,7 @@ public class ProductListDaoImpl implements ProductListDao {
 		return totalPages;
 	}
 	
-	public long getRecordCounts(Integer colorId, Integer categoryId, Integer animalTypeId) {
+	public Long getRecordCounts(Integer colorId, Integer categoryId, Integer animalTypeId) {
 		Long count = 0L; // 必須使用 long 型態
 		
 		String condiction = " where ";
@@ -145,7 +145,7 @@ public class ProductListDaoImpl implements ProductListDao {
 		return totalPages;
 	}
 
-	private double getRecordCounts() {
+	public Long getRecordCounts() {
 		Long count = 0L; // 必須使用 long 型態
 		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Products").getSingleResult();
 		return count;

@@ -28,7 +28,7 @@ function getCategories(){
 			content += "</select>";
 			var divs = document.getElementById("selectBar");
 			divs.innerHTML += content;
-			divs.innerHTML += "<br/>";
+			/* divs.innerHTML += "<br/>"; */
 		}
 	}
 }
@@ -48,7 +48,7 @@ function getColors(){
 			content += "</select>";
 			var divs = document.getElementById("selectBar");
 			divs.innerHTML += content;
-			divs.innerHTML += "<br/>";
+			/* divs.innerHTML += "<br/>"; */
 		}
 	}
 }
@@ -69,7 +69,7 @@ function getAnimalTypes(){
 			content += "</select>";
 			var divs = document.getElementById("selectBar");
 			divs.innerHTML += content;
-			divs.innerHTML += "<br/>";
+			/* divs.innerHTML += "<br/>"; */
 		}
 	}
 }
@@ -155,10 +155,13 @@ function displayPageProducts(responseData){
 	var mapData = JSON.parse(responseData);
 	pageNo = mapData.currPage;
 	totalPage  = mapData.totalPage;
+	recordCounts = mapData.recordCounts;
 	
 	var products = mapData.list;		// 傳回一個陣列
 	var bgColor = "";   // 每一項商品的背影 
 	var imageURL = "<c:url value='/product/getProductImage' />";
+/* 	var showRecordCounts = "<div>共蒐尋出<span style='color:red;'>" + recordCounts + "</span>項商品</div>"; */
+	document.getElementById("showRecordCounts").innerHTML = recordCounts;
 	for(var i=0; i < products.length; i++){
 		console.log(products[i]);
 		bgColor = (i % 2 == 0 ? "#d4f5b2" : "#b2f5e5");
@@ -174,7 +177,8 @@ function displayPageProducts(responseData){
 	               " src='" + imageURL + "?productId=" + products[i].id + "'></td>" + 
 		           "</tr>";    
 	}
-	content += "</table>";
+	content += "</table>";selectBar
+	
 	document.getElementById("somedivS").innerHTML = content;
 	
 	
@@ -231,7 +235,8 @@ function displayPageProducts(responseData){
 	<h3>商品資訊</h3>
 	<hr>
 	<div id="selectBar"></div>
-	<div id='somedivS'  style='height:260px;'> </div>
+	<div>共蒐尋出<span style='color:red;' id='showRecordCounts'></span>項商品</div>
+	<div id='somedivS'  style='height:260px;'></div>
 	<div id='navigation' style='height:60px;'></div>
 	<hr>
 		<a href="<c:url value='/' />">回前頁</a>

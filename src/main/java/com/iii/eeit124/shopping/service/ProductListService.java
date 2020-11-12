@@ -8,7 +8,9 @@ public interface ProductListService {
 	List<Products> findAllProducts();
 	List<Products> getPageProducts(Integer pageNo);
 	Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId);
+	Integer getTotalPages();
 	Products getProduct(Integer productId);
 	List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId);
-	Integer getTotalPages();
+	Long getRecordCounts(Integer colorId, Integer categoryId, Integer animalTypeId);
+	Long getRecordCounts();
 }

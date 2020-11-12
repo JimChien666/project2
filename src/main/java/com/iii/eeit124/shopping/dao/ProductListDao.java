@@ -16,4 +16,8 @@ public interface ProductListDao {
 	List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId);
 
 	Integer getPageProducts();
+
+	Long getRecordCounts(Integer colorId, Integer categoryId, Integer animalTypeId);
+
+	Long getRecordCounts();
 }

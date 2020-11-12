@@ -56,13 +56,14 @@ public class ProdcutListController {
 		@RequestParam(value="animalTypeId", required = false) Integer animalTypeId
 		
 			) {
-		
+		Long recordCounts= (long) 0;
 		List<Products> list = new ArrayList<Products>();
 	    
 
 		Map<String, Object> map = new HashMap<>();
 		if (colorId != null||categoryId != null||animalTypeId != null) {
 			totalPage = service.getTotalPages(colorId, categoryId, animalTypeId);
+			recordCounts = service.getRecordCounts(colorId, categoryId, animalTypeId);
 			list = service.getPageProducts(pageNo, colorId, categoryId, animalTypeId);
 		}
 		else {
@@ -70,10 +71,12 @@ public class ProdcutListController {
 			System.out.println("fucl");
 			System.out.println(totalPage);
 			list = service.getPageProducts(pageNo);
+			recordCounts = service.getRecordCounts();
 		}
 		map.put("list", list);
 		map.put("totalPage", totalPage);
 		map.put("currPage", pageNo);
+		map.put("recordCounts", recordCounts);
 
 		return map;
 	}

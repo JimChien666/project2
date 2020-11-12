@@ -44,4 +44,14 @@ public class ProductListServiceImpl implements ProductListService {
 		
 		return dao.getPageProducts();
 	}
+
+	@Override
+	public Long getRecordCounts(Integer colorId, Integer categoryId, Integer animalTypeId) {
+		return dao.getRecordCounts(colorId, categoryId, animalTypeId);
+	}
+
+	@Override
+	public Long getRecordCounts() {
+		return dao.getRecordCounts();
+	}
 }
