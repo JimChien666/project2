@@ -41,6 +41,7 @@ public class ProdcutListController {
 	public String goProductListPage(Model model) {
 		return "products/ProductList";
 	}
+	//用@ResponseBody 回傳所有商品的json格式給前端
 	@GetMapping("/getProducts")
 	public @ResponseBody List<Products> queryAllProducts(Model model){
 		List<Products> prodcuts = service.findAllProducts();
@@ -68,7 +69,6 @@ public class ProdcutListController {
 		}
 		else {
 			totalPage = service.getTotalPages();
-			System.out.println("fucl");
 			System.out.println(totalPage);
 			list = service.getPageProducts(pageNo);
 			recordCounts = service.getRecordCounts();

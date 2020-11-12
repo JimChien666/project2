@@ -30,7 +30,7 @@ window.onload = function() {
 		}
 	}
 }
-
+//從資料庫 [{id:1, name:"狗"}, {id:2, name:"貓"]
 function getCategories(){
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "<c:url value='/product/getCategories' />", true);
