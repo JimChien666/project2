@@ -23,7 +23,7 @@ public class ProductListDaoImpl implements ProductListDao {
 	@Autowired
 	SessionFactory sessionFactory;
 	
-	Integer recordsPerPage = GlobalService.RECORDS_PER_PAGE;
+//	Integer recordsPerPage = GlobalService.RECORDS_PER_PAGE;
 
 	@Override
 	public List<Products> findAllProducts() {
@@ -34,7 +34,7 @@ public class ProductListDaoImpl implements ProductListDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Products> getPageProducts(Integer pageNo) {
+	public List<Products> getPageProducts(Integer pageNo,Integer recordsPerPage) {
 		Integer startRecordNo = (pageNo - 1) * recordsPerPage; // 第二頁的第二筆＝（2-1）*2
 		List<Products> list = new ArrayList<Products>();
 		list = sessionFactory.getCurrentSession().createQuery("FROM Products order by id")
@@ -47,7 +47,7 @@ public class ProductListDaoImpl implements ProductListDao {
 	}
 
 	@Override
-	public Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId) {
+	public Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage) {
 		int totalPages = (int) (Math.ceil(getRecordCounts(colorId, categoryId, animalTypeId) / (double) recordsPerPage));
 		return totalPages;
 	}
@@ -97,7 +97,7 @@ public class ProductListDaoImpl implements ProductListDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId) {
+	public List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage) {
 		Integer startRecordNo = (pageNo - 1) * recordsPerPage;
 		List<Products> list = new ArrayList<Products>();
 		String condiction = " where ";
@@ -140,7 +140,7 @@ public class ProductListDaoImpl implements ProductListDao {
 	}
 
 	@Override
-	public Integer getPageProducts() {
+	public Integer getTotalPages(Integer recordsPerPage) {
 		int totalPages = (int) (Math.ceil(getRecordCounts() / (double) recordsPerPage));
 		return totalPages;
 	}
