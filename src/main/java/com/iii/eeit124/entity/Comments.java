@@ -19,6 +19,7 @@ public class Comments {
 	private int forumid;
 	private int memberid;
 	private Members member;
+	private Forums forums;
 
 	@Id
 	@Column(name = "ID")
@@ -40,7 +41,8 @@ public class Comments {
 		this.comment = comment;
 	}
 
-	@Column(name = "FORUM_ID")
+	@Transient
+//	@Column(name = "FORUM_ID")
 	public int getForumid() {
 		return forumid;
 	}
@@ -67,6 +69,16 @@ public class Comments {
 
 	public void setMember(Members member) {
 		this.member = member;
+	}
+
+	public Forums getForums() {
+		return forums;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FORUM_ID")
+	public void setForums(Forums forums) {
+		this.forums = forums;
 	}
 
 }
