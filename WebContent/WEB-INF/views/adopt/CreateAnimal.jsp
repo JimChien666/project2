@@ -18,36 +18,43 @@
 	<div>
 		<jsp:include page="../public/top.jsp" />
 	</div>
-	<div class="wid400px">
+	<div class="wid450px">
 		<a href="<c:url value='/readAnimal' />"
 			class="btn btn-secondary margin10px">回維護首頁</a>
 	</div>
-	<div class="wid400px">
+	<div class="wid450px">
 		<form:form action="CreateAnimal.controller" method="POST"
 			modelAttribute="AnimalsList1" enctype="multipart/form-data">
 			<form:label path="animalFiles" class="label1">照片：</form:label>
-			<form:input path="animalFiles" type="file" class="wid200px" id="animalFiles" onchange="showImage()"/>
-<%-- 			<form:input path="animalFiles" type="file" class="wid200px" id="animalFiles"/> --%>
+			<form:input path="animalFiles" type="file" class="wid200px"
+				id="animalFilesCreate" onchange="showImageCreate()" />
+			<%-- 			<form:input path="animalFiles" type="file" class="wid200px" id="animalFiles"/> --%>
 			<!-- <input type="file" name="animalFile" id="animalFile" multiple class="wid200px"><br> -->
 			<br>
-			<span id="animalFileSpan" class="spanHidden height260px"> <img
-				id="preview_animalFile" src="#" class="square250px" /><br>
-			</span>
+			<div id="animalFilesDiv" class="divHidden height260px">
+				<img id="preview_animalFiles" src="#" class="square250px" /><br>
+			</div>
 			<form:label path="memberId" class="label1">會員編號：</form:label>
 			<form:input path="memberId" type="text" name="memberId"
 				placeholder="自動抓取會員編號" onblur="checkmemberId()" id="memberId" />
 			<br>
-			<span id="memberIdSpan" class="spanHidden"><br></span>
+			<div id="memberIdDiv" class="divHidden">
+				<br>
+			</div>
 			<form:label path="acceptionId" class="label1">收容動物編號：</form:label>
 			<form:input path="acceptionId" type="text" name="acceptionId"
 				onblur="checkacceptionId()" id="acceptionId" />收容所需填
 			<br>
-			<span id="acceptionIdSpan" class="spanHidden"><br></span>
+			<div id="acceptionIdDiv" class="divHidden">
+				<br>
+			</div>
 			<form:label path="breedId" class="label1">品種編號：</form:label>
 			<form:input path="breedId" type="text" name="breedId"
 				onblur="checkbreedId()" id="breedId" />需查詢填入
 			<br>
-			<span id="breedIdSpan" class="spanHidden"><br></span>
+			<div id="breedIdDiv" class="divHidden">
+				<br>
+			</div>
 			<form:label path="gender" class="label1">性別：</form:label>
 			<form:select path="gender">
 				<form:option value="1">公</form:option>
@@ -58,7 +65,9 @@
 			<form:input path="coatColor" type="text" name="coatColor"
 				onblur="checkcoatColor()" id="coatColor" />
 			<br>
-			<span id="coatColorSpan" class="spanHidden"><br></span>
+			<div id="coatColorDiv" class="divHidden">
+				<br>
+			</div>
 			<form:label path="isAdoptionAvailable" class="label1">是否開放領養：</form:label>
 			<form:select path="isAdoptionAvailable">
 				<form:option value="1">開放</form:option>

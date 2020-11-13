@@ -40,9 +40,9 @@ function confirmDelete(animalId) {
 //	document.getElementById("animalFileSpan").style.display = "block";
 //	readURL(this);
 //});
-function showImage(){
-	document.getElementById("animalFileSpan").style.display = "block";
-	readURL(document.getElementById("animalFiles"));
+function showImageCreate(){
+	document.getElementById("animalFilesDiv").style.display = "block";
+	readURL(document.getElementById("animalFilesCreate"));
 };
 
 //UpdateAnimal
@@ -52,10 +52,10 @@ function showImage(){
 //	document.getElementById("animalFileSpan1").style.display = "block";
 //	readURL(this);
 //});
-function showImage1(){
-	document.getElementById("animalFileSpan2").style.display = "none";
-	document.getElementById("animalFileSpan1").style.display = "block";
-	readURL(document.getElementById("animalFiles1"));
+function showImageUpdate(){
+	document.getElementById("animalFilesDivOrigin").style.display = "none";
+	document.getElementById("animalFilesDivAlter").style.display = "block";
+	readURL(document.getElementById("animalFilesUpdate"));
 };
 			
 //給showImage的readURL用的
@@ -63,7 +63,7 @@ function readURL(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			$("#preview_animalFile").attr('src', e.target.result);
+			$("#preview_animalFiles").attr('src', e.target.result);
 		}
 		reader.readAsDataURL(input.files[0]);
 	}
@@ -73,11 +73,11 @@ function readURL(input) {
 function checkmemberId() {
 	let memberId = document.getElementById("memberId").value;
 	let memberIdLength = memberId.length;
-	let memberIdSpan = document.getElementById("memberIdSpan");
+	let memberIdDiv = document.getElementById("memberIdDiv");
 	let flag1 = false;
 	if (memberId == "") {
-		document.getElementById("memberIdSpan").style.display = "block";
-		memberIdSpan.innerHTML = "不可空白";
+		document.getElementById("memberIdDiv").style.display = "block";
+		memberIdDiv.innerHTML = "不可空白";
 	} else if (memberIdLength <= 10) {
 		for (let i = 0; i < memberIdLength; i++) {
 			let ch = memberId.charAt(i);
@@ -89,14 +89,14 @@ function checkmemberId() {
 			}
 		}
 		if (flag1) {
-			memberIdSpan.innerHTML = "";
+			memberIdDiv.innerHTML = "";
 		} else {
-			document.getElementById("memberIdSpan").style.display = "block";
-			memberIdSpan.innerHTML = "只能輸入數字";
+			document.getElementById("memberIdDiv").style.display = "block";
+			memberIdDiv.innerHTML = "只能輸入數字";
 		}
 	} else {
-		document.getElementById("memberIdSpan").style.display = "block";
-		memberIdSpan.innerHTML = "只能輸入10碼";
+		document.getElementById("memberIdDiv").style.display = "block";
+		memberIdDiv.innerHTML = "只能輸入10碼";
 	}
 }
 
@@ -104,11 +104,11 @@ function checkmemberId() {
 function checkacceptionId() {
 	let acceptionId = document.getElementById("acceptionId").value;
 	let acceptionIdLength = acceptionId.length;
-	let acceptionIdSpan = document
-			.getElementById("acceptionIdSpan");
+	let acceptionIdDiv = document
+			.getElementById("acceptionIdDiv");
 	let flag1 = false;
 	if (acceptionId == "") {
-		acceptionIdSpan.innerHTML = "";
+		acceptionIdDiv.innerHTML = "";
 	} else if (acceptionIdLength > 0) {
 		for (let i = 0; i < acceptionIdLength; i++) {
 			let ch = acceptionId.charAt(i);
@@ -122,14 +122,14 @@ function checkacceptionId() {
 			}
 		}
 		if (flag1) {
-			acceptionIdSpan.innerHTML = "";
+			acceptionIdDiv.innerHTML = "";
 		} else {
-			document.getElementById("acceptionIdSpan").style.display = "block";
-			acceptionIdSpan.innerHTML = "只能輸入英文字母、數字";
+			document.getElementById("acceptionIdDiv").style.display = "block";
+			acceptionIdDiv.innerHTML = "只能輸入英文字母、數字";
 		}
 	} else {
-		document.getElementById("acceptionIdSpan").style.display = "block";
-		acceptionIdSpan.innerHTML = "";
+		document.getElementById("acceptionIdDiv").style.display = "block";
+		acceptionIdDiv.innerHTML = "";
 	}
 }
 
@@ -137,11 +137,11 @@ function checkacceptionId() {
 function checkbreedId() {
 	let breedId = document.getElementById("breedId").value;
 	let breedIdLength = breedId.length;
-	let breedIdSpan = document.getElementById("breedIdSpan");
+	let breedIdDiv = document.getElementById("breedIdDiv");
 	let flag1 = false;
 	if (breedId == "") {
-		document.getElementById("breedIdSpan").style.display = "block";
-		breedIdSpan.innerHTML = "必須選擇品種";
+		document.getElementById("breedIdDiv").style.display = "block";
+		breedIdDiv.innerHTML = "必須選擇品種";
 	} else if (breedIdLength <= 10) {
 		for (let i = 0; i < breedIdLength; i++) {
 			let ch = breedId.charAt(i);
@@ -153,14 +153,14 @@ function checkbreedId() {
 			}
 		}
 		if (flag1) {
-			breedIdSpan.innerHTML = "";
+			breedIdDiv.innerHTML = "";
 		} else {
-			document.getElementById("breedIdSpan").style.display = "block";
-			breedIdSpan.innerHTML = "只能輸入數字";
+			document.getElementById("breedIdDiv").style.display = "block";
+			breedIdDiv.innerHTML = "只能輸入數字";
 		}
 	} else {
-		document.getElementById("breedIdSpan").style.display = "block";
-		breedIdSpan.innerHTML = "只能輸入10碼";
+		document.getElementById("breedIdDiv").style.display = "block";
+		breedIdDiv.innerHTML = "只能輸入10碼";
 	}
 }
 
@@ -168,10 +168,10 @@ function checkbreedId() {
 function checkcoatColor() {
 	let coatColor = document.getElementById("coatColor").value;
 	let coatColorLength = coatColor.length;
-	let coatColorSpan = document.getElementById("coatColorSpan");
+	let coatColorDiv = document.getElementById("coatColorDiv");
 	let flag1 = false;
 	if (coatColor == "") {
-		coatColorSpan.innerHTML = "";
+		coatColorDiv.innerHTML = "";
 	} else {
 		for (let i = 0; i < coatColorLength; i++) {
 			let ch = coatColor.charAt(i);
@@ -185,10 +185,10 @@ function checkcoatColor() {
 			}
 		}
 		if (flag1) {
-			coatColorSpan.innerHTML = "";
+			coatColorDiv.innerHTML = "";
 		} else {
-			document.getElementById("coatColorSpan").style.display = "block";
-			coatColorSpan.innerHTML = "只能輸入英文字母、中文";
+			document.getElementById("coatColorDiv").style.display = "block";
+			coatColorDiv.innerHTML = "只能輸入英文字母、中文";
 		}
 	}
 }
