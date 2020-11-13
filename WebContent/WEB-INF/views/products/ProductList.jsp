@@ -115,6 +115,19 @@ function getData(){
 	
 }
 
+function addToCart(productId){
+	var cartNum = document.getElementById("qty").value;
+	var xhr = new XMLHttpRequest();
+	queryString="?productId=" + productId + "&cartNum=" + cartNum;
+	xhr.open("Get", "<c:url value='/cart/addCart'/>" + queryString , true);
+	xhr.send();
+	xhr.onreadystatechange = function() {
+	if (xhr.readyState == 4 && xhr.status == 200) {
+		var responseData = xhr.responseText;
+		displayPageProducts(responseData);
+	}
+}
+}
 
 
 // 當使用者按下『第一頁』、『前一頁』、『下一頁』、『最末頁』的連結時，由本方法發出非同步請求。
@@ -147,6 +160,7 @@ function asynRequest(id) {
 			displayPageProducts(responseData);
 		}
 	}
+		
 }
 
 function displayPageProducts(responseData){
@@ -163,6 +177,7 @@ function displayPageProducts(responseData){
 	var products = mapData.list;		// 傳回一個陣列
 	var bgColor = "";   // 每一項商品的背影 
 	var imageURL = "<c:url value='/product/getProductImage' />";
+	var counterHtml = "<select id='qty' name='qty'><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option></select>"
 	document.getElementById("showRecordCounts").innerHTML = recordCounts;
 	for(var i=0; i < products.length; i++){
 		console.log(products[i]);
@@ -177,9 +192,10 @@ function displayPageProducts(responseData){
 	               "<td align='center'>" + products[i].memberName + "</td>" +
 	               "<td><img  width='60' height='80' " +   
 	               " src='" + imageURL + "?productId=" + products[i].id + "'></td>" + 
+	               "<td width='60' height='80'>"+counterHtml+"<button onclick='addToCart(" + products[i].id + ")'>add cart</button></td>" +
 		           "</tr>";    
 	}
-	content += "</table>";selectBar
+	content += "</table>";
 	
 	document.getElementById("somedivS").innerHTML = content;
 	
@@ -229,6 +245,7 @@ function displayPageProducts(responseData){
 		}
 	}	
 }
+
 </script>
 </head>
 <body>
