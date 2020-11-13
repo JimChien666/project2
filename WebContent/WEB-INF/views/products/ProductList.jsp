@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<%-- <link rel='stylesheet' href="<c:url value='/css/styles.css' />" type="text/css" /> --%>
+
 <meta charset="UTF-8">
 <script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />"></script>
 <script>
@@ -32,6 +32,7 @@ window.onload = function() {
 			}
 		}
 	}
+	addToCart(0);
 }
 //從資料庫 [{id:1, name:"狗"}, {id:2, name:"貓"]
 function getCategories(){
@@ -132,19 +133,32 @@ function getData(){
 	}
 	
 }
-
+//若productId為零,後端會直接回傳購物車列表
 function addToCart(productId){
-	var cartNum = document.getElementById("qty").value;
-	var xhr = new XMLHttpRequest();
+	
+	if(productId!=0){
+		var cartNum = document.getElementById("qty"+productId).value;
+	}else{
+		var cartNum = 0;
+	}
 	queryString="?productId=" + productId + "&cartNum=" + cartNum;
+	var xhr = new XMLHttpRequest();
 	xhr.open("Get", "<c:url value='/cart/addCart'/>" + queryString , true);
 	xhr.send();
+	
 	xhr.onreadystatechange = function() {
 	if (xhr.readyState == 4 && xhr.status == 200) {
 		var responseData = xhr.responseText;
-		displayPageProducts(responseData);
+		var cartList = JSON.parse(responseData);
+		var num = cartList.length;
+		var total = 0;
+		for(var i=0; i < cartList.length; i++){
+			total += cartList[i].price * cartList[i].discount * cartList[i].quantity;
+			}
+		document.getElementById("shopCart").innerHTML="<img src='https://img.icons8.com/pastel-glyph/64/000000/shopping-cart--v2.png'/><span>共"+num+"項商品,金額為" + total + "</span>"
+		}
+	
 	}
-}
 }
 
 
@@ -196,10 +210,9 @@ function displayPageProducts(responseData){
 	var products = mapData.list;		// 傳回一個陣列
 	var bgColor = "";   // 每一項商品的背影 
 	var imageURL = "<c:url value='/product/getProductImage' />";
-	var counterHtml = "<select id='qty' name='qty'><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option></select>"
 	document.getElementById("showRecordCounts").innerHTML = recordCounts;
 	for(var i=0; i < products.length; i++){
-		console.log(products[i]);
+		
 		bgColor = (i % 2 == 0 ? "#d4f5b2" : "#b2f5e5");
 		content += "<tr height='80' bgcolor='" + bgColor + "'>" + 
 		           "<td  align='right'>" + products[i].id + "&nbsp;</td>" + 
@@ -211,7 +224,7 @@ function displayPageProducts(responseData){
 	               "<td align='center'>" + products[i].memberName + "</td>" +
 	               "<td><img  width='60' height='80' " +   
 	               " src='" + imageURL + "?productId=" + products[i].id + "'></td>" + 
-	               "<td width='60' height='80'>"+counterHtml+"<button onclick='addToCart(" + products[i].id + ")'>add cart</button></td>" +
+	               "<td width='60' height='80'><select id='qty"+ products[i].id +"' name='qty'><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option></select><button onclick='addToCart(" + products[i].id + ")'>add cart</button></td>" +
 		           "</tr>";    
 	}
 	content += "</table>";
@@ -272,7 +285,7 @@ function displayPageProducts(responseData){
 <div align='center'>
 	<h3>商品資訊</h3>
 	<hr>
-	<div id="selectBar"></div>
+	<div id="selectBar"></div><div id="shopCart"><img src="https://img.icons8.com/pastel-glyph/64/000000/shopping-cart--v2.png"/></div>
 	<div>共蒐尋出<span style='color:red;' id='showRecordCounts'></span>項商品</div>
 	<div id='somedivS'  style='height:260px;'></div>
 	<div id='navigation' style='height:60px;'></div>

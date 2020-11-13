@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iii.eeit124.entity.Products;
 import com.iii.eeit124.shopping.service.ProductListService;
-import com.iii.eeit124.util.GlobalService;
 
 
 
