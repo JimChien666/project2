@@ -41,7 +41,7 @@ public class Members implements Serializable{
 	private Set<Products> products = new HashSet<Products>();
 	private Set<Article> articles = new HashSet<Article>();
 	private Set<Forums> forums = new HashSet<Forums>();
-	
+	private Set<Comments> comments = new HashSet<Comments>();
 
 	
 
@@ -232,6 +232,18 @@ public class Members implements Serializable{
 
 	public void setForums(Set<Forums> forums) {
 		this.forums = forums;
+	}
+
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	public Set<Comments> getComments() {
+		return comments;
+	}
+
+
+
+	public void setComments(Set<Comments> comments) {
+		this.comments = comments;
 	}
 	
 	

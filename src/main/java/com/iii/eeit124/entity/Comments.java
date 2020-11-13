@@ -2,10 +2,14 @@ package com.iii.eeit124.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "COMMENTS")
@@ -14,8 +18,10 @@ public class Comments {
 	private String comment;
 	private int forumid;
 	private int memberid;
+	private Members member;
 
-	@Id @Column(name = "ID")
+	@Id
+	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
@@ -33,7 +39,7 @@ public class Comments {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
+
 	@Column(name = "FORUM_ID")
 	public int getForumid() {
 		return forumid;
@@ -44,12 +50,23 @@ public class Comments {
 	}
 
 	@Column(name = "MEMBER_ID")
+	@Transient
 	public int getMemberid() {
 		return memberid;
 	}
 
 	public void setMemberid(int memberid) {
 		this.memberid = memberid;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MEMBER_ID")
+	public Members getMember() {
+		return member;
+	}
+
+	public void setMember(Members member) {
+		this.member = member;
 	}
 
 }
