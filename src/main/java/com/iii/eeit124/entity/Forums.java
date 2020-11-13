@@ -15,13 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import org.hibernate.annotations.ForeignKey;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "FORUMS")
@@ -125,7 +120,7 @@ public class Forums {
 //		return "Forums [id=" + id + ", articleid=" + articleid + ", content=" + content + ", createdat=" + createdat
 //				+ ", voteid=" + voteid + ", memberid=" + memberid + ", article=" + article + "]";
 //	}
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "FORUMS", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "forums", cascade = CascadeType.ALL)
 	public Set<Comments> getComments() {
 		return comments;
 	}

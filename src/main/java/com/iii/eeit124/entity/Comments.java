@@ -51,7 +51,7 @@ public class Comments {
 		this.forumid = forumid;
 	}
 
-	@Column(name = "MEMBER_ID")
+//	@Column(name = "MEMBER_ID")
 	@Transient
 	public int getMemberid() {
 		return memberid;
@@ -71,12 +71,12 @@ public class Comments {
 		this.member = member;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FORUM_ID")
 	public Forums getForums() {
 		return forums;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FORUM_ID")
 	public void setForums(Forums forums) {
 		this.forums = forums;
 	}
