@@ -107,7 +107,7 @@ public class Article {
 	
 	@Transient
 	public Forums getFirstForum() {	
-		System.out.println("jdsgjofi");
+//		System.out.println("jdsgjofi");
 		System.out.println(this.getForums());
 		Iterator<Forums> iterator = this.getForums().iterator();
 //		String content = "";
