@@ -35,14 +35,15 @@ function confirmDelete(animalId) {
 
 //CreateAnimal
 //當animalFile有變動時，會將animalFileSpan顯示
-//$("#animalFiles").change(function() {
-//	alert("good");
-//	document.getElementById("animalFileSpan").style.display = "block";
-//	readURL(this);
-//});
-function showImageCreate(){
-	document.getElementById("animalFilesDiv").style.display = "block";
-	readURL(document.getElementById("animalFilesCreate"));
+//function showImageCreate(){
+//	document.getElementById("animalFilesDiv").style.display = "block";
+//	readURL(document.getElementById("animalFilesCreate"));
+//};
+window.onload = function() {
+	$("#animalFiles").change(function() {
+		document.getElementById("animalFilesDiv").style.display = "block";
+		readURL(this);
+	});
 };
 
 //UpdateAnimal
