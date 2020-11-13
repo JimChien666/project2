@@ -19,6 +19,8 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <meta charset="UTF-8">
 <meta name="viewport"
@@ -68,12 +70,43 @@ articleType:
 			<form:option value="2" label="貓" />
 		</form:select>
 		<br>
-article:<form:textarea path="content" />
+		
+		
+		
+		
+		
+		
+<%-- article:<form:textarea path="content" /> --%>
+article:<form:textarea name="content" id="editor" path="content" />
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<br>
 		<form:hidden value="1" path="article.activitysid" />
 		<form:hidden value="1" path="article.showarticle" />
 		<form:hidden value="1" path="voteid" />
 		<form:button value="submit" type="submit">送出</form:button>
+	
+	
+	
+	<script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+	
+	
+	
+	
 	</form:form>
 
 	<a href="<c:url value='backArticle' />" class="fixed0"><button
