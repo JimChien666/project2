@@ -6,11 +6,12 @@ import com.iii.eeit124.entity.Products;
 
 public interface ProductListService {
 	List<Products> findAllProducts();
-	List<Products> getPageProducts(Integer pageNo);
-	Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId);
-	Integer getTotalPages();
+	List<Products> getPageProducts(Integer pageNo,Integer recordsPerPage);
+	Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage);
+	Integer getTotalPages(Integer recordsPerPage);
 	Products getProduct(Integer productId);
-	List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId);
 	Long getRecordCounts(Integer colorId, Integer categoryId, Integer animalTypeId);
 	Long getRecordCounts();
+	List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId,
+			Integer recordsPerPage);
 }

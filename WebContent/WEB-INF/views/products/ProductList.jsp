@@ -16,14 +16,17 @@ window.onload = function() {
 	getColors();
 	getCategories();
 	getAnimalTypes();
+	getPage();
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "<c:url value='/product/pagingProducts.json' />", true);
+	var recordsPerPage = document.getElementById("recordsPerPage").value;
+	xhr.open("GET", "<c:url value='/product/pagingProducts.json' />" + "?recordsPerPage="+recordsPerPage, true);
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 ) {
 			if (xhr.status == 200){
 				var responseData = xhr.responseText;
 				displayPageProducts(responseData);   // 顯示讀取到的非文字性資料
+				
 			} else {
 				alert(xhr.status);
 			}
@@ -92,13 +95,28 @@ function getAnimalTypes(){
 	}
 }
 
+function getPage(){
+	
+
+			var content = "商品分頁：<select id='recordsPerPage' name='recordsPerPage' onchange=getData() >";
+			for(var i=3; i <= 9; i+=3){
+			    content += 	"<option value='" + i + "'>" + i + "</option>";
+			}
+			
+			content += "</select>";
+			var divs = document.getElementById("selectBar");
+			divs.innerHTML += content;
+			/* divs.innerHTML += "<br/>"; */
+}
+
 
 function getData(){
 	var animalTypeId = document.getElementById("animalTypeId").value;
 	var colorId = document.getElementById("colorId").value;
 	var categoryId = document.getElementById("categoryId").value;
+	var recordsPerPage = document.getElementById("recordsPerPage").value;
 	var xhr = new XMLHttpRequest();
-	var condiction = "?animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId;
+	var condiction = "?animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId + "&recordsPerPage="+recordsPerPage;
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "<c:url value='/product/pagingProducts.json' />" + condiction, true);
 	xhr.send();
@@ -147,7 +165,8 @@ function asynRequest(id) {
 	    var animalTypeId = document.getElementById("animalTypeId").value;
 		var colorId = document.getElementById("colorId").value;
 		var categoryId = document.getElementById("categoryId").value;
-		var condiction = "&animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId;
+		var recordsPerPage = document.getElementById("recordsPerPage").value;
+		var condiction = "&animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId + "&recordsPerPage=" + recordsPerPage;
 	    // 查詢字串包含1.即將要讀取的頁數(pageNo), 2.總共有幾頁(totalPage)
 	    // 注意，查詢字串的前面有問號
 	    queryString = "?pageNo=" + no + "&totalPage=" + totalPage + condiction;

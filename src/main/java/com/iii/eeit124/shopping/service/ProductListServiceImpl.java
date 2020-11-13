@@ -20,13 +20,13 @@ public class ProductListServiceImpl implements ProductListService {
 		return dao.findAllProducts();
 	}
 
-	public List<Products> getPageProducts(Integer pageNo){
-		return dao.getPageProducts(pageNo);
+	public List<Products> getPageProducts(Integer pageNo,Integer recordsPerPage){
+		return dao.getPageProducts(pageNo,recordsPerPage);
 	}
 
 	@Override
-	public Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId) {
-		return dao.getTotalPages(colorId, categoryId, animalTypeId);
+	public Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage) {
+		return dao.getTotalPages(colorId, categoryId, animalTypeId,recordsPerPage);
 	}
 
 	@Override
@@ -35,14 +35,14 @@ public class ProductListServiceImpl implements ProductListService {
 	}
 
 	@Override
-	public List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId) {
-		return dao.getPageProducts(pageNo, colorId, categoryId, animalTypeId);
+	public List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage) {
+		return dao.getPageProducts(pageNo, colorId, categoryId, animalTypeId,recordsPerPage);
 	}
 
 	@Override
-	public Integer getTotalPages() {
+	public Integer getTotalPages(Integer recordsPerPage) {
 		
-		return dao.getPageProducts();
+		return dao.getTotalPages( recordsPerPage);
 	}
 
 	@Override
@@ -54,4 +54,6 @@ public class ProductListServiceImpl implements ProductListService {
 	public Long getRecordCounts() {
 		return dao.getRecordCounts();
 	}
+
+
 }

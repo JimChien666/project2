@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iii.eeit124.entity.Products;
 import com.iii.eeit124.shopping.service.ProductListService;
+import com.iii.eeit124.util.GlobalService;
 
 
 
@@ -54,7 +55,8 @@ public class ProdcutListController {
 		@RequestParam(value="totalPage", required = false) Integer totalPage,
 		@RequestParam(value="colorId", required = false) Integer colorId,
 		@RequestParam(value="categoryId", required = false) Integer categoryId,
-		@RequestParam(value="animalTypeId", required = false) Integer animalTypeId
+		@RequestParam(value="animalTypeId", required = false) Integer animalTypeId,
+		@RequestParam(value="recordsPerPage", required = false,defaultValue = "3") Integer recordsPerPage
 		
 			) {
 		Long recordCounts= (long) 0;
@@ -62,21 +64,22 @@ public class ProdcutListController {
 	    
 
 		Map<String, Object> map = new HashMap<>();
-		if (colorId != null||categoryId != null||animalTypeId != null) {
-			totalPage = service.getTotalPages(colorId, categoryId, animalTypeId);
+		if (colorId != null||categoryId != null||animalTypeId != null  ) {
+			totalPage = service.getTotalPages(colorId, categoryId, animalTypeId,recordsPerPage);
 			recordCounts = service.getRecordCounts(colorId, categoryId, animalTypeId);
-			list = service.getPageProducts(pageNo, colorId, categoryId, animalTypeId);
+			list = service.getPageProducts(pageNo, colorId, categoryId, animalTypeId,recordsPerPage);
 		}
 		else {
-			totalPage = service.getTotalPages();
-			System.out.println(totalPage);
-			list = service.getPageProducts(pageNo);
+			totalPage = service.getTotalPages(recordsPerPage);
+//			System.out.println(totalPage);
+			list = service.getPageProducts(pageNo,recordsPerPage);
 			recordCounts = service.getRecordCounts();
 		}
 		map.put("list", list);
 		map.put("totalPage", totalPage);
 		map.put("currPage", pageNo);
 		map.put("recordCounts", recordCounts);
+		map.put("recordsPerPage", recordsPerPage);
 
 		return map;
 	}
