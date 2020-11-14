@@ -41,6 +41,8 @@ public class Members implements Serializable{
 	private Date createdAt;
 	private Set<MemberFiles> files = new HashSet<MemberFiles>();
 	private Set<Products> products = new HashSet<Products>();
+	private Set<Orders> orders = new HashSet<Orders>();
+	private Set<OrderItems> orderItems = new HashSet<OrderItems>();
 	
 
 	
@@ -208,6 +210,30 @@ public class Members implements Serializable{
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "buyer", cascade = CascadeType.ALL)
+	public Set<Orders> getOrders() {
+		return orders;
+	}
+
+
+
+	public void setOrders(Set<Orders> orders) {
+		this.orders = orders;
+	}
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "seller", cascade = CascadeType.ALL)
+	public Set<OrderItems> getOrderItems() {
+		return orderItems;
+	}
+
+
+
+	public void setOrderItems(Set<OrderItems> orderItems) {
+		this.orderItems = orderItems;
 	}
 	
 	

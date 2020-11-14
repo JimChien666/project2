@@ -129,7 +129,7 @@ function comfirmOrder(){
 		<hr>
 		<div id='navigation' style='height:60px;'>
 			<button><a href="<c:url value='/product/ProductList' />" style="text-decoration:none;color:black;">返回購物</a></button>
-			<button onclick='comfirmOrder()'>確認購買</button>
+			<button onclick='comfirmOrder()'>立即結帳</button>
 		</div>
 	</div>
 </body>
