@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -36,6 +37,8 @@ public class AnimalsController {
 	ServletContext sc;
 	@Autowired
 	public AnimalsService animalsService;
+	@Autowired
+	HttpSession httpSession;
 
 	// 瀏覽全部動物
 	@GetMapping("/readAnimal")
