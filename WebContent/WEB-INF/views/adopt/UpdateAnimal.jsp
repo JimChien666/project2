@@ -28,15 +28,15 @@
 			modelAttribute="animals" enctype="multipart/form-data">
 			<form:label path="animalFiles" class="label1">照片：</form:label>
 			<form:input path="animalFiles" type="file" class="wid200px"
-				id="animalFilesUpdate" onchange="showImageUpdate()" />
-			<!-- 		<input type="file" name="animalFile" id="animalFile1" multiple class="wid200px"> -->
-			<div id="animalFilesDivOrigin" class="dispblok margleft125px">
-				<img class="square250px"
+				id="animalFilesUpdate" />
+			<br>
+			<div class="dispblok margleft125px square250px" id="animalFilesDivOrigin">
+				<img class="cardImg"
 					src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animals.animalId}"
 					alt="Animal image">
 			</div>
-			<div id="animalFilesDivAlter" class="divHidden">
-				<img class="square250px" id="preview_animalFiles" src="#" /><br>
+			<div class="divHidden square250px" id="animalFilesDivAlter">
+				<img class="cardImg" id="preview_animalFiles" src="#"/><br>
 			</div>
 			<form:label path="animalId" class="label1">動物編號：</form:label>
 			<form:input path="animalId" type="text" name="animalId"

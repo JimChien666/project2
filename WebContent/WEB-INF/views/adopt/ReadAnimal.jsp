@@ -37,10 +37,11 @@
 		<!-- card來源https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_card_image&stacked=h -->
 		<c:forEach var="AnimalsList" items="${AnimalsList}">
 			<div class="card card2">
-				<!--TODO:改圖片顯示方式 -->
-				<img class="card-img-top"
-					src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${AnimalsList.animalId}"
-					alt="Animal image">
+				<div class="square250px">
+					<img class="cardImg marginAuto"
+						src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${AnimalsList.animalId}"
+						alt="Animal image">
+				</div>
 				<form action="">
 					<div class="card-body form1">
 						<ul>

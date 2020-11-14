@@ -39,24 +39,25 @@ function confirmDelete(animalId) {
 //	document.getElementById("animalFilesDiv").style.display = "block";
 //	readURL(document.getElementById("animalFilesCreate"));
 //};
-window.onload = function() {
-	$("#animalFiles").change(function() {
-		document.getElementById("animalFilesDiv").style.display = "block";
-		readURL(this);
-	});
-};
 
 //UpdateAnimal
 //當animalFile1有變動時，會將animalFileSpan1顯示
-//$("#animalFiles1").change(function() {
-//	document.getElementById("animalFileSpan2").style.display = "none";
-//	document.getElementById("animalFileSpan1").style.display = "block";
-//	readURL(this);
-//});
-function showImageUpdate(){
-	document.getElementById("animalFilesDivOrigin").style.display = "none";
-	document.getElementById("animalFilesDivAlter").style.display = "block";
-	readURL(document.getElementById("animalFilesUpdate"));
+//function showImageUpdate(){
+//	document.getElementById("animalFilesDivOrigin").style.display = "none";
+//	document.getElementById("animalFilesDivAlter").style.display = "block";
+//	readURL(document.getElementById("animalFilesUpdate"));
+//};
+window.onload = function() {
+	$("#animalFilesCreate").change(function() {
+		$("#animalFilesDiv").show();
+		readURL(this);
+	});
+	$("#animalFilesUpdate").change(function() {
+		$("#animalFilesDivOrigin").hide();
+		$("#animalFilesDivAlter").show();
+//		$("#animalFilesDivAlter").css('display','block');
+		readURL(this);
+	});
 };
 			
 //給showImage的readURL用的

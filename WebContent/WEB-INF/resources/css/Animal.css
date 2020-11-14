@@ -1,18 +1,35 @@
 @charset "UTF-8";
 
 .card2 {
-	width: 250px;
 	float: left;
 	margin: 10px;
 	padding: 5px;
 }
 
-.card2 img {
-	height: 250px;
+.cardImg {
+    max-height: 100%;  
+    max-width: 100%; 
+    width: auto;
+    height: auto;
+    position: absolute;  
+    top: 0;  
+    bottom: 0;  
+    left: 0;  
+    right: 0;
 }
 
 .dispblok {
 	display: block;
+}
+
+.div1 {
+	display: inline-block;
+}
+
+.divHidden {
+	margin-left: 125px;
+	display: none;
+	color: red;
 }
 
 .form1 {
@@ -35,6 +52,10 @@
 	margin: 10px;
 }
 
+.marginAuto{
+	margin:auto;
+}
+
 .margleft125px {
 	margin-left: 125px;
 }
@@ -46,26 +67,18 @@
 
 .page1 {
 	margin: 0 auto;
-	width: 87%;
+	width: 89%;
 }
 
 .posAbs {
 	position: absolute;
 }
 
-.div1 {
-	display: inline-block;
-}
-
-.divHidden {
-	margin-left: 125px;
-	display: none;
-	color: red;
-}
-
 .square250px {
 	height: 250px;
 	width: 250px;
+	position: relative;
+	margin-bottom:5px;
 }
 
 .wid200px {
