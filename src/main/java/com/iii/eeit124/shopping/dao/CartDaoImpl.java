@@ -24,6 +24,7 @@ public class CartDaoImpl implements CartDao {
 		Products product = query.uniqueResult();
 		CartItems cartItem = new CartItems();
 		cartItem.setProductId(productId);
+		cartItem.setProductName(product.getName());
 		cartItem.setDiscount(product.getDiscount());
 		cartItem.setPrice(product.getPrice());
 		cartItem.setQuantity(product.getQuantity());

@@ -7,6 +7,13 @@ public class CartItems {
 	private Integer quantity;
 	private Integer memberId;
 	private String memberName;
+	private String productName;
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
 	public Integer getMemberId() {
 		return memberId;
 	}

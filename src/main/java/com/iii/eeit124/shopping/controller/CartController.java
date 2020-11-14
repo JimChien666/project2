@@ -36,7 +36,7 @@ public class CartController {
 	 * 回傳購物車的列表
 	 * */
 	@SuppressWarnings("unchecked")
-	@GetMapping(value = "/addCart")
+	@GetMapping(value = "/AddCart")
 	public @ResponseBody List<CartItems>  addCart(@RequestParam(value="productId", required = false)Integer productId, @RequestParam(value="cartNum", required = false)Integer cartNum,Model model) {
 		if (session.getAttribute("cartItems")==null) {
 			session.setAttribute("cartItems", new ArrayList<CartItems>());
@@ -59,4 +59,24 @@ public class CartController {
 		
 		return cartItems;
 	}
+	@GetMapping(value = "/CartList")
+	public String goToCartPage(Model model) {
+		if (session.getAttribute("cartItems")==null) {
+			session.setAttribute("cartItems", new ArrayList<CartItems>());
+		}
+		return "products/CartList";
+	}
+	
+	@GetMapping("/FixProductQuantity")
+	public boolean fixProductQuantity(@RequestParam("productId")Integer productId, @RequestParam("count")Integer count,Model model){
+		List<CartItems> cartItems = (List<CartItems>) session.getAttribute("cartItems");
+		for(CartItems cartItemMember:cartItems) {
+			if(cartItemMember.getProductId().equals(productId)) {
+				cartItemMember.setQuantity(count);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

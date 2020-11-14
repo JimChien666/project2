@@ -3,7 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-
+<style>
+th, td{
+width: 200px;
+align: left;
+}
+</style>
 <meta charset="UTF-8">
 <script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />"></script>
 <script>
@@ -143,7 +148,7 @@ function addToCart(productId){
 	}
 	queryString="?productId=" + productId + "&cartNum=" + cartNum;
 	var xhr = new XMLHttpRequest();
-	xhr.open("Get", "<c:url value='/cart/addCart'/>" + queryString , true);
+	xhr.open("Get", "<c:url value='/cart/AddCart'/>" + queryString , true);
 	xhr.send();
 	
 	xhr.onreadystatechange = function() {
@@ -197,10 +202,10 @@ function asynRequest(id) {
 }
 
 function displayPageProducts(responseData){
-  var content = "<table border='1'><tr height='42' bgcolor='#fbdb98'>";
-      content +=  "<th width='56'>編號</th><th width='360'>商品名稱</th><th width='80'>簡介</th>";
-      content +=  "<th width='50'>定價</th><th width='50'>折扣</th><th  width='50'>實售</th>";
-      content +=  "<th  width='100'>賣家</th><th width='60'>封面</th>";
+    var content = "<table><tr style='border: 1px solid black;'>";
+      content +=  "<th>編號</th><th>商品名稱</th>";
+      content +=  "<th>定價</th><th>折扣</th><th>實售</th>";
+      content +=  "<th>賣家</th><th>封面</th><th>購物車</th>";
 	  content +=  "</tr>";
 	var mapData = JSON.parse(responseData);
 	pageNo = mapData.currPage;
@@ -213,18 +218,16 @@ function displayPageProducts(responseData){
 	document.getElementById("showRecordCounts").innerHTML = recordCounts;
 	for(var i=0; i < products.length; i++){
 		
-		bgColor = (i % 2 == 0 ? "#d4f5b2" : "#b2f5e5");
-		content += "<tr height='80' bgcolor='" + bgColor + "'>" + 
-		           "<td  align='right'>" + products[i].id + "&nbsp;</td>" + 
+		content += "<tr>" + 
+		           "<td>" + products[i].id + "&nbsp;</td>" + 
 	               "<td>" + products[i].name + "</td>" +
-	               "<td align='center'>" + products[i].description.substring(0, 100) + "</td>" +
-	               "<td align='right'>" + products[i].price + "&nbsp;</td>" +
-	               "<td align='center'>" + products[i].discount + "</td>" +
-	               "<td align='right'>" + (products[i].price * products[i].discount) + "</td>" +
-	               "<td align='center'>" + products[i].memberName + "</td>" +
+	               "<td>" + products[i].price + "&nbsp;</td>" +
+	               "<td>" + products[i].discount + "</td>" +
+	               "<td>" + (products[i].price * products[i].discount) + "</td>" +
+	               "<td>" + products[i].memberName + "</td>" +
 	               "<td><img  width='60' height='80' " +   
 	               " src='" + imageURL + "?productId=" + products[i].id + "'></td>" + 
-	               "<td width='60' height='80'><select id='qty"+ products[i].id +"' name='qty'><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option></select><button onclick='addToCart(" + products[i].id + ")'>add cart</button></td>" +
+	               "<td><select id='qty"+ products[i].id +"' name='qty'><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option></select><button onclick='addToCart(" + products[i].id + ")'>add cart</button></td>" +
 		           "</tr>";    
 	}
 	content += "</table>";
@@ -234,19 +237,19 @@ function displayPageProducts(responseData){
 	
 	var navContent = "<table border='1' ><tr height='36' bgcolor='#fbdb98'>" ;
 	if (pageNo != 1){
-		navContent += "<td width='80' align='center'><button id='first'>第一頁</button></td>";
-		navContent += "<td width='80' align='center'><button id='prev'>前一頁</button></td>";
+		navContent += "<td align='center'><button id='first'>第一頁</button></td>";
+		navContent += "<td align='center'><button id='prev'>前一頁</button></td>";
 	}  else {
-		navContent += "<td width='80' align='center'>&nbsp;</td>";
-		navContent += "<td width='80' align='center'>&nbsp;</td>";
+		navContent += "<td align='center'>&nbsp;</td>";
+		navContent += "<td align='center'>&nbsp;</td>";
 	}
 	navContent += "<td width='200' align='center'>第" + pageNo + "頁 / 共" + totalPage + "頁</td>";
 	if (pageNo != totalPage){
-		navContent += "<td width='80' align='center'><button id='next'>下一頁</button></td>";
-		navContent += "<td width='80' align='center'><button id='last'>最末頁</button></td>";
+		navContent += "<td align='center'><button id='next'>下一頁</button></td>";
+		navContent += "<td align='center'><button id='last'>最末頁</button></td>";
 	}  else {
-		navContent += "<td width='80' align='center'>&nbsp;</td>";
-		navContent += "<td width='80' align='center'>&nbsp;</td>";
+		navContent += "<td align='center'>&nbsp;</td>";
+		navContent += "<td align='center'>&nbsp;</td>";
 	}
 	document.getElementById("navigation").innerHTML = navContent;
 	var firstBtn = document.getElementById("first");
@@ -278,6 +281,10 @@ function displayPageProducts(responseData){
 	}	
 }
 
+function goToCartPage(){
+	window.location.href = "<c:url value='/cart/CartList' />";
+}
+
 </script>
 </head>
 <body>
@@ -285,10 +292,11 @@ function displayPageProducts(responseData){
 <div align='center'>
 	<h3>商品資訊</h3>
 	<hr>
-	<div id="selectBar"></div><div id="shopCart"><img src="https://img.icons8.com/pastel-glyph/64/000000/shopping-cart--v2.png"/></div>
+	<div id="selectBar" style="display:inline;"></div><div id="shopCart" onclick="goToCartPage()" style='cursor: pointer;display:inline;margin-left:20%;'><img src="https://img.icons8.com/pastel-glyph/64/000000/shopping-cart--v2.png"/></div>
 	<div>共蒐尋出<span style='color:red;' id='showRecordCounts'></span>項商品</div>
-	<div id='somedivS'  style='height:260px;'></div>
-	<div id='navigation' style='height:60px;'></div>
+	<hr>
+	<div id='somedivS'></div>
+	<div id='navigation'></div>
 	<hr>
 		<a href="<c:url value='/' />">回前頁</a>
 	</div>
