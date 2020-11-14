@@ -57,6 +57,14 @@ function fixProductQuantity(productId, count){
 	addToCartList();
 }
 
+function deleteCartItem(productId){
+	var xhr = new XMLHttpRequest();
+	var queryString = "?productId=" + productId;
+	xhr.open("Get", "<c:url value='/cart/DeleteCartItem'/>" + queryString, true);
+	xhr.send();
+	addToCartList();
+}
+
 //若productId為零,後端會直接回傳購物車列表
 function addToCartList(){
 	queryString="?productId=0&cartNum=0";
@@ -75,6 +83,7 @@ function addToCartList(){
 	    content +=  "<th>實售單價</th>";
 	    content +=  "<th>數量</th>";
 	    content +=  "<th>總價</th>";
+	   	content +=  "<th>操作</th>";
 		content +=  "</tr>";
 		for(var i=0; i < cartList.length; i++){
 			content += "<tr height='80'>" + 
@@ -89,16 +98,25 @@ function addToCartList(){
             "<li id='plus" + cartList[i].productId + "'><input type='button' onclick='adder(" + cartList[i].productId + ")' value='+'/></li>"+
            	"</ul></td>" +
            	"<td>" + (cartList[i].discount * cartList[i].price * cartList[i].quantity) + "</td>"+
+           	"<td><button onclick='deleteCartItem("+cartList[i].productId+")'>刪除</button></td>"+
            	"</tr>";
 			total+=cartList[i].discount * cartList[i].price * cartList[i].quantity;
 		}
-		content +="<tr><td colspan='7'></td><td align='right'>總價：</td><td align='center' style='font-size: 20px; color:red;'>" + total + "</td></tr>"
+		content +="<tr><td colspan='7'></td><td align='right'>共</td><td align='center'><span style='font-size: 20px; color:red;'>" + num + "</span>項商品</td></tr>"
+		content +="<tr><td colspan='7'></td><td align='right'>總價：</td><td align='center'><span style='font-size: 20px; color:red;'>" + total + "</span>元</td></tr>"
 		content += "</table>";
 		
 		document.getElementById("cartList").innerHTML = content;
 	}
 	
 }
+}
+
+function comfirmOrder(){
+	var check = confirm("前往結帳");
+	if (check){
+		window.location.href = "<c:url value='/order/CreateOrder' />";
+	}
 }
 </script>
 </head>
@@ -111,7 +129,7 @@ function addToCartList(){
 		<hr>
 		<div id='navigation' style='height:60px;'>
 			<button><a href="<c:url value='/product/ProductList' />" style="text-decoration:none;color:black;">返回購物</a></button>
-			<button><a href="<c:url value='/product/ProductList' />" style="text-decoration:none;color:black;">確認購買</a></button>
+			<button onclick='comfirmOrder()'>確認購買</button>
 		</div>
 	</div>
 </body>

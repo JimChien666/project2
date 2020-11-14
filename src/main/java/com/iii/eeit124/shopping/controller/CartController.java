@@ -79,4 +79,16 @@ public class CartController {
 		return false;
 	}
 	
+	@GetMapping("/DeleteCartItem")
+	public boolean deleteCartItem(@RequestParam("productId")Integer productId,Model model) {
+		List<CartItems> cartItems = (List<CartItems>) session.getAttribute("cartItems");
+		for(CartItems cartItemMember:cartItems) {
+			if(cartItemMember.getProductId().equals(productId)) {
+				cartItems.remove(cartItemMember);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

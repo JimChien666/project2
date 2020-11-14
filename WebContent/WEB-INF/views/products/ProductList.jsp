@@ -292,7 +292,7 @@ function goToCartPage(){
 <div align='center'>
 	<h3>商品資訊</h3>
 	<hr>
-	<div id="selectBar" style="display:inline;"></div><div id="shopCart" onclick="goToCartPage()" style='cursor: pointer;display:inline;margin-left:20%;'><img src="https://img.icons8.com/pastel-glyph/64/000000/shopping-cart--v2.png"/></div>
+	<div id="selectBar" style="display:inline;"></div><div id="shopCart" onclick="goToCartPage()" style='cursor: pointer;display:inline;margin-left:20%;' dir='rtl'><img src="https://img.icons8.com/pastel-glyph/64/000000/shopping-cart--v2.png"/></div>
 	<div>共蒐尋出<span style='color:red;' id='showRecordCounts'></span>項商品</div>
 	<hr>
 	<div id='somedivS'></div>
