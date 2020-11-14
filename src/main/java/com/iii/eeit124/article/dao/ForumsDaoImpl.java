@@ -41,4 +41,12 @@ public class ForumsDaoImpl implements ForumsDao {
 		sessionFactory.getCurrentSession().update(article);
 	}
 
+	@Override
+	public Forums selectForum(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Forums> query = session.createQuery("from Forums where id = ?1", Forums.class);
+		query.setParameter(1, id);
+		return query.uniqueResult();
+	}
+
 }

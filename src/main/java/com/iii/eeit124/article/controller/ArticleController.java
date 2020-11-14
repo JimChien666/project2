@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.iii.eeit124.article.service.ArticleService;
+import com.iii.eeit124.article.service.CommentsService;
 import com.iii.eeit124.article.service.ForumsService;
 import com.iii.eeit124.entity.Article;
 import com.iii.eeit124.entity.Forums;
@@ -32,6 +33,8 @@ public class ArticleController {
 	ArticleService articleService;
 	@Autowired
 	ForumsService forumsService;
+	@Autowired
+	CommentsService commentsService;
 
 	@ModelAttribute("article")
 	public Article formBackingObject() {
@@ -82,6 +85,12 @@ public class ArticleController {
 		System.out.println("...........");
 		return "redirect:/articleList";
 	}
+	@GetMapping(value = "saveComments")
+	public String saveComments(@RequestParam(value = "id", required = false) Integer id) {
+//		Forums forum = forumsService.selectForum(id);
+//		commentsService.save();
+		return null;
+	}
 
 	@PostMapping(value = "/replyToDB")
 	public String replyToDB(@ModelAttribute(name = "forums") Forums forums, BindingResult result, ModelMap model,
@@ -96,7 +105,7 @@ public class ArticleController {
 		return "redirect:/articleList";
 	}
 
-	// save article to db and return the articleList page.
+	// save article to DB and return the articleList page.
 	@PostMapping(value = "/saveToDB")
 	public String saveToDB(@ModelAttribute(name = "forums") Forums forums, BindingResult result, ModelMap model) {
 //		public String saveToDB(@ModelAttribute(name = "article")Article article, BindingResult result, ModelMap model) {
@@ -112,7 +121,7 @@ public class ArticleController {
 		return "redirect:/articleList";
 	}
 
-	// update article to db and return the articleList page.
+	// update article to DB and return the articleList page.
 	@PostMapping(value = "/updateToDB")
 	public String updateToDB(@ModelAttribute(name = "article") Article article,
 			@RequestParam("content") String forumContent, BindingResult result, Model model) {

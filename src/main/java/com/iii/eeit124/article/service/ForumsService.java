@@ -10,4 +10,5 @@ public interface ForumsService {
 	void saveArticle(Article article);
 	void update(Article article);
 	List<Forums> select(int id);
+	Forums selectForum(int id);
 }

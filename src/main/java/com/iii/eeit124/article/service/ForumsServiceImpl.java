@@ -37,6 +37,11 @@ public class ForumsServiceImpl implements ForumsService {
 	public void update(Article article) {
 		forumsDao.updateArticle(article);
 	}
+
+	@Override
+	public Forums selectForum(int id) {
+		return forumsDao.selectForum(id);
+	}
 	
 
 }
