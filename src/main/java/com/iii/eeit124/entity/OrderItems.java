@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
@@ -99,6 +101,7 @@ public class OrderItems {
 		this.status = status;
 	}
 	@Column(name="CREATED_AT")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -106,6 +109,7 @@ public class OrderItems {
 		this.createdAt = createdAt;
 	}
 	@Column(name="UPDATED_AT")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
@@ -113,6 +117,7 @@ public class OrderItems {
 		this.updatedAt = updatedAt;
 	}
 	@Column(name="DELETED_AT")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getDeletedAt() {
 		return deletedAt;
 	}

@@ -39,7 +39,7 @@ window.onload = function() {
 	}
 	addToCart(0);
 }
-//從資料庫 [{id:1, name:"狗"}, {id:2, name:"貓"]
+//從資料庫 [{id:1, name:"狗"}, {id:2, name:"貓"}]
 function getCategories(){
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "<c:url value='/product/getCategories' />", true);
@@ -213,7 +213,6 @@ function displayPageProducts(responseData){
 	recordCounts = mapData.recordCounts;
 	
 	var products = mapData.list;		// 傳回一個陣列
-	var bgColor = "";   // 每一項商品的背影 
 	var imageURL = "<c:url value='/product/getProductImage' />";
 	document.getElementById("showRecordCounts").innerHTML = recordCounts;
 	for(var i=0; i < products.length; i++){

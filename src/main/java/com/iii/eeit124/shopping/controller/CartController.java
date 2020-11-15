@@ -71,6 +71,7 @@ public class CartController {
 		} 
 		return cartItems;
 	}
+	//進入購物車頁面
 	@GetMapping(value = "/CartList")
 	public String goToCartPage(Model model) {
 		if (session.getAttribute("cartItems")==null) {
@@ -78,7 +79,7 @@ public class CartController {
 		}
 		return "products/CartList";
 	}
-	
+	//修改購物車商品的數量
 	@GetMapping("/FixProductQuantity")
 	public boolean fixProductQuantity(@RequestParam("productId")Integer productId, @RequestParam("count")Integer count,Model model){
 		List<CartItems> cartItems = (List<CartItems>) session.getAttribute("cartItems");
@@ -90,7 +91,7 @@ public class CartController {
 		}
 		return false;
 	}
-	
+	//刪除其中一項購物車商品
 	@GetMapping("/DeleteCartItem")
 	public boolean deleteCartItem(@RequestParam("productId")Integer productId,Model model) {
 		List<CartItems> cartItems = (List<CartItems>) session.getAttribute("cartItems");

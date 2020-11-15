@@ -116,6 +116,8 @@ public class CreateOrderController {
 			return "orders/CreateOrder";
 		}
 		session.removeAttribute("cartItems");
+		m.addAttribute("order", order);
+		m.addAttribute("orderItems", order.getOrderItems());
 		return "orders/CreateOrderSuccess";
 	}
 }
