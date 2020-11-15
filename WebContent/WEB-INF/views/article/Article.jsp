@@ -49,10 +49,11 @@ table, th, td {
 
 	<table>
 		<th colspan="3">標題:<c:out value="${article.getTitle()}"></c:out></th>
-		
-		<tr> 
-		<td>發文時間</td>
-		<td colspan="3">作者:<c:out value="${article.getMember().getName()}"></c:out></td>
+
+		<tr>
+			<td>發文時間</td>
+			<td colspan="3">作者:<c:out
+					value="${article.getMember().getName()}"></c:out></td>
 		</tr>
 
 
@@ -64,9 +65,7 @@ table, th, td {
 					<td>${Forums.getCreatedat()}</td>
 				</tr>
 			</c:if>
-			
-			
-			
+
 		</c:forEach>
 	</table>
 	<br>
@@ -83,6 +82,12 @@ table, th, td {
 					<td>${Forums.getCreatedat()}</td>
 					<td>${Forums.getMember().getName()}</td>
 				</tr>
+				<c:forEach items="${comments}" var="Comments" varStatus="id">
+					<tr>
+						<td></td>
+					</tr>
+				</c:forEach>
+
 			</c:if>
 		</c:forEach>
 	</table>
@@ -93,6 +98,8 @@ table, th, td {
 		class="fixed0">
 		<button type="button" class="btn btn-success">回覆文章</button>
 	</a>
+<script type="text/javascript">
 
+</script>
 </body>
 </html>
