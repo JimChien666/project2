@@ -156,4 +156,18 @@ public class ArticleController {
 		return "article/Article";
 	}
 
+	
+//	public String showComments(Model model, @RequestParam(value = "forumsId") Integer id) {		
+//		Forums forums = forumsService.selectForum(id);
+//		List<Comments> comments = commentsService.select(id);
+//		model.addAttribute("forums", forums);
+//		model.addAttribute("comments", comments);		
+//		return null;		
+//	}
+	@PostMapping(value = "showComments")
+	public @ResponseBody List<Comments> showComments(@RequestParam(value = "forumsId") Integer id) {		
+		Forums forums = forumsService.selectForum(id);		
+		List<Comments> comments = commentsService.select(forums.getId());		
+		return comments;		
+	}
 }
