@@ -1,5 +1,6 @@
 package com.iii.eeit124.shopping.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -21,15 +22,17 @@ import com.iii.eeit124.entity.CartItems;
 import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.entity.OrderItems;
 import com.iii.eeit124.entity.Orders;
+import com.iii.eeit124.shopping.service.CreateOrderService;
 
 
 @Controller
 @RequestMapping("/order")
-@SessionAttributes(names= {"cartItems"})
 public class CreateOrderController {
 	@Autowired
 	HttpSession session;
 	
+	@Autowired
+	CreateOrderService service;
 	
 	@GetMapping("/CreateOrder")
 	public String getCreateOrderPage(Model m) {
@@ -40,8 +43,7 @@ public class CreateOrderController {
 	
 	@PostMapping("/CreateOrder.controller")
 	public String createOrder(@ModelAttribute("order") Orders order,Model m) {
-		System.out.println("shit");
-		System.out.println(order);
+		Date createdAt = new Date();
 		Map<String, String> errors = new HashMap<String, String>();
 		m.addAttribute("errors", errors);
 		if("".equals(order.getBuyerName())||order.getBuyerName()==null) {
@@ -64,30 +66,56 @@ public class CreateOrderController {
 		}
 		if (!errors.isEmpty()) {
 			// 導向原來輸入資料的畫面，這次會顯示錯誤訊息
-			return "order/CreateOrder";
+			return "orders/CreateOrder";
 		}
 		
-		Double total=0.0;
-		Set<OrderItems> orderItems = new HashSet<OrderItems>();
-		List<CartItems> cartItems = (List<CartItems>) session.getAttribute("cartItems");
-		/*
-		 * 1.計算訂單total 填入orders
-		 * 2.創建一個新的orderItems 將cartItem個別填入，再加到Set<OrderItems>中，放入orders裡
-		 * */
-		for(CartItems cartItem:cartItems) {
-			OrderItems orderItem = new OrderItems();
-			orderItem.setDiscount(cartItem.getDiscount());
-			Double subTotal=cartItem.getPrice()*cartItem.getDiscount()*cartItem.getQuantity();
-			total+=subTotal;
+		try {
+			Double total=0.0;
+			Set<OrderItems> orderItems = new HashSet<OrderItems>();
+			List<CartItems> cartItems = (List<CartItems>) session.getAttribute("cartItems");
+			/*
+			 * 1.計算訂單total 填入orders
+			 * 2.創建一個新的orderItems 將cartItem個別填入，再加到Set<OrderItems>中，放入orders裡
+			 * */
+			for(CartItems cartItem:cartItems) {
+				//將購物車資訊塞入訂單品項中
+				OrderItems orderItem = new OrderItems();
+				orderItem.setDiscount(cartItem.getDiscount());
+				Double subTotal=cartItem.getPrice()*cartItem.getDiscount()*cartItem.getQuantity();
+				orderItem.setDiscount(cartItem.getDiscount());
+				orderItem.setOrder(order);
+				orderItem.setPrice(cartItem.getPrice());
+				orderItem.setProductId(cartItem.getProductId());
+				orderItem.setProductName(cartItem.getProductName());
+				orderItem.setQuantity(cartItem.getQuantity());
+				orderItem.setSellerId(cartItem.getMemberId());
+				orderItem.setStatus("訂單成立");
+				orderItem.setCreatedAt(createdAt);
+				orderItems.add(orderItem);
+				//算訂單總金額
+				total+=subTotal;
+				
+			}
+
+			order.setCreatedAt(createdAt);
+			order.setOrderItems(orderItems);
+			Members buyer = (Members) session.getAttribute("LoginOK");
+			order.setBuyer(buyer);
+			order.setStatus("訂單成立");
+			order.setTotal(total);
+			boolean Issuccess = service.saveOrder(order);
+			if(!Issuccess) {
+				errors.put("createOrderError", "交易失敗");
+			}
+		}catch (Exception e) {
+			errors.put("createOrderError", "交易失敗");
+			e.printStackTrace();
 		}
-		
-		
-		
-		Members buyer = (Members) session.getAttribute("LoginOK");
-		order.setBuyer(buyer);
-		order.setStatus("訂單成立");
-		order.setTotal(total);
-		
-		
+		if (!errors.isEmpty()) {
+			// 導向原來輸入資料的畫面，這次會顯示錯誤訊息
+			return "orders/CreateOrder";
+		}
+		session.removeAttribute("cartItems");
+		return "orders/CreateOrderSuccess";
 	}
 }

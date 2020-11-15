@@ -298,7 +298,7 @@ function goToCartPage(){
 	<div id='somedivS'></div>
 	<div id='navigation'></div>
 	<hr>
-		<a href="<c:url value='/' />">回前頁</a>
-	</div>
+	<a href="<c:url value='/' />">回前頁</a>
+</div>
 </body>
 </html>

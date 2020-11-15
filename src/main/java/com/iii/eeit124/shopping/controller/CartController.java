@@ -22,7 +22,6 @@ import com.iii.eeit124.shopping.service.CartService;
 
 @Controller
 @RequestMapping("/cart")
-@SessionAttributes(names= {"cartItems"})
 public class CartController {
 	
 	@Autowired

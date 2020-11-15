@@ -30,7 +30,6 @@ public class OrderItems {
 	private Date deletedAt;
 	
 	
-	private Members seller;
 	private Orders order;
 	
 	
@@ -43,7 +42,7 @@ public class OrderItems {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	@Transient
+	@Column(name="SELLER_ID")
 	public Integer getSellerId() {
 		return sellerId;
 	}
@@ -120,14 +119,7 @@ public class OrderItems {
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
 	}
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="SELLER_ID")
-	public Members getSeller() {
-		return seller;
-	}
-	public void setSeller(Members seller) {
-		this.seller = seller;
-	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ORDER_ID")
 	public Orders getOrder() {
