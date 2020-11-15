@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -33,10 +35,10 @@ public class Animals {
 	private Date updatedAt;
 	private Date deletedAt;
 	private MultipartFile animalFiles;
-//	private AdoptionRecords adoptionRecords;
-//	private MembersBean membersBean;
-//	private Breeds breeds;
 	private Set<AnimalsFiles> files = new HashSet<AnimalsFiles>();
+	private Members members;
+//	private AdoptionRecords adoptionRecords;
+//	private Breeds breeds;
 	
 	public Animals () {}
 	
@@ -55,7 +57,7 @@ public class Animals {
 		this.animalId = animalId;
 	}
 
-	@Column(name = "MEMBER_ID")
+	@Transient
 	public Integer getMemberId() {
 		return memberId;
 	}
@@ -143,20 +145,28 @@ public class Animals {
 		this.animalFiles = animalFiles;
 	}
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)//mappedBy對映的是AnimalsFiles的private Animals animals;
+	public Set<AnimalsFiles> getFiles() {
+		return files;
+	}
+	public void setFiles(Set<AnimalsFiles> files) {
+		this.files = files;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MEMBER_ID")
+	public Members getMembers() {
+		return members;
+	}
+	public void setMembers(Members members) {
+		this.members = members;
+	}
 //	@OneToOne(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)
 //	public AdoptionRecords getAdoptionRecords() {
 //		return adoptionRecords;
 //	}
 //	public void setAdoptionRecords(AdoptionRecords adoptionRecords) {
 //		this.adoptionRecords=adoptionRecords;
-//	}
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "ID")
-//	public MembersBean getMembersBean() {
-//		return membersBean;
-//	}
-//	public void setMembersBean(MembersBean membersBean) {
-//		this.membersBean = membersBean;
 //	}
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "BREED_ID")
@@ -168,13 +178,6 @@ public class Animals {
 //	}
 //	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
 //	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ANIMAL_ID")})//第一個ANIMAL_ID為Files的，第二個為Animals的。
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)//mappedBy對映的是AnimalsFiles的private Animals animals;
-	public Set<AnimalsFiles> getFiles() {
-		return files;
-	}
-	public void setFiles(Set<AnimalsFiles> files) {
-		this.files = files;
-	}
 	
 	public String printAll() {
 		return animalId + ", " + memberId + ", " + acceptionId + ", " + breedId + ", " + gender + ", " + coatColor + ", " + 

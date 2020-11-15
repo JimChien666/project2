@@ -63,7 +63,6 @@ public class AnimalsFiles implements Serializable{
 		this.fileName = fileName;
 	}
 
-//	@Column(name = "Animal_Id")
 	@Transient
 	public Integer getAnimalId() {
 		return animalId;
