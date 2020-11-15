@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.iii.eeit124.article.service.ArticleService;
 import com.iii.eeit124.article.service.CommentsService;
 import com.iii.eeit124.article.service.ForumsService;
 import com.iii.eeit124.entity.Article;
+import com.iii.eeit124.entity.Comments;
 import com.iii.eeit124.entity.Forums;
 import com.iii.eeit124.entity.Members;
 
@@ -85,10 +87,18 @@ public class ArticleController {
 		System.out.println("...........");
 		return "redirect:/articleList";
 	}
-	@GetMapping(value = "saveComments")
-	public String saveComments(@RequestParam(value = "id", required = false) Integer id) {
-//		Forums forum = forumsService.selectForum(id);
-//		commentsService.save();
+
+	@GetMapping(value = "saveComments", produces = "text/plain;charset=UTF-8")
+	public @ResponseBody String saveComments(
+			@RequestParam(value = "id") Integer id,
+			@RequestParam(value = "comment")Comments comment			
+			) {
+		Forums forums = forumsService.selectForum(id);
+		comment.setMember((Members) session.getAttribute("LoginOK"));
+		comment.setForums(forums);
+		comment.setComment(comment.getComment());
+		forums.getComments().add(comment);
+		commentsService.save(comment);
 		return null;
 	}
 
@@ -138,7 +148,7 @@ public class ArticleController {
 	public String article(Locale locale, Model model, @RequestParam(value = "articleId") Integer id) {
 		Article article = articleService.select(id);
 //		Set<Forums> forums = article.getForums();
-		
+
 		List<Forums> forums = forumsService.select(id);
 //		forums.
 		model.addAttribute("article", article);
