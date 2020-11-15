@@ -1,6 +1,15 @@
 package com.iii.eeit124.entity;
 
 public class CartItems {
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(" {\"productId\":\"").append(productId).append("\", \"price\":\"").append(price)
+				.append("\", \"discount\":\"").append(discount).append("\", \"quantity\":\"").append(quantity)
+				.append("\", \"memberId\":\"").append(memberId).append("\", \"memberName\":\"").append(memberName)
+				.append("\", \"productName\":\"").append(productName).append("}");
+		return builder.toString();
+	}
 	private Integer productId;
 	private Double price;
 	private Double discount;

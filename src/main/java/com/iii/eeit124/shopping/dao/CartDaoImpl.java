@@ -27,8 +27,8 @@ public class CartDaoImpl implements CartDao {
 		cartItem.setProductName(product.getName());
 		cartItem.setDiscount(product.getDiscount());
 		cartItem.setPrice(product.getPrice());
-		cartItem.setQuantity(product.getQuantity());
 		cartItem.setMemberId(product.getMemberId());
+		cartItem.setQuantity(0);
 		cartItem.setMemberName(product.getMemberName());
 		return cartItem;
 	}

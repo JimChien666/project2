@@ -20,6 +20,20 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="ORDERS")
 public class Orders {
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(" {\"id\":\"").append(id).append("\", \"buyerId\":\"").append(buyerId)
+				.append("\", \"buyerName\":\"").append(buyerName).append("\", \"buyerTel\":\"").append(buyerTel)
+				.append("\", \"buyerAddress\":\"").append(buyerAddress).append("\", \"recipientName\":\"")
+				.append(recipientName).append("\", \"recipientTel\":\"").append(recipientTel)
+				.append("\", \"recipientAddress\":\"").append(recipientAddress).append("\", \"status\":\"")
+				.append(status).append("\", \"total\":\"").append(total).append("\", \"createdAt\":\"")
+				.append(createdAt).append("\", \"updatedAt\":\"").append(updatedAt).append("\", \"deletedAt\":\"")
+				.append(deletedAt).append("\", \"buyer\":\"").append(buyer).append("\", \"orderItems\":\"")
+				.append(orderItems).append("}");
+		return builder.toString();
+	}
 	private Integer id;
 	private Integer buyerId;
 	private String buyerName;
