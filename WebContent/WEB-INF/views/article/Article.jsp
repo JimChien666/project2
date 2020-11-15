@@ -29,13 +29,15 @@
 	bottom: 3%;
 	right: 2%;
 }
+
 .fixed0 {
 	position: fixed;
 	bottom: 15%;
 	right: 2%;
 }
+
 table, th, td {
-  border: 1px solid black;
+	border: 1px solid black;
 }
 </style>
 <meta charset="UTF-8">
@@ -43,39 +45,52 @@ table, th, td {
 		value="${article.getTitle()}" /></title>
 </head>
 <body>
-<jsp:include page="../public/top.jsp" />
-	
+	<jsp:include page="../public/top.jsp" />
+
 	<table>
-		<th colspan="5">標題:<c:out value="${article.getTitle()}"></c:out></th>
+		<th colspan="3">標題:<c:out value="${article.getTitle()}"></c:out></th>
 		
-<!-- 		<tr> -->
-<%-- 			<td>${forums.getCreatedat()}</td>  --%>
-<!-- 		</tr> -->
-		<tr>
-			<td> </td> 
-			<td>${article.getFirstForum().getContent()}</td> 
-			<td> </td> 
+		<tr> 
+		<td>發文時間</td>
+		<td colspan="3">作者:<c:out value="${article.getMember().getName()}"></c:out></td>
 		</tr>
-		<br>
+
+
+		<c:forEach items="${forums}" var="Forums" varStatus="id">
+			<c:if test="${id.isLast()}">
+				<tr>
+					<td>${Forums.getMember().getName()}</td>
+					<td>${Forums.getContent()}</td>
+					<td>${Forums.getCreatedat()}</td>
+				</tr>
+			</c:if>
+			
+			
+			
+		</c:forEach>
 	</table>
-	
+	<br>
+
 	<table>
 		<th>標題:<c:out value="${article.getTitle()}"></c:out></th>
-				<th>發文時間</th>
-				<th>作者:<c:out value="${article.getMember().getName()}"></c:out></th>
+		<th>發文時間</th>
+		<th>作者:<c:out value="${article.getMember().getName()}"></c:out></th>
 
-		<c:forEach items="${forums}" var="Forums"  varStatus="id">
-			<tr>
-				<td>${Forums.getContent()}</td>
-				<td>${Forums.getCreatedat()}</td>
-				<td>${Forums.getMember().getName()}</td>
-			</tr>
+		<c:forEach items="${forums}" var="Forums" varStatus="id">
+			<c:if test="${!id.isLast()}">
+				<tr>
+					<td>${Forums.getContent()}</td>
+					<td>${Forums.getCreatedat()}</td>
+					<td>${Forums.getMember().getName()}</td>
+				</tr>
+			</c:if>
 		</c:forEach>
 	</table>
 	<a href="<c:url value='backArticle' />" class="fixed">
 		<button type="button" class="btn btn-success">回討論版</button>
 	</a>
-	<a href="<c:url value='replyArticle?articleId=${article.getId()}' />" class="fixed0">
+	<a href="<c:url value='replyArticle?articleId=${article.getId()}' />"
+		class="fixed0">
 		<button type="button" class="btn btn-success">回覆文章</button>
 	</a>
 
