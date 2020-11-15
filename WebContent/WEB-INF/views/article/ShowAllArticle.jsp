@@ -58,22 +58,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 table {
 	font-size: 2em;
-}
-
-.box {
-	width: 40px;
-	height: 260px;
-	background: lightskyblue;
-	transition: .6s;
-}
-
-.active {
-	width: 250px;
-	height: 260px;
-	background: pink;
-	border-radius: 5%;
-	transition: .5s;
-}
+}s
 </style>
 
 
@@ -198,31 +183,7 @@ table {
 			</c:forEach>
 		</table>
 	</div>
-	<script>
-		$(function() {
+	
 
-			$("#idbox").hover(over, out);
-
-			function over() {
-				$('#idbox').removeClass("box").addClass("active");
-			}
-			function out() {
-				$('#idbox').removeClass("active").addClass("box");
-			}
-		})
-	</script>
-	<script>
-		$(function() {
-
-			$("#idbox1").hover(over, out);
-
-			function over() {
-				$('#idbox1').removeClass("box").addClass("active");
-			}
-			function out() {
-				$('#idbox1').removeClass("active").addClass("box");
-			}
-		})
-	</script>
 </body>
 </html>
