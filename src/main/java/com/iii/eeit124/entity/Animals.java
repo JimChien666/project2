@@ -36,7 +36,7 @@ public class Animals {
 	private Date deletedAt;
 	private MultipartFile animalFiles;
 	private Set<AnimalsFiles> files = new HashSet<AnimalsFiles>();
-	private Members members;
+	private Members member;
 //	private AdoptionRecords adoptionRecords;
 //	private Breeds breeds;
 	
@@ -155,11 +155,36 @@ public class Animals {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID")
-	public Members getMembers() {
-		return members;
+	public Members getMember() {
+		return member;
 	}
-	public void setMembers(Members members) {
-		this.members = members;
+	public void setMember(Members member) {
+		this.member = member;
+	}
+	
+	@Transient
+	public String getMemberAddress() {
+		return this.member.getAddress();
+	}
+	
+	@Transient
+	public String getMemberName() {
+		return this.member.getName();
+	}
+	
+	@Transient
+	public String getMemberTel() {
+		return this.member.getTel();
+	}
+	
+	@Transient
+	public String getMemberEmail() {
+		return this.member.getEmail();
+	}
+	
+	@Transient
+	public String getMemberType() {
+		return this.member.getMemberType();
 	}
 //	@OneToOne(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)
 //	public AdoptionRecords getAdoptionRecords() {
@@ -183,4 +208,5 @@ public class Animals {
 		return animalId + ", " + memberId + ", " + acceptionId + ", " + breedId + ", " + gender + ", " + coatColor + ", " + 
 	isAdoptionAvailable + ", " + note + ", " + createdAt + ", " + updatedAt + ", " + deletedAt + ", " + files;
 	}
+	//TODO toString怪怪的，加入會報錯
 }

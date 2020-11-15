@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.entity.Animals;
 import com.iii.eeit124.entity.AnimalsFiles;
+import com.iii.eeit124.entity.Members;
+import com.iii.eeit124.member.service.MemberService;
 
 @Controller
 public class AnimalsController {
@@ -31,6 +33,8 @@ public class AnimalsController {
 	ServletContext sc;
 	@Autowired
 	public AnimalsService animalsService;
+//	@Autowired
+//	MemberService memberService;
 	@Autowired
 	HttpSession session;
 
@@ -44,7 +48,6 @@ public class AnimalsController {
 	// PreCreate
 	@GetMapping("/preCreateAnimal.controller")
 	public String processPreCreateAnimal(Model m) {
-		System.out.println();//TODO
 		Animals animals = new Animals();
 		m.addAttribute("AnimalsList1", animals);
 		return "adopt/example/CreateAnimal";
@@ -114,6 +117,8 @@ public class AnimalsController {
 		
 		// 新增文字部分
 		entity.setCreatedAt(new Date());
+		System.out.println("entity.getMemberId()"+entity.getMemberId());
+//		entity.setMember(member);
 		animalsService.create(entity);
 
 		m.addAttribute("AnimalsList", animalsService.readAll());

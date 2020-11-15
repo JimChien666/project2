@@ -29,15 +29,18 @@
 			modelAttribute="AnimalsList1" enctype="multipart/form-data">
 			<form:label path="animalFiles" class="label1">照片：</form:label>
 			<form:input path="animalFiles" type="file" class="wid200px"
-				id="animalFilesCreate"/>
+				id="animalFilesCreate" />
 			<br>
 			<div class="divHidden square250px" id="animalFilesDiv">
-				<img class="cardImg" id="preview_animalFiles" src="#"/><br>
+				<img class="cardImg" id="preview_animalFiles" src="#" /><br>
 			</div>
+<!-- 			<div class="divHidden"> -->
 			<form:label path="memberId" class="label1">會員編號：</form:label>
 			<form:input path="memberId" type="text" name="memberId"
-				placeholder="自動抓取會員編號" onblur="checkmemberId()" id="memberId" />
+				placeholder="自動抓取會員編號" onblur="checkmemberId()" id="memberId"
+				value="${LoginOK.id}" />
 			<br>
+<!-- 			</div> -->
 			<div id="memberIdDiv" class="divHidden">
 				<br>
 			</div>

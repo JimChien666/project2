@@ -210,7 +210,7 @@ public class Members implements Serializable{
 	}
 
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "members", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 	public Set<Animals> getAnimals() {
 		return animals;
 	}

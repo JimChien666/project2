@@ -50,7 +50,6 @@ public class RegisterController {
 	public String getRegisterPage(Model m) {
 		Members member=new Members();
 		m.addAttribute("member", member);
-		
 		return "members/register";
 	}
 	
