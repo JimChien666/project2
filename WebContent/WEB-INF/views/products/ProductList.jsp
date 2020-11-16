@@ -8,6 +8,10 @@ th, td{
 width: 200px;
 align: left;
 }
+.counter li{float:left; list-style-type:none; width:30px; height:30px; text-align:center; line-height:30px; border:#999 thin solid; background-color:#fff;}
+.counter li input{font-size:20px; width:100%; height:100%; outline:none; -webkit-appearance:none; background:none; margin:0; padding:0; border: 1px solid transparent; border-radius: 0;}
+#countnum{ border-left:hidden; border-right:hidden; color:#666}
+ul,li{margin:0; padding:0; display:inline;}
 </style>
 <meta charset="UTF-8">
 <script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />"></script>
@@ -39,6 +43,29 @@ window.onload = function() {
 	}
 	addToCart(0);
 }
+
+function adder(productId, quantity){
+	var count=document.getElementById("countnum"+ productId).innerHTML;
+	if(count>=quantity){
+		document.getElementById("outOfRange"+ productId).innerHTML="<span style='color: red;'>現有庫存"+quantity+ "</span>";
+	}else{
+		count=parseInt(count)+1;
+		document.getElementById("outOfRange"+ productId).innerHTML="";
+	}
+	document.getElementById("countnum"+productId).innerHTML=count;
+}
+function minuser(productId, quantity){
+	var count=document.getElementById("countnum"+productId).innerHTML;
+	if(count<=1){
+		count=1;
+	}else{
+		count=parseInt(count)-1;
+		document.getElementById("outOfRange"+ productId).innerHTML="";
+	}	
+	document.getElementById("countnum"+productId).innerHTML=count;
+}
+
+
 //從資料庫 [{id:1, name:"狗"}, {id:2, name:"貓"}]
 function getCategories(){
 	var xhr = new XMLHttpRequest();
@@ -142,10 +169,11 @@ function getData(){
 function addToCart(productId){
 	
 	if(productId!=0){
-		var cartNum = document.getElementById("qty"+productId).value;
+		var cartNum = document.getElementById("countnum"+productId).innerHTML;
 	}else{
 		var cartNum = 0;
 	}
+	
 	queryString="?productId=" + productId + "&cartNum=" + cartNum;
 	var xhr = new XMLHttpRequest();
 	xhr.open("Get", "<c:url value='/cart/AddCart'/>" + queryString , true);
@@ -157,6 +185,7 @@ function addToCart(productId){
 		var cartList = JSON.parse(responseData);
 		var num = cartList.length;
 		var total = 0;
+		
 		for(var i=0; i < cartList.length; i++){
 			total += cartList[i].price * cartList[i].discount * cartList[i].quantity;
 			}
@@ -226,7 +255,11 @@ function displayPageProducts(responseData){
 	               "<td>" + products[i].memberName + "</td>" +
 	               "<td><img  width='60' height='80' " +   
 	               " src='" + imageURL + "?productId=" + products[i].id + "'></td>" + 
-	               "<td><select id='qty"+ products[i].id +"' name='qty'><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option></select><button onclick='addToCart(" + products[i].id + ")'>add cart</button></td>" +
+	               "<td><ul class='counter'>" + 
+	               "<li id='minus" + products[i].id + "'><input type='button' onclick='minuser(" + products[i].id + ", "+ products[i].quantity +")' value='-'/></li>"+
+	               "<li id='countnum" + products[i].id + "'>" + 1 + "</li>"+
+	               "<li id='plus" + products[i].id + "'><input type='button' onclick='adder(" + products[i].id + ", "+ products[i].quantity +")' value='+'/></li>"+
+	              	"</ul><button onclick='addToCart(" + products[i].id + ")'>add cart</button><br/><div id='outOfRange"+ products[i].id +"'></div></td>" +
 		           "</tr>";    
 	}
 	content += "</table>";

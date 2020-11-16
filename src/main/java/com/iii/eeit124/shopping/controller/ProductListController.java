@@ -30,7 +30,7 @@ import com.iii.eeit124.shopping.service.ProductListService;
 
 @Controller
 @RequestMapping("/product")
-public class ProdcutListController {
+public class ProductListController {
 	@Autowired
 	ProductListService service;
 	
@@ -44,8 +44,8 @@ public class ProdcutListController {
 	//用@ResponseBody 回傳所有商品的json格式給前端
 	@GetMapping("/getProducts")
 	public @ResponseBody List<Products> queryAllProducts(Model model){
-		List<Products> prodcuts = service.findAllProducts();
-		return prodcuts;
+		List<Products> products = service.findAllProducts();
+		return products;
 	}
 	
 	@GetMapping(value = "/pagingProducts.json", produces = { "application/json; charset=UTF-8" })
@@ -63,16 +63,15 @@ public class ProdcutListController {
 	    
 
 		Map<String, Object> map = new HashMap<>();
-		if (colorId != null||categoryId != null||animalTypeId != null  ) {
-			totalPage = service.getTotalPages(colorId, categoryId, animalTypeId,recordsPerPage);
+		if (colorId != null||categoryId != null||animalTypeId != null  ) {			
 			recordCounts = service.getRecordCounts(colorId, categoryId, animalTypeId);
+			totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
 			list = service.getPageProducts(pageNo, colorId, categoryId, animalTypeId,recordsPerPage);
 		}
 		else {
-			totalPage = service.getTotalPages(recordsPerPage);
-//			System.out.println(totalPage);
 			list = service.getPageProducts(pageNo,recordsPerPage);
 			recordCounts = service.getRecordCounts();
+			totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
 		}
 		map.put("list", list);
 		map.put("totalPage", totalPage);
