@@ -1,8 +1,11 @@
 package com.iii.eeit124.entity;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -233,5 +236,17 @@ public class Products {
 	}
 	public void setContentImgs(Set<ProductFiles> contentImgs) {
 		this.contentImgs = contentImgs;
+	}
+	
+	@Transient
+	public List<Integer> getProductFilesId(){
+		Iterator iterator =  this.contentImgs.iterator();
+		List<Integer> list = new ArrayList<>();
+		while(iterator.hasNext()) {
+		    ProductFiles productFiles = (ProductFiles)iterator.next();
+		    list.add(productFiles.getId());
+		    
+		}
+		return list;
 	}
 }

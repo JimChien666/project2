@@ -1,7 +1,9 @@
 package com.iii.eeit124.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import net.bytebuddy.asm.Advice.This;
 
 @Entity
 @Table(name="ORDERS")
@@ -52,6 +56,9 @@ public class Orders {
 	
 	private Members buyer;
 	private Set<OrderItems> orderItems = new HashSet<OrderItems>();
+	
+	public Orders(){
+	}
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -121,6 +128,7 @@ public class Orders {
 	public Double getTotal() {
 		return total;
 	}
+	
 	public void setTotal(Double total) {
 		this.total = total;
 	}
@@ -162,6 +170,15 @@ public class Orders {
 	}
 	public void setOrderItems(Set<OrderItems> orderItems) {
 		this.orderItems = orderItems;
+	}
+	
+	@Transient
+	public String getCreatedAtString() {
+		SimpleDateFormat spf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		spf.format(this.createdAt);
+		String date = spf.format(this.createdAt);
+
+		return date;	
 	}
 	
 }

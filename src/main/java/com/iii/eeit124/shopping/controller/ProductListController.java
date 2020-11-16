@@ -1,6 +1,9 @@
 package com.iii.eeit124.shopping.controller;
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
@@ -8,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +34,7 @@ import com.iii.eeit124.shopping.service.ProductListService;
 
 @Controller
 @RequestMapping("/product")
-public class ProdcutListController {
+public class ProductListController {
 	@Autowired
 	ProductListService service;
 	
@@ -44,8 +48,8 @@ public class ProdcutListController {
 	//用@ResponseBody 回傳所有商品的json格式給前端
 	@GetMapping("/getProducts")
 	public @ResponseBody List<Products> queryAllProducts(Model model){
-		List<Products> prodcuts = service.findAllProducts();
-		return prodcuts;
+		List<Products> products = service.findAllProducts();
+		return products;
 	}
 	
 	@GetMapping(value = "/pagingProducts.json", produces = { "application/json; charset=UTF-8" })
@@ -84,7 +88,7 @@ public class ProdcutListController {
 	}
 	
 	@GetMapping(value="/getProductImage")
-	public ResponseEntity<byte[]> getProductImage(@RequestParam("productId") Integer productId) {
+	public ResponseEntity<byte[]> getProductImage(@RequestParam("productId") Integer productId) throws IOException {
 		ResponseEntity<byte[]> re = null;
 		Products product = service.getProduct(productId);
 		Blob blob = product.getCoverImg();
@@ -103,7 +107,13 @@ public class ProdcutListController {
 			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 			re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
 		} catch (Exception e) {
-			e.printStackTrace();
+			//載入失敗就給預設圖片
+			System.out.println(ctx.getRealPath("/") + "images/NoImage.png");
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			File nFile = new File(ctx.getRealPath("/") + "images/NoImage.png");
+			BufferedImage bi = ImageIO.read(nFile);
+			ImageIO.write(bi, "jpg", baos);
+			re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
 		}
 		return re;
 	}

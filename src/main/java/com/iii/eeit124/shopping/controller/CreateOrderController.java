@@ -1,5 +1,6 @@
 package com.iii.eeit124.shopping.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,8 +43,9 @@ public class CreateOrderController {
 	}
 	
 	@PostMapping("/CreateOrder.controller")
-	public String createOrder(@ModelAttribute("order") Orders order,Model m) {
+	public String createOrder(@ModelAttribute("order") Orders order,Model m) {			
 		Date createdAt = new Date();
+		
 		Map<String, String> errors = new HashMap<String, String>();
 		m.addAttribute("errors", errors);
 		if("".equals(order.getBuyerName())||order.getBuyerName()==null) {
@@ -90,6 +92,7 @@ public class CreateOrderController {
 				orderItem.setQuantity(cartItem.getQuantity());
 				orderItem.setSellerId(cartItem.getMemberId());
 				orderItem.setStatus("訂單成立");
+				
 				orderItem.setCreatedAt(createdAt);
 				orderItems.add(orderItem);
 				//算訂單總金額

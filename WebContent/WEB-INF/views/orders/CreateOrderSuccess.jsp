@@ -32,7 +32,7 @@ function goToOrderPage(){
 				<th>訂單編號</th><th>訂單日期</th><th>訂單狀態</th><th>總價</th>
 			</tr>
 			<tr>
-				<td>${order.id}</td><td>${order.createdAt}</td><td>${order.status}</td><td>${order.total}</td>
+				<td>${order.id}</td><td>${order.createdAtString}</td><td>${order.status}</td><td>${order.total}</td>
 			</tr>
 		</table>
 		</div>
