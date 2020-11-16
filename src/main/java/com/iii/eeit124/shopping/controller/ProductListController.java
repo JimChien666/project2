@@ -34,7 +34,7 @@ import com.iii.eeit124.shopping.service.ProductListService;
 
 @Controller
 @RequestMapping("/product")
-public class ProdcutListController {
+public class ProductListController {
 	@Autowired
 	ProductListService service;
 	
@@ -48,8 +48,8 @@ public class ProdcutListController {
 	//用@ResponseBody 回傳所有商品的json格式給前端
 	@GetMapping("/getProducts")
 	public @ResponseBody List<Products> queryAllProducts(Model model){
-		List<Products> prodcuts = service.findAllProducts();
-		return prodcuts;
+		List<Products> products = service.findAllProducts();
+		return products;
 	}
 	
 	@GetMapping(value = "/pagingProducts.json", produces = { "application/json; charset=UTF-8" })
