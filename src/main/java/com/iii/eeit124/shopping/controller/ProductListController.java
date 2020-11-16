@@ -1,5 +1,6 @@
 package com.iii.eeit124.shopping.controller;
 
+
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -103,6 +104,7 @@ public class ProductListController {
 			re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
+
 		}
 		return re;
 	}

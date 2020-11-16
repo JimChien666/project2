@@ -1,5 +1,6 @@
 package com.iii.eeit124.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -104,6 +105,7 @@ public class OrderItems {
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreatedAt() {
 		return createdAt;
+		
 	}
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
@@ -133,4 +135,5 @@ public class OrderItems {
 	public void setOrder(Orders order) {
 		this.order = order;
 	}
+
 }
