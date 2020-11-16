@@ -3,26 +3,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.sactivelim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
 
 <html>
 <head>
+
+
 <style type="text/css">
 .fixed {
 	position: fixed;
@@ -46,7 +42,6 @@ table, th, td {
 </head>
 <body>
 	<jsp:include page="../public/top.jsp" />
-
 	<table>
 		<th colspan="3">標題:<c:out value="${article.getTitle()}"></c:out></th>
 
@@ -65,7 +60,6 @@ table, th, td {
 					<td>${Forums.getCreatedat()}</td>
 				</tr>
 			</c:if>
-
 		</c:forEach>
 	</table>
 	<br>
@@ -84,9 +78,15 @@ table, th, td {
 				</tr>
 				<c:forEach items="${comments}" var="Comments" varStatus="id">
 					<tr>
-						<td></td>
+						<td> </td>
 					</tr>
 				</c:forEach>
+					<tr>
+						<td>回覆本討論串:<input type="text" name="comments" id="${Forums.getId()}" onkeydown="inputkey(this)" ></td>
+					</tr>
+					<tr>
+						<td><div id='result0'></div></td>
+					</tr>
 
 			</c:if>
 		</c:forEach>
@@ -98,7 +98,85 @@ table, th, td {
 		class="fixed0">
 		<button type="button" class="btn btn-success">回覆文章</button>
 	</a>
+	
+	
+	
 <script type="text/javascript">
+// var com = $("#comment").value;
+// $("#comment").keydown(function(event) {
+//     if(event.keyCode == 13){
+// 		console.log(com)
+// 		checkOut();
+//     };
+// });
+
+// var com = $("#comment").value;
+// $("#comment").keydown(function(event) {
+//     if(event.keyCode == 13){
+//  		checkOut();
+//     };
+// });
+
+
+// $(document).on('keypress',function(e) {
+// 	    if(e.which == 13) {		    
+// 	        alert('You pressed enter!');
+// 	    }
+// 	});
+
+
+// var id = $("input").click(function(){
+// 	$(this).attr("id")
+// });
+
+
+
+// function inputClick(obj){
+// 	var id = obj.id;
+// 	var name = obj.name;
+// 	var comment = obj.value;
+	
+// 	console.log(id);
+// 	console.log(name);
+// 	console.log(comment);
+// $.ajax({
+//   url: url,
+//   data: data,
+//   success: success,
+//   dataType: dataType
+// });
+// }
+
+
+
+function inputkey(obj){
+	var id = obj.id;
+	var name = obj.name;
+	var comment = obj.value;
+	
+	console.log(id);
+	console.log(name);
+	console.log(comment);
+$("input").keypress(function (e) {
+	   if (e.keyCode == 13) {
+// 	      alert('Enter key pressed!');
+
+		$.ajax({
+		  url: "saveComments",
+		  data: {
+			  id:id,
+			  comment:comment
+			  },
+// 		  success: success,
+// 		  dataType: dataType
+		});
+
+	    }
+	});	
+}
+
+
+
 
 </script>
 </body>
