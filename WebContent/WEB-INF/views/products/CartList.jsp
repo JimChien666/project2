@@ -54,7 +54,7 @@ function fixProductQuantity(productId, count){
 	var queryString = "?productId=" + productId + "&count=" + count;
 	xhr.open("Get", "<c:url value='/cart/FixProductQuantity'/>" + queryString , true);
 	xhr.send();
-	addToCartList();
+	updateQuantityAndPrice();
 }
 
 function deleteCartItem(productId){
@@ -62,7 +62,33 @@ function deleteCartItem(productId){
 	var queryString = "?productId=" + productId;
 	xhr.open("Get", "<c:url value='/cart/DeleteCartItem'/>" + queryString, true);
 	xhr.send();
-	addToCartList();
+	var parentObj = document.getElementById("tr" + productId).parentNode;
+	parentObj.removeChild(document.getElementById("tr" + productId));
+	updateQuantityAndPrice();
+}
+
+function updateQuantityAndPrice(){
+	queryString="?productId=0&cartNum=0";
+	var xhr = new XMLHttpRequest();
+	xhr.open("Get", "<c:url value='/cart/AddCart'/>" + queryString , true);
+	xhr.send();
+	var imageURL = "<c:url value='/product/getProductImage' />";
+	xhr.onreadystatechange = function() {
+	if (xhr.readyState == 4 && xhr.status == 200) {
+		var responseData = xhr.responseText;
+		var cartList = JSON.parse(responseData);
+		var num = cartList.length;
+		var total = 0;
+		
+		for(var i=0; i < cartList.length; i++){
+			document.getElementById("subtotal" + cartList[i].productId).innerHTML = cartList[i].discount * cartList[i].price * cartList[i].quantity;
+			total+=cartList[i].discount * cartList[i].price * cartList[i].quantity;
+		}
+		document.getElementById("total").innerHTML = total;
+		document.getElementById("num").innerHTML = num;
+	}
+	
+}
 }
 
 //若productId為零,後端會直接回傳購物車列表
@@ -86,7 +112,7 @@ function addToCartList(){
 	   	content +=  "<th>操作</th>";
 		content +=  "</tr>";
 		for(var i=0; i < cartList.length; i++){
-			content += "<tr height='80'>" + 
+			content += "<tr id='tr" + cartList[i].productId + "' height='80'>" + 
 	        "<td>" + cartList[i].productId + "&nbsp;</td>" + 
 	        "<td><img  width='60' height='80' " +   
 	        " src='" + imageURL + "?productId=" + cartList[i].productId + "'></td>" + 
@@ -97,13 +123,13 @@ function addToCartList(){
             "<li id='countnum" + cartList[i].productId + "'>" + cartList[i].quantity + "</li>"+
             "<li id='plus" + cartList[i].productId + "'><input type='button' onclick='adder(" + cartList[i].productId + ")' value='+'/></li>"+
            	"</ul></td>" +
-           	"<td>" + (cartList[i].discount * cartList[i].price * cartList[i].quantity) + "</td>"+
+           	"<td id='subtotal" + cartList[i].productId + "'>" + (cartList[i].discount * cartList[i].price * cartList[i].quantity) + "</td>"+
            	"<td><button onclick='deleteCartItem("+cartList[i].productId+")'>刪除</button></td>"+
            	"</tr>";
 			total+=cartList[i].discount * cartList[i].price * cartList[i].quantity;
 		}
-		content +="<tr><td colspan='7'></td><td align='right'>共</td><td align='center'><span style='font-size: 20px; color:red;'>" + num + "</span>項商品</td></tr>"
-		content +="<tr><td colspan='7'></td><td align='right'>總價：</td><td align='center'><span style='font-size: 20px; color:red;'>" + total + "</span>元</td></tr>"
+		content +="<tr><td colspan='7'></td><td align='right'>共</td><td align='center'><span id='num' style='font-size: 20px; color:red;'>" + num + "</span>項商品</td></tr>"
+		content +="<tr><td colspan='7'></td><td align='right'>總價：</td><td align='center'><span id='total' style='font-size: 20px; color:red;'>" + total + "</span>元</td></tr>"
 		content += "</table>";
 		
 		document.getElementById("cartList").innerHTML = content;

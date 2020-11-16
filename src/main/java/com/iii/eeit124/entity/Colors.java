@@ -41,7 +41,7 @@ public class Colors {
 	public void setName(String name) {
 		this.name = name;
 	}
-	@JsonManagedReference
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "color", cascade = CascadeType.ALL)
 	public Set<Products> getProducts() {
 		return products;

@@ -21,6 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import net.bytebuddy.asm.Advice.This;
 
 @Entity
@@ -156,6 +158,7 @@ public class Orders {
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
 	}
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="BUYER_ID")
 	public Members getBuyer() {
@@ -164,6 +167,7 @@ public class Orders {
 	public void setBuyer(Members buyer) {
 		this.buyer = buyer;
 	}
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
 	public Set<OrderItems> getOrderItems() {
 		return orderItems;

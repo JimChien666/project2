@@ -16,6 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="ORDER_ITEMS")
 public class OrderItems {
@@ -126,7 +128,7 @@ public class OrderItems {
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
 	}
-
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ORDER_ID")
 	public Orders getOrder() {

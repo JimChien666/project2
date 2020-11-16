@@ -26,7 +26,7 @@ public class Categories implements Serializable{
 
 	private Set<Products> products = new HashSet<Products>();
 
-	@JsonManagedReference
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
 	public Set<Products> getProducts() {
 		return products;

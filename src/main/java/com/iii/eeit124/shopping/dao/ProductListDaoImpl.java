@@ -35,14 +35,16 @@ public class ProductListDaoImpl implements ProductListDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Products> getPageProducts(Integer pageNo,Integer recordsPerPage) {
+		long time1, time2;
+		time1 = System.currentTimeMillis();
 		Integer startRecordNo = (pageNo - 1) * recordsPerPage; // 第二頁的第二筆＝（2-1）*2
 		List<Products> list = new ArrayList<Products>();
 		list = sessionFactory.getCurrentSession().createQuery("FROM Products order by id")
   			  .setFirstResult(startRecordNo) //index的概念
   			  .setMaxResults(recordsPerPage) //當最後一頁商品數量不足顯示,則補足磯零數
   			  .getResultList();
-		
-		
+		time2 = System.currentTimeMillis();
+		System.out.println("doSomething()花了：" + (time2-time1)/1000 + "秒");
 		return list;
 	}
 

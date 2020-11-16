@@ -59,12 +59,13 @@ public class ProductListController {
 		@RequestParam(value="recordsPerPage", required = false,defaultValue = "3") Integer recordsPerPage
 		
 			) {
+		
 		Long recordCounts= (long) 0;
 		List<Products> list = new ArrayList<Products>();
 	    
 
 		Map<String, Object> map = new HashMap<>();
-		if (colorId != null||categoryId != null||animalTypeId != null  ) {			
+		if (colorId != null||categoryId != null||animalTypeId != null) {			
 			recordCounts = service.getRecordCounts(colorId, categoryId, animalTypeId);
 			totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
 			list = service.getPageProducts(pageNo, colorId, categoryId, animalTypeId,recordsPerPage);
@@ -79,7 +80,8 @@ public class ProductListController {
 		map.put("currPage", pageNo);
 		map.put("recordCounts", recordCounts);
 		map.put("recordsPerPage", recordsPerPage);
-
+		
+		
 		return map;
 	}
 	

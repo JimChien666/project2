@@ -72,7 +72,7 @@ public class Products {
 	private Categories category;
 	private Set<ProductFiles> contentImgs = new HashSet<>();
 	
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ANIMAL_TYPE_ID")
 	public AnimalTypes getAnimalType() {
@@ -81,7 +81,7 @@ public class Products {
 	public void setAnimalType(AnimalTypes animalType) {
 		this.animalType = animalType;
 	}
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COLOR_ID")
 	public Colors getColor() {
@@ -99,7 +99,7 @@ public class Products {
 	public void setMember(Members member) {
 		this.member = member;
 	}
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CATEGORY_ID")
 	public Categories getCategory() {

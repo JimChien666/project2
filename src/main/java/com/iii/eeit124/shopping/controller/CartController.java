@@ -44,18 +44,18 @@ public class CartController {
 		}
 		List<CartItems> cartItems = (List<CartItems>) session.getAttribute("cartItems");
 		//更新cartItems裡的商品成最新資訊
-		for(CartItems cartItemOld:cartItems) {
-			CartItems cartItemNew = service.getCartItemInfo(cartItemOld.getProductId());
-			
-			//若新的購物車品項資訊不為空，更新購物車資訊
-			if (cartItemNew != null) {
-				cartItemOld.setProductName(cartItemNew.getProductName());
-				cartItemOld.setDiscount(cartItemNew.getDiscount());
-				cartItemOld.setPrice(cartItemNew.getPrice());
-				cartItemOld.setMemberId(cartItemNew.getMemberId());
-				cartItemOld.setMemberName(cartItemNew.getMemberName());
-			}
-		}
+//		for(CartItems cartItemOld:cartItems) {
+//			CartItems cartItemNew = service.getCartItemInfo(cartItemOld.getProductId());
+//			
+//			//若新的購物車品項資訊不為空，更新購物車資訊
+//			if (cartItemNew != null) {
+//				cartItemOld.setProductName(cartItemNew.getProductName());
+//				cartItemOld.setDiscount(cartItemNew.getDiscount());
+//				cartItemOld.setPrice(cartItemNew.getPrice());
+//				cartItemOld.setMemberId(cartItemNew.getMemberId());
+//				cartItemOld.setMemberName(cartItemNew.getMemberName());
+//			}
+//		}
 		//這時，購物車列表的商品資訊為最新的了。再去判斷若購物車列表中原本就有此新增商品，則將數量累加上去
 		//若沒有 則新增購物車資訊
 		if (productId!=0) {
