@@ -96,13 +96,10 @@ function getAnimalTypes(){
 }
 
 function getPage(){
-	
-
 			var content = "商品分頁：<select id='recordsPerPage' name='recordsPerPage' onchange=getData() >";
 			for(var i=3; i <= 9; i+=3){
-			    content += 	"<option value='" + i + "'>" + i + "</option>";
+			    content += 	"<option value=" + i + ">" + i + "</option>";
 			}
-			
 			content += "</select>";
 			var divs = document.getElementById("selectBar");
 			divs.innerHTML += content;
@@ -182,13 +179,17 @@ function displayPageProducts(responseData){
 	var products = mapData.list;		// 傳回一個陣列
 	var bgColor = "";   // 每一項商品的背影 
 	var imageURL = "<c:url value='/product/getProductImage' />";
+	var productsInfo = "<c:url value='/product/productsInfo/ProductPath' />";
+	
 	document.getElementById("showRecordCounts").innerHTML = recordCounts;
 	for(var i=0; i < products.length; i++){
 		console.log(products[i]);
 		bgColor = (i % 2 == 0 ? "#d4f5b2" : "#b2f5e5");
 		content += "<tr height='80' bgcolor='" + bgColor + "'>" + 
 		           "<td  align='right'>" + products[i].id + "&nbsp;</td>" + 
-	               "<td>" + products[i].name + "</td>" +
+	               "<td>" +  
+	               "<a href='"+productsInfo.replace("ProductPath",products[i].id)+"'>"+products[i].name+"</a>"
+	               + "</td>" +
 	               "<td align='center'>" + products[i].description.substring(0, 100) + "</td>" +
 	               "<td align='right'>" + products[i].price + "&nbsp;</td>" +
 	               "<td align='center'>" + products[i].discount + "</td>" +
@@ -260,7 +261,8 @@ function displayPageProducts(responseData){
 	<div id='somedivS'  style='height:260px;'></div>
 	<div id='navigation' style='height:60px;'></div>
 	<hr>
-		<a href="<c:url value='/' />">回前頁</a>
-	</div>
+	
+	<a href="<c:url value='/' />">回前頁</a>
+</div>
 </body>
 </html>
