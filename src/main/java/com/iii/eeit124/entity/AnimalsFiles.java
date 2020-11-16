@@ -91,9 +91,9 @@ public class AnimalsFiles implements Serializable{
 		this.animals = animals;
 	}
 
-	@Override
-	public String toString() {
-		return "AnimalsFiles [animalsFilesId=" + animalsFilesId + ", fileType=" + fileType + ", fileName=" + fileName
-				+ ", animalId=" + animalId + ", fileBlob=" + fileBlob + ", animals=" + animals + "]";
-	};
+//	@Override
+//	public String toString() {
+//		return "AnimalsFiles [animalsFilesId=" + animalsFilesId + ", fileType=" + fileType + ", fileName=" + fileName
+//				+ ", animalId=" + animalId + ", fileBlob=" + fileBlob + ", animals=" + animals + "]";
+//	};
 }

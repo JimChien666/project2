@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>我的寵物</title>
+<title>管理者查詢動物</title>
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -42,46 +42,46 @@
 						src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${AnimalsList.animalId}"
 						alt="Animal image">
 				</div>
-				<form action="">
-					<div class="card-body form1">
-						<ul>
-							<li><div class="div1">動物編號：&nbsp;</div>
-								<div class="div1">${AnimalsList.animalId}</div> <br></li>
-							<li><div class="div1">會員編號：&nbsp;</div>
-								<div class="div1">${AnimalsList.memberId}</div> <br></li>
-							<li><div class="div1">收容動物編號：&nbsp;</div>
-								<div class="div1">${AnimalsList.acceptionId}</div> <br></li>
-							<li><div class="div1">品種編號：&nbsp;</div>
-								<div class="div1">${AnimalsList.breedId}</div> <br></li>
-							<li><c:choose>
-									<c:when test="${AnimalsList.gender == 1}">
-										<div class="div1">性別：&nbsp;</div>公<br>
-									</c:when>
-									<c:otherwise>
-										<div class="div1">性別：&nbsp;</div>母<br>
-									</c:otherwise>
-								</c:choose></li>
-							<li><div class="div1">毛色：&nbsp;</div>
-								<div class="div1">${AnimalsList.coatColor}</div> <br></li>
-							<li><c:choose>
-									<c:when test="${AnimalsList.isAdoptionAvailable == 1}">
-										<div class="div1">是否開放領養：&nbsp;</div>是<br>
-									</c:when>
-									<c:otherwise>
-										<div class="div1">是否開放領養：&nbsp;</div>否<br>
-									</c:otherwise>
-								</c:choose></li>
-							<li><div class="div1">備註：&nbsp;</div>
-								<div class="div1 note1">${AnimalsList.note}</div> <br></li>
-						</ul>
-					</div>
+				<div class="card-body form1">
+					<ul>
+						<li><div class="div1">動物編號：&nbsp;</div>
+							<div class="div1">${AnimalsList.animalId}</div> <br></li>
+						<li><div class="div1">會員編號：&nbsp;</div>
+							<div class="div1">${AnimalsList.member.address}</div> <br></li>
+						<li><div class="div1">收容動物編號：&nbsp;</div>
+							<div class="div1">${AnimalsList.acceptionId}</div> <br></li>
+						<li><div class="div1">品種編號：&nbsp;</div>
+							<div class="div1">${AnimalsList.breedId}</div> <br></li>
+						<li><c:choose>
+								<c:when test="${AnimalsList.gender == 1}">
+									<div class="div1">性別：&nbsp;</div>公<br>
+								</c:when>
+								<c:otherwise>
+									<div class="div1">性別：&nbsp;</div>母<br>
+								</c:otherwise>
+							</c:choose></li>
+						<li><div class="div1">毛色：&nbsp;</div>
+							<div class="div1">${AnimalsList.coatColor}</div> <br></li>
+						<li><c:choose>
+								<c:when test="${AnimalsList.isAdoptionAvailable == 1}">
+									<div class="div1">是否開放領養：&nbsp;</div>是<br>
+								</c:when>
+								<c:otherwise>
+									<div class="div1">是否開放領養：&nbsp;</div>否<br>
+								</c:otherwise>
+							</c:choose></li>
+						<li><div class="div1">備註：&nbsp;</div>
+							<div class="div1 note1">${AnimalsList.note}</div> <br></li>
+					</ul>
+				</div>
+				<div>
 					<a
 						href="<c:url value='/preUpdateAnimal.controller'/>?animalId=${AnimalsList.animalId}"
 						class="btn btn-secondary" style="width: 49%;">維護</a> <input
 						type="button" value="刪除"
 						onclick="deleteAnimal(${AnimalsList.animalId})"
 						class="btn btn-danger" style="width: 49%;">
-				</form>
+				</div>
 			</div>
 		</c:forEach>
 	</div>

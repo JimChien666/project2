@@ -9,48 +9,47 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import com.iii.eeit124.entity.Animals;
 
-@Repository("animalsDao")@Lazy
-public class AnimalsDaoImpl implements AnimalsDao{
-	
+@Repository("animalsDao")
+@Lazy
+public class AnimalsDaoImpl implements AnimalsDao {
+
 	@Autowired
-	private SessionFactory sessionFactory;//Hibernate SessionFactory
+	private SessionFactory sessionFactory;// Hibernate SessionFactory
 
 	public Animals create(Animals entity) {
 		Session session = sessionFactory.getCurrentSession();
 //		Animals result = session.get(Animals.class, entity.getAnimalId());//TODO id會出錯誤訊息id to load is required for loading
 //		if (result == null) {
-			session.save(entity);
-			return entity;
+		session.save(entity);
+		return entity;
 //		}
 //		return null;
 	}
-	
+
 	public Animals read(Integer animalsId) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Animals.class, animalsId);
 	}
-	
-	public List<Animals> readAll(){
+
+	public List<Animals> readAll() {
 		Session session = sessionFactory.getCurrentSession();
 		Query<Animals> query = session.createQuery("from Animals order by animal_id desc", Animals.class);
 		List<Animals> list = query.list();
 		return list;
 	}
-	
-	public Animals update(Animals entity) {//entity為更新的內容
+
+	public Animals update(Animals entity) {// entity為更新的內容
 		Session session = sessionFactory.getCurrentSession();
 //		Animals result = session.get(Animals.class, entity.getAnimalId());
 //		if (result != null) {
-//			session.saveOrUpdate(entity);//用update或saveOrUpdate會出錯A different object with the same identifier value was already associated with the session
-		System.out.println("entity.printAll()"+entity.printAll());	
-		System.out.println(entity.getAnimalFiles().isEmpty());//欲上傳圖片是否是空的
-		System.out.println(entity.getFiles().isEmpty());//欲上傳的一筆檔案是否是空的
+//		session.saveOrUpdate(entity);//用update或saveOrUpdate會出錯A different object with the same identifier value was already associated with the session
+//		session.update(entity);
 		session.merge(entity);
-			return entity;
+		return entity;
 //		}
 //		return null;
 	}
-	
+
 	public boolean delete(Integer animalsId) {
 		Session session = sessionFactory.getCurrentSession();
 		Animals result = session.get(Animals.class, animalsId);

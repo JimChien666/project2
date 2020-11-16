@@ -11,6 +11,6 @@
 		<jsp:include page="../public/top.jsp" />
 	</div>
 	<h1>分派器</h1>
-	<a href="MyPetsRead">我的寵物</a>
+	<a href="ReadAnimal">我的寵物</a>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.iii.eeit124.adopt.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -12,20 +13,24 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.entity.Animals;
 import com.iii.eeit124.entity.AnimalsFiles;
 import com.iii.eeit124.entity.Members;
-import com.iii.eeit124.member.service.MemberService;
 
 @Controller
 public class AnimalsController {
@@ -33,16 +38,53 @@ public class AnimalsController {
 	ServletContext sc;
 	@Autowired
 	public AnimalsService animalsService;
-//	@Autowired
-//	MemberService memberService;
 	@Autowired
 	HttpSession session;
+	
+	@GetMapping("/adoptDispatcher")
+	public String processAdoptDispatcher() {
+		return "adopt/AdoptDispatcher";
+	}
+	
+	//讀圖
+	@GetMapping("/filuploadAction.contoller/{id}")
+	@ResponseBody
+	public ResponseEntity<byte[]> processFileUploadAction(@PathVariable(name = "id") Integer id) throws Exception{
+		ResponseEntity<byte[]> re = null;
+		
+		Animals animals = animalsService.read(id);//依主鍵找對應檔案
+		Iterator<AnimalsFiles> iterator = animals.getFiles().iterator();//將檔案從set中撈出
+		while (iterator.hasNext()) {
+			AnimalsFiles files = (AnimalsFiles) iterator.next();
+			Blob fileBlob = files.getFileBlob();
+			String mimeType = sc.getMimeType(files.getFileName());
+			MediaType mediaType = MediaType.valueOf(mimeType);
+			try {
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				InputStream is = fileBlob.getBinaryStream();
+				byte[] b = new byte[81920];
+				int len = 0;
+				while ((len = is.read(b)) != -1) {
+					baos.write(b, 0, len);
+				}
+				HttpHeaders headers = new HttpHeaders();
+				headers.setContentType(mediaType);
+				headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+				re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
+				return re;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return re;
+	}
 
 	// 瀏覽全部動物
-	@GetMapping("/readAnimal")
-	public String processReadAnimal(Model m) {
+	//TODO 需加入 只顯示該會員id的寵物
+	@GetMapping("/ReadAnimal")
+	public String processMyPetsRead(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readAll());
-		return "adopt/example/ReadAnimal";
+		return "adopt/ReadAnimal";
 	}
 
 	// PreCreate
@@ -50,12 +92,14 @@ public class AnimalsController {
 	public String processPreCreateAnimal(Model m) {
 		Animals animals = new Animals();
 		m.addAttribute("AnimalsList1", animals);
-		return "adopt/example/CreateAnimal";
+		return "adopt/CreateAnimal";
 	}
 
 	// Create
 	@PostMapping("/CreateAnimal.controller")
-	public String processCreateAnimal(@ModelAttribute("AnimalsList1") Animals entity, Model m) throws Exception {
+	public String processCreateAnimal(@ModelAttribute("AnimalsList1") Animals entity
+			, @RequestParam("memberId") Integer memberId
+			, Model m) throws Exception {
 		// 新增照片部分
 		MultipartFile mFile = entity.getAnimalFiles();
 		String filename = mFile.getOriginalFilename();// 取得檔名
@@ -117,20 +161,18 @@ public class AnimalsController {
 		
 		// 新增文字部分
 		entity.setCreatedAt(new Date());
-		System.out.println("entity.getMemberId()"+entity.getMemberId());
-//		entity.setMember(member);
+		entity.setMember((Members)session.getAttribute("LoginOK"));//這邊才有存會員編號，跟會員做關聯
 		animalsService.create(entity);
 
 		m.addAttribute("AnimalsList", animalsService.readAll());
-//		return "adopt/example/ReadAnimal";
-		return "adopt/MyPetsRead";
+		return "adopt/ReadAnimal";
 	}
 
 	// Refresh
 	@GetMapping({ "/CreateAnimal.controller", "/UpdateAnimal.controller", "/DeleteAnimal.controller" })
 	public String processCreateAnimal(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readAll());
-		return "adopt/example/ReadAnimal";
+		return "adopt/ReadAnimal";
 	}
 
 	// PreUpdate
@@ -138,7 +180,7 @@ public class AnimalsController {
 	public String processPreUpdateAnimal(@RequestParam("animalId") Integer animalId, Model m) {
 		Animals animals = animalsService.read(animalId);
 		m.addAttribute("animals", animals);
-		return "adopt/example/UpdateAnimal";
+		return "adopt/UpdateAnimal";
 	}
 
 	// Update
@@ -188,24 +230,30 @@ public class AnimalsController {
 					content.setFileBlob(blob);
 //					content.setAnimals(entity);//
 					entity.setFiles(AnimalsFiles);
-					System.out.println("entity: "+entity.printAll());
 					System.out.println("content"+content);
 				}
 			}
 		}
 		entity.setUpdatedAt(new Date());
+		entity.setMember((Members)session.getAttribute("LoginOK"));
+		System.out.println("inside UpdateAnimal.controller"+entity);
 		animalsService.update(entity);
 			
 		m.addAttribute("AnimalsList", animalsService.readAll());
-		return "adopt/example/ReadAnimal";
+		return "adopt/ReadAnimal";
 	}
 
 	// Delete
-	@PostMapping("/DeleteAnimal.controller")
-	public String processDeleteAnimal(@RequestParam("animalId") Integer animalId, Model m) {
+	@GetMapping("/DeleteAnimal.controller/{animalId}")
+	public String processDeleteAnimal(@PathVariable(name="animalId") Integer animalId, Model m) {
 		// TODO 要addAttribute刪除失敗訊息
+//		Animals entity = animalsService.read(animalId);
+//		entity.setDeletedAt(new Date());
+//		entity.setMember((Members)session.getAttribute("LoginOK"));
+//		System.out.println("inside DeleteAnimal.controller"+entity);
+//		animalsService.update(entity);
 		animalsService.delete(animalId);
 		m.addAttribute("AnimalsList", animalsService.readAll());
-		return "adopt/example/ReadAnimal";
+		return "redirect:/ReadAnimal";
 	}
 }

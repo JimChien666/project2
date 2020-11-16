@@ -17,9 +17,17 @@ function deleteAnimal(animalId){
 	}).then((value) => {
 		switch(value){
 			case "danger":
-				document.forms[0].action="DeleteAnimal.controller?animalId="+animalId;
-				document.forms[0].method="POST";
-				document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
+			swal("提示", "動物已移除", "success");
+			setTimeout(
+				function(){
+					window.location="DeleteAnimal.controller/"+animalId;
+					}
+					,2000
+					);
+			
+//				document.forms[0].action="DeleteAnimal.controller?animalId="+animalId;
+//				document.forms[0].method="POST";
+//				document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
 				break;
 			  }});
 }

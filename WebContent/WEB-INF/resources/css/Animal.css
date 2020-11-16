@@ -4,6 +4,7 @@
 	float: left;
 	margin: 10px;
 	padding: 5px;
+	width:262px;
 }
 
 .cardImg {
@@ -33,7 +34,7 @@
 }
 
 .form1 {
-	height: 300px;
+	height:250px;
 	overflow: auto;
 	margin: 5px 0 5px 0;
 }

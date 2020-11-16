@@ -162,30 +162,30 @@ public class Animals {
 		this.member = member;
 	}
 	
-	@Transient
-	public String getMemberAddress() {
-		return this.member.getAddress();
-	}
-	
-	@Transient
-	public String getMemberName() {
-		return this.member.getName();
-	}
-	
-	@Transient
-	public String getMemberTel() {
-		return this.member.getTel();
-	}
-	
-	@Transient
-	public String getMemberEmail() {
-		return this.member.getEmail();
-	}
-	
-	@Transient
-	public String getMemberType() {
-		return this.member.getMemberType();
-	}
+//	@Transient
+//	public String getMemberAddress() {
+//		return this.member.getAddress();
+//	}
+//	
+//	@Transient
+//	public String getMemberName() {
+//		return this.member.getName();
+//	}
+//	
+//	@Transient
+//	public String getMemberTel() {
+//		return this.member.getTel();
+//	}
+//	
+//	@Transient
+//	public String getMemberEmail() {
+//		return this.member.getEmail();
+//	}
+//	
+//	@Transient
+//	public String getMemberType() {
+//		return this.member.getMemberType();
+//	}
 //	@OneToOne(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)
 //	public AdoptionRecords getAdoptionRecords() {
 //		return adoptionRecords;
@@ -203,10 +203,14 @@ public class Animals {
 //	}
 //	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
 //	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ANIMAL_ID")})//第一個ANIMAL_ID為Files的，第二個為Animals的。
-	
-	public String printAll() {
-		return animalId + ", " + memberId + ", " + acceptionId + ", " + breedId + ", " + gender + ", " + coatColor + ", " + 
-	isAdoptionAvailable + ", " + note + ", " + createdAt + ", " + updatedAt + ", " + deletedAt + ", " + files;
+
+	@Override
+	public String toString() {
+		return "Animals [animalId=" + animalId + ", memberId=" + memberId + ", acceptionId=" + acceptionId
+				+ ", breedId=" + breedId + ", gender=" + gender + ", coatColor=" + coatColor + ", isAdoptionAvailable="
+				+ isAdoptionAvailable + ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+				+ ", deletedAt=" + deletedAt + ", animalFiles=" + animalFiles + ", files=" + files + ", member="
+				+ member + "]";
 	}
-	//TODO toString怪怪的，加入會報錯
+	
 }

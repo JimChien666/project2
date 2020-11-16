@@ -17,10 +17,10 @@
 </head>
 <body>
 	<div>
-		<jsp:include page="../../public/top.jsp" />
+		<jsp:include page="../public/top.jsp" />
 	</div>
 	<div class="wid450px">
-		<a href="<c:url value='/readAnimal' />"
+		<a href="<c:url value='/ReadAnimal' />"
 			class="btn btn-secondary margin10px">回維護首頁</a>
 	</div>
 	<div class="wid450px">
@@ -44,10 +44,12 @@
 			<form:label path="animalId">${animals.animalId}</form:label>
 			<br>
 			<!-- 		label不能用value，input readonly="readonly", disable="disabled"無作用-->
+			<div class="divHidden">
 			<form:label path="memberId" class="label1">會員編號：</form:label>
 			<form:input path="memberId" type="text" name="memberId"
-				value="${animals.memberId}" onblur="checkmemberId()" id="memberId" />
-			<br>
+				value="${animals.member.id}" onblur="checkmemberId()" id="memberId" />
+			<br>			
+			</div>
 			<div id="memberIdDiv" class="divHidden">
 				<br>
 			</div>

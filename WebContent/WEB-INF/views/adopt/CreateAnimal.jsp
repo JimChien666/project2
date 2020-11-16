@@ -18,10 +18,10 @@
 </head>
 <body>
 	<div>
-		<jsp:include page="../../public/top.jsp" />
+		<jsp:include page="../public/top.jsp" />
 	</div>
 	<div class="wid450px">
-		<a href="<c:url value='/readAnimal' />"
+		<a href="<c:url value='/ReadAnimal' />"
 			class="btn btn-secondary margin10px">回維護首頁</a>
 	</div>
 	<div class="wid450px">
@@ -34,13 +34,13 @@
 			<div class="divHidden square250px" id="animalFilesDiv">
 				<img class="cardImg" id="preview_animalFiles" src="#" /><br>
 			</div>
-<!-- 			<div class="divHidden"> -->
-			<form:label path="memberId" class="label1">會員編號：</form:label>
-			<form:input path="memberId" type="text" name="memberId"
-				placeholder="自動抓取會員編號" onblur="checkmemberId()" id="memberId"
-				value="${LoginOK.id}" />
-			<br>
-<!-- 			</div> -->
+			<div class="divHidden">
+				<form:label path="memberId" class="label1">會員編號：</form:label>
+				<form:input path="memberId" type="text" name="memberId"
+					placeholder="自動抓取會員編號" onblur="checkmemberId()" id="memberId"
+					value="${LoginOK.id}" />
+				<br>
+			</div>
 			<div id="memberIdDiv" class="divHidden">
 				<br>
 			</div>
