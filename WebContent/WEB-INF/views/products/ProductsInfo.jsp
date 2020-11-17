@@ -12,6 +12,12 @@
 
 <script>
 	$(document).ready(function(){
+		$("#button1").mouseover(function(){
+		   	$("#button1").attr("style","background-color:#E9E9E4; width:200px; color:#ab7661; border:1px #ab7661 solid;");
+		}); 
+		$("#button1").mouseout(function(){
+		   	$("#button1").attr("style","background-color:#ab7661; width:200px;");
+		}); 
 	  $(".btnFollow0").click(function(){
 				<c:forEach  items="${ProductsInfo.productFilesId}" var="contentFileId" step="2">
 	          	$("#chgicon").attr("src","${pageContext.request.contextPath}/product/getProductFilesImage/?productFilesId=${contentFileId}");
@@ -37,6 +43,8 @@
                	$(".btnFollow0").attr("style","border:0px #ab7661 solid; height:120px; width:120px;");	
 
 		});
+    
+      
 	});
 </script>
 </head>
@@ -49,6 +57,9 @@
 <div style='position:absolute; top:134px;  right:100px; font-family:Microsoft JhengHei;'>	
 	<p style='font-family:cwtexhei; border-left:18px #ab7661 solid;'> ${ProductsInfo.name}</p>
 	<p style='color:#ab7661; font-size:22px;'><b> NT$${ProductsInfo.price}</b></p>
+	<button id='button1' class='btn btn-danger' onclick='addToCart(" + products[i].id + ")'  style='background-color:#ab7661; width:200px;'>加入購物車</button>
+	<br/>
+	<a style='color:#ab7661;' href='http://tw.yahoo.com/' >♡加入追蹤清單</a>
 
 </div>	
 <div style='position:absolute; top:134px;  left:100px; '>
@@ -58,12 +69,12 @@
 		<br/>
 		<br/>
 	</c:forEach>
-	<img class='btnFollow2' style='height:120px; weight:120px; ' src='${pageContext.request.contextPath}/product/getProductImage/?productId=${ProductsInfo.id}'>
+	<img class='btnFollow2' style='height:120px; width:120px; border:2px #ab7661 solid;' src='${pageContext.request.contextPath}/product/getProductImage/?productId=${ProductsInfo.id}'>
 
 </div>	
 
 	<!-- 	抓ProductListController/getProductImage的封面圖 -->
-	<img id='chgicon' style='border:2px black solid; height:40%; width:40%;' src='${pageContext.request.contextPath}/product/getProductImage/?productId=${ProductsInfo.id}'>
+	<img id='chgicon' style='border:1px black solid; height:40%; width:40%;' src='${pageContext.request.contextPath}/product/getProductImage/?productId=${ProductsInfo.id}'>
 
 	
 	${ProductsInfo.description}
