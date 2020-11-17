@@ -91,14 +91,20 @@ public class ArticleController {
 	@GetMapping(value = "saveComments", produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String saveComments(
 			@RequestParam(value = "id") Integer id,
-			@RequestParam(value = "comment")Comments comment			
+			@RequestParam(value = "comment")String comment			
 			) {
+		Comments c = new Comments();
+		c.setComment(comment);
+		System.out.println("...................");
+		System.out.println(id);
+		System.out.println(comment);
+		System.out.println("...................");
 		Forums forums = forumsService.selectForum(id);
-		comment.setMember((Members) session.getAttribute("LoginOK"));
-		comment.setForums(forums);
-		comment.setComment(comment.getComment());
-		forums.getComments().add(comment);
-		commentsService.save(comment);
+		c.setMember((Members) session.getAttribute("LoginOK"));
+		c.setForums(forums);
+//		comment.setComment(comment.getComment());
+//		forums.getComments().add(comment);
+		commentsService.save(c);
 		return null;
 	}
 

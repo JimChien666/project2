@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
 
@@ -82,7 +82,12 @@ table, th, td {
 					</tr>
 				</c:forEach>
 					<tr>
-						<td>回覆本討論串:<input type="text" name="comments" id="${Forums.getId()}" onkeydown="inputkey(this)" ></td>
+						<c:if test="${empty LoginOK}">
+							<td>回覆本討論串:<input disabled placeholder="登入後留言" type="text" name="comments" id="${Forums.getId()}" onmouseover="gotToLogin()"></td>
+						</c:if>
+						<c:if test="${!empty LoginOK}">
+							<td>回覆本討論串:<input type="text" name="comments" id="${Forums.getId()}"></td>
+						</c:if>
 					</tr>
 					<tr>
 						<td><div id='result0'></div></td>
@@ -101,64 +106,23 @@ table, th, td {
 	
 	
 	
-<script type="text/javascript">
-// var com = $("#comment").value;
-// $("#comment").keydown(function(event) {
-//     if(event.keyCode == 13){
-// 		console.log(com)
-// 		checkOut();
-//     };
-// });
-
-// var com = $("#comment").value;
-// $("#comment").keydown(function(event) {
-//     if(event.keyCode == 13){
-//  		checkOut();
-//     };
-// });
-
-
-// $(document).on('keypress',function(e) {
-// 	    if(e.which == 13) {		    
-// 	        alert('You pressed enter!');
-// 	    }
-// 	});
-
-
-// var id = $("input").click(function(){
-// 	$(this).attr("id")
-// });
-
-
-
-// function inputClick(obj){
-// 	var id = obj.id;
-// 	var name = obj.name;
-// 	var comment = obj.value;
-	
-// 	console.log(id);
-// 	console.log(name);
-// 	console.log(comment);
-// $.ajax({
-//   url: url,
-//   data: data,
-//   success: success,
-//   dataType: dataType
-// });
+<script>
+// function gotToLogin(){
+// 	alert("佛祖");
+// 	window.location.href = "<c:url value='/member/processLogin.controller'/>"
 // }
 
 
-
-function inputkey(obj){
-	var id = obj.id;
-	var name = obj.name;
-	var comment = obj.value;
-	
-	console.log(id);
-	console.log(name);
-	console.log(comment);
 $("input").keypress(function (e) {
+		console.log(this);
 	   if (e.keyCode == 13) {
+			var id = this.id;
+// 			var name = obj.name;
+			var comment = this.value;
+			
+			console.log(id);
+			console.log(name);
+			console.log(comment);
 // 	      alert('Enter key pressed!');
 
 		$.ajax({
@@ -173,10 +137,6 @@ $("input").keypress(function (e) {
 
 	    }
 	});	
-}
-
-
-
 
 </script>
 </body>
