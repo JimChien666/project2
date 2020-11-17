@@ -83,7 +83,7 @@ table, th, td {
 				</c:forEach>
 					<tr>
 						<c:if test="${empty LoginOK}">
-							<td>回覆本討論串:<input disabled placeholder="登入後留言" type="text" name="comments" id="${Forums.getId()}" onmouseover="gotToLogin()"></td>
+							<td>回覆本討論串:<a href="<c:url value='/member/login' />"><input disabled placeholder="登入後留言" type="text" name="comments" id="${Forums.getId()}" onmouseover="gotToLogin()"></a></td>
 						</c:if>
 						<c:if test="${!empty LoginOK}">
 							<td>回覆本討論串:<input type="text" name="comments" id="${Forums.getId()}"></td>
