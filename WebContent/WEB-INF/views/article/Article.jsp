@@ -77,7 +77,7 @@ table, th, td {
 					<td>${Forums.getMember().getName()}</td>
 				</tr>
 				<c:forEach items="${comments}" var="Comments" varStatus="id">
-					<tr>
+					<tr id='comments'>
 						<td> </td>
 					</tr>
 				</c:forEach>

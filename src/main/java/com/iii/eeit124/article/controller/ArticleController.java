@@ -176,4 +176,13 @@ public class ArticleController {
 		List<Comments> comments = commentsService.select(forums.getId());		
 		return comments;		
 	}
+	
+//	@GetMapping(value = { "/_03/members", "/members" })
+//	public @ResponseBody List<Members> queryAllMembersJSP(Model model) {
+//		List<Members> members = service.findAllMembers();
+//		return members;
+//	}
+
+	
+	
 }
