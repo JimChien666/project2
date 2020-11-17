@@ -32,7 +32,7 @@ public class Comments {
 		this.id = id;
 	}
 
-	@Column(name = "COMMENT")
+	@Column(name = "CONTENT")
 	public String getComment() {
 		return comment;
 	}
