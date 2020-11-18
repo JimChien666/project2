@@ -44,7 +44,7 @@ public class Products {
 				.append(coverImg).append("\", \"createdAt\":\"").append(createdAt).append("\", \"updatedAt\":\"")
 				.append(updatedAt).append("\", \"deletedAt\":\"").append(deletedAt).append("\", \"status\":\"")
 				.append(status).append("\", \"multipartFile\":\"").append(multipartFile).append("\", \"animalType\":\"")
-				.append(animalType).append("\", \"color\":\"").append(color).append("\", \"member\":\"").append(member)
+				.append(animalType).append("\", \"color\":\"").append(color).append("\", \"member\":\"")
 				.append("\", \"category\":\"").append(category).append("\", \"contentImgs\":\"").append(contentImgs)
 				.append("}");
 		return builder.toString();
@@ -90,15 +90,15 @@ public class Products {
 	public void setColor(Colors color) {
 		this.color = color;
 	}
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "MEMBER_ID")
-	public Members getMember() {
-		return member;
-	}
-	public void setMember(Members member) {
-		this.member = member;
-	}
+//	@JsonIgnore
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "MEMBER_ID")
+//	public Members getMember() {
+//		return member;
+//	}
+//	public void setMember(Members member) {
+//		this.member = member;
+//	}
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CATEGORY_ID")
@@ -152,13 +152,15 @@ public class Products {
 	public void setDiscount(Double discount) {
 		this.discount = discount;
 	}
-	@Transient
+//	@Transient
+	@Column(name="MEMBER_ID")
 	public Integer getMemberId() {
-		return this.member.getId();
+		return this.memberId;
 	}
 	@Transient
 	public String getMemberName() {
-		return this.member.getName();
+		return "NN";
+//		return this.member.getName();
 	}
 	
 	

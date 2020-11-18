@@ -58,7 +58,7 @@ public class ProductsInfoController {
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			InputStream is = blob.getBinaryStream();
-			byte[] b = new byte[81920];
+			byte[] b = new byte[163840];
 			int len = 0;
 			while ((len = is.read(b)) != -1) {
 				baos.write(b, 0, len);

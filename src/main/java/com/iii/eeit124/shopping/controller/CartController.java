@@ -81,27 +81,29 @@ public class CartController {
 	}
 	//修改購物車商品的數量
 	@GetMapping("/FixProductQuantity")
-	public boolean fixProductQuantity(@RequestParam("productId")Integer productId, @RequestParam("count")Integer count,Model model){
+	public @ResponseBody List<CartItems> fixProductQuantity(@RequestParam("productId")Integer productId, @RequestParam("count")Integer count,Model model){
+		@SuppressWarnings("unchecked")
 		List<CartItems> cartItems = (List<CartItems>) session.getAttribute("cartItems");
 		for(CartItems cartItemMember:cartItems) {
 			if(cartItemMember.getProductId().equals(productId)) {
 				cartItemMember.setQuantity(count);
-				return true;
+				return cartItems;
 			}
 		}
-		return false;
+		return cartItems;
 	}
 	//刪除其中一項購物車商品
 	@GetMapping("/DeleteCartItem")
-	public boolean deleteCartItem(@RequestParam("productId")Integer productId,Model model) {
+	public @ResponseBody List<CartItems> deleteCartItem(@RequestParam("productId")Integer productId,Model model) {
+		@SuppressWarnings("unchecked")
 		List<CartItems> cartItems = (List<CartItems>) session.getAttribute("cartItems");
 		for(CartItems cartItemMember:cartItems) {
 			if(cartItemMember.getProductId().equals(productId)) {
 				cartItems.remove(cartItemMember);
-				return true;
+				return cartItems;
 			}
 		}
-		return false;
+		return cartItems;
 	}
 	
 }

@@ -168,7 +168,7 @@ public class Orders {
 		this.buyer = buyer;
 	}
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
 	public Set<OrderItems> getOrderItems() {
 		return orderItems;
 	}

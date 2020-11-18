@@ -40,24 +40,24 @@ public class Members implements Serializable{
 	private String memberType;
 	private Date createdAt;
 	private Set<MemberFiles> files = new HashSet<MemberFiles>();
-	private Set<Products> products = new HashSet<Products>();
+//	private Set<Products> products = new HashSet<Products>();
 	private Set<Orders> orders = new HashSet<Orders>();
 //	private Set<OrderItems> orderItems = new HashSet<OrderItems>();
 	
 
 	
 
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "member", cascade = CascadeType.ALL)
-	public Set<Products> getProducts() {
-		return products;
-	}
-
-
-
-	public void setProducts(Set<Products> products) {
-		this.products = products;
-	}
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "member", cascade = CascadeType.ALL)
+//	public Set<Products> getProducts() {
+//		return products;
+//	}
+//
+//
+//
+//	public void setProducts(Set<Products> products) {
+//		this.products = products;
+//	}
 
 
 

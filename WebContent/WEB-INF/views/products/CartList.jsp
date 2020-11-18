@@ -54,7 +54,13 @@ function fixProductQuantity(productId, count){
 	var queryString = "?productId=" + productId + "&count=" + count;
 	xhr.open("Get", "<c:url value='/cart/FixProductQuantity'/>" + queryString , true);
 	xhr.send();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 ) {
+			if (xhr.status == 200){
 	updateQuantityAndPrice();
+			}
+		}
+	}
 }
 
 function deleteCartItem(productId){
@@ -62,9 +68,15 @@ function deleteCartItem(productId){
 	var queryString = "?productId=" + productId;
 	xhr.open("Get", "<c:url value='/cart/DeleteCartItem'/>" + queryString, true);
 	xhr.send();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 ) {
+			if (xhr.status == 200){
 	var parentObj = document.getElementById("tr" + productId).parentNode;
 	parentObj.removeChild(document.getElementById("tr" + productId));
 	updateQuantityAndPrice();
+			}
+		}
+	}
 }
 
 function updateQuantityAndPrice(){
