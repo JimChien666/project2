@@ -170,7 +170,7 @@ public class CreateProductController {
 			}	
 		}
 		product.setCreatedAt(new Date());
-		product.setMemberId(((Members)session.getAttribute("LoginOK")).getId());
+		product.setMember((Members)session.getAttribute("LoginOK"));
 	    service.insertProduct(product);
 		return "redirect:/";
 	}
