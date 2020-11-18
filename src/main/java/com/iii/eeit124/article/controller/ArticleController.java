@@ -177,6 +177,9 @@ public class ArticleController {
 		System.out.println(id);
 		System.out.println(".......................");
 		List<Comments> comments = commentsService.select(forums.getId());
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!");
+		System.out.println(comments);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!");
 		return comments;		
 	}
 	
