@@ -40,7 +40,7 @@ public class BreedsServiceImpl implements BreedsService {
 		return breedsDao.readAllFamilies();
 	}
 	
-	public List<String> readAllBreeds(String family){
+	public List<Breeds> readAllBreeds(String family){
 		return breedsDao.readAllBreeds(family);
 	}
 }

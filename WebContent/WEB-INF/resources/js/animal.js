@@ -242,3 +242,9 @@ function checkcoatColor() {
 		}
 	}
 }
+
+//test
+function test(){
+	let breedId = document.getElementById("gender").options[gender.selectedIndex].value;
+	console.log(breedId);
+}

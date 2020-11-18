@@ -32,6 +32,7 @@ import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.adopt.service.BreedsService;
 import com.iii.eeit124.entity.Animals;
 import com.iii.eeit124.entity.AnimalsFiles;
+import com.iii.eeit124.entity.Breeds;
 import com.iii.eeit124.entity.Members;
 
 @Controller
@@ -105,11 +106,18 @@ public class AnimalsController {
 	
 	//SelectBreeds
 	@GetMapping(value="/getBreed.controller")
-	public @ResponseBody List<String> processGetBreed(@RequestParam("family") String family) {
-		List<String> breed = breedsService.readAllBreeds(family);
+	public @ResponseBody List<Breeds> processGetBreed(@RequestParam("family") String family) {
+		List<Breeds> breed = breedsService.readAllBreeds(family);
 		System.out.println("breed123"+breed);
 		return breed;
 	}
+	//SelectBreeds//可用
+//	@GetMapping(value="/getBreed.controller")
+//	public @ResponseBody List<String> processGetBreed(@RequestParam("family") String family) {
+//		List<String> breed = breedsService.readAllBreeds(family);
+//		System.out.println("breed123"+breed);
+//		return breed;
+//	}
 
 	// Create
 	@PostMapping("/CreateAnimal.controller")
@@ -263,6 +271,7 @@ public class AnimalsController {
 	@GetMapping("/DeleteAnimal.controller/{animalId}")
 	public String processDeleteAnimal(@PathVariable(name="animalId") Integer animalId, Model m) {
 		// TODO 要addAttribute刪除失敗訊息
+		//軟刪除
 //		Animals entity = animalsService.read(animalId);
 //		entity.setDeletedAt(new Date());
 //		entity.setMember((Members)session.getAttribute("LoginOK"));

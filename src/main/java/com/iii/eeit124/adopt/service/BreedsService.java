@@ -17,5 +17,5 @@ public interface BreedsService {
 	
 	public List<String> readAllFamilies();
 	
-	public List<String> readAllBreeds(String family);
+	public List<Breeds> readAllBreeds(String family);
 }

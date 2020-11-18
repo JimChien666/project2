@@ -1,9 +1,6 @@
 package com.iii.eeit124.adopt.dao;
 
 import java.util.List;
-
-import javax.persistence.TypedQuery;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -35,11 +32,6 @@ public class BreedsDaoImpl implements BreedsDao{
 		return list;
 	}
 	
-	
-	
-	
-
-	
 	public List<String> readAllFamilies() {
 		Session session = sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
@@ -48,19 +40,33 @@ public class BreedsDaoImpl implements BreedsDao{
 		return list;
 	}
 	
-	public List<String> readAllBreeds(String familyValue) {
+	public List<Breeds> readAllBreeds(String familyValue) {
 		Session session = sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
-		TypedQuery<String> query = session.createQuery("select distinct breed from Breeds where family='"+familyValue+"'");
-		System.out.println("query"+query);
-		return query.getResultList();
+		Query<Breeds> query = session.createQuery("from Breeds where family='"+familyValue+"' order by BREED_ID");
+		List<Breeds> list = query.list();
+		return list;
 	}
-	
-	
-	
-	
-	
-	
+	//還無法用
+//	public List<String> readAllBreeds(String familyValue) {
+//		Session session = sessionFactory.getCurrentSession();
+//		System.out.println(11111);
+//		@SuppressWarnings("unchecked")
+//		Query<String> query = session.createQuery("from Breeds where family='"+familyValue+"'");
+////		Query<String> query = session.createQuery("select breed, BREED_ID from Breeds where family='"+familyValue+"'");
+//		System.out.println(22222);
+//		List<String> list = query.list();
+//		System.out.println("33333"+list);
+//		return list;
+//	}
+	//可用
+//	public List<String> readAllBreeds(String familyValue) {
+//		Session session = sessionFactory.getCurrentSession();
+//		@SuppressWarnings("unchecked")
+//		TypedQuery<String> query = session.createQuery("select distinct breed from Breeds where family='"+familyValue+"'");
+//		System.out.println("query"+query);
+//		return query.getResultList();
+//	}
 	
 	public Breeds update(Breeds entity) {// entity為更新的內容
 		Session session = sessionFactory.getCurrentSession();

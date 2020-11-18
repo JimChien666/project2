@@ -15,6 +15,7 @@
 	crossorigin="anonymous"></script>
 <!-- <script src="js/jquery-3.5.1.js" charset="UTF-8"></script> -->
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
+<!-- 試試看把script c:url移到js -->
 <script type="text/javascript">
 	window.onload = function() {
 		var family = document.getElementById("family");
@@ -35,11 +36,17 @@
 						//可再確認用array.join或用一般字串相加，哪個效率好
 						var content = "<select id='breed'>";
 						for (var i = 0; i < breed.length; i++) {
-							content += "<option value=''>" + breed[i]
-									+ "</option>";
+							content += "<option value='" + breed[i].breedId + "'>"
+									+ breed[i].breed + "</option>";
 						}
 						content += "</select>";
 						document.getElementById("breedDiv").innerHTML = content;
+						var breed = document.getElementById("breed");
+						breed.onclick = function() {
+							var breedId = document.getElementById("breed").options[breed.selectedIndex].value;
+							console.log("breedId: " + breedId);
+							document.getElementById("breedId").value = breedId;
+						}
 					}
 				}
 			}
@@ -82,27 +89,25 @@
 			<div id="acceptionIdDiv" class="divHidden">
 				<br>
 			</div>
-			<form:label path="breedId" class="label1">品種編號：</form:label>
+			<form:label path="breedId" class="label1">品種：</form:label>
 			<select id="family">
+<!-- 				<option>請選擇動物品種</option> -->
 				<c:forEach var="Families" items="${Families}">
 					<option value="">${Families}</option>
 				</c:forEach>
 			</select>
-			<div id="breedDiv"></div>
-			<!-- 			<select id="breed"> -->
-			<%-- 				<c:forEach var="Breeds" items="${Breeds}"> --%>
-			<%-- 					<option value="">${Breeds}</option> --%>
-			<%-- 				</c:forEach> --%>
-			<!-- 			</select> -->
-			<!-- 			<br> -->
-			<form:input path="breedId" type="text" name="breedId"
-				onblur="checkbreedId()" id="breedId" />需查詢填入
+			<div id="breedDiv" class="div1"></div>
 			<br>
+			<div class="divHidden">
+				<form:input path="breedId" type="text" name="breedId"
+					onblur="checkbreedId()" id="breedId" />
+				<br>
+			</div>
 			<div id="breedIdDiv" class="divHidden">
 				<br>
 			</div>
 			<form:label path="gender" class="label1">性別：</form:label>
-			<form:select path="gender">
+			<form:select path="gender" id="gender">
 				<form:option value="1">公</form:option>
 				<form:option value="0">母</form:option>
 			</form:select>
