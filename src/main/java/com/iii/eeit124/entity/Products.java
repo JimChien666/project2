@@ -68,7 +68,7 @@ public class Products {
 	
 	private AnimalTypes animalType;
 	private Colors color;
-	private Members member;
+//	private Members member;
 	private Categories category;
 	private Set<ProductFiles> contentImgs = new HashSet<>();
 	
