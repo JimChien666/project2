@@ -46,7 +46,8 @@ public class Comments {
 	@Transient
 //	@Column(name = "FORUM_ID")
 	public int getForumid() {
-		return forumid;
+//		return forumid;
+		return this.forums.getId();
 	}
 
 	public void setForumid(int forumid) {
@@ -56,7 +57,8 @@ public class Comments {
 //	@Column(name = "MEMBER_ID")
 	@Transient
 	public int getMemberid() {
-		return memberid;
+//		return memberid;
+		return this.member.getId();
 	}
 
 	public void setMemberid(int memberid) {
