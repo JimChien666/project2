@@ -95,10 +95,10 @@ public class ArticleController {
 			) {
 		Comments c = new Comments();
 		c.setComment(comment);
-		System.out.println("...................");
-		System.out.println(id);
-		System.out.println(comment);
-		System.out.println("...................");
+//		System.out.println("...................");
+//		System.out.println(id);
+//		System.out.println(comment);
+//		System.out.println("...................");
 		Forums forums = forumsService.selectForum(id);
 		c.setMember((Members) session.getAttribute("LoginOK"));
 		c.setForums(forums);
@@ -170,10 +170,13 @@ public class ArticleController {
 //		model.addAttribute("comments", comments);		
 //		return null;		
 //	}
-	@PostMapping(value = "showComments")
+	@GetMapping(value = "showComments")
 	public @ResponseBody List<Comments> showComments(@RequestParam(value = "forumsId") Integer id) {		
-		Forums forums = forumsService.selectForum(id);		
-		List<Comments> comments = commentsService.select(forums.getId());		
+		Forums forums = forumsService.selectForum(id);
+		System.out.println(".......................");
+		System.out.println(id);
+		System.out.println(".......................");
+		List<Comments> comments = commentsService.select(forums.getId());
 		return comments;		
 	}
 	

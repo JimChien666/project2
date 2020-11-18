@@ -4,15 +4,18 @@
 
 <!DOCTYPE html>
 <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
 
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+	crossorigin="anonymous"></script>
 
 
 <html>
@@ -59,6 +62,7 @@ table, th, td {
 					<td>${Forums.getContent()}</td>
 					<td>${Forums.getCreatedat()}</td>
 				</tr>
+
 			</c:if>
 		</c:forEach>
 	</table>
@@ -76,23 +80,39 @@ table, th, td {
 					<td>${Forums.getCreatedat()}</td>
 					<td>${Forums.getMember().getName()}</td>
 				</tr>
-				<c:forEach items="${comments}" var="Comments" varStatus="id">
-					<tr id='comments'>
-						<td> </td>
-					</tr>
-				</c:forEach>
-					<tr>
-						<c:if test="${empty LoginOK}">
-							<td>回覆本討論串:<a href="<c:url value='/member/login' />"><input disabled placeholder="登入後留言" type="text" name="comments" id="${Forums.getId()}" onmouseover="gotToLogin()"></a></td>
-						</c:if>
-						<c:if test="${!empty LoginOK}">
-							<td>回覆本討論串:<input type="text" name="comments" id="${Forums.getId()}"></td>
-						</c:if>
-					</tr>
-					<tr>
-						<td><div id='result0'></div></td>
-					</tr>
+				<br>
+				<tr>
+<%-- 					<td id="comments" class="comments">${Forums.id}</td> --%>
+					<td class="comments">${Forums.id}</td>
+				</tr>
+				<script>
+				$(function(){
+					var $comments = $('.comments');
+					$.ajax({
+						type:'GET',
+						url:'showComments?forumsId=${Forums.getId()}',
+// 						url:"<c:url value='showComments?forumsId=${Forums.getId()}' />",
+						success: function(comments){
+							console.log('success',comments)
+						$.each(comments, function(i, order){
+							$comments.append('<li>'+order.comment+'/'+order.forumid+'</li>')
 
+							});
+							}						
+						});
+					});				
+				</script>
+				<tr>
+					<c:if test="${empty LoginOK}">
+						<td>回覆本討論串:<a href="<c:url value='/member/login' />"><input
+								disabled placeholder="請登入後留言" type="text" name="comments"
+								id="${Forums.getId()}"></a></td>
+					</c:if>
+					<c:if test="${!empty LoginOK}">
+						<td>回覆本討論串:<input type="text" name="comments"
+							id="${Forums.getId()}"></td>
+					</c:if>
+				</tr>
 			</c:if>
 		</c:forEach>
 	</table>
@@ -103,40 +123,27 @@ table, th, td {
 		class="fixed0">
 		<button type="button" class="btn btn-success">回覆文章</button>
 	</a>
-	
-	
-	
-<script>
-// function gotToLogin(){
-// 	alert("佛祖");
-// 	window.location.href = "<c:url value='/member/processLogin.controller'/>"
-// }
 
+	<script>
 
 $("input").keypress(function (e) {
-		console.log(this);
 	   if (e.keyCode == 13) {
 			var id = this.id;
-// 			var name = obj.name;
-			var comment = this.value;
-			
-			console.log(id);
-			console.log(name);
-			console.log(comment);
-// 	      alert('Enter key pressed!');
-
+			var comment = this.value;			
 		$.ajax({
 		  url: "saveComments",
 		  data: {
 			  id:id,
 			  comment:comment
 			  },
-// 		  success: success,
+// 		  success:function(res){
+//},
 // 		  dataType: dataType
 		});
-
 	    }
 	});	
+
+
 
 </script>
 </body>
