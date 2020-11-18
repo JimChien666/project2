@@ -240,7 +240,8 @@ function displayPageProducts(responseData){
 	
 	var products = mapData.list;		// 傳回一個陣列
 	var imageURL = "<c:url value='/product/getProductImage' />";
-	var productsInfo = "<c:url value='/product/productsInfo/ProductPath' />";
+	var productsInfo = "<c:url value='/product/productsInfo/productsPath' />";
+	var salesInfo = "<c:url value='/product/salesInfo/salesInfoPath' />";
 	
 	document.getElementById("showRecordCounts").innerHTML = recordCounts;
 	for(var i=0; i < products.length; i++){
@@ -249,13 +250,14 @@ function displayPageProducts(responseData){
 		content += "<tr>" + 
 		           "<td>" + products[i].id + "&nbsp;</td>" + 
 		           "<td>" +  
-	               "<a href='"+productsInfo.replace("ProductPath",products[i].id)+"'>"+products[i].name+"</a>"
+	               "<a href='"+productsInfo.replace("productsPath",products[i].id)+"'>"+products[i].name+"</a>"
 	               + "</td>" +
 	               "<td>" + products[i].price + "&nbsp;</td>" +
 	               "<td>" + products[i].discount + "</td>" +
 	               "<td>" + (products[i].price * products[i].discount) + "</td>" +
-	               "<td>" + products[i].memberName + "</td>" +
-
+	               "<td>" + 
+	               "<a href='"+salesInfo.replace("salesInfoPath",products[i].memberId)+"'>"+products[i].memberName+"</a>"
+	               + "</td>" +
 	               "<td><img  width='60' height='80' " +   
 	               " src='" + imageURL + "?productId=" + products[i].id + "'></td>" + 
 	               "<td><ul class='counter'>" + 
