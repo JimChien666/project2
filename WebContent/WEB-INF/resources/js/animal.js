@@ -1,7 +1,74 @@
+//CreateAnimal
+//當animalFile有變動時，會將animalFileSpan顯示
+//function showImageCreate(){
+//	document.getElementById("animalFilesDiv").style.display = "block";
+//	readURL(document.getElementById("animalFilesCreate"));
+//};
+
+//UpdateAnimal
+//當animalFile1有變動時，會將animalFileSpan1顯示
+//function showImageUpdate(){
+//	document.getElementById("animalFilesDivOrigin").style.display = "none";
+//	document.getElementById("animalFilesDivAlter").style.display = "block";
+//	readURL(document.getElementById("animalFilesUpdate"));
+//};
+window.onload = function() {
+	$("#animalFilesCreate").change(function() {
+		$("#animalFilesDiv").show();
+		readURL(this);
+	});
+	$("#animalFilesUpdate").change(function() {
+		$("#animalFilesDivOrigin").hide();
+		$("#animalFilesDivAlter").show();
+//		$("#animalFilesDivAlter").css('display','block');
+		readURL(this);
+	});
+
+//品種選擇
+//需確認c:url何時載入?
+//	var family = document.getElementById("family");
+//	family.onclick = function(){
+//		var xhr = new XMLHttpRequest();
+//		var familyValue = family.options[ family.selectedIndex ].text;
+//		console.log(familyValue);//OK
+////		var queryString = "?family=" + familyValue;
+//		var url = "<c:url value='/getBreed.controller'/>?family=" + familyValue;
+////		var url = "<c:url value='/getBreed.controller" + queryString + "'/>";
+//		xhr.open("GET", url, true);
+//		xhr.send();
+//		xhr.onreadystatechange = function() {
+//			// 向伺服器提出的請求已經收到回應
+//			if (xhr.readyState === 4) {
+//				// 伺服器回應成功
+//				if (xhr.status === 200) {
+//					var breed = JSON.parse(xhr.responseText);
+//					var content = "<select id='breed'>";
+//					for(var i=0; i < breed.length; i++){
+//					content += "<option value=''>" + breed[i].breed + "</option>";
+//					}
+//					content += "</select>";
+//					document.getElementById("breedDiv").innerHTML = content;
+////					StringBuffer sBuffer = new StringBuffer("<select id='breed'>");
+////					for(var i=0; i < breed.length; i++){
+////					sBuffer.append("<option value=''>" + breed[i].breed + "</option>");
+////					}
+////					sBuffer.append("</select>");
+////					document.getElementById("breedDiv").innerHTML = sBuffer;
+//				}
+//			}
+//		}
+//	}
+};
+			
 //ReadAnimal
 //預防新增後，重整頁面會跳出是否重複新增的提示視窗
 if ( window.history.replaceState ) {
     window.history.replaceState( null, null, window.location.href );
+}
+
+function timer(){
+	swal("Don't evade!","dsfdsfsdf","success");
+	setTimeout(function(){window.location="preCreateAnimal.controller";},2000);
 }
 
 //SweetAlert刪除
@@ -41,33 +108,6 @@ function confirmDelete(animalId) {
 	}
 }
 
-//CreateAnimal
-//當animalFile有變動時，會將animalFileSpan顯示
-//function showImageCreate(){
-//	document.getElementById("animalFilesDiv").style.display = "block";
-//	readURL(document.getElementById("animalFilesCreate"));
-//};
-
-//UpdateAnimal
-//當animalFile1有變動時，會將animalFileSpan1顯示
-//function showImageUpdate(){
-//	document.getElementById("animalFilesDivOrigin").style.display = "none";
-//	document.getElementById("animalFilesDivAlter").style.display = "block";
-//	readURL(document.getElementById("animalFilesUpdate"));
-//};
-window.onload = function() {
-	$("#animalFilesCreate").change(function() {
-		$("#animalFilesDiv").show();
-		readURL(this);
-	});
-	$("#animalFilesUpdate").change(function() {
-		$("#animalFilesDivOrigin").hide();
-		$("#animalFilesDivAlter").show();
-//		$("#animalFilesDivAlter").css('display','block');
-		readURL(this);
-	});
-};
-			
 //給showImage的readURL用的
 function readURL(input) {
 	if (input.files && input.files[0]) {

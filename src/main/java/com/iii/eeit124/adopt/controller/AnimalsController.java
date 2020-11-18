@@ -8,6 +8,7 @@ import java.sql.Blob;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.iii.eeit124.adopt.service.AnimalsService;
+import com.iii.eeit124.adopt.service.BreedsService;
 import com.iii.eeit124.entity.Animals;
 import com.iii.eeit124.entity.AnimalsFiles;
 import com.iii.eeit124.entity.Members;
@@ -38,6 +40,8 @@ public class AnimalsController {
 	ServletContext sc;
 	@Autowired
 	public AnimalsService animalsService;
+	@Autowired
+	public BreedsService breedsService;
 	@Autowired
 	HttpSession session;
 	
@@ -89,10 +93,22 @@ public class AnimalsController {
 
 	// PreCreate
 	@GetMapping("/preCreateAnimal.controller")
-	public String processPreCreateAnimal(Model m) {
+	public String processPreCreateAnimal(
+//			@RequestParam("family") String family, 
+			Model m) {
 		Animals animals = new Animals();
 		m.addAttribute("AnimalsList1", animals);
+		m.addAttribute("Families", breedsService.readAllFamilies());
+//		m.addAttribute("Breeds", breedsService.readAllBreeds(family));
 		return "adopt/CreateAnimal";
+	}
+	
+	//SelectBreeds
+	@GetMapping(value="/getBreed.controller")
+	public @ResponseBody List<String> processGetBreed(@RequestParam("family") String family) {
+		List<String> breed = breedsService.readAllBreeds(family);
+		System.out.println("breed123"+breed);
+		return breed;
 	}
 
 	// Create

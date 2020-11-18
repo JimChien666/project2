@@ -15,6 +15,37 @@
 	crossorigin="anonymous"></script>
 <!-- <script src="js/jquery-3.5.1.js" charset="UTF-8"></script> -->
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		var family = document.getElementById("family");
+		family.onclick = function() {
+			var xhr = new XMLHttpRequest();
+			var familyValue = family.options[family.selectedIndex].text;
+			var url = "<c:url value='/getBreed.controller'/>?family="
+					+ familyValue;
+			xhr.open("GET", url, true);
+			xhr.send();
+			xhr.onreadystatechange = function() {
+				// 向伺服器提出的請求已經收到回應
+				if (xhr.readyState === 4) {
+					// 伺服器回應成功
+					if (xhr.status === 200) {
+						var breed = JSON.parse(xhr.responseText);
+
+						//可再確認用array.join或用一般字串相加，哪個效率好
+						var content = "<select id='breed'>";
+						for (var i = 0; i < breed.length; i++) {
+							content += "<option value=''>" + breed[i]
+									+ "</option>";
+						}
+						content += "</select>";
+						document.getElementById("breedDiv").innerHTML = content;
+					}
+				}
+			}
+		}
+	}
+</script>
 </head>
 <body>
 	<div>
@@ -52,6 +83,18 @@
 				<br>
 			</div>
 			<form:label path="breedId" class="label1">品種編號：</form:label>
+			<select id="family">
+				<c:forEach var="Families" items="${Families}">
+					<option value="">${Families}</option>
+				</c:forEach>
+			</select>
+			<div id="breedDiv"></div>
+			<!-- 			<select id="breed"> -->
+			<%-- 				<c:forEach var="Breeds" items="${Breeds}"> --%>
+			<%-- 					<option value="">${Breeds}</option> --%>
+			<%-- 				</c:forEach> --%>
+			<!-- 			</select> -->
+			<!-- 			<br> -->
 			<form:input path="breedId" type="text" name="breedId"
 				onblur="checkbreedId()" id="breedId" />需查詢填入
 			<br>
