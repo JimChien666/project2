@@ -159,7 +159,7 @@ public class Orders {
 		this.deletedAt = deletedAt;
 	}
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity=Members.class)
 	@JoinColumn(name="BUYER_ID")
 	public Members getBuyer() {
 		return buyer;

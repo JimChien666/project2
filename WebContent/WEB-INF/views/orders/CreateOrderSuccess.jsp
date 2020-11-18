@@ -15,7 +15,7 @@ function goToShop(){
 	window.location.href = "<c:url value='/product/ProductList' />";
 }
 function goToOrderPage(){
-	window.location.href = "<c:url value='/product/ProductList' />";
+	window.location.href = "<c:url value='/order/OrderList' />";
 }
 </script>
 <meta charset="UTF-8">

@@ -68,7 +68,7 @@ public class Products {
 	
 	private AnimalTypes animalType;
 	private Colors color;
-//	private Members member;
+	private Members member;
 	private Categories category;
 	private Set<ProductFiles> contentImgs = new HashSet<>();
 	
@@ -91,14 +91,14 @@ public class Products {
 		this.color = color;
 	}
 //	@JsonIgnore
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "MEMBER_ID")
-//	public Members getMember() {
-//		return member;
-//	}
-//	public void setMember(Members member) {
-//		this.member = member;
-//	}
+	@ManyToOne(targetEntity=Members.class)
+	@JoinColumn(name="MEMBER_ID")
+	public Members getMember() {
+		return member;
+	}
+	public void setMember(Members member) {
+		this.member = member;
+	}
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CATEGORY_ID")
@@ -152,15 +152,16 @@ public class Products {
 	public void setDiscount(Double discount) {
 		this.discount = discount;
 	}
-//	@Transient
-	@Column(name="MEMBER_ID")
+	@Transient
+//	@Column(name="MEMBER_ID")
 	public Integer getMemberId() {
-		return this.memberId;
+//		return this.memberId;
+		return this.member.getId();
 	}
 	@Transient
 	public String getMemberName() {
-		return "NN";
-//		return this.member.getName();
+//		return "NN";
+		return this.member.getName();
 	}
 	
 	
