@@ -24,7 +24,7 @@ public class CommentsDaoImpl implements CommentsDao {
 	@Override
 	public List<Comments> select(int id) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<Comments> query = session.createQuery("From Comments where forums.id = ?1 order by id desc",
+		Query<Comments> query = session.createQuery("From Comments where forums.id = ?1 order by id",
 				Comments.class);
 		query.setParameter(1, id);
 		return query.list();
