@@ -28,7 +28,7 @@ public class ProductListDaoImpl implements ProductListDao {
 	@Override
 	public List<Products> findAllProducts() {
 		@SuppressWarnings("unchecked")
-		TypedQuery<Products> query = sessionFactory.getCurrentSession().createQuery("from Products order by id");
+		TypedQuery<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中' order by id");
 		return query.getResultList();
 	}
 
@@ -39,7 +39,7 @@ public class ProductListDaoImpl implements ProductListDao {
 		time1 = System.currentTimeMillis();
 		Integer startRecordNo = (pageNo - 1) * recordsPerPage; // 第二頁的第二筆＝（2-1）*2
 		List<Products> list = new ArrayList<Products>();
-		list = sessionFactory.getCurrentSession().createQuery("FROM Products order by id")
+		list = sessionFactory.getCurrentSession().createQuery("FROM Products where deleted_at=null and status='上架中' order by id")
   			  .setFirstResult(startRecordNo) //index的概念
   			  .setMaxResults(recordsPerPage) //當最後一頁商品數量不足顯示,則補足磯零數
   			  .getResultList();
@@ -75,7 +75,7 @@ public class ProductListDaoImpl implements ProductListDao {
 				condiction += " animal_type_id = :animalTypeId";
 			}
 		}
-		Query query = sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Products" + condiction);
+		Query query = sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Products where deleted_at=null and status='上架中'" + condiction);
 		if (colorId != null) {
 			query.setParameter("colorId", colorId);
 		}
@@ -91,7 +91,7 @@ public class ProductListDaoImpl implements ProductListDao {
 
 	@Override
 	public Products getProduct(Integer productId) {
-		Query<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where ID = ?0", Products.class);
+		Query<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where  deleted_at=null and status='上架中'  and ID = ?0", Products.class);
 		query.setParameter(0, productId);
 		Products product = query.uniqueResult();
 		return product;
@@ -121,7 +121,7 @@ public class ProductListDaoImpl implements ProductListDao {
 			}
 		}
 		
-		Query query = sessionFactory.getCurrentSession().createQuery("FROM Products" + condiction + " order by id");
+		Query query = sessionFactory.getCurrentSession().createQuery("FROM Products" + condiction + "And deleted_at=null and status='上架中'" + " order by id");
 		query.setFirstResult(startRecordNo);
 		query.setMaxResults(recordsPerPage);
 		if (colorId != null) {
@@ -149,7 +149,7 @@ public class ProductListDaoImpl implements ProductListDao {
 
 	public Long getRecordCounts() {
 		Long count = 0L; // 必須使用 long 型態
-		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Products").getSingleResult();
+		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Products where deleted_at=null and status='上架中'  ").getSingleResult();
 		return count;
 	}
 
