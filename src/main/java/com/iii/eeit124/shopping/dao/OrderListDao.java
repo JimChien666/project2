@@ -6,6 +6,8 @@ import com.iii.eeit124.entity.Orders;
 
 public interface OrderListDao {
 
-	List<Orders> indAllOrdersByMemberId(Integer id);
+	List<Orders> indAllOrdersByMemberId(Integer pageNo,Integer recordsPerPage,Integer id);
+
+	Long getRecordCounts();
 
 }

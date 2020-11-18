@@ -6,6 +6,8 @@ import com.iii.eeit124.entity.Orders;
 
 public interface OrderListService {
 
-	List<Orders> findAllOrdersByMemberId(Integer id);
+	List<Orders> findAllOrdersByMemberId(Integer pageNo, Integer recordsPerPage, Integer id);
+
+	Long getRecordCounts();
 
 }

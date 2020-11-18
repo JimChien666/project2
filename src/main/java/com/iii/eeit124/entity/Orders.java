@@ -167,7 +167,7 @@ public class Orders {
 	public void setBuyer(Members buyer) {
 		this.buyer = buyer;
 	}
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
 	public Set<OrderItems> getOrderItems() {
 		return orderItems;

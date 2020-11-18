@@ -19,12 +19,21 @@ public class OrderListDaoImpl implements OrderListDao {
 	
 	
 	@Override
-	public List<Orders> indAllOrdersByMemberId(Integer id) {
+	public List<Orders> indAllOrdersByMemberId(Integer pageNo ,Integer recordsPerPage, Integer id) {
+		Integer startRecordNo = (pageNo - 1) * recordsPerPage; 
 		@SuppressWarnings("unchecked")
 		TypedQuery<Orders> query = sessionFactory.getCurrentSession().createQuery("from Orders where BUYER_ID=?0 order by id");
-		query.setParameter(0, id);
+		query.setParameter(0, id).setFirstResult(startRecordNo).setMaxResults(recordsPerPage);
 		query.getResultList();
 		return query.getResultList();
+	}
+
+
+	@Override
+	public Long getRecordCounts() {
+		Long count = 0L; // 必須使用 long 型態
+		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Orders").getSingleResult();
+		return count;
 	}
 
 }
