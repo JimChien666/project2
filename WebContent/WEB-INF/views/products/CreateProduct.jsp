@@ -27,7 +27,7 @@ function getCategories(){
 			for(var i=0; i < categories.length; i++){
 			    content += 	"<option value='" + categories[i].id + "'>" + categories[i].name + "</option>";
 			}
-			content += "</select>"+"${errors.category}" ;
+			content += "</select>"+"<span style='color: red;'>${errors.category}</span>" ;
 			var divs = document.getElementById("somedivS");
 			divs.innerHTML += content;
 			divs.innerHTML += "<br/>";
@@ -47,7 +47,7 @@ function getColors(){
 			for(var i=0; i < colors.length; i++){
 			    content += 	"<option value='" + colors[i].id + "'>" + colors[i].name + "</option>";
 			}
-			content += "</select>"+"${errors.color}" ;
+			content += "</select>"+"<span style='color: red;'>${errors.color}</span>" ;
 			var divs = document.getElementById("somedivS");
 			divs.innerHTML += content;
 			divs.innerHTML += "<br/>";
@@ -68,7 +68,7 @@ function getAnimalTypes(){
 			for(var i=0; i < animalTypes.length; i++){
 			    content += 	"<option value='" + animalTypes[i].id + "'>" + animalTypes[i].name + "</option>";
 			}
-			content += "</select>"+"${errors.animalType}";
+			content += "</select>"+"<span style='color: red;'>${errors.animalType}</span>";
 			var divs = document.getElementById("somedivS");
 			divs.innerHTML += content;
 			divs.innerHTML += "<br/>";
