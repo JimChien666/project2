@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +38,7 @@ public class ProductListDaoImpl implements ProductListDao {
 	public List<Products> getPageProducts(Integer pageNo,Integer recordsPerPage) {
 		Integer startRecordNo = (pageNo - 1) * recordsPerPage; // 第二頁的第二筆＝（2-1）*2
 		List<Products> list = new ArrayList<Products>();
-		list = sessionFactory.getCurrentSession().createQuery("FROM Products where deleted_at=null and status='上架中' order by id")
+		list = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中' order by id")
   			  .setFirstResult(startRecordNo) //index的概念
   			  .setMaxResults(recordsPerPage) //當最後一頁商品數量不足顯示,則補足磯零數
   			  .getResultList();
@@ -53,23 +54,23 @@ public class ProductListDaoImpl implements ProductListDao {
 	public Long getRecordCounts(Integer colorId, Integer categoryId, Integer animalTypeId) {
 		Long count = 0L; // 必須使用 long 型態
 		
-		String condiction = " where ";
+		String condiction = " ";
 		if (colorId != null) {
-			condiction += "color_id = :colorId";
+			condiction += " and color_id = :colorId";
 		}
 		if (categoryId != null) {
-			if (!condiction.equals(" where ")) {
+//			if (!condiction.equals(" where ")) {
 				condiction += " and category_id = :categoryId";				
-			}else {
-				condiction += " category_id = :categoryId";
-			}
+//			}else {
+//				condiction += " category_id = :categoryId";
+//			}
 		}
 		if (animalTypeId != null) {
-			if (!condiction.equals(" where ")) {
+//			if (!condiction.equals(" where ")) {
 				condiction += " and animal_type_id = :animalTypeId";
-			}else {
-				condiction += " animal_type_id = :animalTypeId";
-			}
+//			}else {
+//				condiction += " animal_type_id = :animalTypeId";
+//			}
 		}
 		Query query = sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Products where deleted_at=null and status='上架中'" + condiction);
 		if (colorId != null) {
@@ -86,8 +87,9 @@ public class ProductListDaoImpl implements ProductListDao {
 	}
 
 	@Override
+	@Nullable  //使用者進入購物車詳細清單與商品詳細列表時ProductsInfoController使用此方法才不會報錯
 	public Products getProduct(Integer productId) {
-		Query<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where  deleted_at=null and status='上架中'  and ID = ?0", Products.class);
+		Query<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where  ID = ?0", Products.class);
 		query.setParameter(0, productId);
 		Products product = query.uniqueResult();
 		return product;
@@ -98,28 +100,28 @@ public class ProductListDaoImpl implements ProductListDao {
 	public List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage) {
 		Integer startRecordNo = (pageNo - 1) * recordsPerPage;
 		List<Products> list = new ArrayList<Products>();
-		String condiction = " where ";
+		String condiction = "  ";
 		if (colorId != null) {
-			condiction += "color_id = :colorId";
+			condiction += " and color_id = :colorId";
 		}
 		if (categoryId != null) {
-			if (!condiction.equals(" where ")) {
+//			if (!condiction.equals(" where ")) {
 				condiction += " and category_id = :categoryId";				
-			}else {
-				condiction += " category_id = :categoryId";
-			}
+//			}else {
+//				condiction += " category_id = :categoryId";
+//			}
 		}
 		if (animalTypeId != null) {
-			if (!condiction.equals(" where ")) {
+//			if (!condiction.equals(" where ")) {
 				condiction += " and animal_type_id = :animalTypeId";
-			}else {
-				condiction += " animal_type_id = :animalTypeId";
-			}
+//			}else {
+//				condiction += " animal_type_id = :animalTypeId";
+//			}
 		}
 		
-		Query query = sessionFactory.getCurrentSession().createQuery("FROM Products" + condiction + "And deleted_at=null and status='上架中'" + " order by id");
-		query.setFirstResult(startRecordNo);
-		query.setMaxResults(recordsPerPage);
+		Query query = sessionFactory.getCurrentSession().createQuery("FROM Products Where deleted_at=null and status='上架中'" + condiction  + " order by id");
+		query.setFirstResult(startRecordNo)
+			.setMaxResults(recordsPerPage);
 		if (colorId != null) {
 			query.setParameter("colorId", colorId);
 		}

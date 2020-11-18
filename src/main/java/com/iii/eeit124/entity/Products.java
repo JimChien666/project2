@@ -225,6 +225,7 @@ public class Products {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	@JsonIgnore
 	@Transient
 	public MultipartFile getMultipartFile() {
 		return multipartFile;
