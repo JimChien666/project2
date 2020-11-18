@@ -82,12 +82,13 @@ table, th, td {
 				</tr>
 				<br>
 				<tr>
-<%-- 					<td id="comments" class="comments">${Forums.id}</td> --%>
-					<td class="comments">${Forums.id}</td>
+					<%-- 					<td id="comments" class="comments">${Forums.id}</td> --%>
+					<%-- 					<td class="comments">${Forums.id}</td> --%>
+					<td class="${Forums.id}">${Forums.id}</td>
 				</tr>
 				<script>
 				$(function(){
-					var $comments = $('.comments');
+					var $comments = $('.${Forums.id}');
 					$.ajax({
 						type:'GET',
 						url:'showComments?forumsId=${Forums.getId()}',
@@ -95,10 +96,13 @@ table, th, td {
 						success: function(comments){
 							console.log('success',comments)
 						$.each(comments, function(i, order){
-							$comments.append('<li>'+order.comment+'/'+order.forumid+'</li>')
-
+							if(order.forumid===${Forums.id}){
+								console.log(order.forumid);
+								console.log(${Forums.id});								
+							$comments.append('<li>'+order.comment+'/'+order.memberid+'</li>')
+								}
 							});
-							}						
+							}					
 						});
 					});				
 				</script>
@@ -124,7 +128,7 @@ table, th, td {
 		<button type="button" class="btn btn-success">回覆文章</button>
 	</a>
 
-	<script>
+<script>
 
 $("input").keypress(function (e) {
 	   if (e.keyCode == 13) {
@@ -136,12 +140,32 @@ $("input").keypress(function (e) {
 			  id:id,
 			  comment:comment
 			  },
-// 		  success:function(res){
+//		  success:function(res){
 //},
-// 		  dataType: dataType
+//		  dataType: dataType
 		});
-	    }
-	});	
+	      $("input").prop("value","");
+
+// 	  	var $comments = $('.${Forums.id}');
+	  	var $comments = this.id;
+			$.ajax({
+				type:'GET',
+				url:'showComments?forumsId=${Forums.getId()}',
+//					url:"<c:url value='showComments?forumsId=${Forums.getId()}' />",
+				success: function(comments){
+					console.log('success',comments)
+				$.each(comments, function(i, order){
+					if(order.forumid===id){
+						console.log(order.forumid);
+						console.log(${Forums.id});								
+					$comments.append('<li>'+order.comment+'/'+order.memberid+'</li>')
+						}
+					});
+					}				
+				});
+	      
+	    };//if end
+	});
 
 
 
