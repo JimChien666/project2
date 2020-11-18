@@ -15,9 +15,13 @@ public class OrderListServiceImpl implements OrderListService {
 	OrderListDao dao;
 	
 	@Override
-	public List<Orders> findAllOrdersByMemberId(Integer id) {
+	public List<Orders> findAllOrdersByMemberId(Integer pageNo, Integer recordsPerPage,Integer id) {
+		return dao.indAllOrdersByMemberId(pageNo,recordsPerPage,id);
+	}
 
-		return dao.indAllOrdersByMemberId(id);
+	@Override
+	public Long getRecordCounts() {
+		return dao.getRecordCounts();
 	}
 
 }
