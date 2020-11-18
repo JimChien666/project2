@@ -76,7 +76,7 @@ public class CreateProductController {
 		return animalTypes;
 	}
 	
-
+	//CreateProduct.jsp輸入後回來
 	@RequestMapping(value = "/processCreateProduct.controller", method = RequestMethod.POST)
 	public String processCreateProduct(
 			@ModelAttribute("products") Products product,
@@ -88,7 +88,6 @@ public class CreateProductController {
 			throws SQLException {
 		Map<String, String> errors = new HashMap<String, String>();
 		model.addAttribute("errors", errors);
-		System.out.println("yoyoyo");
 		System.out.println(product);
 		if("".equals(product.getName())||product.getName()==null) {
 			errors.put("name", "請填入商品名稱");
@@ -134,7 +133,7 @@ public class CreateProductController {
 		product.setCategory(category);
 		product.setColor(color);
 		product.setAnimalType(animalType);
-		if(multipartFile != null || !multipartFile.isEmpty()) {
+		if(multipartFile != null || !(multipartFile.isEmpty()) ) {
 			try {
 				String fileName = multipartFile.getOriginalFilename();
 

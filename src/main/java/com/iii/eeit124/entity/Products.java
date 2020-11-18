@@ -241,6 +241,7 @@ public class Products {
 		this.contentImgs = contentImgs;
 	}
 	
+	//取得ProductFiles的ID，給ProductsInfo.jsp讀照片用
 	@Transient
 	public List<Integer> getProductFilesId(){
 		Iterator iterator =  this.contentImgs.iterator();
