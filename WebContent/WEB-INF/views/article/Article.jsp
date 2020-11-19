@@ -86,8 +86,19 @@ table, th, td {
 					<%-- 					<td class="comments">${Forums.id}</td> --%>
 					<td class="${Forums.id}">${Forums.id}</td>
 				</tr>
+								<tr>
+					<c:if test="${empty LoginOK}">
+						<td>回覆本討論串:<a href="<c:url value='/member/login' />"><input
+								disabled placeholder="請登入後留言" type="text" name="comments"
+								id="${Forums.getId()}"></a></td>
+					</c:if>
+					<c:if test="${!empty LoginOK}">
+						<td>回覆本討論串:<input type="text" name="comments"
+							id="${Forums.getId()}"></td>
+					</c:if>
+				</tr>
 				<script>
-				$(function(){
+				$(document).ready(function reset1(){
 					var $comments = $('.${Forums.id}');
 					$.ajax({
 						type:'GET',
@@ -104,19 +115,54 @@ table, th, td {
 							});
 							}					
 						});
-					});				
+					});
+				
+				function reset(){
+					var $comments = $('.${Forums.id}');
+					$.ajax({
+						type:'GET',
+						url:'showComments?forumsId=${Forums.getId()}',
+						url:"<c:url value='showComments?forumsId=${Forums.getId()}' />",
+						success: function(comments){
+							console.log('success',comments)
+						$.each(comments, function(i, order){
+							if(order.forumid===${Forums.id}){
+								console.log(order.forumid);
+								console.log(${Forums.id});								
+							$comments.append('<li>'+order.comment+'/'+order.memberid+'</li>')
+								}
+							});
+							}					
+						});
+					};	
+
+				
+				$("input").keypress(function (e) {
+					   if (e.keyCode == 13) {
+							var id = this.id;
+							var comment = this.value;			
+						$.ajax({
+						  url: "saveComments",
+						  data: {
+							  id:id,
+							  comment:comment
+							  },
+						  success:function(){
+							  reset();
+				}
+//						  dataType: dataType
+						});
+					      $("input").prop("value","");
+
+//				 	  	var $comments = $('.${Forums.id}');
+
+					      
+					    };//if end
+					});
+				
+			
 				</script>
-				<tr>
-					<c:if test="${empty LoginOK}">
-						<td>回覆本討論串:<a href="<c:url value='/member/login' />"><input
-								disabled placeholder="請登入後留言" type="text" name="comments"
-								id="${Forums.getId()}"></a></td>
-					</c:if>
-					<c:if test="${!empty LoginOK}">
-						<td>回覆本討論串:<input type="text" name="comments"
-							id="${Forums.getId()}"></td>
-					</c:if>
-				</tr>
+
 			</c:if>
 		</c:forEach>
 	</table>
@@ -130,42 +176,7 @@ table, th, td {
 
 <script>
 
-$("input").keypress(function (e) {
-	   if (e.keyCode == 13) {
-			var id = this.id;
-			var comment = this.value;			
-		$.ajax({
-		  url: "saveComments",
-		  data: {
-			  id:id,
-			  comment:comment
-			  },
-//		  success:function(res){
-//},
-//		  dataType: dataType
-		});
-	      $("input").prop("value","");
 
-// 	  	var $comments = $('.${Forums.id}');
-	  	var $comments = this.id;
-			$.ajax({
-				type:'GET',
-				url:'showComments?forumsId=${Forums.getId()}',
-//					url:"<c:url value='showComments?forumsId=${Forums.getId()}' />",
-				success: function(comments){
-					console.log('success',comments)
-				$.each(comments, function(i, order){
-					if(order.forumid===id){
-						console.log(order.forumid);
-						console.log(${Forums.id});								
-					$comments.append('<li>'+order.comment+'/'+order.memberid+'</li>')
-						}
-					});
-					}				
-				});
-	      
-	    };//if end
-	});
 
 
 
