@@ -86,7 +86,7 @@ table, th, td {
 					<%-- 					<td class="comments">${Forums.id}</td> --%>
 					<td class="${Forums.id}">${Forums.id}</td>
 				</tr>
-								<tr>
+				<tr>
 					<c:if test="${empty LoginOK}">
 						<td>回覆本討論串:<a href="<c:url value='/member/login' />"><input
 								disabled placeholder="請登入後留言" type="text" name="comments"
@@ -100,10 +100,11 @@ table, th, td {
 				<script>
 				$(document).ready(function reset1(){
 					var $comments = $('.${Forums.id}');
+					$comments.empty();					
 					$.ajax({
 						type:'GET',
 						url:'showComments?forumsId=${Forums.getId()}',
-// 						url:"<c:url value='showComments?forumsId=${Forums.getId()}' />",
+ 						url:"<c:url value='showComments?forumsId=${Forums.getId()}' />",
 						success: function(comments){
 							console.log('success',comments)
 						$.each(comments, function(i, order){
@@ -115,10 +116,51 @@ table, th, td {
 							});
 							}					
 						});
+
+					$("input").keypress(function (e) {
+						   if (e.keyCode == 13) {
+								var id = this.id;
+								var comment = this.value;			
+							$.ajax({
+							  url: "saveComments",
+							  data: {
+								  id:id,
+								  comment:comment
+								  },
+							  success:function(){
+								  reset();
+						      $("input").prop("value","");
+							}
+//							  dataType: dataType
+							});
+//					 	  	var $comments = $('.${Forums.id}');					      
+						    };//if end
+						});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					
 					});
 				
+
+
+
 				function reset(){
 					var $comments = $('.${Forums.id}');
+					$comments.empty();
 					$.ajax({
 						type:'GET',
 						url:'showComments?forumsId=${Forums.getId()}',
@@ -137,28 +179,7 @@ table, th, td {
 					};	
 
 				
-				$("input").keypress(function (e) {
-					   if (e.keyCode == 13) {
-							var id = this.id;
-							var comment = this.value;			
-						$.ajax({
-						  url: "saveComments",
-						  data: {
-							  id:id,
-							  comment:comment
-							  },
-						  success:function(){
-							  reset();
-				}
-//						  dataType: dataType
-						});
-					      $("input").prop("value","");
 
-//				 	  	var $comments = $('.${Forums.id}');
-
-					      
-					    };//if end
-					});
 				
 			
 				</script>
