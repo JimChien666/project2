@@ -20,8 +20,8 @@ public class OrderListServiceImpl implements OrderListService {
 	}
 
 	@Override
-	public Long getRecordCounts() {
-		return dao.getRecordCounts();
+	public Long getRecordCounts(Integer id) {
+		return dao.getRecordCounts(id);
 	}
 
 }
