@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+th, td{
+width: 200px;
+align: left;
+}
+</style>
 <script>
 window.onload = function() {
 	var xhr = new XMLHttpRequest();
@@ -35,6 +41,7 @@ function showPageOrderItems(responseData){
 	var imageUrl="<c:url value='/product/getProductImage' />";
 	content+="<table>"+
 				"<tr>"+
+			"<th>訂單編號</th>"+
 			"<th>商品編號</th>"+
 			"<th>商品圖片</th>"+
 			"<th>商品名稱</th>"+
@@ -45,15 +52,16 @@ function showPageOrderItems(responseData){
 				"</tr>"
 	for(var i=0; i < orderItems.length; i++){
 		content+="<table>"+
-					"<tr>"+
-				"<th>商品編號</th>"+
-				"<th>商品圖片</th>"+
-				"<th>商品名稱</th>"+
-				"<th>商品單價</th>"+
-				"<th>購買數量</th>"+
-				"<th>價格</th>"+
-				"<th>狀態</th>"+
-					"</tr>"
+		"<tr>"+
+		"<td>"+orderItems[i].orderId+"</td>"+
+		"<td>"+orderItems[i].productId+"</td>"+
+		"<td><img width='60' height='80' src='"+imageUrl+"?productId="+orderItems[i].productId+"'></td>"+
+		"<td>"+orderItems[i].productName+"</td>"+
+		"<td>"+orderItems[i].price*orderItems[i].discount+"</td>"+
+		"<td>"+orderItems[i].quantity+"</td>"+
+		"<td>"+(orderItems[i].price*orderItems[i].discount*orderItems[i].quantity)+"</td>"+
+		"<td>"+orderItems[i].status+"</td>"+
+	"</tr>"
 
 	}
 	document.getElementById("orderItemShow").innerHTML = content;

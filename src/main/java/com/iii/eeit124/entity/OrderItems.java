@@ -56,7 +56,7 @@ public class OrderItems {
 	}
 	@Transient
 	public Integer getOrderId() {
-		return orderId;
+		return this.order.getId();
 	}
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
