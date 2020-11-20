@@ -25,39 +25,54 @@ window.onload = function() {
 	});
 
 //品種選擇
-//需確認c:url何時載入?
-//	var family = document.getElementById("family");
-//	family.onclick = function(){
-//		var xhr = new XMLHttpRequest();
-//		var familyValue = family.options[ family.selectedIndex ].text;
-//		console.log(familyValue);//OK
-////		var queryString = "?family=" + familyValue;
-//		var url = "<c:url value='/getBreed.controller'/>?family=" + familyValue;
-////		var url = "<c:url value='/getBreed.controller" + queryString + "'/>";
-//		xhr.open("GET", url, true);
-//		xhr.send();
-//		xhr.onreadystatechange = function() {
-//			// 向伺服器提出的請求已經收到回應
-//			if (xhr.readyState === 4) {
-//				// 伺服器回應成功
-//				if (xhr.status === 200) {
-//					var breed = JSON.parse(xhr.responseText);
-//					var content = "<select id='breed'>";
-//					for(var i=0; i < breed.length; i++){
-//					content += "<option value=''>" + breed[i].breed + "</option>";
-//					}
-//					content += "</select>";
-//					document.getElementById("breedDiv").innerHTML = content;
-////					StringBuffer sBuffer = new StringBuffer("<select id='breed'>");
-////					for(var i=0; i < breed.length; i++){
-////					sBuffer.append("<option value=''>" + breed[i].breed + "</option>");
-////					}
-////					sBuffer.append("</select>");
-////					document.getElementById("breedDiv").innerHTML = sBuffer;
-//				}
-//			}
-//		}
-//	}
+//都不選的預設
+var breedId = document.getElementById("dogBreed").options[dogBreed.selectedIndex].value;
+document.getElementById("breedId").value = breedId;
+//只選breed
+dogBreed.onclick = function() {
+	var breedId = document.getElementById("dogBreed").options[dogBreed.selectedIndex].value;
+	document.getElementById("breedId").value = breedId;
+}
+
+var family = document.getElementById("family");
+family.onclick = function() {
+	document.getElementById("dogBreedDiv").style.display = "none";
+	var xhr = new XMLHttpRequest();
+	var familyValue = family.options[family.selectedIndex].text;
+	var url = "getBreed.controller?family=" + familyValue;
+	xhr.open("GET", url, true);
+	xhr.send();
+	xhr.onreadystatechange = function() {
+		// 向伺服器提出的請求已經收到回應
+		if (xhr.readyState === 4) {
+			// 伺服器回應成功
+			if (xhr.status === 200) {
+				var breed = JSON.parse(xhr.responseText);
+
+				//可再確認用array.join或用一般字串相加，哪個效率好
+				var content = "<select id='breed'>";
+				for (var i = 0; i < breed.length; i++) {
+					content += "<option value='" + breed[i].breedId + "'>"
+							+ breed[i].breed + "</option>";
+				}
+				content += "</select>";
+				document.getElementById("breedDiv").innerHTML = content;
+
+				//改變family和breed時的預設值
+				var breed = document.getElementById("breed");
+				breed.onclick = function() {
+					var breedId = document.getElementById("breed").options[breed.selectedIndex].value;
+					console.log("breedId: " + breedId);
+					document.getElementById("breedId").value = breedId;
+				}
+				
+				//只改變family時的預設值
+				var breedId = document.getElementById("breed").options[breed.selectedIndex].value;
+				document.getElementById("breedId").value = breedId;
+			}
+		}
+	}
+}
 };
 			
 //ReadAnimal

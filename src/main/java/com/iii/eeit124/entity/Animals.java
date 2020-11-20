@@ -37,8 +37,8 @@ public class Animals {
 	private MultipartFile animalFiles;
 	private Set<AnimalsFiles> files = new HashSet<AnimalsFiles>();
 	private Members member;
+	private Breeds breeds;
 //	private AdoptionRecords adoptionRecords;
-//	private Breeds breeds;
 	
 	public Animals () {}
 	
@@ -73,7 +73,7 @@ public class Animals {
 		this.acceptionId = acceptionId;
 	}
 
-	@Column(name = "BREED_ID")
+	@Transient
 	public Integer getBreedId() {
 		return breedId;
 	}
@@ -162,30 +162,14 @@ public class Animals {
 		this.member = member;
 	}
 	
-//	@Transient
-//	public String getMemberAddress() {
-//		return this.member.getAddress();
-//	}
-//	
-//	@Transient
-//	public String getMemberName() {
-//		return this.member.getName();
-//	}
-//	
-//	@Transient
-//	public String getMemberTel() {
-//		return this.member.getTel();
-//	}
-//	
-//	@Transient
-//	public String getMemberEmail() {
-//		return this.member.getEmail();
-//	}
-//	
-//	@Transient
-//	public String getMemberType() {
-//		return this.member.getMemberType();
-//	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "BREED_ID")
+	public Breeds getBreeds() {
+		return breeds;
+	}
+	public void setBreeds(Breeds breeds) {
+		this.breeds = breeds;
+	}
 //	@OneToOne(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)
 //	public AdoptionRecords getAdoptionRecords() {
 //		return adoptionRecords;
@@ -193,24 +177,16 @@ public class Animals {
 //	public void setAdoptionRecords(AdoptionRecords adoptionRecords) {
 //		this.adoptionRecords=adoptionRecords;
 //	}
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "BREED_ID")
-//	public Breeds getBreeds() {
-//		return breeds;
-//	}
-//	public void setBreeds(Breeds breeds) {
-//		this.breeds = breeds;
-//	}
 //	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
 //	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ANIMAL_ID")})//第一個ANIMAL_ID為Files的，第二個為Animals的。
 
-	@Override
-	public String toString() {
-		return "Animals [animalId=" + animalId + ", memberId=" + memberId + ", acceptionId=" + acceptionId
-				+ ", breedId=" + breedId + ", gender=" + gender + ", coatColor=" + coatColor + ", isAdoptionAvailable="
-				+ isAdoptionAvailable + ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-				+ ", deletedAt=" + deletedAt + ", animalFiles=" + animalFiles + ", files=" + files + ", member="
-				+ member + "]";
-	}
-	
+//	@Override
+//	public String toString() {
+//		return "Animals [animalId=" + animalId + ", memberId=" + memberId + ", acceptionId=" + acceptionId
+//				+ ", breedId=" + breedId + ", gender=" + gender + ", coatColor=" + coatColor + ", isAdoptionAvailable="
+//				+ isAdoptionAvailable + ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+//				+ ", deletedAt=" + deletedAt + ", animalFiles=" + animalFiles + ", files=" + files + ", member="
+//				+ member + ", breeds=" + breeds + "]";
+//	}
+
 }

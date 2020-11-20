@@ -100,7 +100,7 @@ public class AnimalsController {
 		Animals animals = new Animals();
 		m.addAttribute("AnimalsList1", animals);
 		m.addAttribute("Families", breedsService.readAllFamilies());
-//		m.addAttribute("Breeds", breedsService.readAllBreeds(family));
+		m.addAttribute("dogBreed", breedsService.readDogsBreeds());
 		return "adopt/CreateAnimal";
 	}
 	
@@ -186,6 +186,7 @@ public class AnimalsController {
 		// 新增文字部分
 		entity.setCreatedAt(new Date());
 		entity.setMember((Members)session.getAttribute("LoginOK"));//這邊才有存會員編號，跟會員做關聯
+//		entity.setBreeds(breeds);//用family找到該筆bean，再set到breeds，修改也是?
 		animalsService.create(entity);
 
 		m.addAttribute("AnimalsList", animalsService.readAll());

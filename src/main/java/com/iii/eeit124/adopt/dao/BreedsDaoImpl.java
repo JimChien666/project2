@@ -40,6 +40,14 @@ public class BreedsDaoImpl implements BreedsDao{
 		return list;
 	}
 	
+	public List<Breeds> readDogsBreeds() {
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		Query<Breeds> query = session.createQuery("from Breeds where family='狗' order by BREED_ID");
+		List<Breeds> list = query.list();
+		return list;
+	}
+	
 	public List<Breeds> readAllBreeds(String familyValue) {
 		Session session = sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")

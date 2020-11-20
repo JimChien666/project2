@@ -50,8 +50,9 @@
 							<div class="div1">${AnimalsList.member.address}</div> <br></li>
 						<li><div class="div1">收容動物編號：&nbsp;</div>
 							<div class="div1">${AnimalsList.acceptionId}</div> <br></li>
-						<li><div class="div1">品種編號：&nbsp;</div>
-							<div class="div1">${AnimalsList.breedId}</div> <br></li>
+						<li><div class="div1">品種：&nbsp;</div>
+<%-- 							<div class="div1">${AnimalsList.breedId}</div>要改從breeds顯示 --%>
+							 <br></li>
 						<li><c:choose>
 								<c:when test="${AnimalsList.gender == 1}">
 									<div class="div1">性別：&nbsp;</div>公<br>

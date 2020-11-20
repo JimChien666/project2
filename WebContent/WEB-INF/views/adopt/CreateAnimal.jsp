@@ -15,44 +15,6 @@
 	crossorigin="anonymous"></script>
 <!-- <script src="js/jquery-3.5.1.js" charset="UTF-8"></script> -->
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
-<!-- 試試看把script c:url移到js -->
-<script type="text/javascript">
-	window.onload = function() {
-		var family = document.getElementById("family");
-		family.onclick = function() {
-			var xhr = new XMLHttpRequest();
-			var familyValue = family.options[family.selectedIndex].text;
-			var url = "<c:url value='/getBreed.controller'/>?family="
-					+ familyValue;
-			xhr.open("GET", url, true);
-			xhr.send();
-			xhr.onreadystatechange = function() {
-				// 向伺服器提出的請求已經收到回應
-				if (xhr.readyState === 4) {
-					// 伺服器回應成功
-					if (xhr.status === 200) {
-						var breed = JSON.parse(xhr.responseText);
-
-						//可再確認用array.join或用一般字串相加，哪個效率好
-						var content = "<select id='breed'>";
-						for (var i = 0; i < breed.length; i++) {
-							content += "<option value='" + breed[i].breedId + "'>"
-									+ breed[i].breed + "</option>";
-						}
-						content += "</select>";
-						document.getElementById("breedDiv").innerHTML = content;
-						var breed = document.getElementById("breed");
-						breed.onclick = function() {
-							var breedId = document.getElementById("breed").options[breed.selectedIndex].value;
-							console.log("breedId: " + breedId);
-							document.getElementById("breedId").value = breedId;
-						}
-					}
-				}
-			}
-		}
-	}
-</script>
 </head>
 <body>
 	<div>
@@ -91,18 +53,24 @@
 			</div>
 			<form:label path="breedId" class="label1">品種：</form:label>
 			<select id="family">
-<!-- 				<option>請選擇動物品種</option> -->
 				<c:forEach var="Families" items="${Families}">
 					<option value="">${Families}</option>
 				</c:forEach>
 			</select>
+			<div id="dogBreedDiv" class="div1">
+				<select id="dogBreed">
+					<c:forEach var="dogBreed" items="${dogBreed}">
+						<option value="${dogBreed.breedId}">${dogBreed.breed}</option>
+					</c:forEach>
+				</select>
+			</div>
 			<div id="breedDiv" class="div1"></div>
 			<br>
-			<div class="divHidden">
-				<form:input path="breedId" type="text" name="breedId"
-					onblur="checkbreedId()" id="breedId" />
-				<br>
-			</div>
+			<!-- 			<div class="divHidden"> -->
+			<form:input path="breedId" type="text" name="breedId"
+				onblur="checkbreedId()" id="breedId" />
+			<br>
+			<!-- 			</div> -->
 			<div id="breedIdDiv" class="divHidden">
 				<br>
 			</div>

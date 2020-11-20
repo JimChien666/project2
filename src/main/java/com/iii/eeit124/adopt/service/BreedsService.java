@@ -18,4 +18,6 @@ public interface BreedsService {
 	public List<String> readAllFamilies();
 	
 	public List<Breeds> readAllBreeds(String family);
+	
+	public List<Breeds> readDogsBreeds();
 }
