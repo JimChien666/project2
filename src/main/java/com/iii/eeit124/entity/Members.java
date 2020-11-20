@@ -1,3 +1,4 @@
+
 package com.iii.eeit124.entity;
 
 import java.io.Serializable;
@@ -5,7 +6,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,9 +21,11 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name="MEMBERS")
+@Component
 public class Members implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -43,6 +44,7 @@ public class Members implements Serializable{
 //	private Set<Products> products = new HashSet<Products>();
 //	private Set<Orders> orders = new HashSet<Orders>();
 //	private Set<OrderItems> orderItems = new HashSet<OrderItems>();
+	private Set<Animals> animals = new HashSet<Animals>();
 	
 
 	
@@ -210,6 +212,16 @@ public class Members implements Serializable{
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	public Set<Animals> getAnimals() {
+		return animals;
+	}
+
+	public void setAnimals(Set<Animals> animals) {
+		this.animals = animals;
 	}
 	
 //	@JsonIgnore
