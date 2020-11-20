@@ -1,6 +1,5 @@
 package com.iii.eeit124.entity;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
