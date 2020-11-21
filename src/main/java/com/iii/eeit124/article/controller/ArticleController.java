@@ -3,9 +3,6 @@ package com.iii.eeit124.article.controller;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.validation.Valid;
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.iii.eeit124.article.service.ArticleService;
 import com.iii.eeit124.article.service.ForumsService;
-import com.iii.eeit124.entity.Activitys;
 import com.iii.eeit124.entity.Article;
 import com.iii.eeit124.entity.Forums;
 
