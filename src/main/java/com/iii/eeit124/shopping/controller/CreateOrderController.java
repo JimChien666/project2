@@ -57,6 +57,9 @@ public class CreateOrderController {
 		if("".equals(order.getBuyerAddress())||order.getBuyerAddress()==null) {
 			errors.put("buyerAddress", "請填入訂購人地址");
 		}
+		if("".equals(order.getBuyerEmail())||order.getBuyerEmail()==null) {
+			errors.put("buyerEmail", "請填入訂購人Email");
+		}
 		if("".equals(order.getRecipientName())||order.getRecipientName()==null) {
 			errors.put("recipientName", "請填入收件人名稱");
 		}
@@ -65,6 +68,9 @@ public class CreateOrderController {
 		}
 		if("".equals(order.getRecipientAddress())||order.getRecipientAddress()==null) {
 			errors.put("recipientAddress", "請填入收件人地址");
+		}
+		if("".equals(order.getRecipientEmail())||order.getRecipientEmail()==null) {
+			errors.put("recipientEmail", "請填入收件人Email");
 		}
 		if (!errors.isEmpty()) {
 			// 導向原來輸入資料的畫面，這次會顯示錯誤訊息

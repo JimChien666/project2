@@ -295,6 +295,6 @@ function comfirmOrder(){
 	
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
-	<script src="<c:url value='/assets/js/showHeaderItems.js' />"></script>
+	
 </body>
 </html>

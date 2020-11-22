@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-5">
                             <div class="logo pt-39">
-                                <a href="index.html"><img alt="" src="<c:url value='/assets/img/logo/logo.png' />"></a>
+                                <a href="<c:url value='/' />"><img alt="" src="<c:url value='/assets/img/logo/logo.png' />"></a>
                             </div>
                         </div>
                         <div class="col-xl-8 col-lg-7 d-none d-lg-block">
@@ -26,42 +26,8 @@
                                             </ul> -->
                                         </li>
                                         <li class="mega-menu-position"><a href="<c:url value='/product/ProductList' />">購物</a>
-                                            <ul class="mega-menu">
-                                                <li>
-                                                    <ul>
-                                                        <li class="mega-menu-title">Dogs Food</li>
-                                                        <li><a href="shop-page.html">Eggs</a></li>
-                                                        <li><a href="shop-page.html">Carrots</a></li>
-                                                        <li><a href="shop-page.html">Salmon fishs</a></li>
-                                                        <li><a href="shop-page.html">Peanut Butter</a></li>
-                                                        <li><a href="shop-page.html">Grapes & Raisins</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <ul>
-                                                        <li class="mega-menu-title">Cats Food</li>
-                                                        <li><a href="shop-page.html">Meat</a></li>
-                                                        <li><a href="shop-page.html">Fish</a></li>
-                                                        <li><a href="shop-page.html">Eggs</a></li>
-                                                        <li><a href="shop-page.html">Veggies</a></li>
-                                                        <li><a href="shop-page.html">Cheese</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <ul>
-                                                        <li class="mega-menu-title">Fishs Food</li>
-                                                        <li><a href="shop-page.html">Rice</a></li>
-                                                        <li><a href="shop-page.html">Veggies</a></li>
-                                                        <li><a href="shop-page.html">Cheese</a></li>
-                                                        <li><a href="shop-page.html">wheat bran</a></li>
-                                                        <li><a href="shop-page.html">Cultivation</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <ul>
-                                                        <li><a href="shop-page.html"><img alt="" src="<c:url value='/assets/img/banner/menu-img-4.jpg' />"></a></li>
-                                                    </ul>
-                                                </li>
+                                            <ul class="mega-menu" id='ShoppingOptionsArea'>
+                                                
                                             </ul>
                                         </li>
                                         <li><a href="#">PAGES</a>
@@ -141,44 +107,7 @@
                                         <i class="icon-handbag"></i>
                                         <span class="count-style" id="shopCart"></span>
                                     </button>
-                                    <%-- <div class="shopping-cart-content">
-                                        <ul>
-                                            <li class="single-shopping-cart">
-                                                <div class="shopping-cart-img">
-                                                    <a href="#"><img alt="" src="<c:url value='/assets/img/cart/cart-1.jpg' />"></a>
-                                                </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href="#">Dog Calcium Food </a></h4>
-                                                    <h6>Qty: 02</h6>
-                                                    <span>$260.00</span>
-                                                </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="ti-close"></i></a>
-                                                </div>
-                                            </li>
-                                            <li class="single-shopping-cart">
-                                                <div class="shopping-cart-img">
-                                                    <a href="#"><img alt="" src="<c:url value='/assets/img/cart/cart-2.jpg' />"></a>
-                                                </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href="#">Dog Calcium Food</a></h4>
-                                                    <h6>Qty: 02</h6>
-                                                    <span>$260.00</span>
-                                                </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="ti-close"></i></a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="shopping-cart-total">
-                                            <h4>Shipping : <span>$20.00</span></h4>
-                                            <h4>Total : <span class="shop-total">$260.00</span></h4>
-                                        </div>
-                                        <div class="shopping-cart-btn">
-                                            <a href="cart.html">view cart</a>
-                                            <a href="checkout.html">checkout</a>
-                                        </div>
-                                    </div> --%>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -279,3 +208,4 @@
                 </div>
             </div>
         </header>
+        <script src="<c:url value='/js/showHeaderItems.js' />"></script>

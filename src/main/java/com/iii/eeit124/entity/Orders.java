@@ -47,9 +47,11 @@ public class Orders {
 	private String buyerName;
 	private String buyerTel;
 	private String buyerAddress;
+	private String buyerEmail;
 	private String recipientName;
 	private String recipientTel;
 	private String recipientAddress;
+	private String recipientEmail;
 	private String status;
 	private Double total;
 	private Date createdAt;
@@ -183,6 +185,20 @@ public class Orders {
 		String date = spf.format(this.createdAt);
 
 		return date;	
+	}
+	@Column(name="BUYER_EMAIL")
+	public String getBuyerEmail() {
+		return buyerEmail;
+	}
+	public void setBuyerEmail(String buyerEmail) {
+		this.buyerEmail = buyerEmail;
+	}
+	@Column(name="RECIPIENT_EMAIL")
+	public String getRecipientEmail() {
+		return recipientEmail;
+	}
+	public void setRecipientEmail(String recipientEmail) {
+		this.recipientEmail = recipientEmail;
 	}
 	
 }
