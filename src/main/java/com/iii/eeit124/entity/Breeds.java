@@ -26,7 +26,7 @@ public class Breeds {
 	private Date createAt;
 	private Date updatedAt;
 	private Date deleteAt;
-	private Set<Animals> animals = new HashSet<Animals>();
+//	private Set<Animals> animals = new HashSet<Animals>();
 	
 	@Id @Column(name = "BREED_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,12 +72,12 @@ public class Breeds {
 		this.deleteAt = deleteAt;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "breeds", cascade = CascadeType.ALL)
-	public Set<Animals> getAnimals() {
-		return animals;
-	}
-
-	public void setAnimals(Set<Animals> animals) {
-		this.animals = animals;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "breeds", cascade = CascadeType.ALL)
+//	public Set<Animals> getAnimals() {
+//		return animals;
+//	}
+//
+//	public void setAnimals(Set<Animals> animals) {
+//		this.animals = animals;
+//	}
 }

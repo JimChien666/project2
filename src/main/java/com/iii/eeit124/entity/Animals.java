@@ -73,6 +73,7 @@ public class Animals {
 		this.acceptionId = acceptionId;
 	}
 
+//	@Column(name = "Breed_ID")
 	@Transient
 	public Integer getBreedId() {
 		return breedId;
@@ -152,8 +153,8 @@ public class Animals {
 	public void setFiles(Set<AnimalsFiles> files) {
 		this.files = files;
 	}
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity=Members.class)
 	@JoinColumn(name = "MEMBER_ID")
 	public Members getMember() {
 		return member;
@@ -162,7 +163,7 @@ public class Animals {
 		this.member = member;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity=Breeds.class)
 	@JoinColumn(name = "BREED_ID")
 	public Breeds getBreeds() {
 		return breeds;

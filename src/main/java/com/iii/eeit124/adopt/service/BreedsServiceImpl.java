@@ -47,4 +47,12 @@ public class BreedsServiceImpl implements BreedsService {
 	public List<Breeds> readDogsBreeds(){
 		return breedsDao.readDogsBreeds();
 	}
+	
+	public List<Breeds> readBreed(String breedText){
+		return breedsDao.readBreed(breedText);
+	}
+	
+	public List<String> readFamily(Integer animalId){
+		return breedsDao.readFamily(animalId);
+	}
 }

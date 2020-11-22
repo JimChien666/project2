@@ -20,4 +20,8 @@ public interface BreedsDao {
 	public List<Breeds> readAllBreeds(String family);
 	
 	public List<Breeds> readDogsBreeds();
+	
+	public List<Breeds> readBreed(String breedText);
+	
+	public List<String> readFamily(Integer animalId);
 }
