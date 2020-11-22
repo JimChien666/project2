@@ -100,7 +100,7 @@
                                     </div>
                                 </div>
                                 <div class="header-login same-style">
-                                    <a href="login-register.html"><i class="icon-user icons"></i></a>
+                                    <a href="<c:url value='/member/login' />"><i class="icon-user icons"></i></a>
                                 </div>
                                 <div class="header-cart same-style">
                                     <button class="icon-cart" onclick="goToCartPage()">
@@ -116,10 +116,10 @@
                                 <nav id="mobile-menu-active">
                                     <ul class="menu-overflow">
                                         <li><a href="#">HOME</a>
-                                            <ul>
+                                            <!-- <ul>
                                                 <li><a href="index.html">home version 1</a></li>
                                                 <li><a href="index-2.html">home version 2</a></li>
-                                            </ul>
+                                            </ul> -->
                                         </li>
                                         <li><a href="#">pages</a>
                                             <ul>
