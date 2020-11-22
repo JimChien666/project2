@@ -73,14 +73,14 @@ function getCategories(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "選擇分類：<select id='categoryId' name='categoryId' onchange=getData()>";
+			var content = "<select id='categoryId' name='categoryId' onchange=getData()>";
 			content += "<option value='' selected='selected'>全部</option>"
 			var categories = JSON.parse(xhr.responseText);
 			for(var i=0; i < categories.length; i++){
 			    content += 	"<option value='" + categories[i].id + "'>" + categories[i].name + "</option>";
 			}
 			content += "</select>";
-			var divs = document.getElementById("selectBar");
+			var divs = document.getElementById("CategorySelectBar");
 			divs.innerHTML += content;
 			/* divs.innerHTML += "<br/>"; */
 		}
@@ -93,14 +93,14 @@ function getColors(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "商品顏色：<select id='colorId' name='colorId' onchange=getData()>";
+			var content = "<select id='colorId' name='colorId' onchange=getData()>";
 			content += "<option value='' selected='selected'>全部</option>"
 			var colors = JSON.parse(xhr.responseText);
 			for(var i=0; i < colors.length; i++){
 			    content += 	"<option value='" + colors[i].id + "'>" + colors[i].name + "</option>";
 			}
 			content += "</select>";
-			var divs = document.getElementById("selectBar");
+			var divs = document.getElementById("ColorSelectBar");
 			divs.innerHTML += content;
 			/* divs.innerHTML += "<br/>"; */
 		}
@@ -114,14 +114,14 @@ function getAnimalTypes(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "寵物類別：<select id='animalTypeId' name='animalTypeId' onchange=getData()>";
+			var content = "<select id='animalTypeId' name='animalTypeId' onchange=getData()>";
 			content += "<option value='' selected='selected'>全部</option>"
 			var animalTypes = JSON.parse(xhr.responseText);
 			for(var i=0; i < animalTypes.length; i++){
 			    content += 	"<option value='" + animalTypes[i].id + "'>" + animalTypes[i].name + "</option>";
 			}
 			content += "</select>";
-			var divs = document.getElementById("selectBar");
+			var divs = document.getElementById("AnimalTypeSelectBar");
 			divs.innerHTML += content;
 			/* divs.innerHTML += "<br/>"; */
 		}
@@ -165,11 +165,12 @@ function getData(){
 //若productId為零,後端會直接回傳購物車列表
 function addToCart(productId){
 	
-	if(productId!=0){
+	/* if(productId!=0){
 		var cartNum = document.getElementById("countnum"+productId).innerHTML;
 	}else{
 		var cartNum = 0;
-	}
+	} */
+	var cartNum = 1;
 	
 	queryString="?productId=" + productId + "&cartNum=" + cartNum;
 	var xhr = new XMLHttpRequest();
@@ -181,12 +182,12 @@ function addToCart(productId){
 		var responseData = xhr.responseText;
 		var cartList = JSON.parse(responseData);
 		var num = cartList.length;
-		var total = 0;
+		/* var total = 0;
 		
 		for(var i=0; i < cartList.length; i++){
 			total += cartList[i].price * cartList[i].discount * cartList[i].quantity;
-			}
-		document.getElementById("shopCart").innerHTML="<img src='https://img.icons8.com/pastel-glyph/64/000000/shopping-cart--v2.png'/><span>共"+num+"項商品,金額為" + total + "</span>"
+			} */
+		document.getElementById("shopCart").innerHTML=num;
 		}
 	
 	}
@@ -228,6 +229,122 @@ function asynRequest(id) {
 }
 
 function displayPageProducts(responseData){
+    var content = "";
+	var mapData = JSON.parse(responseData);
+	pageNo = mapData.currPage;
+	totalPage  = mapData.totalPage;
+	recordCounts = mapData.recordCounts;
+	
+	var products = mapData.list;		// 傳回一個陣列
+
+	
+	var imageURL = "<c:url value='/product/getProductImage' />";
+	var productsInfo = "<c:url value='/product/productsInfo/productsPath' />";
+	var salesInfo = "<c:url value='/product/salesInfo/salesInfoPath' />";
+
+	
+	document.getElementById("showRecordCounts").innerHTML = recordCounts;
+	for(var i=0; i < products.length; i++){
+		console.log(products[i]);
+		content += '<div class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6">';
+		
+		content += '<div class="product-wrapper mb-10">';
+		content += '<div class="product-img">';
+		content += '<a href="'+productsInfo.replace("productsPath",products[i].id)+'">';
+		content += '<img src="' + imageURL + '?productId=' + products[i].id +'" alt="">';
+		content += '</a>';
+		content += '<div class="product-action">';
+		content += '<a title="Quick View" href="'+productsInfo.replace("productsPath",products[i].id)+'">';
+		content += ' <i class="ti-plus"></i>';
+		content += '</a>';
+		content += ' <a title="Add To Cart" onclick="addToCart(' + products[i].id + ')"  href="#">';
+		content += '   <i class="ti-shopping-cart"></i>';
+		content += ' </a>';
+		content += '</div>';
+		content += '<div class="product-action-wishlist">';
+		content += '<a title="Wishlist" href="#">';
+		content += '</a>';
+		content += '</div>';
+		content += '</div>';
+		content += '<div class="product-content">';
+		content += '<h4><a href="'+productsInfo.replace("productsPath",products[i].id)+'">'+products[i].name+'</a></h4>';
+		content += '<div class="product-price">';
+		content += '<span class="new">$'+products[i].discountPrice+' </span>';
+		if(products[i].discount < 1){
+			content += '<span class="old">$'+products[i].price+'</span>';
+		}
+		content += '</div>';
+		content += '</div>';
+		content += '<div class="product-list-content">';
+		content += '<h4><a href="'+productsInfo.replace("productsPath",products[i].id)+'">' + products[i].name + '</a></h4>';
+		content += '<div class="product-price">';
+		content += '<span class="new">$'+products[i].discountPrice+' </span>';
+		content += '</div>';
+		content += '<p>' + products[i].description.substring(0, 200) + '...</p>';
+		content += '<div class="product-list-action">';
+		content += '<div class="product-list-action-left">';
+		content += '<a class="addtocart-btn" title="Add to cart" onclick="addToCart(' + products[i].id + ')" style="color: white; cursor: pointer;"><i class="ion-bag"></i> Add to cart</a>';
+		content += '</div>';
+		content += '<div class="product-list-action-right">';
+		content += '<a title="Quick View" href="'+productsInfo.replace("productsPath",products[i].id)+'"><i class="ti-plus"></i></a>';
+		content += '</div>';
+		content += '</div>';
+		content += '</div>';
+		content += '</div>';
+		content += '</div>';
+	}
+
+	
+	document.getElementById("ProductListBox").innerHTML = content;
+	
+	
+	var navContent = "" ;
+	if (pageNo != 1){
+		navContent += "<li><a id='first'><<</a></li>";
+		navContent += "<li><a id='prev'><</a></li>";
+	}  else {
+		navContent += "<li>&nbsp;</li>";
+		navContent += "<li>&nbsp;</li>";
+	}
+	navContent += "<td width='200' align='center'> " + pageNo + " / " + totalPage + "</td>";
+	if (pageNo != totalPage){
+		navContent += "<li><a id='next'>></a></li>";
+		navContent += "<li><a id='last'>>></a></li>";
+	}  else {
+		navContent += "<td align='center'>&nbsp;</td>";
+		navContent += "<td align='center'>&nbsp;</td>";
+	}
+	document.getElementById("navigation").innerHTML = navContent;
+	var firstBtn = document.getElementById("first");
+	var prevBtn  = document.getElementById("prev");
+	var nextBtn  = document.getElementById("next");
+	var lastBtn  = document.getElementById("last");
+	if (firstBtn != null) {
+		firstBtn.onclick=function(){
+			asynRequest(this.id);
+		}
+	}
+	
+	if (prevBtn != null) {
+		prevBtn.onclick=function(){
+			asynRequest(this.id);
+		}
+	}
+	
+	if (nextBtn != null) {
+		nextBtn.onclick=function(){
+			asynRequest(this.id);
+		}
+	}
+	
+	if (lastBtn != null) {
+		lastBtn.onclick=function(){
+			asynRequest(this.id);				
+		}
+	}	
+}
+
+/* function displayPageProducts(responseData){
     var content = "<table><tr style='border: 1px solid black;'>";
       content +=  "<th>編號</th><th>商品名稱</th>";
       content +=  "<th>定價</th><th>折扣</th><th>實售</th>";
@@ -316,27 +433,94 @@ function displayPageProducts(responseData){
 			asynRequest(this.id);				
 		}
 	}	
-}
+} */
 
 function goToCartPage(){
 	window.location.href = "<c:url value='/cart/CartList' />";
 }
 
 </script>
+<jsp:include page="../fragments/links.jsp" />
 </head>
 <body>
-<jsp:include page="../public/top.jsp" />
-<div align='center'>
-	<h3>商品資訊</h3>
-	<hr>
-	<div id="selectBar" style="display:inline;"></div><div id="shopCart" onclick="goToCartPage()" style='cursor: pointer;display:inline;margin-left:20%;' dir='rtl'><img src="https://img.icons8.com/pastel-glyph/64/000000/shopping-cart--v2.png"/></div>
-	<div>共蒐尋出<span style='color:red;' id='showRecordCounts'></span>項商品</div>
-	<hr>
-	<div id='somedivS'></div>
-	<div id='navigation'></div>
-	<hr>
+<jsp:include page="../fragments/headerArea.jsp" />
 
-	<a href="<c:url value='/' />">回前頁</a>
-</div>
+
+<!-- TOP圖片麵包屑 -->
+	<div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
+            <div class="container">
+                <div class="breadcrumb-content text-center">
+                    <h2>購物</h2>
+                    <ul>
+                        <li><a href="<c:url value='/' />">首頁</a></li>
+                        <li class="active">購物</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+	<div class="shop-area pt-100 pb-100 gray-bg">
+           <div class="container">
+            <div class="row flex-row-reverse">
+                   <div class="col-lg-9">
+                       <div class="shop-topbar-wrapper">
+                       	<div class="product-sorting-wrapper">
+                              	<div class="product-show shorting-style" id="selectBar">
+                                  	<label>共有 <span id="showRecordCounts"></span> 項商品</label>
+                                   	
+                                  	</div>
+                        </div>
+                        <div class="grid-list-options">
+                                <ul class="view-mode">
+                                    <li class="active"><a href="#product-grid" data-view="product-grid"><i class="ti-layout-grid4-alt"></i></a></li>
+                                    <li><a href="#product-list" data-view="product-list"><i class="ti-align-justify"></i></a></li>
+                                </ul>
+                        </div>
+					</div>
+					<div class="grid-list-product-wrapper">
+                            <div class="product-view product-grid">
+                                <div class="row" id="ProductListBox">
+                                </div>
+                                <div class="pagination-style text-center mt-10">
+                                    <ul id = 'navigation'>
+                                    </ul>
+                                </div>
+                           	</div>
+                        </div>
+				</div>
+				
+				
+				
+				<div class="col-lg-3">
+                        <div class="shop-sidebar">
+                            <div class="shop-widget">
+                            	<h4 class="shop-sidebar-title">搜尋商品</h4>
+                                <div class="shop-search mt-25 mb-50">
+                                    <form class="shop-search-form">
+                                        <input type="text" placeholder="輸入商品名稱">
+                                        <button type="submit">
+                                            <i class="icon-magnifier"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="shop-widget mt-50">
+                                 <h4 class="shop-sidebar-title">商品顏色 </h4>
+                                 <div class="shop-list-style mt-20" id="ColorSelectBar"></div>
+                                 <h4 class="shop-sidebar-title">寵物類別 </h4>
+                                 <div class="shop-list-style mt-20" id="AnimalTypeSelectBar"></div>
+                                 <h4 class="shop-sidebar-title">商品分類 </h4>
+                                 <div class="shop-list-style mt-20" id="CategorySelectBar"></div>
+                            </div>
+                        </div>
+                </div>
+			</div>
+          </div>
+      </div>
+
+
+<jsp:include page="../fragments/footerArea.jsp" />
+<jsp:include page="../fragments/allJs.jsp" />
 </body>
 </html>

@@ -142,6 +142,11 @@ public class Products {
 	public Double getPrice() {
 		return price;
 	}
+//	@Column(name="PRICE")
+	@Transient
+	public int getDiscountPrice() {
+		return (int) Math.round(price*discount);
+	}
 	public void setPrice(Double price) {
 		this.price = price;
 	}

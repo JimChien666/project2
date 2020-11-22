@@ -106,4 +106,11 @@ public class CartController {
 		return cartItems;
 	}
 	
+	@GetMapping("/ClaerCartItems")
+	public @ResponseBody List<CartItems> claerCartItems(Model model) {
+		List<CartItems> cartItems = new ArrayList<>();
+		session.setAttribute("cartItems", cartItems);
+		return cartItems;
+	}
+	
 }
