@@ -1,5 +1,6 @@
 package com.iii.eeit124.config;
 
+import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 import javax.naming.NamingException;
@@ -12,10 +13,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 
 
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScans(value = { @ComponentScan("com.iii.eeit124")})
 public class HibernateConfig {
 
+	@Autowired
 	Environment env;
 	
 	@Autowired
@@ -33,25 +36,15 @@ public class HibernateConfig {
 
 	@Bean
 	public DataSource dataSource() throws IllegalArgumentException, NamingException {
-		JndiObjectFactoryBean jndiBean = new JndiObjectFactoryBean();
-		jndiBean.setJndiName("java:comp/env/jdbc/xe");		
-		jndiBean.setProxyInterface(DataSource.class);
-		jndiBean.setLookupOnStartup(false);
-		jndiBean.afterPropertiesSet();
-		DataSource ds = (DataSource)jndiBean.getObject();
-		System.out.println("ds:" + ds);
-		
-//		ComboPooledDataSource ds = new ComboPooledDataSource();
-//		ds.setUser(env.getProperty("spring.database.user"));
-//		ds.setPassword(env.getProperty("spring.database.password"));
-//		try {
-//			ds.setDriverClass(env.getProperty("spring.database.driverclass"));
-//		} catch (PropertyVetoException e) {
-//			e.printStackTrace();
-//		}
-//		ds.setJdbcUrl(env.getProperty("spring.database.url"));
-//		ds.setInitialPoolSize(Integer.parseInt((env.getProperty("spring.database.initialpoolsize"))));
-//		ds.setMaxPoolSize(Integer.parseInt((env.getProperty("spring.database.maxpoolsize"))));
+		ComboPooledDataSource ds = new ComboPooledDataSource();
+		ds.setUser(env.getProperty("spring.database.user"));
+		ds.setPassword(env.getProperty("spring.database.password"));
+		try {
+			ds.setDriverClass(env.getProperty("spring.database.driverclass"));
+		} catch (PropertyVetoException e) {
+			e.printStackTrace();
+		}
+		ds.setJdbcUrl(env.getProperty("spring.database.url"));
 		return ds;
 	}
 	
