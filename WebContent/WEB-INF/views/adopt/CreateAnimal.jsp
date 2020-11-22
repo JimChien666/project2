@@ -16,14 +16,17 @@
 <!-- <script src="js/jquery-3.5.1.js" charset="UTF-8"></script> -->
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 </head>
+<!-- ===================================================================================== -->
 <body>
 	<div>
 		<jsp:include page="../public/top.jsp" />
 	</div>
+	<!-- ===================================================================================== -->
 	<div class="wid450px">
 		<a href="<c:url value='/ReadAnimal' />"
 			class="btn btn-secondary margin10px">回維護首頁</a>
 	</div>
+	<!-- ===================================================================================== -->
 	<div class="wid450px">
 		<form:form action="CreateAnimal.controller" method="POST"
 			modelAttribute="AnimalsList1" enctype="multipart/form-data">
@@ -34,6 +37,7 @@
 			<div class="divHidden square250px" id="animalFilesDiv">
 				<img class="cardImg" id="preview_animalFiles" src="#" /><br>
 			</div>
+			<!-- ===================================================================================== -->
 			<div class="divHidden">
 				<form:label path="memberId" class="label1">會員編號：</form:label>
 				<form:input path="memberId" type="text" name="memberId"
@@ -44,6 +48,7 @@
 			<div id="memberIdDiv" class="divHidden">
 				<br>
 			</div>
+			<!-- ===================================================================================== -->
 			<form:label path="acceptionId" class="label1">收容動物編號：</form:label>
 			<form:input path="acceptionId" type="text" name="acceptionId"
 				onblur="checkacceptionId()" id="acceptionId" />收容所需填
@@ -51,35 +56,35 @@
 			<div id="acceptionIdDiv" class="divHidden">
 				<br>
 			</div>
+			<!-- ===================================================================================== -->
 			<form:label path="breedId" class="label1">品種：</form:label>
 			<select id="family">
 				<c:forEach var="Families" items="${Families}">
 					<option value="">${Families}</option>
 				</c:forEach>
 			</select>
-			<div id="dogBreedDiv" class="div1">
-				<select id="dogBreed">
-					<c:forEach var="dogBreed" items="${dogBreed}">
-						<option value="${dogBreed.breedId}">${dogBreed.breed}</option>
-					</c:forEach>
-				</select>
+			<select id="breed">
+				<c:forEach var="breed" items="${breed}">
+					<option value="">${breed.breed}</option>
+				</c:forEach>
+			</select>
+			<br>
+			<!-- 			input -->
+			<div class="divHidden">
+				<input type="text" name="breedText" id="breedText" /> <br>
 			</div>
-			<div id="breedDiv" class="div1"></div>
-			<br>
-			<!-- 			<div class="divHidden"> -->
-			<form:input path="breedId" type="text" name="breedId"
-				onblur="checkbreedId()" id="breedId" />
-			<br>
-			<!-- 			</div> -->
+			<!-- 			品種檢查 -->
 			<div id="breedIdDiv" class="divHidden">
 				<br>
 			</div>
+			<!-- ===================================================================================== -->
 			<form:label path="gender" class="label1">性別：</form:label>
 			<form:select path="gender" id="gender">
 				<form:option value="1">公</form:option>
 				<form:option value="0">母</form:option>
 			</form:select>
 			<br>
+			<!-- ===================================================================================== -->
 			<form:label path="coatColor" class="label1">毛色：</form:label>
 			<form:input path="coatColor" type="text" name="coatColor"
 				onblur="checkcoatColor()" id="coatColor" />
@@ -87,21 +92,24 @@
 			<div id="coatColorDiv" class="divHidden">
 				<br>
 			</div>
+			<!-- ===================================================================================== -->
 			<form:label path="isAdoptionAvailable" class="label1">是否開放領養：</form:label>
 			<form:select path="isAdoptionAvailable">
 				<form:option value="1">開放</form:option>
 				<form:option value="0">不開放</form:option>
 			</form:select>
 			<br>
+			<!-- ===================================================================================== -->
 			<form:label path="note" class="label1 posAbs">備註：</form:label>
 			<form:textarea path="note" name="note" rows="5" cols="18"
 				placeholder="可輸入寵物年齡" class="margleft125px" />
 			<br>
+			<!-- ===================================================================================== -->
 			<a href="<c:url value='/preCreateAnimal.controller' />"
 				class="btn btn-secondary">重填</a>
 			<form:button value="Send" class="btn btn-primary">送出</form:button>
 		</form:form>
-
+		<!-- ===================================================================================== -->
 	</div>
 </body>
 </html>

@@ -26,17 +26,19 @@ window.onload = function() {
 
 //品種選擇
 //都不選的預設
-var breedId = document.getElementById("dogBreed").options[dogBreed.selectedIndex].value;
-document.getElementById("breedId").value = breedId;
+var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
+document.getElementById("breedText").value = breedId;
 //只選breed
-dogBreed.onchange = function() {
-	var breedId = document.getElementById("dogBreed").options[dogBreed.selectedIndex].value;
-	document.getElementById("breedId").value = breedId;
+breed.onchange = function() {
+	var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
+	document.getElementById("breedText").value = breedId;
 }
 
 var family = document.getElementById("family");
 family.onchange = function() {
-	document.getElementById("dogBreedDiv").style.display = "none";
+	$("#breed").html("");
+	$("#breed").empty();//或用下一行
+//	$("#breed").find("option").remove();
 	var xhr = new XMLHttpRequest();
 	var familyValue = family.options[family.selectedIndex].text;
 	var url = "getBreed.controller?family=" + familyValue;
@@ -50,29 +52,33 @@ family.onchange = function() {
 				var breed = JSON.parse(xhr.responseText);
 
 				//可再確認用array.join或用一般字串相加，哪個效率好
-				var content = "<select id='breed'>";
+				var content = "";
 				for (var i = 0; i < breed.length; i++) {
 					content += "<option value='" + breed[i].breedId + "'>"
 							+ breed[i].breed + "</option>";
 				}
-				content += "</select>";
-				document.getElementById("breedDiv").innerHTML = content;
+				document.getElementById("breed").innerHTML = content;
 
 				//改變family和breed時的預設值
 				var breed = document.getElementById("breed");
-				breed.onclick = function() {
-					var breedId = document.getElementById("breed").options[breed.selectedIndex].value;
-					console.log("breedId: " + breedId);
-					document.getElementById("breedId").value = breedId;
+				breed.onchange = function() {
+					var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
+					document.getElementById("breedText").value = breedId;
 				}
 				
 				//只改變family時的預設值
-				var breedId = document.getElementById("breed").options[breed.selectedIndex].value;
-				document.getElementById("breedId").value = breedId;
+				var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
+				document.getElementById("breedText").value = breedId;
 			}
 		}
 	}
 }
+
+//更新頁才會執行的品種selected
+//if(document.getElementById("animalId").value > 0 && document.getElementById("family").options[family.selectedIndex].text == '狗'){
+//	$("#breed").html("");
+//	$("#breed").empty();
+//}
 };
 			
 //ReadAnimal

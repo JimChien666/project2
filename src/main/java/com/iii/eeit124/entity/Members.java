@@ -44,7 +44,7 @@ public class Members implements Serializable{
 //	private Set<Products> products = new HashSet<Products>();
 //	private Set<Orders> orders = new HashSet<Orders>();
 //	private Set<OrderItems> orderItems = new HashSet<OrderItems>();
-	private Set<Animals> animals = new HashSet<Animals>();
+//	private Set<Animals> animals = new HashSet<Animals>();
 	
 
 	
@@ -215,14 +215,14 @@ public class Members implements Serializable{
 	}
 
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-	public Set<Animals> getAnimals() {
-		return animals;
-	}
-
-	public void setAnimals(Set<Animals> animals) {
-		this.animals = animals;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+//	public Set<Animals> getAnimals() {
+//		return animals;
+//	}
+//
+//	public void setAnimals(Set<Animals> animals) {
+//		this.animals = animals;
+//	}
 	
 //	@JsonIgnore
 //	@OneToMany(fetch = FetchType.EAGER, mappedBy = "buyer", cascade = CascadeType.ALL)

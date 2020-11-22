@@ -25,10 +25,26 @@ public class BreedsDaoImpl implements BreedsDao{
 		return session.get(Breeds.class, breedsId);
 	}
 	
+	public List<Breeds> readBreed(String breedText) {
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		Query<Breeds> query = session.createQuery("from Breeds where breed='"+breedText+"'");
+		List<Breeds> list = query.list();
+		return list;
+	}
+	
 	public List<Breeds> readAll() {
 		Session session = sessionFactory.getCurrentSession();
 		Query<Breeds> query = session.createQuery("from Breeds", Breeds.class);
 		List<Breeds> list = query.list();
+		return list;
+	}
+	
+	public List<String> readFamily(Integer animalId) {
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		Query<String> query = session.createQuery("select family from Breeds where ANIMAL_ID='"+animalId+"'");
+		List<String> list = query.list();
 		return list;
 	}
 	
