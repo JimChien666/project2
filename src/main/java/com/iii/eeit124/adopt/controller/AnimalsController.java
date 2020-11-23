@@ -89,7 +89,7 @@ public class AnimalsController {
 	// TODO 需加入 只顯示該會員id的寵物
 	@GetMapping("/ReadAnimal")
 	public String processMyPetsRead(Model m) {
-		m.addAttribute("AnimalsList", animalsService.readAll());
+		m.addAttribute("AnimalsList", animalsService.readMyAnimals(((Members)session.getAttribute("LoginOK")).getId()));
 		return "adopt/ReadAnimal";
 	}
 
@@ -98,7 +98,6 @@ public class AnimalsController {
 	// PreCreate
 	@GetMapping("/preCreateAnimal.controller")
 	public String processPreCreateAnimal(
-//			@RequestParam("family") String family, 
 			Model m) {
 		Animals animals = new Animals();
 		m.addAttribute("AnimalsList1", animals);
@@ -111,7 +110,6 @@ public class AnimalsController {
 	@GetMapping(value = "/getBreed.controller")
 	public @ResponseBody List<Breeds> processGetBreed(@RequestParam("family") String family) {
 		List<Breeds> breed = breedsService.readAllBreeds(family);
-		System.out.println("breed123" + breed);
 		return breed;
 	}
 	// SelectBreeds//可用
@@ -193,15 +191,13 @@ public class AnimalsController {
 		entity.setBreeds(readBreed.get(0));// 用family找到該筆bean，再set到breeds，修改也是?
 		animalsService.create(entity);
 
-		m.addAttribute("AnimalsList", animalsService.readAll());
-		return "adopt/ReadAnimal";
+		return "redirect:/ReadAnimal";
 	}
 
 	// Refresh
 	@GetMapping({ "/CreateAnimal.controller", "/UpdateAnimal.controller", "/DeleteAnimal.controller" })
 	public String processCreateAnimal(Model m) {
-		m.addAttribute("AnimalsList", animalsService.readAll());
-		return "adopt/ReadAnimal";
+		return "redirect:/ReadAnimal";
 	}
 
 //==============================================================================================
@@ -274,8 +270,7 @@ public class AnimalsController {
 		entity.setBreeds(readBreed.get(0));// 用family找到該筆bean，再set到breeds，修改也是?
 		animalsService.update(entity);
 
-		m.addAttribute("AnimalsList", animalsService.readAll());
-		return "adopt/ReadAnimal";
+		return "redirect:/ReadAnimal";
 	}
 
 //==============================================================================================
@@ -291,7 +286,7 @@ public class AnimalsController {
 //		System.out.println("inside DeleteAnimal.controller"+entity);
 //		animalsService.update(entity);
 		animalsService.delete(animalId);
-		m.addAttribute("AnimalsList", animalsService.readAll());
+		
 		return "redirect:/ReadAnimal";
 	}
 }

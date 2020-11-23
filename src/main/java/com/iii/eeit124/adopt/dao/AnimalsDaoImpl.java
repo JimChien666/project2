@@ -38,6 +38,13 @@ public class AnimalsDaoImpl implements AnimalsDao {
 		return list;
 	}
 
+	public List<Animals> readMyAnimals(Integer memberId) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Animals> query = session.createQuery("from Animals where MEMBER_ID=" + memberId + " order by animal_id desc", Animals.class);
+		List<Animals> list = query.list();
+		return list;
+	}
+
 	public Animals update(Animals entity) {// entity為更新的內容
 		Session session = sessionFactory.getCurrentSession();
 //		Animals result = session.get(Animals.class, entity.getAnimalId());
