@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "FORUMS")
 public class Forums {
@@ -80,7 +82,7 @@ public class Forums {
 	public void setMemberid(int memberid) {
 		this.memberid = memberid;
 	}
-
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 //	@PrimaryKeyJoinColumn
 	@JoinColumn(name = "ARTICLE_ID")
@@ -105,7 +107,7 @@ public class Forums {
 		this.memberid = memberid;
 		this.article = article;
 	}
-
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID")
 	public Members getMember() {

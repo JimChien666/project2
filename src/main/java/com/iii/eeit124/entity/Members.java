@@ -20,6 +20,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "MEMBERS")
 public class Members implements Serializable {
@@ -184,7 +186,7 @@ public class Members implements Serializable {
 		}
 		return fileId;
 	}
-
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "member", cascade = CascadeType.ALL)
 	public Set<MemberFiles> getFiles() {
 		return files;
@@ -203,7 +205,7 @@ public class Members implements Serializable {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 	public Set<Article> getArticles() {
 		return articles;
@@ -212,7 +214,7 @@ public class Members implements Serializable {
 	public void setArticles(Set<Article> articles) {
 		this.articles = articles;
 	}
-
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 	public Set<Forums> getForums() {
 		return forums;
@@ -221,7 +223,7 @@ public class Members implements Serializable {
 	public void setForums(Set<Forums> forums) {
 		this.forums = forums;
 	}
-
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 	public Set<Comments> getComments() {
 		return comments;

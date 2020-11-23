@@ -20,8 +20,6 @@
 
 <html>
 <head>
-
-
 <style type="text/css">
 .fixed {
 	position: fixed;
@@ -43,150 +41,79 @@ table, th, td {
 <title>ID:<c:out value="${article.getId()}" />/<c:out
 		value="${article.getTitle()}" /></title>
 </head>
+
+<script>
+
+$(document).ready(function(){
+	$.ajax({
+			type:"GET",
+			url:"<c:url value='article' />?articleId=461",
+			success : function(responseData){
+				showPageOrders(responseData)
+	         }
+		});
+
+})
+
+
+
+function showPageOrders(responseData){
+	var $article = $("#articleShow")
+// 	var mapData = JSON.parse(responseData);
+	var mapData = responseData;
+	article = mapData.article;
+	pageNo = mapData.currPage;
+	totalPage  = mapData.totalPage;
+	recordCounts = mapData.recordCounts;
+	var content="";
+	$article.append("<h3>"+article.title+"</h3>")
+	$article.append("<table><tr><th>討論串編號</th><th>討論串內容</th></tr>")
+
+	$.each(article.forums, function(i, forum){
+		$article.append("<tr><td>" + forum.id + "</td><td>"+forum.content+"</td></tr>")
+		$article.append("</table>");
+		$article.append("<hr>");
+		$.each(forum.comments.sort(), function(j, c){
+				$article.append("<tr><th>留言編號</th><th>留言內容</th></tr>")
+				$article.append("<tr><td>" + c.id + "</td><td>"+c.comment+"</td></tr>")
+			})
+		
+		})
+		
+	
+}
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <body>
 	<jsp:include page="../public/top.jsp" />
-	<table>
-		<th colspan="3">標題:<c:out value="${article.getTitle()}"></c:out></th>
 
-		<tr>
-			<td>發文時間</td>
-			<td colspan="3">作者:<c:out
-					value="${article.getMember().getName()}"></c:out></td>
-		</tr>
+<div align='center'>
+	<h3>${article.getTitle()}</h3>
+	
+	<div id="articleShow"></div>
+	<div id='navigation' style='height:60px;'></div>
+	
+</div>
 
-
-		<c:forEach items="${forums}" var="Forums" varStatus="id">
-			<c:if test="${id.isLast()}">
-				<tr>
-					<td>${Forums.getMember().getName()}</td>
-					<td>${Forums.getContent()}</td>
-					<td>${Forums.getCreatedat()}</td>
-				</tr>
-
-			</c:if>
-		</c:forEach>
-	</table>
-	<br>
-
-	<table>
-		<th>標題:<c:out value="${article.getTitle()}"></c:out></th>
-		<th>發文時間</th>
-		<th>作者:<c:out value="${article.getMember().getName()}"></c:out></th>
-
-		<c:forEach items="${forums}" var="Forums" varStatus="id">
-			<c:if test="${!id.isLast()}">
-				<tr>
-					<td>${Forums.getContent()}</td>
-					<td>${Forums.getCreatedat()}</td>
-					<td>${Forums.getMember().getName()}</td>
-				</tr>
-				<br>
-				<tr>
-					<%-- 					<td id="comments" class="comments">${Forums.id}</td> --%>
-					<%-- 					<td class="comments">${Forums.id}</td> --%>
-					<td class="${Forums.id}">${Forums.id}</td>
-				</tr>
-				<tr>
-					<c:if test="${empty LoginOK}">
-						<td>回覆本討論串:<a href="<c:url value='/member/login' />"><input
-								disabled placeholder="請登入後留言" type="text" name="comments"
-								id="${Forums.getId()}"></a></td>
-					</c:if>
-					<c:if test="${!empty LoginOK}">
-						<td>回覆本討論串:<input type="text" name="comments"
-							id="${Forums.getId()}"></td>
-					</c:if>
-				</tr>
-				<script>
-				$(document).ready(function reset1(){
-					var $comments = $('.${Forums.id}');
-					$comments.empty();					
-					$.ajax({
-						type:'GET',
-						url:'showComments?forumsId=${Forums.getId()}',
- 						url:"<c:url value='showComments?forumsId=${Forums.getId()}' />",
-						success: function(comments){
-							console.log('success',comments)
-						$.each(comments, function(i, order){
-							if(order.forumid===${Forums.id}){
-								console.log(order.forumid);
-								console.log(${Forums.id});								
-							$comments.append('<li>'+order.comment+'/'+order.memberid+'</li>')
-								}
-							});
-							}					
-						});
-
-					$("input").keypress(function (e) {
-						   if (e.keyCode == 13) {
-								var id = this.id;
-								var comment = this.value;			
-							$.ajax({
-							  url: "saveComments",
-							  data: {
-								  id:id,
-								  comment:comment
-								  },
-							  success:function(){
-								  reset();
-						      $("input").prop("value","");
-							}
-//							  dataType: dataType
-							});
-//					 	  	var $comments = $('.${Forums.id}');					      
-						    };//if end
-						});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-					
-					});
-				
-
-
-
-				function reset(){
-					var $comments = $('.${Forums.id}');
-					$comments.empty();
-					$.ajax({
-						type:'GET',
-						url:'showComments?forumsId=${Forums.getId()}',
-						url:"<c:url value='showComments?forumsId=${Forums.getId()}' />",
-						success: function(comments){
-							console.log('success',comments)
-						$.each(comments, function(i, order){
-							if(order.forumid===${Forums.id}){
-								console.log(order.forumid);
-								console.log(${Forums.id});								
-							$comments.append('<li>'+order.comment+'/'+order.memberid+'</li>')
-								}
-							});
-							}					
-						});
-					};	
-
-				
-
-				
-			
-				</script>
-
-			</c:if>
-		</c:forEach>
-	</table>
 	<a href="<c:url value='backArticle' />" class="fixed">
 		<button type="button" class="btn btn-success">回討論版</button>
 	</a>
@@ -195,12 +122,6 @@ table, th, td {
 		<button type="button" class="btn btn-success">回覆文章</button>
 	</a>
 
-<script>
 
-
-
-
-
-</script>
 </body>
 </html>

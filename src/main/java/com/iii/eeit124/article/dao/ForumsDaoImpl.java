@@ -2,6 +2,8 @@ package com.iii.eeit124.article.dao;
 
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -17,13 +19,6 @@ public class ForumsDaoImpl implements ForumsDao {
 	@Autowired(required = false)
 	private SessionFactory sessionFactory;
 
-	@Override
-	public List<Forums> select(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		Query<Forums> query = session.createQuery("From Forums where article.id = ?1 order by id desc", Forums.class);
-		query.setParameter(1, id);
-		return query.list();
-	}
 
 	@Override
 	public void save(Forums forums) {
@@ -47,6 +42,23 @@ public class ForumsDaoImpl implements ForumsDao {
 		Query<Forums> query = session.createQuery("from Forums where id = ?1", Forums.class);
 		query.setParameter(1, id);
 		return query.uniqueResult();
+	}
+
+	@Override
+	public List<Forums> select(Integer pageNo, Integer recordsPerPage, Integer id) {
+		Integer startRecordNo = (pageNo - 1) * recordsPerPage; 
+		@SuppressWarnings("unchecked")
+		TypedQuery<Forums> query = sessionFactory.getCurrentSession().createQuery("from Forums where ID=?0 order by id");
+		query.setParameter(0, id).setFirstResult(startRecordNo).setMaxResults(recordsPerPage);
+		query.getResultList();
+		return query.getResultList();
+	}
+
+	@Override
+	public Long getRecordCounts(Integer id) {
+		Long count = 0L; // 必須使用 long 型態
+		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Forums where ID=?0").setParameter(0, id).getSingleResult();
+		return count;
 	}
 
 }

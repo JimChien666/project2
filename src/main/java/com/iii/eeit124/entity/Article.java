@@ -1,7 +1,9 @@
 package com.iii.eeit124.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "article")
@@ -87,11 +91,13 @@ public class Article {
 		this.articletypesid = articletypesid;
 	}
 
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
 //	@OneToMany(fetch = FetchType.LAZY, targetEntity = Forums.class, cascade = CascadeType.ALL, mappedBy = "article")
 	public Set<Forums> getForums() {
 		return forums;
 	}
+
 
 	public void setForums(Set<Forums> forums) {
 		this.forums = forums;
@@ -132,7 +138,7 @@ public class Article {
 		this.articletypesid = articletypesid;
 		this.forums = forums;
 	}
-
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID")
 	public Members getMember() {

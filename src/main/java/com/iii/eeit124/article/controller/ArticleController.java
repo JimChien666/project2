@@ -1,8 +1,11 @@
 package com.iii.eeit124.article.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,12 @@ public class ArticleController {
 	@ModelAttribute("article")
 	public Article formBackingObject() {
 		return new Article();
+	}
+	
+	
+	@GetMapping(value = "testArticle")
+	public String testArticle() {
+		return "article/Article";
 	}
 
 	@GetMapping(value = "articleList")
@@ -95,15 +104,11 @@ public class ArticleController {
 			) {
 		Comments c = new Comments();
 		c.setComment(comment);
-//		System.out.println("...................");
-//		System.out.println(id);
-//		System.out.println(comment);
-//		System.out.println("...................");
+
 		Forums forums = forumsService.selectForum(id);
 		c.setMember((Members) session.getAttribute("LoginOK"));
 		c.setForums(forums);
-//		comment.setComment(comment.getComment());
-//		forums.getComments().add(comment);
+
 		commentsService.save(c);
 		return null;
 	}
@@ -150,39 +155,43 @@ public class ArticleController {
 	}
 
 	// show one article
+//	@GetMapping(value = "article")
+//	public String article(Locale locale, Model model, @RequestParam(value = "articleId") Integer id) {
+//		Article article = articleService.select(id);
+//		List<Forums> forums = forumsService.select(id);
+//		model.addAttribute("article", article);
+//		model.addAttribute("forums", forums);
+//		return "article/Article";
+//	}
+	
+	
 	@GetMapping(value = "article")
-	public String article(Locale locale, Model model, @RequestParam(value = "articleId") Integer id) {
+	public @ResponseBody Map<String, Object> getPageArticle(Model model, @RequestParam(value="pageNo",defaultValue = "1") Integer pageNo, @RequestParam(value = "articleId")Integer id){
+		Map<String, Object> map = new HashMap<>();
+		Integer recordsPerPage = 2;
+		System.out.println("fuck");
+		System.out.println(id);
+//		Members loginOK = (Members)session.getAttribute("LoginOK");
 		Article article = articleService.select(id);
-//		Set<Forums> forums = article.getForums();
-
-		List<Forums> forums = forumsService.select(id);
-//		forums.
-		model.addAttribute("article", article);
-		model.addAttribute("forums", forums);
-		return "article/Article";
+//		List<Forums> articleList = forumsService.select(pageNo, recordsPerPage, id);
+		Long recordCounts = forumsService.getRecordCounts(id);
+		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
+		map.put("article", article);
+		map.put("totalPage", totalPage);
+		map.put("currPage", pageNo);
+		map.put("recordCounts", recordCounts);
+		map.put("recordsPerPage", recordsPerPage);
+		return map;		
 	}
 
-	
-//	public String showComments(Model model, @RequestParam(value = "forumsId") Integer id) {		
-//		Forums forums = forumsService.selectForum(id);
-//		List<Comments> comments = commentsService.select(id);
-//		model.addAttribute("forums", forums);
-//		model.addAttribute("comments", comments);		
-//		return null;		
-//	}
 	@GetMapping(value = "showComments")
 	public @ResponseBody List<Comments> showComments(@RequestParam(value = "forumsId") Integer id) {		
 		Forums forums = forumsService.selectForum(id);
-
 		List<Comments> comments = commentsService.select(forums.getId());
 		return comments;		
 	}
 	
-//	@GetMapping(value = { "/_03/members", "/members" })
-//	public @ResponseBody List<Members> queryAllMembersJSP(Model model) {
-//		List<Members> members = service.findAllMembers();
-//		return members;
-//	}
+
 
 	
 	

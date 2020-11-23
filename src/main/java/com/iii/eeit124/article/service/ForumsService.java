@@ -9,6 +9,8 @@ public interface ForumsService {
 	void save(Forums forums);
 	void saveArticle(Article article);
 	void update(Article article);
-	List<Forums> select(int id);
+	List<Forums> select(Integer pageNo,Integer recordsPerPage,Integer id);
 	Forums selectForum(int id);
+	Long getRecordCounts(Integer id);
+
 }
