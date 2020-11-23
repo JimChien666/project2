@@ -45,6 +45,11 @@ public class AnimalsController {
 	public BreedsService breedsService;
 	@Autowired
 	HttpSession session;
+	
+	@GetMapping("/none")
+	public String processNone() {
+		return "public/None";
+	}
 
 	// 轉至分派器
 	@GetMapping("/adoptDispatcher")
@@ -84,9 +89,15 @@ public class AnimalsController {
 		}
 		return re;
 	}
+	
+	//瀏覽全部的動物
+	@GetMapping("/ReadAllAnimal")
+	public String processAllPetsRead(Model m) {
+		m.addAttribute("AnimalsList", animalsService.readAll());
+		return "adopt/ReadAnimal";
+	}
 
-	// 瀏覽全部動物
-	// TODO 需加入 只顯示該會員id的寵物
+	// 瀏覽會員的動物
 	@GetMapping("/ReadAnimal")
 	public String processMyPetsRead(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readMyAnimals(((Members)session.getAttribute("LoginOK")).getId()));

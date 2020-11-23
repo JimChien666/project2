@@ -43,6 +43,21 @@
 	height: 260px;
 }
 
+.input1{
+	margin-top:5px;
+	background-color:white;
+	border:0px;
+}
+
+.inputHW{
+	width:150px;
+	height:30px;
+}
+
+.inputBorder{
+	border:1px black solid;
+}
+
 .label1 {
 	display: inline-block;
 	width: 120px;
@@ -68,7 +83,7 @@
 
 .page1 {
 	margin: 0 auto;
-	width: 89%;
+	width: 94%;
 }
 
 .posAbs {
@@ -84,6 +99,10 @@
 
 .wid200px {
 	width: 200px;
+}
+
+.wid305px {
+	width: 305px;
 }
 
 .wid450px {

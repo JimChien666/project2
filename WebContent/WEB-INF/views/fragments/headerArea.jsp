@@ -30,39 +30,12 @@
                                                 
                                             </ul>
                                         </li>
-                                        <li><a href="#">PAGES</a>
-                                            <ul class="submenu">
-                                                <li>
-                                                    <a href="about-us.html">about us</a>
-                                                </li>
-                                                <li>
-                                                    <a href="shop-page.html">shop page</a>
-                                                </li>
-                                                <li>
-                                                    <a href="shop-list.html">shop list</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product-details.html">product details</a>
-                                                </li>
-                                                <li>
-                                                    <a href="cart.html">cart page</a>
-                                                </li>
-                                                <li>
-                                                    <a href="checkout.html">checkout</a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html">wishlist</a>
-                                                </li>
-                                                <li>
-                                                    <a href="contact.html">contact us</a>
-                                                </li>
-                                                <li>
-                                                    <a href="my-account.html">my account</a>
-                                                </li>
-                                                <li>
-                                                    <a href="login-register.html">login / register</a>
-                                                </li>
-                                            </ul>
+                                        <li><a href="<c:url value='/adopt' />">領養</a>
+<!--                                             <ul class="submenu"> -->
+<!--                                                 <li> -->
+<%--                                                     <a href="<c:url value='' />">會員/我的寵物</a> --%>
+<!--                                                 </li> -->
+<!--                                             </ul> -->
                                         </li>
                                         <li><a href="blog-leftsidebar.html">Blog</a>
                                             <ul class="submenu">
@@ -79,6 +52,13 @@
                                         </li>
                                         <li><a href="about-us.html">ABOUT</a></li>
                                         <li><a href="contact.html">contact us</a></li>
+                                        <li><a href="<c:url value='/none' />">會員中心</a>
+                                            <ul class="submenu">
+                                                <li>
+                                                    <a href="<c:url value='/ReadAnimal' />">我的寵物</a>
+                                                </li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </nav>
                             </div>
