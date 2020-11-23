@@ -73,12 +73,6 @@ family.onchange = function() {
 		}
 	}
 }
-
-//更新頁才會執行的品種selected
-//if(document.getElementById("animalId").value > 0 && document.getElementById("family").options[family.selectedIndex].text == '狗'){
-//	$("#breed").html("");
-//	$("#breed").empty();
-//}
 };
 			
 //ReadAnimal
