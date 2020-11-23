@@ -99,8 +99,43 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="header-login same-style">
+                                <%-- <div class="header-login same-style">
                                     <a href="<c:url value='/member/login' />"><i class="icon-user icons"></i></a>
+                                </div> --%>
+                                <div class="header-login same-style">
+                                    <button class="icon-cart">
+                                        <i class="icon-user icons"></i>
+                                        <c:if test="${!empty LoginOK}">
+                                        	<span class="count-style">${LoginOK.name}</span>
+                                        </c:if>
+                                    </button>
+                                    <div class="shopping-cart-content" style="width:200px; padding-top:30px;">
+                                        <ul>
+                                        <c:if test="${!empty LoginOK}">
+                                       	   <li>
+                                               <a href="<c:url value='/member/memberCenter' />">會員中心</a>
+                                           </li>
+                                           <li>
+                                               <a href="<c:url value='/order/OrderList' />">我的訂單</a>
+                                           </li>
+                                           <li>
+                                               <a href="<c:url value='/member/logout' />">登出</a>
+                                           </li>
+                                        </c:if>
+                                        <c:if test="${empty LoginOK}">
+                                           <li>
+                                               <a href="<c:url value='/member/login' />">登入</a>
+                                               
+                                           </li>
+                                           <li>
+                                               <a href="<c:url value='/member/register' />">註冊</a>
+                                           </li>
+                                        </c:if>
+                                        </ul>
+                                        
+                                    </div>
+                                    
+                                    
                                 </div>
                                 <div class="header-cart same-style">
                                     <button class="icon-cart" onclick="goToCartPage()">

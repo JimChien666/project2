@@ -111,6 +111,11 @@ public class OrderItems {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+	@Transient
+	public int getDiscountPrice() {
+		return (int) Math.round(price*discount);
+	}
+	
 	@Column(name="UPDATED_AT")
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getUpdatedAt() {

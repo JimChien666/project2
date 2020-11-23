@@ -89,7 +89,7 @@ public class CreateOrderController {
 				//將購物車資訊塞入訂單品項中
 				OrderItems orderItem = new OrderItems();
 				orderItem.setDiscount(cartItem.getDiscount());
-				Double subTotal=cartItem.getPrice()*cartItem.getDiscount()*cartItem.getQuantity();
+				Integer subTotal=cartItem.getDiscountPrice()*cartItem.getQuantity();
 				orderItem.setDiscount(cartItem.getDiscount());
 				orderItem.setOrder(order);
 				orderItem.setPrice(cartItem.getPrice());

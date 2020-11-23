@@ -6,26 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-th, td{
-width: 200px;
-align: right;
-}
-#cartList{
-	/* position: absolute; */
-	width: auto;
-	height: auto;
-	top:30%;
-	left: 50%;
-	/* transform: translate(-50%, -50%); */
 
-}
-
-.counter li{float:left; list-style-type:none; width:30px; height:30px; text-align:center; line-height:30px; border:#999 thin solid; background-color:#fff;}
-.counter li input{font-size:20px; width:100%; height:100%; outline:none; -webkit-appearance:none; background:none; margin:0; padding:0; border: 1px solid transparent; border-radius: 0;}
-#countnum{ border-left:hidden; border-right:hidden; color:#666}
-ul,li{margin:0; padding:0; display:inline;}
-</style>
 <script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />"></script>
 <script>
 window.onload = function() {
@@ -288,7 +269,7 @@ function comfirmOrder(){
                     </div>
                 </div>
             </div>
-        </div>
+
     
     
 	

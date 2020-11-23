@@ -34,7 +34,6 @@ function goToCartPage(){
 
 
 function getShoppingOptions(){
-	
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "/team6/product/getColors", true);
 	xhr.send();

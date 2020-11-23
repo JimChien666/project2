@@ -53,6 +53,7 @@ public class CartItems {
 	public Double getDiscount() {
 		return discount;
 	}
+	
 	public void setDiscount(Double discount) {
 		this.discount = discount;
 	}
