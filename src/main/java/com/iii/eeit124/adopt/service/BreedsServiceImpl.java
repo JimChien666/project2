@@ -17,6 +17,8 @@ public class BreedsServiceImpl implements BreedsService {
 	public Breeds create(Breeds entity) {
 		return breedsDao.create(entity);
 	}
+	
+	//======================================================================================
 
 	public Breeds read(Integer breedsId) {
 		return breedsDao.read(breedsId);
@@ -25,6 +27,28 @@ public class BreedsServiceImpl implements BreedsService {
 	public List<Breeds> readAll() {
 		return breedsDao.readAll();
 	}
+	
+	public List<String> readAllFamilies(){
+		return breedsDao.readAllFamilies();
+	}
+	
+	public List<Breeds> readAllBreeds(String family){
+		return breedsDao.readAllBreeds(family);
+	}
+	
+//	public List<Breeds> readDogsBreeds(){
+//		return breedsDao.readDogsBreeds();
+//	}
+	
+	public List<Breeds> readBreed(String breedText){
+		return breedsDao.readBreed(breedText);
+	}
+	
+//	public List<String> readFamily(Integer breedId){
+//		return breedsDao.readFamily(breedId);
+//	}
+	
+	//======================================================================================
 
 	@Transactional
 	public Breeds update(Breeds entity) {
@@ -34,25 +58,5 @@ public class BreedsServiceImpl implements BreedsService {
 	@Transactional
 	public boolean delete(Integer breedsId) {
 		return breedsDao.delete(breedsId);
-	}
-
-	public List<String> readAllFamilies(){
-		return breedsDao.readAllFamilies();
-	}
-	
-	public List<Breeds> readAllBreeds(String family){
-		return breedsDao.readAllBreeds(family);
-	}
-	
-	public List<Breeds> readDogsBreeds(){
-		return breedsDao.readDogsBreeds();
-	}
-	
-	public List<Breeds> readBreed(String breedText){
-		return breedsDao.readBreed(breedText);
-	}
-	
-	public List<String> readFamily(Integer animalId){
-		return breedsDao.readFamily(animalId);
 	}
 }

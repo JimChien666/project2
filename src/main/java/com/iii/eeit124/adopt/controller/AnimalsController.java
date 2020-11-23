@@ -45,21 +45,21 @@ public class AnimalsController {
 	public BreedsService breedsService;
 	@Autowired
 	HttpSession session;
-	
-	//轉至分派器
+
+	// 轉至分派器
 	@GetMapping("/adoptDispatcher")
 	public String processAdoptDispatcher() {
 		return "adopt/AdoptDispatcher";
 	}
-	
-	//讀圖
+
+	// 讀圖
 	@GetMapping("/filuploadAction.contoller/{id}")
 	@ResponseBody
-	public ResponseEntity<byte[]> processFileUploadAction(@PathVariable(name = "id") Integer id) throws Exception{
+	public ResponseEntity<byte[]> processFileUploadAction(@PathVariable(name = "id") Integer id) throws Exception {
 		ResponseEntity<byte[]> re = null;
-		
-		Animals animals = animalsService.read(id);//依主鍵找對應檔案
-		Iterator<AnimalsFiles> iterator = animals.getFiles().iterator();//將檔案從set中撈出
+
+		Animals animals = animalsService.read(id);// 依主鍵找對應檔案
+		Iterator<AnimalsFiles> iterator = animals.getFiles().iterator();// 將檔案從set中撈出
 		while (iterator.hasNext()) {
 			AnimalsFiles files = (AnimalsFiles) iterator.next();
 			Blob fileBlob = files.getFileBlob();
@@ -86,13 +86,13 @@ public class AnimalsController {
 	}
 
 	// 瀏覽全部動物
-	//TODO 需加入 只顯示該會員id的寵物
+	// TODO 需加入 只顯示該會員id的寵物
 	@GetMapping("/ReadAnimal")
 	public String processMyPetsRead(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
 	}
-	
+
 //==============================================================================================	
 
 	// PreCreate
@@ -103,18 +103,18 @@ public class AnimalsController {
 		Animals animals = new Animals();
 		m.addAttribute("AnimalsList1", animals);
 		m.addAttribute("Families", breedsService.readAllFamilies());
-		m.addAttribute("breed", breedsService.readDogsBreeds());
+		m.addAttribute("breed", breedsService.readAllBreeds("狗"));
 		return "adopt/CreateAnimal";
 	}
-	
-	//SelectBreeds
-	@GetMapping(value="/getBreed.controller")
+
+	// SelectBreeds
+	@GetMapping(value = "/getBreed.controller")
 	public @ResponseBody List<Breeds> processGetBreed(@RequestParam("family") String family) {
 		List<Breeds> breed = breedsService.readAllBreeds(family);
-		System.out.println("breed123"+breed);
+		System.out.println("breed123" + breed);
 		return breed;
 	}
-	//SelectBreeds//可用
+	// SelectBreeds//可用
 //	@GetMapping(value="/getBreed.controller")
 //	public @ResponseBody List<String> processGetBreed(@RequestParam("family") String family) {
 //		List<String> breed = breedsService.readAllBreeds(family);
@@ -124,32 +124,31 @@ public class AnimalsController {
 
 	// Create
 	@PostMapping("/CreateAnimal.controller")
-	public String processCreateAnimal(@ModelAttribute("AnimalsList1") Animals entity
-			, @RequestParam("memberId") Integer memberId
-			, @RequestParam("breedText") String breedText
-			, Model m) throws Exception {
+	public String processCreateAnimal(@ModelAttribute("AnimalsList1") Animals entity,
+			@RequestParam("memberId") Integer memberId, @RequestParam("breedText") String breedText, Model m)
+			throws Exception {
 		// 新增照片部分
 		MultipartFile mFile = entity.getAnimalFiles();
 		String filename = mFile.getOriginalFilename();// 取得檔名
 		String fileTempDirPath = sc.getRealPath("/") + "uploadTempDir\\";// 存放的資料夾
 		InputStream is = null;
 		if (!mFile.isEmpty()) {
-		
+
 			File dirPath = new File(fileTempDirPath);
-		
-			//建資料夾
+
+			// 建資料夾
 			if (!dirPath.exists()) {
 				boolean status = dirPath.mkdirs();
 				System.out.println("status:" + status);
 			}
 
-			//設儲存路徑
+			// 設儲存路徑
 			String fileSavePath = fileTempDirPath + filename;
 			File saveFile = new File(fileSavePath);
 			mFile.transferTo(saveFile);
 			System.out.println("fileSavePath:" + fileSavePath);// 檔案路徑
 
-			//設定圖片格式
+			// 設定圖片格式
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_JPEG);
 
@@ -166,19 +165,19 @@ public class AnimalsController {
 				files.add(file);
 				entity.setFiles(files);
 			}
-		}else {
-			//新增沒圖片給預設圖片
-			//設定圖片格式
+		} else {
+			// 新增沒圖片給預設圖片
+			// 設定圖片格式
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_JPEG);
-			
-			filename = "NoImage.png" ; 
-			is = sc.getResourceAsStream(//getResourceAsStream開啟一個檔案
+
+			filename = "NoImage.png";
+			is = sc.getResourceAsStream(// getResourceAsStream開啟一個檔案
 					"/WEB-INF/resources/images/" + filename);// /images/為webapp/images/
-			byte[] b = new byte[4*1024*1024];
+			byte[] b = new byte[4 * 1024 * 1024];
 			is.read(b);
 			is.close();
-			
+
 			Set<AnimalsFiles> files = new HashSet<AnimalsFiles>();
 			Blob blob = new SerialBlob(b);
 			AnimalsFiles file = new AnimalsFiles("image", filename, blob);
@@ -186,12 +185,12 @@ public class AnimalsController {
 			files.add(file);
 			entity.setFiles(files);
 		}
-		
+
 		// 新增文字部分
 		entity.setCreatedAt(new Date());
-		entity.setMember((Members)session.getAttribute("LoginOK"));//這邊才有存會員編號，跟會員做關聯
+		entity.setMember((Members) session.getAttribute("LoginOK"));// 這邊才有存會員編號，跟會員做關聯
 		List<Breeds> readBreed = breedsService.readBreed(breedText);
-		entity.setBreeds(readBreed.get(0));//用family找到該筆bean，再set到breeds，修改也是?
+		entity.setBreeds(readBreed.get(0));// 用family找到該筆bean，再set到breeds，修改也是?
 		animalsService.create(entity);
 
 		m.addAttribute("AnimalsList", animalsService.readAll());
@@ -204,57 +203,58 @@ public class AnimalsController {
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
 	}
-	
+
 //==============================================================================================
 
 	// PreUpdate
 	@GetMapping("/preUpdateAnimal.controller")
-	public String processPreUpdateAnimal(@RequestParam("animalId") Integer animalId, Model m) {
-		Animals animals = animalsService.read(animalId);
-		m.addAttribute("Families", breedsService.readAllFamilies());
-		m.addAttribute("breed", breedsService.readAllBreeds(breedsService.readFamily(animalId).get(0)));
+	public String processPreUpdateAnimal(@RequestParam("animalId") Integer animalsId, Model m) {
+		Animals animals = animalsService.read(animalsId);
 		m.addAttribute("animals", animals);
+		m.addAttribute("Families", breedsService.readAllFamilies());
+		m.addAttribute("breed", breedsService.readAllBreeds(animals.getBreeds().getFamily()));
 		return "adopt/UpdateAnimal";
 	}
 
 	// Update
 	@PostMapping("/UpdateAnimal.controller")
-	public String processUpdateAnimal(@ModelAttribute("animals") Animals entity, Model m) throws Exception {
+	public String processUpdateAnimal(@ModelAttribute("animals") Animals entity,
+			@RequestParam("breedText") String breedText, Model m) throws Exception {
 		AnimalsFiles content = new AnimalsFiles();
 		// 更新照片部分
 		MultipartFile mFile = entity.getAnimalFiles();
-		if (!mFile.isEmpty()) {//mFile.isEmpty()為判斷是否有上傳圖片
+		if (!mFile.isEmpty()) {// mFile.isEmpty()為判斷是否有上傳圖片
 			String filename = mFile.getOriginalFilename();// 取得檔名
 			String fileTempDirPath = sc.getRealPath("/") + "uploadTempDir\\";// 存放的資料夾
-		
+
 			File dirPath = new File(fileTempDirPath);
-		
-			//建資料夾
+
+			// 建資料夾
 			if (!dirPath.exists()) {
 				boolean status = dirPath.mkdirs();
 				System.out.println("status:" + status);
 			}
-	
-			//設儲存路徑
+
+			// 設儲存路徑
 			String fileSavePath = fileTempDirPath + filename;
 			File saveFile = new File(fileSavePath);
 			mFile.transferTo(saveFile);
 			System.out.println("fileSavePath:" + fileSavePath);// 檔案路徑
-	
-			//設定圖片格式
+
+			// 設定圖片格式
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_JPEG);
-	
+
 			if (filename != null && filename.length() != 0) {
 				FileInputStream is1 = new FileInputStream(fileSavePath);
 				byte[] b = new byte[is1.available()];
 				is1.read(b);
 				is1.close();
-				
+
 				Integer animalId = entity.getAnimalId();
 				Set<AnimalsFiles> AnimalsFiles = animalsService.read(animalId).getFiles();
 				Blob blob = new SerialBlob(b);
-				
+
 				Iterator<AnimalsFiles> iterator = AnimalsFiles.iterator();
 				while (iterator.hasNext()) {
 					content = (AnimalsFiles) iterator.next();
@@ -264,26 +264,27 @@ public class AnimalsController {
 					content.setFileBlob(blob);
 //					content.setAnimals(entity);//
 					entity.setFiles(AnimalsFiles);
-					System.out.println("content"+content);
+					System.out.println("content" + content);
 				}
 			}
 		}
 		entity.setUpdatedAt(new Date());
-		entity.setMember((Members)session.getAttribute("LoginOK"));
-		System.out.println("inside UpdateAnimal.controller"+entity);
+		entity.setMember((Members) session.getAttribute("LoginOK"));
+		List<Breeds> readBreed = breedsService.readBreed(breedText);
+		entity.setBreeds(readBreed.get(0));// 用family找到該筆bean，再set到breeds，修改也是?
 		animalsService.update(entity);
-			
+
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		return "adopt/ReadAnimal";
 	}
-	
+
 //==============================================================================================
 
 	// Delete
 	@GetMapping("/DeleteAnimal.controller/{animalId}")
-	public String processDeleteAnimal(@PathVariable(name="animalId") Integer animalId, Model m) {
+	public String processDeleteAnimal(@PathVariable(name = "animalId") Integer animalId, Model m) {
 		// TODO 要addAttribute刪除失敗訊息
-		//軟刪除
+		// 軟刪除
 //		Animals entity = animalsService.read(animalId);
 //		entity.setDeletedAt(new Date());
 //		entity.setMember((Members)session.getAttribute("LoginOK"));

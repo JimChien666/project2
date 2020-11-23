@@ -95,9 +95,10 @@
 				</c:forEach>
 			</select>
 			<br>
-			<input type="text" name="breedText" value="${animals.breeds.breed}"
-				id="breedText" />
-			<br>
+			<div class="divHidden">
+				<input type="text" name="breedText" value="${animals.breeds.breed}"
+					id="breedText" /> <br>
+			</div>
 			<div id="breedIdDiv" class="divHidden">
 				<br>
 			</div>
