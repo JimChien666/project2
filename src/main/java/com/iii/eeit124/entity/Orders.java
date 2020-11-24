@@ -180,7 +180,7 @@ public class Orders {
 	
 	@Transient
 	public String getCreatedAtString() {
-		SimpleDateFormat spf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat spf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		spf.format(this.createdAt);
 		String date = spf.format(this.createdAt);
 

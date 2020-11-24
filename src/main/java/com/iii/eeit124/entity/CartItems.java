@@ -44,7 +44,7 @@ public class CartItems {
 	public Double getPrice() {
 		return price;
 	}
-	public int getDiscountPrice() {
+	public Integer getDiscountPrice() {
 		return (int) Math.round(price*discount);
 	}
 	public void setPrice(Double price) {
