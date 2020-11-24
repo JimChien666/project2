@@ -1,9 +1,14 @@
 package com.iii.eeit124.adopt.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.iii.eeit124.adopt.service.AnimalsService;
 
 @Controller
@@ -19,8 +24,12 @@ public class AdoptController {
 	}
 	
 	@GetMapping("/adoptNotice")
-	public String processAdoptNotice(Model m) {
-//		m.addAttribute("Animal", );
+	public String processAdoptNotice(
+			@RequestParam("animalId") Integer animalsId,
+			Model m) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		m.addAttribute("Today", sdf.format(new Date()));
+		m.addAttribute("animal", animalsService.read(animalsId));
 		return "adopt/AdoptNotice";
 	}
 	

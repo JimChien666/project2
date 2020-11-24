@@ -39,8 +39,9 @@ public class Animals {
 	private Members member;
 	private Breeds breeds;
 //	private AdoptionRecords adoptionRecords;
+	private String animalChipNumber;
 	
-	public Animals () {}
+//	public Animals () {}
 	
 //	@SequenceGenerator(name = "activitysSeqGen", sequenceName = "activitys_seq", allocationSize = 1)
 //	@GeneratedValue(generator = "activitysSeqGen", strategy = GenerationType.SEQUENCE)
@@ -170,6 +171,14 @@ public class Animals {
 	}
 	public void setBreeds(Breeds breeds) {
 		this.breeds = breeds;
+	}
+
+	@Column(name = "Animal_Chip_Number")
+	public String getAnimalChipNumber() {
+		return animalChipNumber;
+	}
+	public void setAnimalChipNumber(String animalChipNumber) {
+		this.animalChipNumber = animalChipNumber;
 	}
 //	@OneToOne(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)
 //	public AdoptionRecords getAdoptionRecords() {

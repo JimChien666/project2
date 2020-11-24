@@ -43,94 +43,80 @@
 		<div class="container">
 			<div class="row">
 				<!-- 				樣版 -->
-				<!--                     <div class="col-lg-6 col-md-6"> -->
-				<!--                         <div class="blog-wrapper mb-30 gray-bg"> -->
-				<!--                             <div class="blog-img hover-effect"> -->
-				<!--                                 <a href="blog-details.html"><img alt="" src="assets/img/blog/blog-4.jpg"></a> -->
-				<!--                             </div> -->
-				<!--                             <div class="blog-content"> -->
-				<!--                                 <div class="blog-meta"> -->
-				<!--                                     <ul> -->
-				<!--                                         <li>By: <span>Admin</span></li> -->
-				<!--                                         <li>Sep 14, 2018</li> -->
-				<!--                                     </ul> -->
-				<!--                                 </div> -->
-				<!--                                 <h4><a href="blog-details.html">Lorem ipsum dolor amet cons adipisicing elit</a></h4> -->
-				<!--                             </div> -->
-				<!--                         </div> -->
-				<!--                     </div> -->
 				<div class="page1">
-					<div class="margin10px">
-						<a href="<c:url value='/preCreateAnimal.controller'/>"
-							class="btn btn-primary">新增</a>
-						<%-- <%=application.getContextPath()%> --%>
-						<!-- 			搜尋框框 -->
-						<!-- 			<div class="input-group mb-3 search1"> -->
-						<!-- 			  <input type="text" class="form-control" placeholder="Search"> -->
-						<!-- 			  <div class="input-group-append"> -->
-						<!-- 			    <button class="btn btn-success" type="submit">Go</button> -->
-						<!-- 			  </div> -->
-						<!-- 			</div> -->
+					<div class="about-us-btn">
+						<a class="btn-style"
+							href="<c:url value='/preCreateAnimal.controller'/>">新增</a>
 					</div>
+					<%-- <%=application.getContextPath()%> --%>
+					<!-- 			搜尋框框 -->
+					<!-- 			<div class="input-group mb-3 search1"> -->
+					<!-- 			  <input type="text" class="form-control" placeholder="Search"> -->
+					<!-- 			  <div class="input-group-append"> -->
+					<!-- 			    <button class="btn btn-success" type="submit">Go</button> -->
+					<!-- 			  </div> -->
+					<!-- 			</div> -->
 					<!-- ===================================================================================== -->
 					<!-- card來源https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_card_image&stacked=h -->
 					<c:forEach var="AnimalsList" items="${AnimalsList}">
-						<div class="card card2">
-							<div class="square250px">
-								<img class="cardImg marginAuto"
-									src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${AnimalsList.animalId}"
-									alt="Animal image">
+						<div class="col-xl-3 col-lg-4 col-md-6 f-left">
+							<div class="blog-wrapper mb-15 mt-15 gray-bg card2">
+								<div class="hover-effect square250px">
+									<a href="blog-details.html"><img class="cardImg marginAuto"
+										alt=""
+										src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${AnimalsList.animalId}"></a>
+								</div>
+								<div class="blog-content form1">
+									<div class="">
+										<ul>
+											<!-- 									<li><div class="div1">動物編號：&nbsp;</div> -->
+											<%-- 										<div class="div1">${AnimalsList.animalId}</div> <br></li> --%>
+											<!-- 									===================================================================================== -->
+											<!-- 									<li><div class="div1">會員編號：&nbsp;</div> -->
+											<%-- 										<div class="div1">${AnimalsList.member.address}</div> <br></li> --%>
+											<!-- 									===================================================================================== -->
+											<li><div class="div1">收容動物編號：&nbsp;</div>
+												<div class="div1">${AnimalsList.acceptionId}</div> <br></li>
+											<!-- 									===================================================================================== -->
+											<li><div class="div1">品種：</div>
+												<div class="div1">${AnimalsList.breeds.breed}</div> <br></li>
+											<!-- 									===================================================================================== -->
+											<li><c:choose>
+													<c:when test="${AnimalsList.gender == 1}">
+														<div class="div1">性別：&nbsp;</div>公<br>
+													</c:when>
+													<c:otherwise>
+														<div class="div1">性別：&nbsp;</div>母<br>
+													</c:otherwise>
+												</c:choose></li>
+											<!-- 									===================================================================================== -->
+											<li><div class="div1">毛色：</div>
+												<div class="div1">${AnimalsList.coatColor}</div> <br></li>
+											<!-- 									===================================================================================== -->
+											<li><c:choose>
+													<c:when test="${AnimalsList.isAdoptionAvailable == 1}">
+														<div class="div1">是否開放領養：&nbsp;</div>是<br>
+													</c:when>
+													<c:otherwise>
+														<div class="div1">是否開放領養：&nbsp;</div>否<br>
+													</c:otherwise>
+												</c:choose></li>
+											<!-- 									===================================================================================== -->
+											<li><div class="div1">備註：&nbsp;</div>
+												<div class="div1 note1">${AnimalsList.note}</div> <br></li>
+										</ul>
+									</div>
+									<!--                                 <h4><a href="blog-details.html">Lorem ipsum dolor amet cons adipisicing elit</a></h4> -->
+								</div>
+								<div>
+									<a
+										href="<c:url value='/preUpdateAnimal.controller'/>?animalId=${AnimalsList.animalId}"
+										class="btn btn-secondary" style="width: 49%;">維護</a> <input
+										type="button" value="刪除"
+										onclick="deleteAnimal(${AnimalsList.animalId})"
+										class="btn btn-danger" style="width: 49%;">
+								</div>
 							</div>
-							<!-- ===================================================================================== -->
-							<div class="card-body form1">
-								<ul>
-<!-- 									<li><div class="div1">動物編號：&nbsp;</div> -->
-<%-- 										<div class="div1">${AnimalsList.animalId}</div> <br></li> --%>
-									<!-- ===================================================================================== -->
-<!-- 									<li><div class="div1">會員編號：&nbsp;</div> -->
-<%-- 										<div class="div1">${AnimalsList.member.address}</div> <br></li> --%>
-									<!-- ===================================================================================== -->
-									<li><div class="div1">收容動物編號：&nbsp;</div>
-										<div class="div1">${AnimalsList.acceptionId}</div> <br></li>
-									<!-- ===================================================================================== -->
-									<li><div class="div1">品種：&nbsp;</div>
-										<div class="div1">${AnimalsList.breeds.breed}</div> <br></li>
-									<!-- ===================================================================================== -->
-									<li><c:choose>
-											<c:when test="${AnimalsList.gender == 1}">
-												<div class="div1">性別：&nbsp;</div>公<br>
-											</c:when>
-											<c:otherwise>
-												<div class="div1">性別：&nbsp;</div>母<br>
-											</c:otherwise>
-										</c:choose></li>
-									<!-- ===================================================================================== -->
-									<li><div class="div1">毛色：&nbsp;</div>
-										<div class="div1">${AnimalsList.coatColor}</div> <br></li>
-									<!-- ===================================================================================== -->
-									<li><c:choose>
-											<c:when test="${AnimalsList.isAdoptionAvailable == 1}">
-												<div class="div1">是否開放領養：&nbsp;</div>是<br>
-											</c:when>
-											<c:otherwise>
-												<div class="div1">是否開放領養：&nbsp;</div>否<br>
-											</c:otherwise>
-										</c:choose></li>
-									<!-- ===================================================================================== -->
-									<li><div class="div1">備註：&nbsp;</div>
-										<div class="div1 note1">${AnimalsList.note}</div> <br></li>
-								</ul>
-							</div>
-							<!-- ===================================================================================== -->
-							<div>
-								<a
-									href="<c:url value='/preUpdateAnimal.controller'/>?animalId=${AnimalsList.animalId}"
-									class="btn btn-secondary" style="width: 49%;">維護</a> <input
-									type="button" value="刪除"
-									onclick="deleteAnimal(${AnimalsList.animalId})"
-									class="btn btn-danger" style="width: 49%;">
-							</div>
-							<!-- ===================================================================================== -->
 						</div>
 					</c:forEach>
 				</div>
