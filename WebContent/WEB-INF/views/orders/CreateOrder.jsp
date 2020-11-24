@@ -236,6 +236,7 @@ function fillUpData(){
                                                         </span>
                                                         <div class="billing-btn">
                                                             <form:button value="Send">確定下單</form:button>
+                                                            ${errors.createOrderError }
                                                         </div>
                                                         
                                                     </div>

@@ -52,6 +52,7 @@ public class CreateOrderController {
 	@PostMapping("/CreateOrder.controller")
 	public String createOrder(@ModelAttribute("order") Orders order,Model m) {			
 		Date createdAt = new Date();
+		UUID uid = UUID.randomUUID();
 		List<CartItems> cartItems = (List<CartItems>) session.getAttribute("cartItems");
 		Members buyer = (Members) session.getAttribute("LoginOK");
 		Map<String, String> errors = new HashMap<String, String>();
@@ -116,24 +117,25 @@ public class CreateOrderController {
 			
 			order.setCreatedAt(createdAt);
 			order.setOrderItems(orderItems);
-			
+			order.setUuid(uid.toString());
+			order.setIsPaid(0);
 			order.setBuyer(buyer);
 			order.setStatus("訂單成立");
 			order.setTotal(total);
 			
 			boolean Issuccess = service.saveOrder(order);
 			if(!Issuccess) {
-				errors.put("createOrderError", "交易失敗");
+				errors.put("createOrderError", "交易失敗1");
 			}
 		}catch (Exception e) {
-			errors.put("createOrderError", "交易失敗");
+			errors.put("createOrderError", "交易失敗2");
 			e.printStackTrace();
 		}
 		if (!errors.isEmpty()) {
 			// 導向原來輸入資料的畫面，這次會顯示錯誤訊息
 			return "orders/CreateOrder";
 		}
-		UUID uid = UUID.randomUUID();
+		
 		SimpleDateFormat spf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		String date = spf.format(createdAt);
 		System.out.println(date);

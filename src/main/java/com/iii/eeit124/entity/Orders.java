@@ -54,6 +54,8 @@ public class Orders {
 	private String recipientEmail;
 	private String status;
 	private Double total;
+	private Integer isPaid;
+	private String uuid;
 	private Date createdAt;
 	private Date updatedAt;
 	private Date deletedAt;
@@ -199,6 +201,20 @@ public class Orders {
 	}
 	public void setRecipientEmail(String recipientEmail) {
 		this.recipientEmail = recipientEmail;
+	}
+	@Column(name="IS_PAID")
+	public Integer getIsPaid() {
+		return isPaid;
+	}
+	public void setIsPaid(Integer isPaid) {
+		this.isPaid = isPaid;
+	}
+	@Column(name="UUID")
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	
 }
