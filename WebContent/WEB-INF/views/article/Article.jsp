@@ -26,8 +26,11 @@
 	right: 2%;
 }
 
-table, th, td {
-	border: 1px solid black;
+/* table, th, td { */
+/* 	border: 1px solid black; */
+/* } */
+td {
+border: 1px solid black;
 }
 </style>
 <meta charset="UTF-8">
@@ -37,39 +40,6 @@ table, th, td {
 
 <script>
 
-// $(document).ready(function(){
-// 	$.ajax({
-// 			type:"GET",
-// 			url:"<c:url value='article' />?articleId=461",
-// 			success : function(responseData){
-// 				showPageOrders(responseData)
-// 	         }
-// 		});
-
-// })
-
-
-// function showPageOrders(mapData){
-// 	var $article = $("#articleShow")
-// 	article = mapData.article;
-// 	pageNo = mapData.currPage;
-// 	totalPage  = mapData.totalPage;
-// 	recordCounts = mapData.recordCounts;
-// 	var content="";
-// 	$article.append("<h3>"+article.title+"</h3>")
-// 	$article.append("<table><tr><th>討論串編號</th><th>討論串內容</th></tr>")
-
-// 	$.each(article.forums, function(i, forum){
-// 		$article.append("<tr><td>" + forum.id + "</td><td>"+forum.content+"</td></tr>")
-// 		$article.append("</table>");
-// 		$article.append("<hr>");
-// 		$.each(forum.comments.sort(), function(j, c){
-// 				$article.append("<tr><th>留言編號</th><th>留言內容</th></tr>")
-// 				$article.append("<tr><td>" + c.id + "</td><td>"+c.comment+"</td></tr>")
-// 			})		
-// 		})
-// }
-
 $(document).ready(function(){
 	console.log("hi")
 	$("#articleShow").DataTable({
@@ -78,12 +48,12 @@ $(document).ready(function(){
         "url" : "<c:url value='article' />?articleId=${articleId}",
         "dataSrc": function (json){
         	console.log(json.article.forums)
-        	return json.article.forums  	
+        	return json.article.forums 	
             }
 		},
 	"columns" :[
 		{"data": "id"},
-		{"data": "content"}		
+		{"data": "content"}
 		]
 		});
 })

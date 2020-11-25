@@ -183,6 +183,7 @@ public class ArticleController {
 		Long recordCounts = forumsService.getRecordCounts(id);
 		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
 		map.put("article", article);
+		
 		map.put("totalPage", totalPage);
 		map.put("currPage", pageNo);
 		map.put("recordCounts", recordCounts);
