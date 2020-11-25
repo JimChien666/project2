@@ -169,7 +169,7 @@ table {
 			<c:forEach items="${Articles}" var="Article" varStatus="id">
 				<tr>
 					<td><a
-						href="<c:url value='article?articleId=${Article.getId()}' />">${Article.getId()}</a></td>
+						href="<c:url value='goArticlePage?articleId=${Article.getId()}' />">${Article.getId()}</a></td>
 					<td>${Article.getTitle()}</td>
 					<td><a
 						href="<c:url value='updateArticle?articleId=${Article.getId()}' />">

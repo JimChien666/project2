@@ -46,6 +46,12 @@ public class ArticleController {
 		return new Article();
 	}
 	
+	@GetMapping("goArticlePage")
+	public String goArticlePage(@RequestParam("articleId") Integer articleId, Model model) {
+		model.addAttribute("articleId", articleId);
+		return "article/Article";
+	}
+	
 	
 	@GetMapping(value = "testArticle")
 	public String testArticle() {
