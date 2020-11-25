@@ -2,6 +2,9 @@ package com.iii.eeit124.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +32,7 @@ public class Forums {
 	private int memberid;
 	private Article article;
 	private Members member;
-	private ArrayList<Comments> comments = new ArrayList<Comments>();
+	private Set<Comments> comments = new HashSet<Comments>();
 
 	@Id
 	@Column(name = "ID")
@@ -121,11 +124,11 @@ public class Forums {
 //				+ ", voteid=" + voteid + ", memberid=" + memberid + ", article=" + article + "]";
 //	}
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "forums", cascade = CascadeType.ALL)
-	public ArrayList<Comments> getComments() {
+	public Set<Comments> getComments() {
 		return comments;
 	}
 
-	public void setComments(ArrayList<Comments> comments) {
+	public void setComments(Set<Comments> comments) {
 		this.comments = comments;
 	}
 	

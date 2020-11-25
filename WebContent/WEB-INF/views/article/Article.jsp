@@ -6,9 +6,9 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css"> -->
   
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+<!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script> -->
 
 
 <html>
@@ -40,46 +40,90 @@ border: 1px solid black;
 
 <script>
 
-$(document).ready(function(){
-	console.log("hi")
-	$("#articleShow").DataTable({
-	"ajax": {
-        "type" : "GET",
-        "url" : "<c:url value='article' />?articleId=${articleId}",
-        "dataSrc": function (json){
-        	console.log(json.article.forums)
-        	return json.article.forums 	
-            }
-		},
-	"columns" :[
-		{"data": "id"},
-		{"data": "content"}
-		]
+// $(document).ready(function(){
+// 	console.log("hi")
+// 	$("#articleShow").DataTable({
+// 	"ajax": {
+//         "type" : "GET",
+//         "url" : "<c:url value='article' />?articleId=${articleId}",
+//         "dataSrc": function (json){
+//         	console.log(json.article.forums)
+//         	return json.article.forums 	
+//             }
+// 		},
+// 	"columns" :[
+// 		{"data": "id"},
+// 		{"data": "content"}
+// 		]
+// 		});
+// })
+
+
+	var article = $.ajax({
+			type:"GET",
+			url:"<c:url value='article' />?articleId=${articleId}",
+			success : function(mapData){
+				showPageOrders(mapData)
+				
+			}
 		});
-})
+
+
+
+
+
+
+function showPageOrders(mapData){
+	var $article = $("#articleShow")
+// 	var mapData = JSON.parse(responseData);
+// 	var 	 = responseData;
+	article = mapData.article;
+	pageNo = mapData.currPage;
+	totalPage  = mapData.totalPage;
+	recordCounts = mapData.recordCounts;
+	forumList = mapData.forumList;
+	var content="";
+	$article.append("<h3>"+article.title+"</h3>")
+	$article.append("<table><tr><th>討論串編號</th><th>討論串內容</th></tr>")
+
+	$.each(forumList, function(i, forum){
+		$article.append("<tr><td>" + forum.id + "</td><td>"+forum.content+"</td></tr>")
+		$article.append("</table>");
+		$article.append("<hr>");
+		$.each(forum.comments, function(j, c){
+				$article.append("<tr><th>留言編號</th><th>留言內容</th></tr>")
+				$article.append("<tr><td>" + c.id + "</td><td>"+c.comment+"</td></tr>")
+			})
+		
+		})	
+}
+
+
+
+
 
 </script>
 
 
 
 <body>
-<%-- 	<jsp:include page="../public/top.jsp" /> --%>
+	<jsp:include page="../public/top.jsp" />
 
 <div align='center'>
 	<h3>${article.getTitle()}</h3>
 	
-<!-- 	<div id="articleShow"></div> -->
+	<div id="articleShow"></div>
 	
-<table id='articleShow'>
-<thead>
-	<th>id</th>
-	<th>content</th>
-</thead>
-<tfoot>
-	<th>id</th>
-	<th>content</th>
-</tfoot>
-</table>
+<!-- <table id='articleShow'> -->
+<!-- <thead> -->
+<!-- 	<th>id</th> -->
+<!-- 	<th>content</th> -->
+<!-- </thead> -->
+<!-- <tfoot> -->
+<!-- 	<th>id</th> -->
+<!-- 	<th>content</th> -->
+<!-- </tfoot> -->
+<!-- </table> -->
 	
 	
 	<div id='navigation' style='height:60px;'></div>
