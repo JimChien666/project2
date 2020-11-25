@@ -1,5 +1,21 @@
 @charset "UTF-8";
 
+.btn-style-cancel {
+    background-color: #fff;
+    border-radius: 50px;
+    border: 3px #7e4c4f solid;
+    color: #7e4c4f;
+    display: inline-block;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    padding: 18px 30px 17px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+}
+
 .card2 {
 	padding: 5px;
 	width:262px;
@@ -17,7 +33,7 @@
     right: 0;
 }
 
-.textCenter{
+.divCenter{
 	text-align:center;
 }
 
@@ -33,6 +49,15 @@
 	margin-left: 125px;
 	display: none;
 	color: red;
+}
+
+.divVerticalCenter50{
+	padding-top:50px;
+	padding-bottom:50px;
+}
+
+.font20{
+	font-size:20px;
 }
 
 .form1 {
@@ -92,11 +117,28 @@
 	position: absolute;
 }
 
+.square20px {
+	height: 20px;
+	width: 20px;
+}
+
 .square250px {
 	height: 250px;
 	width: 250px;
 	position: relative;
 	margin-bottom:5px;
+}
+
+.tdVertical{
+	vertical-align:top;
+}
+
+.wid20{
+	width: 20px;
+}
+
+.wid100{
+	width: 100px;
 }
 
 .wid200px {
@@ -110,4 +152,14 @@
 .wid450px {
 	margin: 0 auto;
 	width: 450px;
+}
+
+.wid700px {
+	margin: 0 auto;
+	width: 700px;
+}
+
+.wid1000px {
+	margin: 0 auto;
+	width: 1000px;
 }

@@ -263,3 +263,19 @@ function test(){
 	let breedId = document.getElementById("gender").options[gender.selectedIndex].value;
 	console.log(breedId);
 }
+
+//noticeItem
+$("#save").click(function (){
+	
+	var notice1 = $('input[name=notice1]:checked').val();
+	var notice2 = $('input[name=notice2]:checked').val();
+	var notice3 = $('input[name=notice3]:checked').val();
+	var notice4 = $('input[name=notice4]:checked').val();
+	var notice5 = $('input[name=notice5]:checked').val();
+	var notice6 = $('input[name=notice6]:checked').val();
+	var notice7 = $('input[name=notice7]:checked').val();
+	var notice8 = $('input[name=notice8]:checked').val();
+	var notice9 = $('input[name=notice9]:checked').val();
+	var notice10 = $('input[name=notice10]:checked').val();
+	$('input[name=radio使用的name的值]:checked').val()
+})
