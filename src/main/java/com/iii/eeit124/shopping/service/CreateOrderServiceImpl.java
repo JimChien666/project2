@@ -17,4 +17,16 @@ public class CreateOrderServiceImpl implements CreateOrderService {
 		return dao.saveOrder(order);
 	}
 
+	@Override
+	public void updateOrderIsPaid(String merchantTradeNo) {
+		dao.updateOrderIsPaid(merchantTradeNo);
+		
+	}
+
+	@Override
+	public void updateOrderStatus(String merchantTradeNo, String status) {
+		dao.updateOrderIsPaid(merchantTradeNo, status);
+		dao.updateOrderItemStatus(merchantTradeNo, status);
+	}
+
 }

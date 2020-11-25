@@ -24,7 +24,7 @@ public class PaymentCall {
 		obj.setStoreExpireDate("3");
 		obj.setInvoiceMark("N");
 		obj.setChooseSubPayment("Credit");
-		invoice.setRelateNumber("test202011test");
+		invoice.setRelateNumber(uid.toString().replaceAll("-", "").substring(0, 20));
 		invoice.setCustomerID(buyerId);
 		invoice.setCarruerType("1");
 		invoice.setTaxType("1");

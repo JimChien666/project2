@@ -50,6 +50,7 @@ window.onload = function() {
 					"<th>訂單編號</th>"+
 					"<th>訂單日期</th>"+
 					"<th>訂單狀態</th>"+
+					"<th>付款狀態</th>"+
 					"<th>訂單總額</th>"+
 					"<th>操作</th>"+
 						"</tr>"
@@ -57,9 +58,17 @@ window.onload = function() {
 					  "<td>"+orders[i].id+"</td>" +
 					  "<td>"+orders[i].createdAtString+"</td>" +
 					  "<td>"+orders[i].status+"</td>" +
-					  "<td>"+orders[i].total+"</td>" +
-					  "<td><button onclick='showOrderInfo("+orders[i].id+")'>訂單詳細</button></td>" +
-			   	      "</tr>"+
+					  "<td>"+orders[i].total+"</td>"
+					  
+				if(orders[i].isPaid==0){
+				content +="<td>尚未付款</td>"
+				}else if (orders[i].isPaid==1){
+					content +="<td>付款完成</td>"
+				}else{
+					content +="<td>付款失敗</td>"
+					}
+			content +="<td><button onclick='showOrderInfo("+orders[i].id+")'>訂單詳細</button></td>"+
+					  "</tr>"+
 					  "</table>"
 			content += "<table id='orderInfo"+orders[i].id+"' style='display: none;'>"+
 						"<tr>"+

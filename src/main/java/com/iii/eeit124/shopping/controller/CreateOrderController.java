@@ -117,7 +117,7 @@ public class CreateOrderController {
 			
 			order.setCreatedAt(createdAt);
 			order.setOrderItems(orderItems);
-			order.setUuid(uid.toString());
+			order.setUuid(uid.toString().replaceAll("-", "").substring(0, 20));
 			order.setIsPaid(0);
 			order.setBuyer(buyer);
 			order.setStatus("訂單成立");
