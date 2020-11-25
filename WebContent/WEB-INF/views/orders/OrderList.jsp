@@ -50,8 +50,8 @@ window.onload = function() {
 					"<th>訂單編號</th>"+
 					"<th>訂單日期</th>"+
 					"<th>訂單狀態</th>"+
-					"<th>付款狀態</th>"+
 					"<th>訂單總額</th>"+
+					"<th>付款狀態</th>"+
 					"<th>操作</th>"+
 						"</tr>"
 			content +="<tr>" +
@@ -181,14 +181,16 @@ window.onload = function() {
 <div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
             <div class="container">
                 <div class="breadcrumb-content text-center">
-                    <h2>訂單</h2>
+                    <h2>購買紀錄</h2>
                     <ul>
                         <li><a href="<c:url value='/' />">首頁</a></li>
-                        <li class="active">訂單</li>
+                        <li><a href="<c:url value='/member/myAccount'/>">會員中心</a></li>
+                        <li class="active">購買紀錄</li>
                     </ul>
                 </div>
             </div>
         </div>
+<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
         
         <div class="cart-main-area pt-95 pb-100">
             <div class="container">

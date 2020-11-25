@@ -20,5 +20,10 @@ public class MemberCenterController {
 	public String getMemberCenterPage() {
 		return "members/memberCenter";
 	}
+	
+	@GetMapping("/myAccount")
+	public String getMyAccountPage() {
+		return "members/myAccount";
+	}
 
 }
