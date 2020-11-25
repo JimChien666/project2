@@ -1,5 +1,6 @@
 package com.iii.eeit124.article.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -48,7 +49,7 @@ public class ForumsDaoImpl implements ForumsDao {
 	public List<Forums> select(Integer pageNo, Integer recordsPerPage, Integer id) {
 		Integer startRecordNo = (pageNo - 1) * recordsPerPage; 
 		@SuppressWarnings("unchecked")
-		TypedQuery<Forums> query = sessionFactory.getCurrentSession().createQuery("from Forums where ID=?0 order by id");
+		TypedQuery<Forums> query = sessionFactory.getCurrentSession().createQuery("from Forums where article_id=?0 order by id");
 		query.setParameter(0, id).setFirstResult(startRecordNo).setMaxResults(recordsPerPage);
 		query.getResultList();
 		return query.getResultList();
