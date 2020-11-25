@@ -8,6 +8,6 @@ public interface OrderListService {
 
 	List<Orders> findAllOrdersByMemberId(Integer pageNo, Integer recordsPerPage, Integer id);
 
-	Long getRecordCounts();
+	Long getRecordCounts(Integer id);
 
 }

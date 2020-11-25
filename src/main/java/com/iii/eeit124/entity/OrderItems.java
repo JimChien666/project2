@@ -1,6 +1,5 @@
 package com.iii.eeit124.entity;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -56,7 +55,7 @@ public class OrderItems {
 	}
 	@Transient
 	public Integer getOrderId() {
-		return orderId;
+		return this.order.getId();
 	}
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
@@ -112,6 +111,11 @@ public class OrderItems {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+	@Transient
+	public int getDiscountPrice() {
+		return (int) Math.round(price*discount);
+	}
+	
 	@Column(name="UPDATED_AT")
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getUpdatedAt() {

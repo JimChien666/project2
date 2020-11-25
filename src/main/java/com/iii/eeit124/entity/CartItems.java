@@ -44,12 +44,16 @@ public class CartItems {
 	public Double getPrice() {
 		return price;
 	}
+	public Integer getDiscountPrice() {
+		return (int) Math.round(price*discount);
+	}
 	public void setPrice(Double price) {
 		this.price = price;
 	}
 	public Double getDiscount() {
 		return discount;
 	}
+	
 	public void setDiscount(Double discount) {
 		this.discount = discount;
 	}

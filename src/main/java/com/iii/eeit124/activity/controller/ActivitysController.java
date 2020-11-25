@@ -33,6 +33,7 @@ import com.iii.eeit124.activity.service.ActivitysService;
 import com.iii.eeit124.entity.Activitys;
 
 @Controller
+@RequestMapping("activity")
 public class ActivitysController {
 
     @Autowired

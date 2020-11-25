@@ -35,11 +35,11 @@ public class OrderListController {
 	@GetMapping("/pagingOrders.json")
 	public @ResponseBody Map<String, Object> getPageOrders(Model model, @RequestParam(value="pageNo",defaultValue = "1") Integer pageNo) {
 		Map<String, Object> map = new HashMap<>();
-		Integer recordsPerPage = 3;
+		Integer recordsPerPage = 4;
 		Members loginOK = (Members)session.getAttribute("LoginOK");
 //		System.out.println(loginOK);
 		List<Orders> orderList = service.findAllOrdersByMemberId(pageNo, recordsPerPage, loginOK.getId());
-		Long recordCounts = service.getRecordCounts();
+		Long recordCounts = service.getRecordCounts(loginOK.getId());
 		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
 //		model.addAttribute("orderList", orderList);
 		map.put("list", orderList);

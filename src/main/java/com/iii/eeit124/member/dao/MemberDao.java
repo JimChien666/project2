@@ -12,4 +12,5 @@ public interface MemberDao {
 	
 
 	boolean accountExists(String account);
+
 }

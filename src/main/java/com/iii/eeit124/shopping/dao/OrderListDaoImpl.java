@@ -30,9 +30,9 @@ public class OrderListDaoImpl implements OrderListDao {
 
 
 	@Override
-	public Long getRecordCounts() {
+	public Long getRecordCounts(Integer id) {
 		Long count = 0L; // 必須使用 long 型態
-		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Orders").getSingleResult();
+		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Orders where BUYER_ID=?0").setParameter(0, id).getSingleResult();
 		return count;
 	}
 

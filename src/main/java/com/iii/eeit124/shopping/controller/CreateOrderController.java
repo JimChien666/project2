@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,11 +25,17 @@ import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.entity.OrderItems;
 import com.iii.eeit124.entity.Orders;
 import com.iii.eeit124.shopping.service.CreateOrderService;
+import com.iii.eeit124.util.PaymentCall;
+
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutCVS;
+import ecpay.payment.integration.domain.InvoiceObj;
 
 
 @Controller
 @RequestMapping("/order")
 public class CreateOrderController {
+
 	@Autowired
 	HttpSession session;
 	
@@ -45,7 +52,9 @@ public class CreateOrderController {
 	@PostMapping("/CreateOrder.controller")
 	public String createOrder(@ModelAttribute("order") Orders order,Model m) {			
 		Date createdAt = new Date();
-		
+		UUID uid = UUID.randomUUID();
+		List<CartItems> cartItems = (List<CartItems>) session.getAttribute("cartItems");
+		Members buyer = (Members) session.getAttribute("LoginOK");
 		Map<String, String> errors = new HashMap<String, String>();
 		m.addAttribute("errors", errors);
 		if("".equals(order.getBuyerName())||order.getBuyerName()==null) {
@@ -57,6 +66,9 @@ public class CreateOrderController {
 		if("".equals(order.getBuyerAddress())||order.getBuyerAddress()==null) {
 			errors.put("buyerAddress", "請填入訂購人地址");
 		}
+		if("".equals(order.getBuyerEmail())||order.getBuyerEmail()==null) {
+			errors.put("buyerEmail", "請填入訂購人Email");
+		}
 		if("".equals(order.getRecipientName())||order.getRecipientName()==null) {
 			errors.put("recipientName", "請填入收件人名稱");
 		}
@@ -66,6 +78,9 @@ public class CreateOrderController {
 		if("".equals(order.getRecipientAddress())||order.getRecipientAddress()==null) {
 			errors.put("recipientAddress", "請填入收件人地址");
 		}
+		if("".equals(order.getRecipientEmail())||order.getRecipientEmail()==null) {
+			errors.put("recipientEmail", "請填入收件人Email");
+		}
 		if (!errors.isEmpty()) {
 			// 導向原來輸入資料的畫面，這次會顯示錯誤訊息
 			return "orders/CreateOrder";
@@ -74,7 +89,7 @@ public class CreateOrderController {
 		try {
 			Double total=0.0;
 			Set<OrderItems> orderItems = new HashSet<OrderItems>();
-			List<CartItems> cartItems = (List<CartItems>) session.getAttribute("cartItems");
+			
 			/*
 			 * 1.計算訂單total 填入orders
 			 * 2.創建一個新的orderItems 將cartItem個別填入，再加到Set<OrderItems>中，放入orders裡
@@ -83,7 +98,7 @@ public class CreateOrderController {
 				//將購物車資訊塞入訂單品項中
 				OrderItems orderItem = new OrderItems();
 				orderItem.setDiscount(cartItem.getDiscount());
-				Double subTotal=cartItem.getPrice()*cartItem.getDiscount()*cartItem.getQuantity();
+				Integer subTotal=cartItem.getDiscountPrice()*cartItem.getQuantity();
 				orderItem.setDiscount(cartItem.getDiscount());
 				orderItem.setOrder(order);
 				orderItem.setPrice(cartItem.getPrice());
@@ -99,28 +114,46 @@ public class CreateOrderController {
 				total+=subTotal;
 				
 			}
-
+			
 			order.setCreatedAt(createdAt);
 			order.setOrderItems(orderItems);
-			Members buyer = (Members) session.getAttribute("LoginOK");
+			order.setUuid(uid.toString());
+			order.setIsPaid(0);
 			order.setBuyer(buyer);
 			order.setStatus("訂單成立");
 			order.setTotal(total);
+			
 			boolean Issuccess = service.saveOrder(order);
 			if(!Issuccess) {
-				errors.put("createOrderError", "交易失敗");
+				errors.put("createOrderError", "交易失敗1");
 			}
 		}catch (Exception e) {
-			errors.put("createOrderError", "交易失敗");
+			errors.put("createOrderError", "交易失敗2");
 			e.printStackTrace();
 		}
 		if (!errors.isEmpty()) {
 			// 導向原來輸入資料的畫面，這次會顯示錯誤訊息
 			return "orders/CreateOrder";
 		}
+		
+		SimpleDateFormat spf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		String date = spf.format(createdAt);
+		System.out.println(date);
+		System.out.println(buyer.getId());
+		session.setAttribute("order", order);
+		session.setAttribute("orderItems", order.getOrderItems());
 		session.removeAttribute("cartItems");
-		m.addAttribute("order", order);
-		m.addAttribute("orderItems", order.getOrderItems());
+		for(CartItems cartItem:cartItems) {
+			String form = PaymentCall.genAioCheckOutALL(uid, buyer.getId().toString(), ((Integer)order.getTotal().intValue()).toString(), cartItem.getProductName().toString(), cartItem.getQuantity().toString(), cartItem.getDiscountPrice().toString(), order.getBuyerName(), order.getBuyerAddress(), order.getBuyerTel(), date);
+			m.addAttribute("form", form);
+			return "orders/goPayPage";
+		}
+		
+		
+		
 		return "orders/CreateOrderSuccess";
 	}
+	
+	
+	
 }

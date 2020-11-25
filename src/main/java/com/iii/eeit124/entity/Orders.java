@@ -47,11 +47,15 @@ public class Orders {
 	private String buyerName;
 	private String buyerTel;
 	private String buyerAddress;
+	private String buyerEmail;
 	private String recipientName;
 	private String recipientTel;
 	private String recipientAddress;
+	private String recipientEmail;
 	private String status;
 	private Double total;
+	private Integer isPaid;
+	private String uuid;
 	private Date createdAt;
 	private Date updatedAt;
 	private Date deletedAt;
@@ -178,11 +182,39 @@ public class Orders {
 	
 	@Transient
 	public String getCreatedAtString() {
-		SimpleDateFormat spf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat spf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		spf.format(this.createdAt);
 		String date = spf.format(this.createdAt);
 
 		return date;	
+	}
+	@Column(name="BUYER_EMAIL")
+	public String getBuyerEmail() {
+		return buyerEmail;
+	}
+	public void setBuyerEmail(String buyerEmail) {
+		this.buyerEmail = buyerEmail;
+	}
+	@Column(name="RECIPIENT_EMAIL")
+	public String getRecipientEmail() {
+		return recipientEmail;
+	}
+	public void setRecipientEmail(String recipientEmail) {
+		this.recipientEmail = recipientEmail;
+	}
+	@Column(name="IS_PAID")
+	public Integer getIsPaid() {
+		return isPaid;
+	}
+	public void setIsPaid(Integer isPaid) {
+		this.isPaid = isPaid;
+	}
+	@Column(name="UUID")
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	
 }

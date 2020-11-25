@@ -4,12 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-th, td{
-width: 200px;
-align: left;
-}
-</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -57,6 +51,7 @@ window.onload = function() {
 					"<th>訂單日期</th>"+
 					"<th>訂單狀態</th>"+
 					"<th>訂單總額</th>"+
+					"<th>操作</th>"+
 						"</tr>"
 			content +="<tr>" +
 					  "<td>"+orders[i].id+"</td>" +
@@ -66,7 +61,7 @@ window.onload = function() {
 					  "<td><button onclick='showOrderInfo("+orders[i].id+")'>訂單詳細</button></td>" +
 			   	      "</tr>"+
 					  "</table>"
-			content += "<table border='1' id='orderInfo"+orders[i].id+"' style='display: none;'>"+
+			content += "<table id='orderInfo"+orders[i].id+"' style='display: none;'>"+
 						"<tr>"+
 						"<th>商品編號</th>"+
 						"<th>商品圖片</th>"+
@@ -84,9 +79,9 @@ window.onload = function() {
 							"<td>"+orders[i].orderItems[j].productId+"</td>"+
 							"<td><img width='60' height='80' src='"+imageUrl+"?productId="+orders[i].orderItems[j].productId+"'></td>"+
 							"<td>"+orders[i].orderItems[j].productName+"</td>"+
-							"<td>"+orders[i].orderItems[j].price*orders[i].orderItems[j].discount+"</td>"+
+							"<td>"+orders[i].orderItems[j].discountPrice+"</td>"+
 							"<td>"+orders[i].orderItems[j].quantity+"</td>"+
-							"<td>"+(orders[i].orderItems[j].price*orders[i].orderItems[j].discount*orders[i].orderItems[j].quantity)+"</td>"+
+							"<td>"+(orders[i].orderItems[j].discountPrice*orders[i].orderItems[j].quantity)+"</td>"+
 							"<td>"+orders[i].orderItems[j].status+"</td>"+
 						"</tr>"
 				
@@ -96,18 +91,18 @@ window.onload = function() {
 		
 		document.getElementById("orderShow").innerHTML = content;
 
-		var navContent = "<table border='1' ><tr height='36' bgcolor='#fbdb98'>" ;
+		var navContent = "" ;
 		if (pageNo != 1){
-			navContent += "<td align='center'><button id='first'>第一頁</button></td>";
-			navContent += "<td align='center'><button id='prev'>前一頁</button></td>";
+			navContent += "<li><a id='first'><<</a></li>";
+			navContent += "<li><a id='prev'><</a></li>";
 		}  else {
-			navContent += "<td align='center'>&nbsp;</td>";
-			navContent += "<td align='center'>&nbsp;</td>";
+			navContent += "<li>&nbsp;</li>";
+			navContent += "<li>&nbsp;</li>";
 		}
-		navContent += "<td width='200' align='center'>第" + pageNo + "頁 / 共" + totalPage + "頁</td>";
+		navContent += "<td width='200' align='center'> " + pageNo + " / " + totalPage + "</td>";
 		if (pageNo != totalPage){
-			navContent += "<td align='center'><button id='next'>下一頁</button></td>";
-			navContent += "<td align='center'><button id='last'>最末頁</button></td>";
+			navContent += "<li><a id='next'>></a></li>";
+			navContent += "<li><a id='last'>>></a></li>";
 		}  else {
 			navContent += "<td align='center'>&nbsp;</td>";
 			navContent += "<td align='center'>&nbsp;</td>";
@@ -171,12 +166,47 @@ window.onload = function() {
 			
 	}
 </script>
+<jsp:include page="../fragments/links.jsp" />
 <body>
-<jsp:include page="../public/top.jsp" />
-<div align='center'>
-	<h2>訂單列表</h2>
-	<div id="orderShow"></div>
-	<div id='navigation' style='height:60px;'></div>
-	</div>
+<jsp:include page="../fragments/headerArea.jsp" />
+<div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
+            <div class="container">
+                <div class="breadcrumb-content text-center">
+                    <h2>訂單</h2>
+                    <ul>
+                        <li><a href="<c:url value='/' />">首頁</a></li>
+                        <li class="active">訂單</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cart-main-area pt-95 pb-100">
+            <div class="container">
+                <h3 class="page-title">訂單列表</h3>
+                <div class="row">
+                   	 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="table-content table-responsive" id='orderShow'>
+                            </div>
+                     </div>
+                     
+                </div>
+            </div>
+            <div class="blog-area pt-100 pb-100 clearfix" style="padding:0;">
+            <div class="container">
+                <div class="pagination-style text-center mt-10">
+                	<ul id = 'navigation'>
+			        </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        
+
+
+
+<jsp:include page="../fragments/footerArea.jsp" />
+<jsp:include page="../fragments/allJs.jsp" />
 </body>
 </html>

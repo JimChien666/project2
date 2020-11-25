@@ -8,3 +8,4 @@ public interface MemberService {
 	Members queryMember(String id);
 	public Members checkIDPassword(String userId, String password) ;
 }
+

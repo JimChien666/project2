@@ -8,6 +8,6 @@ public interface OrderListDao {
 
 	List<Orders> indAllOrdersByMemberId(Integer pageNo,Integer recordsPerPage,Integer id);
 
-	Long getRecordCounts();
+	Long getRecordCounts(Integer id);
 
 }
