@@ -3,15 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script> -->
-<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="#">Pet me, 陪你</a>
+	<a class="navbar-brand" href="#">Pet me, 陪你♥♥</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -34,11 +31,11 @@
           </div>
         </li> --%>
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductsPage' />">購物</a></li>
+				href="<c:url value='/product/ProductList' />">購物</a></li>
 			<%-- <li class="nav-item"><a class="nav-link"
 				href="<c:url value='/ShowIndexServlet' />">寵物旅遊</a></li> --%>
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ServletReadAnimal' />">寵物領養</a></li>
+				href="<c:url value='/adoptDispatcher' />">寵物領養</a></li>
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value='/articleList' />">討論區</a></li>
 			<c:if test="${empty LoginOK}">
@@ -65,6 +62,7 @@
 						${LoginOK.getName()} </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item" href="<c:url value='/member/memberCenter' />">會員中心</a>
+						<a class="dropdown-item" href="<c:url value='/order/OrderList' />">我的訂單</a>
 						<a class="dropdown-item"
 							href="<c:url value='/member/logout' />">登出</a>
 							

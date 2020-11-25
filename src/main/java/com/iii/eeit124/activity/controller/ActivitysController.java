@@ -43,11 +43,11 @@ public class ActivitysController {
         return new Activitys();
     }
 
-    @GetMapping("/")
-    public String list(Locale locale, Model model) {
-        model.addAttribute("activitysList", activitysService.list());
-        return "activitys/list";
-    }
+//    @GetMapping("/")
+//    public String list(Locale locale, Model model) {
+//        model.addAttribute("activitysList", activitysService.list());
+//        return "activitys/list";
+//    }
     
     @GetMapping("update/activitys/{id}")
     public String getUpdatePage(@PathVariable(value = "id") Integer id, Locale locale, Model model) {

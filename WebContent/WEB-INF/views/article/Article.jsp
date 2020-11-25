@@ -11,6 +11,16 @@
 <!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script> -->
 
 
+
+<link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
+<script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
+<jsp:include page="../fragments/links.jsp" />
+
+
+
+
+
+
 <html>
 <head>
 <style type="text/css">
@@ -89,11 +99,11 @@ function showPageOrders(mapData){
 	$.each(forumList, function(i, forum){
 		$article.append("<tr><td>" + forum.id + "</td><td>"+forum.content+"</td></tr>")
 		$article.append("</table>");
-		$article.append("<hr>");
 		$.each(forum.comments, function(j, c){
-				$article.append("<tr><th>留言編號</th><th>留言內容</th></tr>")
+				$article.append("<tr><th>留言編號</th><th>留言內容</th></tr>").one
 				$article.append("<tr><td>" + c.id + "</td><td>"+c.comment+"</td></tr>")
 			})
+		$article.append("<hr>");
 		
 		})	
 }
@@ -107,6 +117,28 @@ function showPageOrders(mapData){
 
 
 <body>
+
+	<div>
+		<jsp:include page="../fragments/headerArea.jsp" />
+	</div>
+	<!-- 	麵包屑 -->
+	<div class="breadcrumb-area pt-95 pb-95 bg-img"
+		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
+		<div class="container">
+			<div class="breadcrumb-content text-center">
+				<h2>Blog</h2>
+				<ul>
+					<li><a href="index.html">home</a></li>
+					<li class="active">Blog</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
 	<jsp:include page="../public/top.jsp" />
 
 <div align='center'>
@@ -130,6 +162,23 @@ function showPageOrders(mapData){
 	
 </div>
 
+                <div class="pagination-style text-center mt-20">
+                    <ul>
+                        <li>
+                            <a href="#"><i class="icon-arrow-left"></i></a>
+                        </li>
+                        <li>
+                            <a href="#">1</a>
+                        </li>
+                        <li>
+                            <a href="#">2</a>
+                        </li>
+                        <li>
+                            <a class="active" href="#"><i class="icon-arrow-right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+
 	<a href="<c:url value='backArticle' />" class="fixed">
 		<button type="button" class="btn btn-success">回討論版</button>
 	</a>
@@ -139,5 +188,8 @@ function showPageOrders(mapData){
 	</a>
 
 
+
+	<jsp:include page="../fragments/footerArea.jsp" />
+	<jsp:include page="../fragments/allJs.jsp" />
 </body>
 </html>

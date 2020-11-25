@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+.card2 {
+	padding: 5px;
+	width:262px;
+}
+
+.cardImg {
+    max-height: 100%;  
+    max-width: 100%; 
+    width: auto;
+    height: auto;
+    position: absolute;  
+    top: 0;  
+    bottom: 0;  
+    left: 0;  
+    right: 0;
+}
+
+.textCenter{
+	text-align:center;
+}
+
+.dispblok {
+	display: block;
+}
+
+.div1 {
+	display: inline-block;
+}
+
+.divHidden {
+	margin-left: 125px;
+	display: none;
+	color: red;
+}
+
+.form1 {
+	height:250px;
+	overflow: auto;
+	margin: 5px 0 5px 0;
+}
+
+.height260px {
+	height: 260px;
+}
+
+.input1{
+	margin-top:5px;
+	background-color:white;
+	border:0px;
+}
+
+.inputHW{
+	width:150px;
+	height:30px;
+}
+
+.inputBorder{
+	border:1px black solid;
+}
+
+.label1 {
+	display: inline-block;
+	width: 120px;
+	text-align: right;
+}
+
+.margin10px {
+	margin: 10px;
+}
+
+.marginAuto{
+	margin:auto;
+}
+
+.margleft125px {
+	margin-left: 125px;
+}
+
+.note1 {
+	height: auto;
+	word-wrap: break-word;
+}
+
+.page1 {
+	margin: 0 auto;
+	width: 96%;
+}
+
+.posAbs {
+	position: absolute;
+}
+
+.square250px {
+	height: 250px;
+	width: 250px;
+	position: relative;
+	margin-bottom:5px;
+}
+
+.wid200px {
+	width: 200px;
+}
+
+.wid305px {
+	width: 305px;
+}
+
+.wid450px {
+	margin: 0 auto;
+	width: 450px;
+}

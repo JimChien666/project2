@@ -27,6 +27,12 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
 
+
+<link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
+<script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
+<jsp:include page="../fragments/links.jsp" />
+
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -66,6 +72,32 @@ table {
 
 </head>
 <body>
+
+
+
+	<div>
+		<jsp:include page="../fragments/headerArea.jsp" />
+	</div>
+	<!-- 	麵包屑 -->
+	<div class="breadcrumb-area pt-95 pb-95 bg-img"
+		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
+		<div class="container">
+			<div class="breadcrumb-content text-center">
+				<h2>Blog</h2>
+				<ul>
+					<li><a href="index.html">home</a></li>
+					<li class="active">Blog</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
 <jsp:include page="../public/top.jsp" />
 	<%-- ${LoginOK.getName()} --%>
 	<%-- 	<jsp:include page="../nn/top.jsp" /> --%>
@@ -185,5 +217,8 @@ table {
 	</div>
 	
 
+
+	<jsp:include page="../fragments/footerArea.jsp" />
+	<jsp:include page="../fragments/allJs.jsp" />
 </body>
 </html>

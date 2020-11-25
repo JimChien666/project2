@@ -53,10 +53,10 @@ public class ArticleController {
 	}
 	
 	
-	@GetMapping(value = "testArticle")
-	public String testArticle() {
-		return "article/Article";
-	}
+//	@GetMapping(value = "testArticle")
+//	public String testArticle() {
+//		return "article/Article";
+//	}
 
 	@GetMapping(value = "articleList")
 	public String list(Locale locale, Model model,

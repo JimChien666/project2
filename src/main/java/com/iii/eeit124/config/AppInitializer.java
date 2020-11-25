@@ -48,8 +48,8 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		filterRegistration.addMappingForUrlPatterns(null, true, "/*");
 		filterRegistration.setInitParameter("mustLogin1", "/product/CreateProduct");
 		filterRegistration.setInitParameter("mustLogin2", "/saveArticle");
-		filterRegistration.setInitParameter("mustLogin3", "/replyArticle");
-
+		filterRegistration.setInitParameter("mustLogin3", "/order/*");
+		filterRegistration.setInitParameter("mustLoginMyPets", "/ReadAnimal");
 		filterRegistration = servletContext.addFilter("FindUserPassword", FindUserPassword.class);
 		filterRegistration.addMappingForUrlPatterns(null, true, "/login");
 		filterRegistration.addMappingForServletNames(null, true, "mvc");
