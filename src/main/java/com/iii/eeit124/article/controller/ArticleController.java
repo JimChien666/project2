@@ -192,6 +192,28 @@ public class ArticleController {
 		map.put("recordsPerPage", recordsPerPage);
 		return map;		
 	}
+	
+	@GetMapping(value = "getArticle")
+	public @ResponseBody Map<String, Object> getPage(Model model, @RequestParam(value="pageNo",defaultValue = "1") Integer pageNo, @RequestParam(value = "articleId")Integer id){
+		Map<String, Object> map = new HashMap<>();
+		Integer recordsPerPage = 2;
+		System.out.println("fuck");
+		System.out.println(id);
+//		Members loginOK = (Members)session.getAttribute("LoginOK");
+		Article article = articleService.select(id);
+//		List<Forums> articleList = forumsService.select(pageNo, recordsPerPage, id);
+		Long recordCounts = forumsService.getRecordCounts(id);
+		List<Forums> forumList = forumsService.select(pageNo, recordsPerPage, id);
+		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
+		
+		map.put("article", article);
+		map.put("forumList", forumList);
+		map.put("totalPage", totalPage);
+		map.put("currPage", pageNo);
+		map.put("recordCounts", recordCounts);
+		map.put("recordsPerPage", recordsPerPage);
+		return map;		
+	}
 
 	@GetMapping(value = "showComments")
 	public @ResponseBody List<Comments> showComments(@RequestParam(value = "forumsId") Integer id) {		

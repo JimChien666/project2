@@ -58,7 +58,7 @@ public class ForumsDaoImpl implements ForumsDao {
 	@Override
 	public Long getRecordCounts(Integer id) {
 		Long count = 0L; // 必須使用 long 型態
-		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Forums where ID=?0").setParameter(0, id).getSingleResult();
+		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Forums where article_id=?0").setParameter(0, id).getSingleResult();
 		return count;
 	}
 
