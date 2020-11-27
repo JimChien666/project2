@@ -188,8 +188,8 @@ function asynRequest(id) {
 	    // 注意，查詢字串的前面有問號
 	    queryString = "&pageNo=" + no + "&totalPage=" + totalPage;
 					   //<c:url value='article' />?articleId=${articleId}
-		xhr.open("GET", "<c:url value='getArticle' />?articleId=${articleId}" + queryString , true);
-// 		xhr.open("GET", "<c:url value='article' />?articleId=${articleId}" + queryString , true);
+// 		xhr.open("GET", "<c:url value='getArticle' />?articleId=${articleId}" + queryString , true);
+		xhr.open("GET", "<c:url value='article' />?articleId=${articleId}" + queryString , true);
 		console.log(no)
 		console.log(totalPage)
 		
@@ -235,7 +235,7 @@ function asynRequest(id) {
 		</div>
 	</div>
 
-	<jsp:include page="../public/top.jsp" />
+<%-- 	<jsp:include page="../public/top.jsp" /> --%>
 
 	<div align='center'>
 <%-- 		<h3>${article.getTitle()}</h3> --%>
