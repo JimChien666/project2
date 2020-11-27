@@ -100,14 +100,40 @@
 		$article.append("<table class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
 
 		$.each(forumList, function(i, forum) {
-			$article.append("<tr><td>" + forum.id + "</td><td>" + forum.content
+			$article.append("<tr><td id='forum.id'>" + forum.id + "</td><td>" + forum.content
 					+ "</td></tr>")
-			$article.append("</table class='table table-striped'>");
-			$.each(forum.comments, function(j, c) {
-				$article.append("<tr><th>留言編號</th><th>留言內容</th></tr>").one
-				$article.append("<tr><td>" + c.id + "</td><td>" + c.comment
-						+ "</td></tr>")
-			})
+			$article.append("</table>");
+//--------------------------------------
+			var forumId  = forum.id
+			var $forums = $("#forum.id")
+	 		console.log("forumId: "+forumId)
+	 		console.log("$forum: "+$forums)
+	 		
+	 		
+									$.ajax({
+										type:'GET',
+										url:'showComments?forumsId='+forumId,
+// 										url:"<c:url value='showComments?forumsId=${Forums.getId()}' />",
+										success: function(comments){
+											console.log('successInsert',comments)
+										$.each(comments, function(i, order){
+											if(order.forumid===forumId){
+												console.log(order.forumid);
+												console.log(${Forums.id});								
+												$forums.append('<li>'+order.comment+'/'+order.memberid+'==>'+order.id+'</li>')
+												}
+											});
+											}					
+										});	 		
+
+
+
+//-----------------------
+// 			$.each(forum.comments, function(j, c) {
+// 				$article.append("<tr><th>留言編號</th><th>留言內容</th></tr>").one
+// 				$article.append("<tr><td>" + c.id + "</td><td>" + c.comment
+// 						+ "</td></tr>")
+// 			})
 			$article.append("<hr>");
 
 		})
