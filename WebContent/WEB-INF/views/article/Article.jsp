@@ -73,12 +73,7 @@
 
 // 	var article = $.ajax({
 	
-	
-	$(function() {
-	
-	
-	
-	
+	$(function() {	
 	$.ajax({
 		type : "GET",
 		url : "<c:url value='article' />?articleId=${articleId}",
@@ -102,12 +97,12 @@
 // 		console.log(article)
 // 		$article.append("<h3>" + article.title + "</h3>")
 		$article.append("<h3>" + article.title + "</h3>")
-		$article.append("<table class='table'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
+		$article.append("<table class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
 
 		$.each(forumList, function(i, forum) {
 			$article.append("<tr><td>" + forum.id + "</td><td>" + forum.content
 					+ "</td></tr>")
-			$article.append("</table class='table table-dark'>");
+			$article.append("</table class='table table-striped'>");
 			$.each(forum.comments, function(j, c) {
 				$article.append("<tr><th>留言編號</th><th>留言內容</th></tr>").one
 				$article.append("<tr><td>" + c.id + "</td><td>" + c.comment
