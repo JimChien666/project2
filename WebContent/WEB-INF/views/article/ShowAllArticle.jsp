@@ -64,7 +64,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 table {
 	font-size: 2em;
-}s
+}
 </style>
 
 
@@ -173,7 +173,7 @@ table {
 		<button type="button" class="btn btn-success">發文</button>
 	</a>
 
-
+<div class="container">
 	<div class="row justify-content-center align-items-center forum">
 		<c:forEach items="${allArticleTypes}" var="ArticleType" varStatus="id">
 			<div style="border: 3px solid black; width: 50%; text-align: center;">
@@ -215,7 +215,7 @@ table {
 			</c:forEach>
 		</table>
 	</div>
-	
+</div>
 
 
 	<jsp:include page="../fragments/footerArea.jsp" />
