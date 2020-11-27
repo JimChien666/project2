@@ -21,8 +21,6 @@
 
 
 
-
-
 <html>
 <head>
 <style type="text/css">
@@ -41,9 +39,13 @@
 /* table, th, td { */
 /* 	border: 1px solid black; */
 /* } */
-td {
-	border: 1px solid black;
-}
+/* td { */
+/* 	border: 1px solid black; */
+/* } */
+/* table{ */
+/* 	table-dark */
+/* 	table */
+/* } */
 </style>
 <meta charset="UTF-8">
 <title>ID:<c:out value="${article.getId()}" />/<c:out
@@ -100,12 +102,12 @@ td {
 // 		console.log(article)
 // 		$article.append("<h3>" + article.title + "</h3>")
 		$article.append("<h3>" + article.title + "</h3>")
-		$article.append("<table><tr><th>討論串編號</th><th>討論串內容</th></tr>")
+		$article.append("<table class='table'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
 
 		$.each(forumList, function(i, forum) {
 			$article.append("<tr><td>" + forum.id + "</td><td>" + forum.content
 					+ "</td></tr>")
-			$article.append("</table>");
+			$article.append("</table class='table table-dark'>");
 			$.each(forum.comments, function(j, c) {
 				$article.append("<tr><th>留言編號</th><th>留言內容</th></tr>").one
 				$article.append("<tr><td>" + c.id + "</td><td>" + c.comment
@@ -240,7 +242,9 @@ function asynRequest(id) {
 	<div align='center'>
 <%-- 		<h3>${article.getTitle()}</h3> --%>
 
-		<div id="articleShow"></div>
+		<div id="articleShow" class="container">
+		
+		</div>
 
 		<!-- <table id='articleShow'> -->
 		<!-- <thead> -->
