@@ -70,6 +70,13 @@ td {
 	// })
 
 // 	var article = $.ajax({
+	
+	
+	$(function() {
+	
+	
+	
+	
 	$.ajax({
 		type : "GET",
 		url : "<c:url value='article' />?articleId=${articleId}",
@@ -88,9 +95,11 @@ td {
 		totalPage = mapData.totalPage;
 		recordCounts = mapData.recordCounts;
 		forumList = mapData.forumList;
-		var content = "";
+// 		var content = "";
+		$article.empty();
+// 		console.log(article)
 // 		$article.append("<h3>" + article.title + "</h3>")
-		$article.append("<h3>" + article["title"] + "</h3>")
+		$article.append("<h3>" + article.title + "</h3>")
 		$article.append("<table><tr><th>討論串編號</th><th>討論串內容</th></tr>")
 
 		$.each(forumList, function(i, forum) {
@@ -124,6 +133,7 @@ td {
 			navContent += "<td align='center'>&nbsp;</td>";
 			navContent += "<td align='center'>&nbsp;</td>";
 		}
+		
 		document.getElementById("navigation").innerHTML = navContent;
 		var firstBtn = document.getElementById("first");
 		var prevBtn  = document.getElementById("prev");
@@ -155,17 +165,9 @@ td {
 
 /////////////
 
-
-
-
-
 	}
 
 
-
-
-
-	
 
 
 // 當使用者按下『第一頁』、『前一頁』、『下一頁』、『最末頁』的連結時，由本方法發出非同步請求。
@@ -196,12 +198,19 @@ function asynRequest(id) {
 		xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			var mapData = xhr.responseText;
-			console.log(mapData)
-			showPage(mapData);
+			
+			showPage(JSON.parse(mapData));
 		}
 	}
 		
 }
+
+
+
+
+
+
+	});
 	
 </script>
 
@@ -225,10 +234,6 @@ function asynRequest(id) {
 			</div>
 		</div>
 	</div>
-
-
-
-
 
 	<jsp:include page="../public/top.jsp" />
 
