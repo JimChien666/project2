@@ -100,14 +100,13 @@
 		$article.append("<table class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
 
 		$.each(forumList, function(i, forum) {
-			$article.append("<tr><td id='forum.id'>" + forum.id + "</td><td>" + forum.content
+			$article.append("<tr><td>" + forum.id + "</td><td id="+forum.id+">" + forum.content
 					+ "</td></tr>")
 			$article.append("</table>");
 //--------------------------------------
 			var forumId  = forum.id
-			var $forums = $("#forum.id")
+			var $forums = $("#"+forum.id)
 	 		console.log("forumId: "+forumId)
-	 		console.log("$forum: "+$forums)
 	 		
 	 		
 									$.ajax({
@@ -116,11 +115,13 @@
 // 										url:"<c:url value='showComments?forumsId=${Forums.getId()}' />",
 										success: function(comments){
 											console.log('successInsert',comments)
-										$.each(comments, function(i, order){
+										$.each(comments, function(j, order){
 											if(order.forumid===forumId){
-												console.log(order.forumid);
-												console.log(${Forums.id});								
+// 												console.log("order.forumid:"+order.forumid);
+// 												console.log("forumId:"+forumId);								
 												$forums.append('<li>'+order.comment+'/'+order.memberid+'==>'+order.id+'</li>')
+										 		console.log("$forums: "+ $forums)
+												
 												}
 											});
 											}					

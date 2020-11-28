@@ -195,9 +195,11 @@ public class ArticleController {
 	
 
 	@GetMapping(value = "showComments")
-	public @ResponseBody List<Comments> showComments(@RequestParam(value = "forumsId") Integer id) {		
+	public @ResponseBody List<Comments> showComments(@RequestParam(value = "forumsId") Integer id) {
+		System.out.println("hi:" + id);
 		Forums forums = forumsService.selectForum(id);
 		List<Comments> comments = commentsService.select(forums.getId());
+		System.out.println("hoo :" + comments);
 		return comments;		
 	}
 	
