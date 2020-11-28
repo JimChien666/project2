@@ -46,10 +46,12 @@
 		});
 	});
 </script>
+<jsp:include page="../fragments/links.jsp" />
 </head>
 
 <body>
-<jsp:include page="../public/top.jsp" />
+<jsp:include page="../fragments/headerArea.jsp" />
+<%-- <jsp:include page="../public/top.jsp" /> --%>
 <div align='center'>
 	<h3>商品資訊</h3>
 	
@@ -89,5 +91,6 @@
 	
 	<a href="<c:url value='/' />">回前頁</a>
 </div>
+<jsp:include page="../fragments/allJs.jsp" />
 </body>
 </html>

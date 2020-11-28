@@ -36,7 +36,7 @@ public class ProductListDaoImpl implements ProductListDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Products> getPageProducts(Integer pageNo,Integer recordsPerPage) {
-		Integer startRecordNo = (pageNo - 1) * recordsPerPage; // 第二頁的第二筆＝（2-1）*2
+		Integer startRecordNo = (pageNo - 1) * recordsPerPage; // 第二頁的第二筆＝（2-1）*3
 		List<Products> list = new ArrayList<Products>();
 		list = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中' order by id")
   			  .setFirstResult(startRecordNo) //index的概念
@@ -46,12 +46,13 @@ public class ProductListDaoImpl implements ProductListDao {
 	}
 
 	@Override
-	public Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage) {
-		int totalPages = (int) (Math.ceil(getRecordCounts(colorId, categoryId, animalTypeId) / (double) recordsPerPage));
+	public Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage,String keywordSearch) {
+		//用getRecordCounts()來計算總頁數
+		int totalPages = (int) (Math.ceil(getRecordCounts(colorId, categoryId, animalTypeId,keywordSearch) / (double) recordsPerPage));
 		return totalPages;
 	}
 	
-	public Long getRecordCounts(Integer colorId, Integer categoryId, Integer animalTypeId) {
+	public Long getRecordCounts(Integer colorId, Integer categoryId, Integer animalTypeId,String keywordSearch) {
 		Long count = 0L; // 必須使用 long 型態
 		
 		String condiction = " ";
@@ -72,6 +73,14 @@ public class ProductListDaoImpl implements ProductListDao {
 //				condiction += " animal_type_id = :animalTypeId";
 //			}
 		}
+		if (keywordSearch != null) {
+//			if (!condiction.equals(" where ")) {
+				condiction += " and name like :keywordSearch";
+//			}else {
+//				condiction += " animal_type_id = :animalTypeId";
+//			}
+		}
+		
 		Query query = sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Products where deleted_at=null and status='上架中'" + condiction);
 		if (colorId != null) {
 			query.setParameter("colorId", colorId);
@@ -81,6 +90,9 @@ public class ProductListDaoImpl implements ProductListDao {
 		}
 		if (animalTypeId != null) {
 			query.setParameter("animalTypeId", animalTypeId);
+		}
+		if (keywordSearch != null) {
+			query.setParameter("keywordSearch", "%"+keywordSearch+"%");
 		}
 		count = (Long) query.getSingleResult();
 		return count;
@@ -97,10 +109,13 @@ public class ProductListDaoImpl implements ProductListDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage) {
+	public List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage,String keywordSearch) {
 		Integer startRecordNo = (pageNo - 1) * recordsPerPage;
 		List<Products> list = new ArrayList<Products>();
 		String condiction = "  ";
+		if (keywordSearch != null) {
+			condiction += " and name like :keywordSearch";
+		}
 		if (colorId != null) {
 			condiction += " and color_id = :colorId";
 		}
@@ -122,6 +137,10 @@ public class ProductListDaoImpl implements ProductListDao {
 		Query query = sessionFactory.getCurrentSession().createQuery("FROM Products Where deleted_at=null and status='上架中'" + condiction  + " order by id");
 		query.setFirstResult(startRecordNo)
 			.setMaxResults(recordsPerPage);
+		
+		if (keywordSearch != null) {
+			query.setParameter("keywordSearch", "%"+keywordSearch+"%");
+		}
 		if (colorId != null) {
 			query.setParameter("colorId", colorId);
 		}
@@ -150,5 +169,12 @@ public class ProductListDaoImpl implements ProductListDao {
 		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Products where deleted_at=null and status='上架中'  ").getSingleResult();
 		return count;
 	}
-
+	
+	public List<Products> selectByName(String keyword) {//用名子與敘述查詢
+		Query<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中'  and name like ?1 order by id ", Products.class);
+//		Query<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中'  and name like ?1 or description like ?2 order by id ", Products.class);
+		query.setParameter(1, "%"+keyword+"%");
+		List<Products> list = query.getResultList();
+		return list;
+	}
 }

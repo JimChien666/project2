@@ -15,6 +15,7 @@ ul,li{margin:0; padding:0; display:inline;}
 </style>
 <meta charset="UTF-8">
 <script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />"></script>
+
 <script>
 
 var pageNo = 0;
@@ -26,9 +27,11 @@ window.onload = function() {
 	getCategories();
 	getAnimalTypes();
 	getPage();
+	getOrderBy();
 	var xhr = new XMLHttpRequest();
 	var recordsPerPage = document.getElementById("recordsPerPage").value;
 	xhr.open("GET", "<c:url value='/product/pagingProducts.json' />" + "?recordsPerPage="+recordsPerPage, true);
+
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 ) {
@@ -75,6 +78,7 @@ function getCategories(){
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			var content = "<select id='categoryId' name='categoryId' onchange=getData()>";
 			content += "<option value='' selected='selected'>全部</option>"
+// 			把'/product/getCategories'回傳RespoenseBody的JSON抓出來
 			var categories = JSON.parse(xhr.responseText);
 			for(var i=0; i < categories.length; i++){
 			    content += 	"<option value='" + categories[i].id + "'>" + categories[i].name + "</option>";
@@ -139,14 +143,26 @@ function getPage(){
 			/* divs.innerHTML += "<br/>"; */
 }
 
+function getOrderBy(){
+	var content = "商品排序：<select id='orderBy' name='orderBy' onchange=getData() >";
+	for(var i=1; i <= 3; i+=1){
+	    content += 	"<option value=" + i + ">" + i + "</option>";
+	}
+	content += "</select>";
+	var divs = document.getElementById("OrderBySelectBar");
+	divs.innerHTML += content;
+	/* divs.innerHTML += "<br/>"; */
+}
 
 function getData(){
 	var animalTypeId = document.getElementById("animalTypeId").value;
 	var colorId = document.getElementById("colorId").value;
 	var categoryId = document.getElementById("categoryId").value;
 	var recordsPerPage = document.getElementById("recordsPerPage").value;
+	var keywordSearch = document.getElementById("keywordSearch").value;
+	
 	var xhr = new XMLHttpRequest();
-	var condiction = "?animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId + "&recordsPerPage="+recordsPerPage;
+	var condiction = "?animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId + "&recordsPerPage="+recordsPerPage + "&keywordSearch="+keywordSearch;
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "<c:url value='/product/pagingProducts.json' />" + condiction, true);
 	xhr.send();
@@ -162,6 +178,8 @@ function getData(){
 	}
 	
 }
+
+
 //若productId為零,後端會直接回傳購物車列表
 function addToCart(productId){
 	
@@ -212,7 +230,8 @@ function asynRequest(id) {
 		var colorId = document.getElementById("colorId").value;
 		var categoryId = document.getElementById("categoryId").value;
 		var recordsPerPage = document.getElementById("recordsPerPage").value;
-		var condiction = "&animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId + "&recordsPerPage=" + recordsPerPage;
+		var keywordSearch = document.getElementById("keywordSearch").value;
+		var condiction = "&animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId + "&recordsPerPage=" + recordsPerPage + "&keywordSearch=" + keywordSearch;
 	    // 查詢字串包含1.即將要讀取的頁數(pageNo), 2.總共有幾頁(totalPage)
 	    // 注意，查詢字串的前面有問號
 	    queryString = "?pageNo=" + no + "&totalPage=" + totalPage + condiction;
@@ -227,7 +246,6 @@ function asynRequest(id) {
 	}
 		
 }
-
 function displayPageProducts(responseData){
     var content = "";
 	var mapData = JSON.parse(responseData);
@@ -469,7 +487,9 @@ function goToCartPage(){
                               	<div class="product-show shorting-style" id="selectBar">
                                   	<label>共有 <span id="showRecordCounts"></span> 項商品</label>
                                    	
-                                  	</div>
+                                <div style="display:inline;" class="shop-list-style mt-20" id="OrderBySelectBar"></div>                        
+                                </div>
+                                
                         </div>
                         <div class="grid-list-options">
                                 <ul class="view-mode">
@@ -477,6 +497,8 @@ function goToCartPage(){
                                     <li><a href="#product-list" data-view="product-list"><i class="ti-align-justify"></i></a></li>
                                 </ul>
                         </div>
+                        
+                        
 					</div>
 					<div class="grid-list-product-wrapper">
                             <div class="product-view product-grid">
@@ -491,18 +513,19 @@ function goToCartPage(){
 				</div>
 				
 				
-				
+<!-- 				左邊那條 -->
 				<div class="col-lg-3">
                         <div class="shop-sidebar">
                             <div class="shop-widget">
                             	<h4 class="shop-sidebar-title">搜尋商品</h4>
-                                <div class="shop-search mt-25 mb-50">
-                                    <form class="shop-search-form">
-                                        <input type="text" placeholder="輸入商品名稱">
-                                        <button type="submit">
+                                <div class="shop-search mt-25 mb-50">                               
+
+<!--                                     <form  class="shop-search-form"> -->
+                                        <input type="text" name="keywordSearch" id="keywordSearch" placeholder="輸入商品名稱">
+                                        <button class="" type="submit" onclick="getData()">
                                             <i class="icon-magnifier"></i>
                                         </button>
-                                    </form>
+<!--                                     </form> -->
                                 </div>
                             </div>
                             <div class="shop-widget mt-50">
@@ -518,7 +541,6 @@ function goToCartPage(){
 			</div>
           </div>
       </div>
-
 
 <jsp:include page="../fragments/footerArea.jsp" />
 <jsp:include page="../fragments/allJs.jsp" />

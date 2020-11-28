@@ -9,15 +9,17 @@ public interface ProductListDao {
 
 	List<Products> getPageProducts(Integer pageNo,Integer recordsPerPage);
 
-	Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage);
+	Integer getTotalPages(Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage,String keywordSearch);
 
 	Products getProduct(Integer productId);
 
-	List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage);
+	List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage,String keywordSearch);
 
 	Integer getTotalPages(Integer recordsPerPage);
 
-	Long getRecordCounts(Integer colorId, Integer categoryId, Integer animalTypeId);
+	Long getRecordCounts(Integer colorId, Integer categoryId, Integer animalTypeId,String keywordSearch);
 
 	Long getRecordCounts();
+	
+	List<Products> selectByName(String keyword);
 }
