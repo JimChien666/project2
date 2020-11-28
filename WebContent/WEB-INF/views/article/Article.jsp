@@ -106,7 +106,7 @@
 //--------------------------------------
 			var forumId  = forum.id
 			var $forums = $("#"+forum.id)
-	 		console.log("forumId: "+forumId)
+// 	 		console.log("forumId: "+forumId)
 	 		
 	 		
 									$.ajax({
@@ -114,19 +114,78 @@
 										url:'showComments?forumsId='+forumId,
 // 										url:"<c:url value='showComments?forumsId=${Forums.getId()}' />",
 										success: function(comments){
-											console.log('successInsert',comments)
+// 											console.log('successInsert',comments)
 										$.each(comments, function(j, order){
 											if(order.forumid===forumId){
 // 												console.log("order.forumid:"+order.forumid);
 // 												console.log("forumId:"+forumId);								
 												$forums.append('<li>'+order.comment+'/'+order.memberid+'==>'+order.id+'</li>')
-										 		console.log("$forums: "+ $forums)
-												
+// 										 		console.log("$forums: "+ $forums)												
 												}
 											});
-											}					
-										});	 		
+											$forums.append("<td>回覆本討論串:<input type='text' name='comments' id=reply"+forum.id+"></td>")
 
+
+
+
+
+
+
+
+
+
+											$("#reply"+forum.id).blur(function (e) {
+												// $("input").keypress(function (e) {
+													console.log("hi hi");
+													console.log(forumId);
+// 													var id = this.forumId;
+													var comment = this.value;
+													console.log(id);
+													console.log(comment);
+												if (e.keyCode == 13&&comment!=null) {
+												$.ajax({
+												  url: "saveComments",
+												  data: {
+													  id:forumId,
+													  comment:comment
+													  },
+												  success:function(){
+//														  reset();
+														showPage(mapData);
+
+//														  var $comments = $('.${Forums.id}');
+//															console.log($comments);
+
+												  $("input").prop("value","");
+												}
+												//  dataType: dataType
+												});
+//												  	var $comments = $('.${Forums.id}');					      
+												};//if end
+												});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+											
+											}					
+										});
 
 
 //-----------------------
@@ -187,9 +246,9 @@
 			}
 		}
 
-/////////////
 
 	}
+/////////////  showPage func end
 
 
 
@@ -214,8 +273,8 @@ function asynRequest(id) {
 					   //<c:url value='article' />?articleId=${articleId}
 // 		xhr.open("GET", "<c:url value='getArticle' />?articleId=${articleId}" + queryString , true);
 		xhr.open("GET", "<c:url value='article' />?articleId=${articleId}" + queryString , true);
-		console.log(no)
-		console.log(totalPage)
+// 		console.log(no)
+// 		console.log(totalPage)
 		
 		
 		xhr.send();
@@ -234,8 +293,14 @@ function asynRequest(id) {
 
 
 
-	});
-	
+
+
+
+
+
+
+
+	});	
 </script>
 
 
