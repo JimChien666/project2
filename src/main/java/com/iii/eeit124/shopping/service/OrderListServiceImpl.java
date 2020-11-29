@@ -15,6 +15,16 @@ public class OrderListServiceImpl implements OrderListService {
 	OrderListDao dao;
 	
 	@Override
+	public List<Orders> findAllOrdersByMemberId(Integer pageNo, Integer recordsPerPage,Integer id, Integer paidStatus, String orderStatus) {
+		return dao.indAllOrdersByMemberId(pageNo,recordsPerPage,id, paidStatus, orderStatus);
+	}
+
+	@Override
+	public Long getRecordCounts(Integer id, Integer paidStatus, String orderStatus) {
+		return dao.getRecordCounts(id, paidStatus, orderStatus);
+	}
+
+	@Override
 	public List<Orders> findAllOrdersByMemberId(Integer pageNo, Integer recordsPerPage,Integer id) {
 		return dao.indAllOrdersByMemberId(pageNo,recordsPerPage,id);
 	}
@@ -23,5 +33,4 @@ public class OrderListServiceImpl implements OrderListService {
 	public Long getRecordCounts(Integer id) {
 		return dao.getRecordCounts(id);
 	}
-
 }

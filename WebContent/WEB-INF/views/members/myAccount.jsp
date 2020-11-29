@@ -1,30 +1,104 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
+
+<style type="text/css">
+#flotcontainer {
+    width: 600px;
+    height: 400px;
+    text-align: left;
+}
+
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <jsp:include page="../fragments/links.jsp" />
 </head>
 <body>
-<jsp:include page="../fragments/headerArea.jsp" />
-<div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
-            <div class="container">
-                <div class="breadcrumb-content text-center">
-                    <h2>會員中心</h2>
-                    <ul>
-                        <li><a href="<c:url value='/' />">首頁</a></li>
-                        <li class="active">會員中心</li>
-                    </ul>
+	<jsp:include page="../fragments/headerArea.jsp" />
+	<div class="breadcrumb-area pt-95 pb-95 bg-img"
+		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
+		<div class="container">
+			<div class="breadcrumb-content text-center">
+				<h2>會員中心</h2>
+				<ul>
+					<li><a href="<c:url value='/' />">首頁</a></li>
+					<li class="active">會員中心</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<jsp:include page="./fragments/myAccountHeaderArea.jsp" />
+	
+	<div class="project-count-area pb-70 pt-100 gray-bg">
+		<div class="container">
+			<div class="section-title text-center mb-55">
+                    <h2>本月報表</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
                 </div>
-            </div>
-        </div>
-<jsp:include page="./fragments/myAccountHeaderArea.jsp" />
+			<div class="row">
+				<div class="col-lg-4 col-md-4 col-sm-6 col-12">
+					<div class="single-count mb-30 text-center">
+						<span>本月下單數</span>
+						<h2 class="count">18</h2>
+						<span>張</span>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-6 col-12">
+					<div class="single-count mb-30 text-center">
+						<span>本月下單金額</span>
+						<h2 class="count">290</h2>
+						<span>元</span>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-6 col-12">
+					<div class="single-count mb-30 text-center">
+						<span>本月平均訂單金額</span>
+						<h2 class="count">24</h2>
+						<span>元</span>
+					</div>
+				</div>
+			</div>
+			<div id="legendPlaceholder"></div>
+			<div id="flotcontainer"></div>
+		</div>
+	</div>
+	
 
-
-<jsp:include page="../fragments/footerArea.jsp" />
-<jsp:include page="../fragments/allJs.jsp" />
+	<jsp:include page="../fragments/footerArea.jsp" />
+	<jsp:include page="../fragments/allJs.jsp" />
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="http://static.pureexample.com/js/flot/excanvas.min.js"></script>
+	<script src="http://static.pureexample.com/js/flot/jquery.flot.min.js"></script>
+	<script
+		src="http://static.pureexample.com/js/flot/jquery.flot.pie.min.js"></script>
+<script type="text/javascript">
+$(function () { 
+    var data = [
+        {label: "食物", data:10},
+        {label: "玩具", data: 20},
+        {label: "客廳", data: 30},
+        {label: "廁所", data: 40},
+        {label: "護理", data: 50},
+        {label: "餐廳", data: 60},
+        {label: "戶外", data: 70}
+    ];
+ 
+    var options = {
+            series: {
+                pie: {show: true}
+                    },
+            legend: {
+                show: false
+            }
+         };
+ 
+    $.plot($("#flotcontainer"), data, options);  
+});
+</script>
 </body>
 </html>

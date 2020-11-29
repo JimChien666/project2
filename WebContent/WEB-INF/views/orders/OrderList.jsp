@@ -6,6 +6,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.btncls{
+	background-color: #7E4C4F; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+button.btncls:hover{
+	background-color: #000000;
+}
+
+</style>
 </head>
 <script>
 window.onload = function() {
@@ -27,7 +46,7 @@ window.onload = function() {
 }
 	function showOrderInfo(orderId){
 		var order = document.getElementById("orderInfo"+orderId);
-		console.log(order.style.display);
+		
 		if(order.style.display=="none"){
 			order.style.display = "";
 		}else{
@@ -67,7 +86,7 @@ window.onload = function() {
 				}else{
 					content +="<td>付款失敗</td>"
 					}
-			content +="<td><button onclick='showOrderInfo("+orders[i].id+")'>訂單詳細</button></td>"+
+			content +="<td><button class='btncls' onclick='showOrderInfo("+orders[i].id+")'>訂單詳細</button></td>"+
 					  "</tr>"+
 					  "</table>"
 			content += "<table id='orderInfo"+orders[i].id+"' style='display: none;'>"+
@@ -103,14 +122,14 @@ window.onload = function() {
 		var navContent = "" ;
 		if (pageNo != 1){
 			navContent += "<li><a id='first'><<</a></li>";
-			navContent += "<li><a id='prev'><</a></li>";
+			navContent += "<li><a id='prev'>" + (parseInt(pageNo) - 1 ) + "</a></li>";
 		}  else {
 			navContent += "<li>&nbsp;</li>";
 			navContent += "<li>&nbsp;</li>";
 		}
-		navContent += "<td width='200' align='center'> " + pageNo + " / " + totalPage + "</td>";
+		navContent += "<li><a class='active' href='#'>" + (parseInt(pageNo)) + "</a></li>";
 		if (pageNo != totalPage){
-			navContent += "<li><a id='next'>></a></li>";
+			navContent += "<li><a id='next'>" + (parseInt(pageNo) + 1 ) + "</a></li>";
 			navContent += "<li><a id='last'>>></a></li>";
 		}  else {
 			navContent += "<td align='center'>&nbsp;</td>";
@@ -174,6 +193,32 @@ window.onload = function() {
 		}
 			
 	}
+	function getOrders(){
+		var paidStatus = document.getElementById("paidStatus").value;
+		var orderStatus = document.getElementById("orderStatus").value;
+		console.log(paidStatus+orderStatus);
+		var condiction = "?paidStatus=" + paidStatus + "&orderStatus=" + orderStatus;
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "<c:url value='/order/pagingOrders.json' />"+condiction, true);
+		xhr.send();
+		 xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 ) {
+				if (xhr.status == 200){
+					var responseData = xhr.responseText;
+					console.log(responseData);
+					showPageOrders(responseData);   // 顯示讀取到的非文字性資料
+				} else {
+					alert(xhr.status);
+				}
+			}
+		}
+		if(paidStatus==""){
+			document.getElementById("paidStatus").innerHTML='<option selected=selected disabled value="">付款狀態</option><option value="">全部</option><option value=0>尚未付款</option><option value=1>付款完成</option><option value=2>付款失敗</option>'
+		}
+		if(orderStatus==""){
+			document.getElementById("orderStatus").innerHTML='<option selected=selected disabled value="">訂單狀態</option><option value="">全部</option><option value="訂單成立">訂單成立</option><option value="取消">取消</option>'
+		}
+	}
 </script>
 <jsp:include page="../fragments/links.jsp" />
 <body>
@@ -191,10 +236,41 @@ window.onload = function() {
             </div>
         </div>
 <jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
-        
+
+                       
         <div class="cart-main-area pt-95 pb-100">
             <div class="container">
-                <h3 class="page-title">訂單列表</h3>
+                <div class="shop-topbar-wrapper" style=" border: white;">
+                       	<div class="product-sorting-wrapper" >
+                              	<div class="product-show shorting-style" id="selectBar" style="display: inline-block;">
+                                  	<h3>訂單列表</h3>
+                                  	
+                                    <!-- <div class="shop-search mt-25 mb-50" style="display: inline-block; width: 400px;">
+                               		<form class="shop-search-form">
+                                        <input type="text" placeholder="Find a product">
+                                        <button type="submit">
+                                            <i class="icon-magnifier"></i>
+                                        </button>
+                                    </form>
+                                    
+                                	</div> -->
+                                	<select id="paidStatus" onchange="getOrders()">
+                                        <option selected=selected disabled value="">付款狀態</option>
+                                    	<option value="">全部</option>
+                                        <option value=0>尚未付款</option>
+                                        <option value=1>付款完成</option>
+                                        <option value=2>付款失敗</option>
+                                    </select>
+                                    <select id="orderStatus" onchange="getOrders()">
+                                        <option selected=selected disabled value="">訂單狀態</option>
+                                        <option value="">全部</option>
+                                        <option value="訂單成立">訂單成立</option>
+                                        <option value="取消">取消</option>
+                                    </select>
+                                </div>
+                        </div>
+                        
+					</div>
                 <div class="row">
                    	 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="table-content table-responsive" id='orderShow'>

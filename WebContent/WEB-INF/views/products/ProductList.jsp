@@ -301,14 +301,14 @@ function displayPageProducts(responseData){
 	var navContent = "" ;
 	if (pageNo != 1){
 		navContent += "<li><a id='first'><<</a></li>";
-		navContent += "<li><a id='prev'><</a></li>";
+		navContent += "<li><a id='prev'>" + (parseInt(pageNo) - 1 ) + "</a></li>";
 	}  else {
 		navContent += "<li>&nbsp;</li>";
 		navContent += "<li>&nbsp;</li>";
 	}
-	navContent += "<td width='200' align='center'> " + pageNo + " / " + totalPage + "</td>";
+	navContent += "<li><a class='active' href='#'>" + (parseInt(pageNo)) + "</a></li>";
 	if (pageNo != totalPage){
-		navContent += "<li><a id='next'>></a></li>";
+		navContent += "<li><a id='next'>" + (parseInt(pageNo) + 1 ) + "</a></li>";
 		navContent += "<li><a id='last'>>></a></li>";
 	}  else {
 		navContent += "<td align='center'>&nbsp;</td>";
@@ -344,96 +344,7 @@ function displayPageProducts(responseData){
 	}	
 }
 
-/* function displayPageProducts(responseData){
-    var content = "<table><tr style='border: 1px solid black;'>";
-      content +=  "<th>編號</th><th>商品名稱</th>";
-      content +=  "<th>定價</th><th>折扣</th><th>實售</th>";
-      content +=  "<th>賣家</th><th>封面</th><th>購物車</th>";
-	  content +=  "</tr>";
-	var mapData = JSON.parse(responseData);
-	pageNo = mapData.currPage;
-	totalPage  = mapData.totalPage;
-	recordCounts = mapData.recordCounts;
-	
-	var products = mapData.list;		// 傳回一個陣列
-	var imageURL = "<c:url value='/product/getProductImage' />";
-	var productsInfo = "<c:url value='/product/productsInfo/productsPath' />";
-	var salesInfo = "<c:url value='/product/salesInfo/salesInfoPath' />";
-	
-	document.getElementById("showRecordCounts").innerHTML = recordCounts;
-	for(var i=0; i < products.length; i++){
 
-		
-		content += "<tr>" + 
-		           "<td>" + products[i].id + "&nbsp;</td>" + 
-		           "<td>" +  
-	               "<a href='"+productsInfo.replace("productsPath",products[i].id)+"'>"+products[i].name+"</a>"
-	               + "</td>" +
-	               "<td>" + products[i].price + "&nbsp;</td>" +
-	               "<td>" + products[i].discount + "</td>" +
-	               "<td>" + (products[i].price * products[i].discount) + "</td>" +
-	               "<td>" + 
-	               "<a href='"+salesInfo.replace("salesInfoPath",products[i].memberId)+"'>"+products[i].memberName+"</a>"
-	               + "</td>" +
-	               "<td><img  width='60' height='80' " +   
-	               " src='" + imageURL + "?productId=" + products[i].id + "'></td>" + 
-	               "<td><ul class='counter'>" + 
-	               "<li id='minus" + products[i].id + "'><input type='button' onclick='minuser(" + products[i].id + ", "+ products[i].quantity +")' value='-'/></li>"+
-	               "<li id='countnum" + products[i].id + "'>" + 1 + "</li>"+
-	               "<li id='plus" + products[i].id + "'><input type='button' onclick='adder(" + products[i].id + ", "+ products[i].quantity +")' value='+'/></li>"+
-	              	"</ul><button onclick='addToCart(" + products[i].id + ")'>add cart</button><br/><div id='outOfRange"+ products[i].id +"'></div></td>" +
-		           "</tr>";    
-	}
-	content += "</table>";
-	
-	document.getElementById("somedivS").innerHTML = content;
-	
-	
-	var navContent = "<table border='1' ><tr height='36' bgcolor='#fbdb98'>" ;
-	if (pageNo != 1){
-		navContent += "<td align='center'><button id='first'>第一頁</button></td>";
-		navContent += "<td align='center'><button id='prev'>前一頁</button></td>";
-	}  else {
-		navContent += "<td align='center'>&nbsp;</td>";
-		navContent += "<td align='center'>&nbsp;</td>";
-	}
-	navContent += "<td width='200' align='center'>第" + pageNo + "頁 / 共" + totalPage + "頁</td>";
-	if (pageNo != totalPage){
-		navContent += "<td align='center'><button id='next'>下一頁</button></td>";
-		navContent += "<td align='center'><button id='last'>最末頁</button></td>";
-	}  else {
-		navContent += "<td align='center'>&nbsp;</td>";
-		navContent += "<td align='center'>&nbsp;</td>";
-	}
-	document.getElementById("navigation").innerHTML = navContent;
-	var firstBtn = document.getElementById("first");
-	var prevBtn  = document.getElementById("prev");
-	var nextBtn  = document.getElementById("next");
-	var lastBtn  = document.getElementById("last");
-	if (firstBtn != null) {
-		firstBtn.onclick=function(){
-			asynRequest(this.id);
-		}
-	}
-	
-	if (prevBtn != null) {
-		prevBtn.onclick=function(){
-			asynRequest(this.id);
-		}
-	}
-	
-	if (nextBtn != null) {
-		nextBtn.onclick=function(){
-			asynRequest(this.id);
-		}
-	}
-	
-	if (lastBtn != null) {
-		lastBtn.onclick=function(){
-			asynRequest(this.id);				
-		}
-	}	
-} */
 
 function goToCartPage(){
 	window.location.href = "<c:url value='/cart/CartList' />";

@@ -113,7 +113,7 @@
                                         <ul>
                                         <c:if test="${!empty LoginOK}">
                                        	   <li>
-                                               <a href="<c:url value='/member/memberCenter' />">會員中心</a>
+                                               <a href="<c:url value='/member/myAccount' />">會員中心</a>
                                            </li>
                                            <li>
                                                <a href="<c:url value='/order/OrderList' />">我的訂單</a>
