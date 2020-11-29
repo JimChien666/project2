@@ -1,5 +1,6 @@
 package com.iii.eeit124.member.service;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public class MemberCenterServiceImpl implements MemberCenterService{
 		return dao.getMemberById(memberId);
 	}
 	@Override
-	public Map<String, Double> getDataPerMonth(Integer memberId) {
-		// TODO Auto-generated method stub
+	public Map<String, BigDecimal> getDataPerMonth(Integer memberId) {
+		
 		return dao.getDataPerMonth(memberId);
 	}
 	

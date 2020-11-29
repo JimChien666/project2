@@ -1,5 +1,6 @@
 package com.iii.eeit124.shopping.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.entity.Orders;
 import com.iii.eeit124.entity.Products;
+import com.iii.eeit124.member.service.MemberCenterService;
 import com.iii.eeit124.shopping.service.OrderListService;
+import com.iii.eeit124.shopping.service.ShoppingAanlysisService;
 
 @Controller
 @RequestMapping("/order")
@@ -28,6 +31,12 @@ public class OrderListController {
 	
 	@Autowired
 	OrderListService service;
+	
+	@Autowired
+	ShoppingAanlysisService shoppingAanlysisService;
+	
+	@Autowired
+	MemberCenterService memberCenterService;
 	
 	@GetMapping("/OrderList")
 	public String goToOrderPage() {
@@ -67,5 +76,15 @@ public class OrderListController {
 		map.put("recordCounts", recordCounts);
 		map.put("recordsPerPage", recordsPerPage);
 		return map;
+	}
+	
+	@GetMapping("/orderAnalysis")
+	public String getMyAccountPage(Model model) {
+		Members member = (Members)session.getAttribute("LoginOK");
+		Map<String, BigDecimal> dataPerMonth =  memberCenterService.getDataPerMonth(member.getId());
+		model.addAttribute("dataPerMonth", dataPerMonth);
+		Map<String, BigDecimal> categoriesCost = shoppingAanlysisService.getAllCategoriesCost(member.getId());
+		model.addAttribute("categoriesCost", categoriesCost);
+		return "orders/orderAnalysis";
 	}
 }

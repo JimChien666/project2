@@ -31,7 +31,7 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="./fragments/myAccountHeaderArea.jsp" />
+	<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
 	
 	<div class="project-count-area pb-70 pt-100 gray-bg">
 		<div class="container">
@@ -43,21 +43,21 @@
 				<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 					<div class="single-count mb-30 text-center">
 						<span>本月下單數</span>
-						<h2 class="count">18</h2>
+						<h2 class="count">${dataPerMonth.count}</h2>
 						<span>張</span>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 					<div class="single-count mb-30 text-center">
 						<span>本月下單金額</span>
-						<h2 class="count">290</h2>
+						<h2 class="count">${dataPerMonth.sum}</h2>
 						<span>元</span>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 					<div class="single-count mb-30 text-center">
 						<span>本月平均訂單金額</span>
-						<h2 class="count">24</h2>
+						<h2 class="count">${dataPerMonth.sum/dataPerMonth.count}</h2>
 						<span>元</span>
 					</div>
 				</div>
@@ -79,13 +79,13 @@
 <script type="text/javascript">
 $(function () { 
     var data = [
-        {label: "食物", data:10},
-        {label: "玩具", data: 20},
-        {label: "客廳", data: 30},
-        {label: "廁所", data: 40},
-        {label: "護理", data: 50},
-        {label: "餐廳", data: 60},
-        {label: "戶外", data: 70}
+        {label: "食物", data: ${categoriesCost["食物"]}},
+        {label: "玩具", data: ${categoriesCost["玩具"]}},
+        {label: "客廳", data: ${categoriesCost["客廳"]}},
+        {label: "廁所", data: ${categoriesCost["廁所"]}},
+        {label: "護理", data: ${categoriesCost["護理"]}},
+        {label: "餐廳", data: ${categoriesCost["餐廳"]}},
+        {label: "戶外", data: ${categoriesCost["戶外"]}}
     ];
  
     var options = {
