@@ -41,7 +41,6 @@ function goToCartPage(){
 
 function getShoppingOptions(){
 	var xhr = new XMLHttpRequest();
-	<c:url value='/product/getColors' />
 	xhr.open("GET", "<c:url value='/product/getColors' />", true);
 	xhr.send();
 	xhr.onreadystatechange = function() {
