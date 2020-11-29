@@ -88,11 +88,14 @@ public class ArticleController {
 		model.addAttribute(forums);
 		return "article/SaveArticle";
 	}
-
+//.......................................................... TODO
 	@GetMapping(value = "updateArticle")
 	public String updateArticle(Model model, @RequestParam(value = "articleId") Integer id) {
 		Article article = articleService.select(id);
+		List<Forums> forumList = forumsService.selectForumById(id);
+		Forums forum = forumList.get(0);
 		model.addAttribute("article", article);
+		model.addAttribute("forum", forum);
 		return "article/UpdateArticle";
 	}
 

@@ -62,4 +62,12 @@ public class ForumsDaoImpl implements ForumsDao {
 		return count;
 	}
 
+	@Override
+	public List<Forums> selectForumById(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Forums> query = session.createQuery("from Forums where article_id = ?1 order by id", Forums.class);
+		query.setParameter(1, id);
+		return query.getResultList();
+	}
+
 }

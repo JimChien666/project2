@@ -11,5 +11,6 @@ public interface ForumsDao {
 	void saveArticle(Article article);
 	void updateArticle(Article article);
 	Forums selectForum(int id);
+	List<Forums> selectForumById(int id);
 	Long getRecordCounts(Integer id);
 }

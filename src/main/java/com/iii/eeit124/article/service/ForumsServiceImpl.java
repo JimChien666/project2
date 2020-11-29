@@ -47,6 +47,11 @@ public class ForumsServiceImpl implements ForumsService {
 	public Long getRecordCounts(Integer id) {
 		return forumsDao.getRecordCounts(id);
 	}
+
+	@Override
+	public List<Forums> selectForumById(int id) {
+		return forumsDao.selectForumById(id);
+	}
 	
 
 }

@@ -11,6 +11,7 @@ public interface ForumsService {
 	void update(Article article);
 	List<Forums> select(Integer pageNo,Integer recordsPerPage,Integer id);
 	Forums selectForum(int id);
+	List<Forums> selectForumById(int id);
 	Long getRecordCounts(Integer id);
 
 }
