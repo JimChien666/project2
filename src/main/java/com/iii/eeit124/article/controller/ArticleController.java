@@ -2,9 +2,11 @@ package com.iii.eeit124.article.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,6 +29,8 @@ import com.iii.eeit124.entity.Article;
 import com.iii.eeit124.entity.Comments;
 import com.iii.eeit124.entity.Forums;
 import com.iii.eeit124.entity.Members;
+
+import oracle.security.o3logon.a;
 
 @Controller
 @SessionAttributes(names = { "article" })
@@ -88,7 +92,7 @@ public class ArticleController {
 		model.addAttribute(forums);
 		return "article/SaveArticle";
 	}
-//.......................................................... TODO
+	
 	@GetMapping(value = "updateArticle")
 	public String updateArticle(Model model, @RequestParam(value = "articleId") Integer id) {
 		Article article = articleService.select(id);
@@ -150,16 +154,33 @@ public class ArticleController {
 		forumsService.saveArticle(article);
 		return "redirect:/articleList";
 	}
-
-	// update article to DB and return the articleList page.
+	
+	/*
+	 * 	update article to DB and return the articleList page.
+	 */	 
+	//.......................................................... TODO
 	@PostMapping(value = "/updateToDB")
 	public String updateToDB(@ModelAttribute(name = "article") Article article,
 			@RequestParam("content") String forumContent, BindingResult result, Model model) {
 //		System.out.println(article.getTitle());
 //		System.out.println(article.getFirstForum());
-		article.getFirstForum().setContent(forumContent);
+//		article.getFirstForum().setContent(forumContent);
+		
+		int id = article.getId();
+		List<Forums> forumList = forumsService.selectForumById(id);
+		Forums forum = forumList.get(0);
+		  
+		forum.setContent(forumContent);
+//		article.addForum(forum);
+		Set<Forums> set = new HashSet<Forums>();
+		forumList.forEach(element -> set.add(element));
+		article.setForums(set);
+		
+//		article.getForums().add(forum);
 		System.out.println(forumContent);
 		forumsService.update(article);
+//		article.setForums(article.getForums.add(forum));
+//		article.setForums(article.getForums().add(forum));
 		return "redirect:/articleList";
 	}
 

@@ -91,8 +91,8 @@ public class Article {
 		this.articletypesid = articletypesid;
 	}
 
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
+	// TODO edit lazzy to eager 11/29 2020
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "article", cascade = CascadeType.ALL)
 //	@OneToMany(fetch = FetchType.LAZY, targetEntity = Forums.class, cascade = CascadeType.ALL, mappedBy = "article")
 	public Set<Forums> getForums() {
 		return forums;
@@ -102,6 +102,11 @@ public class Article {
 	public void setForums(Set<Forums> forums) {
 		this.forums = forums;
 	}
+	public void addForum(Forums forum) {
+		this.forums.add(forum);
+		forum.setArticle(this);
+	}
+	
 
 	public Article(String title, int activitysid, int showarticle, int memberid, int articletypesid) {
 		this.title = title;
@@ -111,6 +116,16 @@ public class Article {
 		this.articletypesid = articletypesid;
 	}
 	
+//	@Transient
+//	public Forums getFirstForum() {	
+//		System.out.println(this.getForums());
+//		Iterator<Forums> iterator = this.getForums().iterator();
+//		if(iterator.hasNext()) {
+//			Forums forum = iterator.next();				
+//			return forum;
+//		}
+//		return null;
+//	}
 	@Transient
 	public Forums getFirstForum() {	
 		System.out.println(this.getForums());
@@ -118,7 +133,6 @@ public class Article {
 		if(iterator.hasNext()) {
 			Forums forum = iterator.next();				
 			return forum;
-
 		}
 		return null;
 	}
