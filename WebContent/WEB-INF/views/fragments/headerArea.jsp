@@ -243,4 +243,4 @@
                 </div>
             </div>
         </header>
-        <script src="<c:url value='/js/showHeaderItems.js' />"></script>
+        <jsp:include page="showHeaderItems.jsp" />
