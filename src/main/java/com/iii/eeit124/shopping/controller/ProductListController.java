@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iii.eeit124.entity.Products;
+import com.iii.eeit124.shopping.dao.ProductListDaoImpl;
 import com.iii.eeit124.shopping.service.ProductListService;
 
 @Controller
@@ -63,7 +64,9 @@ public class ProductListController {
 		@RequestParam(value="categoryId", required = false) Integer categoryId,
 		@RequestParam(value="animalTypeId", required = false) Integer animalTypeId,
 		@RequestParam(value="recordsPerPage", required = false,defaultValue = "3") Integer recordsPerPage,
-		@RequestParam(value ="keywordSearch", required = false) String keywordSearch
+		@RequestParam(value ="keywordSearch", required = false) String keywordSearch,
+		@RequestParam(value ="orderBy", required = false, defaultValue = "0") Integer orderBy //"0"用color_Id排序
+		
 			) {
 		
 		Long recordCounts= (long) 0;
@@ -72,6 +75,8 @@ public class ProductListController {
 
 		Map<String, Object> map = new HashMap<>();
 		//如果分類、顏色、動物類型有值
+		System.out.println(orderBy);
+		ProductListDaoImpl.getPageOrderBy(orderBy);
 		if (colorId != null||categoryId != null||animalTypeId != null) {
 //			if(keywordSearch != null || !(keywordSearch.equals("")) ) {
 //				//如果分類、顏色、動物類型有值 + 如果關鍵字有值，就不重算頁數(搜尋全部商品)

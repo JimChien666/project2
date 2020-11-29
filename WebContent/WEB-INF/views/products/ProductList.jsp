@@ -145,9 +145,13 @@ function getPage(){
 
 function getOrderBy(){
 	var content = "商品排序：<select id='orderBy' name='orderBy' onchange=getData() >";
-	for(var i=1; i <= 3; i+=1){
-	    content += 	"<option value=" + i + ">" + i + "</option>";
-	}
+
+	content += "<option value=0>" + "以顏色排序 ↑" + "</option>";
+	content += "<option value=1>" + "以名稱小至大排序 ↑" + "</option>";
+	content += "<option value=2>" + "以價格小至大排序 ↑" + "</option>";
+	content += "<option value=3>" + "以名稱大至小排序 ↓" + "</option>";
+	content += "<option value=4>" + "以價格大至小排序 ↓" + "</option>";
+
 	content += "</select>";
 	var divs = document.getElementById("OrderBySelectBar");
 	divs.innerHTML += content;
@@ -160,9 +164,10 @@ function getData(){
 	var categoryId = document.getElementById("categoryId").value;
 	var recordsPerPage = document.getElementById("recordsPerPage").value;
 	var keywordSearch = document.getElementById("keywordSearch").value;
+	var orderBy = document.getElementById("orderBy").value;
 	
 	var xhr = new XMLHttpRequest();
-	var condiction = "?animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId + "&recordsPerPage="+recordsPerPage + "&keywordSearch="+keywordSearch;
+	var condiction = "?animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId + "&recordsPerPage=" + recordsPerPage + "&keywordSearch=" + keywordSearch + "&orderBy=" + orderBy;
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "<c:url value='/product/pagingProducts.json' />" + condiction, true);
 	xhr.send();
@@ -231,7 +236,9 @@ function asynRequest(id) {
 		var categoryId = document.getElementById("categoryId").value;
 		var recordsPerPage = document.getElementById("recordsPerPage").value;
 		var keywordSearch = document.getElementById("keywordSearch").value;
-		var condiction = "&animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId + "&recordsPerPage=" + recordsPerPage + "&keywordSearch=" + keywordSearch;
+		var orderBy = document.getElementById("orderBy").value;
+		
+		var condiction = "&animalTypeId=" + animalTypeId + "&colorId=" + colorId + "&categoryId=" + categoryId + "&recordsPerPage=" + recordsPerPage + "&keywordSearch=" + keywordSearch + "&orderBy=" + orderBy;
 	    // 查詢字串包含1.即將要讀取的頁數(pageNo), 2.總共有幾頁(totalPage)
 	    // 注意，查詢字串的前面有問號
 	    queryString = "?pageNo=" + no + "&totalPage=" + totalPage + condiction;

@@ -2,20 +2,14 @@ package com.iii.eeit124.shopping.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.TypedQuery;
-
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.iii.eeit124.entity.MemberFiles;
 import com.iii.eeit124.entity.Products;
-import com.iii.eeit124.util.GlobalService;
 
 
 @Transactional
@@ -25,11 +19,33 @@ public class ProductListDaoImpl implements ProductListDao {
 	SessionFactory sessionFactory;
 	
 //	Integer recordsPerPage = GlobalService.RECORDS_PER_PAGE;
-
+	
+	static String orderByString=" order by color_Id";
+	public static String getPageOrderBy(Integer orderBy) {
+		switch(orderBy) { 
+	        case 1: 
+	        	orderByString=" order by name";
+	            break; 
+	        case 2: 
+	        	orderByString=" order by price";
+	            break; 
+	        case 3: 
+	        	orderByString=" order by name desc";
+	            break; 
+	        case 4: 
+	        	orderByString=" order by price desc";
+	            break; 
+	        case 0:    
+	        	orderByString=" order by color_Id";
+	        	break;
+	    }
+		
+		return orderByString;
+	}
 	@Override
 	public List<Products> findAllProducts() {
 		@SuppressWarnings("unchecked")
-		TypedQuery<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中' order by id");
+		TypedQuery<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中' " + orderByString);
 		return query.getResultList();
 	}
 
@@ -38,7 +54,7 @@ public class ProductListDaoImpl implements ProductListDao {
 	public List<Products> getPageProducts(Integer pageNo,Integer recordsPerPage) {
 		Integer startRecordNo = (pageNo - 1) * recordsPerPage; // 第二頁的第二筆＝（2-1）*3
 		List<Products> list = new ArrayList<Products>();
-		list = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中' order by id")
+		list = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中' " + orderByString)
   			  .setFirstResult(startRecordNo) //index的概念
   			  .setMaxResults(recordsPerPage) //當最後一頁商品數量不足顯示,則補足磯零數
   			  .getResultList();
@@ -81,7 +97,7 @@ public class ProductListDaoImpl implements ProductListDao {
 //			}
 		}
 		
-		Query query = sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Products where deleted_at=null and status='上架中'" + condiction);
+		Query query = sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Products where deleted_at=null and status='上架中' " + condiction);
 		if (colorId != null) {
 			query.setParameter("colorId", colorId);
 		}
@@ -134,7 +150,7 @@ public class ProductListDaoImpl implements ProductListDao {
 //			}
 		}
 		
-		Query query = sessionFactory.getCurrentSession().createQuery("FROM Products Where deleted_at=null and status='上架中'" + condiction  + " order by id");
+		Query query = sessionFactory.getCurrentSession().createQuery("FROM Products Where deleted_at=null and status='上架中' " + condiction  + orderByString);
 		query.setFirstResult(startRecordNo)
 			.setMaxResults(recordsPerPage);
 		
@@ -166,13 +182,13 @@ public class ProductListDaoImpl implements ProductListDao {
 
 	public Long getRecordCounts() {
 		Long count = 0L; // 必須使用 long 型態
-		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Products where deleted_at=null and status='上架中'  ").getSingleResult();
+		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Products where deleted_at=null and status='上架中' ").getSingleResult();
 		return count;
 	}
 	
 	public List<Products> selectByName(String keyword) {//用名子與敘述查詢
-		Query<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中'  and name like ?1 order by id ", Products.class);
-//		Query<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中'  and name like ?1 or description like ?2 order by id ", Products.class);
+		Query<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中'  and name like ?1 " + orderByString, Products.class);
+//		Query<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中'  and name like ?1 or description like ?2 "+ orderByString, Products.class);
 		query.setParameter(1, "%"+keyword+"%");
 		List<Products> list = query.getResultList();
 		return list;
