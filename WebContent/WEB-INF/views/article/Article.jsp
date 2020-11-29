@@ -123,7 +123,13 @@
 // 										 		console.log("$forums: "+ $forums)												
 												}
 											});
+
+										if(${empty LoginOK}){
+											$forums.append("<td>回覆本討論串:<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></td>")
+										}else{
 											$forums.append("<td>回覆本討論串:<input type='text' name='comments' id=reply"+forum.id+"></td>")
+											}
+										
 
 
 
@@ -134,13 +140,13 @@
 
 
 
-											$("#reply"+forum.id).blur(function (e) {
+											$("#reply"+forum.id).keypress(function (e) {
 												// $("input").keypress(function (e) {
 													console.log("hi hi");
 													console.log(forumId);
 // 													var id = this.forumId;
 													var comment = this.value;
-													console.log(id);
+// 													console.log(id);
 													console.log(comment);
 												if (e.keyCode == 13&&comment!=null) {
 												$.ajax({
