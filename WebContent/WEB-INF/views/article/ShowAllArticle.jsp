@@ -9,7 +9,7 @@ response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
 response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 %>
-<script
+<script	
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
@@ -32,6 +32,10 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 <jsp:include page="../fragments/links.jsp" />
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
 
 <html>
 <head>
@@ -40,10 +44,17 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <style type="text/css">
+.forumC:hover{
+	border:10px solid black;
+	
+}
+.forumC{
+	border:10px solid #7e4c4f;
+}
 .fixed {
 	position: fixed;
-	bottom: 3%;
-	right: 2%;
+	bottom: 10%;
+	right: 3%;
 }
 
 .fixed0 {
@@ -75,6 +86,17 @@ table {
 
 
 
+<script>
+$(document).ready( function () {
+    $('#articleTable').DataTable();
+} );
+</script>
+
+
+
+
+
+
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
 	</div>
@@ -83,10 +105,10 @@ table {
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
 		<div class="container">
 			<div class="breadcrumb-content text-center">
-				<h2>Blog</h2>
+				<h2>討論區</h2>
 				<ul>
-					<li><a href="index.html">home</a></li>
-					<li class="active">Blog</li>
+					<li><a href="index.html">首頁</a></li>
+					<li class="active">討論區</li>
 				</ul>
 			</div>
 		</div>
@@ -94,115 +116,50 @@ table {
 
 
 
-
-
-
-
-<%-- <jsp:include page="../public/top.jsp" /> --%>
-	<%-- ${LoginOK.getName()} --%>
-	<%-- 	<jsp:include page="../nn/top.jsp" /> --%>
-
-
-	<!-- 	<div class="btn btn-secondary float-right fixed0 box" id="idbox"> -->
-
-	<%-- 		<form action="<c:url value='/ArticleDelete' />" enctype="text/html" --%>
-	<!-- 			method="post" class="was-validated"> -->
-
-	<!-- 			<div class="mb-3"> -->
-	<!-- 				<div class="input-group is-invalid"> -->
-	<!-- 					<div class="input-group-prepend"> -->
-	<!-- 						<span class="input-group-text" id="validatedInputGroupPrepend">文章刪除</span> -->
-	<!-- 					</div> -->
-
-	<!-- 					<input type="text" name="articleId" class="form-control is-invalid" -->
-	<!-- 						aria-describedby="validatedInputGroupPrepend" -->
-	<!-- 						placeholder="enter id" required> -->
-
-	<!-- 				</div> -->
-	<!-- 				<div class="invalid-feedback"> -->
-	<!-- 					Example invalid input group feedback -->
-	<!-- 				</div> -->
-	<!-- 			</div> -->
-
-	<!-- 			<button type="submit" name="delete" id="delete" -->
-	<!-- 				class="btn btn-primary">刪除</button> -->
-	<!-- 		</form> -->
-	<!-- 	</div> -->
-	<!--
-	<div class="btn btn-secondary float-right fixed1 box" id="idbox1">
-
-		<form action="<c:url value='/UpdateArticle' />"
-			enctype="multipart/form-data" method="post" class="was-validated">
-
-			<div class="mb-3">
-				<div class="input-group is-invalid">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="validatedInputGroupPrepend">根據文章id修改</span>
-					</div>
-
-					<input type="text" name="id" class="form-control is-invalid"
-						aria-describedby="validatedInputGroupPrepend"
-						placeholder="enter id" required>
-
-				</div>
-				<div class="invalid-feedback">
-				</div>
-			</div>
-
-			<div class="mb-3">
-				<div class="input-group is-invalid">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="validatedInputGroupPrepend">文章標題</span>
-					</div>
-
-					<input type="text" name="title" class="form-control is-invalid"
-						aria-describedby="validatedInputGroupPrepend"
-						placeholder="enter title" required>
-
-				</div>
-				<div class="invalid-feedback">
-				</div>
-			</div>
-			<button type="submit" name="update" id="update"
-				class="btn btn-primary">修改</button>
-		</form>
-	</div>
--->
-
-	<a href="<c:url value='saveArticle' />" class="fixed">
-		<button type="button" class="btn btn-success">發文</button>
-	</a>
-
 <div class="container">
-	<div class="row justify-content-center align-items-center forum">
+	<ul style="list-style: none; margin: 10px 0;">
+		<li style="float: left; margin: 0px 10px 10px 10px;">
+	<a href="<c:url value='saveArticle' />" >
+<!-- 		<button type="button" class="btn btn-success">發文</button> -->
+		<button class="submit btn-style" type="submit" style="margin-top: 10px;"><span style="color:white; margin-top: 0px;">發文</span></button>
+	</a>
+		</li>
+		
+<!-- 		<li style="float: left; margin: 10px 10px 10px 10px;"> -->
+<!-- 		<input > -->
+<!-- 		</li> -->
+	
+	</ul>
+	<ul style="list-style: none; margin: 10px 0; clear:both;">
 		<c:forEach items="${allArticleTypes}" var="ArticleType" varStatus="id">
-			<div style="border: 3px solid black; width: 50%; text-align: center;">
-				<a
-					href="<c:url value='articleList?articletypesId=${ArticleType.getId()}' />">
+				<a href="<c:url value='articleList?articletypesId=${ArticleType.getId()}' />" >
+			<li style=" margin: 10px 10px 10px 10px; border-radius:25%; padding: 2px 3px; width: 9.09%; box-sizing: border-box; float: left; text-align: center;"  class="forumC">
+<!-- 			<li style=" margin: 10px 10px 10px 10px; border: 10px solid #7e4c4f; border-radius:25%; padding: 2px 3px; width: 9.09%; box-sizing: border-box; float: left; text-align: center;"> -->
+					
 					<c:if test="${ArticleType.getId()=='1'}">
-						<img src="https://image.flaticon.com/icons/png/512/194/194279.png"
-							style="height: 80px; margin-bottom: 10px;">
-					</c:if> <c:if test="${ArticleType.getId()=='2'}">
-						<img
-							src="https://cdn4.iconfinder.com/data/icons/animal-3/100/animal-08-512.png"
-							style="height: 80px; margin-bottom: 10px;">
-					</c:if> ${ArticleType.getArticletype()}${Articletype.getId()}
+						<img src="https://image.flaticon.com/icons/png/512/194/194279.png" style="height: 20px; margin-bottom: 0px;">
+					</c:if> 
+					<c:if test="${ArticleType.getId()=='2'}">
+						<img src="https://cdn4.iconfinder.com/data/icons/animal-3/100/animal-08-512.png" style="height: 20px; margin-bottom: 0px;">
+					</c:if> 
+					${ArticleType.getArticletype()}${Articletype.getId()}
+				
+			</li>
 				</a>
-			</div>
 		</c:forEach>
-	</div>
+	</ul>
 
-	<div align="center">
-		<table border=1>
-			<th>文章ID</th>
+	<div style="clear:both; width: 100%;">
+		<table border=1 style="width: 100%;" id="articleTable">
+<!-- 			<th>文章ID</th> -->
 			<th>文章標題</th>
 			<th>選擇修改</th>
 			<th>選擇刪除</th>
 			<c:forEach items="${Articles}" var="Article" varStatus="id">
 				<tr>
-					<td><a
-						href="<c:url value='goArticlePage?articleId=${Article.getId()}' />">${Article.getId()}</a></td>
-					<td>${Article.getTitle()}</td>
+<%-- 					<td>${Article.getId()}</td> --%>
+					<td><a href="<c:url value='goArticlePage?articleId=${Article.getId()}' />">
+					${Article.getTitle()}</a></td>
 					<td><a
 						href="<c:url value='updateArticle?articleId=${Article.getId()}' />">
 							<button type="button" class="btn btn-info">修改</button>
