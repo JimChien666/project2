@@ -16,6 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -30,7 +34,7 @@ public class ProductFiles implements Serializable {
 	private String fileUrl;
 	private Integer prodoctId;
 	private Products product;
-
+	private MultipartFile multipartFile;
 	private Blob fileBlob;
 	
 	
@@ -90,5 +94,13 @@ public class ProductFiles implements Serializable {
 		this.prodoctId = prodoctId;
 	}
 	
+	@JsonIgnore
+	@Transient
+	public MultipartFile getMultipartFile() {
+		return multipartFile;
+	}
+	public void setMultipartFile(MultipartFile multipartFile) {
+		this.multipartFile = multipartFile;
+	}
 
 }

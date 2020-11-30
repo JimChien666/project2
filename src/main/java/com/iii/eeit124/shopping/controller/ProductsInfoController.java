@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,10 +42,20 @@ public class ProductsInfoController {
 	@Autowired
 	ServletContext ctx;
 	
+	
 	@GetMapping("/productsInfo/{id}")
 	public String queryProductsById(@PathVariable(value = "id") Integer id,Model model){
-		model.addAttribute("ProductsInfo", service.getProduct(id));
-		return "/products/ProductsInfo";
+		Products product = service.getProduct(id);
+
+		//在ProductListDaoImpl的getProduct方法上加上@Nullable，讓JAVA從DB撈資料是空值時候不會出錯 		
+		if (product != null) {
+			if (product.getDeletedAt() == null && product.getStatus().equals("上架中")) {
+				model.addAttribute("ProductsInfo", product);
+				return "/products/ProductsInfo";//商品詳細頁面
+			}
+		}
+
+		return "/products/ProductsNotFind";//使用者到/product/productsInfo/xxxx 亂打數值就會回傳錯誤頁面
 	}
 	
 	

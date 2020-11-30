@@ -27,7 +27,7 @@ function getCategories(){
 			for(var i=0; i < categories.length; i++){
 			    content += 	"<option value='" + categories[i].id + "'>" + categories[i].name + "</option>";
 			}
-			content += "</select>";
+			content += "</select>"+"<span style='color: red;'>${errors.category}</span>" ;
 			var divs = document.getElementById("somedivS");
 			divs.innerHTML += content;
 			divs.innerHTML += "<br/>";
@@ -47,7 +47,7 @@ function getColors(){
 			for(var i=0; i < colors.length; i++){
 			    content += 	"<option value='" + colors[i].id + "'>" + colors[i].name + "</option>";
 			}
-			content += "</select>";
+			content += "</select>"+"<span style='color: red;'>${errors.color}</span>" ;
 			var divs = document.getElementById("somedivS");
 			divs.innerHTML += content;
 			divs.innerHTML += "<br/>";
@@ -68,7 +68,7 @@ function getAnimalTypes(){
 			for(var i=0; i < animalTypes.length; i++){
 			    content += 	"<option value='" + animalTypes[i].id + "'>" + animalTypes[i].name + "</option>";
 			}
-			content += "</select>";
+			content += "</select>"+"<span style='color: red;'>${errors.animalType}</span>";
 			var divs = document.getElementById("somedivS");
 			divs.innerHTML += content;
 			divs.innerHTML += "<br/>";
@@ -87,10 +87,10 @@ function getAnimalTypes(){
 		商品圖片:<form:input path="multipartFile" type="file"/><span style="color: red;">${errors.multipartFile}</span><br/>
 		商品描述:<form:input path="description"/><span style="color: red;">${errors.description}</span><br/>
 		商品數量:<form:input path="quantity"/><span style="color: red;">${errors.quantity}</span><br/>
-		商品狀態:上架<form:radiobutton path="status" value="上架"/>
-          	   下架<form:radiobutton path="status" value="下架"/><span style="color: red;">${errors.status}</span><br/>
+		商品狀態:上架中<form:radiobutton path="status" value="上架中"/>
+          	   已下架<form:radiobutton path="status" value="已下架"/><span style="color: red;">${errors.status}</span><br/>
         <div id='somedivS'></div>
-        ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/>
+<%--         ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/> --%>
         <form:button value="Send">Submit</form:button>
 		
 	</form:form>

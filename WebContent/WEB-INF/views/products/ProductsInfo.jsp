@@ -45,20 +45,45 @@
                	$(".btnFollow0").attr("style","border:0px #ab7661 solid; height:120px; width:120px;");	
 		});
 	});
+	
+	
+	//若productId為零,後端會直接回傳購物車列表
+	function addToCart(productId){
+		
+		var cartNum = 1;
+		
+		queryString="?productId=" + productId + "&cartNum=" + cartNum;
+		var xhr = new XMLHttpRequest();
+		xhr.open("Get", "<c:url value='/cart/AddCart'/>" + queryString , true);
+		xhr.send();
+		
+		xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var responseData = xhr.responseText;
+			var cartList = JSON.parse(responseData);
+			var num = cartList.length;
+
+			document.getElementById("shopCart").innerHTML=num;
+			}
+		
+		}
+	}
 </script>
+<jsp:include page="../fragments/links.jsp" />
 </head>
 
 <body>
-<jsp:include page="../public/top.jsp" />
+<jsp:include page="../fragments/headerArea.jsp" />
+<%-- <jsp:include page="../public/top.jsp" /> --%>
 <div align='center'>
 	<h3>商品資訊</h3>
 	
 <div style='position:absolute; top:134px;  right:100px; font-family:Microsoft JhengHei;'>	
 	<p style='font-family:cwtexhei; border-left:18px #ab7661 solid;'> ${ProductsInfo.name}</p>
 	<p style='color:#ab7661; font-size:22px;'><b> NT$${ProductsInfo.price}</b></p>
-	<button id='button1' class='btn btn-danger' onclick='addToCart(" + products[i].id + ")'  style='background-color:#ab7661; width:200px;'>加入購物車</button>
+	<button id='button1' class='btn btn-danger' onclick='addToCart(${ProductsInfo.id})'  style='background-color:#ab7661; width:200px;'>加入購物車</button>
 	<br/>
-	<a style='color:#ab7661;' href='http://tw.yahoo.com/' >♡加入追蹤清單</a>
+<!-- 	<a style='color:#ab7661;' href='http://tw.yahoo.com/' >♡加入追蹤清單</a> -->
 </div>
 <div style='position:absolute; top:134px;  left:100px; '>
 
@@ -89,5 +114,6 @@
 	
 	<a href="<c:url value='/' />">回前頁</a>
 </div>
+<jsp:include page="../fragments/allJs.jsp" />
 </body>
 </html>

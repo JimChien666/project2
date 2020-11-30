@@ -65,7 +65,7 @@ public class HibernateConfig {
 		properties.put("hibernate.format_sql", Boolean.TRUE);
 
 		properties.put("hibernate.current_session_context_class", "thread");
-		properties.put("hibernate.hbm2ddl.auto", "update");
+//		properties.put("hibernate.hbm2ddl.auto", "update");
 		return properties;
 	}
 	

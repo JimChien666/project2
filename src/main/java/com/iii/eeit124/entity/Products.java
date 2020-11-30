@@ -230,6 +230,7 @@ public class Products {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	@JsonIgnore
 	@Transient
 	public MultipartFile getMultipartFile() {
 		return multipartFile;
@@ -246,6 +247,7 @@ public class Products {
 		this.contentImgs = contentImgs;
 	}
 	
+	//取得ProductFiles的ID，給ProductsInfo.jsp讀照片用
 	@Transient
 	public List<Integer> getProductFilesId(){
 		Iterator iterator =  this.contentImgs.iterator();
