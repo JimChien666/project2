@@ -16,7 +16,11 @@ public interface ArticleDAO {
 	List<ArticleTypes> getAllArticleTypes();
 
 	List<Article> getAllArticles(int articletypesId);
+	
+	List<Article> select(Integer pageNo ,Integer recordsPerPage, Integer id);
 
+	Long getRecordCounts(Integer id);
+	
 	Article select(int id);
 	
 	Article saveFullArticle(Article article);

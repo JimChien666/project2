@@ -51,4 +51,14 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleDAO.saveFullArticle(article);
 	}
 
+	@Override
+	public List<Article> select(Integer pageNo, Integer recordsPerPage, Integer id) {
+		return articleDAO.select(pageNo, recordsPerPage, id);
+	}
+
+	@Override
+	public Long getRecordCounts(Integer id) {
+		return articleDAO.getRecordCounts(id);
+	}
+
 }

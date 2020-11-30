@@ -158,7 +158,6 @@ public class ArticleController {
 	/*
 	 * 	update article to DB and return the articleList page.
 	 */	 
-	//.......................................................... TODO
 	@PostMapping(value = "/updateToDB")
 	public String updateToDB(@ModelAttribute(name = "article") Article article,
 			@RequestParam("content") String forumContent, BindingResult result, Model model) {
@@ -199,8 +198,8 @@ public class ArticleController {
 	public @ResponseBody Map<String, Object> getPageArticle(Model model, @RequestParam(value="pageNo",defaultValue = "1") Integer pageNo, @RequestParam(value = "articleId")Integer id){
 		Map<String, Object> map = new HashMap<>();
 		Integer recordsPerPage = 2;
-		System.out.println("fuck");
-		System.out.println(id);
+//		System.out.println("fuck");
+//		System.out.println(id);
 //		Members loginOK = (Members)session.getAttribute("LoginOK");
 		Article article = articleService.select(id);
 //		List<Forums> articleList = forumsService.select(pageNo, recordsPerPage, id);
@@ -214,6 +213,23 @@ public class ArticleController {
 		map.put("recordCounts", recordCounts);
 		map.put("recordsPerPage", recordsPerPage);
 		return map;		
+	}
+	
+	public @ResponseBody Map<String, Object> getArtilceList(Model model, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "articleTypeId")Integer id){
+		Map<String, Object> map = new HashMap<>();
+		Integer recordsPerPage = 2;
+		System.out.println("fuckUp999....................................................................");
+		System.out.println(id);
+		System.out.println("fuckUp999....................................................................");
+		Long recordCounts = articleService.getRecordCounts(id);
+		List<Article> articleList = articleService.select(pageNo, recordsPerPage, id);
+		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));		
+		map.put("articleList", articleList);
+		map.put("totalPage", totalPage);
+		map.put("currPage", pageNo);
+		map.put("recordCounts", recordCounts);
+		map.put("recordsPerPage", recordsPerPage);		
+		return map;
 	}
 	
 
