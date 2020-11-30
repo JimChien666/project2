@@ -77,26 +77,158 @@ table {
 	font-size: 2em;
 }
 </style>
-
-
 <title>討論區</title>
-
 </head>
-<body>
-
-
-
 <script>
-$(document).ready( function () {
-    $('#articleTable').DataTable();
-} );
+$(function() {	
+
+	$.ajax({
+		type : "GET",
+		url : "<c:url value='getArticleList' />?articleTypeId=1",
+		success : function(mapData) {
+			showArticleList(mapData)
+		}
+	});
+
+	function showArticleList(mapData){
+		var $artilceList = $("#artilceList")
+		articleList = mapData.articleList;
+		pageNo = mapData.currPage;
+		totalPage = mapData.totalPage;
+		recordCounts = mapData.recordCounts;
+		$artilceList.empty();	
+		$artilceList.append("<table border=1 style='width: 100%;' >")
+		$artilceList.append("<th>文章標題</th>")	
+		$.each(articleList, function(i, article){
+
+
+
+			
+			$artilceList.append("<tr><td>"+article.title+"</td></tr>")	
+			})
+			
+			var navContent = "" ;
+		if (pageNo != 1){
+			navContent += "<li><a id='first'><<</a></li>";
+			navContent += "<li><a id='prev'><</a></li>";
+		}  else {
+			navContent += "<li>&nbsp;</li>";
+			navContent += "<li>&nbsp;</li>";
+		}
+		navContent += "<td width='200' align='center'> " + pageNo + " / " + totalPage + "</td>";
+		if (pageNo != totalPage){
+			navContent += "<li><a id='next'>></a></li>";
+			navContent += "<li><a id='last'>>></a></li>";
+		}  else {
+			navContent += "<td align='center'>&nbsp;</td>";
+			navContent += "<td align='center'>&nbsp;</td>";
+		}
+		
+		document.getElementById("navigation").innerHTML = navContent;
+		var firstBtn = document.getElementById("first");
+		var prevBtn  = document.getElementById("prev");
+		var nextBtn  = document.getElementById("next");
+		var lastBtn  = document.getElementById("last");
+		if (firstBtn != null) {
+			firstBtn.onclick=function(){
+				asynRequest(this.id);
+			}
+		}
+		
+		if (prevBtn != null) {
+			prevBtn.onclick=function(){
+				asynRequest(this.id);
+			}
+		}
+		
+		if (nextBtn != null) {
+			nextBtn.onclick=function(){
+				asynRequest(this.id);
+			}
+		}
+		
+		if (lastBtn != null) {
+			lastBtn.onclick=function(){
+				asynRequest(this.id);				
+			}
+		}
+
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//當使用者按下『第一頁』、『前一頁』、『下一頁』、『最末頁』的連結時，由本方法發出非同步請求。
+function asynRequest(id) {
+	var xhr = new XMLHttpRequest();
+	var no = 0;
+    var queryString = "";     		// queryString紀錄查詢字串
+	    if (id == "first") {		// 算出查詢字串中，要送出的pageNo為何?
+	    	no = 1;
+	    } else if (id == "prev") {
+	    	no = pageNo - 1;
+	    } else if (id == "next") {
+	    	no = pageNo + 1;
+	    } else if (id == "last") {
+	    	no = totalPage;	    	
+	    }
+	    // 查詢字串包含1.即將要讀取的頁數(pageNo), 2.總共有幾頁(totalPage)
+	    // 注意，查詢字串的前面有問號
+	    queryString = "&pageNo=" + no + "&totalPage=" + totalPage;
+					   //<c:url value='article' />?articleId=${articleId}
+// 		xhr.open("GET", "<c:url value='getArticle' />?articleId=${articleId}" + queryString , true);
+// 						   url : "<c:url value='getArticleList' />?articleTypeId=1",
+						
+		xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId=1" + queryString , true);
+// 		console.log(no)
+// 		console.log(totalPage)
+		
+		
+		xhr.send();
+		xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var mapData = xhr.responseText;
+			
+			showArticleList(JSON.parse(mapData));
+// 			showArticleList(mapData);
+		}
+	}
+		
+}
+});
 </script>
-
-
-
-
-
-
+<body>
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
 	</div>
@@ -117,24 +249,24 @@ $(document).ready( function () {
 
 
 <div class="container">
+
+
+<!-- 
 	<ul style="list-style: none; margin: 10px 0;">
 		<li style="float: left; margin: 0px 10px 10px 10px;">
 	<a href="<c:url value='saveArticle' />" >
-<!-- 		<button type="button" class="btn btn-success">發文</button> -->
 		<button class="submit btn-style" type="submit" style="margin-top: 10px;"><span style="color:white; margin-top: 0px;">發文</span></button>
 	</a>
-		</li>
-		
-<!-- 		<li style="float: left; margin: 10px 10px 10px 10px;"> -->
-<!-- 		<input > -->
-<!-- 		</li> -->
-	
+		</li>	
 	</ul>
+ -->
+	
+	
+<!-- 
 	<ul style="list-style: none; margin: 10px 0; clear:both;">
 		<c:forEach items="${allArticleTypes}" var="ArticleType" varStatus="id">
 				<a href="<c:url value='articleList?articletypesId=${ArticleType.getId()}' />" >
 			<li style=" margin: 10px 10px 10px 10px; border-radius:25%; padding: 2px 3px; width: 9.09%; box-sizing: border-box; float: left; text-align: center;"  class="forumC">
-<!-- 			<li style=" margin: 10px 10px 10px 10px; border: 10px solid #7e4c4f; border-radius:25%; padding: 2px 3px; width: 9.09%; box-sizing: border-box; float: left; text-align: center;"> -->
 					
 					<c:if test="${ArticleType.getId()=='1'}">
 						<img src="https://image.flaticon.com/icons/png/512/194/194279.png" style="height: 20px; margin-bottom: 0px;">
@@ -148,32 +280,26 @@ $(document).ready( function () {
 				</a>
 		</c:forEach>
 	</ul>
+ -->
 
 	<div style="clear:both; width: 100%;">
-		<table border=1 style="width: 100%;" id="articleTable">
-<!-- 			<th>文章ID</th> -->
-			<th>文章標題</th>
-			<th>選擇修改</th>
-			<th>選擇刪除</th>
-			<c:forEach items="${Articles}" var="Article" varStatus="id">
-				<tr>
-<%-- 					<td>${Article.getId()}</td> --%>
-					<td><a href="<c:url value='goArticlePage?articleId=${Article.getId()}' />">
-					${Article.getTitle()}</a></td>
-					<td><a
-						href="<c:url value='updateArticle?articleId=${Article.getId()}' />">
-							<button type="button" class="btn btn-info">修改</button>
-					</a></td>
-					<td><a
-						href="<c:url value='deleteArticle?articleId=${Article.getId()}' />">
-							<button type="button" class="btn btn-danger">刪除</button>
-					</a></td>
-				<tr>
-			</c:forEach>
-		</table>
+<!-- 下面要放文章 -->
+		<div id="artilceList">
+		
+		
+		
+		</div>
 	</div>
 </div>
-
+	<div class="pagination-style text-center mt-20">
+		<ul id = 'navigation'>
+<!-- 			<li><a href="#"><i class="icon-arrow-left"></i></a></li> -->
+<!-- 			<li><a href="#">1</a></li> -->
+<!-- 			<li><a href="#">2</a></li> -->
+<!-- 			<li><a class="active" href="#"><i class="icon-arrow-right"></i></a> -->
+<!-- 			</li> -->
+		</ul>
+	</div>
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />

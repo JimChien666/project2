@@ -63,12 +63,18 @@ public class ArticleController {
 //	}
 
 	@GetMapping(value = "articleList")
-	public String list(Locale locale, Model model,
-			@RequestParam(value = "articletypesId", required = false, defaultValue = "1") Integer id) {
-		model.addAttribute("allArticleTypes", articleService.getAllArticleTypes());
-		model.addAttribute("Articles", articleService.getAllArticles(id));
+	public String list() {
+//	public String list(Locale locale, Model model, @RequestParam(value = "articletypesId", required = false, defaultValue = "1") Integer id) {
+//		model.addAttribute("allArticleTypes", articleService.getAllArticleTypes());
+//		model.addAttribute("Articles", articleService.getAllArticles(id));
 		return "article/ShowAllArticle";
 	}
+//	@GetMapping(value = "articleList")
+//	public String list(Locale locale, Model model, @RequestParam(value = "articletypesId", required = false, defaultValue = "1") Integer id) {
+//		model.addAttribute("allArticleTypes", articleService.getAllArticleTypes());
+//		model.addAttribute("Articles", articleService.getAllArticles(id));
+//		return "article/ShowAllArticle";
+//	}
 
 	@GetMapping(value = "backArticle")
 	public String backArticle() {
@@ -214,8 +220,8 @@ public class ArticleController {
 		map.put("recordsPerPage", recordsPerPage);
 		return map;		
 	}
-	
-	public @ResponseBody Map<String, Object> getArtilceList(Model model, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "articleTypeId")Integer id){
+	@GetMapping(value = "getArticleList")
+	public @ResponseBody Map<String, Object> getArtilceList(Model model, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "articleTypeId", defaultValue = "1")Integer id){
 		Map<String, Object> map = new HashMap<>();
 		Integer recordsPerPage = 2;
 		System.out.println("fuckUp999....................................................................");
