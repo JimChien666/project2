@@ -206,8 +206,7 @@ public class ArticleController {
 //		List<Forums> articleList = forumsService.select(pageNo, recordsPerPage, id);
 		Long recordCounts = forumsService.getRecordCounts(id);
 		List<Forums> forumList = forumsService.select(pageNo, recordsPerPage, id);
-		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
-		
+		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));		
 		map.put("article", article);
 		map.put("forumList", forumList);
 		map.put("totalPage", totalPage);

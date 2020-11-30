@@ -129,15 +129,6 @@
 										}else{
 											$forums.append("<td>回覆本討論串:<input type='text' name='comments' id=reply"+forum.id+"></td>")
 											}
-										
-
-
-
-
-
-
-
-
 
 
 											$("#reply"+forum.id).keypress(function (e) {
@@ -148,7 +139,7 @@
 													var comment = this.value;
 // 													console.log(id);
 													console.log(comment);
-												if (e.keyCode == 13&&comment!=null) {
+												if (e.keyCode == 13&&comment!="") {
 												$.ajax({
 												  url: "saveComments",
 												  data: {
