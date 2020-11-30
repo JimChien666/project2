@@ -10,6 +10,7 @@
 <jsp:include page="../fragments/links.jsp" />
 </head>
 <body>
+
 	<jsp:include page="../fragments/headerArea.jsp" />
 	<div class="breadcrumb-area pt-95 pb-95 bg-img"
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
@@ -57,9 +58,14 @@
 											</c:if>
 											<div class="button-box">
 												<div class="login-toggle-btn">
-													<input type="checkbox" name="rememberMe" value="true" checked="checked"> <label>記住我</label>
-													<a href="#">Forgot Password?</a>
+													<input type="checkbox" name="rememberMe" value="true"
+														checked="checked"> <label>記住我</label> <a href="#">Forgot
+														Password?</a>
 												</div>
+												<div class="fb-login-button" data-size="large" onlogin="goindex()" 
+													data-button-type="continue_with" data-layout="default"
+													data-auto-logout-link="false" data-use-continue-as="false"
+													data-width=""></div>
 												<button type="submit" name="send" value="send">
 													<span>送出</span>
 												</button>
@@ -68,7 +74,7 @@
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 				</div>
@@ -83,5 +89,7 @@
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
+	<script async defer crossorigin="anonymous"
+		src="https://connect.facebook.net/en_US/sdk.js"></script>
 </body>
 </html>
