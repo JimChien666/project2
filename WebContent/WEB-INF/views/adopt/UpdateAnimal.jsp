@@ -34,37 +34,38 @@
 		</div>
 	</div>
 	<!-- ===================================================================================== -->
-	<div class="wid450px">
-		<a href="<c:url value='/ReadAnimal' />"
-			class="btn btn-secondary margin10px">回維護首頁</a>
-	</div>
-	<!-- ===================================================================================== -->
-	<div class="wid450px">
+	<div class="wid450px margin0Auto mt-50 mb-50">
+		<div>
+			<a href="<c:url value='/ReadAnimal' />"
+				class="btn-style1 font22 mb-20">回維護首頁</a>
+		</div>
+		<!-- ===================================================================================== -->
 		<form:form action="UpdateAnimal.controller" method="POST"
 			modelAttribute="animals" enctype="multipart/form-data">
-			<form:label path="animalFiles" class="label1">照片：</form:label>
-			<form:input path="animalFiles" type="file" class="input1 inputHW"
-				id="animalFilesUpdate" />
-			<br>
-			<div class="dispblok margleft125px square250px"
-				id="animalFilesDivOrigin">
-				<img class="cardImg"
-					src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animals.animalId}"
-					alt="Animal image">
+			<div class="mb-20">
+				<form:label path="animalFiles" class="mb-0 font22">照片：</form:label>
+				<form:input path="animalFiles" type="file" id="animalFilesUpdate" />
+				<br>
 			</div>
-			<div class="divHidden square250px" id="animalFilesDivAlter">
-				<img class="cardImg" id="preview_animalFiles" src="#" /><br>
+			<div class="mb-20">
+				<div class="dispblok square250px" id="animalFilesDivOrigin">
+					<img class="cardImg"
+						src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animals.animalId}"
+						alt="Animal image">
+				</div>
+				<div class="divHidden square250px" id="animalFilesDivAlter">
+					<img class="cardImg" id="preview_animalFiles" src="#" /><br>
+				</div>
 			</div>
 			<!-- ===================================================================================== -->
-			<form:label path="animalId" class="label1">動物編號：</form:label>
-			<form:input path="animalId" type="text" name="animalId"
-				value="${animals.animalId}" class="divHidden" id="animalId" />
-			<form:label path="animalId">${animals.animalId}</form:label>
-			<br>
+				<form:label path="animalId" class="mb-0 font22">動物編號：</form:label>
+				<form:input path="animalId" type="text" name="animalId"
+					value="${animals.animalId}" class="divHidden" id="animalId" />
+				<form:label path="animalId">${animals.animalId}</form:label>
 			<!-- 		label不能用value，input readonly="readonly", disable="disabled"無作用-->
 			<!-- ===================================================================================== -->
 			<div class="divHidden">
-				<form:label path="memberId" class="label1">會員編號：</form:label>
+				<form:label path="memberId" class="mb-0 font22">會員編號：</form:label>
 				<form:input path="memberId" type="text" name="memberId"
 					value="${animals.member.id}" onblur="checkmemberId()" id="memberId" />
 				<br>
@@ -73,41 +74,43 @@
 				<br>
 			</div>
 			<!-- ===================================================================================== -->
-			<form:label path="acceptionId" class="label1">收容動物編號：</form:label>
-			<form:input path="acceptionId" type="text" name="acceptionId"
-				value="${animals.acceptionId}" onblur="checkacceptionId()"
-				id="acceptionId" class="wid200px input1 inputBorder inputHW"/>
-			<br>
+			<div class="mb-20">
+				<form:label path="acceptionId" class="mb-0 font22">收容動物編號：</form:label>
+				<form:input path="acceptionId" type="text" name="acceptionId"
+					value="${animals.acceptionId}" onblur="checkacceptionId()"
+					id="acceptionId" />
+				<br>
+			</div>
 			<div id="acceptionIdDiv" class="divHidden">
 				<br>
 			</div>
 			<!-- ===================================================================================== -->
-			<form:label path="breedId" class="label1">品種編號：</form:label>
-			<select id="family" class="input1 inputBorder inputHW">
-				<c:forEach var="Families" items="${Families}">
-					<c:choose>
-						<c:when test="${Families == animals.breeds.family}">
-							<option selected>${animals.breeds.family}</option>
-						</c:when>
-						<c:otherwise>
-							<option>${Families}</option>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</select>
-			<select id="breed" class="input1 inputBorder inputHW">
-				<c:forEach var="breed" items="${breed}">
-					<c:choose>
-						<c:when test="${breed.breed == animals.breeds.breed}">
-							<option selected>${animals.breeds.breed}</option>
-						</c:when>
-						<c:otherwise>
-							<option>${breed.breed}</option>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</select>
-			<br>
+			<div class="mb-20">
+				<form:label path="breedId" class="mb-0 font22">品種編號：</form:label>
+				<select id="family" class="font22 borderBlack wid40p">
+					<c:forEach var="Families" items="${Families}">
+						<c:choose>
+							<c:when test="${Families == animals.breeds.family}">
+								<option selected>${animals.breeds.family}</option>
+							</c:when>
+							<c:otherwise>
+								<option>${Families}</option>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</select> <select id="breed" class="font22 borderBlack wid40p">
+					<c:forEach var="breed" items="${breed}">
+						<c:choose>
+							<c:when test="${breed.breed == animals.breeds.breed}">
+								<option selected>${animals.breeds.breed}</option>
+							</c:when>
+							<c:otherwise>
+								<option>${breed.breed}</option>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</select> <br>
+			</div>
 			<div class="divHidden">
 				<input type="text" name="breedText" value="${animals.breeds.breed}"
 					id="breedText" /> <br>
@@ -116,54 +119,63 @@
 				<br>
 			</div>
 			<!-- ===================================================================================== -->
-			<form:label path="gender" class="label1">性別：</form:label>
-			<form:select path="gender" class="input1 inputBorder inputHW">
-				<c:choose>
-					<c:when test="${animals.gender == 1}">
-						<form:option value="1" selected="selected">公</form:option>
-						<form:option value="0">母</form:option>
-					</c:when>
-					<c:otherwise>
-						<form:option value="1">公</form:option>
-						<form:option value="0" selected="selected">母</form:option>
-					</c:otherwise>
-				</c:choose>
-			</form:select>
-			<br>
+			<div class="mb-20">
+				<form:label path="gender" class="mb-0 font22">性別：</form:label>
+				<form:select path="gender" class="font22 borderBlack wid40p">
+					<c:choose>
+						<c:when test="${animals.gender == 1}">
+							<form:option value="1" selected="selected">公</form:option>
+							<form:option value="0">母</form:option>
+						</c:when>
+						<c:otherwise>
+							<form:option value="1">公</form:option>
+							<form:option value="0" selected="selected">母</form:option>
+						</c:otherwise>
+					</c:choose>
+				</form:select>
+				<br>
+			</div>
 			<!-- ===================================================================================== -->
-			<form:label path="coatColor" class="label1">毛色：</form:label>
-			<form:input path="coatColor" type="text" name="coatColor"
-				value="${animals.coatColor}" onblur="checkcoatColor()"
-				id="coatColor" class="input1 inputBorder inputHW"/>
-			<br>
+			<div class="mb-20">
+				<form:label path="coatColor" class="mb-0 font22">毛色：</form:label>
+				<form:input path="coatColor" type="text" name="coatColor"
+					value="${animals.coatColor}" onblur="checkcoatColor()"
+					id="coatColor" class="font22" />
+				<br>
+			</div>
 			<div id="coatColorDiv" class="divHidden">
 				<br>
 			</div>
 			<!-- ===================================================================================== -->
-			<form:label path="isAdoptionAvailable" class="label1">是否開放領養：</form:label>
-			<form:select path="isAdoptionAvailable" class="input1 inputBorder inputHW">
-				<c:choose>
-					<c:when test="${animals.isAdoptionAvailable == 1}">
-						<form:option value="1" selected="selected">開放</form:option>
-						<form:option value="0">不開放</form:option>
-					</c:when>
-					<c:otherwise>
-						<form:option value="1">開放</form:option>
-						<form:option value="0" selected="selected">不開放</form:option>
-					</c:otherwise>
-				</c:choose>
-			</form:select>
-			<br>
+			<div class="mb-20">
+				<form:label path="isAdoptionAvailable" class="mb-0 font22">是否開放領養：</form:label>
+				<form:select path="isAdoptionAvailable"
+					class="font22 borderBlack wid40p">
+					<c:choose>
+						<c:when test="${animals.isAdoptionAvailable == 1}">
+							<form:option value="1" selected="selected">開放</form:option>
+							<form:option value="0">不開放</form:option>
+						</c:when>
+						<c:otherwise>
+							<form:option value="1">開放</form:option>
+							<form:option value="0" selected="selected">不開放</form:option>
+						</c:otherwise>
+					</c:choose>
+				</form:select>
+				<br>
+			</div>
 			<!-- ===================================================================================== -->
-			<form:label path="note" class="label1 posAbs">備註：</form:label>
-			<form:textarea path="note" name="note" rows="5" cols="18"
-				 class="margleft125px input1 inputBorder wid305px" value="${animals.note}" />
-			<br>
+			<div class="mb-20">
+				<form:label path="note" class="mb-0 font22">備註：</form:label>
+				<form:textarea path="note" name="note" rows="5" cols="18"
+					class="font22" value="${animals.note}" />
+				<br>
+			</div>
 			<!-- ===================================================================================== -->
 			<a
 				href="<c:url value='/preUpdateAnimal.controller' />?animalId=${animals.animalId}"
-				class="btn btn-secondary">回復修改</a>
-			<form:button value="Send" name="update" class="btn btn-primary">修改</form:button>
+				class="btn-style-cancel btn-style-border">回復修改</a>
+			<form:button value="Send" name="update" class="btn-style1 font22">修改</form:button>
 		</form:form>
 	</div>
 	<jsp:include page="../fragments/footerArea.jsp" />

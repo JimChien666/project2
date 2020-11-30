@@ -29,8 +29,8 @@
 
 	<!-- ============================================================================================= -->
 
-	<div class="mt-50">
-		<h1 class="divCenter">愛心犬貓認養須知</h1>
+	<div class="mt-50 divCenter">
+		<h1>愛心犬貓認養須知</h1>
 	</div>
 	<div class="wid700px">
 		<div class="f-left mr-10 divVerticalCenter50">
@@ -55,7 +55,7 @@
 		</div>
 	</div>
 	<div class="mt-20 mb-50">
-		<table class="wid1000px font20">
+		<table class="wid1000px font22">
 			<tr>
 				<td class="tdVertical wid20">(一)</td>
 				<td>您是否看過犬貓之行為健康評估表?<br>您是否與管理人員或志工討論過該犬貓之狀況。
@@ -64,7 +64,7 @@
 				<td class="tdVertical wid100"><input type="radio"
 					class="square20px" name="notice1" value="1">有</td>
 				<td class="tdVertical wid100"><input type="radio"
-					class="square20px" name="notice1" value="0">無</td>
+					class="square20px" name="notice1" value="0" checked>無</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -77,7 +77,7 @@
 				<td class="tdVertical wid100"><input type="radio"
 					class="square20px" name="notice2" value="1">了解</td>
 				<td class="tdVertical wid100"><input type="radio"
-					class="square20px" name="notice2" value="0">不了解</td>
+					class="square20px" name="notice2" value="0" checked>不了解</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -90,7 +90,7 @@
 				<td class="tdVertical wid100"><input type="radio"
 					class="square20px" name="notice3" value="1">了解</td>
 				<td class="tdVertical wid100"><input type="radio"
-					class="square20px" name="notice3" value="0">不了解</td>
+					class="square20px" name="notice3" value="0" checked>不了解</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -104,7 +104,7 @@
 				<td class="tdVertical wid100"><input type="radio"
 					class="square20px" name="notice4" value="1">了解</td>
 				<td class="tdVertical wid100"><input type="radio"
-					class="square20px" name="notice4" value="0">不了解</td>
+					class="square20px" name="notice4" value="0" checked>不了解</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -116,7 +116,7 @@
 				<td class="tdVertical wid100"><input type="radio"
 					class="square20px" name="notice5" value="1">了解</td>
 				<td class="tdVertical wid100"><input type="radio"
-					class="square20px" name="notice5" value="0">不了解</td>
+					class="square20px" name="notice5" value="0" checked>不了解</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -130,7 +130,7 @@
 				<td class="tdVertical wid100"><input type="radio"
 					class="square20px" name="notice6" value="1">了解</td>
 				<td class="tdVertical wid100"><input type="radio"
-					class="square20px" name="notice6" value="0">不了解</td>
+					class="square20px" name="notice6" value="0" checked>不了解</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -143,7 +143,7 @@
 				<td class="tdVertical wid100"><input type="radio"
 					class="square20px" name="notice7" value="1">了解</td>
 				<td class="tdVertical wid100"><input type="radio"
-					class="square20px" name="notice7" value="0">不了解</td>
+					class="square20px" name="notice7" value="0" checked>不了解</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -156,7 +156,7 @@
 				<td class="tdVertical wid100"><input type="radio"
 					class="square20px" name="notice8" value="1">同意</td>
 				<td class="tdVertical wid100"><input type="radio"
-					class="square20px" name="notice8" value="0">不同意</td>
+					class="square20px" name="notice8" value="0" checked>不同意</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -169,7 +169,7 @@
 				<td class="tdVertical wid100"><input type="radio"
 					class="square20px" name="notice9" value="1">了解</td>
 				<td class="tdVertical wid100"><input type="radio"
-					class="square20px" name="notice9" value="0">不了解</td>
+					class="square20px" name="notice9" value="0" checked>不了解</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -182,7 +182,7 @@
 				<td class="tdVertical wid100"><input type="radio"
 					class="square20px" name="notice10" value="1">同意</td>
 				<td class="tdVertical wid100"><input type="radio"
-					class="square20px" name="notice10" value="0">不同意</td>
+					class="square20px" name="notice10" value="0" checked>不同意</td>
 			</tr>
 		</table>
 	</div>
@@ -190,9 +190,8 @@
 	<!-- ============================================================================================= -->
 
 	<div class="divCenter mb-50">
-<%-- 		<a href="<c:url value='/adoptApply'/>" class="btn-style" id="save">儲存</a> --%>
-		<button class="btn-style" id="save">儲存</button>
-		<a href="<c:url value='/adopt'/>" class="btn-style-cancel">取消</a>
+		<a href="<c:url value='/adoptApply'/>?animalId=${animal.animalId}" class="btn-style1 btn-style-border" id="save">儲存</a>
+		<a href="<c:url value='/adopt'/>" class="btn-style-cancel btn-style-border">取消</a>
 	</div>
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />

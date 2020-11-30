@@ -106,6 +106,7 @@ public class LoginController {
 			cookieRememberMe.setMaxAge(0);
 			cookieRememberMe.setPath(request.getContextPath());
 		}
+		m.addAttribute("abcd","123456");
 		response.addCookie(cookieUser);
 		response.addCookie(cookiePassword);
 		response.addCookie(cookieRememberMe);

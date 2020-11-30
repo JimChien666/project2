@@ -103,6 +103,17 @@ public class AnimalsController {
 		m.addAttribute("AnimalsList", animalsService.readMyAnimals(((Members)session.getAttribute("LoginOK")).getId()));
 		return "adopt/ReadAnimal";
 	}
+	
+	//瀏覽動物詳細頁
+	@GetMapping("/ReadAnimalDetails.controller/{id}")
+	public String processReadAnimalDetail(@PathVariable(name = "id") Integer id, 
+//			@ModelAttribute("animal") Animals entity, 
+			Model m) {
+		Animals animals = animalsService.read(id);
+		m.addAttribute("source", "ReadAnimal");
+		m.addAttribute("animal", animals);
+		return "adopt/ReadAnimalDetails";
+	}
 
 //==============================================================================================	
 
