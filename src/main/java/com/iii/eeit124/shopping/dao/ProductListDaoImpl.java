@@ -19,10 +19,12 @@ public class ProductListDaoImpl implements ProductListDao {
 	SessionFactory sessionFactory;
 	
 //	Integer recordsPerPage = GlobalService.RECORDS_PER_PAGE;
-	
 	static String orderByString=" order by color_Id";
 	public static String getPageOrderBy(Integer orderBy) {
 		switch(orderBy) { 
+	        case 0:    
+	        	orderByString=" order by color_Id";
+	        	break;
 	        case 1: 
 	        	orderByString=" order by name";
 	            break; 
@@ -35,11 +37,7 @@ public class ProductListDaoImpl implements ProductListDao {
 	        case 4: 
 	        	orderByString=" order by price desc";
 	            break; 
-	        case 0:    
-	        	orderByString=" order by color_Id";
-	        	break;
 	    }
-		
 		return orderByString;
 	}
 	@Override

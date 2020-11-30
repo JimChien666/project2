@@ -71,13 +71,13 @@ public class ProductListController {
 		
 		Long recordCounts= (long) 0;
 		List<Products> list = new ArrayList<Products>();
-	    
-
 		Map<String, Object> map = new HashMap<>();
-		//如果分類、顏色、動物類型有值
-		System.out.println(orderBy);
+		
+		//抓ProductList.jsp，orderBy的值到ProductListDaoImpl，做switch
 		ProductListDaoImpl.getPageOrderBy(orderBy);
-		if (colorId != null||categoryId != null||animalTypeId != null) {
+		
+		//如果分類、顏色、動物類型有值
+		if (colorId != null||categoryId != null||animalTypeId != null ||keywordSearch != null) {
 //			if(keywordSearch != null || !(keywordSearch.equals("")) ) {
 //				//如果分類、顏色、動物類型有值 + 如果關鍵字有值，就不重算頁數(搜尋全部商品)
 //				list = service.getPageProducts(pageNo,recordsPerPage);
@@ -88,17 +88,12 @@ public class ProductListController {
 				list = service.getPageProducts(pageNo, colorId, categoryId, animalTypeId,recordsPerPage,keywordSearch);
 				recordCounts = service.getRecordCounts(colorId, categoryId, animalTypeId,keywordSearch);
 				totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
-			
 //			}
 		}else {
-			list = service.getPageProducts(pageNo, colorId, categoryId, animalTypeId,recordsPerPage,keywordSearch);
-			recordCounts = service.getRecordCounts(colorId, categoryId, animalTypeId,keywordSearch);
-			totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
-		
 			//如果分類、顏色、動物類型沒有值+不管關鍵字有沒有值都不重算
-//			list = service.getPageProducts(pageNo,recordsPerPage);
-//			recordCounts = service.getRecordCounts();
-//			totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
+			list = service.getPageProducts(pageNo,recordsPerPage);
+			recordCounts = service.getRecordCounts();
+			totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
 		}
 		map.put("list", list);
 		map.put("totalPage", totalPage);

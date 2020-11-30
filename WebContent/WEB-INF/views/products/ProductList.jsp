@@ -146,7 +146,7 @@ function getPage(){
 function getOrderBy(){
 	var content = "商品排序：<select id='orderBy' name='orderBy' onchange=getData() >";
 
-	content += "<option value=0>" + "以顏色排序 ↑" + "</option>";
+	content += "<option value=0>" + "以顏色排序 " + "</option>";
 	content += "<option value=1>" + "以名稱小至大排序 ↑" + "</option>";
 	content += "<option value=2>" + "以價格小至大排序 ↑" + "</option>";
 	content += "<option value=3>" + "以名稱大至小排序 ↓" + "</option>";
@@ -525,11 +525,11 @@ function goToCartPage(){
                         <div class="shop-sidebar">
                             <div class="shop-widget">
                             	<h4 class="shop-sidebar-title">搜尋商品</h4>
-                                <div class="shop-search mt-25 mb-50">                               
+                                <div class="shop-search mt-25 mb-50" >                               
 
 <!--                                     <form  class="shop-search-form"> -->
-                                        <input type="text" name="keywordSearch" id="keywordSearch" placeholder="輸入商品名稱">
-                                        <button class="" type="submit" onclick="getData()">
+                                        <input  type="text" name="keywordSearch" id="keywordSearch" placeholder="輸入商品名稱">
+                                        <button  class="" type="submit" onclick="getData()">
                                             <i class="icon-magnifier"></i>
                                         </button>
 <!--                                     </form> -->
