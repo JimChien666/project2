@@ -32,9 +32,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 <jsp:include page="../fragments/links.jsp" />
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
-  
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
 
 
 <html>
@@ -73,9 +71,9 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	font-size: 4.5em;
 }
 
-table {
-	font-size: 2em;
-}
+/* table { */
+/* 	font-size: 2em; */
+/* } */
 </style>
 <title>討論區</title>
 </head>
@@ -92,21 +90,21 @@ $(function() {
 
 	function showArticleList(mapData){
 		var $artilceList = $("#artilceList")
+		var $artilceListTable = $("#artilceListTable")
+		
 		articleList = mapData.articleList;
 		pageNo = mapData.currPage;
 		totalPage = mapData.totalPage;
 		recordCounts = mapData.recordCounts;
-		$artilceList.empty();	
-		$artilceList.append("<table border=1 style='width: 100%;' >")
-		$artilceList.append("<th>文章標題</th>")	
-		$.each(articleList, function(i, article){
+// 		$artilceList.empty();
+		$artilceListTable.empty();
+// 		$artilceList.append("<table border=1 style='width: 100%; font-size: 2em;' ><tbody>")
 
-
-
-			
-			$artilceList.append("<tr><td>"+article.title+"</td></tr>")	
+		$artilceListTable.append("<tr><th>文章標題</th></tr>")	
+		$.each(articleList, function(i, article){			
+			$artilceListTable.append("<tr><td>"+article.title+"</td></tr>")	
 			})
-			
+
 			var navContent = "" ;
 		if (pageNo != 1){
 			navContent += "<li><a id='first'><<</a></li>";
@@ -155,39 +153,6 @@ $(function() {
 
 
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //當使用者按下『第一頁』、『前一頁』、『下一頁』、『最末頁』的連結時，由本方法發出非同步請求。
 function asynRequest(id) {
@@ -284,11 +249,12 @@ function asynRequest(id) {
 
 	<div style="clear:both; width: 100%;">
 <!-- 下面要放文章 -->
-		<div id="artilceList">
+<!-- 		<div id="artilceList"> -->
+		<table id="artilceListTable" border=1 style='width: 100%; font-size: 2em;' >
+		</table>
 		
 		
-		
-		</div>
+<!-- 		</div> -->
 	</div>
 </div>
 	<div class="pagination-style text-center mt-20">
