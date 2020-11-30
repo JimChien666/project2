@@ -102,7 +102,8 @@ $(function() {
 
 		$artilceListTable.append("<tr><th>文章標題</th></tr>")	
 		$.each(articleList, function(i, article){			
-			$artilceListTable.append("<tr><td>"+article.title+"</td></tr>")	
+			$artilceListTable.append("<tr><a href=\"\'<c:url value=\'updateArticle?articleId="+article.id+"\' />\'\"><td>"+article.title+"</td></a></tr>")	
+// 			$artilceListTable.append("<tr><td>"+article.title+"</td></tr>")	
 			})
 
 			var navContent = "" ;
