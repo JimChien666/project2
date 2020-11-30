@@ -37,6 +37,9 @@ public class ProductListDaoImpl implements ProductListDao {
 	        case 4: 
 	        	orderByString=" order by price desc";
 	            break; 
+	        case 5: 
+	        	orderByString=" order by id desc";
+	            break; 
 	    }
 		return orderByString;
 	}

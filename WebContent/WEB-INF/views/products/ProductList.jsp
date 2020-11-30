@@ -13,6 +13,16 @@ align: left;
 #countnum{ border-left:hidden; border-right:hidden; color:#666}
 ul,li{margin:0; padding:0; display:inline;}
 
+.discountTag{
+      background-color: red;
+      color: white;
+      position: absolute;
+      left: -19px;
+      top: 4px;
+      padding: 2px 20px;
+      transform: rotate(-45deg); 
+}
+
 .btncls{
 	background-color: #7E4C4F; /* Green */
     border: none;
@@ -168,6 +178,7 @@ function getOrderBy(){
 	content += "<option value=2>" + "以價格小至大排序 ↑" + "</option>";
 	content += "<option value=3>" + "以名稱大至小排序 ↓" + "</option>";
 	content += "<option value=4>" + "以價格大至小排序 ↓" + "</option>";
+	content += "<option value=5>" + "以商品大至小排序 ↓" + "</option>";
 
 	content += "</select>";
 	var divs = document.getElementById("OrderBySelectBar");
@@ -292,7 +303,14 @@ function displayPageProducts(responseData){
 		
 		content += '<div class="product-wrapper mb-10">';
 		content += '<div class="product-img">';
-		content += '<a href="'+productsInfo.replace("productsPath",products[i].id)+'">';
+		var now = new Date();
+		//一天86400*7天*1000毫秒
+		if ((now-products[i].createdAt) < (86400*7*1000)){
+		content += '<a href="'+productsInfo.replace("productsPath",products[i].id)+'"><div class="discountTag"><b>new</b></div>';
+		}
+		else{
+			content += '<a href="'+productsInfo.replace("productsPath",products[i].id)+'">';
+		}
 		content += '<img src="' + imageURL + '?productId=' + products[i].id +'" alt="">';
 		content += '</a>';
 		content += '<div class="product-action">';
