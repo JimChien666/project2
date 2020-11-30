@@ -64,16 +64,13 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a href="blog-leftsidebar.html">Blog</a>
+                                        <li><a href="<c:url value='/backArticle' />">討論區</a>
                                             <ul class="submenu">
                                                 <li>
-                                                    <a href="blog.html">blog page</a>
+                                                    <a href="<c:url value='/articleList' />?articletypesId=1">狗</a>
                                                 </li>
                                                 <li>
-                                                    <a href="blog-leftsidebar.html">blog left sidebar</a>
-                                                </li>
-                                                <li>
-                                                    <a href="blog-details.html">blog details</a>
+                                                    <a href="<c:url value='/articleList' />?articletypesId=2">貓</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -221,7 +218,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a href="#">blog</a>
+                                        <li><a href="#">討論區</a>
                                             <ul>
                                                 <li>
                                                     <a href="blog.html">blog page</a>
@@ -244,3 +241,4 @@
             </div>
         </header>
         <jsp:include page="showHeaderItems.jsp" />
+

@@ -18,8 +18,8 @@ public class ForumsServiceImpl implements ForumsService {
 	ForumsDao forumsDao;
 
 	@Override
-	public List<Forums> select(int id) {
-		return forumsDao.select(id);
+	public List<Forums> select(Integer pageNo,Integer recordsPerPage,Integer id) {
+		return forumsDao.select(pageNo,recordsPerPage,id);
 	}
 
 	@Override
@@ -36,6 +36,21 @@ public class ForumsServiceImpl implements ForumsService {
 	@Override
 	public void update(Article article) {
 		forumsDao.updateArticle(article);
+	}
+
+	@Override
+	public Forums selectForum(int id) {
+		return forumsDao.selectForum(id);
+	}
+
+	@Override
+	public Long getRecordCounts(Integer id) {
+		return forumsDao.getRecordCounts(id);
+	}
+
+	@Override
+	public List<Forums> selectForumById(int id) {
+		return forumsDao.selectForumById(id);
 	}
 	
 

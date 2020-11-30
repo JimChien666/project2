@@ -19,15 +19,13 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet"> -->
-<title>文章發表</title>
+<title>文章回覆</title>
 <style>
 h1 {
 	font-family: 'Noto Sans TC', sans-serif
@@ -47,7 +45,7 @@ h1 {
 	<main role="main" class="container">
 
 		<div class="starter-template">
-			<h1>文章發表</h1>
+			<h1>文章回覆</h1>
 			<p class="lead">
 				Share your story.<br> ...
 			</p>
@@ -55,62 +53,23 @@ h1 {
 
 	</main>
 	<!-- /.container -->
-
-
-
-
-	<form:form action="saveToDB" method="POST" modelAttribute="forums">
-title:<form:input path="article.title" />
+	
+	
+	
+	<form:form action="replyToDB" method="POST" modelAttribute="forums">
 		<br>
-articleType:
-<%-- <form:select path="articletypesid" items="${allArticleTypes}" itemLabel="articletype" itemValue="id"> --%>
-		<form:select path="article.articletypesid">
-			<%-- 						<form:option value="NONE" label="請選擇" /> --%>
-			<form:option value="1" label="狗" />
-			<form:option value="2" label="貓" />
-		</form:select>
+回覆內容:<form:textarea path="content" />
 		<br>
-		
-		
-		
-		
-		
-		
-<%-- article:<form:textarea path="content" /> --%>
-article:<form:textarea name="content" id="editor" path="content" />
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<br>
-		<form:hidden value="1" path="article.activitysid" />
-		<form:hidden value="1" path="article.showarticle" />
 		<form:hidden value="1" path="voteid" />
+<%-- 		<form:hidden value="${article.getId()}" path="aricle.id" /> --%>
+<%-- 		<form:hidden value="${forum.getArticle().getId()}" path="forums.aricle.id" /> --%>
+<%--        <input type="hidden" name="id" value="${forums.getArticle().getId()}"> --%>
+       <input type="hidden" name="id" value="${article.getId()}">
+                                
 		<form:button value="submit" type="submit">送出</form:button>
-	
-	
-	
-	<script>
-        ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
-	
-	
-	
-	
 	</form:form>
-
+	
 	<a href="<c:url value='backArticle' />" class="fixed0"><button
 			type="button" class="btn btn-success">回討論版</button></a>
-
 </body>
 </html>

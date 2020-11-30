@@ -33,6 +33,7 @@ h1 {
 </style>
 </head>
 <body>
+<jsp:include page="../public/top.jsp" />
 	<%-- <jsp:include page="../nn/top.jsp" /> --%>
 
 	<main role="main" class="container">
@@ -54,7 +55,8 @@ h1 {
 title:<form:input path="title" value="${article.getTitle()}" />
 		<br>
 
-article:<textarea name="content">${article.getFirstForum().getContent()}</textarea>
+<%-- article:<textarea name="content">${article.getFirstForum().getContent()}</textarea> --%>
+article:<textarea name="content">${forum.getContent()}</textarea>
 		<br>
 <%-- <form:hidden value="1" path="article.activitysid"/>		 --%>
 <%-- <form:hidden value="1" path="article.showarticle"/>		 --%>

@@ -21,12 +21,13 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 import org.springframework.stereotype.Component;
 
+
 @Entity
-@Table(name="MEMBERS")
-@Component
-public class Members implements Serializable{
+@Table(name = "MEMBERS")
+public class Members implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
@@ -61,12 +62,14 @@ public class Members implements Serializable{
 //		this.products = products;
 //	}
 
+	private Set<Article> articles = new HashSet<Article>();
+	private Set<Forums> forums = new HashSet<Forums>();
+	private Set<Comments> comments = new HashSet<Comments>();
+
 
 
 	public Members() {
 	}
-	
-	
 
 //	public Members(String name, String tel, String account, String password, String email,
 //			String address, String memberType, String sex) {
@@ -80,9 +83,9 @@ public class Members implements Serializable{
 //		this.memberType = memberType;
 //		this.sex = sex;
 //	}
-	
-	public Members(String name, String sex, String tel, String account, String password, String email,
-			String address, Integer adoptedLevelId, String memberType) {
+
+	public Members(String name, String sex, String tel, String account, String password, String email, String address,
+			Integer adoptedLevelId, String memberType) {
 		super();
 		this.name = name;
 		this.sex = sex;
@@ -95,10 +98,8 @@ public class Members implements Serializable{
 		this.memberType = memberType;
 	}
 
-
-
 	@Id
-	@Column(name="ID")
+	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
 		return id;
@@ -107,7 +108,8 @@ public class Members implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	@Column(name="MEMBERTYPE")
+
+	@Column(name = "MEMBERTYPE")
 	public String getMemberType() {
 		return memberType;
 	}
@@ -115,7 +117,8 @@ public class Members implements Serializable{
 	public void setMemberType(String memberType) {
 		this.memberType = memberType;
 	}
-	@Column(name="NAME")
+
+	@Column(name = "NAME")
 	public String getName() {
 		return name;
 	}
@@ -123,7 +126,8 @@ public class Members implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Column(name="SEX")
+
+	@Column(name = "SEX")
 	public String getSex() {
 		return sex;
 	}
@@ -131,7 +135,8 @@ public class Members implements Serializable{
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	@Column(name="TEL")
+
+	@Column(name = "TEL")
 	public String getTel() {
 		return tel;
 	}
@@ -139,7 +144,8 @@ public class Members implements Serializable{
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	@Column(name="ACCOUNT")
+
+	@Column(name = "ACCOUNT")
 	public String getAccount() {
 		return account;
 	}
@@ -147,7 +153,8 @@ public class Members implements Serializable{
 	public void setAccount(String account) {
 		this.account = account;
 	}
-	@Column(name="PASSWORD")
+
+	@Column(name = "PASSWORD")
 	public String getPassword() {
 		return password;
 	}
@@ -155,7 +162,8 @@ public class Members implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@Column(name="EMAIL")
+
+	@Column(name = "EMAIL")
 	public String getEmail() {
 		return email;
 	}
@@ -163,7 +171,8 @@ public class Members implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	@Column(name="ADDRESS")
+
+	@Column(name = "ADDRESS")
 	public String getAddress() {
 		return address;
 	}
@@ -171,6 +180,7 @@ public class Members implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 //	@Column(name="ADOPTED_LEVEL_ID")
 	@Transient
 	public Integer getAdoptedLevelId() {
@@ -185,7 +195,7 @@ public class Members implements Serializable{
 	public Integer getFileId() {
 		Iterator<MemberFiles> iterator = this.files.iterator();
 		Integer fileId = 0;
-		if(iterator.hasNext()) {
+		if (iterator.hasNext()) {
 			MemberFiles contentImg = iterator.next();
 			fileId = contentImg.getId();
 		}
@@ -201,55 +211,42 @@ public class Members implements Serializable{
 		this.files = files;
 	}
 
-
 	@Column(name = "CREATED_AT")
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-
-
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	public Set<Article> getArticles() {
+		return articles;
+	}
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-//	public Set<Animals> getAnimals() {
-//		return animals;
-//	}
-//
-//	public void setAnimals(Set<Animals> animals) {
-//		this.animals = animals;
-//	}
-	
-//	@JsonIgnore
-//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "buyer", cascade = CascadeType.ALL)
-//	public Set<Orders> getOrders() {
-//		return orders;
-//	}
-//
-//
-//
-//	public void setOrders(Set<Orders> orders) {
-//		this.orders = orders;
-//	}
+	public void setArticles(Set<Article> articles) {
+		this.articles = articles;
+	}
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	public Set<Forums> getForums() {
+		return forums;
+	}
 
-//	@JsonIgnore
-//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "seller", cascade = CascadeType.ALL)
-//	public Set<OrderItems> getOrderItems() {
-//		return orderItems;
-//	}
-//
-//
-//
-//	public void setOrderItems(Set<OrderItems> orderItems) {
-//		this.orderItems = orderItems;
-//	}
-	
-	
-	
-	
-	
+	public void setForums(Set<Forums> forums) {
+		this.forums = forums;
+	}
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	public Set<Comments> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comments> comments) {
+		this.comments = comments;
+	}
+
 }

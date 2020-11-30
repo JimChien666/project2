@@ -1,7 +1,9 @@
 package com.iii.eeit124.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,9 +14,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "article")
@@ -27,6 +32,7 @@ public class Article {
 	private int memberid;
 	private int articletypesid;
 	private Set<Forums> forums = new HashSet<Forums>();
+	private Members member;
 
 	@Id
 	@Column(name = "ID")
@@ -66,7 +72,8 @@ public class Article {
 		this.showarticle = showarticle;
 	}
 
-	@Column(name = "MEMBER_ID")
+//	@Column(name = "MEMBER_ID")
+	@Transient
 	public int getMemberid() {
 		return memberid;
 	}
@@ -84,15 +91,22 @@ public class Article {
 		this.articletypesid = articletypesid;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
+	// TODO edit lazzy to eager 11/29 2020
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "article", cascade = CascadeType.ALL)
 //	@OneToMany(fetch = FetchType.LAZY, targetEntity = Forums.class, cascade = CascadeType.ALL, mappedBy = "article")
 	public Set<Forums> getForums() {
 		return forums;
 	}
 
+
 	public void setForums(Set<Forums> forums) {
 		this.forums = forums;
 	}
+	public void addForum(Forums forum) {
+		this.forums.add(forum);
+		forum.setArticle(this);
+	}
+	
 
 	public Article(String title, int activitysid, int showarticle, int memberid, int articletypesid) {
 		this.title = title;
@@ -102,16 +116,23 @@ public class Article {
 		this.articletypesid = articletypesid;
 	}
 	
+//	@Transient
+//	public Forums getFirstForum() {	
+//		System.out.println(this.getForums());
+//		Iterator<Forums> iterator = this.getForums().iterator();
+//		if(iterator.hasNext()) {
+//			Forums forum = iterator.next();				
+//			return forum;
+//		}
+//		return null;
+//	}
 	@Transient
 	public Forums getFirstForum() {	
-		System.out.println("jdsgjofi");
 		System.out.println(this.getForums());
 		Iterator<Forums> iterator = this.getForums().iterator();
-//		String content = "";
 		if(iterator.hasNext()) {
 			Forums forum = iterator.next();				
 			return forum;
-
 		}
 		return null;
 	}
@@ -130,6 +151,16 @@ public class Article {
 		this.memberid = memberid;
 		this.articletypesid = articletypesid;
 		this.forums = forums;
+	}
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MEMBER_ID")
+	public Members getMember() {
+		return member;
+	}
+
+	public void setMember(Members member) {
+		this.member = member;
 	}
 
 //	@Override
