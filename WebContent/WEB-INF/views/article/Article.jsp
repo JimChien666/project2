@@ -326,6 +326,7 @@ function asynRequest(id) {
 			</a></li>
 		</ul>
 		
+		
 		<ul style="list-style: none; margin: 0px 0;">
 			<li style="float: right; margin: 0px 10px 10px 10px;"><a
 				href="<c:url value='replyArticle?articleId=${articleId}' />">
@@ -334,7 +335,29 @@ function asynRequest(id) {
 						<span style="color: white; margin-top: 0px;">回覆文章</span>
 					</button>
 			</a></li>
+		</ul>
+		
+		
+		
+		<ul style="list-style: none; margin: 0px 0;">
+			<li style="float: right; margin: 0px 10px 10px 10px;"><a
+				href="<c:url value='updateArticle?articleId=${articleId}' />">
+					<button class="submit btn-style" type="submit"
+						style="margin-top: 10px;">
+						<span style="color: white; margin-top: 0px;">修改</span>
+					</button>
+			</a></li>
 		</ul>		
+		<ul style="list-style: none; margin: 0px 0;">
+			<li style="float: right; margin: 0px 10px 10px 10px;"><a
+				href="<c:url value='deleteArticle?articleId=${articleId}' />">
+					<button class="submit btn-style" type="submit"
+						style="margin-top: 10px;">
+						<span style="color: white; margin-top: 0px;">刪除</span>
+					</button>
+			</a></li>
+		</ul>		
+		
 		
 		
 			<div id="articleShow" style="padding:70px 0px 0px 0px;">
