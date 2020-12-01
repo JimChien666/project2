@@ -122,16 +122,16 @@
 											if(order.forumid===forumId){
 // 												console.log("order.forumid:"+order.forumid);
 // 												console.log("forumId:"+forumId);								
-												$forums.append('<div style="width:1050px; margin: 0px 20px 10px 10px; background-color:#F5F5F5; box-shadow:1px 3px 5px 2px #cccccc;">'+order.memberid+':'+order.comment+'</div>')
+												$forums.append('<div style="width:1050px; margin: 0px 20px 10px 10px; background-color:#FFDAB9; box-shadow:1px 3px 5px 2px #cccccc;">'+order.memberid+':'+order.comment+'</div>')
 // 										 		console.log("$forums: "+ $forums)												
 												}
 											});
 
 
 										if(${empty LoginOK}){
-											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:	#FFDAB9;'>回覆本討論串:<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></div>")
+											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></div>")
 										}else{											
-											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:#FFDAB9;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
+											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
 											}
 
 
