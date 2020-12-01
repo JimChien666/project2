@@ -96,13 +96,14 @@
 		$article.empty();
 // 		console.log(article)
 // 		$article.append("<h3>" + article.title + "</h3>")
-		$article.append("<h3 style='clear:both; box-shadow:1px 3px 5px 2px #cccccc;'>"+"標題: " + article.title + "</h3>")
+		$article.append("<h2 style='clear:both; box-shadow:1px 3px 5px 2px #cccccc;'>"+"標題: " + article.title + "</h2>")
 		$article.append("<table style='width: 100%;'><tr><th>"+""+"</th><th>"+""+"</th></tr>")
 // 		$article.append("<table style='width: 100%;' class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
 		console.log(forumList)
 		$.each(forumList, function(i, forum) {
-			
-			$article.append("<tr><td><div style='width:60px; background-color: coral;'>" + forum.memberid + "</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
+			var imgTag = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + forum.forumOwnerFileId + `' />" width="50" height="50" class="d-inline-block align-top" alt="" style="border-radius: 50%; border: 2px white solid;">`
+// 			$article.append("<tr><td><div style='width:60px; background-color: coral; box-shadow:1px 3px 5px 2px #cccccc;'>"+ imgTag + forum.memberid + "</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
+			$article.append("<tr><td><div style='width:60px;'>"+ imgTag +"</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
 					+ "</div></td></tr>")
 			$article.append("</table>");
 //--------------------------------------
@@ -314,7 +315,7 @@ function asynRequest(id) {
 <%-- 	<jsp:include page="../public/top.jsp" /> --%>
 
 <%-- 		<h3>${article.getTitle()}</h3> --%>
-	<div class="container">
+	<div class="container" style='box-shadow:1px 3px 5px 2px #cccccc;'>
 		<ul style="list-style: none; margin: 0px 0;">
 			<li style="float: left; margin: 0px 10px 10px 10px;"><a
 				href="<c:url value='backArticle' />">

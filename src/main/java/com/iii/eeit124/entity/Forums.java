@@ -77,7 +77,7 @@ public class Forums {
 //	@Column(name = "MEMBER_ID")
 	@Transient
 	public int getMemberid() {
-		return memberid;
+		return this.member.getId();
 	}
 
 	public void setMemberid(int memberid) {
@@ -131,5 +131,8 @@ public class Forums {
 	public void setComments(Set<Comments> comments) {
 		this.comments = comments;
 	}
-	
+	@Transient
+	public Integer getForumOwnerFileId() {
+		return this.member.getFileId();
+	}
 }
