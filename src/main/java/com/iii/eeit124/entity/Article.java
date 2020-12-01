@@ -153,7 +153,7 @@ public class Article {
 		this.forums = forums;
 	}
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Members.class)
 	@JoinColumn(name = "MEMBER_ID")
 	public Members getMember() {
 		return member;
