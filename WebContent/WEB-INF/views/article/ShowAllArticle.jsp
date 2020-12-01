@@ -145,20 +145,19 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 				// 			$artilceListTable.append("<tr><td>"+article.title+"</td></tr>")	
 			})
 
-			var navContent = "";
-			if (pageNo != 1) {
-				navContent += "<li><a id='first'><<</a></li>";
-				navContent += "<li><a id='prev'><</a></li>";
-			} else {
+			var navContent = "" ;
+			if (pageNo != 1){
+				navContent += "<li><a id='first'><i class='icon-arrow-left'></i></a></li>";
+				navContent += "<li><a id='prev'>" + (parseInt(pageNo) - 1 ) + "</a></li>";
+			}  else {
 				navContent += "<li>&nbsp;</li>";
 				navContent += "<li>&nbsp;</li>";
 			}
-			navContent += "<td width='200' align='center'> " + pageNo + " / "
-					+ totalPage + "</td>";
-			if (pageNo != totalPage) {
-				navContent += "<li><a id='next'>></a></li>";
-				navContent += "<li><a id='last'>>></a></li>";
-			} else {
+			navContent += "<li><a class='active' href='#'>" + (parseInt(pageNo)) + "</a></li>";
+			if (pageNo != totalPage){
+				navContent += "<li><a id='next'>" + (parseInt(pageNo) + 1 ) + "</a></li>";
+				navContent += "<li><a id='last'><i class='icon-arrow-right'></i></a></li>";
+			}  else {
 				navContent += "<td align='center'>&nbsp;</td>";
 				navContent += "<td align='center'>&nbsp;</td>";
 			}
