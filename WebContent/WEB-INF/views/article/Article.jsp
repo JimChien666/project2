@@ -36,9 +36,9 @@
 	right: 2%;
 }
 
- table, th, td { 
- 	border: 1px solid black; 
- } 
+/*  table, th, td {  */
+/*  	border: 1px solid black;  */
+/*  }  */
 /* td { */
 /* 	border: 1px solid black; */
 /* } */
@@ -96,13 +96,14 @@
 		$article.empty();
 // 		console.log(article)
 // 		$article.append("<h3>" + article.title + "</h3>")
-		$article.append("<h3 >" + article.title + "</h3>")
-		$article.append("<table style='width: 100%;' class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
+		$article.append("<h3 style='clear:both; box-shadow:1px 3px 5px 2px #cccccc;'>"+"標題: " + article.title + "</h3>")
+		$article.append("<table style='width: 100%;'><tr><th>"+""+"</th><th>"+""+"</th></tr>")
+// 		$article.append("<table style='width: 100%;' class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
 		console.log(forumList)
 		$.each(forumList, function(i, forum) {
 			
-			$article.append("<tr><td><div style='width:60px; background-color: coral;'>" + forum.memberid + "</div></td><td id="+forum.id+" style='width:1500px; background-color: green;'>" + forum.content
-					+ "</td></tr>")
+			$article.append("<tr><td><div style='width:60px; background-color: coral;'>" + forum.memberid + "</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
+					+ "</div></td></tr>")
 			$article.append("</table>");
 //--------------------------------------
 			var forumId  = forum.id
@@ -120,17 +121,16 @@
 											if(order.forumid===forumId){
 // 												console.log("order.forumid:"+order.forumid);
 // 												console.log("forumId:"+forumId);								
-												$forums.append('<div style="width:100%; background-color: red;">'+order.comment+'/'+order.memberid+'==>'+order.id+'</div>')
+												$forums.append('<div style="width:1050px; margin: 0px 20px 10px 10px; background-color:#F5F5F5; box-shadow:1px 3px 5px 2px #cccccc;">'+order.memberid+':'+order.comment+'</div>')
 // 										 		console.log("$forums: "+ $forums)												
 												}
 											});
 
 
 										if(${empty LoginOK}){
-											$forums.append("<div style='width:100%; background-color: yellow;'>回覆本討論串:<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></div>")
-										}else{
-											
-											$forums.append("<div style='width:100%; background-color: yellow;'>回覆本討論串:<input type='text' name='comments' id=reply"+forum.id+"></div>")
+											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:	#FFDAB9;'>回覆本討論串:<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></div>")
+										}else{											
+											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:#FFDAB9;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
 											}
 
 
@@ -173,7 +173,7 @@
 // 				$article.append("<tr><td>" + c.id + "</td><td>" + c.comment
 // 						+ "</td></tr>")
 // 			})
-			$article.append("<hr>");
+			$article.append("<br>");
 
 		})
 
@@ -303,12 +303,41 @@ function asynRequest(id) {
 		</div>
 	</div>
 
+
+
+
+
+
+
+
+
 <%-- 	<jsp:include page="../public/top.jsp" /> --%>
 
 <%-- 		<h3>${article.getTitle()}</h3> --%>
-
-		<div id="articleShow" class="container">
+	<div class="container">
+		<ul style="list-style: none; margin: 0px 0;">
+			<li style="float: left; margin: 0px 10px 10px 10px;"><a
+				href="<c:url value='backArticle' />">
+					<button class="submit btn-style" type="submit"
+						style="margin-top: 10px;">
+						<span style="color: white; margin-top: 0px;">回討論版</span>
+					</button>
+			</a></li>
+		</ul>
 		
+		<ul style="list-style: none; margin: 0px 0;">
+			<li style="float: right; margin: 0px 10px 10px 10px;"><a
+				href="<c:url value='replyArticle?articleId=${articleId}' />">
+					<button class="submit btn-style" type="submit"
+						style="margin-top: 10px;">
+						<span style="color: white; margin-top: 0px;">回覆文章</span>
+					</button>
+			</a></li>
+		</ul>		
+		
+		
+			<div id="articleShow" style="padding:70px 0px 0px 0px;">
+			</div>
 		</div>
 
 		<!-- <table id='articleShow'> -->
@@ -343,6 +372,11 @@ function asynRequest(id) {
 		class="fixed0">
 		<button type="button" class="btn btn-success">回覆文章</button>
 	</a>
+
+
+
+
+
 
 
 
