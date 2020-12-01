@@ -21,6 +21,15 @@
 	crossorigin="anonymous"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
 
+
+
+
+
+
+
+
+
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <meta charset="UTF-8">
 <meta name="viewport"
@@ -39,61 +48,70 @@ h1 {
 	right: 2%;
 }
 </style>
+<link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
+<script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
+<jsp:include page="../fragments/links.jsp" />
+
+
 </head>
 <body>
-	<jsp:include page="../public/top.jsp" />
-	<%-- <jsp:include page="../nn/top.jsp" /> --%>
+	<div>
+		<jsp:include page="../fragments/headerArea.jsp" />
+	</div>
+	<!-- 	麵包屑 -->
+	<div class="breadcrumb-area pt-95 pb-95 bg-img"
+		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
+		<div class="container">
+			<div class="breadcrumb-content text-center">
+				<h2>討論區</h2>
+				<ul>
+					<li><a href="index.html">首頁</a></li>
+					<li class="active">文章發表</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-	<main role="main" class="container">
+
+	<div class="container">
 
 		<div class="starter-template">
 			<h1>文章發表</h1>
 			<p class="lead">
-				Share your story.<br> ...
+				Share your story...<br>
 			</p>
 		</div>
-
-	</main>
-	<!-- /.container -->
-
 
 
 
 	<form:form action="saveToDB" method="POST" modelAttribute="forums">
-title:<form:input path="article.title" />
+<form:input path="article.title" placeholder="請輸入標題"/>
 		<br>
+		<br>
+		
 articleType:
 <%-- <form:select path="articletypesid" items="${allArticleTypes}" itemLabel="articletype" itemValue="id"> --%>
+		<div style="width:75px">
 		<form:select path="article.articletypesid">
-			<%-- 						<form:option value="NONE" label="請選擇" /> --%>
+<%-- 									<form:option value="NONE" label="請選擇" /> --%>
 			<form:option value="1" label="狗" />
 			<form:option value="2" label="貓" />
 		</form:select>
+		</div>
 		<br>
-		
-		
-		
-		
-		
-		
+<%-- 		發表到狗狗討論版:<form:radiobutton value="1" path="article.articletypesid" /> --%>
+<%-- 		發表到貓咪討論版:<form:radiobutton value="2" path="article.articletypesid" /> --%>
 <%-- article:<form:textarea path="content" /> --%>
+
+<br>
+<br>
 article:<form:textarea name="content" id="editor" path="content" />
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+				
 		<br>
 		<form:hidden value="1" path="article.activitysid" />
 		<form:hidden value="1" path="article.showarticle" />
 		<form:hidden value="1" path="voteid" />
 		<form:button value="submit" type="submit">送出</form:button>
-	
 	
 	
 	<script>
@@ -108,6 +126,25 @@ article:<form:textarea name="content" id="editor" path="content" />
 	
 	
 	</form:form>
+
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+	<!-- /.container -->
+
+
+
+
+
 
 	<a href="<c:url value='backArticle' />" class="fixed0"><button
 			type="button" class="btn btn-success">回討論版</button></a>
