@@ -101,8 +101,14 @@ $(function() {
 // 		$artilceList.append("<table border=1 style='width: 100%; font-size: 2em;' ><tbody>")
 
 		$artilceListTable.append("<tr><th>文章標題</th></tr>")	
-		$.each(articleList, function(i, article){			
-			$artilceListTable.append("<tr><a href=\"\'<c:url value=\'updateArticle?articleId="+article.id+"\' />\'\"><td>"+article.title+"</td></a></tr>")	
+		$.each(articleList, function(i, article){
+
+
+// 			<td><a href="<c:url value='goArticlePage?articleId=${Article.getId()}' />">
+
+			var urlStringent = "<c:url value='goArticlePage?articleId="+article.id+"' />" ;
+			
+			$artilceListTable.append("<tr><td><a href="+urlStringent+"><div>"+article.title+"</div></a></td></tr>")	
 // 			$artilceListTable.append("<tr><td>"+article.title+"</td></tr>")	
 			})
 
