@@ -211,7 +211,24 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			// 查詢字串包含1.即將要讀取的頁數(pageNo), 2.總共有幾頁(totalPage)
 			// 注意，查詢字串的前面有問號
 			queryString = "&pageNo=" + no + "&totalPage=" + totalPage;
+			if (typeof selectResult == 'undefined') {
+				xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId="
+						+ "1" + queryString, true);
+				// 		xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId=1" + queryString , true);
+				// 		console.log(no)
+				// 		console.log(totalPage)
 
+				xhr.send();
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						var mapData = xhr.responseText;
+
+						showArticleList(JSON.parse(mapData));
+						// 			showArticleList(mapData);
+					}
+				}
+			}
+			
 			xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId="
 					+ selectResult + queryString, true);
 			// 		xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId=1" + queryString , true);
