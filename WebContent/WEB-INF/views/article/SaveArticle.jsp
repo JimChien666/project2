@@ -74,8 +74,17 @@ h1 {
 
 
 	<div class="container">
+		<ul style="list-style: none; margin: 0px 0; ;">
+			<li style="float: left; margin: 0px 10px 10px 10px;"><a
+				href="<c:url value='backArticle' />">
+					<button class="submit btn-style" type="submit"
+						style="margin-top: 10px;">
+						<span style="color: white; margin-top: 0px;">回討論版</span>
+					</button>
+			</a></li>
+		</ul>
 
-		<div class="starter-template">
+		<div class="starter-template" style="clear:both">
 			<h1>文章發表</h1>
 			<p class="lead">
 				Share your story...<br>
@@ -128,26 +137,11 @@ article:<form:textarea name="content" id="editor" path="content" />
 	</form:form>
 
 
-
-
-
-
-
-
-
-
-
-
 	</div>
 	<!-- /.container -->
 
-
-
-
-
-
-	<a href="<c:url value='backArticle' />" class="fixed0"><button
-			type="button" class="btn btn-success">回討論版</button></a>
+	<jsp:include page="../fragments/footerArea.jsp" />
+	<jsp:include page="../fragments/allJs.jsp" />
 
 </body>
 </html>
