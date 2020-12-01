@@ -78,7 +78,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public List<Article> select(Integer pageNo, Integer recordsPerPage, Integer id) {
 		Integer startRecordNo = (pageNo - 1) * recordsPerPage;
 		@SuppressWarnings("unchecked")
-		TypedQuery<Article> query = sessionFactory.getCurrentSession().createQuery("from Article where ARTICLETYPES_ID=?0 order by id");
+		TypedQuery<Article> query = sessionFactory.getCurrentSession().createQuery("from Article where ARTICLETYPES_ID=?0 order by id desc");
 		query.setParameter(0, id).setFirstResult(startRecordNo).setMaxResults(recordsPerPage);
 		query.getResultList();		
 		return query.getResultList();
