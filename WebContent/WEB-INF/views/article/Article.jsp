@@ -36,9 +36,9 @@
 	right: 2%;
 }
 
-/* table, th, td { */
-/* 	border: 1px solid black; */
-/* } */
+ table, th, td { 
+ 	border: 1px solid black; 
+ } 
 /* td { */
 /* 	border: 1px solid black; */
 /* } */
@@ -96,11 +96,12 @@
 		$article.empty();
 // 		console.log(article)
 // 		$article.append("<h3>" + article.title + "</h3>")
-		$article.append("<h3>" + article.title + "</h3>")
-		$article.append("<table class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
-
+		$article.append("<h3 >" + article.title + "</h3>")
+		$article.append("<table style='width: 100%;' class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
+		console.log(forumList)
 		$.each(forumList, function(i, forum) {
-			$article.append("<tr><td>" + forum.id + "</td><td id="+forum.id+">" + forum.content
+			
+			$article.append("<tr><td><div style='width:60px; background-color: coral;'>" + forum.memberid + "</div></td><td id="+forum.id+" style='width:1500px; background-color: green;'>" + forum.content
 					+ "</td></tr>")
 			$article.append("</table>");
 //--------------------------------------
@@ -119,15 +120,17 @@
 											if(order.forumid===forumId){
 // 												console.log("order.forumid:"+order.forumid);
 // 												console.log("forumId:"+forumId);								
-												$forums.append('<li>'+order.comment+'/'+order.memberid+'==>'+order.id+'</li>')
+												$forums.append('<div style="width:100%; background-color: red;">'+order.comment+'/'+order.memberid+'==>'+order.id+'</div>')
 // 										 		console.log("$forums: "+ $forums)												
 												}
 											});
 
+
 										if(${empty LoginOK}){
-											$forums.append("<td>回覆本討論串:<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></td>")
+											$forums.append("<div style='width:100%; background-color: yellow;'>回覆本討論串:<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></div>")
 										}else{
-											$forums.append("<td>回覆本討論串:<input type='text' name='comments' id=reply"+forum.id+"></td>")
+											
+											$forums.append("<div style='width:100%; background-color: yellow;'>回覆本討論串:<input type='text' name='comments' id=reply"+forum.id+"></div>")
 											}
 
 
@@ -160,27 +163,6 @@
 //												  	var $comments = $('.${Forums.id}');					      
 												};//if end
 												});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-											
 											}					
 										});
 
@@ -323,7 +305,6 @@ function asynRequest(id) {
 
 <%-- 	<jsp:include page="../public/top.jsp" /> --%>
 
-	<div align='center'>
 <%-- 		<h3>${article.getTitle()}</h3> --%>
 
 		<div id="articleShow" class="container">
@@ -344,7 +325,6 @@ function asynRequest(id) {
 
 <!-- 		<div id='navigation' style='height: 60px;'></div> -->
 
-	</div>
 
 	<div class="pagination-style text-center mt-20">
 		<ul id = 'navigation'>
