@@ -366,21 +366,6 @@ function asynRequest(id) {
 		</ul>
 	</div>
 
-	<a href="<c:url value='backArticle' />" class="fixed">
-		<button type="button" class="btn btn-success">回討論版</button>
-	</a>
-	<a href="<c:url value='replyArticle?articleId=${articleId}' />"
-		class="fixed0">
-		<button type="button" class="btn btn-success">回覆文章</button>
-	</a>
-
-
-
-
-
-
-
-
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
 </body>

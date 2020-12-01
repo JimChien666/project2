@@ -62,9 +62,9 @@ public class Members implements Serializable {
 //		this.products = products;
 //	}
 
-	private Set<Article> articles = new HashSet<Article>();
-	private Set<Forums> forums = new HashSet<Forums>();
-	private Set<Comments> comments = new HashSet<Comments>();
+//	private Set<Article> articles = new HashSet<Article>();
+//	private Set<Forums> forums = new HashSet<Forums>();
+//	private Set<Comments> comments = new HashSet<Comments>();
 
 
 
@@ -221,32 +221,33 @@ public class Members implements Serializable {
 		this.createdAt = createdAt;
 	}
 
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-	public Set<Article> getArticles() {
-		return articles;
-	}
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+//	public Set<Article> getArticles() {
+//		return articles;
+//	}
 
-	public void setArticles(Set<Article> articles) {
-		this.articles = articles;
-	}
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-	public Set<Forums> getForums() {
-		return forums;
-	}
-
-	public void setForums(Set<Forums> forums) {
-		this.forums = forums;
-	}
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-	public Set<Comments> getComments() {
-		return comments;
-	}
-
-	public void setComments(Set<Comments> comments) {
-		this.comments = comments;
-	}
+//	public void setArticles(Set<Article> articles) {
+//		this.articles = articles;
+//	}
+	
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+//	public Set<Forums> getForums() {
+//		return forums;
+//	}
+//
+//	public void setForums(Set<Forums> forums) {
+//		this.forums = forums;
+//	}
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+//	public Set<Comments> getComments() {
+//		return comments;
+//	}
+//
+//	public void setComments(Set<Comments> comments) {
+//		this.comments = comments;
+//	}
 
 }
