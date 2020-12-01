@@ -76,6 +76,37 @@ function getAnimalTypes(){
 	}
 }
 
+
+
+
+
+//  上傳房產證照片
+$("#houseFile").fileupload({
+    url: "/userRoom/houseImages",
+    dataType: 'json',
+    formData: {"userRoomId":$("#id").val()},
+    add: function (e, data) {
+        data.submit();
+    },
+    done: function (e, data) {
+        var result = data.result;
+        var image = result.data;
+        var imgUrl = image.url;
+        var  imgId=image.id;
+        console.info("圖片的編號"+imgId);
+        if (result.success == false) {
+            alert("上傳失敗");
+        } else {
+            var div = $("<div class='show-fc' id='divHouse"+imgId+"'>");
+            var img = $("<img  src='/sysImage/showImg?src="+imgUrl+"'class='thumbnail uploaded-image' />");
+            var imgx = $("<img class='del-image' id="+imgId+"  onclick='deleteImage(this.id)' src='/images/deleteLog/deleteImg.png' >");
+            div.append(img).append(imgx);
+            $("#houseImages").append(div);
+        }
+    },
+    progressall: function (e, data) {
+    }
+});
 </script>
 </head>
 <body>
@@ -84,15 +115,32 @@ function getAnimalTypes(){
 		商品名稱:<form:input path="name"/><span style="color: red;">${errors.name}</span><br/>
 		商品價格:<form:input path="price"/><span style="color: red;">${errors.price}</span><br/>
 		商品折扣:<form:input path="discount"/><span style="color: red;">${errors.discount}</span><br/>
-		商品圖片:<form:input path="multipartFile" type="file"/><span style="color: red;">${errors.multipartFile}</span><br/>
+		商品圖片:<form:input path="multipartFile" type="file" /><span style="color: red;">${errors.multipartFile}</span><br/>
 		商品描述:<form:input path="description"/><span style="color: red;">${errors.description}</span><br/>
 		商品數量:<form:input path="quantity"/><span style="color: red;">${errors.quantity}</span><br/>
 		商品狀態:上架中<form:radiobutton path="status" value="上架中"/>
           	   已下架<form:radiobutton path="status" value="已下架"/><span style="color: red;">${errors.status}</span><br/>
         <div id='somedivS'></div>
-<%--         ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/> --%>
+         ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/> 
         <form:button value="Send">Submit</form:button>
 		
 	</form:form>
+	
+<%-- <jsp:include page="../public/top.jsp" /> --%>
+<%-- 	<form method="POST" action="${pageContext.servletContext.contextPath}/product/processCreateProduct.controller" modelAttribute="products" enctype="multipart/form-data"  > --%>
+<%-- 		商品名稱:<input name="name"/><span style="color: red;">${errors.name}</span><br/> --%>
+<%-- 		商品價格:<input name="price"/><span style="color: red;">${errors.price}</span><br/> --%>
+<%-- 		商品折扣:<input name="discount"/><span style="color: red;">${errors.discount}</span><br/> --%>
+<%-- 		商品封面圖片:<input name="coverImage" type="file" /><span style="color: red;">${errors.multipartFile}</span><br/> --%>
+<%-- 		商品內容圖片:<input name="contentImage" type="file" multiple/><span style="color: red;">${errors.multipartFile}</span><br/> --%>
+<%-- 		商品描述:<input name="description"/><span style="color: red;">${errors.description}</span><br/> --%>
+<%-- 		商品數量:<input name="quantity"/><span style="color: red;">${errors.quantity}</span><br/> --%>
+<!-- 		商品狀態:上架中<input type="radio"  name="status" value="上架中"/> -->
+<%--           	   已下架<input type="radio" name="status" value="已下架"/><span style="color: red;">${errors.status}</span><br/> --%>
+<!--         <div id='somedivS'></div> -->
+<%-- <%--         ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/> --%> --%>
+<!--         <button value="Send">Submit</button>		 -->
+<%-- 	</form>	 --%>
+
 </body>
 </html>

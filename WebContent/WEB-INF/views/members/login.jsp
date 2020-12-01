@@ -43,6 +43,7 @@
 											<c:if test="${param.account != null}">
 												<input type="text" name="account" value="${param.account}" />
 											</c:if>
+	
 											<c:if test="${param.account == null}">
 												<input type="text" name="account"
 													value="${requestScope.user}" />
@@ -67,8 +68,7 @@
 										</form>
 									</div>
 								</div>
-							</div>
-							
+							</div>	
 						</div>
 					</div>
 				</div>

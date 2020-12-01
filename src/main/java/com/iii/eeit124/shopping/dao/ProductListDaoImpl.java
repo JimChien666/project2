@@ -22,7 +22,7 @@ public class ProductListDaoImpl implements ProductListDao {
 	static String orderByString=" order by color_Id";
 	public static String getPageOrderBy(Integer orderBy) {
 		switch(orderBy) { 
-	        case 0:    
+	        case 0:
 	        	orderByString=" order by color_Id";
 	        	break;
 	        case 1: 
@@ -37,6 +37,10 @@ public class ProductListDaoImpl implements ProductListDao {
 	        case 4: 
 	        	orderByString=" order by price desc";
 	            break; 
+	        case 5: 
+	        	orderByString=" order by id desc";
+	        	break; 
+	            
 	    }
 		return orderByString;
 	}
