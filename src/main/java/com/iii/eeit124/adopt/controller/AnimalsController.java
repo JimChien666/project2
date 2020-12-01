@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.iii.eeit124.adopt.service.AdoptionRecordsService;
 import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.adopt.service.BreedsService;
 import com.iii.eeit124.entity.Animals;
@@ -40,11 +42,13 @@ public class AnimalsController {
 	@Autowired
 	ServletContext sc;
 	@Autowired
+	HttpSession session;
+	@Autowired
 	public AnimalsService animalsService;
 	@Autowired
 	public BreedsService breedsService;
 	@Autowired
-	HttpSession session;
+	public AdoptionRecordsService adoptionRecordsService;
 	
 	@GetMapping("/none")
 	public String processNone() {
@@ -91,24 +95,26 @@ public class AnimalsController {
 	}
 	
 	//瀏覽全部的動物
-	@GetMapping("/ReadAllAnimal")
-	public String processAllPetsRead(Model m) {
-		m.addAttribute("AnimalsList", animalsService.readAll());
-		return "adopt/ReadAnimal";
-	}
+//	@GetMapping("/ReadAllAnimal")
+//	public String processAllPetsRead(Model m) {
+//		m.addAttribute("AnimalsList", animalsService.readAll(((Members)session.getAttribute("LoginOK")).getId()));
+//		return "adopt/ReadAnimal";
+//	}
 
 	// 瀏覽會員的動物
 	@GetMapping("/ReadAnimal")
 	public String processMyPetsRead(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readMyAnimals(((Members)session.getAttribute("LoginOK")).getId()));
+//		m.addAttribute("AnimalsListAdopt", adoptionRecordsService.read(((Members)session.getAttribute("LoginOK")).getId()));
 		return "adopt/ReadAnimal";
 	}
 	
 	//瀏覽動物詳細頁
-	@GetMapping("/ReadAnimalDetails.controller/{id}")
-	public String processReadAnimalDetail(@PathVariable(name = "id") Integer id, 
+	@GetMapping("/ReadAnimalDetails.controller")
+	public String processReadAnimalDetail(@RequestParam(name = "id") Integer id, 
 //			@ModelAttribute("animal") Animals entity, 
 			Model m) {
+		System.out.println("inside processReadAnimalDetail");
 		Animals animals = animalsService.read(id);
 		m.addAttribute("source", "ReadAnimal");
 		m.addAttribute("animal", animals);
@@ -241,6 +247,7 @@ public class AnimalsController {
 		AnimalsFiles content = new AnimalsFiles();
 		// 更新照片部分
 		MultipartFile mFile = entity.getAnimalFiles();
+		Integer animalId = entity.getAnimalId();
 		if (!mFile.isEmpty()) {// mFile.isEmpty()為判斷是否有上傳圖片
 			String filename = mFile.getOriginalFilename();// 取得檔名
 			String fileTempDirPath = sc.getRealPath("/") + "uploadTempDir\\";// 存放的資料夾
@@ -269,7 +276,6 @@ public class AnimalsController {
 				is1.read(b);
 				is1.close();
 
-				Integer animalId = entity.getAnimalId();
 				Set<AnimalsFiles> AnimalsFiles = animalsService.read(animalId).getFiles();
 				Blob blob = new SerialBlob(b);
 
@@ -291,8 +297,10 @@ public class AnimalsController {
 		List<Breeds> readBreed = breedsService.readBreed(breedText);
 		entity.setBreeds(readBreed.get(0));// 用family找到該筆bean，再set到breeds，修改也是?
 		animalsService.update(entity);
+//		m.addAttribute("source", "ReadAnimal");
+		System.out.println("processUpdateAnimal finish, animalId:"+animalId);
 
-		return "redirect:/ReadAnimal";
+		return "redirect:/ReadAnimalDetails.controller?id="+animalId;//似乎不能用{}pathvariable傳值
 	}
 
 //==============================================================================================

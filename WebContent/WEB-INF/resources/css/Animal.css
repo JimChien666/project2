@@ -92,7 +92,6 @@
 }
 
 .divHidden {
-	margin-left: 125px;
 	display: none;
 	color: red;
 }
@@ -215,6 +214,10 @@
 	vertical-align:top;
 }
 
+.textRight{
+	text-align:right;
+}
+
 .wid40p{
 	width: 40%;
 }
@@ -251,4 +254,8 @@
 .wid1000px {
 	margin: 0 auto;
 	width: 1000px;
+}
+
+.W1200{
+	width: 1200px;
 }

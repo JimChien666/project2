@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>更新動物</title>
+<title>維護動物資料</title>
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -25,10 +25,13 @@
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
 		<div class="container">
 			<div class="breadcrumb-content text-center">
-				<h2>Blog</h2>
+				<h2>維護動物資料</h2>
 				<ul>
-					<li><a href="index.html">home</a></li>
-					<li class="active">Blog</li>
+					<li><a href="<c:url value='/'/>">首頁</a></li>
+							<li class="active">會員中心</li>
+							<li><a href="<c:url value='/ReadAnimal'/>">我的寵物</a></li>
+							<li><a href="<c:url value='/ReadAnimalDetails.controller?id=${animals.animalId}'/>">動物資料</a></li>
+							<li class="active">維護動物資料</li>
 				</ul>
 			</div>
 		</div>
@@ -37,56 +40,29 @@
 	<div class="wid450px margin0Auto mt-50 mb-50">
 		<div>
 			<a href="<c:url value='/ReadAnimal' />"
-				class="btn-style1 font22 mb-20">回維護首頁</a>
+				class="btn-style-cancel btn-style-border mb-20">回我的寵物</a>
 		</div>
 		<!-- ===================================================================================== -->
 		<form:form action="UpdateAnimal.controller" method="POST"
 			modelAttribute="animals" enctype="multipart/form-data">
 			<div class="mb-20">
-				<form:label path="animalFiles" class="mb-0 font22">照片：</form:label>
+				<form:label path="animalFiles" class="mb-0 font22">*照片：</form:label>
 				<form:input path="animalFiles" type="file" id="animalFilesUpdate" />
 				<br>
 			</div>
 			<div class="mb-20">
-				<div class="dispblok square250px" id="animalFilesDivOrigin">
-					<img class="cardImg"
+				<div class="dispblok square250px ml-100" id="animalFilesDivOrigin">
+					<img class="cardImg marginAuto"
 						src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animals.animalId}"
 						alt="Animal image">
 				</div>
-				<div class="divHidden square250px" id="animalFilesDivAlter">
-					<img class="cardImg" id="preview_animalFiles" src="#" /><br>
+				<div class="divHidden square250px ml-100" id="animalFilesDivAlter">
+					<img class="cardImg marginAuto" id="preview_animalFiles" src="#" /><br>
 				</div>
 			</div>
 			<!-- ===================================================================================== -->
-				<form:label path="animalId" class="mb-0 font22">動物編號：</form:label>
-				<form:input path="animalId" type="text" name="animalId"
-					value="${animals.animalId}" class="divHidden" id="animalId" />
-				<form:label path="animalId">${animals.animalId}</form:label>
-			<!-- 		label不能用value，input readonly="readonly", disable="disabled"無作用-->
-			<!-- ===================================================================================== -->
-			<div class="divHidden">
-				<form:label path="memberId" class="mb-0 font22">會員編號：</form:label>
-				<form:input path="memberId" type="text" name="memberId"
-					value="${animals.member.id}" onblur="checkmemberId()" id="memberId" />
-				<br>
-			</div>
-			<div id="memberIdDiv" class="divHidden">
-				<br>
-			</div>
-			<!-- ===================================================================================== -->
 			<div class="mb-20">
-				<form:label path="acceptionId" class="mb-0 font22">收容動物編號：</form:label>
-				<form:input path="acceptionId" type="text" name="acceptionId"
-					value="${animals.acceptionId}" onblur="checkacceptionId()"
-					id="acceptionId" />
-				<br>
-			</div>
-			<div id="acceptionIdDiv" class="divHidden">
-				<br>
-			</div>
-			<!-- ===================================================================================== -->
-			<div class="mb-20">
-				<form:label path="breedId" class="mb-0 font22">品種編號：</form:label>
+				<form:label path="breedId" class="mb-0 font22">*品種：</form:label>
 				<select id="family" class="font22 borderBlack wid40p">
 					<c:forEach var="Families" items="${Families}">
 						<c:choose>
@@ -120,7 +96,7 @@
 			</div>
 			<!-- ===================================================================================== -->
 			<div class="mb-20">
-				<form:label path="gender" class="mb-0 font22">性別：</form:label>
+				<form:label path="gender" class="mb-0 font22">*性別：</form:label>
 				<form:select path="gender" class="font22 borderBlack wid40p">
 					<c:choose>
 						<c:when test="${animals.gender == 1}">
@@ -137,18 +113,7 @@
 			</div>
 			<!-- ===================================================================================== -->
 			<div class="mb-20">
-				<form:label path="coatColor" class="mb-0 font22">毛色：</form:label>
-				<form:input path="coatColor" type="text" name="coatColor"
-					value="${animals.coatColor}" onblur="checkcoatColor()"
-					id="coatColor" class="font22" />
-				<br>
-			</div>
-			<div id="coatColorDiv" class="divHidden">
-				<br>
-			</div>
-			<!-- ===================================================================================== -->
-			<div class="mb-20">
-				<form:label path="isAdoptionAvailable" class="mb-0 font22">是否開放領養：</form:label>
+				<form:label path="isAdoptionAvailable" class="mb-0 font22">*是否開放領養：</form:label>
 				<form:select path="isAdoptionAvailable"
 					class="font22 borderBlack wid40p">
 					<c:choose>
@@ -162,6 +127,46 @@
 						</c:otherwise>
 					</c:choose>
 				</form:select>
+				<br>
+			</div>
+			<!-- ===================================================================================== -->
+			<div class="divHidden">
+				<form:label path="animalId" class="mb-0 font22">動物編號：</form:label>
+				<form:input path="animalId" type="text" name="animalId"
+					value="${animals.animalId}" class="divHidden" id="animalId" />
+				<form:label path="animalId">${animals.animalId}</form:label>
+			</div>
+			<!-- 		label不能用value，input readonly="readonly", disable="disabled"無作用-->
+			<!-- ===================================================================================== -->
+			<div class="divHidden">
+				<form:label path="memberId" class="mb-0 font22">會員編號：</form:label>
+				<form:input path="memberId" type="text" name="memberId"
+					value="${animals.member.id}" onblur="checkmemberId()" id="memberId" />
+				<br>
+			</div>
+			<div id="memberIdDiv" class="divHidden">
+				<br>
+			</div>
+			<!-- ===================================================================================== -->
+			<div class="mb-20">
+				<form:label path="acceptionId" class="mb-0 font22">收容動物編號：</form:label>
+				<form:input path="acceptionId" type="text" name="acceptionId"
+					value="${animals.acceptionId}" onblur="checkacceptionId()"
+					id="acceptionId" class="font22"/>
+				<br>
+			</div>
+			<div id="acceptionIdDiv" class="divHidden">
+				<br>
+			</div>
+			<!-- ===================================================================================== -->
+			<div class="mb-20">
+				<form:label path="coatColor" class="mb-0 font22">毛色：</form:label>
+				<form:input path="coatColor" type="text" name="coatColor"
+					value="${animals.coatColor}" onblur="checkcoatColor()"
+					id="coatColor" class="font22" />
+				<br>
+			</div>
+			<div id="coatColorDiv" class="divHidden">
 				<br>
 			</div>
 			<!-- ===================================================================================== -->

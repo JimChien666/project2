@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>新增動物</title>
+<title>加入動物</title>
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -26,10 +26,12 @@
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
 		<div class="container">
 			<div class="breadcrumb-content text-center">
-				<h2>Blog</h2>
+				<h2>加入寵物</h2>
 				<ul>
-					<li><a href="index.html">home</a></li>
-					<li class="active">Blog</li>
+					<li><a href="<c:url value='/'/>">首頁</a></li>
+					<li class="active">會員中心</li>
+					<li><a href="<c:url value='/ReadAnimal'/>">我的寵物</a></li>
+					<li class="active">加入寵物</li>
 				</ul>
 			</div>
 		</div>
@@ -38,7 +40,7 @@
 	<div class="wid450px margin0Auto mt-50 mb-50">
 		<div>
 			<a href="<c:url value='/ReadAnimal' />"
-				class="btn-style1 font22 mb-20">回維護首頁</a>
+				class="btn-style-cancel btn-style-border mb-20">回我的寵物</a>
 		</div>
 		<!-- ===================================================================================== -->
 		<div>
@@ -50,8 +52,10 @@
 						multiple="multiple" />
 					<br>
 				</div>
-				<div class="divHidden square250px" id="animalFilesDiv">
-					<img class="cardImg" id="preview_animalFiles" src="#" /><br>
+				<div class="mb-20">
+					<div class="divHidden square250px ml-100" id="animalFilesDiv">
+						<img class="cardImg marginAuto" id="preview_animalFiles" src="#" /><br>
+					</div>
 				</div>
 				<!-- ===================================================================================== -->
 				<div class="divHidden">
@@ -65,18 +69,16 @@
 				</div>
 				<!-- ===================================================================================== -->
 				<div class="mb-20">
-				<form:label path="breedId" class="mb-0 font22">*品種：</form:label>
-				<select id="family" class="font22 borderBlack wid40p">
-					<c:forEach var="Families" items="${Families}">
-						<option value="">${Families}</option>
-					</c:forEach>
-				</select>
-				<select id="breed" class="font22 borderBlack wid40p">
-					<c:forEach var="breed" items="${breed}">
-						<option value="">${breed.breed}</option>
-					</c:forEach>
-				</select>
-				<br>
+					<form:label path="breedId" class="mb-0 font22">*品種：</form:label>
+					<select id="family" class="font22 borderBlack wid40p">
+						<c:forEach var="Families" items="${Families}">
+							<option value="">${Families}</option>
+						</c:forEach>
+					</select> <select id="breed" class="font22 borderBlack wid40p">
+						<c:forEach var="breed" items="${breed}">
+							<option value="">${breed.breed}</option>
+						</c:forEach>
+					</select> <br>
 				</div>
 				<!-- 			input -->
 				<div class="divHidden">
@@ -88,30 +90,30 @@
 				</div>
 				<!-- ===================================================================================== -->
 				<div class="mb-20">
-				<form:label path="gender" class="mb-0 font22">*性別：</form:label>
-				<form:select path="gender" id="gender"
-					class="font22 borderBlack wid40p">
-					<form:option value="1">公</form:option>
-					<form:option value="0">母</form:option>
-				</form:select>
-				<br>
+					<form:label path="gender" class="mb-0 font22">*性別：</form:label>
+					<form:select path="gender" id="gender"
+						class="font22 borderBlack wid40p">
+						<form:option value="1">公</form:option>
+						<form:option value="0">母</form:option>
+					</form:select>
+					<br>
 				</div>
 				<!-- ===================================================================================== -->
 				<div class="mb-20">
-				<form:label path="isAdoptionAvailable" class="mb-0 font22">*是否開放領養：</form:label>
-				<form:select path="isAdoptionAvailable"
-					class="font22 borderBlack wid40p">
-					<form:option value="1">開放</form:option>
-					<form:option value="0">不開放</form:option>
-				</form:select>
-				<br>
+					<form:label path="isAdoptionAvailable" class="mb-0 font22">*是否開放領養：</form:label>
+					<form:select path="isAdoptionAvailable"
+						class="font22 borderBlack wid40p">
+						<form:option value="1">開放</form:option>
+						<form:option value="0">不開放</form:option>
+					</form:select>
+					<br>
 				</div>
 				<!-- ===================================================================================== -->
 				<div class="mb-20">
 					<form:label path="acceptionId" class="mb-0 font22">收容動物編號：</form:label>
 					<form:input path="acceptionId" type="text" name="acceptionId"
-						onblur="checkacceptionId()" id="acceptionId"
-						class="font22" placeholder="收容所需填" />
+						onblur="checkacceptionId()" id="acceptionId" class="font22"
+						placeholder="收容所需填" />
 					<br>
 				</div>
 				<div id="acceptionIdDiv" class="divHidden">
@@ -119,22 +121,20 @@
 				</div>
 				<!-- ===================================================================================== -->
 				<div class="mb-20">
-				<form:label path="coatColor" class="mb-0 font22">毛色：</form:label>
-				<form:input path="coatColor" type="text" name="coatColor"
-					onblur="checkcoatColor()" id="coatColor"
-					class="font22" />
-				<br>
+					<form:label path="coatColor" class="mb-0 font22">毛色：</form:label>
+					<form:input path="coatColor" type="text" name="coatColor"
+						onblur="checkcoatColor()" id="coatColor" class="font22" />
+					<br>
 				</div>
 				<div id="coatColorDiv" class="divHidden">
 					<br>
 				</div>
 				<!-- ===================================================================================== -->
 				<div class="mb-20">
-				<form:label path="note" class="mb-0 font22">備註：</form:label>
-				<form:textarea path="note" name="note" rows="5" cols="18"
-					placeholder="可輸入寵物年齡"
-					class="font22" />
-				<br>
+					<form:label path="note" class="mb-0 font22">備註：</form:label>
+					<form:textarea path="note" name="note" rows="5" cols="18"
+						placeholder="可輸入寵物年齡" class="font22" />
+					<br>
 				</div>
 				<!-- ===================================================================================== -->
 				<a href="<c:url value='/preCreateAnimal.controller' />"

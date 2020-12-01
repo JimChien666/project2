@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>動物認養申請書</title>
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <jsp:include page="../fragments/links.jsp" />
 </head>
@@ -18,10 +18,15 @@
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
 		<div class="container">
 			<div class="breadcrumb-content text-center">
-				<h2>Blog</h2>
+				<h2>動物認養申請書</h2>
 				<ul>
-					<li><a href="index.html">home</a></li>
-					<li class="active">Blog</li>
+					<li><a href="<c:url value='/'/>">首頁</a></li>
+					<li><a href="<c:url value='/adopt'/>">全部動物</a></li>
+					<li><a
+						href="<c:url value='/AdoptAnimalDetails.controller?id=${animal.animalId}'/>">動物資料</a></li>
+					<li><a
+						href="<c:url value='/adoptNotice'/>?animalId=${animal.animalId}">認養須知</a></li>
+					<li class="active">認養申請</li>
 				</ul>
 			</div>
 		</div>
@@ -29,29 +34,39 @@
 
 	<!-- ============================================================================================= -->
 
-	<div class="mt-50 divCenter">
-		<h1>動物認養申請書</h1>
-	</div>
+<!-- 	<div class="mt-50 divCenter"> -->
+<!-- 		<h1>動物認養申請書</h1> -->
+<!-- 	</div> -->
 	<div class="wid1000px">
 		<!-- 閱讀 -->
 		<input type="text" class="mt-50 inputH30W200 inputBorder font22"
 			placeholder="請輸入申請人姓名">
 		<h4 class="div1 mb-30">已年滿20歲，並具有飼養之能力及場所，願向貴處認養動物乙隻，詳細資料如下:</h4>
 		<div class="font22">
-			<div>收容編號：&nbsp;${animal.animalId}</div>
-			<div>動物類別：&nbsp;${animal.breeds.family}</div>
-			<div>動物品種：&nbsp;${animal.breeds.breed}</div>
-			<div>
-				性別：
-				<c:choose>
-					<c:when test="${animal.gender}=1">公
-					</c:when>
-					<c:otherwise>母
-					</c:otherwise>
-				</c:choose>
+			<div class="wid700px">
+				<div class="f-left mr-10 ptb-20">
+					<h3 class="lineH10">
+						申請日期：${Today}<br> 收容編號：${animal.acceptionId}<br>
+						動物類別：${animal.breeds.family}<br> 動物品種：${animal.breeds.breed}<br>
+						<c:choose>
+							<c:when test="${animal.gender == 1}">
+								<div class="div1">性別：</div>公<br>
+							</c:when>
+							<c:otherwise>
+								<div class="div1">性別：</div>母<br>
+							</c:otherwise>
+						</c:choose>
+						毛色：${animal.coatColor}<br>
+					</h3>
+				</div>
+				<div class="ptb-50">
+					<div class="hover-effect square250px">
+						<img class="cardImg marginAuto" alt=""
+							src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animal.animalId}">
+					</div>
+				</div>
 			</div>
-			<div>毛色：&nbsp;${animal.coatColor}</div>
-			<div class="mt-80 mb-30">本人願遵守以下約定:</div>
+			<div class="mt-50 mb-30">本人願遵守以下約定:</div>
 			<div class="mb-30">1. 依法辦理寵物登記、晶片植入等事項。並同意為認養隻動物絕育，避免不必要之繁殖。</div>
 			<div class="mb-30">
 				2.無論何時都以人道方式對待認養動物，提供牠適當之食物、飲水及空間，並絕不任意棄養認養的動物。</div>
@@ -124,10 +139,10 @@
 
 
 	<div class="divCenter mb-50">
-		<a href="<c:url value='/adoptApply'/>?animalId=${animal.animalId}"
-			class="btn-style1 btn-style-border" id="save">送出申請</a> <a
+		<a href="<c:url value='/adopt'/>"
+			class="btn-style-cancel btn-style-border">取消</a> <a
 			href="<c:url value='/adopt'/>"
-			class="btn-style-cancel btn-style-border">取消</a>
+			class="btn-style1 btn-style-border" id="save">送出申請</a>
 	</div>
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />

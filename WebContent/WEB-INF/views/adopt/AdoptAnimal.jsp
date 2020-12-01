@@ -19,10 +19,10 @@
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
 		<div class="container">
 			<div class="breadcrumb-content text-center">
-				<h2>Blog</h2>
+				<h2>領養動物</h2>
 				<ul>
-					<li><a href="index.html">home</a></li>
-					<li class="active">Blog</li>
+					<li><a href="<c:url value='/'/>">首頁</a></li>
+					<li class="active">全部動物</li>
 				</ul>
 			</div>
 		</div>
@@ -36,7 +36,7 @@
 						<div class="col-xl-3 col-lg-4 col-md-6 f-left">
 							<div class="blog-wrapper mb-15 mt-15 gray-bg card2">
 								<div class="hover-effect square250px">
-									<a href="<c:url value='/AdoptAnimalDetails.controller/${AnimalsList.animalId}' />"><img class="cardImg marginAuto"
+									<a href="<c:url value='/AdoptAnimalDetails.controller?id=${AnimalsList.animalId}' />"><img class="cardImg marginAuto"
 										alt=""
 										src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${AnimalsList.animalId}"></a>
 								</div>

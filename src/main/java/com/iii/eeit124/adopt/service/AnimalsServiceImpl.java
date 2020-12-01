@@ -23,8 +23,8 @@ public class AnimalsServiceImpl implements AnimalsService{
 		return animalsDao.read(animalsId);
 	}
 	
-	public List<Animals> readAll(){
-		return animalsDao.readAll();
+	public List<Animals> readAll(Integer memberId){
+		return animalsDao.readAll(memberId);
 	}
 	
 	public List<Animals> readMyAnimals(Integer memberId){
