@@ -43,11 +43,9 @@ public class ShoppingAanlysisDaoImpl implements ShoppingAanlysisDao {
 		for(Categories categoriey:categories) {
 			BigDecimal sum = new BigDecimal(0);
 			@SuppressWarnings("rawtypes")
-			Query query2 = sessionFactory.getCurrentSession().createSQLQuery("select sum(oi.price*oi.discount) from order_items oi left join products p on p.id=oi.product_id left join orders o on o.id=oi.order_id left join categories c on c.id=p.category_id where o.buyer_id=?0 and c.id=?1 and o.created_at between ?2 AND ?3 group by p.category_id");
+			Query query2 = sessionFactory.getCurrentSession().createSQLQuery("select sum(oi.price*oi.discount) from order_items oi left join products p on p.id=oi.product_id left join orders o on o.id=oi.order_id left join categories c on c.id=p.category_id where o.buyer_id=?0 and c.id=?1 group by p.category_id");
 			query2.setParameter(0, id);
 			query2.setParameter(1, categoriey.getId());
-			query2.setParameter(2, cal_1.getTime());
-			query2.setParameter(3, cale.getTime());
 			if (query2.uniqueResult() != null) {				
 				sum = (BigDecimal)query2.uniqueResult();
 			}

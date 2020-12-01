@@ -39,15 +39,11 @@ public class MemberCenterDaoImpl implements MemberCenterDao {
 		Calendar cale = Calendar.getInstance();
 		cal_1.add(Calendar.MONTH, 0);
 		cal_1.set(Calendar.DAY_OF_MONTH,1);
-		Query query = sessionFactory.getCurrentSession().createSQLQuery("select count(o.id) from orders o where o.buyer_id=?0 and o.created_at between ?1 and ?2 and o.status !='取消'");
+		Query query = sessionFactory.getCurrentSession().createSQLQuery("select count(o.id) from orders o where o.buyer_id=?0 and o.status !='取消'");
 		query.setParameter(0, memberId);
-		query.setParameter(1, cal_1.getTime());
-		query.setParameter(2, cale.getTime());
 		BigDecimal count = (BigDecimal)query.uniqueResult();
-		Query query2 = sessionFactory.getCurrentSession().createSQLQuery("select sum(o.total) from orders o where o.buyer_id=?0 and o.created_at between ?1 and ?2 and o.status !='取消'");
+		Query query2 = sessionFactory.getCurrentSession().createSQLQuery("select sum(o.total) from orders o where o.buyer_id=?0 and o.status !='取消'");
 		query2.setParameter(0, memberId);
-		query2.setParameter(1, cal_1.getTime());
-		query2.setParameter(2, cale.getTime());
 		BigDecimal sum = (BigDecimal)query2.uniqueResult();
 		Map<String, BigDecimal> map = new HashMap<String, BigDecimal>();
 		map.put("sum", sum);

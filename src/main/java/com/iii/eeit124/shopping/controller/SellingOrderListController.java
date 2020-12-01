@@ -1,6 +1,5 @@
 package com.iii.eeit124.shopping.controller;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,32 +17,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.entity.Orders;
-import com.iii.eeit124.entity.Products;
 import com.iii.eeit124.member.service.MemberCenterService;
-import com.iii.eeit124.shopping.service.OrderListService;
-import com.iii.eeit124.shopping.service.ShoppingAanlysisService;
+import com.iii.eeit124.shopping.service.SellingOrderListService;
 
 @Controller
 @RequestMapping("/order")
-public class OrderListController {
+public class SellingOrderListController {
 	@Autowired
 	HttpSession session;
 	
 	@Autowired
-	OrderListService service;
+	SellingOrderListService service;
 	
-	@Autowired
-	ShoppingAanlysisService shoppingAanlysisService;
 	
 	@Autowired
 	MemberCenterService memberCenterService;
-	
-	@GetMapping("/OrderList")
+
+	@GetMapping("/SellingOrderList")
 	public String goToOrderPage() {
-		return "orders/OrderList";
+		return "orders/SellingOrderList";
 	}
 	
-	@GetMapping("/pagingOrders.json")
+	@GetMapping("/pagingSellingOrders.json")
 	public @ResponseBody Map<String, Object> getPageOrders(Model model,
 			@RequestParam(value="pageNo",defaultValue = "1", required = false) Integer pageNo,
 			@RequestParam(value="paidStatus",required = false) Integer paidStatus,
@@ -63,7 +58,7 @@ public class OrderListController {
 			recordCounts = service.getRecordCounts(loginOK.getId(), paidStatus, orderStatus);
 		}
 		else {
-			System.out.println("here");
+			
 			orderList = service.findAllOrdersByMemberId(pageNo, recordsPerPage, loginOK.getId());
 			recordCounts = service.getRecordCounts(loginOK.getId());
 		}
@@ -78,15 +73,10 @@ public class OrderListController {
 		return map;
 	}
 	
-	@GetMapping("/orderAnalysis")
-	public String getMyAccountPage(Model model) {
-		Members member = (Members)session.getAttribute("LoginOK");
-		Map<String, BigDecimal> dataPerMonth =  memberCenterService.getDataPerMonth(member.getId());
-		System.out.println("hi");
-		System.out.println(dataPerMonth);
-		model.addAttribute("dataPerMonth", dataPerMonth);
-		Map<String, BigDecimal> categoriesCost = shoppingAanlysisService.getAllCategoriesCost(member.getId());
-		model.addAttribute("categoriesCost", categoriesCost);
-		return "orders/orderAnalysis";
+	
+	@GetMapping("/changeToShipped")
+	public @ResponseBody Integer changeToShipped(@RequestParam(value="orderItemId") Integer orderItemId) {
+		Integer checkOrderIsUpdate =  service.updateOrderStatus(orderItemId);
+		return checkOrderIsUpdate;
 	}
 }

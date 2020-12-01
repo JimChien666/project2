@@ -36,28 +36,33 @@
 	<div class="project-count-area pb-70 pt-100 gray-bg">
 		<div class="container">
 			<div class="section-title text-center mb-55">
-                    <h2>本月報表</h2>
+                    <h2>消費報表</h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
                 </div>
 			<div class="row">
 				<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 					<div class="single-count mb-30 text-center">
-						<span>本月下單數</span>
+						<span>總下單數</span>
 						<h2 class="count">${dataPerMonth.count}</h2>
 						<span>張</span>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 					<div class="single-count mb-30 text-center">
-						<span>本月下單金額</span>
+						<span>總下單金額</span>
 						<h2 class="count">${dataPerMonth.sum}</h2>
 						<span>元</span>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 					<div class="single-count mb-30 text-center">
-						<span>本月平均訂單金額</span>
-						<h2 class="count">${dataPerMonth.sum/dataPerMonth.count}</h2>
+						<span>平均訂單金額</span>
+						<c:if test="${dataPerMonth.count!=0}">
+							<h2 class="count">${dataPerMonth.sum/dataPerMonth.count}</h2>
+						</c:if>
+						<c:if test="${dataPerMonth.count==0}">
+							<h2 class="count">0</h2>
+						</c:if>
 						<span>元</span>
 					</div>
 				</div>

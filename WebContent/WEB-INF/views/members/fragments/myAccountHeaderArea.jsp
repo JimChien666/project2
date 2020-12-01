@@ -16,6 +16,7 @@
 								class="icon-arrow-down"></i></a>
 							<ul>
 								<li><a href="<c:url value='/order/OrderList' />">購買紀錄</a></li>
+								<li><a href="<c:url value='/order/SellingOrderList' />">販售紀錄</a></li>
 								<li><a href="<c:url value='/order/orderAnalysis' />">訂單數據</a></li>
 							</ul></li>
 						<li><a href="#"> 商品管理 <i class="icon-arrow-down"></i></a>

@@ -29,7 +29,7 @@ button.btncls:hover{
 <script>
 window.onload = function() {
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "<c:url value='/order/pagingOrders.json' />", true);
+	xhr.open("GET", "<c:url value='/order/pagingSellingOrders.json' />", true);
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 ) {
@@ -76,7 +76,7 @@ window.onload = function() {
 			content +="<tr>" +
 					  "<td>"+orders[i].id+"</td>" +
 					  "<td>"+orders[i].createdAtString+"</td>" +
-					  "<td>"+orders[i].status+"</td>" +
+					  "<td id='order"+orders[i].id+"'>"+orders[i].status+"</td>" +
 					  "<td>"+orders[i].total+"</td>"
 					  
 				if(orders[i].isPaid==0){
@@ -98,6 +98,7 @@ window.onload = function() {
 						"<th>購買數量</th>"+
 						"<th>價格</th>"+
 						"<th>狀態</th>"+
+						"<th>出貨</th>"+
 					"</tr>"
 			for(var j=0; j < orders[i].orderItems.length; j++){
 				console.log(orders[i].orderItems[j]);
@@ -110,7 +111,8 @@ window.onload = function() {
 							"<td>"+orders[i].orderItems[j].discountPrice+"</td>"+
 							"<td>"+orders[i].orderItems[j].quantity+"</td>"+
 							"<td>"+(orders[i].orderItems[j].discountPrice*orders[i].orderItems[j].quantity)+"</td>"+
-							"<td>"+orders[i].orderItems[j].status+"</td>"+
+							"<td id='oiStatus"+orders[i].orderItems[j].id+"'>"+orders[i].orderItems[j].status+"</td>"+
+							"<td><button class='btncls' onclick='shipped("+orders[i].orderItems[j].id+")'>出貨</button></td>"+
 						"</tr>"
 				
 			}
@@ -183,7 +185,7 @@ window.onload = function() {
 		    // 注意，查詢字串的前面有問號
 		    queryString = "?pageNo=" + no + "&totalPage=" + totalPage;
 
-			xhr.open("GET", "<c:url value='/order/pagingOrders.json'/>" + queryString , true);
+			xhr.open("GET", "<c:url value='/order/pagingSellingOrders.json'/>" + queryString , true);
 			xhr.send();
 			xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4 && xhr.status == 200) {
@@ -199,7 +201,7 @@ window.onload = function() {
 		console.log(paidStatus+orderStatus);
 		var condiction = "?paidStatus=" + paidStatus + "&orderStatus=" + orderStatus;
 		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "<c:url value='/order/pagingOrders.json' />"+condiction, true);
+		xhr.open("GET", "<c:url value='/order/pagingSellingOrders.json' />"+condiction, true);
 		xhr.send();
 		 xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4 ) {
@@ -219,6 +221,26 @@ window.onload = function() {
 			document.getElementById("orderStatus").innerHTML='<option selected=selected disabled value="">訂單狀態</option><option value="">全部</option><option value="訂單成立">訂單成立</option><option value="取消">取消</option>'
 		}
 	}
+	function shipped(orderItemId){
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "<c:url value='/order/changeToShipped' />?orderItemId="+orderItemId, true);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 ) {
+				if (xhr.status == 200){
+					var responseData = xhr.responseText;
+					console.log(responseData);
+					document.getElementById("oiStatus"+orderItemId).innerHTML="已出貨";
+					console.log(responseData!=0);
+					if (responseData!=0){
+						document.getElementById("order"+responseData).innerHTML="已出貨";
+						}
+				} else {
+					alert(xhr.status);
+				}
+			}
+		}
+	}
 </script>
 <jsp:include page="../fragments/links.jsp" />
 <body>
@@ -226,11 +248,11 @@ window.onload = function() {
 <div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
             <div class="container">
                 <div class="breadcrumb-content text-center">
-                    <h2>購買紀錄</h2>
+                    <h2>販售紀錄</h2>
                     <ul>
                         <li><a href="<c:url value='/' />">首頁</a></li>
                         <li><a href="<c:url value='/member/myAccount'/>">會員中心</a></li>
-                        <li class="active">購買紀錄</li>
+                        <li class="active">販售紀錄</li>
                     </ul>
                 </div>
             </div>
