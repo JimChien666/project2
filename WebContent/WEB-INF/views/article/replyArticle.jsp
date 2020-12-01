@@ -57,8 +57,8 @@ h1 {
 			<div class="breadcrumb-content text-center">
 				<h2>Blog</h2>
 				<ul>
-					<li><a href="index.html">home</a></li>
-					<li class="active">Blog</li>
+					<li><a href="index.html">首頁</a></li>
+					<li class="active">文章回覆</li>
 				</ul>
 			</div>
 		</div>
