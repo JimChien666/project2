@@ -269,10 +269,31 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 
 
 	<div class="container">
+		<ul style="list-style: none; margin: 20px 0;">
+			<li style="float: left; margin: 10px 10px 15px 10px;">
+				<table>
+					<tr>
+						<td class="product-wishlist-cart" id="forumsSelect1"><a
+							style='color: white; cursor: pointer;' id="1">狗狗討論版</a></td>
+					</tr>
+				</table>
+			</li>
+		</ul>
+		<ul style="list-style: none; margin: 20px 0;">
+			<li style="float: left; margin: 10px 10px 15px 10px;">
+
+				<table>
+					<tr>
+						<td class="product-wishlist-cart" id="forumsSelect2"><a
+							style='color: white; cursor: pointer;' id="2">貓咪討論版</a></td>
+					</tr>
+				</table>
+
+			</li>
+		</ul>
 
 
-
-		<ul style="list-style: none; margin: 0px 0;">
+		<ul style="list-style: none; margin: 0px 0;  clear:both;">
 			<li style="float: left; margin: 0px 10px 10px 10px;"><a
 				href="<c:url value='saveArticle' />">
 					<button class="submit btn-style" type="submit"
@@ -289,32 +310,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 		<!-- 	<div id="forumsSelect2"> -->
 		<!-- 		<button value="2" id="cat">貓</button>	 -->
 		<!-- 	</div> -->
-		<ul style="list-style: none; margin: 50px 0; clear:both;">
-			<li style="float: left; margin: 10px 10px 15px 10px;">
-				<table>
-					<tr>
-						<td class="product-wishlist-cart" id="forumsSelect1"><a
-							style='color: white; cursor: pointer;' id="1">狗狗討論版</a></td>
-					</tr>
-				</table>
-			</li>
-		</ul>
 
-
-
-
-		<ul style="list-style: none; margin: 50px 0;">
-			<li style="float: left; margin: 10px 10px 15px 10px;">
-
-				<table>
-					<tr>
-						<td class="product-wishlist-cart" id="forumsSelect2"><a
-							style='color: white; cursor: pointer;' id="2">貓咪討論版</a></td>
-					</tr>
-				</table>
-
-			</li>
-		</ul>
 		<!-- 
 	<ul style="list-style: none; margin: 10px 0; clear:both;">
 		<c:forEach items="${allArticleTypes}" var="ArticleType" varStatus="id">
