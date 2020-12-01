@@ -116,6 +116,7 @@ $("#houseFile").fileupload({
 		商品價格:<form:input path="price"/><span style="color: red;">${errors.price}</span><br/>
 		商品折扣:<form:input path="discount"/><span style="color: red;">${errors.discount}</span><br/>
 		商品圖片:<form:input path="multipartFile" type="file" /><span style="color: red;">${errors.multipartFile}</span><br/>
+		商品內容圖片:<input name="contentImage" type="file" multiple/><span style="color: red;">${errors.multipartFile}</span><br/>
 		商品描述:<form:input path="description"/><span style="color: red;">${errors.description}</span><br/>
 		商品數量:<form:input path="quantity"/><span style="color: red;">${errors.quantity}</span><br/>
 		商品狀態:上架中<form:radiobutton path="status" value="上架中"/>
@@ -132,7 +133,6 @@ $("#houseFile").fileupload({
 <%-- 		商品價格:<input name="price"/><span style="color: red;">${errors.price}</span><br/> --%>
 <%-- 		商品折扣:<input name="discount"/><span style="color: red;">${errors.discount}</span><br/> --%>
 <%-- 		商品封面圖片:<input name="coverImage" type="file" /><span style="color: red;">${errors.multipartFile}</span><br/> --%>
-<%-- 		商品內容圖片:<input name="contentImage" type="file" multiple/><span style="color: red;">${errors.multipartFile}</span><br/> --%>
 <%-- 		商品描述:<input name="description"/><span style="color: red;">${errors.description}</span><br/> --%>
 <%-- 		商品數量:<input name="quantity"/><span style="color: red;">${errors.quantity}</span><br/> --%>
 <!-- 		商品狀態:上架中<input type="radio"  name="status" value="上架中"/> -->

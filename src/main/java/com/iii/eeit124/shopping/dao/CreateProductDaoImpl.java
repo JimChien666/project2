@@ -14,6 +14,7 @@ import com.iii.eeit124.entity.Activitys;
 import com.iii.eeit124.entity.AnimalTypes;
 import com.iii.eeit124.entity.Categories;
 import com.iii.eeit124.entity.Colors;
+import com.iii.eeit124.entity.ProductFiles;
 import com.iii.eeit124.entity.Products;
 
 import oracle.net.aso.q;
@@ -76,9 +77,15 @@ public class CreateProductDaoImpl implements CreateProductDao {
 	}
 
 	@Override
-	public Products insertProduct(Products prducts) {
-		sessionFactory.getCurrentSession().save(prducts);
-		return prducts;
+	public Products insertProduct(Products products) {
+		sessionFactory.getCurrentSession().save(products);
+		return products;
+	}
+	
+	@Override
+	public ProductFiles insertProductFiles(ProductFiles productFiles) {
+		sessionFactory.getCurrentSession().save(productFiles);
+		return productFiles;
 	}
 
 }
