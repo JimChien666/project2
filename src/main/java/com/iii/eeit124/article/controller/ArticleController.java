@@ -224,7 +224,7 @@ public class ArticleController {
 	@GetMapping(value = "getArticleList")
 	public @ResponseBody Map<String, Object> getArtilceList(Model model, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "articleTypeId", defaultValue = "1")Integer id){
 		Map<String, Object> map = new HashMap<>();
-		Integer recordsPerPage = 2;
+		Integer recordsPerPage = 10;
 		System.out.println("id:"+id);
 		System.out.println("pageNo:"+pageNo);
 		System.out.println("model:"+model);
