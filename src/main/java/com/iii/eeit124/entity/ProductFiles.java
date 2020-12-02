@@ -34,11 +34,11 @@ public class ProductFiles implements Serializable {
 	private String fileUrl;
 	private Integer prodoctId;
 	private Products product;
-	private MultipartFile multipartFile;
 	private Blob fileBlob;
+	private MultipartFile multipartFile;
 	
 	
-	public ProductFiles() {};
+	public ProductFiles(){};
 	
 	public ProductFiles(String fileType, Blob fileBlob) {
 		super();

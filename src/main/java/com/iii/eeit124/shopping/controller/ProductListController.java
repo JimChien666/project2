@@ -126,7 +126,6 @@ public class ProductListController {
 			re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-
 		}
 		return re;
 	}

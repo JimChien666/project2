@@ -213,6 +213,9 @@ function getData(){
 }
 
 
+
+
+
 //若productId為零,後端會直接回傳購物車列表
 function addToCart(productId){
 	
@@ -409,9 +412,29 @@ function displayPageProducts(responseData){
 function goToCartPage(){
 	window.location.href = "<c:url value='/cart/CartList' />";
 }
-
+function createProduct(){
+	window.location.href = "<c:url value='/product/CreateProduct' />";
+}
 </script>
 <jsp:include page="../fragments/links.jsp" />
+<style>
+.btncls{
+	background-color: #7E4C4F; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+button.btncls:hover{
+	background-color: #000000;
+}
+</style>
 </head>
 <body>
 <jsp:include page="../fragments/headerArea.jsp" />
@@ -470,11 +493,14 @@ function goToCartPage(){
 				<div class="col-lg-3">
                         <div class="shop-sidebar">
                             <div class="shop-widget">
+                                <button  class="btncls" type="submit" onclick="createProduct()" >新增商品</button>
+                            
                             	<h4 class="shop-sidebar-title">搜尋商品</h4>
                                 <div class="shop-search mt-25 mb-50" >                               
 
-                                        <input  type="text" name="keywordSearch" id="keywordSearch" placeholder="輸入商品名稱" style="width: 220px;">
+                                        <input  type="text" name="keywordSearch" id="keywordSearch" placeholder="輸入商品名稱" style="width: 200px;">
                                         <button  class="btncls" type="submit" onclick="getData()">
+
                                             <i class="icon-magnifier"></i>
                                         </button>
 

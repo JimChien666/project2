@@ -83,9 +83,9 @@ public class CreateProductController {
 			@RequestParam(name="animalTypeId", required = false) Integer animalTypeId,
 			@RequestParam(name="colorId", required = false) Integer colorId,
 			@RequestParam(name="categoryId", required = false) Integer categoryId,
-			
+			@RequestParam(name="contentImage") MultipartFile[] multipartfiles,
 			BindingResult result, Model model)
-			throws SQLException {
+			throws SQLException, IOException {
 		Map<String, String> errors = new HashMap<String, String>();
 		model.addAttribute("errors", errors);
 		System.out.println(product);
@@ -125,27 +125,86 @@ public class CreateProductController {
 			return "products/CreateProduct";
 		}
 		
-		
+		//抓form:form的商品封面圖
 		MultipartFile multipartFile = product.getMultipartFile();
+
 		AnimalTypes animalType = service.findOneAnimalType(animalTypeId);
 		Colors color = service.findOneColor(colorId);
 		Categories category = service.findOneCatrgory(categoryId);
 		product.setCategory(category);
 		product.setColor(color);
 		product.setAnimalType(animalType);
+		
+
+	    //new HashSet<ProductFiles>()
+	    Set<ProductFiles> productFilesSet = new HashSet<ProductFiles>();
+	    
+//		內容圖片
+//		if(multipartfiles != null && multipartfiles.length > 0){
+		
+			//遍歷並儲存檔案
+			try {
+				for(MultipartFile file : multipartfiles){
+					String fileName = file.getOriginalFilename(); //得到原始檔名
+					
+					String fileTempDirPath = ctx.getRealPath("/") + "UploadTempDir\\"; //創一個臨時資料夾
+					File dirPath = new File(fileTempDirPath);
+					if(!dirPath.exists()) {
+					    boolean status = dirPath.mkdirs();
+					    System.out.println("status" + status);
+					}
+					String fileSavePath = fileTempDirPath + fileName;
+						
+				    File saveFile = new File(fileSavePath); 				    
+				    file.transferTo(saveFile);
+				    
+				    HttpHeaders headers = new HttpHeaders();
+				    headers.setContentType(MediaType.IMAGE_JPEG);
+				    FileInputStream is1 = new FileInputStream(fileSavePath); 
+				    byte[] b = new byte[is1.available()];
+				    is1.read(b);
+				    is1.close();
+				    Blob blob = new SerialBlob(b);
+				    //new ProductFiles
+				    ProductFiles productFiles = new ProductFiles();
+
+				    productFiles.setFileBlob(blob);
+					//
+					product.setContentImgs(productFilesSet); 
+					//把使用者上傳圖片裝到productFiles的fileBlob
+					//把product裝到productFiles
+					productFiles.setProduct(product);
+					//把productFiles,add到HashSet裡
+					productFilesSet.add(productFiles);
+				}	
+
+
+			}catch (IOException e) {
+				errors.put("errorAccountDup", "新增此筆資料有誤(RegisterServlet)");
+				return "products/CreateProduct";
+			}
+			
+			
+//		}
+		
 		if(multipartFile != null || !(multipartFile.isEmpty()) ) {
 			try {
 				String fileName = multipartFile.getOriginalFilename();
 
 				String fileTempDirPath = ctx.getRealPath("/") + "UploadTempDir\\";
+				
 				File dirPath = new File(fileTempDirPath);
+				
 				if(!dirPath.exists()) {
 				    boolean status = dirPath.mkdirs();
 				    System.out.println("status" + status);
 				}
 				String fileSavePath = fileTempDirPath + fileName;
+				
+				
 			    File saveFile = new File(fileSavePath);
 			    product.getMultipartFile().transferTo(saveFile);
+			    
 			    System.out.println(fileSavePath);
 			    HttpHeaders headers = new HttpHeaders();
 			    headers.setContentType(MediaType.IMAGE_JPEG);
@@ -153,8 +212,8 @@ public class CreateProductController {
 			    byte[] b = new byte[is1.available()];
 			    is1.read(b);
 			    is1.close();
-			    Set<ProductFiles> files = new HashSet<ProductFiles>();
 			    Blob blob = new SerialBlob(b);
+//			    Set<ProductFiles> files = new HashSet<ProductFiles>();
 //			    ProductFiles file = new ProductFiles("image", blob);
 //			    file.setProduct(product);
 //			    files.add(file);
@@ -171,6 +230,7 @@ public class CreateProductController {
 		product.setCreatedAt(new Date());
 		product.setMember((Members)session.getAttribute("LoginOK"));
 	    service.insertProduct(product);
+	    
 		return "redirect:/";
 	}
 	

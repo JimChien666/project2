@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.iii.eeit124.entity.AnimalTypes;
 import com.iii.eeit124.entity.Categories;
 import com.iii.eeit124.entity.Colors;
+import com.iii.eeit124.entity.ProductFiles;
 import com.iii.eeit124.entity.Products;
 import com.iii.eeit124.shopping.dao.CreateProductDao;
 
@@ -52,3 +53,4 @@ public class CreateProductServiceImpl implements CreateProductService {
 		return dao.insertProduct(prducts);
 	}
 }
+

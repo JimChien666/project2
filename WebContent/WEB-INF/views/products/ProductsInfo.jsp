@@ -99,8 +99,11 @@
 	<!-- 	抓ProductListController/getProductImage的封面圖 -->
 	<img id='chgicon' style='border:1px black solid; height:450px; width:450px;' src='${pageContext.request.contextPath}/product/getProductImage/?productId=${ProductsInfo.id}'>
 
-	
+	<br/>
+	<hr/>
 	${ProductsInfo.description}
+	<br/>
+	
 <c:forEach  items="${ProductsInfo.productFilesId}" var="contentFileId">
 		<img src='${pageContext.request.contextPath}/product/getProductFilesImage/?productFilesId=${contentFileId}'>
 		<br/>
@@ -110,7 +113,7 @@
 	<div id="selectBar"></div>
 	<div id='somedivS'  style='height:260px;'></div>
 	<div id='navigation' style='height:60px;'></div>
-	<hr>
+	<hr/>
 	
 	<a href="<c:url value='/' />">回前頁</a>
 </div>
