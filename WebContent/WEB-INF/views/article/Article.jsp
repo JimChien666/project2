@@ -48,8 +48,8 @@
 /* } */
 </style>
 <meta charset="UTF-8">
-<title>ID:<c:out value="${article.getId()}" />/<c:out
-		value="${article.getTitle()}" /></title>
+<title><c:out value="${thisArticle.title}" /></title>
+<%-- <title>ID:<c:out value="${articleId}" />/<c:out	value="${thisArticle.title}" /></title> --%>
 </head>
 
 <script>
