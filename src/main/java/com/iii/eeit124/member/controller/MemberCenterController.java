@@ -29,7 +29,7 @@ public class MemberCenterController {
 	@Autowired
 	MemberCenterService memberCenterService;
 	
-	@GetMapping("/memberCenter")
+	@GetMapping("/myAccount")
 	public String getMemberCenterPage() {
 		return "members/memberCenter";
 	}

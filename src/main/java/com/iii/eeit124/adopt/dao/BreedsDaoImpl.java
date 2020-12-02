@@ -20,31 +20,17 @@ public class BreedsDaoImpl implements BreedsDao{
 		return entity;
 	}
 	
+	//======================================================================================
+	
 	public Breeds read(Integer breedsId) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Breeds.class, breedsId);
-	}
-	
-	public List<Breeds> readBreed(String breedText) {
-		Session session = sessionFactory.getCurrentSession();
-		@SuppressWarnings("unchecked")
-		Query<Breeds> query = session.createQuery("from Breeds where breed='"+breedText+"'");
-		List<Breeds> list = query.list();
-		return list;
 	}
 	
 	public List<Breeds> readAll() {
 		Session session = sessionFactory.getCurrentSession();
 		Query<Breeds> query = session.createQuery("from Breeds", Breeds.class);
 		List<Breeds> list = query.list();
-		return list;
-	}
-	
-	public List<String> readFamily(Integer animalId) {
-		Session session = sessionFactory.getCurrentSession();
-		@SuppressWarnings("unchecked")
-		Query<String> query = session.createQuery("select family from Breeds where ANIMAL_ID='"+animalId+"'");
-		List<String> list = query.list();
 		return list;
 	}
 	
@@ -56,21 +42,39 @@ public class BreedsDaoImpl implements BreedsDao{
 		return list;
 	}
 	
-	public List<Breeds> readDogsBreeds() {
+	public List<Breeds> readAllBreeds(String family) {
 		Session session = sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
-		Query<Breeds> query = session.createQuery("from Breeds where family='狗' order by BREED_ID");
+		Query<Breeds> query = session.createQuery("from Breeds where family='"+family+"' order by BREED_ID");
 		List<Breeds> list = query.list();
 		return list;
 	}
 	
-	public List<Breeds> readAllBreeds(String familyValue) {
+	//可被readAllBreeds取代
+//	public List<Breeds> readDogsBreeds() {
+//		Session session = sessionFactory.getCurrentSession();
+//		@SuppressWarnings("unchecked")
+//		Query<Breeds> query = session.createQuery("from Breeds where family='狗' order by BREED_ID");
+//		List<Breeds> list = query.list();
+//		return list;
+//	}
+	
+	public List<Breeds> readBreed(String breedText) {
 		Session session = sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
-		Query<Breeds> query = session.createQuery("from Breeds where family='"+familyValue+"' order by BREED_ID");
+		Query<Breeds> query = session.createQuery("from Breeds where breed='"+breedText+"'");
 		List<Breeds> list = query.list();
 		return list;
 	}
+	
+	//可被read取代
+//	public List<String> readFamily(Integer breedId) {
+//		Session session = sessionFactory.getCurrentSession();
+//		@SuppressWarnings("unchecked")
+//		Query<String> query = session.createQuery("select family from Breeds where BREED_ID='"+breedId+"'");
+//		List<String> list = query.list();
+//		return list;
+//	}
 	//還無法用
 //	public List<String> readAllBreeds(String familyValue) {
 //		Session session = sessionFactory.getCurrentSession();
@@ -91,6 +95,8 @@ public class BreedsDaoImpl implements BreedsDao{
 //		System.out.println("query"+query);
 //		return query.getResultList();
 //	}
+	
+	//======================================================================================
 	
 	public Breeds update(Breeds entity) {// entity為更新的內容
 		Session session = sessionFactory.getCurrentSession();

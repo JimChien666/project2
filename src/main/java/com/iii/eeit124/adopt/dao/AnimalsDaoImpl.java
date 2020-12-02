@@ -30,10 +30,17 @@ public class AnimalsDaoImpl implements AnimalsDao {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Animals.class, animalsId);
 	}
-
+	
 	public List<Animals> readAll() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<Animals> query = session.createQuery("from Animals order by animal_id desc", Animals.class);
+		Query<Animals> query = session.createQuery("from Animals where isAdoptionAvailable = 1 order by animal_id desc", Animals.class);
+		List<Animals> list = query.list();
+		return list;
+	}
+
+	public List<Animals> readMyAnimals(Integer memberId) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Animals> query = session.createQuery("from Animals where MEMBER_ID=" + memberId + " order by animal_id desc", Animals.class);
 		List<Animals> list = query.list();
 		return list;
 	}

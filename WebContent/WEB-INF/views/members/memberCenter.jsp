@@ -7,8 +7,22 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<jsp:include page="../fragments/links.jsp" />
 <body>
-	<jsp:include page="../public/top.jsp" />
+<jsp:include page="../fragments/headerArea.jsp" />
+<div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
+            <div class="container">
+                <div class="breadcrumb-content text-center">
+                    <h2>會員編輯</h2>
+                    <ul>
+                        <li><a href="<c:url value='/' />">首頁</a></li>
+                        <li><a href="<c:url value='/member/myAccount'/>">會員中心</a></li>
+                        <li class="active">會員編輯</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
 	<table>
 		<form>
 		<tr>
@@ -51,5 +65,7 @@
 		</form>
 	</table>
 
+<jsp:include page="../fragments/footerArea.jsp" />
+<jsp:include page="../fragments/allJs.jsp" />
 </body>
 </html>

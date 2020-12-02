@@ -13,6 +13,18 @@
 //	readURL(document.getElementById("animalFilesUpdate"));
 //};
 window.onload = function() {
+	//noticeOptions
+//	$("#test").click(function() {
+//		var sum = 0;
+//		for ( var i = 0 ; i < 10 ; i++ ) {
+//			var value = $('input[name=notice' + (i + 1) + ']:checked').val();
+//			sum = sum + value * (2 ** i);
+////			console.log("i = " + i + ", sum = " + sum + ", value = " + value);
+//		}
+//		console.log(sum);
+////		window.location = 'adoptApply?animalId='+$("#animalId").text;
+//	});
+
 	$("#animalFilesCreate").change(function() {
 		$("#animalFilesDiv").show();
 		readURL(this);
@@ -20,111 +32,108 @@ window.onload = function() {
 	$("#animalFilesUpdate").change(function() {
 		$("#animalFilesDivOrigin").hide();
 		$("#animalFilesDivAlter").show();
-//		$("#animalFilesDivAlter").css('display','block');
+		//		$("#animalFilesDivAlter").css('display','block');
 		readURL(this);
 	});
 
-//品種選擇
-//都不選的預設
-var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
-document.getElementById("breedText").value = breedId;
-//只選breed
-breed.onchange = function() {
+	//品種選擇
+	//都不選的預設
 	var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
 	document.getElementById("breedText").value = breedId;
-}
+	//只選breed
+	breed.onchange = function() {
+		var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
+		document.getElementById("breedText").value = breedId;
+	}
 
-var family = document.getElementById("family");
-family.onchange = function() {
-	$("#breed").html("");
-	$("#breed").empty();//或用下一行
-//	$("#breed").find("option").remove();
-	var xhr = new XMLHttpRequest();
-	var familyValue = family.options[family.selectedIndex].text;
-	var url = "getBreed.controller?family=" + familyValue;
-	xhr.open("GET", url, true);
-	xhr.send();
-	xhr.onreadystatechange = function() {
-		// 向伺服器提出的請求已經收到回應
-		if (xhr.readyState === 4) {
-			// 伺服器回應成功
-			if (xhr.status === 200) {
-				var breed = JSON.parse(xhr.responseText);
+	var family = document.getElementById("family");
+	family.onchange = function() {
+		$("#breed").html("");
+		$("#breed").empty();//或用下一行
+		//	$("#breed").find("option").remove();
+		var xhr = new XMLHttpRequest();
+		var familyValue = family.options[family.selectedIndex].text;
+		var url = "/team6/getBreed.controller?family=" + familyValue;
+		xhr.open("GET", url, true);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			// 向伺服器提出的請求已經收到回應
+			if (xhr.readyState === 4) {
+				// 伺服器回應成功
+				if (xhr.status === 200) {
+					var breed = JSON.parse(xhr.responseText);
 
-				//可再確認用array.join或用一般字串相加，哪個效率好
-				var content = "";
-				for (var i = 0; i < breed.length; i++) {
-					content += "<option value='" + breed[i].breedId + "'>"
+					//可再確認用array.join或用一般字串相加，哪個效率好
+					var content = "";
+					for (var i = 0; i < breed.length; i++) {
+						content += "<option value='" + breed[i].breedId + "'>"
 							+ breed[i].breed + "</option>";
-				}
-				document.getElementById("breed").innerHTML = content;
+					}
+					document.getElementById("breed").innerHTML = content;
 
-				//改變family和breed時的預設值
-				var breed = document.getElementById("breed");
-				breed.onchange = function() {
+					//改變family和breed時的預設值
+					var breed = document.getElementById("breed");
+					breed.onchange = function() {
+						var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
+						document.getElementById("breedText").value = breedId;
+					}
+
+					//只改變family時的預設值
 					var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
 					document.getElementById("breedText").value = breedId;
 				}
-				
-				//只改變family時的預設值
-				var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
-				document.getElementById("breedText").value = breedId;
 			}
 		}
 	}
-}
-
-//更新頁才會執行的品種selected
-//if(document.getElementById("animalId").value > 0 && document.getElementById("family").options[family.selectedIndex].text == '狗'){
-//	$("#breed").html("");
-//	$("#breed").empty();
-//}
 };
-			
+//onload尾=========================================================================
+
 //ReadAnimal
 //預防新增後，重整頁面會跳出是否重複新增的提示視窗
-if ( window.history.replaceState ) {
-    window.history.replaceState( null, null, window.location.href );
+if (window.history.replaceState) {
+	window.history.replaceState(null, null, window.location.href);
 }
 
-function timer(){
-	swal("Don't evade!","dsfdsfsdf","success");
-	setTimeout(function(){window.location="preCreateAnimal.controller";},2000);
+function timer() {
+	swal("Don't evade!", "dsfdsfsdf", "success");
+	setTimeout(function() { window.location = "MemberCenter/preCreateAnimal.controller"; }, 2000);
 }
 
 //SweetAlert刪除
-function deleteAnimal(animalId){
+function deleteAnimal(animalId) {
 	swal({
-	    title: "確定刪除動物編號"+animalId+"這筆資料?",
-	    icon: "warning",
-	    buttons: {Btn: false,
-	        cancel: {text: "取消",visible: true},
-	        danger: {text: "刪除",visible: true}
-	    },
-	    dangerMode: true
+		title: "確定刪除動物編號" + animalId + "這筆資料?",
+		icon: "warning",
+		buttons: {
+			Btn: false,
+			cancel: { text: "取消", visible: true },
+			danger: { text: "刪除", visible: true }
+		},
+		dangerMode: true
 	}).then((value) => {
-		switch(value){
+		switch (value) {
 			case "danger":
-			swal("提示", "動物已移除", "success");
-			setTimeout(
-				function(){
-					window.location="DeleteAnimal.controller/"+animalId;
+				swal("提示", "動物已移除", "success");
+				setTimeout(
+					function() {
+						window.location = "MemberCenter/DeleteAnimal.controller/" + animalId;
 					}
-					,2000
-					);
-			
-//				document.forms[0].action="DeleteAnimal.controller?animalId="+animalId;
-//				document.forms[0].method="POST";
-//				document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
+					, 2000
+				);
+
+				//				document.forms[0].action="DeleteAnimal.controller?animalId="+animalId;
+				//				document.forms[0].method="POST";
+				//				document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
 				break;
-			  }});
+		}
+	});
 }
-	
+
 //傳統提示視窗刪除Delete
 function confirmDelete(animalId) {
-	if(confirm("確定刪除此筆動物資料(動物編號:"+animalId+")?")){
-		document.forms[0].action="DeleteAnimal.controller?animalId="+animalId;
-		document.forms[0].method="POST";
+	if (confirm("確定刪除此筆動物資料(動物編號:" + animalId + ")?")) {
+		document.forms[0].action = "MemberCenter/DeleteAnimal.controller?animalId=" + animalId;
+		document.forms[0].method = "POST";
 		document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
 	}
 }
@@ -176,7 +185,7 @@ function checkacceptionId() {
 	let acceptionId = document.getElementById("acceptionId").value;
 	let acceptionIdLength = acceptionId.length;
 	let acceptionIdDiv = document
-			.getElementById("acceptionIdDiv");
+		.getElementById("acceptionIdDiv");
 	let flag1 = false;
 	if (acceptionId == "") {
 		acceptionIdDiv.innerHTML = "";
@@ -184,8 +193,8 @@ function checkacceptionId() {
 		for (let i = 0; i < acceptionIdLength; i++) {
 			let ch = acceptionId.charAt(i);
 			if ((ch >= "\u0030" && ch <= "\u0039")
-					|| (ch >= "\u0061" && ch <= "\u007a")
-					|| (ch >= "\u0041" && ch <= "\u005a")) {//判斷數字或英文大小寫
+				|| (ch >= "\u0061" && ch <= "\u007a")
+				|| (ch >= "\u0041" && ch <= "\u005a")) {//判斷數字或英文大小寫
 				flag1 = true;
 			} else {
 				flag1 = false;
@@ -247,8 +256,8 @@ function checkcoatColor() {
 		for (let i = 0; i < coatColorLength; i++) {
 			let ch = coatColor.charAt(i);
 			if ((ch >= "\u4e00" && ch <= "\u9fa5")
-					|| (ch >= "\u0061" && ch <= "\u007a")
-					|| (ch >= "\u0041" && ch <= "\u005a")) {//判斷數字或英文大小寫
+				|| (ch >= "\u0061" && ch <= "\u007a")
+				|| (ch >= "\u0041" && ch <= "\u005a")) {//判斷數字或英文大小寫
 				flag1 = true;
 			} else {
 				flag1 = false;
@@ -265,7 +274,7 @@ function checkcoatColor() {
 }
 
 //test
-function test(){
+function test() {
 	let breedId = document.getElementById("gender").options[gender.selectedIndex].value;
 	console.log(breedId);
 }

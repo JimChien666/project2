@@ -51,7 +51,13 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		filterRegistration.setInitParameter("mustLogin3", "/order/*");
 		filterRegistration.setInitParameter("replpyArticleMustLogin", "/replyArticle/*");
 		filterRegistration.setInitParameter("updateArticleMustLogin", "/UpdateArticle");		
+<<<<<<< HEAD
 		filterRegistration.setInitParameter("mustLoginMyPets", "/ReadAnimal");
+=======
+		filterRegistration.setInitParameter("mustLoginMyPets", "/ReadAnimal");
+		filterRegistration.setInitParameter("mustLoginMemberCenter", "/MemberCenter/*");
+		filterRegistration.setInitParameter("mustLoginAdopt", "/adopt/*");
+>>>>>>> branch 'dev' of https://github.com/JimChien666/project2.git
 		filterRegistration = servletContext.addFilter("FindUserPassword", FindUserPassword.class);
 		filterRegistration.addMappingForUrlPatterns(null, true, "/login");
 		filterRegistration.addMappingForServletNames(null, true, "mvc");
