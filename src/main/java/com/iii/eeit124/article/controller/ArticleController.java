@@ -17,6 +17,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,6 +54,7 @@ public class ArticleController {
 	@GetMapping("goArticlePage")
 	public String goArticlePage(@RequestParam("articleId") Integer articleId, Model model) {
 		model.addAttribute("articleId", articleId);
+		model.addAttribute("thisArticle", articleService.select(articleId));
 		return "article/Article";
 	}
 	
@@ -63,24 +65,30 @@ public class ArticleController {
 //	}
 
 	@GetMapping(value = "articleList")
-	public String list(Locale locale, Model model,
-			@RequestParam(value = "articletypesId", required = false, defaultValue = "1") Integer id) {
-		model.addAttribute("allArticleTypes", articleService.getAllArticleTypes());
-		model.addAttribute("Articles", articleService.getAllArticles(id));
+	public String list() {
+//	public String list(Locale locale, Model model, @RequestParam(value = "articletypesId", required = false, defaultValue = "1") Integer id) {
+//		model.addAttribute("allArticleTypes", articleService.getAllArticleTypes());
+//		model.addAttribute("Articles", articleService.getAllArticles(id));
 		return "article/ShowAllArticle";
 	}
+//	@GetMapping(value = "articleList")
+//	public String list(Locale locale, Model model, @RequestParam(value = "articletypesId", required = false, defaultValue = "1") Integer id) {
+//		model.addAttribute("allArticleTypes", articleService.getAllArticleTypes());
+//		model.addAttribute("Articles", articleService.getAllArticles(id));
+//		return "article/ShowAllArticle";
+//	}
 
 	@GetMapping(value = "backArticle")
 	public String backArticle() {
 		return "redirect:/articleList";
 	}
 
-	@GetMapping(value = "replyArticle")
-	public String replyArticle(Model model, @RequestParam(value = "articleId") Integer id) {
-		System.out.println(id);
+	@GetMapping(value = "/replyArticle/{articleId}")
+	public String replyArticle(Model model, @PathVariable(value = "articleId") Integer articleId) {
+		System.out.println(articleId);
 		Forums forums = new Forums();
 		model.addAttribute(forums);
-		Article article = articleService.select(id);
+		Article article = articleService.select(articleId);
 //		model.addAttribute("forum", forums);
 		model.addAttribute("article", article);
 		return "article/replyArticle";
@@ -158,7 +166,6 @@ public class ArticleController {
 	/*
 	 * 	update article to DB and return the articleList page.
 	 */	 
-	//.......................................................... TODO
 	@PostMapping(value = "/updateToDB")
 	public String updateToDB(@ModelAttribute(name = "article") Article article,
 			@RequestParam("content") String forumContent, BindingResult result, Model model) {
@@ -199,8 +206,8 @@ public class ArticleController {
 	public @ResponseBody Map<String, Object> getPageArticle(Model model, @RequestParam(value="pageNo",defaultValue = "1") Integer pageNo, @RequestParam(value = "articleId")Integer id){
 		Map<String, Object> map = new HashMap<>();
 		Integer recordsPerPage = 2;
-		System.out.println("fuck");
-		System.out.println(id);
+//		System.out.println("fuck");
+//		System.out.println(id);
 //		Members loginOK = (Members)session.getAttribute("LoginOK");
 		Article article = articleService.select(id);
 //		List<Forums> articleList = forumsService.select(pageNo, recordsPerPage, id);
@@ -214,6 +221,24 @@ public class ArticleController {
 		map.put("recordCounts", recordCounts);
 		map.put("recordsPerPage", recordsPerPage);
 		return map;		
+	}
+	@GetMapping(value = "getArticleList")
+	public @ResponseBody Map<String, Object> getArtilceList(Model model, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "articleTypeId", defaultValue = "1")Integer id){
+		Map<String, Object> map = new HashMap<>();
+		Integer recordsPerPage = 10;
+		System.out.println("id:"+id);
+		System.out.println("pageNo:"+pageNo);
+		System.out.println("model:"+model);
+		Long recordCounts = articleService.getRecordCounts(id);
+		List<Article> articleList = articleService.select(pageNo, recordsPerPage, id);
+		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));		
+		map.put("articleList", articleList);
+		map.put("totalPage", totalPage);
+		map.put("currPage", pageNo);
+		map.put("recordCounts", recordCounts);
+		map.put("recordsPerPage", recordsPerPage);		
+		System.out.println(map);
+		return map;
 	}
 	
 

@@ -33,6 +33,8 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <jsp:include page="../fragments/links.jsp" />
 
 
+
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -40,10 +42,18 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <style type="text/css">
+.forumC:hover {
+	border: 10px solid black;
+}
+
+.forumC {
+	border: 10px solid #7e4c4f;
+}
+
 .fixed {
 	position: fixed;
-	bottom: 3%;
-	right: 2%;
+	bottom: 10%;
+	right: 3%;
 }
 
 .fixed0 {
@@ -62,19 +72,199 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	font-size: 4.5em;
 }
 
-table {
-	font-size: 2em;
-}
+/* table { */
+/* 	font-size: 2em; */
+/* } */
 </style>
-
-
 <title>討論區</title>
-
 </head>
+<script>
+	$(function() {
+
+		$.ajax({
+			type : "GET",
+			url : "<c:url value='getArticleList' />?articleTypeId=1",
+			success : function(mapData) {
+				showArticleList(mapData)
+			}
+		});
+
+		$("#forumsSelect1>a").on(
+				"click",
+				function() {
+					selectResult = $(this).attr("id")
+					console.log(selectResult)
+					$.ajax({
+						type : "GET",
+						url : "<c:url value='getArticleList' />?articleTypeId="
+								+ selectResult,
+						success : function(mapData) {
+							showArticleList(mapData)
+						}
+					});
+				})
+
+		$("#forumsSelect2>a").on(
+				"click",
+				function() {
+					selectResult = $(this).attr("id")
+					console.log(selectResult)
+					$.ajax({
+						type : "GET",
+						url : "<c:url value='getArticleList' />?articleTypeId="
+								+ selectResult,
+						success : function(mapData) {
+							showArticleList(mapData)
+						}
+					});
+				})
+
+		function showArticleList(mapData) {
+			var $artilceList = $("#artilceList")
+			var $artilceListTable = $("#artilceListTable")
+
+			articleList = mapData.articleList;
+			pageNo = mapData.currPage;
+			totalPage = mapData.totalPage;
+			recordCounts = mapData.recordCounts;
+			// 		$artilceList.empty();
+			$artilceListTable.empty();
+			// 		$artilceList.append("<table border=1 style='width: 100%; font-size: 2em;' ><tbody>")
+
+			$artilceListTable.append("<tr><th>文章標題</th></tr>")
+			$.each(articleList, function(i, article) {
+
+				// 			<td><a href="<c:url value='goArticlePage?articleId=${Article.getId()}' />">
+
+				var urlStringent = "<c:url value='goArticlePage?articleId="
+						+ article.id + "' />";
+
+				$artilceListTable
+						.append("<tr><td><a href="+urlStringent+"><div>"
+								+ article.title + "</div></a></td></tr>")
+				// 			$artilceListTable.append("<tr><td>"+article.title+"</td></tr>")	
+			})
+
+// 			var navContent = "" ;
+// 			if (pageNo != 1){
+// 				navContent += "<li><a id='first'><i class='icon-arrow-left'></i></a></li>";
+// 				navContent += "<li><a id='prev'>" + (parseInt(pageNo) - 1 ) + "</a></li>";
+// 			}  else {
+// 				navContent += "<li>&nbsp;</li>";
+// 				navContent += "<li>&nbsp;</li>";
+// 			}
+// 			navContent += "<li><a class='active' href='#'>" + (parseInt(pageNo)) + "</a></li>";
+// 			if (pageNo != totalPage){
+// 				navContent += "<li><a id='next'>" + (parseInt(pageNo) + 1 ) + "</a></li>";
+// 				navContent += "<li><a id='last'><i class='icon-arrow-right'></i></a></li>";
+// 			}  else {
+// 				navContent += "<td align='center'>&nbsp;</td>";
+// 				navContent += "<td align='center'>&nbsp;</td>";
+// 			}
+
+			var navContent = "" ;
+			if (pageNo != 1){
+				navContent += "<li><a id='first'><<</a></li>";
+				navContent += "<li><a id='prev'><</a></li>";
+			}  else {
+				navContent += "<li>&nbsp;</li>";
+				navContent += "<li>&nbsp;</li>";
+			}
+			navContent += "<td width='200' align='center'> " + pageNo + " / " + totalPage + "</td>";
+			if (pageNo != totalPage){
+				navContent += "<li><a id='next'>></a></li>";
+				navContent += "<li><a id='last'>>></a></li>";
+			}  else {
+				navContent += "<td align='center'>&nbsp;</td>";
+				navContent += "<td align='center'>&nbsp;</td>";
+			}
+
+			document.getElementById("navigation").innerHTML = navContent;
+			var firstBtn = document.getElementById("first");
+			var prevBtn = document.getElementById("prev");
+			var nextBtn = document.getElementById("next");
+			var lastBtn = document.getElementById("last");
+			if (firstBtn != null) {
+				firstBtn.onclick = function() {
+					asynRequest(this.id);
+				}
+			}
+
+			if (prevBtn != null) {
+				prevBtn.onclick = function() {
+					asynRequest(this.id);
+				}
+			}
+
+			if (nextBtn != null) {
+				nextBtn.onclick = function() {
+					asynRequest(this.id);
+				}
+			}
+
+			if (lastBtn != null) {
+				lastBtn.onclick = function() {
+					asynRequest(this.id);
+				}
+			}
+
+		}
+
+		//當使用者按下『第一頁』、『前一頁』、『下一頁』、『最末頁』的連結時，由本方法發出非同步請求。
+		function asynRequest(id) {
+			var xhr = new XMLHttpRequest();
+			var no = 0;
+			var queryString = ""; // queryString紀錄查詢字串
+			if (id == "first") { // 算出查詢字串中，要送出的pageNo為何?
+				no = 1;
+			} else if (id == "prev") {
+				no = pageNo - 1;
+			} else if (id == "next") {
+				no = pageNo + 1;
+			} else if (id == "last") {
+				no = totalPage;
+			}
+			// 查詢字串包含1.即將要讀取的頁數(pageNo), 2.總共有幾頁(totalPage)
+			// 注意，查詢字串的前面有問號
+			queryString = "&pageNo=" + no + "&totalPage=" + totalPage;
+			if (typeof selectResult == 'undefined') {
+				xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId="
+						+ "1" + queryString, true);
+				// 		xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId=1" + queryString , true);
+				// 		console.log(no)
+				// 		console.log(totalPage)
+
+				xhr.send();
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						var mapData = xhr.responseText;
+						console.log(pageNo);
+						showArticleList(JSON.parse(mapData));
+						// 			showArticleList(mapData);
+					}
+				}
+			}
+			
+			xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId="
+					+ selectResult + queryString, true);
+			// 		xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId=1" + queryString , true);
+			// 		console.log(no)
+			// 		console.log(totalPage)
+
+			xhr.send();
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					var mapData = xhr.responseText;
+
+					showArticleList(JSON.parse(mapData));
+					// 			showArticleList(mapData);
+				}
+			}
+
+		}
+	});
+</script>
 <body>
-
-
-
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
 	</div>
@@ -83,10 +273,10 @@ table {
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
 		<div class="container">
 			<div class="breadcrumb-content text-center">
-				<h2>Blog</h2>
+				<h2>討論區</h2>
 				<ul>
-					<li><a href="index.html">home</a></li>
-					<li class="active">Blog</li>
+					<li><a href="index.html">首頁</a></li>
+					<li class="active">討論區</li>
 				</ul>
 			</div>
 		</div>
@@ -94,129 +284,86 @@ table {
 
 
 
+	<div class="container">
+		<ul style="list-style: none; margin: 20px 0;">
+			<li style="float: left; margin: 10px 10px 15px 10px;">
+				<table>
+					<tr>
+						<td class="product-wishlist-cart" id="forumsSelect1"><a
+							style='color: white; cursor: pointer;' id="1">狗狗討論版</a></td>
+					</tr>
+				</table>
+			</li>
+		</ul>
+		<ul style="list-style: none; margin: 20px 0;">
+			<li style="float: left; margin: 10px 10px 15px 10px;">
+
+				<table>
+					<tr>
+						<td class="product-wishlist-cart" id="forumsSelect2"><a
+							style='color: white; cursor: pointer;' id="2">貓咪討論版</a></td>
+					</tr>
+				</table>
+
+			</li>
+		</ul>
 
 
+		<ul style="list-style: none; margin: 0px 0;  clear:both;">
+			<li style="float: left; margin: 0px 10px 10px 10px;"><a
+				href="<c:url value='saveArticle' />">
+					<button class="submit btn-style" type="submit"
+						style="margin-top: 10px;">
+						<span style="color: white; margin-top: 0px;">發文</span>
+					</button>
+			</a></li>
+		</ul>
 
 
-<%-- <jsp:include page="../public/top.jsp" /> --%>
-	<%-- ${LoginOK.getName()} --%>
-	<%-- 	<jsp:include page="../nn/top.jsp" /> --%>
+		<!-- 	<div id="forumsSelect1"> -->
+		<!-- 		<button value="1" id="dog">狗</button> -->
+		<!-- 	</div> -->
+		<!-- 	<div id="forumsSelect2"> -->
+		<!-- 		<button value="2" id="cat">貓</button>	 -->
+		<!-- 	</div> -->
 
-
-	<!-- 	<div class="btn btn-secondary float-right fixed0 box" id="idbox"> -->
-
-	<%-- 		<form action="<c:url value='/ArticleDelete' />" enctype="text/html" --%>
-	<!-- 			method="post" class="was-validated"> -->
-
-	<!-- 			<div class="mb-3"> -->
-	<!-- 				<div class="input-group is-invalid"> -->
-	<!-- 					<div class="input-group-prepend"> -->
-	<!-- 						<span class="input-group-text" id="validatedInputGroupPrepend">文章刪除</span> -->
-	<!-- 					</div> -->
-
-	<!-- 					<input type="text" name="articleId" class="form-control is-invalid" -->
-	<!-- 						aria-describedby="validatedInputGroupPrepend" -->
-	<!-- 						placeholder="enter id" required> -->
-
-	<!-- 				</div> -->
-	<!-- 				<div class="invalid-feedback"> -->
-	<!-- 					Example invalid input group feedback -->
-	<!-- 				</div> -->
-	<!-- 			</div> -->
-
-	<!-- 			<button type="submit" name="delete" id="delete" -->
-	<!-- 				class="btn btn-primary">刪除</button> -->
-	<!-- 		</form> -->
-	<!-- 	</div> -->
-	<!--
-	<div class="btn btn-secondary float-right fixed1 box" id="idbox1">
-
-		<form action="<c:url value='/UpdateArticle' />"
-			enctype="multipart/form-data" method="post" class="was-validated">
-
-			<div class="mb-3">
-				<div class="input-group is-invalid">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="validatedInputGroupPrepend">根據文章id修改</span>
-					</div>
-
-					<input type="text" name="id" class="form-control is-invalid"
-						aria-describedby="validatedInputGroupPrepend"
-						placeholder="enter id" required>
-
-				</div>
-				<div class="invalid-feedback">
-				</div>
-			</div>
-
-			<div class="mb-3">
-				<div class="input-group is-invalid">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="validatedInputGroupPrepend">文章標題</span>
-					</div>
-
-					<input type="text" name="title" class="form-control is-invalid"
-						aria-describedby="validatedInputGroupPrepend"
-						placeholder="enter title" required>
-
-				</div>
-				<div class="invalid-feedback">
-				</div>
-			</div>
-			<button type="submit" name="update" id="update"
-				class="btn btn-primary">修改</button>
-		</form>
-	</div>
--->
-
-	<a href="<c:url value='saveArticle' />" class="fixed">
-		<button type="button" class="btn btn-success">發文</button>
-	</a>
-
-<div class="container">
-	<div class="row justify-content-center align-items-center forum">
+		<!-- 
+	<ul style="list-style: none; margin: 10px 0; clear:both;">
 		<c:forEach items="${allArticleTypes}" var="ArticleType" varStatus="id">
-			<div style="border: 3px solid black; width: 50%; text-align: center;">
-				<a
-					href="<c:url value='articleList?articletypesId=${ArticleType.getId()}' />">
+				<a href="<c:url value='articleList?articletypesId=${ArticleType.getId()}' />" >
+			<li style=" margin: 10px 10px 10px 10px; border-radius:25%; padding: 2px 3px; width: 9.09%; box-sizing: border-box; float: left; text-align: center;"  class="forumC">
+					
 					<c:if test="${ArticleType.getId()=='1'}">
-						<img src="https://image.flaticon.com/icons/png/512/194/194279.png"
-							style="height: 80px; margin-bottom: 10px;">
-					</c:if> <c:if test="${ArticleType.getId()=='2'}">
-						<img
-							src="https://cdn4.iconfinder.com/data/icons/animal-3/100/animal-08-512.png"
-							style="height: 80px; margin-bottom: 10px;">
-					</c:if> ${ArticleType.getArticletype()}${Articletype.getId()}
+						<img src="https://image.flaticon.com/icons/png/512/194/194279.png" style="height: 20px; margin-bottom: 0px;">
+					</c:if> 
+					<c:if test="${ArticleType.getId()=='2'}">
+						<img src="https://cdn4.iconfinder.com/data/icons/animal-3/100/animal-08-512.png" style="height: 20px; margin-bottom: 0px;">
+					</c:if> 
+					${ArticleType.getArticletype()}${Articletype.getId()}				
+			</li>
 				</a>
-			</div>
 		</c:forEach>
-	</div>
+	</ul>
+ -->
 
-	<div align="center">
-		<table border=1>
-			<th>文章ID</th>
-			<th>文章標題</th>
-			<th>選擇修改</th>
-			<th>選擇刪除</th>
-			<c:forEach items="${Articles}" var="Article" varStatus="id">
-				<tr>
-					<td><a
-						href="<c:url value='goArticlePage?articleId=${Article.getId()}' />">${Article.getId()}</a></td>
-					<td>${Article.getTitle()}</td>
-					<td><a
-						href="<c:url value='updateArticle?articleId=${Article.getId()}' />">
-							<button type="button" class="btn btn-info">修改</button>
-					</a></td>
-					<td><a
-						href="<c:url value='deleteArticle?articleId=${Article.getId()}' />">
-							<button type="button" class="btn btn-danger">刪除</button>
-					</a></td>
-				<tr>
-			</c:forEach>
-		</table>
+		<div style="clear: both; width: 100%;">
+			<!-- 下面要放文章 -->
+			<!-- 		<div id="artilceList"> -->
+			<table id="artilceListTable" border=1
+				style='width: 100%; font-size: 2em;'>
+			</table>
+			<!-- 		</div> -->
+		</div>
 	</div>
-</div>
-
+	<div class="pagination-style text-center mt-20">
+		<ul id='navigation'>
+			<!-- 			<li><a href="#"><i class="icon-arrow-left"></i></a></li> -->
+			<!-- 			<li><a href="#">1</a></li> -->
+			<!-- 			<li><a href="#">2</a></li> -->
+			<!-- 			<li><a class="active" href="#"><i class="icon-arrow-right"></i></a> -->
+			<!-- 			</li> -->
+		</ul>
+	</div>
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />

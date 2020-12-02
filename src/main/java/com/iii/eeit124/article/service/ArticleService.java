@@ -19,4 +19,8 @@ public interface ArticleService {
 	Article select(int id);
 
 	Article saveFullArticle(Article article);
+
+	List<Article> select(Integer pageNo, Integer recordsPerPage, Integer id);
+
+	Long getRecordCounts(Integer id);
 }

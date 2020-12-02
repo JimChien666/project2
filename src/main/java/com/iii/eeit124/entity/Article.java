@@ -75,7 +75,7 @@ public class Article {
 //	@Column(name = "MEMBER_ID")
 	@Transient
 	public int getMemberid() {
-		return memberid;
+		return this.member.getId();
 	}
 
 	public void setMemberid(int memberid) {
@@ -153,7 +153,7 @@ public class Article {
 		this.forums = forums;
 	}
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Members.class)
 	@JoinColumn(name = "MEMBER_ID")
 	public Members getMember() {
 		return member;

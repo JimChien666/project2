@@ -36,9 +36,9 @@
 	right: 2%;
 }
 
-/* table, th, td { */
-/* 	border: 1px solid black; */
-/* } */
+/*  table, th, td {  */
+/*  	border: 1px solid black;  */
+/*  }  */
 /* td { */
 /* 	border: 1px solid black; */
 /* } */
@@ -48,8 +48,8 @@
 /* } */
 </style>
 <meta charset="UTF-8">
-<title>ID:<c:out value="${article.getId()}" />/<c:out
-		value="${article.getTitle()}" /></title>
+<title><c:out value="${thisArticle.title}" /></title>
+<%-- <title>ID:<c:out value="${articleId}" />/<c:out	value="${thisArticle.title}" /></title> --%>
 </head>
 
 <script>
@@ -92,16 +92,20 @@
 		totalPage = mapData.totalPage;
 		recordCounts = mapData.recordCounts;
 		forumList = mapData.forumList;
+
 // 		var content = "";
 		$article.empty();
 // 		console.log(article)
 // 		$article.append("<h3>" + article.title + "</h3>")
-		$article.append("<h3>" + article.title + "</h3>")
-		$article.append("<table class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
-
+		$article.append("<h2 style='clear:both; box-shadow:1px 3px 5px 2px #cccccc;'>"+"標題: " + article.title + "</h2>")
+		$article.append("<table style='width: 100%;'><tr><th>"+""+"</th><th>"+""+"</th></tr>")
+// 		$article.append("<table style='width: 100%;' class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
+// 		console.log(forumList)
 		$.each(forumList, function(i, forum) {
-			$article.append("<tr><td>" + forum.id + "</td><td id="+forum.id+">" + forum.content
-					+ "</td></tr>")
+			var imgTag = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + forum.forumOwnerFileId + `' />" width="50" height="50" class="d-inline-block align-top" alt="" style="border-radius: 50%; border: 2px white solid;">`
+// 			$article.append("<tr><td><div style='width:60px; background-color: coral; box-shadow:1px 3px 5px 2px #cccccc;'>"+ imgTag + forum.memberid + "</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
+			$article.append("<tr><td style='padding:0px 0px 0px 0px;'><div style='width:60px; margin:0px 10px 10px 10px;valign=top'>"+ imgTag +"</div></td><td id="+forum.id+"><div style='margin:10px 10px 10px 10px; padding:10px 20px 10px 30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "</div></td></tr>")
+// 			$article.append("<tr><td><div style='width:60px;'>"+ imgTag +"</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "</div></td></tr>")
 			$article.append("</table>");
 //--------------------------------------
 			var forumId  = forum.id
@@ -119,26 +123,30 @@
 											if(order.forumid===forumId){
 // 												console.log("order.forumid:"+order.forumid);
 // 												console.log("forumId:"+forumId);								
-												$forums.append('<li>'+order.comment+'/'+order.memberid+'==>'+order.id+'</li>')
+												$forums.append('<div style="margin: 0px 20px 10px 10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc;">'+order.memberid+':'+order.comment+'</div>')
+// 												$forums.append('<div style="width:1050px; margin: 0px 20px 10px 10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc;">'+order.memberid+':'+order.comment+'</div>')
 // 										 		console.log("$forums: "+ $forums)												
 												}
 											});
 
+										const login = `<a href="<c:url value='/member/login' />">`
 										if(${empty LoginOK}){
-											$forums.append("<td>回覆本討論串:<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></td>")
-										}else{
-											$forums.append("<td>回覆本討論串:<input type='text' name='comments' id=reply"+forum.id+"></td>")
+											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
+// 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
+										}else{											
+											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
+// 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
 											}
 
 
 											$("#reply"+forum.id).keypress(function (e) {
 												// $("input").keypress(function (e) {
-													console.log("hi hi");
-													console.log(forumId);
+// 													console.log("hi hi");
+// 													console.log(forumId);
 // 													var id = this.forumId;
 													var comment = this.value;
 // 													console.log(id);
-													console.log(comment);
+// 													console.log(comment);
 												if (e.keyCode == 13&&comment!="") {
 												$.ajax({
 												  url: "saveComments",
@@ -160,27 +168,6 @@
 //												  	var $comments = $('.${Forums.id}');					      
 												};//if end
 												});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-											
 											}					
 										});
 
@@ -191,7 +178,7 @@
 // 				$article.append("<tr><td>" + c.id + "</td><td>" + c.comment
 // 						+ "</td></tr>")
 // 			})
-			$article.append("<hr>");
+			$article.append("<br>");
 
 		})
 
@@ -278,6 +265,7 @@ function asynRequest(id) {
 		xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			var mapData = xhr.responseText;
+			console.log(pageNo);
 			
 			showPage(JSON.parse(mapData));
 		}
@@ -321,13 +309,64 @@ function asynRequest(id) {
 		</div>
 	</div>
 
+
+
+
+
+
+
+
+
 <%-- 	<jsp:include page="../public/top.jsp" /> --%>
 
-	<div align='center'>
 <%-- 		<h3>${article.getTitle()}</h3> --%>
-
-		<div id="articleShow" class="container">
+	<div class="container" style='box-shadow:1px 3px 5px 2px #cccccc;'>
+		<ul style="list-style: none; margin: 0px 0;">
+			<li style="float: left; margin: 0px 10px 30px 10px;"><a
+				href="<c:url value='backArticle' />">
+					<button class="submit btn-style" type="submit"
+						style="margin-top: 10px;">
+						<span style="color: white; margin-top: 0px;">回討論版</span>
+					</button>
+			</a></li>
+		</ul>
 		
+		
+		<ul style="list-style: none; margin: 0px 0;">
+			<li style="float: right; margin: 0px 10px 30px 10px;"><a
+				href="<c:url value='/replyArticle/${articleId}' />">
+					<button class="submit btn-style" type="submit"
+						style="margin-top: 10px;">
+						<span style="color: white; margin-top: 0px;">回覆文章</span>
+					</button>
+			</a></li>
+		</ul>
+		
+		
+<c:if test="${LoginOK.id==thisArticle.memberid}">	
+		<ul style="list-style: none; margin: 0px 0;">
+			<li style="float: right; margin: 0px 10px 30px 10px;"><a
+				href="<c:url value='updateArticle?articleId=${articleId}' />">
+					<button class="submit btn-style" type="submit"
+						style="margin-top: 10px;">
+						<span style="color: white; margin-top: 0px;">修改</span>
+					</button>
+			</a></li>
+		</ul>		
+		<ul style="list-style: none; margin: 0px 0;">
+			<li style="float: right; margin: 0px 10px 30px 10px;"><a
+				href="<c:url value='deleteArticle?articleId=${articleId}' />">
+					<button class="submit btn-style" type="submit"
+						style="margin-top: 10px;">
+						<span style="color: white; margin-top: 0px;">刪除</span>
+					</button>
+			</a></li>
+		</ul>		
+</c:if>		
+		
+		
+			<div id="articleShow" style="padding:70px 0px 0px 0px;">
+			</div>
 		</div>
 
 		<!-- <table id='articleShow'> -->
@@ -344,7 +383,6 @@ function asynRequest(id) {
 
 <!-- 		<div id='navigation' style='height: 60px;'></div> -->
 
-	</div>
 
 	<div class="pagination-style text-center mt-20">
 		<ul id = 'navigation'>
@@ -355,16 +393,6 @@ function asynRequest(id) {
 <!-- 			</li> -->
 		</ul>
 	</div>
-
-	<a href="<c:url value='backArticle' />" class="fixed">
-		<button type="button" class="btn btn-success">回討論版</button>
-	</a>
-	<a href="<c:url value='replyArticle?articleId=${articleId}' />"
-		class="fixed0">
-		<button type="button" class="btn btn-success">回覆文章</button>
-	</a>
-
-
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />

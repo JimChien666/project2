@@ -3,6 +3,8 @@ package com.iii.eeit124.article.dao;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -70,6 +72,23 @@ public class ArticleDAOImpl implements ArticleDAO {
 		Query<Article> query = session.createQuery("from Article where id = ?1",Article.class);
 		query.setParameter(1, id);		
 		return query.uniqueResult();
+	}
+
+	@Override
+	public List<Article> select(Integer pageNo, Integer recordsPerPage, Integer id) {
+		Integer startRecordNo = (pageNo - 1) * recordsPerPage;
+		@SuppressWarnings("unchecked")
+		TypedQuery<Article> query = sessionFactory.getCurrentSession().createQuery("from Article where ARTICLETYPES_ID=?0 order by id desc");
+		query.setParameter(0, id).setFirstResult(startRecordNo).setMaxResults(recordsPerPage);
+		query.getResultList();		
+		return query.getResultList();
+	}
+
+	@Override
+	public Long getRecordCounts(Integer id) {
+		Long count = 0L; // 必須使用 long 型態
+		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Article where ARTICLETYPES_ID=?0").setParameter(0, id).getSingleResult();
+		return count;
 	}
 
 

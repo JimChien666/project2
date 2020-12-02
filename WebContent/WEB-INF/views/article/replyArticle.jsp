@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
+
+<link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
+<script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
+<jsp:include page="../fragments/links.jsp" />
 <head>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
@@ -19,7 +25,8 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
+
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,26 +46,49 @@ h1 {
 </style>
 </head>
 <body>
-	<jsp:include page="../public/top.jsp" />
+
+	<div>
+		<jsp:include page="../fragments/headerArea.jsp" />
+	</div>
+	<!-- 	麵包屑 -->
+	<div class="breadcrumb-area pt-95 pb-95 bg-img"
+		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
+		<div class="container">
+			<div class="breadcrumb-content text-center">
+				<h2>Blog</h2>
+				<ul>
+					<li><a href="index.html">首頁</a></li>
+					<li class="active">文章回覆</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+<%-- 	<jsp:include page="../public/top.jsp" /> --%>
 	<%-- <jsp:include page="../nn/top.jsp" /> --%>
 
-	<main role="main" class="container">
-
-		<div class="starter-template">
+	<div class="container">
+		<ul style="list-style: none; margin: 0px 0;">
+			<li style="float: left; margin: 0px 10px 10px 10px;"><a
+				href="<c:url value='backArticle' />">
+					<button class="submit btn-style" type="submit"
+						style="margin-top: 10px;">
+						<span style="color: white; margin-top: 0px;">回討論版</span>
+					</button>
+			</a></li>
+		</ul>
+		
+		
+		<div class="starter-template" style="clear:both">
 			<h1>文章回覆</h1>
 			<p class="lead">
 				Share your story.<br> ...
 			</p>
 		</div>
-
-	</main>
-	<!-- /.container -->
-	
-	
-	
-	<form:form action="replyToDB" method="POST" modelAttribute="forums">
+		
+			<form:form action="/team6/replyToDB" method="POST" modelAttribute="forums">
 		<br>
-回覆內容:<form:textarea path="content" />
+回覆內容:<form:textarea name="content" id="editor" path="content" />
 		<br>
 		<form:hidden value="1" path="voteid" />
 <%-- 		<form:hidden value="${article.getId()}" path="aricle.id" /> --%>
@@ -67,9 +97,18 @@ h1 {
        <input type="hidden" name="id" value="${article.getId()}">
                                 
 		<form:button value="submit" type="submit">送出</form:button>
+	<script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 	</form:form>
-	
-	<a href="<c:url value='backArticle' />" class="fixed0"><button
-			type="button" class="btn btn-success">回討論版</button></a>
+		
+
+	</div>
+	<jsp:include page="../fragments/footerArea.jsp" />
+	<jsp:include page="../fragments/allJs.jsp" />
 </body>
 </html>
