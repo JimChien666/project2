@@ -48,7 +48,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 </nav>
 <div class="page1">
 <!-- enctype='multipart/form-data' -->
-<form action="<%=application.getContextPath() %>/updateProduct"   method="POST" > 
+<form action="<%=application.getContextPath() %>/updateProduct"   method="POST"  > 
 		<label for="" class="span1">產品編號：</label>
 		${ProductList.id} <br> 
 		<label for="" class="span1">產品名稱：</label>
