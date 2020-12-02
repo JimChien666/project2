@@ -100,7 +100,7 @@
 		$article.append("<h2 style='clear:both; box-shadow:1px 3px 5px 2px #cccccc;'>"+"標題: " + article.title + "</h2>")
 		$article.append("<table style='width: 100%;'><tr><th>"+""+"</th><th>"+""+"</th></tr>")
 // 		$article.append("<table style='width: 100%;' class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
-		console.log(forumList)
+// 		console.log(forumList)
 		$.each(forumList, function(i, forum) {
 			var imgTag = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + forum.forumOwnerFileId + `' />" width="50" height="50" class="d-inline-block align-top" alt="" style="border-radius: 50%; border: 2px white solid;">`
 // 			$article.append("<tr><td><div style='width:60px; background-color: coral; box-shadow:1px 3px 5px 2px #cccccc;'>"+ imgTag + forum.memberid + "</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
@@ -123,7 +123,7 @@
 											if(order.forumid===forumId){
 // 												console.log("order.forumid:"+order.forumid);
 // 												console.log("forumId:"+forumId);								
-												$forums.append('<div style="width:1050px; margin: 0px 20px 10px 10px; background-color:#FFDAB9; box-shadow:1px 3px 5px 2px #cccccc;">'+order.memberid+':'+order.comment+'</div>')
+												$forums.append('<div style="width:1050px; margin: 0px 20px 10px 10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc;">'+order.memberid+':'+order.comment+'</div>')
 // 										 		console.log("$forums: "+ $forums)												
 												}
 											});
@@ -138,12 +138,12 @@
 
 											$("#reply"+forum.id).keypress(function (e) {
 												// $("input").keypress(function (e) {
-													console.log("hi hi");
-													console.log(forumId);
+// 													console.log("hi hi");
+// 													console.log(forumId);
 // 													var id = this.forumId;
 													var comment = this.value;
 // 													console.log(id);
-													console.log(comment);
+// 													console.log(comment);
 												if (e.keyCode == 13&&comment!="") {
 												$.ajax({
 												  url: "saveComments",
@@ -262,6 +262,7 @@ function asynRequest(id) {
 		xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			var mapData = xhr.responseText;
+			console.log(pageNo);
 			
 			showPage(JSON.parse(mapData));
 		}

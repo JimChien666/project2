@@ -225,7 +225,9 @@ public class ArticleController {
 	public @ResponseBody Map<String, Object> getArtilceList(Model model, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "articleTypeId", defaultValue = "1")Integer id){
 		Map<String, Object> map = new HashMap<>();
 		Integer recordsPerPage = 2;
-		System.out.println(id);
+		System.out.println("id:"+id);
+		System.out.println("pageNo:"+pageNo);
+		System.out.println("model:"+model);
 		Long recordCounts = articleService.getRecordCounts(id);
 		List<Article> articleList = articleService.select(pageNo, recordsPerPage, id);
 		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));		
@@ -234,6 +236,7 @@ public class ArticleController {
 		map.put("currPage", pageNo);
 		map.put("recordCounts", recordCounts);
 		map.put("recordsPerPage", recordsPerPage);		
+		System.out.println(map);
 		return map;
 	}
 	
