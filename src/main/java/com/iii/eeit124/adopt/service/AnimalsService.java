@@ -11,6 +11,8 @@ public interface AnimalsService {
 	
 	public List<Animals> readAll();
 	
+	public List<Animals> readMyAnimals(Integer memberId);
+	
 	public Animals update(Animals animals);
 	
 	public boolean delete(Integer animalsId);

@@ -28,10 +28,8 @@
 							</ul></li>
 						<li><a href="#"> 寵物管理 <i class="icon-arrow-down"></i></a>
 							<ul>
-								<li><a href="#">Bangla </a></li>
-								<li><a href="#">Arabic</a></li>
-								<li><a href="#">Hindi </a></li>
-								<li><a href="#">Spanish</a></li>
+								<li><a href="<c:url value='/MemberCenter/ReadAnimal' />">我的寵物</a></li>
+
 							</ul></li>
 					</ul>
 				</div>
