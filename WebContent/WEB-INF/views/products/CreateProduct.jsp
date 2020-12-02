@@ -76,42 +76,34 @@ function getAnimalTypes(){
 	}
 }
 
-
-
-
-
-//  上傳房產證照片
-$("#houseFile").fileupload({
-    url: "/userRoom/houseImages",
-    dataType: 'json',
-    formData: {"userRoomId":$("#id").val()},
-    add: function (e, data) {
-        data.submit();
-    },
-    done: function (e, data) {
-        var result = data.result;
-        var image = result.data;
-        var imgUrl = image.url;
-        var  imgId=image.id;
-        console.info("圖片的編號"+imgId);
-        if (result.success == false) {
-            alert("上傳失敗");
-        } else {
-            var div = $("<div class='show-fc' id='divHouse"+imgId+"'>");
-            var img = $("<img  src='/sysImage/showImg?src="+imgUrl+"'class='thumbnail uploaded-image' />");
-            var imgx = $("<img class='del-image' id="+imgId+"  onclick='deleteImage(this.id)' src='/images/deleteLog/deleteImg.png' >");
-            div.append(img).append(imgx);
-            $("#houseImages").append(div);
-        }
-    },
-    progressall: function (e, data) {
-    }
-});
 </script>
+<jsp:include page="../fragments/links.jsp" />
+<style>
+.btncls{
+	background-color: #7E4C4F; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+button.btncls:hover{
+	background-color: #000000;
+}
+</style>
 </head>
 <body>
-<jsp:include page="../public/top.jsp" />
-	<form:form method="POST" action="${pageContext.servletContext.contextPath}/product/processCreateProduct.controller" modelAttribute="products" enctype="multipart/form-data"  >
+<jsp:include page="../fragments/headerArea.jsp" />
+
+<%-- <jsp:include page="../public/top.jsp" /> --%>
+<div class="container">
+	<form:form  method="POST" action="${pageContext.servletContext.contextPath}/product/processCreateProduct.controller" modelAttribute="products" enctype="multipart/form-data"  >
+		<b>
 		商品名稱:<form:input path="name"/><span style="color: red;">${errors.name}</span><br/>
 		商品價格:<form:input path="price"/><span style="color: red;">${errors.price}</span><br/>
 		商品折扣:<form:input path="discount"/><span style="color: red;">${errors.discount}</span><br/>
@@ -119,14 +111,14 @@ $("#houseFile").fileupload({
 		商品內容圖片:<input name="contentImage" type="file" multiple/><span style="color: red;">${errors.multipartFile}</span><br/>
 		商品描述:<form:input path="description"/><span style="color: red;">${errors.description}</span><br/>
 		商品數量:<form:input path="quantity"/><span style="color: red;">${errors.quantity}</span><br/>
-		商品狀態:上架中<form:radiobutton path="status" value="上架中"/>
-          	   已下架<form:radiobutton path="status" value="已下架"/><span style="color: red;">${errors.status}</span><br/>
+		商品狀態:上架中<form:radiobutton style="width:20px;height:20px;" path="status" value="上架中"/>
+          	   已下架<form:radiobutton style="width:20px;height:20px;" path="status" value="已下架"/><span style="color: red;">${errors.status}</span><br/>
         <div id='somedivS'></div>
          ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/> 
-        <form:button value="Send">Submit</form:button>
-		
+		</b>
+        <form:button value="Send" class="btncls">送出</form:button>
 	</form:form>
-	
+</div>	
 <%-- <jsp:include page="../public/top.jsp" /> --%>
 <%-- 	<form method="POST" action="${pageContext.servletContext.contextPath}/product/processCreateProduct.controller" modelAttribute="products" enctype="multipart/form-data"  > --%>
 <%-- 		商品名稱:<input name="name"/><span style="color: red;">${errors.name}</span><br/> --%>
@@ -138,9 +130,10 @@ $("#houseFile").fileupload({
 <!-- 		商品狀態:上架中<input type="radio"  name="status" value="上架中"/> -->
 <%--           	   已下架<input type="radio" name="status" value="已下架"/><span style="color: red;">${errors.status}</span><br/> --%>
 <!--         <div id='somedivS'></div> -->
-<%-- <%--         ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/> --%> --%>
+<%-- <%--         ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/> --%> 
 <!--         <button value="Send">Submit</button>		 -->
 <%-- 	</form>	 --%>
-
+<jsp:include page="../fragments/footerArea.jsp" />
+<jsp:include page="../fragments/allJs.jsp" />
 </body>
 </html>
