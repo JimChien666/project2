@@ -53,6 +53,7 @@ public class ArticleController {
 	@GetMapping("goArticlePage")
 	public String goArticlePage(@RequestParam("articleId") Integer articleId, Model model) {
 		model.addAttribute("articleId", articleId);
+		model.addAttribute("thisArticle", articleService.select(articleId));
 		return "article/Article";
 	}
 	

@@ -92,6 +92,7 @@
 		totalPage = mapData.totalPage;
 		recordCounts = mapData.recordCounts;
 		forumList = mapData.forumList;
+
 // 		var content = "";
 		$article.empty();
 // 		console.log(article)
@@ -338,7 +339,7 @@ function asynRequest(id) {
 		</ul>
 		
 		
-		
+<c:if test="${LoginOK.id==thisArticle.memberid}">	
 		<ul style="list-style: none; margin: 0px 0;">
 			<li style="float: right; margin: 0px 10px 10px 10px;"><a
 				href="<c:url value='updateArticle?articleId=${articleId}' />">
@@ -357,7 +358,7 @@ function asynRequest(id) {
 					</button>
 			</a></li>
 		</ul>		
-		
+</c:if>		
 		
 		
 			<div id="articleShow" style="padding:70px 0px 0px 0px;">

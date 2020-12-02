@@ -75,7 +75,7 @@ public class Article {
 //	@Column(name = "MEMBER_ID")
 	@Transient
 	public int getMemberid() {
-		return memberid;
+		return this.member.getId();
 	}
 
 	public void setMemberid(int memberid) {
