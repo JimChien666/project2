@@ -1,6 +1,5 @@
 package com.iii.eeit124.adopt.controller;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -14,21 +13,18 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.iii.eeit124.adopt.service.AdoptionRecordsService;
 import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.adopt.service.BreedsService;
@@ -38,6 +34,7 @@ import com.iii.eeit124.entity.Breeds;
 import com.iii.eeit124.entity.Members;
 
 @Controller
+@RequestMapping("/MemberCenter")
 public class AnimalsController {
 	@Autowired
 	ServletContext sc;
@@ -49,50 +46,12 @@ public class AnimalsController {
 	public BreedsService breedsService;
 	@Autowired
 	public AdoptionRecordsService adoptionRecordsService;
-	
-	@GetMapping("/none")
-	public String processNone() {
-		return "public/None";
-	}
 
 	// 轉至分派器
-	@GetMapping("/adoptDispatcher")
-	public String processAdoptDispatcher() {
-		return "adopt/AdoptDispatcher";
-	}
-
-	// 讀圖
-	@GetMapping("/filuploadAction.contoller/{id}")
-	@ResponseBody
-	public ResponseEntity<byte[]> processFileUploadAction(@PathVariable(name = "id") Integer id) throws Exception {
-		ResponseEntity<byte[]> re = null;
-
-		Animals animals = animalsService.read(id);// 依主鍵找對應檔案
-		Iterator<AnimalsFiles> iterator = animals.getFiles().iterator();// 將檔案從set中撈出
-		while (iterator.hasNext()) {
-			AnimalsFiles files = (AnimalsFiles) iterator.next();
-			Blob fileBlob = files.getFileBlob();
-			String mimeType = sc.getMimeType(files.getFileName());
-			MediaType mediaType = MediaType.valueOf(mimeType);
-			try {
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				InputStream is = fileBlob.getBinaryStream();
-				byte[] b = new byte[81920];
-				int len = 0;
-				while ((len = is.read(b)) != -1) {
-					baos.write(b, 0, len);
-				}
-				HttpHeaders headers = new HttpHeaders();
-				headers.setContentType(mediaType);
-				headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-				re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
-				return re;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return re;
-	}
+//	@GetMapping("/adoptDispatcher")
+//	public String processAdoptDispatcher() {
+//		return "adopt/AdoptDispatcher";
+//	}
 	
 	//瀏覽全部的動物
 //	@GetMapping("/ReadAllAnimal")
@@ -105,7 +64,6 @@ public class AnimalsController {
 	@GetMapping("/ReadAnimal")
 	public String processMyPetsRead(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readMyAnimals(((Members)session.getAttribute("LoginOK")).getId()));
-//		m.addAttribute("AnimalsListAdopt", adoptionRecordsService.read(((Members)session.getAttribute("LoginOK")).getId()));
 		return "adopt/ReadAnimal";
 	}
 	
@@ -133,20 +91,6 @@ public class AnimalsController {
 		m.addAttribute("breed", breedsService.readAllBreeds("狗"));
 		return "adopt/CreateAnimal";
 	}
-
-	// SelectBreeds
-	@GetMapping(value = "/getBreed.controller")
-	public @ResponseBody List<Breeds> processGetBreed(@RequestParam("family") String family) {
-		List<Breeds> breed = breedsService.readAllBreeds(family);
-		return breed;
-	}
-	// SelectBreeds//可用
-//	@GetMapping(value="/getBreed.controller")
-//	public @ResponseBody List<String> processGetBreed(@RequestParam("family") String family) {
-//		List<String> breed = breedsService.readAllBreeds(family);
-//		System.out.println("breed123"+breed);
-//		return breed;
-//	}
 
 	// Create
 	@PostMapping("/CreateAnimal.controller")
@@ -219,13 +163,13 @@ public class AnimalsController {
 		entity.setBreeds(readBreed.get(0));// 用family找到該筆bean，再set到breeds，修改也是?
 		animalsService.create(entity);
 
-		return "redirect:/ReadAnimal";
+		return "redirect:/MemberCenter/ReadAnimal";
 	}
 
 	// Refresh
 	@GetMapping({ "/CreateAnimal.controller", "/UpdateAnimal.controller", "/DeleteAnimal.controller" })
 	public String processCreateAnimal(Model m) {
-		return "redirect:/ReadAnimal";
+		return "redirect:/MemberCenter/ReadAnimal";
 	}
 
 //==============================================================================================
@@ -300,7 +244,7 @@ public class AnimalsController {
 //		m.addAttribute("source", "ReadAnimal");
 		System.out.println("processUpdateAnimal finish, animalId:"+animalId);
 
-		return "redirect:/ReadAnimalDetails.controller?id="+animalId;//似乎不能用{}pathvariable傳值
+		return "redirect:/MemberCenter/ReadAnimalDetails.controller?id="+animalId;//似乎不能用{}pathvariable傳值
 	}
 
 //==============================================================================================
@@ -317,6 +261,6 @@ public class AnimalsController {
 //		animalsService.update(entity);
 		animalsService.delete(animalId);
 		
-		return "redirect:/ReadAnimal";
+		return "redirect:/MemberCenter/ReadAnimal";
 	}
 }

@@ -40,7 +40,7 @@
 <!-- 	<div class="mt-50 divCenter"> -->
 <!-- 		<h1>愛心犬貓認養須知</h1> -->
 <!-- 	</div> -->
-	<form:form action="adoptApply" method="POST"
+	<form:form action="/team6/adopt/adoptApply" method="POST"
 		modelAttribute="adoptionRecord">
 		<div class="wid700px mt-30">
 			<div class="f-left mr-10 ptb-20">
@@ -55,11 +55,14 @@
 							<div class="div1">性別：</div>母<br>
 						</c:otherwise>
 					</c:choose>
-					毛色：${animal.coatColor}<br> 會員編號
+					毛色：${animal.coatColor}<br> 
+				</h3>
+					<div class="divHidden">
+					會員編號
 					<form:input path="memberId" value="${member.id}" />
 					動物編號
 					<form:input path="animalId" value="${animal.animalId}" />
-				</h3>
+					</div>
 			</div>
 			<div class="ptb-50">
 				<div class="hover-effect square250px">

@@ -25,7 +25,7 @@
 					<li><a
 						href="<c:url value='/AdoptAnimalDetails.controller?id=${animal.animalId}'/>">動物資料</a></li>
 					<li><a
-						href="<c:url value='/adoptNotice'/>?animalId=${animal.animalId}">認養須知</a></li>
+						href="<c:url value='/adopt/adoptNotice'/>/${animal.animalId}">認養須知</a></li>
 					<li class="active">認養申請</li>
 				</ul>
 			</div>
@@ -141,7 +141,7 @@
 	<div class="divCenter mb-50">
 		<a href="<c:url value='/adopt'/>"
 			class="btn-style-cancel btn-style-border">取消</a> <a
-			href="<c:url value='/adopt'/>"
+			href="<c:url value='/adopt/apply'/>?animalId=${animal.animalId}"
 			class="btn-style1 btn-style-border" id="save">送出申請</a>
 	</div>
 	<jsp:include page="../fragments/footerArea.jsp" />

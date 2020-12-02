@@ -55,7 +55,7 @@
                                         <li><a href="<c:url value='/none' />">會員中心</a>
                                             <ul class="submenu">
                                                 <li>
-                                                    <a href="<c:url value='/ReadAnimal' />">我的寵物</a>
+                                                    <a href="<c:url value='/MemberCenter/ReadAnimal' />">我的寵物</a>
                                                 </li>
                                             </ul>
                                         </li>

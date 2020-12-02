@@ -9,7 +9,7 @@ public interface AnimalsDao {
 	
 	public Animals read(Integer animalsId);
 	
-	public List<Animals> readAll(Integer memberId);
+	public List<Animals> readAll();
 	
 	public List<Animals> readMyAnimals(Integer memberId);
 	

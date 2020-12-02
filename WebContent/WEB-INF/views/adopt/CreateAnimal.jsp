@@ -14,7 +14,7 @@
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
 <!-- <script src="js/jquery-3.5.1.js" charset="UTF-8"></script> -->
-<script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
+<script src="<c:url value='/js/animal.js' />" type="text/javascript" charset="UTF-8"></script>
 <jsp:include page="../fragments/links.jsp" />
 </head>
 <body>
@@ -30,7 +30,7 @@
 				<ul>
 					<li><a href="<c:url value='/'/>">首頁</a></li>
 					<li class="active">會員中心</li>
-					<li><a href="<c:url value='/ReadAnimal'/>">我的寵物</a></li>
+					<li><a href="<c:url value='/MemberCenter/ReadAnimal'/>">我的寵物</a></li>
 					<li class="active">加入寵物</li>
 				</ul>
 			</div>
@@ -39,12 +39,12 @@
 	<!-- ===================================================================================== -->
 	<div class="wid450px margin0Auto mt-50 mb-50">
 		<div>
-			<a href="<c:url value='/ReadAnimal' />"
+			<a href="<c:url value='/MemberCenter/ReadAnimal' />"
 				class="btn-style-cancel btn-style-border mb-20">回我的寵物</a>
 		</div>
 		<!-- ===================================================================================== -->
 		<div>
-			<form:form action="CreateAnimal.controller" method="POST"
+			<form:form action="/team6/MemberCenter/CreateAnimal.controller" method="POST"
 				modelAttribute="AnimalsList1" enctype="multipart/form-data">
 				<div class="mb-20">
 					<form:label path="animalFiles" class="mb-0 font22">*照片：</form:label>
@@ -137,7 +137,7 @@
 					<br>
 				</div>
 				<!-- ===================================================================================== -->
-				<a href="<c:url value='/preCreateAnimal.controller' />"
+				<a href="<c:url value='/MemberCenter/preCreateAnimal.controller' />"
 					class="btn-style-cancel btn-style-border">重填</a>
 				<form:button value="Send" class="btn-style1 font22">送出</form:button>
 			</form:form>

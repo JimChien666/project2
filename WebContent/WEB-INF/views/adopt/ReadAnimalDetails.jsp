@@ -24,7 +24,7 @@
 					<c:choose>
 						<c:when test="${source=='ReadAnimal'}">
 							<li class="active">會員中心</li>
-							<li><a href="<c:url value='/ReadAnimal'/>">我的寵物</a></li>
+							<li><a href="<c:url value='/MemberCenter/ReadAnimal'/>">我的寵物</a></li>
 							<li class="active">動物資料</li>
 						</c:when>
 						<c:when test="${source=='AdoptAnimal'}">
@@ -83,18 +83,31 @@
 			<div class="about-us-btn mb-50">
 				<c:choose>
 					<c:when test="${source=='ReadAnimal'}">
-						<a href="<c:url value='/ReadAnimal' />"
+						<a href="<c:url value='/MemberCenter/ReadAnimal' />"
 							class="btn-style-cancel btn-style-border">返回</a>
 						<a class="btn-style1 btn-style-border"
-							href="<c:url value='/preUpdateAnimal.controller'/>?animalId=${animal.animalId}">維護</a>
+							href="<c:url value='/MemberCenter/preUpdateAnimal.controller'/>?animalId=${animal.animalId}">維護</a>
 					</c:when>
 					<c:when test="${source=='AdoptAnimal'}">
 						<a href="<c:url value='/adopt' />"
 							class="btn-style-cancel btn-style-border">返回</a>
-						<a class="btn-style1 btn-style-border"
-							href="<c:url value='/adoptNotice'/>?animalId=${animal.animalId}">我要認養</a>
+						<c:choose>
+							<c:when test="${member==0}">
+								<div class="btn-style1 btn-style-border">領養請登入</div>
+							</c:when>
+							<c:when test="${member==animal.member.id}">
+								<a class="btn-style1 btn-style-border"
+									href="<c:url value='/MemberCenter/ReadAnimal'/>">我的寵物</a>
+							</c:when>
+							<c:otherwise>
+								<a class="btn-style1 btn-style-border"
+									href="<c:url value='/adopt/adoptNotice'/>/${animal.animalId}">我要認養</a>
+							</c:otherwise>
+						</c:choose>
 					</c:when>
 				</c:choose>
+<%-- 							<div>member:${member}</div> --%>
+<%-- 							<div>animal.member.id:${animal.member.id}</div> --%>
 			</div>
 		</div>
 	</div>

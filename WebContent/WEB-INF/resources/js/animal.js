@@ -53,7 +53,7 @@ window.onload = function() {
 		//	$("#breed").find("option").remove();
 		var xhr = new XMLHttpRequest();
 		var familyValue = family.options[family.selectedIndex].text;
-		var url = "getBreed.controller?family=" + familyValue;
+		var url = "/team6/getBreed.controller?family=" + familyValue;
 		xhr.open("GET", url, true);
 		xhr.send();
 		xhr.onreadystatechange = function() {
@@ -96,7 +96,7 @@ if (window.history.replaceState) {
 
 function timer() {
 	swal("Don't evade!", "dsfdsfsdf", "success");
-	setTimeout(function() { window.location = "preCreateAnimal.controller"; }, 2000);
+	setTimeout(function() { window.location = "MemberCenter/preCreateAnimal.controller"; }, 2000);
 }
 
 //SweetAlert刪除
@@ -116,7 +116,7 @@ function deleteAnimal(animalId) {
 				swal("提示", "動物已移除", "success");
 				setTimeout(
 					function() {
-						window.location = "DeleteAnimal.controller/" + animalId;
+						window.location = "MemberCenter/DeleteAnimal.controller/" + animalId;
 					}
 					, 2000
 				);
@@ -132,7 +132,7 @@ function deleteAnimal(animalId) {
 //傳統提示視窗刪除Delete
 function confirmDelete(animalId) {
 	if (confirm("確定刪除此筆動物資料(動物編號:" + animalId + ")?")) {
-		document.forms[0].action = "DeleteAnimal.controller?animalId=" + animalId;
+		document.forms[0].action = "MemberCenter/DeleteAnimal.controller?animalId=" + animalId;
 		document.forms[0].method = "POST";
 		document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
 	}
