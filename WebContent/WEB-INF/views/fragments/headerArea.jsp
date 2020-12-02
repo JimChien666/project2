@@ -218,18 +218,18 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a href="#">討論區</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="blog.html">blog page</a>
-                                                </li>
-                                                <li>
-                                                    <a href="blog-leftsidebar.html">blog left sidebar</a>
-                                                </li>
-                                                <li>
-                                                    <a href="blog-details.html">blog details</a>
-                                                </li>
-                                            </ul>
+                                        <li><a href="<c:url value='/backArticle' />">討論區</a>
+<!--                                             <ul> -->
+<!--                                                 <li> -->
+<!--                                                     <a href="blog.html">blog page</a> -->
+<!--                                                 </li> -->
+<!--                                                 <li> -->
+<!--                                                     <a href="blog-leftsidebar.html">blog left sidebar</a> -->
+<!--                                                 </li> -->
+<!--                                                 <li> -->
+<!--                                                     <a href="blog-details.html">blog details</a> -->
+<!--                                                 </li> -->
+<!--                                             </ul> -->
                                         </li>
                                         <li><a href="contact.html"> Contact us </a></li>
                                     </ul>
