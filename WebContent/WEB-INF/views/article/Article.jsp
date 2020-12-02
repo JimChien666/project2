@@ -322,7 +322,7 @@ function asynRequest(id) {
 <%-- 		<h3>${article.getTitle()}</h3> --%>
 	<div class="container" style='box-shadow:1px 3px 5px 2px #cccccc;'>
 		<ul style="list-style: none; margin: 0px 0;">
-			<li style="float: left; margin: 0px 10px 10px 10px;"><a
+			<li style="float: left; margin: 0px 10px 30px 10px;"><a
 				href="<c:url value='backArticle' />">
 					<button class="submit btn-style" type="submit"
 						style="margin-top: 10px;">
@@ -333,7 +333,7 @@ function asynRequest(id) {
 		
 		
 		<ul style="list-style: none; margin: 0px 0;">
-			<li style="float: right; margin: 0px 10px 10px 10px;"><a
+			<li style="float: right; margin: 0px 10px 30px 10px;"><a
 				href="<c:url value='replyArticle?articleId=${articleId}' />">
 					<button class="submit btn-style" type="submit"
 						style="margin-top: 10px;">
@@ -345,7 +345,7 @@ function asynRequest(id) {
 		
 <c:if test="${LoginOK.id==thisArticle.memberid}">	
 		<ul style="list-style: none; margin: 0px 0;">
-			<li style="float: right; margin: 0px 10px 10px 10px;"><a
+			<li style="float: right; margin: 0px 10px 30px 10px;"><a
 				href="<c:url value='updateArticle?articleId=${articleId}' />">
 					<button class="submit btn-style" type="submit"
 						style="margin-top: 10px;">
@@ -354,7 +354,7 @@ function asynRequest(id) {
 			</a></li>
 		</ul>		
 		<ul style="list-style: none; margin: 0px 0;">
-			<li style="float: right; margin: 0px 10px 10px 10px;"><a
+			<li style="float: right; margin: 0px 10px 30px 10px;"><a
 				href="<c:url value='deleteArticle?articleId=${articleId}' />">
 					<button class="submit btn-style" type="submit"
 						style="margin-top: 10px;">
