@@ -46,36 +46,24 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
     </ul>
   </div>  
 </nav>
-<div class="page1">
-<!-- enctype='multipart/form-data' -->
-<form action="<%=application.getContextPath() %>/updateProduct"   method="POST" > 
-		<label for="" class="span1">產品編號：</label>
-		${ProductList.id} <br> 
-		<label for="" class="span1">產品名稱：</label>
-		<input type="text" name="name" value="${ProductList.name}"  required><br>
-		<label for="" class="span1">產品圖片：</label>
-		<img height='200px' width='100px'					
-			src='${pageContext.request.contextPath}/image/${ProductList.id}'>	
-		<input enctype="multipart/form-data" type="file" name="img" size="10" maxlength="10"><br>
-		
-		<label for="" class="span1">產品價格：</label>
-		<input type="text" name="price" value="${ProductList.price}"  required><br>
-		<label for="" class="span1">產品數量：</label>
-		<input type="text" name="quantity" value="${ProductList.quantity}"  required><br>
-		<label for="" class="span1" text-align="top">產品描述：
-		<textarea rows="5" cols="100" name="descript" value=""  required>${ProductList.descript}</textarea> <br>
-		</label>
-		<center>
-			<a href="products/UpdateProduct" class="btn btn-secondary">重填</a>
-			<c:choose>
-			<c:when test="">
-			</c:when>
-			</c:choose>
-			<button type="submit" name="submit" class="btn btn-primary">送出</button>
-
-		</center>
-</form>
-</div>
+<div class="container">
+	<form:form  method="POST" action="${pageContext.servletContext.contextPath}/product/processCreateProduct.controller" modelAttribute="products" enctype="multipart/form-data"  >
+		<b>
+		商品名稱:<form:input path="name"/><span style="color: red;">${errors.name}</span><br/>
+		商品價格:<form:input path="price"/><span style="color: red;">${errors.price}</span><br/>
+		商品折扣:<form:input path="discount"/><span style="color: red;">${errors.discount}</span><br/>
+		商品圖片:<form:input path="multipartFile" type="file" /><span style="color: red;">${errors.multipartFile}</span><br/>
+		商品內容圖片:<input name="contentImage" type="file" multiple/><span style="color: red;">${errors.multipartFile}</span><br/>
+		商品描述:<form:input path="description"/><span style="color: red;">${errors.description}</span><br/>
+		商品數量:<form:input path="quantity"/><span style="color: red;">${errors.quantity}</span><br/>
+		商品狀態:上架中<form:radiobutton style="width:20px;height:20px;" path="status" value="上架中"/>
+          	   已下架<form:radiobutton style="width:20px;height:20px;" path="status" value="已下架"/><span style="color: red;">${errors.status}</span><br/>
+        <div id='somedivS'></div>
+         ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/> 
+		</b>
+        <form:button value="Send" class="btncls">送出</form:button>
+	</form:form>
+</div>	
      
 </BODY>
 </HTML>
