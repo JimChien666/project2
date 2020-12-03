@@ -52,5 +52,10 @@ public class CreateProductServiceImpl implements CreateProductService {
 	public Products insertProduct(Products prducts) {
 		return dao.insertProduct(prducts);
 	}
+	
+	@Override
+	public List<Products> selectById(Integer id){
+		return dao.selectById(id);	
+	}
 }
 

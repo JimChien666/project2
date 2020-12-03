@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+ pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -24,6 +24,7 @@
 		</div>
 	</div>
 	<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
+
 
 	<div class="container">
 		<div class="row flex-row-reverse">
@@ -107,5 +108,6 @@
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
+
 </body>
 </html>

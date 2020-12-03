@@ -63,11 +63,10 @@ public class ProductListController {
 		@RequestParam(value="colorId", required = false) Integer colorId,
 		@RequestParam(value="categoryId", required = false) Integer categoryId,
 		@RequestParam(value="animalTypeId", required = false) Integer animalTypeId,
-		@RequestParam(value="recordsPerPage", required = false,defaultValue = "3") Integer recordsPerPage,
+		@RequestParam(value="recordsPerPage", required = false,defaultValue = "6") Integer recordsPerPage,
 		@RequestParam(value ="keywordSearch", required = false) String keywordSearch,
 		@RequestParam(value ="orderBy", required = false, defaultValue = "0") Integer orderBy //"0"用color_Id排序
-		
-			) {
+		) {
 		
 		Long recordCounts= (long) 0;
 		List<Products> list = new ArrayList<Products>();

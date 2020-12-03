@@ -49,9 +49,9 @@ h1 {
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
 		<div class="container">
 			<div class="breadcrumb-content text-center">
-				<h2>Blog</h2>
+				<h2>文章回覆</h2>
 				<ul>
-					<li><a href="index.html">首頁</a></li>
+					<li><a href="<c:url value='/'/>">首頁</a></li>
 					<li class="active">文章回覆</li>
 				</ul>
 			</div>
@@ -65,7 +65,7 @@ h1 {
 	<div class="container">
 		<ul style="list-style: none; margin: 0px 0;">
 			<li style="float: left; margin: 0px 10px 10px 10px;"><a
-				href="<c:url value='backArticle' />">
+				href="<c:url value='/backArticle' />">
 					<button class="submit btn-style" type="submit"
 						style="margin-top: 10px;">
 						<span style="color: white; margin-top: 0px;">回討論版</span>
