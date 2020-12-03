@@ -8,5 +8,5 @@ public interface AdoptionRecordsService {
 
 	public AdoptionRecords create(AdoptionRecords entity);
 
-	public List<AdoptionRecords> read(Integer memberId);
+	public List<AdoptionRecords> read(Integer memberId, Integer animalId);
 }

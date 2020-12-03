@@ -91,6 +91,12 @@
 	display: inline-block;
 }
 
+.divFixed{
+	position: fixed;
+	right:10px;
+	top:50%;
+}
+
 .divHidden {
 	display: none;
 	color: red;

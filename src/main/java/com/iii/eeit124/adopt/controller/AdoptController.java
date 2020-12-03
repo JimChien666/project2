@@ -56,17 +56,18 @@ public class AdoptController {
 
 		Members member = (Members) session.getAttribute("LoginOK");
 		adoptionRecords.setMember(member);
-		Animals animals = animalsService.read(adoptionRecords.getAnimalId());
+		Animals animal = animalsService.read(adoptionRecords.getAnimalId());
 		adoptionRecords.setAnimal(animalsService.read(adoptionRecords.getAnimalId()));
 		adoptionRecords.setNoticeOptions(sum);
 
 		System.out.println("adoptionRecords" + adoptionRecords);
 		if (adoptionRecords.getMember().getId() > 0) {
-			System.out.println("inside adoptionRecords.getMemberId()>0");
+			adoptionRecords.setCreatedAt(new Date());
 			adoptionRecordsService.create(adoptionRecords);
+			System.out.println("inside adoptionRecords.getMemberId()>0");
 		}
 
-		m.addAttribute("animal", animals);
+		m.addAttribute("adoptionRecord", adoptionRecordsService.read(member.getId(), animal.getAnimalId()));
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		m.addAttribute("Today", sdf.format(new Date()));
 //		System.out.println(notice1*2^0+notice2*2^1);

@@ -79,7 +79,7 @@
 											<!-- 									<li><div class="div1">會員編號：&nbsp;</div> -->
 											<%-- 										<div class="div1">${AnimalsList.member.address}</div> <br></li> --%>
 											<!-- 									===================================================================================== -->
-											<li><div class="div1">收容動物編號：&nbsp;</div>
+											<li><div class="div1 mb-10">收容動物編號：&nbsp;</div>
 												<div class="div1 mb-10">${AnimalsList.acceptionId}</div> <br></li>
 											<!-- 									===================================================================================== -->
 											<li><div class="div1">品種：</div>
@@ -94,7 +94,7 @@
 													</c:otherwise>
 												</c:choose></li>
 											<!-- 									===================================================================================== -->
-											<li><div class="div1">毛色：</div>
+											<li><div class="div1 mb-10">毛色：</div>
 												<div class="div1 mb-10">${AnimalsList.coatColor}</div> <br></li>
 											<!-- 									===================================================================================== -->
 											<li><c:choose>

@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>動物認養申請書</title>
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
+<script src="<c:url value='/js/animal.js' />" type="text/javascript" charset="UTF-8"></script>
 <jsp:include page="../fragments/links.jsp" />
 </head>
 <body>
@@ -40,29 +41,29 @@
 	<div class="wid1000px">
 		<!-- 閱讀 -->
 		<input type="text" class="mt-50 inputH30W200 inputBorder font22"
-			placeholder="請輸入申請人姓名">
+			placeholder="請輸入申請人姓名"  value="">
 		<h4 class="div1 mb-30">已年滿20歲，並具有飼養之能力及場所，願向貴處認養動物乙隻，詳細資料如下:</h4>
 		<div class="font22">
 			<div class="wid700px">
 				<div class="f-left mr-10 ptb-20">
-					<h3 class="lineH10">
-						申請日期：${Today}<br> 收容編號：${animal.acceptionId}<br>
-						動物類別：${animal.breeds.family}<br> 動物品種：${animal.breeds.breed}<br>
+					<h3 class="lineH10">${adoptionRecord}
+						申請日期：${Today}<br> 收容編號：${adoptionRecord.animal.acceptionId}<br>
+						動物類別：${adoptionRecord.animal.breeds.family}<br> 動物品種：${adoptionRecord.animal.breeds.breed}<br>
 						<c:choose>
-							<c:when test="${animal.gender == 1}">
+							<c:when test="${adoptionRecord.animal.gender == 1}">
 								<div class="div1">性別：</div>公<br>
 							</c:when>
 							<c:otherwise>
 								<div class="div1">性別：</div>母<br>
 							</c:otherwise>
 						</c:choose>
-						毛色：${animal.coatColor}<br>
+						毛色：${adoptionRecord.animal.coatColor}<br>
 					</h3>
 				</div>
 				<div class="ptb-50">
 					<div class="hover-effect square250px">
 						<img class="cardImg marginAuto" alt=""
-							src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animal.animalId}">
+							src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${adoptionRecord.animal.animalId}">
 					</div>
 				</div>
 			</div>
@@ -141,7 +142,7 @@
 	<div class="divCenter mb-50">
 		<a href="<c:url value='/adopt'/>"
 			class="btn-style-cancel btn-style-border">取消</a> <a
-			href="<c:url value='/adopt/apply'/>?animalId=${animal.animalId}"
+			href="<c:url value='/adopt/apply'/>?animalId=${adoptionRecord.animal.animalId}"
 			class="btn-style1 btn-style-border" id="save">送出申請</a>
 	</div>
 	<jsp:include page="../fragments/footerArea.jsp" />

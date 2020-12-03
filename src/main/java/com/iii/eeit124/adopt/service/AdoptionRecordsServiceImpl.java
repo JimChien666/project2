@@ -21,8 +21,8 @@ public class AdoptionRecordsServiceImpl implements AdoptionRecordsService{
 	}
 
 	@Override
-	public List<AdoptionRecords> read(Integer memberId) {
-		return adoptionRecordsDao.read(memberId);
+	public List<AdoptionRecords> read(Integer memberId, Integer animalId) {
+		return adoptionRecordsDao.read(memberId, animalId);
 	}
 
 }

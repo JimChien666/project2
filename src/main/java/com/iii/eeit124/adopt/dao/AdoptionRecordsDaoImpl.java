@@ -22,11 +22,10 @@ public class AdoptionRecordsDaoImpl implements AdoptionRecordsDao {
 		return entity;
 	}
 
-	//TODO 不應該抓領養紀錄的動物，要抓動物的
 	@Override
-	public List<AdoptionRecords> read(Integer memberId) {
+	public List<AdoptionRecords> read(Integer memberId, Integer animalId) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where MEMBER_ID=" + memberId + " order by ADOPTION_ID desc", AdoptionRecords.class);
+		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where MEMBER_ID=" + memberId + " and animal_ID=" + memberId , AdoptionRecords.class);
 		List<AdoptionRecords> list = query.list();
 		return list;
 	}

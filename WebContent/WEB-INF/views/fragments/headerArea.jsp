@@ -28,7 +28,7 @@
                                                 </li>
                                             </ul> --></li>
                                 <li class="mega-menu-position"><a
-									href="<c:url value='/adopt' />" style="font-size: 22px;">領養</a>
+									href="<c:url value='/adopt' />" style="font-size: 22px;"><img src="<c:url value='/images/cat.png' />" style="height: 35px;width: 35px;">領養</a>
 									</li>
 								<li class="mega-menu-position"><a
 									href="<c:url value='/product/ProductList' />" style="font-size: 22px;">購物</a>

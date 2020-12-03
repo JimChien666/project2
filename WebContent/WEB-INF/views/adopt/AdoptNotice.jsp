@@ -11,7 +11,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
-<script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
+<%-- <script src="<c:url value='/js/animal.js' />" type="text/javascript" charset="UTF-8"></script> --%>
 <jsp:include page="../fragments/links.jsp" />
 </head>
 <body>
@@ -35,11 +35,13 @@
 		</div>
 	</div>
 
+	<div class="divFixed btn-style1" id="noticeInput">一鍵輸入</div>
+
 	<!-- ============================================================================================= -->
 
-<!-- 	<div class="mt-50 divCenter"> -->
-<!-- 		<h1>愛心犬貓認養須知</h1> -->
-<!-- 	</div> -->
+	<!-- 	<div class="mt-50 divCenter"> -->
+	<!-- 		<h1>愛心犬貓認養須知</h1> -->
+	<!-- 	</div> -->
 	<form:form action="/team6/adopt/adoptApply" method="POST"
 		modelAttribute="adoptionRecord">
 		<div class="wid700px mt-30">
@@ -55,14 +57,14 @@
 							<div class="div1">性別：</div>母<br>
 						</c:otherwise>
 					</c:choose>
-					毛色：${animal.coatColor}<br> 
+					毛色：${animal.coatColor}<br>
 				</h3>
-					<div class="divHidden">
+				<div class="divHidden">
 					會員編號
 					<form:input path="memberId" value="${member.id}" />
 					動物編號
 					<form:input path="animalId" value="${animal.animalId}" />
-					</div>
+				</div>
 			</div>
 			<div class="ptb-50">
 				<div class="hover-effect square250px">
@@ -79,7 +81,7 @@
 					</td>
 					<td class="wid20"></td>
 					<td class="tdVertical wid100"><input type="radio"
-						class="square20px" name="notice1" value="1">有</td>
+						class="square20px" name="notice1" value="1" id="notice1">有</td>
 					<td class="tdVertical wid100"><input type="radio"
 						class="square20px" name="notice1" value="0" checked>無</td>
 				</tr>
@@ -215,4 +217,12 @@
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
 </body>
+<script>
+	//adoptNotice一鍵同意
+	$("#noticeInput").click(function() {
+		for (var i = 0; i < 10; i++) {
+			$('input[name="notice' + (i + 1) + '"]')[0].checked = true;
+		}
+	})
+</script>
 </html>
