@@ -23,29 +23,8 @@
 
 <html>
 <head>
-<style type="text/css">
-.fixed {
-	position: fixed;
-	bottom: 3%;
-	right: 2%;
-}
+<style>
 
-.fixed0 {
-	position: fixed;
-	bottom: 15%;
-	right: 2%;
-}
-
-/*  table, th, td {  */
-/*  	border: 1px solid black;  */
-/*  }  */
-/* td { */
-/* 	border: 1px solid black; */
-/* } */
-/* table{ */
-/* 	table-dark */
-/* 	table */
-/* } */
 </style>
 <meta charset="UTF-8">
 <title><c:out value="${thisArticle.title}" /></title>
