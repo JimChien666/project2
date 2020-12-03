@@ -300,10 +300,10 @@ function asynRequest(id) {
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
 		<div class="container">
 			<div class="breadcrumb-content text-center">
-				<h2>Blog</h2>
+				<h2><c:out value="${thisArticle.title}" /></h2>
 				<ul>
-					<li><a href="index.html">home</a></li>
-					<li class="active">Blog</li>
+					<li><a href="<c:url value='/'/>">首頁</a></li>
+					<li class="active"><c:out value="${thisArticle.title}" /></li>
 				</ul>
 			</div>
 		</div>
@@ -323,7 +323,7 @@ function asynRequest(id) {
 	<div class="container" style='box-shadow:1px 3px 5px 2px #cccccc;'>
 		<ul style="list-style: none; margin: 0px 0;">
 			<li style="float: left; margin: 0px 10px 30px 10px;"><a
-				href="<c:url value='backArticle' />">
+				href="<c:url value='/backArticle' />">
 					<button class="submit btn-style" type="submit"
 						style="margin-top: 10px;">
 						<span style="color: white; margin-top: 0px;">回討論版</span>
@@ -346,7 +346,7 @@ function asynRequest(id) {
 <c:if test="${LoginOK.id==thisArticle.memberid}">	
 		<ul style="list-style: none; margin: 0px 0;">
 			<li style="float: right; margin: 0px 10px 30px 10px;"><a
-				href="<c:url value='updateArticle?articleId=${articleId}' />">
+				href="<c:url value='/updateArticle?articleId=${articleId}' />">
 					<button class="submit btn-style" type="submit"
 						style="margin-top: 10px;">
 						<span style="color: white; margin-top: 0px;">修改</span>
@@ -355,7 +355,7 @@ function asynRequest(id) {
 		</ul>		
 		<ul style="list-style: none; margin: 0px 0;">
 			<li style="float: right; margin: 0px 10px 30px 10px;"><a
-				href="<c:url value='deleteArticle?articleId=${articleId}' />">
+				href="<c:url value='/deleteArticle?articleId=${articleId}' />">
 					<button class="submit btn-style" type="submit"
 						style="margin-top: 10px;">
 						<span style="color: white; margin-top: 0px;">刪除</span>

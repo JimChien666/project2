@@ -41,11 +41,11 @@
 								<div class="login-form-container">
 									<div class="login-register-form">
 										<form:form action="processRegister.controller" method="POST" modelAttribute="member" enctype="multipart/form-data">
-											領養人: <form:radiobutton path="memberType" value="領養人"/>
-          									收容所: <form:radiobutton path="memberType" value="收容所"/>${errors.memberType}
+											領養人: <form:radiobutton style="width:20px;height:20px;" path="memberType" value="領養人"/>
+          									收容所: <form:radiobutton style="width:20px;height:20px;" path="memberType" value="收容所"/>${errors.memberType}
           									<form:input path="name" placeholder="使用者名稱"/>${errors.name}
-          									男: <form:radiobutton path="sex" value="男"/>
-          									女: <form:radiobutton path="sex" value="女"/>${errors.sex}
+          									男: <form:radiobutton style="width:20px;height:20px;" path="sex" value="男"/>
+          									女: <form:radiobutton style="width:20px;height:20px;" path="sex" value="女"/>${errors.sex}
           									<form:input path="tel" placeholder="電話"/>${errors.tel}
           									<form:input path="account" placeholder="帳號"/>${errors.account}
 											<form:input type="password" path="password" placeholder="密碼"/>${errors.password}

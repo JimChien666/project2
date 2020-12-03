@@ -275,7 +275,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			<div class="breadcrumb-content text-center">
 				<h2>討論區</h2>
 				<ul>
-					<li><a href="index.html">首頁</a></li>
+					<li><a href="<c:url value='/'/>">首頁</a></li>
 					<li class="active">討論區</li>
 				</ul>
 			</div>

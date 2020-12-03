@@ -65,8 +65,8 @@ h1 {
 			<div class="breadcrumb-content text-center">
 				<h2>討論區</h2>
 				<ul>
-					<li><a href="index.html">首頁</a></li>
-					<li class="active">文章發表</li>
+					<li><a href="<c:url value='/'/>">首頁</a></li>
+					<li class="active">討論區</li>
 				</ul>
 			</div>
 		</div>
@@ -76,7 +76,7 @@ h1 {
 	<div class="container">
 		<ul style="list-style: none; margin: 0px 0; ;">
 			<li style="float: left; margin: 0px 10px 10px 10px;"><a
-				href="<c:url value='backArticle' />">
+				href="<c:url value='/backArticle' />">
 					<button class="submit btn-style" type="submit"
 						style="margin-top: 10px;">
 						<span style="color: white; margin-top: 0px;">回討論版</span>
