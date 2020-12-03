@@ -27,39 +27,78 @@
 
 	<div class="container">
 		<div class="row flex-row-reverse">
-			<div class="col-lg-9 col-md-8">
-				<div class="row">
-					<div class="col-lg-6 col-md-12">
-						<h3>會員資料</h3>
+			<div class="col-lg-12 col-md-8">
+				<div class="row" style="margin-top: 10px;">
+					<div class="col-lg-3 col-md-12">
 						<div class="blog-wrapper mb-30 gray-bg">
+							
 							<div class="blog-img hover-effect">
-								<a href="#"><img alt=""
-									src="<c:url value='/member/processFileReadAction.contoller?fileId=${LoginOK.getFileId()}' />"></a>
+								<div style="margin-left: 20%;width: 60%; text-align: center; border-bottom: 1px solid gray">
+									<img alt=""
+										src="<c:url value='/member/processFileReadAction.contoller?fileId=${LoginOK.getFileId()}' />" style="height: 150px;border-radius: 50%;">
+									<h4 style="padding: 20px;">${LoginOK.name}你好</h4>
+								</div>
+								
 							</div>
 							<div class="blog-content">
-								<div class="blog-meta">
-									<ul>
-										<li>詳細資料</li>
-									</ul>
-								</div>
-								<h4>
-									<td>姓名：</td><td>${LoginOK.getName()}</td><br/>
-									<td>身份：</td>
-				<td>${LoginOK.getMemberType()}</td><br/>
-				<td>性別：</td>
-				<td>${LoginOK.getSex()}</td><br/>
-				<td>電話：</td>
-				<td>${LoginOK.getTel()}</td><br/>
-				<td>地址：</td>
-				<td>${LoginOK.getAddress()}</td><br/>
-				<td>Email：</td>
-				<td>${LoginOK.getEmail()}</td><br/>
-				<td>帳號：</td>
-				<td>${LoginOK.getAccount()}</td><br/>
-								</h4>
-							</div>
+							<div class="shop-widget mt-50">
+                                <h4 class="shop-sidebar-title">會員管理</h4>
+                                 <div class="shop-list-style mt-20">
+                                    <ul>
+                                        <li><a href="#">編輯個人資料</a></li>
+                                        <li><a href="#">修改密碼</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+							
 						</div>
 					</div>
+					<div class="col-lg-9 col-md-12">
+                        <div class="contact-message-wrapper">
+                            <h4 class="contact-title">編輯個人資料</h4>
+                            <div class="contact-message">
+                                <form id="contact-form" action="assets/mail.php" method="post">
+                                    <div class="row">
+                                    	
+                                        <div class="col-lg-9">
+                                            <div class="contact-form-style mb-20">
+                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getName()}">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="contact-form-style mb-20">
+                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getAccount()}">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="contact-form-style mb-20">
+                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getTel()}">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="contact-form-style mb-20">
+                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getAddress()}">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="contact-form-style mb-20">
+                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getEmail()}">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="contact-form-style">
+                                                
+                                                <button class="submit btn-style" type="submit">修改資料</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <p class="form-messege"></p>
+                            </div>
+                        </div>
+                    </div>
+					
 				</div>
 			</div>
 		</div>

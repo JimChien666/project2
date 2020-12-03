@@ -16,6 +16,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <jsp:include page="../fragments/links.jsp" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.18/c3.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.18/c3.js"></script>
 </head>
 <body>
 	<jsp:include page="../fragments/headerArea.jsp" />
@@ -67,43 +70,62 @@
 					</div>
 				</div>
 			</div>
-			<div id="legendPlaceholder"></div>
-			<div id="flotcontainer"></div>
+			
+			<div id="c3_chart_1" style="width: 33%; display: inline-block;"></div>
+			<div id="c3_chart_2" style="width: 33%; display: inline-block;"></div> 
 		</div>
 	</div>
 	
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-	<script src="http://static.pureexample.com/js/flot/excanvas.min.js"></script>
-	<script src="http://static.pureexample.com/js/flot/jquery.flot.min.js"></script>
-	<script
-		src="http://static.pureexample.com/js/flot/jquery.flot.pie.min.js"></script>
-<script type="text/javascript">
-$(function () { 
-    var data = [
-        {label: "食物", data: ${categoriesCost["食物"]}},
-        {label: "玩具", data: ${categoriesCost["玩具"]}},
-        {label: "客廳", data: ${categoriesCost["客廳"]}},
-        {label: "廁所", data: ${categoriesCost["廁所"]}},
-        {label: "護理", data: ${categoriesCost["護理"]}},
-        {label: "餐廳", data: ${categoriesCost["餐廳"]}},
-        {label: "戶外", data: ${categoriesCost["戶外"]}}
-    ];
- 
-    var options = {
-            series: {
-                pie: {show: true}
-                    },
-            legend: {
-                show: false
-            }
-         };
- 
-    $.plot($("#flotcontainer"), data, options);  
+	
+	
+	
+	
+
+<script>
+var chart1 = c3.generate({
+	bindto: '#c3_chart_1',
+    data: {
+        columns: [
+        	["食物", ${categoriesCost["食物"]}],
+            ["玩具", ${categoriesCost["玩具"]}],
+            ["客廳", ${categoriesCost["客廳"]}],
+            ["廁所", ${categoriesCost["廁所"]}],
+            ["護理", ${categoriesCost["護理"]}],
+            ["餐廳", ${categoriesCost["餐廳"]}],
+            ["戶外", ${categoriesCost["戶外"]}],
+        ],
+        type : 'donut'
+    },
+    donut: {
+        title: "依分類"
+    }
 });
+
+var chart2 = c3.generate({
+	bindto: '#c3_chart_2',
+    data: {
+        columns: [
+        	["食物", ${categoriesCost["食物"]}],
+            ["玩具", ${categoriesCost["玩具"]}],
+            ["客廳", ${categoriesCost["客廳"]}],
+            ["廁所", ${categoriesCost["廁所"]}],
+            ["護理", ${categoriesCost["護理"]}],
+            ["餐廳", ${categoriesCost["餐廳"]}],
+            ["戶外", ${categoriesCost["戶外"]}],
+        ],
+        type : 'donut'
+    },
+    donut: {
+        title: "依分類"
+    }
+});
+
+
+
+
 </script>
 </body>
 </html>
