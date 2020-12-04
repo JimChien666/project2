@@ -2,6 +2,8 @@ package com.iii.eeit124.adopt.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,17 +62,20 @@ public class AdoptController {
 		adoptionRecords.setAnimal(animalsService.read(adoptionRecords.getAnimalId()));
 		adoptionRecords.setNoticeOptions(sum);
 
-		System.out.println("adoptionRecords" + adoptionRecords);
-		if (adoptionRecords.getMember().getId() > 0) {
+		List<AdoptionRecords> adoptionRecord = adoptionRecordsService.read(member.getId(), animal.getAnimalId());
+		System.out.println("adoptionRecordsService.read(member.getId(), animal.getAnimalId()): " + adoptionRecord.isEmpty());
+		if (adoptionRecord.isEmpty()) {
 			adoptionRecords.setCreatedAt(new Date());
 			adoptionRecordsService.create(adoptionRecords);
 			System.out.println("inside adoptionRecords.getMemberId()>0");
+		}else {
+			adoptionRecordsService.update(adoptionRecords);
 		}
 
-		m.addAttribute("adoptionRecord", adoptionRecordsService.read(member.getId(), animal.getAnimalId()));
+		System.out.println("member.getId():"+member.getId()+", animal.getAnimalId():"+ animal.getAnimalId());
+		m.addAttribute("adoptionRecord", adoptionRecord);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		m.addAttribute("Today", sdf.format(new Date()));
-//		System.out.println(notice1*2^0+notice2*2^1);
 		return "adopt/AdoptApply";
 	}
 

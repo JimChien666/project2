@@ -43,11 +43,13 @@
 		<input type="text" class="mt-50 inputH30W200 inputBorder font22"
 			placeholder="請輸入申請人姓名"  value="">
 		<h4 class="div1 mb-30">已年滿20歲，並具有飼養之能力及場所，願向貴處認養動物乙隻，詳細資料如下:</h4>
+					${adoptionRecord}
 		<div class="font22">
 			<div class="wid700px">
 				<div class="f-left mr-10 ptb-20">
-					<h3 class="lineH10">${adoptionRecord}
-						申請日期：${Today}<br> 收容編號：${adoptionRecord.animal.acceptionId}<br>
+					<h3 class="lineH10">
+						申請日期：${Today}<br> 
+						收容編號：${adoptionRecord.animal.acceptionId}<br>
 						動物類別：${adoptionRecord.animal.breeds.family}<br> 動物品種：${adoptionRecord.animal.breeds.breed}<br>
 						<c:choose>
 							<c:when test="${adoptionRecord.animal.gender == 1}">
@@ -141,7 +143,8 @@
 
 	<div class="divCenter mb-50">
 		<a href="<c:url value='/adopt'/>"
-			class="btn-style-cancel btn-style-border">取消</a> <a
+			class="btn-style-cancel btn-style-border">取消</a> 
+			<a
 			href="<c:url value='/adopt/apply'/>?animalId=${adoptionRecord.animal.animalId}"
 			class="btn-style1 btn-style-border" id="save">送出申請</a>
 	</div>

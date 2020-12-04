@@ -9,4 +9,6 @@ public interface AdoptionRecordsDao {
 	public AdoptionRecords create(AdoptionRecords entity);
 
 	public List<AdoptionRecords> read(Integer memberId, Integer animalId);
+
+	public AdoptionRecords update(AdoptionRecords entity);
 }

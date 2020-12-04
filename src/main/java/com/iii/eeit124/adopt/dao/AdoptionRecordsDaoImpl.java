@@ -22,12 +22,19 @@ public class AdoptionRecordsDaoImpl implements AdoptionRecordsDao {
 		return entity;
 	}
 
-	@Override
+	@Override//不能list，只能一筆
 	public List<AdoptionRecords> read(Integer memberId, Integer animalId) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where MEMBER_ID=" + memberId + " and animal_ID=" + memberId , AdoptionRecords.class);
+		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where MEMBER_ID=" + memberId + " and ANIMAL_ID=" + animalId , AdoptionRecords.class);
 		List<AdoptionRecords> list = query.list();
 		return list;
+	}
+
+	@Override
+	public AdoptionRecords update(AdoptionRecords entity) {
+		Session session = sessionFactory.getCurrentSession();
+		session.merge(entity);
+		return entity;
 	}
 
 }

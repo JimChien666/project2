@@ -25,4 +25,9 @@ public class AdoptionRecordsServiceImpl implements AdoptionRecordsService{
 		return adoptionRecordsDao.read(memberId, animalId);
 	}
 
+	@Override
+	public AdoptionRecords update(AdoptionRecords entity) {
+		return adoptionRecordsDao.update(entity);
+	}
+
 }
