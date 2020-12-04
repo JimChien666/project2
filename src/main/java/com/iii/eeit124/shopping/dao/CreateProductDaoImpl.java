@@ -82,6 +82,11 @@ public class CreateProductDaoImpl implements CreateProductDao {
 		return products;
 	}
 	
-
+	public List<Products> selectById(Integer id) {//用ID查單筆
+		Query<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where id =?0 order by id", Products.class);
+		query.setParameter(0, id);
+		List<Products> list = query.list();
+		return list;
+	}
 
 }

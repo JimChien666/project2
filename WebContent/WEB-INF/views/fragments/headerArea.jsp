@@ -66,7 +66,7 @@
 							<button class="icon-cart" id="fbname">
 								<i class="icon-user icons"></i>
 								<c:if test="${!empty LoginOK}">
-									<span class="count-style">${LoginOK.name}</span>
+									<span class="count-style">${LoginOK.name.substring(0, 1)}</span>
 								</c:if>
 							</button>
 							<div class="shopping-cart-content"

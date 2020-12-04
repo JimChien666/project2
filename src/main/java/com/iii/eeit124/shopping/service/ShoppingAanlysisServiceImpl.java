@@ -20,4 +20,14 @@ public class ShoppingAanlysisServiceImpl implements ShoppingAanlysisService {
 		return dao.getAllCategoriesCost(id);
 	}
 
+	@Override
+	public Map<String, BigDecimal> getAllAnimalTypeCost(Integer id) {
+		return dao.getAllAnimalTypeCost(id);
+	}
+
+	@Override
+	public Map<String, BigDecimal> getAllColorCost(Integer id) {
+		return dao.getAllColorCost(id);
+	}
+
 }
