@@ -111,14 +111,16 @@
 										const login = `<a href="<c:url value='/member/login' />">`
 										if(${empty LoginOK}){
 											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
+// 											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 										}else{											
-											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
+											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<textarea resize='vertical' type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></textarea></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
 											}
 
-
-											$("#reply"+forum.id).keypress(function (e) {
+// 											$('.auto').autoboxBind();
+											$('textarea').autogrow();
+											$("#reply"+forum.id).keydown(function (e) {
 												// $("input").keypress(function (e) {
 // 													console.log("hi hi");
 // 													console.log(forumId);
@@ -126,7 +128,12 @@
 													var comment = this.value;
 // 													console.log(id);
 // 													console.log(comment);
-												if (e.keyCode == 13&&comment!="") {
+												if (e.shiftKey && e.keyCode == 13) {
+													var event = $(this).val();
+// 											        $(this).val(event + '/n' + '<br>');
+											        $(this).val(event + '<br>');
+												}												
+												else if (e.keyCode == 13 && comment!="") {
 												$.ajax({
 												  url: "saveComments",
 												  data: {
@@ -136,11 +143,10 @@
 												  success:function(){
 //														  reset();
 														showPage(mapData);
-
 //														  var $comments = $('.${Forums.id}');
 //															console.log($comments);
 
-												  $("input").prop("value","");
+												  $("textarea").prop("value","");
 												}
 												//  dataType: dataType
 												});
@@ -375,5 +381,7 @@ function asynRequest(id) {
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
+	
+	
 </body>
 </html>
