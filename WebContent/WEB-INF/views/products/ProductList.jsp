@@ -317,10 +317,10 @@ function displayPageProducts(responseData){
 		content += '<img src="' + imageURL + '?productId=' + products[i].id +'" alt="">';
 		content += '</a>';
 		content += '<div class="product-action">';
-		content += '<a title="Quick View" href="'+productsInfo.replace("productsPath",products[i].id)+'">';
+		content += '<a title="檢視商品詳細頁面" href="'+productsInfo.replace("productsPath",products[i].id)+'">';
 		content += ' <i class="ti-plus"></i>';
 		content += '</a>';
-		content += ' <a title="Add To Cart" onclick="addToCart(' + products[i].id + ')"  href="#">';
+		content += ' <a title="加入購物車" onclick="addToCart(' + products[i].id + ')"  href="#">';
 		content += '   <i class="ti-shopping-cart"></i>';
 		content += ' </a>';
 		content += '</div>';
@@ -346,10 +346,10 @@ function displayPageProducts(responseData){
 		content += '<p>' + products[i].description.substring(0, 200) + '...</p>';
 		content += '<div class="product-list-action">';
 		content += '<div class="product-list-action-left">';
-		content += '<a class="addtocart-btn" title="Add to cart" onclick="addToCart(' + products[i].id + ')" style="color: white; cursor: pointer;"><i class="ion-bag"></i> Add to cart</a>';
+		content += '<a class="addtocart-btn" title="加入購物車" onclick="addToCart(' + products[i].id + ')" style="color: white; cursor: pointer;"><i class="ion-bag"></i> 加入購物車</a>';
 		content += '</div>';
 		content += '<div class="product-list-action-right">';
-		content += '<a title="Quick View" href="'+productsInfo.replace("productsPath",products[i].id)+'"><i class="ti-plus"></i></a>';
+		content += '<a title="檢視商品詳細頁面" href="'+productsInfo.replace("productsPath",products[i].id)+'"><i class="ti-plus"></i></a>';
 		content += '</div>';
 		content += '</div>';
 		content += '</div>';

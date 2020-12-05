@@ -111,8 +111,8 @@ button.btncls:hover{
 		商品內容圖片:<input name="contentImage" type="file" multiple/><span style="color: red;">${errors.multipartFile}</span><br/>
 		商品描述:<form:input path="description"/><span style="color: red;">${errors.description}</span><br/>
 		商品數量:<form:input path="quantity"/><span style="color: red;">${errors.quantity}</span><br/>
-		商品狀態:上架中<form:radiobutton style="width:20px;height:20px;" path="status" value="上架中"/>
-          	   已下架<form:radiobutton style="width:20px;height:20px;" path="status" value="已下架"/><span style="color: red;">${errors.status}</span><br/>
+		商品狀態:<form:radiobutton style="width:20px;height:20px;" path="status" value="上架中"/>上架中
+          	 <form:radiobutton style="width:20px;height:20px;" path="status" value="已下架"/>  已下架 <span style="color: red;">${errors.status}</span><br/>
         <div id='somedivS'></div>
          ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/> 
 		</b>

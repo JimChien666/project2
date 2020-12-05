@@ -31,8 +31,9 @@
 									href="<c:url value='/adopt' />" style="font-size: 22px;">領養</a>
 									</li>
 								<li class="mega-menu-position"><a
-									href="<c:url value='/product/ProductList' />" style="font-size: 22px;">購物</a>
-									<ul class="mega-menu" id='ShoppingOptionsArea'>
+									href="<c:url value='/product/ProductList' />" style="font-size: 22px;">
+									<img src="<c:url value='/images/shop.png' />" style="height:35px;width:35px;"> 購物</a>
+									<ul class="mega-menu" id='ShoppingOptionsArea'>  
 
 									</ul></li>
 								

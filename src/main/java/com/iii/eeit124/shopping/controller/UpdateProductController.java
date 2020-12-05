@@ -52,195 +52,196 @@ public class UpdateProductController {
 	@Autowired
 	HttpSession session;
 	
-	@GetMapping("/select/productsById/{id}")
-	public @ResponseBody List<Products> getQueryPage(@PathVariable(value = "id")Integer id,Model model) {
+	@GetMapping("/preUpdateProduct/{id}")
+	public  String getQueryPage(@PathVariable(value = "id")Integer id,Model model) {
 		List<Products> products = service.selectById(id);
-//		Model products = model.addAttribute("products",selectById);
-//		return queryAllProducts(products);
-		return products;
-	}
-	
-	@GetMapping("/UpdateProduct")
-	public String goCreateProductPage(Model model) {
-		Products products = new Products();
-		model.addAttribute("products", products); // form:form表單的 modelAttribute
+		for (Products product:products) {//遍歷
+			model.addAttribute("products",product);
+		}		
 		return "products/UpdateProduct";
 	}
 	
-	@GetMapping("/UpdateColors")
-	public @ResponseBody List<Colors> queryAllColors(Model model) {
-		List<Colors> colors = service.findAllColors();
-		return colors;
-	}
-	
-	@GetMapping("/UpdateCategories")
-	public @ResponseBody List<Categories> queryAllCategories(Model model) {
-		List<Categories> categories = service.findAllCatrgories();
-		return categories;
-	}
-	
-	@GetMapping("/UpdateAnimalTypes")
-	public @ResponseBody List<AnimalTypes> queryAllAnimalTypes(Model model) {
-		List<AnimalTypes> animalTypes = service.findAllAnimalTypes();
-		return animalTypes;
-	}
-
-
-//	@RequestMapping(value = "/processUpdateProduct.controller", method = RequestMethod.POST)
-//	public String processCreateProduct(
-//			@ModelAttribute("products") Products product,
-//			@RequestParam(name="animalTypeId", required = false) Integer animalTypeId,
-//			@RequestParam(name="colorId", required = false) Integer colorId,
-//			@RequestParam(name="categoryId", required = false) Integer categoryId,
-//			@RequestParam(name="contentImage") MultipartFile[] multipartfiles,
-//			BindingResult result, Model model)
-//			throws SQLException, IOException {
-//		Map<String, String> errors = new HashMap<String, String>();
-//		model.addAttribute("errors", errors);
-//		System.out.println(product);
-//		if("".equals(product.getName())||product.getName()==null) {
-//			errors.put("name", "請填入商品名稱");
-//		}
-//		if(product.getPrice()==null) {
-//			errors.put("price", "請填入價格");
-//		}
-//		if("".equals(product.getDescription())||product.getDescription()==null) {
-//			errors.put("description", "請填入商品介紹");
-//		}
-//		if("".equals(product.getStatus())||product.getStatus()==null) {
-//			errors.put("status", "請選擇商品狀態");
-//		}
-//		if(product.getQuantity()==null) {
-//			errors.put("quantity", "請填入數量");
-//		}
-//		if(product.getPrice()==null) {
-//			errors.put("price", "請填入價格");
-//		}
-//		if(product.getDiscount()==null) {
-//			errors.put("discount", "請填入折扣");
-//		}
-//		
-//		if(animalTypeId==null) {
-//			errors.put("animalType", "請選擇寵物類別");
-//		}
-//		if(colorId==null) {
-//			errors.put("color", "請選擇商品顏色");
-//		}
-//		if(categoryId==null) {
-//			errors.put("category", "請選擇商品分類");
-//		}
-//		
-//		if (errors!=null&&!errors.isEmpty()) {
-//			return "products/CreateProduct";
-//		}
-//		
-//		//抓form:form的商品封面圖
-//		MultipartFile multipartFile = product.getMultipartFile();
-//
-//		AnimalTypes animalType = service.findOneAnimalType(animalTypeId);
-//		Colors color = service.findOneColor(colorId);
-//		Categories category = service.findOneCatrgory(categoryId);
-//		product.setCategory(category);
-//		product.setColor(color);
-//		product.setAnimalType(animalType);
-//		
-//
-//	    //new HashSet<ProductFiles>()
-//	    Set<ProductFiles> productFilesSet = new HashSet<ProductFiles>();
-//	    
-////		內容圖片
-////		if(multipartfiles != null && multipartfiles.length > 0){
-//		
-//			//遍歷並儲存檔案
-//			try {
-//				for(MultipartFile file : multipartfiles){
-//					String fileName = file.getOriginalFilename(); //得到原始檔名
-//					
-//					String fileTempDirPath = ctx.getRealPath("/") + "UploadTempDir\\"; //創一個臨時資料夾
-//					File dirPath = new File(fileTempDirPath);
-//					if(!dirPath.exists()) {
-//					    boolean status = dirPath.mkdirs();
-//					    System.out.println("status" + status);
-//					}
-//					String fileSavePath = fileTempDirPath + fileName;
-//						
-//				    File saveFile = new File(fileSavePath); 				    
-//				    file.transferTo(saveFile);
-//				    
-//				    HttpHeaders headers = new HttpHeaders();
-//				    headers.setContentType(MediaType.IMAGE_JPEG);
-//				    FileInputStream is1 = new FileInputStream(fileSavePath); 
-//				    byte[] b = new byte[is1.available()];
-//				    is1.read(b);
-//				    is1.close();
-//				    Blob blob = new SerialBlob(b);
-//				    //new ProductFiles
-//				    ProductFiles productFiles = new ProductFiles();
-//
-//				    productFiles.setFileBlob(blob);
-//					//
-//					product.setContentImgs(productFilesSet); 
-//					//把使用者上傳圖片裝到productFiles的fileBlob
-//					//把product裝到productFiles
-//					productFiles.setProduct(product);
-//					//把productFiles,add到HashSet裡
-//					productFilesSet.add(productFiles);
-//				}	
-//
-//
-//			}catch (IOException e) {
-//				errors.put("errorAccountDup", "新增此筆資料有誤(RegisterServlet)");
-//				return "products/CreateProduct";
-//			}
-//			
-//			
-////		}
-//		
-//		if(multipartFile != null || !(multipartFile.isEmpty()) ) {
-//			try {
-//				String fileName = multipartFile.getOriginalFilename();
-//
-//				String fileTempDirPath = ctx.getRealPath("/") + "UploadTempDir\\";
-//				
-//				File dirPath = new File(fileTempDirPath);
-//				
-//				if(!dirPath.exists()) {
-//				    boolean status = dirPath.mkdirs();
-//				    System.out.println("status" + status);
-//				}
-//				String fileSavePath = fileTempDirPath + fileName;
-//				
-//				
-//			    File saveFile = new File(fileSavePath);
-//			    product.getMultipartFile().transferTo(saveFile);
-//			    
-//			    System.out.println(fileSavePath);
-//			    HttpHeaders headers = new HttpHeaders();
-//			    headers.setContentType(MediaType.IMAGE_JPEG);
-//			    FileInputStream is1 = new FileInputStream(fileSavePath); 
-//			    byte[] b = new byte[is1.available()];
-//			    is1.read(b);
-//			    is1.close();
-//			    Blob blob = new SerialBlob(b);
-////			    Set<ProductFiles> files = new HashSet<ProductFiles>();
-////			    ProductFiles file = new ProductFiles("image", blob);
-////			    file.setProduct(product);
-////			    files.add(file);
-////			    product.setContentImgs(files);
-////			    
-//			    product.setCoverImg(blob);
-////				   Files file = new Files("image", blob);
-////			    product.setCoverImg(blob);
-//			}catch (IOException e) {
-//				errors.put("errorAccountDup", "新增此筆資料有誤(RegisterServlet)");
-//				return "products/CreateProduct";
-//			}	
-//		}
-//		product.setCreatedAt(new Date());
-//		product.setMember((Members)session.getAttribute("LoginOK"));
-//	    service.insertProduct(product);
-//	    
-//		return "redirect:/";
+//	@GetMapping("/UpdateProduct")
+//	public String goCreateProductPage(Model model) {
+//		Products products = new Products();
+//		model.addAttribute("products", products); // form:form表單的 modelAttribute
+//		return "products/UpdateProduct";
 //	}
+//	
+//	@GetMapping("/UpdateColors")
+//	public @ResponseBody List<Colors> queryAllColors(Model model) {
+//		List<Colors> colors = service.findAllColors();
+//		return colors;
+//	}
+//	
+//	@GetMapping("/UpdateCategories")
+//	public @ResponseBody List<Categories> queryAllCategories(Model model) {
+//		List<Categories> categories = service.findAllCatrgories();
+//		return categories;
+//	}
+//	
+//	@GetMapping("/UpdateAnimalTypes")
+//	public @ResponseBody List<AnimalTypes> queryAllAnimalTypes(Model model) {
+//		List<AnimalTypes> animalTypes = service.findAllAnimalTypes();
+//		return animalTypes;
+//	}
+
+
+	@RequestMapping(value = "/processUpdateProduct.controller", method = RequestMethod.POST)
+	public String processCreateProduct(
+			@ModelAttribute("products") Products product,
+			@RequestParam(name="animalTypeId", required = false) Integer animalTypeId,
+			@RequestParam(name="colorId", required = false) Integer colorId,
+			@RequestParam(name="categoryId", required = false) Integer categoryId,
+			@RequestParam(name="contentImage") MultipartFile[] multipartfiles,
+			BindingResult result, Model model)
+			throws SQLException, IOException {
+		Map<String, String> errors = new HashMap<String, String>();
+		model.addAttribute("errors", errors);
+		System.out.println(product);
+		if("".equals(product.getName())||product.getName()==null) {
+			errors.put("name", "請填入商品名稱");
+		}
+		if(product.getPrice()==null) {
+			errors.put("price", "請填入價格");
+		}
+		if("".equals(product.getDescription())||product.getDescription()==null) {
+			errors.put("description", "請填入商品介紹");
+		}
+		if("".equals(product.getStatus())||product.getStatus()==null) {
+			errors.put("status", "請選擇商品狀態");
+		}
+		if(product.getQuantity()==null) {
+			errors.put("quantity", "請填入數量");
+		}
+		if(product.getPrice()==null) {
+			errors.put("price", "請填入價格");
+		}
+		if(product.getDiscount()==null) {
+			errors.put("discount", "請填入折扣");
+		}
+		
+		if(animalTypeId==null) {
+			errors.put("animalType", "請選擇寵物類別");
+		}
+		if(colorId==null) {
+			errors.put("color", "請選擇商品顏色");
+		}
+		if(categoryId==null) {
+			errors.put("category", "請選擇商品分類");
+		}
+		
+		if (errors!=null&&!errors.isEmpty()) {
+			return "products/CreateProduct";
+		}
+		
+		//抓form:form的商品封面圖
+		MultipartFile multipartFile = product.getMultipartFile();
+
+		AnimalTypes animalType = service.findOneAnimalType(animalTypeId);
+		Colors color = service.findOneColor(colorId);
+		Categories category = service.findOneCatrgory(categoryId);
+		product.setCategory(category);
+		product.setColor(color);
+		product.setAnimalType(animalType);
+		
+
+	    //new HashSet<ProductFiles>()
+	    Set<ProductFiles> productFilesSet = new HashSet<ProductFiles>();
+	    
+//		內容圖片
+//		if(multipartfiles != null && multipartfiles.length > 0){
+		
+			//遍歷並儲存檔案
+			try {
+				for(MultipartFile file : multipartfiles){
+					String fileName = file.getOriginalFilename(); //得到原始檔名
+					
+					String fileTempDirPath = ctx.getRealPath("/") + "UploadTempDir\\"; //創一個臨時資料夾
+					File dirPath = new File(fileTempDirPath);
+					if(!dirPath.exists()) {
+					    boolean status = dirPath.mkdirs();
+					    System.out.println("status" + status);
+					}
+					String fileSavePath = fileTempDirPath + fileName;
+						
+				    File saveFile = new File(fileSavePath); 				    
+				    file.transferTo(saveFile);
+				    
+				    HttpHeaders headers = new HttpHeaders();
+				    headers.setContentType(MediaType.IMAGE_JPEG);
+				    FileInputStream is1 = new FileInputStream(fileSavePath); 
+				    byte[] b = new byte[is1.available()];
+				    is1.read(b);
+				    is1.close();
+				    Blob blob = new SerialBlob(b);
+				    //new ProductFiles
+				    ProductFiles productFiles = new ProductFiles();
+
+				    productFiles.setFileBlob(blob);
+					//
+					product.setContentImgs(productFilesSet); 
+					//把使用者上傳圖片裝到productFiles的fileBlob
+					//把product裝到productFiles
+					productFiles.setProduct(product);
+					//把productFiles,add到HashSet裡
+					productFilesSet.add(productFiles);
+				}	
+
+
+			}catch (IOException e) {
+				errors.put("errorAccountDup", "新增此筆資料有誤(RegisterServlet)");
+				return "products/CreateProduct";
+			}
+			
+			
+//		}
+		
+		if(multipartFile != null || !(multipartFile.isEmpty()) ) {
+			try {
+				String fileName = multipartFile.getOriginalFilename();
+
+				String fileTempDirPath = ctx.getRealPath("/") + "UploadTempDir\\";
+				
+				File dirPath = new File(fileTempDirPath);
+				
+				if(!dirPath.exists()) {
+				    boolean status = dirPath.mkdirs();
+				    System.out.println("status" + status);
+				}
+				String fileSavePath = fileTempDirPath + fileName;
+				
+				
+			    File saveFile = new File(fileSavePath);
+			    product.getMultipartFile().transferTo(saveFile);
+			    
+			    System.out.println(fileSavePath);
+			    HttpHeaders headers = new HttpHeaders();
+			    headers.setContentType(MediaType.IMAGE_JPEG);
+			    FileInputStream is1 = new FileInputStream(fileSavePath); 
+			    byte[] b = new byte[is1.available()];
+			    is1.read(b);
+			    is1.close();
+			    Blob blob = new SerialBlob(b);
+//			    Set<ProductFiles> files = new HashSet<ProductFiles>();
+//			    ProductFiles file = new ProductFiles("image", blob);
+//			    file.setProduct(product);
+//			    files.add(file);
+//			    product.setContentImgs(files);
+//			    
+			    product.setCoverImg(blob);
+//				   Files file = new Files("image", blob);
+//			    product.setCoverImg(blob);
+			}catch (IOException e) {
+				errors.put("errorAccountDup", "新增此筆資料有誤(RegisterServlet)");
+				return "products/CreateProduct";
+			}	
+		}
+		product.setUpdatedAt(new Date());
+		product.setMember((Members)session.getAttribute("LoginOK"));
+	    service.insertProduct(product);
+	    
+		return "redirect:/";
+	}
 	
 }
