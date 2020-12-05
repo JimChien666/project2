@@ -126,6 +126,7 @@
 // 													var id = this.forumId;
 // 													var comment = this.value;
 													var comment = $(this).val().replace(/\n/g, "<br />")
+													var commentNoBr = comment.replace(/<br \/>/g,"")													
 // 															.val().replace(/\n/g, "<br />")
 // 													console.log(id);
 // 													console.log(comment);
@@ -134,7 +135,7 @@
 // 											        $(this).val(event + '/n' );
 // 											        $(this).val(event + '<br>');
 												}												
-												else if (e.keyCode == 13 && comment!=""&&comment!="<br />") {
+												else if (e.keyCode == 13 && commentNoBr!="") {
 												$.ajax({
 												  url: "saveComments",
 												  data: {
