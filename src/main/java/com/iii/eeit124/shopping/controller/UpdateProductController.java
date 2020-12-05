@@ -57,17 +57,15 @@ public class UpdateProductController {
 		List<Products> products = service.selectById(id);
 		for (Products product:products) {//遍歷
 			model.addAttribute("products",product);
-		}		
+		}
+		model.addAttribute("Colors",service.findAllColors());
+		model.addAttribute("Categories",service.findAllCatrgories());
+		model.addAttribute("AnimalTypes",service.findAllAnimalTypes());
+		
+
 		return "products/UpdateProduct";
 	}
 	
-//	@GetMapping("/UpdateProduct")
-//	public String goCreateProductPage(Model model) {
-//		Products products = new Products();
-//		model.addAttribute("products", products); // form:form表單的 modelAttribute
-//		return "products/UpdateProduct";
-//	}
-//	
 //	@GetMapping("/UpdateColors")
 //	public @ResponseBody List<Colors> queryAllColors(Model model) {
 //		List<Colors> colors = service.findAllColors();

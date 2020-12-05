@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Create Product</title>
+<title>新增商品</title>
 <script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />" ></script>
 <script>
 window.onload = function() {
@@ -21,7 +21,7 @@ function getCategories(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "選擇分類：<select name='categoryId'>";
+			var content = "選擇分類：<select name='categoryId' style='background-color:RGB(236,239,248);height:50px;'>";
 			content += "<option value='' disabled selected='selected'>請選擇分類</option>"
 			var categories = JSON.parse(xhr.responseText);
 			for(var i=0; i < categories.length; i++){
@@ -41,7 +41,7 @@ function getColors(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "商品顏色：<select name='colorId'>";
+			var content = "商品顏色：<select name='colorId' style='background-color:RGB(236,239,248);height:50px;'>";
 			content += "<option value='' disabled selected='selected'>請選擇顏色</option>"
 			var colors = JSON.parse(xhr.responseText);
 			for(var i=0; i < colors.length; i++){
@@ -62,7 +62,7 @@ function getAnimalTypes(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "寵物類別：<select name='animalTypeId'>";
+			var content = "寵物類別：<select name='animalTypeId' style='background-color:RGB(236,239,248);height:50px;'>";
 			content += "<option value='' disabled selected='selected'>請選擇寵物類別</option>"
 			var animalTypes = JSON.parse(xhr.responseText);
 			for(var i=0; i < animalTypes.length; i++){
@@ -111,7 +111,8 @@ button.btncls:hover{
 		商品內容圖片:<input name="contentImage" type="file" multiple/><span style="color: red;">${errors.multipartFile}</span><br/>
 		商品描述:<form:input path="description"/><span style="color: red;">${errors.description}</span><br/>
 		商品數量:<form:input path="quantity"/><span style="color: red;">${errors.quantity}</span><br/>
-		商品狀態:<form:radiobutton style="width:20px;height:20px;" path="status" value="上架中"/>上架中
+		商品狀態:<br/>	
+			 <form:radiobutton style="width:20px;height:20px;" path="status" value="上架中"/>上架中
           	 <form:radiobutton style="width:20px;height:20px;" path="status" value="已下架"/>  已下架 <span style="color: red;">${errors.status}</span><br/>
         <div id='somedivS'></div>
          ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/> 

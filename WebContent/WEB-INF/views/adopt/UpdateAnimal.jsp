@@ -75,7 +75,8 @@
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-				</select> <select id="breed" class="font22 borderBlack wid40p">
+				</select> 
+				<select id="breed" class="font22 borderBlack wid40p">
 					<c:forEach var="breed" items="${breed}">
 						<c:choose>
 							<c:when test="${breed.breed == animals.breeds.breed}">
