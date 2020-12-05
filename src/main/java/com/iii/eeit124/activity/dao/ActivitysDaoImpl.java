@@ -25,7 +25,7 @@ public class ActivitysDaoImpl implements ActivitysDao {
 	
 	@Override
 	public void update(Activitys entity) {
-		sessionFactory.getCurrentSession().update(entity);
+		sessionFactory.getCurrentSession().merge(entity);
 	}
 	
 	@Override

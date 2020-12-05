@@ -26,47 +26,62 @@ table td {
 </head>
 <body>
 	<h1>Input Form</h1>
-	<form:form action="${pageContext.request.contextPath}/updateActivitys" method="post" modelAttribute="activitys">
+	<form:form action="${pageContext.request.contextPath}/activitys/updateActivitys" method="post" modelAttribute="activitysVo">
 		<table>
 			<tr>
 				<td>ID</td>
-				<td><form:input path="id" readonly="true" /> <br /><form:errors path="id" cssClass="error" /></td>
+				<td><form:input path="id" readonly="true" /> <br />
+				<form:errors path="id" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Name</td>
-				<td><form:input path="name" /><br /><form:errors path="name" cssClass="error" /></td>
+				<td><form:input path="name" /><br />
+				<form:errors path="name" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Topic</td>
-				<td><form:input path="topic" /><br /><form:errors path="topic" cssClass="error" /></td>
+				<td><form:input path="topic" /><br />
+				<form:errors path="topic" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Content</td>
-				<td><form:input path="content" /><br /><form:errors path="content" cssClass="error" /></td>
+				<td><form:input path="content" /><br />
+				<form:errors path="content" cssClass="error" /></td>
+			</tr>
+			<tr>
+				<td>ActivityDate</td>
+				<td><form:input path="activityDate" /><br /> <form:errors
+						path="activityDate" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Amount</td>
-				<td><form:input path="amount" /><br /><form:errors path="amount" cssClass="error" /></td>
+				<td><form:input path="amount" /><br />
+				<form:errors path="amount" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Location</td>
-				<td><form:input path="location" /><br /><form:errors path="location" cssClass="error" /></td>
+				<td><form:input path="location" /><br />
+				<form:errors path="location" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Limit Number</td>
-				<td><form:input path="limitNum" /><br /><form:errors path="limitNum" cssClass="error" /></td>
+				<td><form:input path="limitNum" /><br />
+				<form:errors path="limitNum" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Limit Type</td>
-				<td><form:input path="limitType" /><br /><form:errors path="limitType" cssClass="error" /></td>
+				<td><form:input path="limitType" /><br />
+				<form:errors path="limitType" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Limit People</td>
-				<td><form:input path="limitPeople" /><br /><form:errors path="limitPeople" cssClass="error" /></td>
+				<td><form:input path="limitPeople" /><br />
+				<form:errors path="limitPeople" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Activitys Type</td>
-				<td><form:input path="activitysType" /><br /><form:errors path="activitysType" cssClass="error" /></td>
+				<td><form:input path="activitysType" /><br />
+				<form:errors path="activitysType" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><button type="submit">Submit</button></td>

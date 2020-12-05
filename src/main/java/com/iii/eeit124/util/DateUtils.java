@@ -3,6 +3,7 @@ package com.iii.eeit124.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DateUtils {
 
@@ -18,6 +19,7 @@ public class DateUtils {
 		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT") );
 		return sdf.format(date);
 	}
 
@@ -33,6 +35,7 @@ public class DateUtils {
 		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT") );
 		try {
 			return sdf.parse(date);
 		} catch (ParseException e) {

@@ -34,6 +34,7 @@ table td {
 			<td><strong>Name</strong></td>
 			<td><strong>Topic</strong></td>
 			<td><strong>Content</strong></td>
+			<td><strong>Activity Date</strong></td>
 			<td><strong>Amount</strong></td>
 			<td><strong>Location</strong></td>
 			<td><strong>Limit Number</strong></td>
@@ -48,6 +49,7 @@ table td {
 				<td>${activitys.name}</td>
 				<td>${activitys.topic}</td>
 				<td>${activitys.content}</td>
+				<td>${activitys.activityDate}</td>
 				<td>${activitys.amount}</td>
 				<td>${activitys.location}</td>
 				<td>${activitys.limitNum}</td>
