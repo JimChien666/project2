@@ -15,4 +15,6 @@ public interface ActivitysService {
 	List<Activitys> list();
 	
 	Activitys findById(Integer id);
+
+	void deleteById(Integer id);
 }

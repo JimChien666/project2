@@ -95,6 +95,14 @@ public class ActivitysController {
 		return "activitys/update";
 	}
 
+	/**
+	 * 更新活動內容
+	 * 
+	 * @param activitysVo
+	 * @param result
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("updateActivitys")
 	public String updateActivitys(@ModelAttribute("activitysVo") ActivitysVo activitysVo, BindingResult result,
 			Model model) {
@@ -120,27 +128,38 @@ public class ActivitysController {
 		return returnToList(model);
 	}
 
-	@GetMapping("delete/activitys/{id}")
-	public String getDeletePage(@PathVariable(value = "id") Integer id, Locale locale, Model model) {
+	/**
+	 * 前往刪除活動頁面
+	 * 
+	 * @param id
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("delete/{id}")
+	public String goDeletePage(@PathVariable(value = "id") Integer id, Locale locale, Model model) {
 		model.addAttribute("activitys", activitysService.findById(id));
 		return "activitys/delete";
 	}
 
+	/**
+	 * 刪除活動
+	 * 
+	 * @param activitysVo
+	 * @param result
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("deleteActivitys")
-	public String deleteActivitys(@ModelAttribute("activitys") @Valid Activitys entity, BindingResult result,
+	public String deleteActivitys(@ModelAttribute("activitysVo") @Valid ActivitysVo activitysVo, BindingResult result,
 			Model model) {
-		System.out.println("entity:" + entity);
+		System.out.println("activitysVo:" + activitysVo);
 
-		if (result.hasErrors()) {
-			model.addAttribute("activitysList", activitysService.list());
-			return "redirect:/";
+		if (activitysVo != null && activitysVo.getId() != null) {
+			activitysService.deleteById(activitysVo.getId());
 		}
 
-		if (entity != null && entity.getId() != null) {
-			activitysService.delete(entity);
-		}
-
-		return "redirect:/";
+		return returnToList(model);
 	}
 
 	private String returnToList(Model model) {

@@ -26,7 +26,7 @@ table td {
 </head>
 <body>
 	<h1>Input Form</h1>
-	<form:form action="deleteActivitys" method="post" modelAttribute="activitysVo">
+	<form:form action="${pageContext.request.contextPath}/activitys/deleteActivitys" method="post" modelAttribute="activitysVo">
 		<table>
 			<tr>
 				<td>ID</td>

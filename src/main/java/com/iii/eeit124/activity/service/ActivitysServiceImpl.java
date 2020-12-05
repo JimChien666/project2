@@ -32,6 +32,12 @@ public class ActivitysServiceImpl implements ActivitysService {
 	public void delete(Activitys entity) {
 		activitysDao.delete(entity);
 	}
+	
+	@Override
+	@Transactional
+	public void deleteById(Integer id) {
+		delete(findById(id));
+	}
 
 	@Override
 	@Transactional(readOnly = true)
