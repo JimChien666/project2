@@ -30,11 +30,12 @@
 				<ul>
 					<li><a href="<c:url value='/order/OrderList' />">購買紀錄</a></li>
 					<li><a href="<c:url value='/order/SellingOrderList' />">販賣紀錄</a></li>
-					<li><a href="<c:url value='/order/orderAnalysis' />">消費報表</a></li>
+					<li><a href="<c:url value='/order/orderAnalysis' />">交易數據</a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="shop-widget mt-50">
+			
 			<h4 class="shop-sidebar-title">商品管理</h4>
 			<div class="shop-list-style mt-20">
 				<ul>

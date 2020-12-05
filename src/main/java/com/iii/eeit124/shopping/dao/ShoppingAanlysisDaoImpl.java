@@ -87,6 +87,24 @@ public class ShoppingAanlysisDaoImpl implements ShoppingAanlysisDao {
 		}
 		return map;
 	}
+
+	@Override
+	public Integer getMostBuyAnimalType(Integer id) {
+		Query query = sessionFactory.getCurrentSession().createSQLQuery("select p.animal_type_id from order_items oi left join products p on p.id=oi.product_id left join orders o on o.id=oi.order_id left join animal_types ats on ats.id=p.animal_type_id where o.buyer_id=?0 group by p.animal_type_id order by sum(oi.price*oi.discount) desc");
+		query.setParameter(0, id);
+		List<BigDecimal> list = query.getResultList();
+		Integer firstResult = list.get(0).intValue();
+		return firstResult;
+	}
+
+	@Override
+	public Integer getMostBuyColor(Integer id) {
+		Query query = sessionFactory.getCurrentSession().createSQLQuery("select p.color_id from order_items oi left join products p on p.id=oi.product_id left join orders o on o.id=oi.order_id left join colors c on c.id=p.color_id where o.buyer_id=?0 group by p.color_id order by sum(oi.price*oi.discount) desc");
+		query.setParameter(0, id);
+		List<BigDecimal> list = query.getResultList();
+		Integer firstResult = list.get(0).intValue();
+		return firstResult;
+	}
 	
 
 	

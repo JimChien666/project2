@@ -11,4 +11,8 @@ public interface ShoppingAanlysisDao {
 
 	Map<String, BigDecimal> getAllColorCost(Integer id);
 
+	Integer getMostBuyAnimalType(Integer id);
+
+	Integer getMostBuyColor(Integer id);
+
 }

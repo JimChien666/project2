@@ -2,6 +2,7 @@ package com.iii.eeit124.shopping.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,5 +36,16 @@ public class ShoppingAanlysisController {
 		list.add(animalTypeCost);
 		
 		return list;
+	}
+	
+	@GetMapping("/getProductRecommendId.json")
+	public @ResponseBody Map<String, Integer> getProductRecommendId(){
+		Members member = (Members)session.getAttribute("LoginOK");
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		Integer mostBuyAnimalType = service.getMostBuyAnimalType(member.getId());
+		Integer mostBuyColor = service.getMostBuyColor(member.getId());
+		map.put("mostBuyAnimalType", mostBuyAnimalType);
+		map.put("mostBuyColor", mostBuyColor);
+		return map;
 	}
 }

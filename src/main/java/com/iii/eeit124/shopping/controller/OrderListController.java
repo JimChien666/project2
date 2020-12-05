@@ -81,7 +81,7 @@ public class OrderListController {
 	@GetMapping("/orderAnalysis")
 	public String getMyAccountPage(Model model) {
 		Members member = (Members)session.getAttribute("LoginOK");
-		Map<String, BigDecimal> dataPerMonth =  memberCenterService.getDataPerMonth(member.getId());
+		Map<String, BigDecimal> dataPerMonth =  memberCenterService.getCostHistory(member.getId());
 		model.addAttribute("dataPerMonth", dataPerMonth);
 		Map<String, BigDecimal> categoriesCost = shoppingAanlysisService.getAllCategoriesCost(member.getId());
 		Map<String, BigDecimal> animalTypesCost = shoppingAanlysisService.getAllAnimalTypeCost(member.getId());
@@ -91,4 +91,19 @@ public class OrderListController {
 		model.addAttribute("colorsCost", colorsCost);
 		return "orders/orderAnalysis";
 	}
+	
+	@GetMapping("/sellingData.json")
+	public @ResponseBody Map<String, Object> getSellingData(){
+		Members member = (Members)session.getAttribute("LoginOK");
+		Map<String, Object> sellingCount =  memberCenterService.getSellingHistory(member.getId());
+		return sellingCount;
+	}
+	
+	@GetMapping("/sellingCountByDate.json")
+	public @ResponseBody Map<String, List<Object>> getSellingCountByDate(){
+		Members member = (Members)session.getAttribute("LoginOK");
+		Map<String, List<Object>> sellingCount =  memberCenterService.getSellingCountByDate(member.getId());
+		return sellingCount;
+	}
+	
 }

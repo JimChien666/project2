@@ -30,4 +30,14 @@ public class ShoppingAanlysisServiceImpl implements ShoppingAanlysisService {
 		return dao.getAllColorCost(id);
 	}
 
+	@Override
+	public Integer getMostBuyAnimalType(Integer id) {
+		return dao.getMostBuyAnimalType(id);
+	}
+
+	@Override
+	public Integer getMostBuyColor(Integer id) {
+		return dao.getMostBuyColor(id);
+	}
+
 }

@@ -112,10 +112,22 @@ button.btncls:hover {
 						+ (orders[i].orderItems[j].discountPrice * orders[i].orderItems[j].quantity)
 						+ "</td>"
 						+ "<td id='oiStatus"+orders[i].orderItems[j].id+"'>"
-						+ orders[i].orderItems[j].status + "</td>"
-						+ "<td><button class='btncls' onclick='shipped("
-						+ orders[i].orderItems[j].id + ")'>出貨</button></td>"
-						+ "</tr>"
+						+ orders[i].orderItems[j].status + "</td>";
+						
+						if(orders[i].orderItems[j].status == "已出貨"){
+							content +="<td><button id='oibtn" + orders[i].orderItems[j].id + "' onclick='shipped("
+								+ orders[i].orderItems[j].id + ")' disabled>已出貨</button></td>";
+						}
+						else if(orders[i].orderItems[j].status == "取消"){
+							content +="<td><button id='oibtn" + orders[i].orderItems[j].id + "' onclick='shipped("
+								+ orders[i].orderItems[j].id + ")' disabled>已取消</button></td>";
+						}
+						else{
+							content +="<td><button id='oibtn" + orders[i].orderItems[j].id + "' class='btncls' onclick='shipped("
+								+ orders[i].orderItems[j].id + ")'>出貨</button></td>";
+						}
+						
+						content +="</tr>"
 
 			}
 			content += "</table><hr>";
@@ -239,6 +251,11 @@ button.btncls:hover {
 				if (xhr.status == 200) {
 					var responseData = xhr.responseText;
 					console.log(responseData);
+					document.getElementById("oibtn" + orderItemId).innerHTML = "已出貨";
+					var classVal = document.getElementById("oibtn" + orderItemId).getAttribute("class");
+					classVal = classVal.replace("btncls","");
+					document.getElementById("oibtn" + orderItemId).setAttribute("class",classVal);
+					document.getElementById("oibtn" + orderItemId).disabled = true;
 					document.getElementById("oiStatus" + orderItemId).innerHTML = "已出貨";
 					console.log(responseData != 0);
 					if (responseData != 0) {
