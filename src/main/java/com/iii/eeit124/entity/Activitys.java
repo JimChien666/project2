@@ -27,6 +27,10 @@ public class Activitys {
 	@Column(name = "create_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
+	
+	@Column(name = "activity_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date activityDate;
 
 	@Column(name = "name")
 	private String name;
@@ -143,12 +147,20 @@ public class Activitys {
 		this.amount = amount;
 	}
 
+	public Date getActivityDate() {
+		return activityDate;
+	}
+
+	public void setActivityDate(Date activityDate) {
+		this.activityDate = activityDate;
+	}
+
 	@Override
 	public String toString() {
-		return "Activitys [id=" + id + ", createDate=" + createDate + ", name=" + name + ", topic=" + topic
-				+ ", content=" + content + ", location=" + location + ", limitNum=" + limitNum + ", limitType="
-				+ limitType + ", limitPeople=" + limitPeople + ", activitysType=" + activitysType + ", amount=" + amount
-				+ "]";
+		return "Activitys [id=" + id + ", createDate=" + createDate + ", activityDate=" + activityDate + ", name="
+				+ name + ", topic=" + topic + ", content=" + content + ", location=" + location + ", limitNum="
+				+ limitNum + ", limitType=" + limitType + ", limitPeople=" + limitPeople + ", activitysType="
+				+ activitysType + ", amount=" + amount + "]";
 	}
 	
 }

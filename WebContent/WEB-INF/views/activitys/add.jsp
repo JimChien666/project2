@@ -28,7 +28,7 @@ table td {
 <body>
 <jsp:include page="../public/top.jsp" />
 	<h1>Input Form</h1>
-	<form:form action="addActivitys" method="post" modelAttribute="activitys">
+	<form:form action="saveActivitys" method="post" modelAttribute="activitysVo">
 		<table>
 <!-- 			<tr> -->
 <!-- 				<td>ID</td> -->
@@ -45,6 +45,10 @@ table td {
 			<tr>
 				<td>Content</td>
 				<td><form:input path="content" /><br /><form:errors path="content" cssClass="error" /></td>
+			</tr>
+			<tr>
+				<td>ActivityDate</td>
+				<td><form:input path="activityDate" /><br /> <form:errors path="activityDate" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Amount</td>

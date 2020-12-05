@@ -34,5 +34,16 @@ public enum LimitType {
 			return LimitType.NONE;
 		}
 	}
+	
+	public static LimitType findByDesc(String description) {
+		Optional<LimitType> optional = Stream.of(LimitType.values()).filter(o -> o.getDescription().equals(description))
+				.findFirst();
+		
+		if (optional.isPresent()) {
+			return optional.get();
+		} else {
+			return LimitType.NONE;
+		}
+	}
 
 }

@@ -35,4 +35,15 @@ public enum ActivitysType {
 			return ActivitysType.NONE;
 		}
 	}
+	
+	public static ActivitysType findByDesc(String description) {
+		Optional<ActivitysType> optional = Stream.of(ActivitysType.values()).filter(o -> o.getDescription().equals(description))
+				.findFirst();
+		
+		if (optional.isPresent()) {
+			return optional.get();
+		} else {
+			return ActivitysType.NONE;
+		}
+	}
 }

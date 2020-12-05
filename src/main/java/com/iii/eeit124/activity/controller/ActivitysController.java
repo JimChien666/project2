@@ -1,36 +1,37 @@
 package com.iii.eeit124.activity.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.iii.eeit124.activity.service.ActivitysService;
+import com.iii.eeit124.activity.service.ActivitysVoService;
 import com.iii.eeit124.activity.vo.ActivitysVo;
 import com.iii.eeit124.entity.Activitys;
 
 @Controller
+@RequestMapping("/activitys")
 public class ActivitysController {
 
 	@Autowired
 	ActivitysService activitysService;
 
-	@ModelAttribute("activitys")
-	public Activitys formBackingObject() {
-		return new Activitys();
+	@Autowired
+	ActivitysVoService activitysVoService;
+
+	@ModelAttribute("activitysVo")
+	public ActivitysVo formBackingObject() {
+		return new ActivitysVo();
 	}
 
 	/**
@@ -40,16 +41,43 @@ public class ActivitysController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/")
+	@GetMapping("list")
 	public String list(Locale locale, Model model) {
-		List<Activitys> list = activitysService.list();
-		
-		List<ActivitysVo> result = new ArrayList<>();
-		if (!CollectionUtils.isEmpty(list)) {
-			result = list.stream().map(ActivitysVo::convert).collect(Collectors.toList());
-		}
-		
-		model.addAttribute("activitysVoList", result);
+		model.addAttribute("activitysVoList", activitysVoService.list());
+		return "activitys/list";
+	}
+
+	/**
+	 * 前往新增頁面
+	 * 
+	 * @param activitysVo
+	 * @param result
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("add")
+	public String goAddActivitys(@ModelAttribute("activitysVo") ActivitysVo activitysVo, BindingResult result,
+			Model model) {
+		return "activitys/add";
+	}
+
+	/**
+	 * 新增活動
+	 * 
+	 * @param entity
+	 * @param result
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("saveActivitys")
+	public String saveActivitys(@ModelAttribute("activitysVo") ActivitysVo activitysVo, BindingResult result,
+			Model model) {
+
+		activitysVo.validate();
+		Activitys activitys = activitysVo.toEntity();
+		activitysService.save(activitys);
+
+		model.addAttribute("activitysVoList", activitysVoService.list());
 		return "activitys/list";
 	}
 
@@ -63,21 +91,6 @@ public class ActivitysController {
 	public String getDeletePage(@PathVariable(value = "id") Integer id, Locale locale, Model model) {
 		model.addAttribute("activitys", activitysService.findById(id));
 		return "activitys/delete";
-	}
-
-	@PostMapping("addActivitys")
-	public String saveActivitys(@ModelAttribute("activitys") @Valid Activitys entity, BindingResult result,
-			Model model) {
-
-		if (result.hasErrors()) {
-			model.addAttribute("activitysList", activitysService.list());
-			return "activitys/list";
-		}
-
-		entity.setCreateDate(new Date());
-
-		activitysService.save(entity);
-		return "redirect:/";
 	}
 
 	@PostMapping("updateActivitys")

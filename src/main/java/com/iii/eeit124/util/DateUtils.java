@@ -13,6 +13,10 @@ public class DateUtils {
 	 * @return
 	 */
 	public static String format(Date date) {
+		if (date == null) {
+			return null;
+		}
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 		return sdf.format(date);
 	}
@@ -24,6 +28,10 @@ public class DateUtils {
 	 * @return
 	 */
 	public static Date format(String date) {
+		if (date == null) {
+			return null;
+		}
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 		try {
 			return sdf.parse(date);
