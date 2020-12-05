@@ -3,7 +3,6 @@ package com.iii.eeit124.adopt.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,14 +31,44 @@ public class AdoptController {
 	public AdoptionRecordsService adoptionRecordsService;
 
 	@GetMapping("/adoptNotice/{animalId}")
-	public String processAdoptNotice(@PathVariable("animalId") Integer animalsId,
-//			@RequestParam("animalId") Integer animalsId,
-			Model m) {
+	public String processAdoptNotice(@PathVariable("animalId") Integer animalsId, Model m) {
+
+		// 讀會員entity
+		Members member = (Members) session.getAttribute("LoginOK");
+		// 讀領養紀錄list
+		List<AdoptionRecords> adoptionRecordList = adoptionRecordsService.read(member.getId(), animalsId);
+		if (adoptionRecordList.isEmpty()) {
+			// 若無領養紀錄list，則新增一個
+			AdoptionRecords adoptionRecords = new AdoptionRecords();
+			adoptionRecords.setMember(member);
+			adoptionRecords.setAnimal(animalsService.read(animalsId));
+			adoptionRecords.setNoticeOptions(0);
+			adoptionRecordsService.create(adoptionRecords);
+			m.addAttribute("adoptionRecord", adoptionRecords);
+		} else {
+			// 若有領養紀錄list
+			for (AdoptionRecords adoptionRecord : adoptionRecordList) {
+				// 注意事項陣列
+				int[] noticeArray;
+				noticeArray = new int[10];
+				for (int i = 9; i > -1; i--) {
+					if (adoptionRecord.getNoticeOptions() > Math.pow(2, i)) {
+						noticeArray[i] = 1;
+					} else {
+						noticeArray[i] = 0;
+					}
+					System.out.println("noticeArray[" + i + "]=" + noticeArray[i]);
+				}
+
+				m.addAttribute("noticeArray", noticeArray);
+				// 存在的領養紀錄加入Attribute
+				m.addAttribute("adoptionRecord", adoptionRecord);
+			}
+		}
+
+		// 顯示今天日期
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		m.addAttribute("Today", sdf.format(new Date()));
-		m.addAttribute("animal", animalsService.read(animalsId));
-		m.addAttribute("adoptionRecord", new AdoptionRecords());
-		m.addAttribute("member", (Members) session.getAttribute("LoginOK"));
 		return "adopt/AdoptNotice";
 	}
 
@@ -49,44 +78,47 @@ public class AdoptController {
 			@RequestParam("notice3") Integer notice3, @RequestParam("notice4") Integer notice4,
 			@RequestParam("notice5") Integer notice5, @RequestParam("notice6") Integer notice6,
 			@RequestParam("notice7") Integer notice7, @RequestParam("notice8") Integer notice8,
-			@RequestParam("notice9") Integer notice9, @RequestParam("notice10") Integer notice10) {
+			@RequestParam("notice9") Integer notice9, @RequestParam("notice10") Integer notice10,
+			@RequestParam("animalId") Integer animalsId) {
+		// 將注意事項選項二進位轉成十進位
 		int[] notice = { notice1, notice2, notice3, notice4, notice5, notice6, notice7, notice8, notice9, notice10 };
 		Integer sum = 0;
 		for (int i = 0; i < notice.length; i++) {
 			sum = (int) (sum + notice[i] * Math.pow(2, i));
 		}
 
-		Members member = (Members) session.getAttribute("LoginOK");
-		adoptionRecords.setMember(member);
-		Animals animal = animalsService.read(adoptionRecords.getAnimalId());
-		adoptionRecords.setAnimal(animalsService.read(adoptionRecords.getAnimalId()));
+		// 賦予adoptionRecords值
+		adoptionRecords.setMember((Members) session.getAttribute("LoginOK"));// 更新還是要重設一次
+		adoptionRecords.setAnimal(animalsService.read(animalsId));
 		adoptionRecords.setNoticeOptions(sum);
+		adoptionRecordsService.update(adoptionRecords);
 
-		List<AdoptionRecords> adoptionRecord = adoptionRecordsService.read(member.getId(), animal.getAnimalId());
-		System.out.println("adoptionRecordsService.read(member.getId(), animal.getAnimalId()): " + adoptionRecord.isEmpty());
-		if (adoptionRecord.isEmpty()) {
-			adoptionRecords.setCreatedAt(new Date());
-			adoptionRecordsService.create(adoptionRecords);
-			System.out.println("inside adoptionRecords.getMemberId()>0");
-		}else {
-			adoptionRecordsService.update(adoptionRecords);
-		}
-
-		System.out.println("member.getId():"+member.getId()+", animal.getAnimalId():"+ animal.getAnimalId());
-		m.addAttribute("adoptionRecord", adoptionRecord);
+		m.addAttribute("adoptionRecord", adoptionRecords);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		m.addAttribute("Today", sdf.format(new Date()));
 		return "adopt/AdoptApply";
 	}
 
+//	@GetMapping("/adoptApply")
+//	public String processAdoptApplyRefresh(Model m) {
+//		return "redirect:/adopt/adoptApply";
+//	}
+
 	@GetMapping("/apply")
-	public String processApply(@RequestParam("animalId") Integer animalId, Model m) {
+	public String processApply(@ModelAttribute("adoptionRecord") AdoptionRecords adoptionRecords,
+			@RequestParam("animalId") Integer animalsId, Model m) {
+
 		Members member = (Members) session.getAttribute("LoginOK");
-		Animals animals = animalsService.read(animalId);
+		Animals animals = animalsService.read(animalsId);
+
 		animals.setMember(member);
 		animals.setIsAdoptionAvailable(0);
 		animalsService.update(animals);
-//		adoptionRecords.setAdoptionStatus(1);
+
+		adoptionRecords.setMember(member);// 更新還是要重設一次
+		adoptionRecords.setAnimal(animals);
+		adoptionRecordsService.update(adoptionRecords);
+
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		m.addAttribute("source", "AdoptAnimal");
 		return "adopt/AdoptAnimal";
