@@ -90,8 +90,7 @@
 			var forumId  = forum.id
 			var $forums = $("#"+forum.id)
 // 	 		console.log("forumId: "+forumId)
-	 		
-	 		
+	 			 		
 									$.ajax({
 										type:'GET',
 										url:'showComments?forumsId='+forumId,
@@ -110,11 +109,11 @@
 
 										const login = `<a href="<c:url value='/member/login' />">`
 										if(${empty LoginOK}){
-											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
+											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 // 											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 										}else{											
-											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<textarea resize='vertical' type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></textarea></div>")
+											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<br/><textarea resize='vertical' type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></textarea></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
 											}
 
@@ -125,15 +124,17 @@
 // 													console.log("hi hi");
 // 													console.log(forumId);
 // 													var id = this.forumId;
-													var comment = this.value;
+// 													var comment = this.value;
+													var comment = $(this).val().replace(/\n/g, "<br />")
+// 															.val().replace(/\n/g, "<br />")
 // 													console.log(id);
 // 													console.log(comment);
 												if (e.shiftKey && e.keyCode == 13) {
 													var event = $(this).val();
-// 											        $(this).val(event + '/n' + '<br>');
-											        $(this).val(event + '<br>');
+// 											        $(this).val(event + '/n' );
+// 											        $(this).val(event + '<br>');
 												}												
-												else if (e.keyCode == 13 && comment!="") {
+												else if (e.keyCode == 13 && comment!=""&&comment!="<br />") {
 												$.ajax({
 												  url: "saveComments",
 												  data: {
