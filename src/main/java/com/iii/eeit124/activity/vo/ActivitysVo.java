@@ -14,29 +14,60 @@ public class ActivitysVo {
 
 	private Integer id;
 
+	/**
+	 * 活動建立時間
+	 */
 	private String createDate;
 
 	/**
+	 * 活動時間
 	 * yyyy/MM/dd hh:mm:ss
 	 */
 	private String activityDate;
 
+	/**
+	 * 活動名稱
+	 */
 	private String name;
 
+	/**
+	 * 活動主題
+	 */
 	private String topic;
 
+	/**
+	 * 活動內容說明
+	 */
 	private String content;
 
+	/**
+	 * 位置
+	 */
 	private String location;
 
+	/**
+	 * 限制人數
+	 */
 	private Integer limitNum;
 
+	/**
+	 * 限制類型
+	 */
 	private String limitType;
 
+	/**
+	 * 限制人數
+	 */
 	private Integer limitPeople;
 
+	/**
+	 * 活動類型
+	 */
 	private String activitysType;
 
+	/**
+	 * 報名金額
+	 */
 	private Integer amount;
 
 	public void validate() {
