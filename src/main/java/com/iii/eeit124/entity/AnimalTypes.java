@@ -23,7 +23,7 @@ public class AnimalTypes {
 	private String name;
 
 	private Set<Products> products = new HashSet<Products>();
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "animalType", cascade = CascadeType.ALL)
 	public Set<Products> getProducts() {
 		return products;
