@@ -1,6 +1,7 @@
 package com.iii.eeit124.member.service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,4 +15,8 @@ public interface MemberCenterService {
 	Map<String, Object> getSellingHistory(Integer id);
 
 	Map<String, List<Object>> getSellingCountByDate(Integer id);
+
+	Map<String, Object> getSellingHistory(Integer id, Date start, Date last);
+
+	Map<String, List<Object>> getSellingCountByDate(Integer id, Date start, Date last);
 }

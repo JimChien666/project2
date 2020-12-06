@@ -1,6 +1,7 @@
 package com.iii.eeit124.member.dao;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,4 +15,8 @@ public interface MemberCenterDao {
 	public Map<String, Object> getSellingHistory(Integer memberId);
 
 	public Map<String, List<Object>> getSellingCountByDate(Integer memberId);
+
+	public Map<String, Object> getSellingHistory(Integer memberId, Date start, Date last);
+
+	public Map<String, List<Object>> getSellingCountByDate(Integer memberId, Date start, Date last);
 }

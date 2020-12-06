@@ -105,8 +105,8 @@
         <div class="product-area pt-95 pb-70 gray-bg">
             <div class="container">
                 <div class="section-title text-center mb-55">
-                    <h4>Most Populer</h4>
-                    <h2>Recent Products</h2>
+                    <h5>精選商品</h5>
+                    <h2>為您推薦</h2>
                 </div>
                 <div class="row" id="productList">
 

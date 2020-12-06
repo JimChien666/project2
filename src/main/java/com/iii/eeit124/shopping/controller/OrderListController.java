@@ -1,7 +1,12 @@
 package com.iii.eeit124.shopping.controller;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,17 +98,46 @@ public class OrderListController {
 	}
 	
 	@GetMapping("/sellingData.json")
-	public @ResponseBody Map<String, Object> getSellingData(){
+	public @ResponseBody Map<String, Object> getSellingData(
+			@RequestParam(value="date", required = false) String date
+			) throws ParseException{
+		Map<String, Object> sellingCount = new HashMap<>();
 		Members member = (Members)session.getAttribute("LoginOK");
-		Map<String, Object> sellingCount =  memberCenterService.getSellingHistory(member.getId());
+		if (date == null) {
+			sellingCount =  memberCenterService.getSellingHistory(member.getId());			
+		}else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date start = sdf.parse(date+"-01");
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(start);
+			calendar.set(Calendar.DAY_OF_MONTH,1);
+			calendar.add(Calendar.MONTH, 1);
+			Date last = calendar.getTime();
+			System.out.println(last);
+			sellingCount =  memberCenterService.getSellingHistory(member.getId(), start, last);
+		}
 		return sellingCount;
 	}
 	
 	@GetMapping("/sellingCountByDate.json")
-	public @ResponseBody Map<String, List<Object>> getSellingCountByDate(){
+	public @ResponseBody Map<String, List<Object>> getSellingCountByDate(
+			@RequestParam(value="date", required = false) String date
+			) throws ParseException{
+		Map<String, List<Object>> sellingCount = new HashMap<>();
 		Members member = (Members)session.getAttribute("LoginOK");
-		Map<String, List<Object>> sellingCount =  memberCenterService.getSellingCountByDate(member.getId());
+		if (date == null) {
+			sellingCount =  memberCenterService.getSellingCountByDate(member.getId());
+		}else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date start = sdf.parse(date+"-01");
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(start);
+			calendar.set(Calendar.DAY_OF_MONTH,1);
+			calendar.add(Calendar.MONTH, 1);
+			Date last = calendar.getTime();
+			System.out.println(last);
+			sellingCount =  memberCenterService.getSellingCountByDate(member.getId(), start, last);
+		}
 		return sellingCount;
 	}
-	
 }

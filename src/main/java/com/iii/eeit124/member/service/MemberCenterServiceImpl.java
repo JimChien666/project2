@@ -1,6 +1,7 @@
 package com.iii.eeit124.member.service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,14 @@ public class MemberCenterServiceImpl implements MemberCenterService{
 	@Override
 	public Map<String, List<Object>> getSellingCountByDate(Integer memberId) {
 		return dao.getSellingCountByDate(memberId);
+	}
+	@Override
+	public Map<String, Object> getSellingHistory(Integer memberId, Date start, Date last) {
+		return dao.getSellingHistory(memberId, start, last);
+	}
+	@Override
+	public Map<String, List<Object>> getSellingCountByDate(Integer memberId, Date start, Date last) {
+		return dao.getSellingCountByDate(memberId, start, last);
 	}
 	
 }

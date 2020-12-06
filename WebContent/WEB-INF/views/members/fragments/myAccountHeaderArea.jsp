@@ -6,7 +6,7 @@
 		<div class="row">
 			<div class="col-lg-4 col-md-4 col-12">
 				<div class="welcome-area">
-					<p>會員中心</p>
+					<p><a href="<c:url value='/member/myAccount' />" style="color: white;">會員中心</a></p>
 				</div>
 			</div>
 			<div class="col-lg-8 col-md-8 col-12">

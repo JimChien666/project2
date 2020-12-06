@@ -64,7 +64,6 @@ function goSellingCountPage(){
 		if (xhr.readyState == 4) {
 			if (xhr.status == 200) {
 				var responseData = xhr.responseText;
-				console.log(responseData);
 				data = JSON.parse(responseData);
 				var content = "";
 				content += '<ul class="nav nav-tabs navCustom">'+
@@ -121,16 +120,16 @@ function goSellingCountPage(){
 	}
 }
 
-function goSellingCountPageByMonth(){
+function goSellingCountPageByMonth(date){
+	console.log(date);
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "<c:url value='/order/sellingData.json' />",
+	xhr.open("GET", "<c:url value='/order/sellingData.json' />?date="+date,
 			true);
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4) {
 			if (xhr.status == 200) {
 				var responseData = xhr.responseText;
-				console.log(responseData);
 				data = JSON.parse(responseData);
 				var content = "";
 				content += '<ul class="nav nav-tabs navCustom">'+
@@ -141,7 +140,12 @@ function goSellingCountPageByMonth(){
 				'</ul>'+
 				'<button onclick="goSellingCountPage()">整體</button><select style="width: 100px;" onchange="goSellingCountPageByMonth(this.options[this.options.selectedIndex].value)"><option>依月分</option>'
 				for(i=0;i<data["dateChooseList"].length;i++){
-					content += '<option value="'+data["dateChooseList"][i]+'">' + data["dateChooseList"][i] + '</option>'
+					if (data["dateChooseList"][i]==date){
+						content += '<option value="'+data["dateChooseList"][i]+'" selected>' + data["dateChooseList"][i] + '</option>'
+					}else{
+						content += '<option value="'+data["dateChooseList"][i]+'">' + data["dateChooseList"][i] + '</option>'
+					}
+					
 				}
 				content += '</select><div class="row">'+
 				
@@ -178,7 +182,7 @@ function goSellingCountPageByMonth(){
 				'<div id="c3_chart_4"></div>'
 
 				document.getElementById("content").innerHTML=content;
-				getSellingChart();
+				getSellingChartByMonth(date);
 				
 			} else {
 				alert(xhr.status);
@@ -390,7 +394,8 @@ function getSellingChart(){
 				        x: 'x',
 				        columns: [
 				            ['x'].concat(result['date']),
-				            ['每日營收'].concat(result['sum'])
+				            ['累積營收'].concat(result['sum']),
+				            ['每日營收'].concat(result['sumPerDay'])
 				        ]
 				    },
 				    axis: {
@@ -407,7 +412,40 @@ function getSellingChart(){
 	}
 	
 }
-
+function getSellingChartByMonth(date){
+	var xhr = new XMLHttpRequest();
+	xhr.open("Get", "<c:url value='/order/sellingCountByDate.json'/>?date="+date, true);
+	xhr.send();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 ) {
+			if (xhr.status == 200){
+				var responseData = xhr.responseText;
+				
+				result = JSON.parse(responseData);
+				var chart = c3.generate({
+					bindto: '#c3_chart_4',
+					data: {
+				        x: 'x',
+				        columns: [
+				            ['x'].concat(result['date']),
+				            ['累積營收'].concat(result['sum']),
+				            ['每日營收'].concat(result['sumPerDay'])
+				        ]
+				    },
+				    axis: {
+				        x: {
+				            type: 'timeseries',
+				            tick: {
+				                format: '%Y-%m-%d'
+				            }
+				        }
+				    }
+				});
+			}
+		}
+	}
+	
+}
 </script>
 </body>
 </html>
