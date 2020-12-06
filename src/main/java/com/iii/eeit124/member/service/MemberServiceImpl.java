@@ -7,7 +7,6 @@ import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.member.dao.MemberDao;
 import com.iii.eeit124.member.dao.MemberDaoImpl;
 
-@Service
 public class MemberServiceImpl implements MemberService {
 
 	MemberDao  dao ;
