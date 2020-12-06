@@ -17,9 +17,9 @@ public class DateUtils {
 		if (date == null) {
 			return null;
 		}
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-		sdf.setTimeZone(TimeZone.getTimeZone("GMT") );
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
 		return sdf.format(date);
 	}
 
@@ -33,9 +33,9 @@ public class DateUtils {
 		if (date == null) {
 			return null;
 		}
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-		sdf.setTimeZone(TimeZone.getTimeZone("GMT") );
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
 		try {
 			return sdf.parse(date);
 		} catch (ParseException e) {
