@@ -113,20 +113,31 @@
 											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 										}else{											
-											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
+// 											$forums.append("回覆本討論串:<textarea onkeyup='autogrow(this);'  style='margin: 0px 10px 10px 10px; background-color:#F5F5F5; resize:none; overflow:auto;'  type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+">")
+
+											
+											
+											$forums.append("<div contenteditable='true' style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;' id=reply"+forum.id+">有甚麼想法呢?")
+// 											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<textarea onkeyup='autogrow(this);' style='resize:none; '  type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+">")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
 											}
 
 
-											$("#reply"+forum.id).keypress(function (e) {
+											$("#reply"+forum.id).keydown(function (e) {
 												// $("input").keypress(function (e) {
 // 													console.log("hi hi");
 // 													console.log(forumId);
 // 													var id = this.forumId;
-													var comment = this.value;
+													var comment = this.html;
 // 													console.log(id);
 // 													console.log(comment);
-												if (e.keyCode == 13&&comment!="") {
+												 if (e.shiftKey && e.keyCode == 13) {
+												        // event.preventDefault();
+												        var e = $(this).val();
+												        $(this).val(e + '\n');
+												    }
+
+												 else if (e.keyCode == 13&&comment!="") {
 												$.ajax({
 												  url: "saveComments",
 												  data: {
@@ -140,7 +151,7 @@
 //														  var $comments = $('.${Forums.id}');
 //															console.log($comments);
 
-												  $("input").prop("value","");
+												  $("#reply"+forum.id).prop("value","");
 												}
 												//  dataType: dataType
 												});
@@ -254,9 +265,21 @@ function asynRequest(id) {
 
 
 
+// function autogrow(textarea){
 
+// 	textarea.style.height = textarea.scrollHeight + 'px';
+	
+// 	var adjustedHeight=textarea.clientHeight;
+// 	console.log(adjustedHeight);	
+// 	    adjustedHeight=Math.max(textarea.scrollHeight,adjustedHeight);	
+// 	    if (adjustedHeight>textarea.clientHeight){	
+// 	        textarea.style.height=adjustedHeight+'px';	
+// 	    }	
+// 	}
 
-
+// textarea.addEventListener("input", function() (
+// 		this. style.height =$(this.scrollHeight]px ;
+// 		j);
 
 
 
