@@ -178,7 +178,7 @@ function getOrderBy(){
 	content += "<option value=2>" + "以價格小至大排序 ↑" + "</option>";
 	content += "<option value=3>" + "以名稱大至小排序 ↓" + "</option>";
 	content += "<option value=4>" + "以價格大至小排序 ↓" + "</option>";
-	content += "<option value=5>" + "以名稱排序 ↓" + "</option>";
+	content += "<option value=5>" + "以上架時間排序 ↓" + "</option>";
 
 	content += "</select>";
 	var divs = document.getElementById("OrderBySelectBar");

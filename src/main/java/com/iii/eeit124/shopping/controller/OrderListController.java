@@ -82,11 +82,13 @@ public class OrderListController {
 	public String getMyAccountPage(Model model) {
 		Members member = (Members)session.getAttribute("LoginOK");
 		Map<String, BigDecimal> dataPerMonth =  memberCenterService.getDataPerMonth(member.getId());
-		System.out.println("hi");
-		System.out.println(dataPerMonth);
 		model.addAttribute("dataPerMonth", dataPerMonth);
 		Map<String, BigDecimal> categoriesCost = shoppingAanlysisService.getAllCategoriesCost(member.getId());
+		Map<String, BigDecimal> animalTypesCost = shoppingAanlysisService.getAllAnimalTypeCost(member.getId());
+		Map<String, BigDecimal> colorsCost = shoppingAanlysisService.getAllColorCost(member.getId());
 		model.addAttribute("categoriesCost", categoriesCost);
+		model.addAttribute("animalTypesCost", animalTypesCost);
+		model.addAttribute("colorsCost", colorsCost);
 		return "orders/orderAnalysis";
 	}
 }

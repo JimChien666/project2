@@ -90,8 +90,7 @@
 			var forumId  = forum.id
 			var $forums = $("#"+forum.id)
 // 	 		console.log("forumId: "+forumId)
-	 		
-	 		
+	 			 		
 									$.ajax({
 										type:'GET',
 										url:'showComments?forumsId='+forumId,
@@ -110,34 +109,33 @@
 
 										const login = `<a href="<c:url value='/member/login' />">`
 										if(${empty LoginOK}){
-											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
+											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
+// 											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 										}else{											
-// 											$forums.append("回覆本討論串:<textarea onkeyup='autogrow(this);'  style='margin: 0px 10px 10px 10px; background-color:#F5F5F5; resize:none; overflow:auto;'  type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+">")
-
-											
-											
-											$forums.append("<div contenteditable='true' style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;' id=reply"+forum.id+">有甚麼想法呢?")
-// 											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<textarea onkeyup='autogrow(this);' style='resize:none; '  type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+">")
+											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<br/><textarea resize='vertical' type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></textarea></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
 											}
 
-
+// 											$('.auto').autoboxBind();
+											$('textarea').autogrow();
 											$("#reply"+forum.id).keydown(function (e) {
 												// $("input").keypress(function (e) {
 // 													console.log("hi hi");
 // 													console.log(forumId);
 // 													var id = this.forumId;
-													var comment = this.html;
+// 													var comment = this.value;
+													var comment = $(this).val().replace(/\n/g, "<br />")
+													var commentNoBr = comment.replace(/<br \/>/g,"")													
+// 															.val().replace(/\n/g, "<br />")
 // 													console.log(id);
 // 													console.log(comment);
-												 if (e.shiftKey && e.keyCode == 13) {
-												        // event.preventDefault();
-												        var e = $(this).val();
-												        $(this).val(e + '\n');
-												    }
-
-												 else if (e.keyCode == 13&&comment!="") {
+												if (e.shiftKey && e.keyCode == 13) {
+													var event = $(this).val();
+// 											        $(this).val(event + '/n' );
+// 											        $(this).val(event + '<br>');
+												}												
+												else if (e.keyCode == 13 && commentNoBr!="") {
 												$.ajax({
 												  url: "saveComments",
 												  data: {
@@ -147,11 +145,10 @@
 												  success:function(){
 //														  reset();
 														showPage(mapData);
-
 //														  var $comments = $('.${Forums.id}');
 //															console.log($comments);
 
-												  $("#reply"+forum.id).prop("value","");
+												  $("textarea").prop("value","");
 												}
 												//  dataType: dataType
 												});
@@ -265,21 +262,9 @@ function asynRequest(id) {
 
 
 
-// function autogrow(textarea){
 
-// 	textarea.style.height = textarea.scrollHeight + 'px';
-	
-// 	var adjustedHeight=textarea.clientHeight;
-// 	console.log(adjustedHeight);	
-// 	    adjustedHeight=Math.max(textarea.scrollHeight,adjustedHeight);	
-// 	    if (adjustedHeight>textarea.clientHeight){	
-// 	        textarea.style.height=adjustedHeight+'px';	
-// 	    }	
-// 	}
 
-// textarea.addEventListener("input", function() (
-// 		this. style.height =$(this.scrollHeight]px ;
-// 		j);
+
 
 
 
@@ -398,5 +383,7 @@ function asynRequest(id) {
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
+	
+	
 </body>
 </html>
