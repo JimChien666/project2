@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +21,7 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
+<!-- <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script> -->
 
 
 
@@ -55,6 +57,11 @@ h1 {
 
 </head>
 <body>
+<%-- <script src="<c:url value='/js/ckeditor/config.js' />"></script> --%>
+
+<%-- <script src="<c:url value='/js/ckeditor/ckeditor.js' />"></script> --%>
+<script src="<c:url value='/assets/javascripts/ckeditor/ckeditor.js' />"></script>
+
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
 	</div>
@@ -114,7 +121,7 @@ articleType:
 
 <br>
 <br>
-article:<form:textarea name="content" id="editor" path="content" />
+article:<form:textarea name="editor" id="editor" path="content" />
 				
 		<br>
 		<form:hidden value="1" path="article.activitysid" />
@@ -124,11 +131,9 @@ article:<form:textarea name="content" id="editor" path="content" />
 	
 	
 	<script>
-        ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+
+CKEDITOR.replace( "editor", {});
+
     </script>
 	
 	
