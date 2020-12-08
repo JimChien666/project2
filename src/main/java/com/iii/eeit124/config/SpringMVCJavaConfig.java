@@ -3,6 +3,7 @@ package com.iii.eeit124.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -11,10 +12,14 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.iii.eeit124.shopping.controller.CartController;
+//import com.iii.eeit124.util.MyAspect;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.iii.eeit124")
 @PropertySource(value = { "classpath:application.properties" })
+//@EnableAspectJAutoProxy
 public class SpringMVCJavaConfig implements WebMvcConfigurer {
 //	@Autowired
 //	private Environment env;
@@ -51,4 +56,15 @@ public class SpringMVCJavaConfig implements WebMvcConfigurer {
 	    resolver.setDefaultEncoding("utf-8");
 	    return resolver;
 	}
+	
+//	@Bean
+//    public CartController fooService() {
+//        return new CartController();
+//    }
+//
+//    @Bean
+//    public MyAspect myAspect() {
+//        return new MyAspect();
+//    }
+
 }
