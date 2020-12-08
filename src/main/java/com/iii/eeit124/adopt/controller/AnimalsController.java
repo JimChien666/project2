@@ -24,13 +24,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import com.iii.eeit124.adopt.ImgurAPI;
 import com.iii.eeit124.adopt.service.AdoptionRecordsService;
 import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.adopt.service.BreedsService;
 import com.iii.eeit124.entity.Animals;
 import com.iii.eeit124.entity.AnimalsFiles;
 import com.iii.eeit124.entity.Breeds;
+import com.iii.eeit124.entity.ImageResponse;
 import com.iii.eeit124.entity.Members;
+//import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Controller
 @RequestMapping("/MemberCenter")
@@ -45,6 +53,7 @@ public class AnimalsController {
 	public BreedsService breedsService;
 	@Autowired
 	public AdoptionRecordsService adoptionRecordsService;
+	static final ImgurAPI imgurApi = createImgurAPI();
 
 	// 轉至分派器
 //	@GetMapping("/adoptDispatcher")
@@ -99,8 +108,12 @@ public class AnimalsController {
 		// 新增照片部分
 		MultipartFile mFile = entity.getAnimalFiles();
 		String filename = mFile.getOriginalFilename();// 取得檔名
+//		System.out.println("filename"+filename);
 		String fileTempDirPath = sc.getRealPath("/") + "uploadTempDir\\";// 存放的資料夾
 		InputStream is = null;
+		String fileSavePath = "";
+		FileInputStream is1 = null;
+		byte[] b1 = null;
 		if (!mFile.isEmpty()) {
 
 			File dirPath = new File(fileTempDirPath);
@@ -112,7 +125,7 @@ public class AnimalsController {
 			}
 
 			// 設儲存路徑
-			String fileSavePath = fileTempDirPath + filename;
+			fileSavePath = fileTempDirPath + filename;
 			File saveFile = new File(fileSavePath);
 			mFile.transferTo(saveFile);
 			System.out.println("fileSavePath:" + fileSavePath);// 檔案路徑
@@ -122,13 +135,13 @@ public class AnimalsController {
 			headers.setContentType(MediaType.IMAGE_JPEG);
 
 			if (filename != null && filename.length() != 0) {
-				FileInputStream is1 = new FileInputStream(fileSavePath);
-				byte[] b = new byte[is1.available()];
-				is1.read(b);
+				is1 = new FileInputStream(fileSavePath);
+				b1 = new byte[is1.available()];
+				is1.read(b1);
 				is1.close();
 
 				Set<AnimalsFiles> files = new HashSet<AnimalsFiles>();
-				Blob blob = new SerialBlob(b);
+				Blob blob = new SerialBlob(b1);
 				AnimalsFiles file = new AnimalsFiles("image", filename, blob);
 				file.setAnimals(entity);
 				files.add(file);
@@ -137,8 +150,8 @@ public class AnimalsController {
 		} else {
 			// 新增沒圖片給預設圖片
 			// 設定圖片格式
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.IMAGE_JPEG);
+//			HttpHeaders headers = new HttpHeaders();
+//			headers.setContentType(MediaType.IMAGE_JPEG);
 
 			filename = "NoImage.png";
 			is = sc.getResourceAsStream(// getResourceAsStream開啟一個檔案
@@ -154,6 +167,19 @@ public class AnimalsController {
 			files.add(file);
 			entity.setFiles(files);
 		}
+		
+		
+//		RequestBody request = RequestBody.create(b1);
+//		System.out.println("request"+request);
+//		Call<ImageResponse> call =  imgurApi.postImage(request);
+//		System.out.println("call"+call);
+//		Response<ImageResponse> res = call.execute();
+//		System.out.println("res"+res);
+//		
+//		System.out.println("是否成功: " + res.isSuccessful());
+//		System.out.println("imgur"+res.body().data.link);
+		
+		
 
 		// 新增文字部分
 		entity.setCreatedAt(new Date());
@@ -210,8 +236,8 @@ public class AnimalsController {
 			System.out.println("fileSavePath:" + fileSavePath);// 檔案路徑
 
 			// 設定圖片格式
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.IMAGE_JPEG);
+//			HttpHeaders headers = new HttpHeaders();
+//			headers.setContentType(MediaType.IMAGE_JPEG);
 
 			if (filename != null && filename.length() != 0) {
 				FileInputStream is1 = new FileInputStream(fileSavePath);
@@ -261,5 +287,13 @@ public class AnimalsController {
 		animalsService.delete(animalId);
 		
 		return "redirect:/MemberCenter/ReadAnimal";
+	}
+	
+	static ImgurAPI createImgurAPI(){
+		Retrofit retrofit = new Retrofit.Builder()
+				.addConverterFactory(GsonConverterFactory.create())
+			    .baseUrl(ImgurAPI.SERVER)
+			    .build();
+		return retrofit.create(ImgurAPI.class);
 	}
 }
