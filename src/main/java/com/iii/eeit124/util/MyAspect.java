@@ -5,7 +5,7 @@
 //
 //@Aspect
 //public class MyAspect {
-//	@Before("execution(* com.iii.eeit124.shopping.controller.CartController)")
+//	@Before("execution(* com.iii.eeit124.shopping.controller.CartController.goToCartPage(..))")
 //    public void logBefore(JoinPoint joinPoint) {
 //
 //        System.out.println("logBefore() is running!");

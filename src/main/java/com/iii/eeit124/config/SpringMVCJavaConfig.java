@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.iii.eeit124.shopping.controller.CartController;
+//import com.iii.eeit124.shopping.controller.CartController;
 //import com.iii.eeit124.util.MyAspect;
 
 @Configuration
