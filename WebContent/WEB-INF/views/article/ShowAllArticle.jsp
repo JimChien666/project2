@@ -131,7 +131,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			$artilceListTable.empty();
 			// 		$artilceList.append("<table border=1 style='width: 100%; font-size: 2em;' ><tbody>")
 
-			$artilceListTable.append("<tr><th>文章標題</th></tr>")
+			$artilceListTable.append("<tr><th>文章標題</th><th>追蹤</th></tr>")
 			$.each(articleList, function(i, article) {
 
 				// 			<td><a href="<c:url value='goArticlePage?articleId=${Article.getId()}' />">
@@ -139,9 +139,10 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 				var urlStringent = "<c:url value='goArticlePage?articleId="
 						+ article.id + "' />";
 
+
 				$artilceListTable
 						.append("<tr><td><a href="+urlStringent+"><div>"
-								+ article.title + "</div></a></td></tr>")
+								+ article.title + "</div></a></td><td class='product-wishlist-cart' id='forumsSelect1'><a onclick='follow(this)' style='color: white; cursor: pointer;' id='"+article.id+"'>追蹤</a></td></tr>")
 				// 			$artilceListTable.append("<tr><td>"+article.title+"</td></tr>")	
 			})
 
@@ -261,8 +262,32 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 				}
 			}
 
-		}
+		}		
 	});
+	function follow(Obj){
+
+		
+		console.log(Obj.id)
+		console.log("${LoginOK.id}")
+
+
+// 		$.ajax({
+// 			type : "GET",
+// 			url : "<c:url value='getArticleList' />?articleTypeId=1",
+// 			success : function(mapData) {
+// 				showArticleList(mapData)
+// 			}
+// 		});
+
+
+
+
+
+
+
+
+		
+		}
 </script>
 <body>
 	<div>
