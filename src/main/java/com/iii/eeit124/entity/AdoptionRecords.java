@@ -35,12 +35,14 @@ public class AdoptionRecords {
 	private Integer noticeOptions;
 	//領養申請
 	private String applicantName;
+	private Integer agreement;
 	private String feedAddress;
 	private String feedAddressType;
 	private Integer currentAnimalsNum;
 	private String adopterName;
 	private String personalId;
 	private Date birthday;
+	private String birthdayString;
 	private String tel;
 	private String mobile;
 	private String email;
@@ -146,6 +148,13 @@ public class AdoptionRecords {
 	public void setApplicantName(String applicantName) {
 		this.applicantName = applicantName;
 	}
+	@Column(name = "Agreement")
+	public Integer getAgreement() {
+		return agreement;
+	}
+	public void setAgreement(Integer agreement) {
+		this.agreement = agreement;
+	}
 	@Column(name = "FeedAddress")
 	public String getFeedAddress() {
 		return feedAddress;
@@ -188,6 +197,12 @@ public class AdoptionRecords {
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
+	public String getBirthdayString() {
+		return birthdayString;
+	}
+	public void setBirthdayString(String birthdayString) {
+		this.birthdayString = birthdayString;
+	}
 	@Column(name = "Tel")
 	public String getTel() {
 		return tel;
@@ -223,16 +238,16 @@ public class AdoptionRecords {
 	public void setMailingAddress(String mailingAddress) {
 		this.mailingAddress = mailingAddress;
 	}
-	
 	@Override
 	public String toString() {
 		return "AdoptionRecords [adoptionId=" + adoptionId + ", memberId=" + memberId + ", animalId=" + animalId
 				+ ", adoptionDate=" + adoptionDate + ", reviewStatus=" + reviewStatus + ", adoptionStatus="
 				+ adoptionStatus + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt
 				+ ", member=" + member + ", animal=" + animal + ", noticeOptions=" + noticeOptions + ", applicantName="
-				+ applicantName + ", feedAddress=" + feedAddress + ", feedAddressType=" + feedAddressType
-				+ ", currentAnimalsNum=" + currentAnimalsNum + ", adopterName=" + adopterName + ", personalId="
-				+ personalId + ", birthday=" + birthday + ", tel=" + tel + ", mobile=" + mobile + ", email=" + email
-				+ ", residentAddress=" + residentAddress + ", mailingAddress=" + mailingAddress + "]";
+				+ applicantName + ", agreement=" + agreement + ", feedAddress=" + feedAddress + ", feedAddressType="
+				+ feedAddressType + ", currentAnimalsNum=" + currentAnimalsNum + ", adopterName=" + adopterName
+				+ ", personalId=" + personalId + ", birthday=" + birthday + ", birthdayString=" + birthdayString
+				+ ", tel=" + tel + ", mobile=" + mobile + ", email=" + email + ", residentAddress=" + residentAddress
+				+ ", mailingAddress=" + mailingAddress + "]";
 	}
 }

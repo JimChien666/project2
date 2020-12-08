@@ -37,6 +37,8 @@
 		</div>
 	</div>
 	<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
+	
+	<div class="divFixed btn-style1" id="noticeInput">一鍵輸入</div>
 	<!-- ===================================================================================== -->
 	<div class="wid450px margin0Auto mt-50 mb-50">
 		<div>

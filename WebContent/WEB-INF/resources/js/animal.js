@@ -28,6 +28,7 @@ window.onload = function() {
 	$("#animalFilesCreate").change(function() {
 		$("#animalFilesDiv").show();
 		readURL(this);
+//		alert(this.files.length);
 	});
 	$("#animalFilesUpdate").change(function() {
 		$("#animalFilesDivOrigin").hide();

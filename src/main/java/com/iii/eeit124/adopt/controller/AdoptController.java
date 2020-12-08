@@ -1,5 +1,6 @@
 package com.iii.eeit124.adopt.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ import com.iii.eeit124.entity.Members;
 @Controller
 @RequestMapping("/adopt")
 public class AdoptController {
-
+	
 	@Autowired
 	HttpSession session;
 	@Autowired
@@ -30,6 +31,7 @@ public class AdoptController {
 	@Autowired
 	public AdoptionRecordsService adoptionRecordsService;
 
+	// detail轉至notice
 	@GetMapping("/adoptNotice/{animalId}")
 	public String processAdoptNotice(@PathVariable("animalId") Integer animalsId, Model m) {
 
@@ -72,14 +74,16 @@ public class AdoptController {
 		return "adopt/AdoptNotice";
 	}
 
+	// notice轉至apply
 	@PostMapping("/adoptApply")
 	public String processAdoptApply(@ModelAttribute("adoptionRecord") AdoptionRecords adoptionRecords, Model m,
 			@RequestParam("notice1") Integer notice1, @RequestParam("notice2") Integer notice2,
 			@RequestParam("notice3") Integer notice3, @RequestParam("notice4") Integer notice4,
 			@RequestParam("notice5") Integer notice5, @RequestParam("notice6") Integer notice6,
 			@RequestParam("notice7") Integer notice7, @RequestParam("notice8") Integer notice8,
-			@RequestParam("notice9") Integer notice9, @RequestParam("notice10") Integer notice10,
-			@RequestParam("animalId") Integer animalsId) {
+			@RequestParam("notice9") Integer notice9, @RequestParam("notice10") Integer notice10
+//			,@RequestParam("animalId") Integer animalsId
+	) {
 		// 將注意事項選項二進位轉成十進位
 		int[] notice = { notice1, notice2, notice3, notice4, notice5, notice6, notice7, notice8, notice9, notice10 };
 		Integer sum = 0;
@@ -89,13 +93,14 @@ public class AdoptController {
 
 		// 賦予adoptionRecords值
 		adoptionRecords.setMember((Members) session.getAttribute("LoginOK"));// 更新還是要重設一次
-		adoptionRecords.setAnimal(animalsService.read(animalsId));
+		adoptionRecords.setAnimal(animalsService.read(adoptionRecords.getAnimalId()));
 		adoptionRecords.setNoticeOptions(sum);
 		adoptionRecordsService.update(adoptionRecords);
 
 		m.addAttribute("adoptionRecord", adoptionRecords);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		m.addAttribute("Today", sdf.format(new Date()));
+		System.out.println("readytoleave processAdoptApply");
 		return "adopt/AdoptApply";
 	}
 
@@ -104,19 +109,27 @@ public class AdoptController {
 //		return "redirect:/adopt/adoptApply";
 //	}
 
-	@GetMapping("/apply")
+	// apply送出
+	@PostMapping("/apply")
 	public String processApply(@ModelAttribute("adoptionRecord") AdoptionRecords adoptionRecords,
-			@RequestParam("animalId") Integer animalsId, Model m) {
-
+//			@RequestParam("animalId") Integer animalsId,
+			Model m) throws ParseException {
 		Members member = (Members) session.getAttribute("LoginOK");
-		Animals animals = animalsService.read(animalsId);
+		Animals animals = animalsService.read(adoptionRecords.getAnimalId());
 
 		animals.setMember(member);
 		animals.setIsAdoptionAvailable(0);
 		animalsService.update(animals);
 
+		if (null == adoptionRecords.getAgreement()) {
+			adoptionRecords.setAgreement(0);
+		}
 		adoptionRecords.setMember(member);// 更新還是要重設一次
 		adoptionRecords.setAnimal(animals);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = sdf.parse(adoptionRecords.getBirthdayString());
+		adoptionRecords.setBirthday(date);
+		adoptionRecords.setCreatedAt(new Date());
 		adoptionRecordsService.update(adoptionRecords);
 
 		m.addAttribute("AnimalsList", animalsService.readAll());

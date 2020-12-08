@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <title>動物認養申請書</title>
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	crossorigin="anonymous"></script>
 <script src="<c:url value='/js/animal.js' />" type="text/javascript"
 	charset="UTF-8"></script>
 <jsp:include page="../fragments/links.jsp" />
@@ -34,28 +37,17 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="divFixed btn-style1" id="applyInput">一鍵輸入</div>
 
 	<!-- ============================================================================================= -->
 
-	<!-- 	<div class="mt-50 divCenter"> -->
-	<!-- 		<h1>動物認養申請書</h1> -->
-	<!-- 	</div> -->
-	<form:form action="/team6/adopt/adoptApply" method="POST"
+	<form:form action="/team6/adopt/apply" method="POST"
 		modelAttribute="adoptionRecord">
 		<div class="wid1000px">
-			<!-- 閱讀 -->
-			<c:choose>
-				<c:when test="${adoptionRecord.applicantName == null}">
-					<form:input path="applicantName" type="text"
-						class="mt-50 inputH30W200 inputBorder font22"
-						placeholder="請輸入申請人姓名" value="${adoptionRecord.member.name}" />
-				</c:when>
-				<c:otherwise>
-					<form:input path="applicantName" type="text"
-						class="mt-50 inputH30W200 inputBorder font22"
-						placeholder="請輸入申請人姓名" value="${adoptionRecord.applicantName}" />
-				</c:otherwise>
-			</c:choose>
+			<form:input path="applicantName" type="text"
+				class="mt-50 inputH30W200 inputBorder font22" placeholder="請輸入申請人姓名"
+				value="${adoptionRecord.member.name}" />
 			<h4 class="div1 mb-30">已年滿20歲，並具有飼養之能力及場所，願向貴處認養動物乙隻，詳細資料如下:</h4>
 			<div class="font22">
 				<div class="wid700px">
@@ -79,6 +71,11 @@
 							領養編號
 							<form:input path="adoptionId"
 								value="${adoptionRecord.adoptionId}" />
+							會員編號
+							<form:input path="memberId" value="${adoptionRecord.member.id}" />
+							動物編號
+							<form:input path="animalId"
+								value="${adoptionRecord.animal.animalId}" />
 						</div>
 					</div>
 					<div class="ptb-50">
@@ -110,7 +107,7 @@
 					本認養申請資料送出後，不代表已完成所選動物之認養，亦不代表您已具認養本動物的第一優先權，認養以收容所現場完成程序為準。</div>
 			</div>
 			<div class="mb-30">
-				<input type="checkbox" class="square20px">
+				<form:checkbox path="agreement" value="1" class="square20px" id="agreement"/>
 				<h3 class="div1">我已詳盡閱讀以上內容</h3>
 			</div>
 			<!-- 申請 -->
@@ -126,11 +123,11 @@
 				<div class="mb-20">
 					2.飼養地點型態：
 					<form:input path="feedAddressType"
-						placeholder="請輸入飼養地點型態(大樓、公寓、平房等)" />
+						placeholder="請輸入飼養地點型態(大樓、公寓、平房等)" id="feedAddressType"/>
 				</div>
 				<div class="mb-20">
 					3.現有動物隻數：
-					<form:input path="currentAnimalsNum" placeholder="請輸入隻數" />
+					<form:input path="currentAnimalsNum" placeholder="請輸入隻數" id="currentAnimalsNum"/>
 				</div>
 				<div class="mb-20">
 					<div class="mb-10">
@@ -138,29 +135,30 @@
 					</div>
 					<div class="mb-10">
 						認養人姓名：
-						<form:input path="adopterName" type="text" />
+						<form:input path="adopterName"
+							value="${adoptionRecord.member.name}" />
 						<br>
 					</div>
 					<div class="mb-10">
 						*身分證字號：
-						<form:input path="personalId" type="text" />
+						<form:input path="personalId" type="text" id="personalId"/>
 						<br>
 					</div>
 					<div class="mb-10">
 						*出生日期：
-						<form:input path="birthday" type="text" class="datepicker" />
+						<form:input path="birthdayString" type="date" id="date" />
 						<br>
 					</div>
 					<div class="mb-10">
 						室內電話：
-						<form:input path="tel" type="text" class="wid305px" />
+						<form:input path="tel" type="text" class="wid305px" id="tel"/>
 						行動電話：
-						<form:input path="mobile" type="text" class="wid305px" />
+						<form:input path="mobile" type="text" class="wid305px" id="mobile"/>
 						<br>
 					</div>
 					<div class="mb-10">
 						電子郵件：
-						<form:input path="email" type="text" />
+						<form:input path="email" value="${adoptionRecord.member.email}" />
 						<br>
 					</div>
 					<div class="mb-10">
@@ -170,24 +168,36 @@
 					</div>
 					<div class="mb-50">
 						通訊地址
-						<form:input path="mailingAddress" type="text" />
+						<form:input path="mailingAddress"
+							value="${adoptionRecord.member.address}" />
 						<br>
 					</div>
 				</div>
 			</div>
 		</div>
 
-	<!-- ============================================================================================= -->
+		<!-- ============================================================================================= -->
 
-
-	<div class="divCenter mb-50">
-		<a href="<c:url value='/adopt'/>"
-			class="btn-style-cancel btn-style-border">取消</a> <a
-			href="<c:url value='/adopt/apply'/>?animalId=${adoptionRecord.animal.animalId}"
-			class="btn-style1 btn-style-border" id="save">送出申請</a>
-	</div>
+		<div class="divCenter mb-50">
+			<a href="<c:url value='/adopt'/>"
+				class="btn-style-cancel btn-style-border">取消</a>
+			<form:button value="Send" class="btn-style1 btn-style-border">送出申請</form:button>
+		</div>
 	</form:form>
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
 </body>
+<script>
+//一鍵輸入
+$('#applyInput').click(function(){
+	$('input:checkbox:first').attr("checked",'checked');
+	$('#feedAddressType').val("大樓");
+	$('#currentAnimalsNum').val("0");
+	$('#personalId').val("A123456789");
+	$('#date').val("1991-05-05");
+	$('#tel').val("02-2239-5214");
+	$('#mobile').val("0985-459-725");
+	$('#residentAddress').val("桃園市平鎮區")
+});
+</script>
 </html>
