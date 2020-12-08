@@ -18,7 +18,8 @@
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 <jsp:include page="../fragments/links.jsp" />
 
-
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
 
 <html>
@@ -341,7 +342,7 @@ function asynRequest(id) {
 			</a></li>
 		</ul>		
 		<ul style="list-style: none; margin: 0px 0;">
-			<li style="float: right; margin: 0px 10px 30px 10px;"><a
+			<li style="float: right; margin: 0px 10px 30px 10px;"><a id = 'deleteArticle'
 				href="<c:url value='/deleteArticle?articleId=${articleId}' />">
 					<button class="submit btn-style" type="submit"
 						style="margin-top: 10px;">
@@ -350,7 +351,27 @@ function asynRequest(id) {
 			</a></li>
 		</ul>		
 </c:if>		
-		
+<script>
+$('#deleteArticle').confirm({
+	title: '提醒!',
+    content: "確定要刪除嗎?",
+    buttons: {
+        ok: {
+        	text:'確定',
+			action: function () {
+        	location.href = this.$target.attr('href');
+				}
+        },
+        close: {
+        	text:'取消',  			
+            //close
+//             action: function () {
+//                 $.alert('已取消');
+//             }
+       }        
+    }		
+});
+</script>	
 		
 			<div id="articleShow" style="padding:70px 0px 0px 0px;">
 			</div>
