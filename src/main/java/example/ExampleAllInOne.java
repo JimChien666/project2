@@ -36,13 +36,13 @@ public class ExampleAllInOne {
 //		System.out.println("queryTrade: " + postQueryTrade());
 //		System.out.println("tradeNoAio: " + postTradeNoAio());
 //		System.out.println("fundingReconDetail: " + postFundingReconDetail());
-		System.out.println("aioCheckOutALL: " + genAioCheckOutALL());
+//		System.out.println("aioCheckOutALL: " + genAioCheckOutALL());
 //		System.out.println("aioCheckOutATM: " + genAioCheckOutATM());
 //		System.out.println("aioCheckOutCVS: " + genAioCheckOutCVS());
 //		System.out.println("aioCheckOutBARCODE: " + genAioCheckOutBARCODE());
 //		System.out.println("aioCheckOutDevide: " + genAioCheckOutDevide());
 //		System.out.println("aioCheckOutOneTime: " + genAioCheckOutOneTime());
-//		System.out.println("aioCheckOutPeriod: " + genAioCheckOutPeriod());
+		System.out.println("aioCheckOutPeriod: " + genAioCheckOutPeriod());
 //		System.out.println("aioCheckOutWebATM: " + genAioCheckOutWebATM());
 	}
 	private static void initial(){
@@ -156,7 +156,7 @@ public class ExampleAllInOne {
 		obj.setStoreExpireDate("3");
 		obj.setInvoiceMark("N");
 		obj.setChooseSubPayment("Credit");
-		invoice.setRelateNumber("test202011test");
+		invoice.setRelateNumber("grdjkgoerigjero");
 		invoice.setCustomerID("456789");
 		invoice.setCarruerType("1");
 		invoice.setTaxType("1");
@@ -221,7 +221,7 @@ public class ExampleAllInOne {
 		obj.setStoreExpireDate("3");
 		obj.setInvoiceMark("N");
 		obj.setChooseSubPayment("Credit");
-		invoice.setRelateNumber("test202011test");
+		invoice.setRelateNumber("erjgoierjgioer");
 		invoice.setCustomerID("456789");
 		invoice.setCarruerType("1");
 		invoice.setTaxType("1");

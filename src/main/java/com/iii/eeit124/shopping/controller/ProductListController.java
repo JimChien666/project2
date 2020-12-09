@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.iii.eeit124.entity.FollowProducts;
 import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.entity.Products;
 import com.iii.eeit124.shopping.dao.ProductListDaoImpl;
@@ -94,6 +95,7 @@ public class ProductListController {
 //			}else{	
 				//如果分類、顏色、動物類型有值+關鍵字沒值				
 				list = service.getPageProducts(pageNo, colorId, categoryId, animalTypeId,recordsPerPage,keywordSearch);
+				
 				recordCounts = service.getRecordCounts(colorId, categoryId, animalTypeId,keywordSearch);
 				totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
 //			}
@@ -103,7 +105,13 @@ public class ProductListController {
 			recordCounts = service.getRecordCounts();
 			totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));
 		}
+		Members member = (Members)session.getAttribute("LoginOK");
+		List<FollowProducts> likeList = new ArrayList();
+		if (member != null) {
+			likeList = service.getLikeProduct(member.getId());
+		}
 		map.put("list", list);
+		map.put("likeList", likeList);
 		map.put("totalPage", totalPage);
 		map.put("currPage", pageNo);
 		map.put("recordCounts", recordCounts);
@@ -166,4 +174,45 @@ public class ProductListController {
 		List<Products> products = service.selectByName(keywordSearch);
 		return products;
 	}
+	
+	@GetMapping("/goLikeProductPage")
+	public String goLikeProductPage() {
+		return "products/ProductLike";
+	}
+	
+	@GetMapping("/getFollowProduct.controller")
+	public @ResponseBody List<Products> getFollowProduct(){
+		Integer memberId = ((Members)session.getAttribute("LoginOK")).getId();
+		List<Products> products = service.getLikeProductList(memberId);
+		return products;
+	}
+	
+	
+	@GetMapping("/goLike")
+	public @ResponseBody Integer goLike(@RequestParam("productId") Integer productId) {
+		Integer memberId = ((Members)session.getAttribute("LoginOK")).getId();
+		System.out.println(memberId);
+		Integer status = service.changeLikeStatus(productId, memberId);
+		System.out.println(status);
+		FollowProducts followProduct = null;
+		if (status == 2) {
+			followProduct = new FollowProducts();
+			followProduct.setMemberId(memberId);
+			followProduct.setProductId(productId);
+			followProduct.setStatus(1);
+			service.saveFollowProduct(followProduct);
+			return 1;
+		}else if (status == 1) {
+			followProduct = service.getFollowProduct(productId, memberId);
+			followProduct.setStatus(0);
+			service.updateFollowProductStatus(followProduct);
+			return 0;
+		}else {
+			followProduct = service.getFollowProduct(productId, memberId);
+			followProduct.setStatus(1);
+			service.updateFollowProductStatus(followProduct);
+			return 1;
+		}
+	}
+	
 }

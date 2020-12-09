@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.iii.eeit124.entity.CartItems;
+import com.iii.eeit124.entity.Products;
 import com.iii.eeit124.shopping.service.CartService;
 
 
@@ -111,6 +112,12 @@ public class CartController {
 		List<CartItems> cartItems = new ArrayList<>();
 		session.setAttribute("cartItems", cartItems);
 		return cartItems;
+	}
+	
+	@GetMapping("/getProductQuantity")
+	public @ResponseBody Integer getProductQuantity(@RequestParam("productId") Integer productId) {
+		Products product = service.getProduct(productId);
+		return product.getQuantity();
 	}
 	
 }

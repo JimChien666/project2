@@ -1,5 +1,6 @@
 package com.iii.eeit124.shopping.dao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.TypedQuery;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.iii.eeit124.entity.Activitys;
+import com.iii.eeit124.entity.FollowProducts;
 import com.iii.eeit124.entity.Products;
 
 
@@ -194,5 +198,56 @@ public class ProductListDaoImpl implements ProductListDao {
 		query.setParameter(1, "%"+keyword+"%");
 		List<Products> list = query.getResultList();
 		return list;
+	}
+	@Override
+	public Integer changeLikeStatus(Integer productId, Integer memberId) {
+		Query<FollowProducts> query = sessionFactory.getCurrentSession().createQuery("from FollowProducts where product_id=?0 and member_id=?1", FollowProducts.class);
+		query.setParameter(0, productId);
+		query.setParameter(1, memberId);
+		FollowProducts followProduct = query.uniqueResult();
+		if (followProduct==null) {
+			return 2;
+		} else if (followProduct.getStatus() == 1) {
+			return 1;
+		}
+		return 0;
+	}
+	@Override
+	public void updateFollowProductStatus(FollowProducts followProduct) {
+		sessionFactory.getCurrentSession().update(followProduct);
+	}
+	@Override
+	public void saveFollowProduct(FollowProducts followProduct) {
+		sessionFactory.getCurrentSession().save(followProduct);
+	}
+	@Override
+	public FollowProducts getFollowProduct(Integer productId, Integer memberId) {
+		@SuppressWarnings("unchecked")
+		TypedQuery<FollowProducts> query = sessionFactory.getCurrentSession().createQuery("from FollowProducts where product_id = ?0 and member_id=?1");
+		query.setParameter(0, productId);
+		query.setParameter(1, memberId);
+		List<FollowProducts> list = query.getResultList();
+		return list != null ? list.get(0) : null;
+	}
+	@Override
+	public List<FollowProducts> getLikeProduct(Integer memberId) {
+		TypedQuery<FollowProducts> query = sessionFactory.getCurrentSession().createQuery("from FollowProducts where member_id=?0 and status=1");
+		query.setParameter(0, memberId);
+		List<FollowProducts> resultList = query.getResultList();
+		return resultList;
+	}
+	@Override
+	public List<Products> getLikeProductList(Integer memberId) {
+		Query query = sessionFactory.getCurrentSession().createSQLQuery("select product_id from Follow_Products where member_id=?0 and status=1");
+		query.setParameter(0, memberId);
+		List resultList = query.getResultList();
+		List<Products> resultList2 = new ArrayList();
+		if(resultList.size()!= 0) {
+			Query<Products> query2 = sessionFactory.getCurrentSession().createQuery("from Products where deleted_at=null and status='上架中'  and id in ("+ resultList.toString().replace("[", "").replace("]", "") +")", Products.class);
+			resultList2 = query2.getResultList();
+		}
+		
+		
+		return resultList2;
 	}
 }

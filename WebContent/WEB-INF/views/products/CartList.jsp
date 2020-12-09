@@ -16,9 +16,29 @@ window.onload = function() {
 
 function adder(productId){
 	var count=document.getElementById("countnum"+ productId).value;
-	count=parseInt(count)+1;
-	document.getElementById("countnum"+productId).value=count;
-	fixProductQuantity(productId, count);
+	var xhr = new XMLHttpRequest();
+	var queryString = "?productId=" + productId;
+	xhr.open("Get", "<c:url value='/cart/getProductQuantity'/>" + queryString , true);
+	xhr.send();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 ) {
+			if (xhr.status == 200){
+				var responseData = xhr.responseText;
+				var quantity = JSON.parse(responseData);
+				console.log(quantity);
+				if (parseInt(count)+1<=quantity){
+				count=parseInt(count)+1;
+				document.getElementById("countnum"+productId).value=count;
+				fixProductQuantity(productId, count);
+				}else{
+					document.getElementById("countnum"+productId).value=quantity;
+					alert("庫存最多"+quantity+"個");
+					
+				}
+			}
+		}
+	}
+	
 }
 function minuser(productId){
 	var count=document.getElementById("countnum"+productId).value;
@@ -137,7 +157,7 @@ function addToCartList(){
             '<td class="product-quantity">'+
                 '<div class="cart-plus-minus">'+
             	'<div class="dec qtybutton" onclick="minuser(' + cartList[i].productId + ')">-</div>'+
-                    '<input class="cart-plus-minus-box" id="countnum'+ cartList[i].productId +'" type="text" name="qtybutton" value="' + cartList[i].quantity + '">'+
+                    '<input class="cart-plus-minus-box" id="countnum'+ cartList[i].productId +'" type="text" name="qtybutton" value="' + cartList[i].quantity + '" onblur="adder(' + cartList[i].productId + ')">'+
                 '<div class="inc qtybutton" onclick="adder(' + cartList[i].productId + ')">+</div>'+
                 '</div>'+
             '</td>'+

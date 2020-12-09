@@ -292,8 +292,8 @@ function displayPageProducts(responseData){
 	recordCounts = mapData.recordCounts;
 	
 	var products = mapData.list;		// 傳回一個陣列
-
-	
+	var likeList = mapData.likeList;
+	console.log(likeList);
 	var imageURL = "<c:url value='/product/getProductImage' />";
 	var productsInfo = "<c:url value='/product/productsInfo/productsPath' />";
 	var salesInfo = "<c:url value='/product/salesInfo/salesInfoPath' />";
@@ -325,6 +325,25 @@ function displayPageProducts(responseData){
 		content += ' </a>';
 		content += '</div>';
 		content += '<div class="product-action-wishlist">';
+		content += '<a title="Wishlist" id="like'+products[i].id+'" href="#" onclick=like('+products[i].id+')>';
+		var isLike = false;
+		
+		for (var j = 0;j<likeList.length;j++){
+				if (likeList[j].productId == products[i].id){
+					isLike=true;
+				}
+			}
+		if (isLike){
+			content += '<i class="ti-heart"></i>';
+		}
+		else{
+			content += '<i class="ti-heart-broken"></i>';
+		}
+			
+				content += '</a>';
+					content += '</div>';
+		content += '</div>';
+		content += '<div class="product-action-wishlist">';
 		content += '<a title="Wishlist" href="#">';
 		content += '</a>';
 		content += '</div>';
@@ -350,7 +369,6 @@ function displayPageProducts(responseData){
 		content += '</div>';
 		content += '<div class="product-list-action-right">';
 		content += '<a title="Quick View" href="'+productsInfo.replace("productsPath",products[i].id)+'"><i class="ti-plus"></i></a>';
-		content += '</div>';
 		content += '</div>';
 		content += '</div>';
 		content += '</div>';
@@ -407,7 +425,29 @@ function displayPageProducts(responseData){
 	}	
 }
 
-
+function like(productId){
+	if (${empty LoginOK}){
+		alert("請登入");
+		window.location.href = "<c:url value='/member/login' />";
+	}
+	console.log(productId);
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "<c:url value='/product/goLike' />?productId="+productId, true);
+	xhr.send();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var responseData = xhr.responseText;
+			var status = JSON.parse(responseData);
+			if (status == 0){
+				document.getElementById("like"+productId).innerHTML="<i class='ti-heart-broken'></i>";
+				
+			}else{
+				document.getElementById("like"+productId).innerHTML="<i class='ti-heart'></i>";
+			}
+			console.log(status);
+		}
+	}
+}
 
 function goToCartPage(){
 	window.location.href = "<c:url value='/cart/CartList' />";
