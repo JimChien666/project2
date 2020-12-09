@@ -17,29 +17,31 @@ public class FollowedServiceImpl implements FollowedService {
 	@Override
 	public Integer statusCheck(Integer memberid, Integer articleid) {
 		FollowedArticle statusCheck = followedDAO.statusCheck(memberid, articleid);
-		Integer id = statusCheck.getId();
+//		Integer id = statusCheck.getId();
 
-		if (statusCheck.getStatus()==1) {
-			statusCheck.setMemeberid(memberid);
-			statusCheck.setStatus(0);
-			statusCheck.setArticleid(articleid);
-//			followedDAO.update(memberid, articleid, status);
-			followedDAO.statusUpdate(followedArticle);
-		}else if(statusCheck.getStatus()==0){
-//			Integer status = 0;
-			statusCheck.setMemeberid(memberid);
-			statusCheck.setStatus(1);
-			statusCheck.setArticleid(articleid);
-//			followedDAO.update(memberid, articleid, status);
-			followedDAO.statusUpdate(followedArticle);
-		} else {			
+		if (statusCheck==null) {
 			FollowedArticle followedArticle = new FollowedArticle();
-			followedArticle.setMemeberid(memberid);
-			followedArticle.setStatus(statusCheck.getStatus());
+			followedArticle.setMemberid(memberid);
+			followedArticle.setStatus(1);
 			followedArticle.setArticleid(articleid);
 			followedDAO.statusSave(followedArticle);
+			return 1;
+		}else if(statusCheck.getStatus()==0){
+//			Integer status = 0;
+			statusCheck.setStatus(1);
+			
+//			followedDAO.update(memberid, articleid, status);
+			followedDAO.statusUpdate(statusCheck);
+			return 1; 
+		} else {			
+
+			
+			
+			statusCheck.setStatus(0);
+//			followedDAO.update(memberid, articleid, status);
+			followedDAO.statusUpdate(statusCheck);
+			return 0;
 		}
-		return statusCheck;	
 
 	}
 

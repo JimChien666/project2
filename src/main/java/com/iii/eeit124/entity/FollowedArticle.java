@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "followedArticle")
 public class FollowedArticle {
 	private Integer id;
-	private Integer memeberid;
+	private Integer memberid;
 	private Integer articleid;
 	private Integer status;
 	
@@ -27,12 +27,12 @@ public class FollowedArticle {
 	}
 	
 	@Column(name = "MEMEBERID")
-	public Integer getMemeberid() {
-		return memeberid;
+	public Integer getMemberid() {
+		return memberid;
 	}
 
-	public void setMemeberid(Integer memeberid) {
-		this.memeberid = memeberid;
+	public void setMemberid(Integer memberid) {
+		this.memberid = memberid;
 	}
 
 	@Column(name = "ARTICLEID")
@@ -56,10 +56,10 @@ public class FollowedArticle {
 	public FollowedArticle() {
 	}
 
-	public FollowedArticle(Integer id, Integer memeberid, Integer articleid, Integer status) {
+	public FollowedArticle(Integer id, Integer memberid, Integer articleid, Integer status) {
 		super();
 		this.id = id;
-		this.memeberid = memeberid;
+		this.memberid = memberid;
 		this.articleid = articleid;
 		this.status = status;
 	}

@@ -37,6 +37,10 @@ public class FollowedDAOImpl implements FollowedDAO {
 	public void statusUpdate(FollowedArticle followedArticle) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("update FollowedArticle f set f.status = ?1 where id = ?2");
+		Integer memberid = followedArticle.getMemberid();
+		Integer id = followedArticle.getId();
+		query.setParameter(1, memberid);
+		query.setParameter(2, id);
 		sessionFactory.getCurrentSession().update(followedArticle);	
 	}
 
