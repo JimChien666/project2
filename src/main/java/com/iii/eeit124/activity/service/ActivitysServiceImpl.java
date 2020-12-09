@@ -15,7 +15,7 @@ public class ActivitysServiceImpl implements ActivitysService {
 
 	@Autowired
 	ActivitysDao activitysDao;
-	
+
 	@Autowired
 	ActivityApplyService activityApplyService;
 
@@ -24,19 +24,19 @@ public class ActivitysServiceImpl implements ActivitysService {
 	public void save(Activitys entity) {
 		activitysDao.save(entity);
 	}
-	
+
 	@Override
 	@Transactional
 	public void update(Activitys entity) {
 		activitysDao.update(entity);
 	}
-	
+
 	@Override
 	@Transactional
 	public void delete(Activitys entity) {
 		activitysDao.delete(entity);
 	}
-	
+
 	@Override
 	@Transactional
 	public void deleteById(Integer id) {
@@ -53,11 +53,16 @@ public class ActivitysServiceImpl implements ActivitysService {
 	public Activitys findById(Integer id) {
 		return activitysDao.findById(id);
 	}
-	
+
 	@Override
 	public void createActivitys(Activitys entity, Members members) {
 		save(entity);
 		activityApplyService.createPlanner(entity, members);
+	}
+
+	@Override
+	public List<Activitys> findByMemberId(Integer memberId, String applyType) {
+		return activitysDao.findByMemberId(memberId, applyType);
 	}
 
 }

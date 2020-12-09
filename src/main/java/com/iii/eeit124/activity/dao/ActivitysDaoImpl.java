@@ -48,5 +48,15 @@ public class ActivitysDaoImpl implements ActivitysDao {
 		List<Activitys> list = query.getResultList();
 		return list != null ? list.get(0) : null;
 	}
+	
+	@Override
+	public List<Activitys> findByMemberId(Integer memberId, String applyType) {
+		@SuppressWarnings("unchecked")
+		TypedQuery<Activitys> query = sessionFactory.getCurrentSession().createQuery("select e from Activitys e JOIN ActivityApply aa ON e.id = aa.activitysId where aa.memberId = :memberId and aa.applyType = :applyType");
+		query.setParameter("memberId", memberId);
+		query.setParameter("applyType", applyType);
+		List<Activitys> list = query.getResultList();
+		return query.getResultList();
+	}
 
 }

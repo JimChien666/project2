@@ -15,5 +15,7 @@ public interface ActivitysDao {
 	List<Activitys> list();
 	
 	Activitys findById(Integer id);
+	
+	List<Activitys> findByMemberId(Integer memberId, String applyType);
 
 }

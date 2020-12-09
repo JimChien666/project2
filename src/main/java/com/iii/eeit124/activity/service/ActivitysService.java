@@ -26,4 +26,12 @@ public interface ActivitysService {
 	 * @param members
 	 */
 	void createActivitys(Activitys entity, Members members);
+	
+	/**
+	 * 搜尋會員的活動
+	 * 
+	 * @param memberId
+	 * @return
+	 */
+	List<Activitys> findByMemberId(Integer memberId, String applyType);
 }
