@@ -54,13 +54,13 @@ public class CreateProductServiceImpl implements CreateProductService {
 	}
 	
 	@Override
-	public List<Products> selectById(Integer id){
+	public Products selectById(Integer id){
 		return dao.selectById(id);	
 	}
 	
-//	@Override
-//	public String selectByIdString(Integer id){
-//		return dao.selectByIdString(id);	
-//	}
+	@Override
+	public Products updateProduct(Products prducts) {
+		return dao.updateProduct(prducts);
+	}
 }
 

@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>維護產品資料</title>
+<link rel="stylesheet" href="<c:url value='/css/Product.css' />">
 <script type="text/javascript"
 	src="<c:url value='/js/jquery-1.12.2.min.js' />"></script>
 <script>
@@ -76,7 +77,6 @@
 // 		}
 // 	}
 // }
-
 </script>
 <jsp:include page="../fragments/links.jsp" />
 <style>
@@ -107,10 +107,12 @@ button.btncls:hover {
 
 	<form:form method="POST"
 		action="${pageContext.servletContext.contextPath}/product/processUpdateProduct.controller"
-		modelAttribute="products" enctype="multipart/form-data">
+		modelAttribute="products" enctype="multipart/form-data" >
 		<div class="container">
+
+			<form:input path="id" class="divHidden"/> 
 			*商品名稱:
-			<form:input path="name" name="name" value="${products.name} " />
+			<form:input path="name"  />
 			<span style="color: red;">${errors.name}</span><br />
 			 *商品價格:
 			<form:input path="price" />
@@ -122,7 +124,7 @@ button.btncls:hover {
 
 <!--商品封面圖===================================================================================== -->
 			<div class="mb-20">	
-				<form:label path="multipartFile" class="mb-0 font22">*商品圖片:</form:label>
+				<form:label path="multipartFile" class="mb-20">*商品圖片:</form:label>
 				<form:input path="multipartFile" type="file" id="productFilesUpdate"/>
 			</div>
 			<span style="color: red;">${errors.multipartFile}</span><br />
@@ -137,12 +139,12 @@ button.btncls:hover {
 			<!--隱藏的預覽圖區域 ===================================================================================== -->
 				<div style="display:none;"  id="productFilesDivAlter">
 			<!--此處是由product.js使用JQuery $(#xx).show(),不能用於 visibility:hidden 的元素 ===================================================================================== -->				
-					<img style="height: 25%; width: 25%;" class="cardImg marginAuto" id="preview_productFiles" src="#" /><br>
+					<img style="height: 25%; width: 25%;"  id="preview_productFiles" src="#" /><br>
 				</div>
 			</div>	
 <!--商品內容圖 ===================================================================================== -->
 			<div class="mb-20">
-				<label name="contentImage" class="mb-0 font22">*商品內容圖片(請選擇兩張圖):</label>
+				*商品內容圖片(請選擇兩張圖):
 				<input name="contentImage" type="file" multiple id="productContentUpdate"/>
 <!-- 				<input name="contentImage" type="file" multiple /> -->
 				<span style="color: red;">${errors.multipartFile}</span><br />
@@ -159,7 +161,7 @@ button.btncls:hover {
 				<c:forEach items="${products.productFilesId}" var="contentFileId"
 				varStatus="s">
 						
-				<img style="height: 25%; width: 25%;" class="cardImg marginAuto"
+				<img style="height: 25%; width: 25%;" 
 					id="preview_productContent${s.index}" src="#" /><br>
 				</c:forEach>
 					
@@ -193,16 +195,16 @@ button.btncls:hover {
 			</div>
 			<!--商品顏色 ===================================================================================== -->
 			<div class="mb-20">
-				<form:label path="colorId" class="mb-0 font22">*商品顏色： </form:label>				 	
+				<form:label path="colorId" class="">*商品顏色： </form:label>				 	
 				<span style="color: red;">${errors.color}</span><br /> 
 					<form:select path="colorId" style="background-color:RGB(236,239,248);height:50px;">								
 						<c:forEach items="${Colors}" var="Colors" >
 							<c:choose>
 								<c:when test="${Colors.name == products.color.name}">
-									<option selected>${products.color.name}</option>
+									<option selected value="${products.color.id}">${products.color.name}</option>
 								</c:when>
 								<c:otherwise>
-									<option>${Colors.name}</option>
+									<option value="${Color.id}">${Colors.name}</option>
 								</c:otherwise>
 							</c:choose>			
 						</c:forEach>
@@ -210,16 +212,16 @@ button.btncls:hover {
 			</div>
 			<!--商品分類 ===================================================================================== -->
 			<div class="mb-20">
-				<form:label path="categoryId" class="mb-0 font22">*商品分類： </form:label>				 	
+				<form:label path="categoryId" class="">*商品分類： </form:label>				 	
 				<span style="color: red;">${errors.category}</span><br /> 
 					<form:select path="categoryId" style="background-color:RGB(236,239,248);height:50px;">								
 						<c:forEach items="${Categories}" var="Categories" >
 							<c:choose>
 								<c:when test="${Categories.name == products.category.name}">
-									<option selected>${products.category.name}</option>
+									<option selected value="${products.category.id}">${products.category.name}</option>
 								</c:when>
 								<c:otherwise>
-									<option>${Categories.name}</option>
+									<option value="${Categories.id}">${Categories.name}</option>
 								</c:otherwise>
 							</c:choose>			
 						</c:forEach>
@@ -228,33 +230,27 @@ button.btncls:hover {
 			
 			<!--寵物類別 ===================================================================================== -->
 			<div class="mb-20">
-				<form:label path="animalTypeId" class="mb-0 font22">*寵物類別：</form:label>				 	
+				<form:label path="animalTypeId" class="">*寵物類別：</form:label>				 	
 				<span style="color: red;">${errors.animalType}</span><br /> 
 					<form:select path="animalTypeId" style="background-color:RGB(236,239,248);height:50px;">								
 						<c:forEach items="${AnimalTypes}" var="AnimalTypes" >
 							<c:choose>
 								<c:when test="${AnimalTypes.name == products.animalType.name}">
-									<option selected>${products.animalType.name}</option>
+									<option selected value="${products.animalType.id}">${products.animalType.name}</option>
 								</c:when>
 								<c:otherwise>
-									<option>${AnimalTypes.name}</option>
+									<option value="${AnimalTypes.id}">${AnimalTypes.name}</option>
 								</c:otherwise>
 							</c:choose>			
 						</c:forEach>
 					</form:select> 	
-			</div>
-			
-			
-			
-			
-			
-			
-			
+			</div>	
 			<!-- 		用來動態顯示資料庫顏色、分類、動物種類 -->
 <!-- 			<div id='somedivS'> -->
 <%-- 				${errors.color}<br />${errors.category}<br />${errors.animalType}<br /> --%>
 <!-- 			</div> -->
-
+				<a href="<c:url value='/product/preUpdateProduct' />?Id=${product.Id}"
+				class="btn-style-cancel btn-style-border">回復修改</a>
 		<form:button value="Send" class="btncls">送出</form:button>
 		</div>
 	</form:form>

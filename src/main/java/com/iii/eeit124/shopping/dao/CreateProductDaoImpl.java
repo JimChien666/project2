@@ -1,23 +1,17 @@
 package com.iii.eeit124.shopping.dao;
 
 import java.util.List;
-
 import javax.persistence.TypedQuery;
-
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.iii.eeit124.entity.Activitys;
 import com.iii.eeit124.entity.AnimalTypes;
 import com.iii.eeit124.entity.Categories;
 import com.iii.eeit124.entity.Colors;
-import com.iii.eeit124.entity.ProductFiles;
 import com.iii.eeit124.entity.Products;
-
-import oracle.net.aso.q;
 
 @Transactional
 @Repository
@@ -82,11 +76,18 @@ public class CreateProductDaoImpl implements CreateProductDao {
 		return products;
 	}
 	
-	public List<Products> selectById(Integer id) {//用ID查單筆
-		Query<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where id =?0 order by id", Products.class);
+	public Products selectById(Integer id) {//用ID查單筆
+		Query<Products> query = sessionFactory.getCurrentSession().createQuery("from Products where id =?0 ",Products.class );
 		query.setParameter(0, id);
-		List<Products> list = query.list();
-		return list;
+		Products product = query.uniqueResult();
+		return product;
+	}
+	
+	@Override
+	public Products updateProduct(Products products) {
+		Session session = sessionFactory.getCurrentSession();
+		session.merge(products);
+		return products;
 	}
 
 }

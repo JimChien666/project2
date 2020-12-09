@@ -103,7 +103,7 @@ function getCategories(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "<select id='categoryId' name='categoryId' onchange=getData()>";
+			var content = "<select id='categoryId' name='categoryId' class='mb-20' style='background-color:white;' onchange=getData()>";
 			content += "<option value='' selected='selected'>全部</option>"
 // 			把'/product/getCategories'回傳RespoenseBody的JSON抓出來
 			var categories = JSON.parse(xhr.responseText);
@@ -124,7 +124,7 @@ function getColors(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "<select id='colorId' name='colorId' onchange=getData()>";
+			var content = "<select id='colorId' name='colorId' class='mb-20' style='background-color:white;' onchange=getData()>";
 			content += "<option value='' selected='selected'>全部</option>"
 			var colors = JSON.parse(xhr.responseText);
 			for(var i=0; i < colors.length; i++){
@@ -145,7 +145,7 @@ function getAnimalTypes(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "<select id='animalTypeId' name='animalTypeId' onchange=getData()>";
+			var content = "<select id='animalTypeId' name='animalTypeId' class='mb-20' style='background-color:white;' onchange=getData()>";
 			content += "<option value='' selected='selected'>全部</option>"
 			var animalTypes = JSON.parse(xhr.responseText);
 			for(var i=0; i < animalTypes.length; i++){
@@ -506,13 +506,13 @@ button.btncls:hover{
 
                                 </div>
                             </div>
-                            <div class="shop-widget mt-50">
+                            <div class="shop-widget mt-40 mb-40">
                                  <h4 class="shop-sidebar-title">商品顏色 </h4>
-                                 <div class="shop-list-style mt-20" id="ColorSelectBar"></div>
+                                 <div class="shop-list-style " id="ColorSelectBar"></div>
                                  <h4 class="shop-sidebar-title">寵物類別 </h4>
-                                 <div class="shop-list-style mt-20" id="AnimalTypeSelectBar"></div>
+                                 <div class="shop-list-style " id="AnimalTypeSelectBar"></div>
                                  <h4 class="shop-sidebar-title">商品分類 </h4>
-                                 <div class="shop-list-style mt-20" id="CategorySelectBar"></div>
+                                 <div class="shop-list-style " id="CategorySelectBar"></div>
                             </div>
                         </div>
                 </div>
