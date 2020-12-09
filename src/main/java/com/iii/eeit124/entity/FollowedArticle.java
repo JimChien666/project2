@@ -27,12 +27,12 @@ public class FollowedArticle {
 	}
 	
 	@Column(name = "MEMEBERID")
-	public Integer getMemeberIid() {
+	public Integer getMemeberid() {
 		return memeberid;
 	}
 
-	public void setMemeberIid(Integer memeberIid) {
-		this.memeberid = memeberIid;
+	public void setMemeberid(Integer memeberid) {
+		this.memeberid = memeberid;
 	}
 
 	@Column(name = "ARTICLEID")
@@ -56,10 +56,10 @@ public class FollowedArticle {
 	public FollowedArticle() {
 	}
 
-	public FollowedArticle(Integer id, Integer memeberIid, Integer articleid, Integer status) {
+	public FollowedArticle(Integer id, Integer memeberid, Integer articleid, Integer status) {
 		super();
 		this.id = id;
-		this.memeberid = memeberIid;
+		this.memeberid = memeberid;
 		this.articleid = articleid;
 		this.status = status;
 	}

@@ -25,9 +25,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.iii.eeit124.article.service.ArticleService;
 import com.iii.eeit124.article.service.CommentsService;
+import com.iii.eeit124.article.service.FollowedService;
 import com.iii.eeit124.article.service.ForumsService;
 import com.iii.eeit124.entity.Article;
 import com.iii.eeit124.entity.Comments;
+import com.iii.eeit124.entity.FollowedArticle;
 import com.iii.eeit124.entity.Forums;
 import com.iii.eeit124.entity.Members;
 
@@ -45,6 +47,8 @@ public class ArticleController {
 	ForumsService forumsService;
 	@Autowired
 	CommentsService commentsService;
+	@Autowired
+	FollowedService followedService;
 
 	@ModelAttribute("article")
 	public Article formBackingObject() {
@@ -240,7 +244,6 @@ public class ArticleController {
 		System.out.println(map);
 		return map;
 	}
-	
 
 	@GetMapping(value = "showComments")
 	public @ResponseBody List<Comments> showComments(@RequestParam(value = "forumsId") Integer id) {
@@ -251,7 +254,14 @@ public class ArticleController {
 		return comments;		
 	}
 	
-
+	@GetMapping(value = "statusCheck")
+	public @ResponseBody Integer statusCheck(Model model, @RequestParam(value = "memberid")Integer memberid, @RequestParam(value = "articleid")Integer articleid) {
+		System.out.println("memberidININ"+memberid);
+		System.out.println("articleidININ"+articleid);
+		Integer statusResult = followedService.statusCheck(memberid, articleid);
+		System.out.println("statusResult"+statusResult);
+		return statusResult;		
+	}
 
 	
 	

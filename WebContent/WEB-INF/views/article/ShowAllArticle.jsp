@@ -15,9 +15,9 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.sactivelim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.sactivelim.min.js" -->
+<!-- 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" -->
+<!-- 	crossorigin="anonymous"></script> -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
 	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
@@ -32,6 +32,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 <jsp:include page="../fragments/links.jsp" />
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 
@@ -50,23 +51,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	border: 10px solid #7e4c4f;
 }
 
-.fixed {
-	position: fixed;
-	bottom: 10%;
-	right: 3%;
-}
 
-.fixed0 {
-	position: fixed;
-	top: 12%;
-	right: 1%;
-}
-
-.fixed1 {
-	position: fixed;
-	top: 40%;
-	right: 1%;
-}
 
 .forum {
 	font-size: 4.5em;
@@ -245,7 +230,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					}
 				}
 			}
-			
+	
 			xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId="
 					+ selectResult + queryString, true);
 			// 		xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId=1" + queryString , true);
@@ -261,23 +246,51 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					// 			showArticleList(mapData);
 				}
 			}
-
 		}		
 	});
 	function follow(Obj){
 
 		
 		console.log(Obj.id)
-		console.log("${LoginOK.id}")
+// 		console.log(${LoginOK.id})
+		var memberId = "${LoginOK.id}"
+		
+		if (memberId!="") {
+			swal({
+				  title: "完成!",
+				  icon: "success",
+				  button: "確認",
+				});
 
+		var member = "${LoginOK.id}"
+		var	articleid = Obj.id
+		$.ajax({
+			type : "GET",
+			url : "<c:url value='statusCheck' />?memberid="+member+"&articleid="+articleid,
+			success :function(result){
+				console.log("success get result")
+			if(result==1){
+				console.log("新增成功");
+				console.log(result);
+				
+				
+			} else {
+				console.log("取消追蹤");
+				console.log(result);
+				
+				}
+			}
+		});
+			
+		}else {
+			swal({
+				  title: "未登入!",
+				  text: "請登入後再進行操作",
+				  icon: "error",
+				  button: "確認",
+				});	
+		}
 
-// 		$.ajax({
-// 			type : "GET",
-// 			url : "<c:url value='getArticleList' />?articleTypeId=1",
-// 			success : function(mapData) {
-// 				showArticleList(mapData)
-// 			}
-// 		});
 
 
 
