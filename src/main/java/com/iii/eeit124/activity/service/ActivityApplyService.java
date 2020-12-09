@@ -3,6 +3,8 @@ package com.iii.eeit124.activity.service;
 import java.util.List;
 
 import com.iii.eeit124.entity.ActivityApply;
+import com.iii.eeit124.entity.Activitys;
+import com.iii.eeit124.entity.Members;
 
 public interface ActivityApplyService {
 
@@ -11,10 +13,19 @@ public interface ActivityApplyService {
 	void update(ActivityApply entity);
 
 	void delete(ActivityApply entity);
-	
+
 	void deleteById(Integer id);
-	
+
 	List<ActivityApply> list();
 
 	ActivityApply findById(Integer id);
+
+	/**
+	 * 建立活動主辦人資料
+	 * 
+	 * @param activitys
+	 * @param members
+	 * @return
+	 */
+	ActivityApply createPlanner(Activitys activitys, Members members);
 }

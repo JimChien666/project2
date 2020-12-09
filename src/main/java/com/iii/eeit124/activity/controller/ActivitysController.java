@@ -2,6 +2,7 @@ package com.iii.eeit124.activity.controller;
 
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,14 @@ import com.iii.eeit124.activity.service.ActivitysService;
 import com.iii.eeit124.activity.service.ActivitysVoService;
 import com.iii.eeit124.activity.vo.ActivitysVo;
 import com.iii.eeit124.entity.Activitys;
+import com.iii.eeit124.entity.Members;
 
 @Controller
 @RequestMapping("/activitys")
 public class ActivitysController {
+
+	@Autowired
+	HttpSession session;
 
 	@Autowired
 	ActivitysService activitysService;
@@ -74,7 +79,7 @@ public class ActivitysController {
 
 		activitysVo.validate();
 		Activitys activitys = activitysVo.toEntity();
-		activitysService.save(activitys);
+		activitysService.createActivitys(activitys, getMember());
 
 		return returnToList(model);
 	}
@@ -165,6 +170,16 @@ public class ActivitysController {
 	private String returnToList(Model model) {
 		model.addAttribute("activitysVoList", activitysVoService.list());
 		return "activitys/list";
+	}
+
+	private Members getMember() {
+		Object object = session.getAttribute("LoginOK");
+		if (object != null) {
+			return (Members) object;
+		} else {
+			return new Members();
+		}
+//		return (Members) session.getAttribute("LoginOK");
 	}
 
 }

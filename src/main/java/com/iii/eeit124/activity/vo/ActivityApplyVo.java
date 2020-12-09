@@ -3,6 +3,7 @@ package com.iii.eeit124.activity.vo;
 import org.springframework.beans.BeanUtils;
 
 import com.iii.eeit124.entity.ActivityApply;
+import com.iii.eeit124.enums.ApplyType;
 import com.iii.eeit124.util.DateUtils;
 
 public class ActivityApplyVo {
@@ -15,7 +16,7 @@ public class ActivityApplyVo {
 
 	private Integer amount;
 
-	private Integer applyType;
+	private String applyType;
 
 	private Integer memberId;
 
@@ -25,6 +26,7 @@ public class ActivityApplyVo {
 		ActivityApplyVo result = new ActivityApplyVo();
 		BeanUtils.copyProperties(entity, result);
 		result.setApplyDate(DateUtils.format(entity.getApplyDate()));
+		result.setApplyType(ApplyType.findByCode(entity.getApplyType()).getCode());
 		return result;
 	}
 
@@ -32,6 +34,7 @@ public class ActivityApplyVo {
 		ActivityApply result = new ActivityApply();
 		BeanUtils.copyProperties(this, result);
 		result.setApplyDate(DateUtils.format(this.getApplyDate()));
+		result.setApplyType(ApplyType.PARTICIPANT.getCode());
 		return result;
 	}
 
@@ -59,11 +62,11 @@ public class ActivityApplyVo {
 		this.applyDate = applyDate;
 	}
 
-	public Integer getApplyType() {
+	public String getApplyType() {
 		return applyType;
 	}
 
-	public void setApplyType(Integer applyType) {
+	public void setApplyType(String applyType) {
 		this.applyType = applyType;
 	}
 

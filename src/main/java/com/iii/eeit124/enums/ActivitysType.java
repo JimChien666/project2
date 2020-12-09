@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 
 public enum ActivitysType {
 
-	NONE("NONE", "NONE"),
+	NONE("NONE", "無"),
 	NORMAL("NORMAL", "一般活動");
 
 	private String code;

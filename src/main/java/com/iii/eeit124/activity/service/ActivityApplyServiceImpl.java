@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.iii.eeit124.activity.dao.ActivityApplyDao;
 import com.iii.eeit124.entity.ActivityApply;
 import com.iii.eeit124.entity.Activitys;
+import com.iii.eeit124.entity.Members;
+import com.iii.eeit124.enums.ApplyType;
 
 @Service
 @Transactional
@@ -31,7 +33,7 @@ public class ActivityApplyServiceImpl implements ActivityApplyService {
 	public void delete(ActivityApply entity) {
 		activityApplyDao.delete(entity);
 	}
-	
+
 	@Override
 	@Transactional
 	public void deleteById(Integer id) {
@@ -47,6 +49,18 @@ public class ActivityApplyServiceImpl implements ActivityApplyService {
 	@Override
 	public ActivityApply findById(Integer id) {
 		return activityApplyDao.findById(id);
+	}
+
+	@Override
+	public ActivityApply createPlanner(Activitys activitys, Members members) {
+		ActivityApply entity = new ActivityApply();
+		entity.setAmount(activitys.getAmount());
+		entity.setApplyDate(activitys.getCreateDate());
+		entity.setActivitysId(activitys.getId());
+		entity.setApplyType(ApplyType.PLANNER.getCode());
+		entity.setMemberId(members.getId());
+		save(entity);
+		return entity;
 	}
 
 }

@@ -1,7 +1,5 @@
 package com.iii.eeit124.entity;
 
-
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -39,11 +37,14 @@ public class ActivityApply {
 	@Column(name = "activitys_id")
 	private Integer activitysId;
 
-	public int getApplyId() {
+	@Column(name = "activitys_type")
+	private String applyType;
+
+	public Integer getApplyId() {
 		return applyId;
 	}
 
-	public void setApplyId(int applyId) {
+	public void setApplyId(Integer applyId) {
 		this.applyId = applyId;
 	}
 
@@ -63,35 +64,43 @@ public class ActivityApply {
 		this.applyDate = applyDate;
 	}
 
-	public int getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
 
-	public int getMemberId() {
+	public Integer getMemberId() {
 		return memberId;
 	}
 
-	public void setMemberId(int memberId) {
+	public void setMemberId(Integer memberId) {
 		this.memberId = memberId;
 	}
 
-	public int getActivitysId() {
+	public Integer getActivitysId() {
 		return activitysId;
 	}
 
-	public void setActivitysId(int activitysId) {
+	public void setActivitysId(Integer activitysId) {
 		this.activitysId = activitysId;
+	}
 
+	public String getApplyType() {
+		return applyType;
+	}
+
+	public void setApplyType(String applyType) {
+		this.applyType = applyType;
 	}
 
 	@Override
 	public String toString() {
 		return "ActivityApply [applyId=" + applyId + ", activityComment=" + activityComment + ", applyDate=" + applyDate
-				+ ", amount=" + amount + ", memberId=" + memberId + ", activitysId=" + activitysId + "]";
+				+ ", amount=" + amount + ", memberId=" + memberId + ", activitysId=" + activitysId + ", applyType="
+				+ applyType + "]";
 	}
 
 }

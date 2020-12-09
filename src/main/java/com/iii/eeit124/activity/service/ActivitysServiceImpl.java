@@ -8,12 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.iii.eeit124.activity.dao.ActivitysDao;
 import com.iii.eeit124.entity.Activitys;
+import com.iii.eeit124.entity.Members;
 
 @Service
 public class ActivitysServiceImpl implements ActivitysService {
 
 	@Autowired
 	ActivitysDao activitysDao;
+	
+	@Autowired
+	ActivityApplyService activityApplyService;
 
 	@Override
 	@Transactional
@@ -48,6 +52,12 @@ public class ActivitysServiceImpl implements ActivitysService {
 	@Override
 	public Activitys findById(Integer id) {
 		return activitysDao.findById(id);
+	}
+	
+	@Override
+	public void createActivitys(Activitys entity, Members members) {
+		save(entity);
+		activityApplyService.createPlanner(entity, members);
 	}
 
 }
