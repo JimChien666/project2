@@ -36,7 +36,7 @@ public class ActivitysDaoImpl implements ActivitysDao {
 	@Override
 	public List<Activitys> list() {
 		@SuppressWarnings("unchecked")
-		TypedQuery<Activitys> query = sessionFactory.getCurrentSession().createQuery("from Activitys");
+		TypedQuery<Activitys> query = sessionFactory.getCurrentSession().createQuery("from Activitys e where e.activityDate >= current_date order by e.activityDate desc");
 		return query.getResultList();
 	}
 
