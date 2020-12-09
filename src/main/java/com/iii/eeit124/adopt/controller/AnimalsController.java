@@ -97,6 +97,7 @@ public class AnimalsController {
 		m.addAttribute("AnimalsList1", animals);
 		m.addAttribute("Families", breedsService.readAllFamilies());
 		m.addAttribute("breed", breedsService.readAllBreeds("狗"));
+		m.addAttribute("source", "create");
 		return "adopt/CreateAnimal";
 	}
 
@@ -206,7 +207,8 @@ public class AnimalsController {
 		m.addAttribute("animals", animals);
 		m.addAttribute("Families", breedsService.readAllFamilies());
 		m.addAttribute("breed", breedsService.readAllBreeds(animals.getBreeds().getFamily()));
-		return "adopt/UpdateAnimal";
+		m.addAttribute("source", "update");
+		return "adopt/CreateAnimal";
 	}
 
 	// Update
