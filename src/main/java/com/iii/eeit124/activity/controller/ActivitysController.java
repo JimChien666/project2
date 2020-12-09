@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.iii.eeit124.activity.service.ActivityApplyService;
 import com.iii.eeit124.activity.service.ActivitysService;
 import com.iii.eeit124.activity.service.ActivitysVoService;
 import com.iii.eeit124.activity.vo.ActivitysVo;
@@ -33,6 +35,9 @@ public class ActivitysController {
 
 	@Autowired
 	ActivitysVoService activitysVoService;
+
+	@Autowired
+	ActivityApplyService activityApplyService;
 
 	@ModelAttribute("activitysVo")
 	public ActivitysVo formBackingObject() {
@@ -77,7 +82,11 @@ public class ActivitysController {
 	public String saveActivitys(@ModelAttribute("activitysVo") ActivitysVo activitysVo, BindingResult result,
 			Model model) {
 
-		activitysVo.validate();
+		validate(activitysVo, result);
+		if (result.hasErrors()) {
+			return "activitys/add";
+		}
+
 		Activitys activitys = activitysVo.toEntity();
 		activitysService.createActivitys(activitys, getMember());
 
@@ -111,15 +120,16 @@ public class ActivitysController {
 	@PostMapping("updateActivitys")
 	public String updateActivitys(@ModelAttribute("activitysVo") ActivitysVo activitysVo, BindingResult result,
 			Model model) {
-		System.out.println("activitysVo:" + activitysVo);
+
+		validate(activitysVo, result);
+		if (result.hasErrors()) {
+			return "activitys/update";
+		}
 
 		Activitys dbActivitys = null;
 
 		if (activitysVo != null && activitysVo.getId() != null) {
 			dbActivitys = activitysService.findById(activitysVo.getId());
-		} else {
-			System.out.println("沒帶活動ID");
-			return "redirect:/";
 		}
 
 		if (dbActivitys == null) {
@@ -162,6 +172,7 @@ public class ActivitysController {
 
 		if (activitysVo != null && activitysVo.getId() != null) {
 			activitysService.deleteById(activitysVo.getId());
+			activityApplyService.deleteByActivitysId(activitysVo.getId());
 		}
 
 		return returnToList(model);
@@ -180,6 +191,28 @@ public class ActivitysController {
 			return new Members();
 		}
 //		return (Members) session.getAttribute("LoginOK");
+	}
+
+	private void validate(ActivitysVo activitysVo, BindingResult result) {
+		if (StringUtils.isEmpty(activitysVo.getName())) {
+			result.rejectValue("name", null, "活動名稱不得為空");
+		}
+
+		if (StringUtils.isEmpty(activitysVo.getActivityDate())) {
+			result.rejectValue("activityDate", null, "活動時間不得為空");
+		}
+
+		if (StringUtils.isEmpty(activitysVo.getTopic())) {
+			result.rejectValue("topic", null, "活動主題不得為空");
+		}
+
+		if (StringUtils.isEmpty(activitysVo.getContent())) {
+			result.rejectValue("content", null, "活動內容不得為空");
+		}
+
+		if (StringUtils.isEmpty(activitysVo.getLocation())) {
+			result.rejectValue("location", null, "活動位置不得為空");
+		}
 	}
 
 }

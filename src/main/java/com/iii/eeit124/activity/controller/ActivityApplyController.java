@@ -3,11 +3,10 @@ package com.iii.eeit124.activity.controller;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -74,6 +73,11 @@ public class ActivityApplyController {
 	public String saveActivityApply(@ModelAttribute("activityApplyVo") ActivityApplyVo activityApplyVo,
 			BindingResult result, Model model) {
 
+		validate(activityApplyVo, result);
+		if (result.hasErrors()) {
+			return "activityApply/add";
+		}
+
 		activityApplyVo.setApplyDate(DateUtils.format(new Date()));
 		ActivityApply entity = activityApplyVo.toEntity();
 		activityApplyService.save(entity);
@@ -114,9 +118,6 @@ public class ActivityApplyController {
 
 		if (activityApplyVo != null && activityApplyVo.getApplyId() != null) {
 			entity = activityApplyService.findById(activityApplyVo.getApplyId());
-		} else {
-			System.out.println("沒帶活動ID");
-			return "redirect:/";
 		}
 
 		if (entity == null) {
@@ -153,7 +154,7 @@ public class ActivityApplyController {
 	 * @return
 	 */
 	@PostMapping("deleteActivityApply")
-	public String deleteActivityApply(@ModelAttribute("activitysVo") @Valid ActivityApplyVo activityApplyVo,
+	public String deleteActivityApply(@ModelAttribute("activitysVo") ActivityApplyVo activityApplyVo,
 			BindingResult result, Model model) {
 		System.out.println("activityApplyVo:" + activityApplyVo);
 
@@ -167,5 +168,11 @@ public class ActivityApplyController {
 	private String returnToList(Model model) {
 		model.addAttribute("activityApplyVoList", activityApplyVoService.list());
 		return "activityApply/list";
+	}
+
+	private void validate(ActivityApplyVo activityApplyVo, BindingResult result) {
+		if (StringUtils.isEmpty(activityApplyVo.getActivitysId())) {
+			result.rejectValue("activitysId", null, "活動ID不得為空");
+		}
 	}
 }

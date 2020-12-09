@@ -28,4 +28,10 @@ public interface ActivityApplyService {
 	 * @return
 	 */
 	ActivityApply createPlanner(Activitys activitys, Members members);
+	
+	/**
+	 * 刪除全部的活動參與紀錄
+	 * @param activitysId
+	 */
+	void deleteByActivitysId(Integer activitysId);
 }

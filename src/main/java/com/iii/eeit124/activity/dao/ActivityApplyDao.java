@@ -15,4 +15,6 @@ public interface ActivityApplyDao {
 	List<ActivityApply> list();
 	
 	ActivityApply findById(Integer id);
+	
+	void deleteByActivitysId(Integer activitysId);
 }

@@ -47,4 +47,11 @@ public class ActivityApplyDaoImpl implements ActivityApplyDao {
 		List<ActivityApply> list = query.getResultList();
 		return list != null ? list.get(0) : null;
 	}
+	
+	public void deleteByActivitysId(Integer activitysId) {
+		@SuppressWarnings("unchecked")
+		TypedQuery<ActivityApply> query = sessionFactory.getCurrentSession().createQuery("delete from ActivityApply e where e.activitysId = :activitysId");
+		query.setParameter("activitysId", activitysId);
+		query.executeUpdate();
+	}
 }

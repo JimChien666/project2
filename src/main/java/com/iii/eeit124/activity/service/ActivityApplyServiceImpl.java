@@ -62,5 +62,9 @@ public class ActivityApplyServiceImpl implements ActivityApplyService {
 		save(entity);
 		return entity;
 	}
+	
+	public void deleteByActivitysId(Integer activitysId) {
+		activityApplyDao.deleteByActivitysId(activitysId);
+	}
 
 }

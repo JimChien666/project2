@@ -20,8 +20,7 @@ public class ActivitysVo {
 	private String createDate;
 
 	/**
-	 * 活動時間
-	 * yyyy/MM/dd hh:mm:ss
+	 * 活動時間 yyyy/MM/dd hh:mm:ss
 	 */
 	private String activityDate;
 
