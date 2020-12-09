@@ -65,7 +65,7 @@
                                     <a href="<c:url value='/member/login' />"><i class="icon-user icons"></i></a>
                                 </div> --%>
 						<div class="header-login same-style">
-							<button class="icon-cart" id="fbname">
+							<button class="icon-cart" id="fbname" data-toggle="tooltip" data-placement="bottom" title="會員">
 								<i class="icon-user icons"></i>
 								<c:if test="${!empty LoginOK}">
 									<span class="count-style">${LoginOK.name.substring(0, 1)}</span>
@@ -92,7 +92,7 @@
 
 						</div>
 						<div class="header-cart same-style">
-							<button class="icon-cart" onclick="goToCartPage()">
+							<button class="icon-cart" onclick="goToCartPage()" data-toggle="tooltip" data-placement="bottom" title="購物車">
 								<i class="icon-handbag"></i> <span class="count-style"
 									id="shopCart"></span>
 							</button>

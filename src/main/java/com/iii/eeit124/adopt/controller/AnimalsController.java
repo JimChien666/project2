@@ -150,8 +150,8 @@ public class AnimalsController {
 		} else {
 			// 新增沒圖片給預設圖片
 			// 設定圖片格式
-//			HttpHeaders headers = new HttpHeaders();
-//			headers.setContentType(MediaType.IMAGE_JPEG);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
 
 			filename = "NoImage.png";
 			is = sc.getResourceAsStream(// getResourceAsStream開啟一個檔案
@@ -236,8 +236,8 @@ public class AnimalsController {
 			System.out.println("fileSavePath:" + fileSavePath);// 檔案路徑
 
 			// 設定圖片格式
-//			HttpHeaders headers = new HttpHeaders();
-//			headers.setContentType(MediaType.IMAGE_JPEG);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
 
 			if (filename != null && filename.length() != 0) {
 				FileInputStream is1 = new FileInputStream(fileSavePath);

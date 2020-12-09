@@ -36,16 +36,16 @@
 		</div>
 	</div>
 
-	<div class="divFixed btn-style1" id="noticeInput">一鍵輸入</div>
+	<div class="divFixed btn-style1 pointerCursor" id="noticeInput">一鍵輸入</div>
 
 	<!-- ============================================================================================= -->
 
-	<!-- 	<div class="mt-50 divCenter"> -->
-	<!-- 		<h1>愛心犬貓認養須知</h1> -->
-	<!-- 	</div> -->
+		<div class="mt-50 divCenter">
+			<h2 style="color:red;">請詳細閱讀認養須知，並點選對應選項。</h2>
+		</div>
 	<form:form action="/team6/adopt/adoptApply" method="POST"
 		modelAttribute="adoptionRecord">
-		<div class="wid700px mt-30">
+		<div class="wid700 mt-30">
 			<div class="f-left mr-10 ptb-20">
 				<h3 class="lineH10">
 					申請日期：${Today}<br> 收容編號：${adoptionRecord.animal.acceptionId}<br>
@@ -53,10 +53,10 @@
 					動物品種：${adoptionRecord.animal.breeds.breed}<br>
 					<c:choose>
 						<c:when test="${adoptionRecord.animal.gender == 1}">
-							<div class="div1">性別：</div>公<br>
+							<div class="displayInlineBlock">性別：</div>公<br>
 						</c:when>
 						<c:otherwise>
-							<div class="div1">性別：</div>母<br>
+							<div class="displayInlineBlock">性別：</div>母<br>
 						</c:otherwise>
 					</c:choose>
 					毛色：${adoptionRecord.animal.coatColor}<br>
@@ -80,7 +80,7 @@
 			</div>
 		</div>
 		<div class="mt-20 mb-50">
-			<table class="wid1000px font22">
+			<table class="wid1000 font22">
 				<tr>
 					<td class="tdVertical wid20">(一)</td>
 					<td>您是否看過犬貓之行為健康評估表?<br>您是否與管理人員或志工討論過該犬貓之狀況。
@@ -317,7 +317,7 @@
 		<div class="divCenter mb-50">
 			<a href="<c:url value='/adopt'/>"
 				class="btn-style-cancel btn-style-border">取消</a>
-			<form:button value="Send" class="btn-style1 btn-style-border">儲存</form:button>
+			<form:button value="Send" class="btn-style1 btn-style-border pointerCursor">儲存</form:button>
 		</div>
 	</form:form>
 	<jsp:include page="../fragments/footerArea.jsp" />

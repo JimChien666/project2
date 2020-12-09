@@ -49,8 +49,8 @@
 	<!-- 	<div class="mt-50 divCenter"> -->
 	<!-- 		<h1>動物資料</h1> -->
 	<!-- 	</div> -->
-	<div class="mt-50 mb-50 wid1000px">
-		<div class="H700W540 pl-20 pr-20 pt-20 bgcGray div1">
+	<div class="mt-50 mb-50 wid1000">
+		<div class="H700W540 pl-20 pr-20 pt-20 bgcGray displayInlineBlock">
 			<div class="square500px">
 				<img class="cardImg marginAuto" alt=""
 					src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animal.animalId}">
@@ -63,7 +63,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="wid400px div1 posAbs p-10 font22 lineH10">
+		<div class="wid400 displayInlineBlock posAbs p-10 font22 lineH10">
 			收容編號：${animal.acceptionId}<br> 領養地區：${animal.member.address}<br>
 			動物類別：${animal.breeds.family}<br> 動物品種：${animal.breeds.breed}<br>
 			性別：
@@ -85,37 +85,32 @@
 	</div>
 
 	<div class="divCenter">
-		<div class="div1"></div>
-		<div class="div1">
-			<div class="about-us-btn mb-50">
-				<c:choose>
-					<c:when test="${source=='ReadAnimal'}">
-						<a href="<c:url value='/MemberCenter/ReadAnimal' />"
-							class="btn-style-cancel btn-style-border">返回</a>
-						<a class="btn-style1 btn-style-border"
-							href="<c:url value='/MemberCenter/preUpdateAnimal.controller'/>?animalId=${animal.animalId}">維護</a>
-					</c:when>
-					<c:when test="${source=='AdoptAnimal'}">
-						<a href="<c:url value='/adopt' />"
-							class="btn-style-cancel btn-style-border">返回</a>
-						<c:choose>
-							<c:when test="${member==0}">
-								<div class="btn-style1 btn-style-border">領養請登入</div>
-							</c:when>
-							<c:when test="${member==animal.member.id}">
-								<a class="btn-style1 btn-style-border"
-									href="<c:url value='/MemberCenter/ReadAnimal'/>">我的寵物</a>
-							</c:when>
-							<c:otherwise>
-								<a class="btn-style1 btn-style-border"
-									href="<c:url value='/adopt/adoptNotice'/>/${animal.animalId}">我要認養</a>
-							</c:otherwise>
-						</c:choose>
-					</c:when>
-				</c:choose>
-<%-- 							<div>member:${member}</div> --%>
-<%-- 							<div>animal.member.id:${animal.member.id}</div> --%>
-			</div>
+		<div class="about-us-btn mb-50">
+			<c:choose>
+				<c:when test="${source=='ReadAnimal'}">
+					<a href="<c:url value='/MemberCenter/ReadAnimal' />"
+						class="btn-style-cancel btn-style-border">返回</a>
+					<a class="btn-style1 btn-style-border"
+						href="<c:url value='/MemberCenter/preUpdateAnimal.controller'/>?animalId=${animal.animalId}">更新寵物資訊</a>
+				</c:when>
+				<c:when test="${source=='AdoptAnimal'}">
+					<a href="<c:url value='/adopt' />"
+						class="btn-style-cancel btn-style-border">返回</a>
+					<c:choose>
+						<c:when test="${member==0}">
+							<div class="btn-style1 btn-style-border">領養請登入</div>
+						</c:when>
+						<c:when test="${member==animal.member.id}">
+							<a class="btn-style1 btn-style-border"
+								href="<c:url value='/MemberCenter/ReadAnimal'/>">我的寵物</a>
+						</c:when>
+						<c:otherwise>
+							<a class="btn-style1 btn-style-border"
+								href="<c:url value='/adopt/adoptNotice'/>/${animal.animalId}">我要認養</a>
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+			</c:choose>
 		</div>
 	</div>
 

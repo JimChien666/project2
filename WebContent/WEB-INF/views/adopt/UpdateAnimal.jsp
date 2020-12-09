@@ -37,6 +37,8 @@
 		</div>
 	</div>
 	<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
+	
+	<div class="divFixed btn-style1 pointerCursor" id="updateInput">一鍵輸入</div>
 	<!-- ===================================================================================== -->
 	<div class="wid450px margin0Auto mt-50 mb-50">
 		<div>
@@ -187,4 +189,12 @@
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
 </body>
+<script>
+//一鍵輸入(不開放)
+$('#updateInput').click(function(){
+	$('#isAdoptionAvailable')[0].selectedIndex = 0;
+	$('#coatColor').val("橘");
+	$('#note').val("跟主人熟了會撒嬌");
+});
+</script>
 </html>
