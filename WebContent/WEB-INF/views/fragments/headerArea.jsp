@@ -65,7 +65,8 @@
                                     <a href="<c:url value='/member/login' />"><i class="icon-user icons"></i></a>
                                 </div> --%>
 						<div class="header-login same-style">
-							<button class="icon-cart" id="fbname" data-toggle="tooltip" data-placement="bottom" title="會員">
+							<button class="icon-cart" id="fbname" data-toggle="tooltip"
+								data-placement="bottom" title="會員">
 								<i class="icon-user icons"></i>
 								<c:if test="${!empty LoginOK}">
 									<span class="count-style">${LoginOK.name.substring(0, 1)}</span>
@@ -92,7 +93,8 @@
 
 						</div>
 						<div class="header-cart same-style">
-							<button class="icon-cart" onclick="goToCartPage()" data-toggle="tooltip" data-placement="bottom" title="購物車">
+							<button class="icon-cart" onclick="goToCartPage()"
+								data-toggle="tooltip" data-placement="bottom" title="購物車">
 								<i class="icon-handbag"></i> <span class="count-style"
 									id="shopCart"></span>
 							</button>
@@ -105,23 +107,17 @@
 					<div class="mobile-menu">
 						<nav id="mobile-menu-active">
 							<ul class="menu-overflow">
-								<li><a href="#">HOME</a> <!-- <ul>
+								<li><a href="<c:url value='/'/>">首頁</a> <!-- <ul>
                                                 <li><a href="index.html">home version 1</a></li>
                                                 <li><a href="index-2.html">home version 2</a></li>
                                             </ul> --></li>
-								<li><a href="#">pages</a>
-									<ul>
-										<li><a href="about-us.html">about us</a></li>
-										<li><a href="shop-page.html">shop page</a></li>
-										<li><a href="shop-list.html">shop list</a></li>
-										<li><a href="product-details.html">product details</a></li>
-										<li><a href="cart.html">cart page</a></li>
-										<li><a href="checkout.html">checkout</a></li>
-										<li><a href="wishlist.html">wishlist</a></li>
-										<li><a href="contact.html">contact us</a></li>
-										<li><a href="my-account.html">my account</a></li>
-										<li><a href="login-register.html">login / register</a></li>
-									</ul></li>
+								<li><a href="<c:url value='/adopt'/>">領養動物</a> <!--<ul> -->
+									<!--	<li><a href="about-us.html">about us</a></li> --> <!--	<li><a href="shop-page.html">shop page</a></li> -->
+									<!--	<li><a href="shop-list.html">shop list</a></li> --> <!--	<li><a href="product-details.html">product details</a></li> -->
+									<!--	<li><a href="cart.html">cart page</a></li> --> <!--	<li><a href="checkout.html">checkout</a></li> -->
+									<!--	<li><a href="wishlist.html">wishlist</a></li> --> <!--	<li><a href="contact.html">contact us</a></li> -->
+									<!--	<li><a href="my-account.html">my account</a></li> --> <!--	<li><a href="login-register.html">login / register</a></li> -->
+									<!--</ul> --></li>
 								<li><a href="#">Food</a>
 									<ul>
 										<li><a href="#">Dogs Food</a>
@@ -222,14 +218,14 @@
 	function goindex() {
 		window.location.href = "<c:url value='/' />";
 	}
-	
-	$("#adoptLi").mouseover(function(){
+
+	$("#adoptLi").mouseover(function() {
 		$("#adoptIcon").attr("src", "<c:url value='/images/cat_brown.png' />");
-		})
-	
-	$("#adoptLi").mouseout(function(){
+	})
+
+	$("#adoptLi").mouseout(function() {
 		$("#adoptIcon").attr("src", "<c:url value='/images/cat.png' />");
-		})
+	})
 </script>
 <script async defer crossorigin="anonymous"
 	src="https://connect.facebook.net/en_US/sdk.js"></script>

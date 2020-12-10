@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div>
-		<jsp:include page="../public/top.jsp" />
+<%-- 		<jsp:include page="../public/top.jsp" /> --%>
 	</div>
 	<h1>分派器</h1>
 	<a href="ReadAnimal">我的寵物</a>

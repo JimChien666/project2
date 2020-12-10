@@ -9,10 +9,16 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
+	
+<!-- 跳轉網頁動畫1 -->
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <jsp:include page="../fragments/links.jsp" />
 </head>
-<body>
+<body style="margin:0;">
+	<div id="loader"></div>
+	<div style="display:none;" id="myDiv" class="animate-bottom">
+<!-- 跳轉網頁動畫1 -->
+	
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
 	</div>
@@ -39,11 +45,13 @@
 			</div>
 		</div>
 	</div>
+	
 	<c:choose>
 		<c:when test="${source=='ReadAnimal'}">
 			<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
 		</c:when>
 	</c:choose>
+	
 	<!-- ============================================================================================= -->
 
 	<!-- 	<div class="mt-50 divCenter"> -->
@@ -116,5 +124,17 @@
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
+	
+<!-- 跳轉網頁動畫2 -->
+	</div>
 </body>
+<script>
+    setTimeout(function () {
+        $(document).ready(function () {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("myDiv").style.display = "block";
+        });
+     }, 500);
+</script>
+<!-- 跳轉網頁動畫2 -->
 </html>

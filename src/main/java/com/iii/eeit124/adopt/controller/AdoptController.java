@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 import com.iii.eeit124.adopt.service.AdoptionRecordsService;
 import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.entity.AdoptionRecords;
@@ -22,8 +24,9 @@ import com.iii.eeit124.entity.Members;
 
 @Controller
 @RequestMapping("/adopt")
+@SessionAttributes(names = { "adoptionRecord" })
 public class AdoptController {
-	
+
 	@Autowired
 	HttpSession session;
 	@Autowired
@@ -47,6 +50,7 @@ public class AdoptController {
 			adoptionRecords.setNoticeOptions(0);
 			adoptionRecordsService.create(adoptionRecords);
 			m.addAttribute("adoptionRecord", adoptionRecords);
+			session.setAttribute("myAdoptionRecord", adoptionRecords);
 		} else {
 			// 若有領養紀錄list
 			for (AdoptionRecords adoptionRecord : adoptionRecordList) {
@@ -65,6 +69,7 @@ public class AdoptController {
 				m.addAttribute("noticeArray", noticeArray);
 				// 存在的領養紀錄加入Attribute
 				m.addAttribute("adoptionRecord", adoptionRecord);
+				session.setAttribute("myAdoptionRecord", adoptionRecord);
 			}
 		}
 
@@ -98,16 +103,22 @@ public class AdoptController {
 		adoptionRecordsService.update(adoptionRecords);
 
 		m.addAttribute("adoptionRecord", adoptionRecords);
+		session.setAttribute("myAdoptionRecord", adoptionRecords);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		m.addAttribute("Today", sdf.format(new Date()));
-		System.out.println("readytoleave processAdoptApply");
 		return "adopt/AdoptApply";
 	}
 
-//	@GetMapping("/adoptApply")
-//	public String processAdoptApplyRefresh(Model m) {
-//		return "redirect:/adopt/adoptApply";
-//	}
+	// Refresh
+	@GetMapping("/adoptApply")
+	public String processAdoptApplyRefresh(Model m) {
+		m.addAttribute("adoptionRecord",
+				(adoptionRecordsService.read(((Members) session.getAttribute("LoginOK")).getId(),
+						((AdoptionRecords) session.getAttribute("myAdoptionRecord")).getAnimalId())).get(0));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		m.addAttribute("Today", sdf.format(new Date()));
+		return "adopt/AdoptApply";
+	}
 
 	// apply送出
 	@PostMapping("/apply")
@@ -127,13 +138,26 @@ public class AdoptController {
 		adoptionRecords.setMember(member);// 更新還是要重設一次
 		adoptionRecords.setAnimal(animals);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = sdf.parse(adoptionRecords.getBirthdayString());
-		adoptionRecords.setBirthday(date);
+		if ("" == adoptionRecords.getBirthdayString()) {
+			adoptionRecords.setBirthday(new Date());
+		} else {
+			Date birthday = sdf.parse(adoptionRecords.getBirthdayString());
+			adoptionRecords.setBirthday(birthday);
+		}
 		adoptionRecords.setCreatedAt(new Date());
 		adoptionRecordsService.update(adoptionRecords);
+		session.setAttribute("myAdoptionRecord", adoptionRecords);
 
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		m.addAttribute("source", "AdoptAnimal");
-		return "adopt/AdoptAnimal";
+		return "adopt/ReadAnimal";
+	}
+	
+	// Refresh
+	@GetMapping("/apply")
+	public String processAdoptRefresh(Model m) {
+		m.addAttribute("AnimalsList", animalsService.readAll());
+		m.addAttribute("source", "AdoptAnimal");
+		return "adopt/ReadAnimal";
 	}
 }

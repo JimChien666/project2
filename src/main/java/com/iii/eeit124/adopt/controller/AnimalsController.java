@@ -54,12 +54,6 @@ public class AnimalsController {
 	@Autowired
 	public AdoptionRecordsService adoptionRecordsService;
 	static final ImgurAPI imgurApi = createImgurAPI();
-
-	// 轉至分派器
-//	@GetMapping("/adoptDispatcher")
-//	public String processAdoptDispatcher() {
-//		return "adopt/AdoptDispatcher";
-//	}
 	
 	//瀏覽全部的動物
 //	@GetMapping("/ReadAllAnimal")
@@ -72,6 +66,7 @@ public class AnimalsController {
 	@GetMapping("/ReadAnimal")
 	public String processMyPetsRead(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readMyAnimals(((Members)session.getAttribute("LoginOK")).getId()));
+		m.addAttribute("source", "MyAnimals");
 		return "adopt/ReadAnimal";
 	}
 	

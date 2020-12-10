@@ -14,11 +14,11 @@
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
 <script src="<c:url value='/js/animal.js' />" type="text/javascript" charset="UTF-8"></script>
-<jsp:include page="../fragments/links.jsp" />
+<%-- <jsp:include page="../fragments/links.jsp" /> --%>
 </head>
 <body>
 	<div>
-		<jsp:include page="../fragments/headerArea.jsp" />
+<%-- 		<jsp:include page="../fragments/headerArea.jsp" /> --%>
 	</div>
 	<!-- 	麵包屑 -->
 	<div class="breadcrumb-area pt-95 pb-95 bg-img"
@@ -36,7 +36,7 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
+<%-- 	<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" /> --%>
 	
 	<div class="divFixed btn-style1 pointerCursor" id="updateInput">一鍵輸入</div>
 	<!-- ===================================================================================== -->
@@ -186,8 +186,8 @@
 			<form:button value="Send" name="update" class="btn-style1 font22">修改</form:button>
 		</form:form>
 	</div>
-	<jsp:include page="../fragments/footerArea.jsp" />
-	<jsp:include page="../fragments/allJs.jsp" />
+<%-- 	<jsp:include page="../fragments/footerArea.jsp" /> --%>
+<%-- 	<jsp:include page="../fragments/allJs.jsp" /> --%>
 </body>
 <script>
 //一鍵輸入(不開放)

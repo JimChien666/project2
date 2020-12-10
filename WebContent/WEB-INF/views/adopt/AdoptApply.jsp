@@ -7,15 +7,22 @@
 <head>
 <meta charset="UTF-8">
 <title>動物認養申請書</title>
-<link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
 <script src="<c:url value='/js/animal.js' />" type="text/javascript"
 	charset="UTF-8"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+<!-- 跳轉網頁動畫1 -->
+<link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <jsp:include page="../fragments/links.jsp" />
 </head>
-<body>
+<body style="margin:0;">
+	<div id="loader"></div>
+	<div style="display:none;" id="myDiv" class="animate-bottom">
+<!-- 跳轉網頁動畫1 -->
+	
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
 	</div>
@@ -29,9 +36,9 @@
 					<li><a href="<c:url value='/'/>">首頁</a></li>
 					<li><a href="<c:url value='/adopt'/>">全部動物</a></li>
 					<li><a
-						href="<c:url value='/AdoptAnimalDetails.controller?id=${animal.animalId}'/>">動物資料</a></li>
+						href="<c:url value='/AdoptAnimalDetails.controller?id=${adoptionRecord.animal.animalId}'/>">動物資料</a></li>
 					<li><a
-						href="<c:url value='/adopt/adoptNotice'/>/${animal.animalId}">認養須知</a></li>
+						href="<c:url value='/adopt/adoptNotice'/>/${adoptionRecord.animal.animalId}">認養須知</a></li>
 					<li class="active">認養申請</li>
 				</ul>
 			</div>
@@ -192,12 +199,25 @@
 			<a href="<c:url value='/adopt'/>"
 				class="btn-style-cancel btn-style-border">取消</a>
 			<form:button value="Send"
-				class="btn-style1 btn-style-border pointerCursor">送出申請</form:button>
+				class="btn-style1 btn-style-border pointerCursor" onclick="success('申請')">送出申請</form:button>
 		</div>
 	</form:form>
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
+	
+<!-- 跳轉網頁動畫2 -->
+	</div>
 </body>
+<script>
+    setTimeout(function () {
+        $(document).ready(function () {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("myDiv").style.display = "block";
+        });
+     }, 500);
+</script>
+<!-- 跳轉網頁動畫2 -->
+
 <script>
 	//一鍵輸入
 	$('#applyInput').click(function() {

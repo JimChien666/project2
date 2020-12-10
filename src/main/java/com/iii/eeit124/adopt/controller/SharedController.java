@@ -95,7 +95,7 @@ public class SharedController {
 	public String processAdopt(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		m.addAttribute("source", "AdoptAnimal");
-		return "adopt/AdoptAnimal";
+		return "adopt/ReadAnimal";
 	}
 
 	// 瀏覽動物詳細頁

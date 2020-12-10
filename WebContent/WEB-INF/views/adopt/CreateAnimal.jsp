@@ -14,7 +14,6 @@
 		<title>維護動物資料</title>
 	</c:when>
 </c:choose>
-<link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -23,9 +22,17 @@
 <!-- <script src="js/jquery-3.5.1.js" charset="UTF-8"></script> -->
 <script src="<c:url value='/js/animal.js' />" type="text/javascript"
 	charset="UTF-8"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+<!-- 跳轉網頁動畫1 -->
+<link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <jsp:include page="../fragments/links.jsp" />
 </head>
-<body>
+<body style="margin:0;">
+	<div id="loader"></div>
+	<div style="display:none;" id="myDiv" class="animate-bottom">
+<!-- 跳轉網頁動畫1 -->
+	
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
 	</div>
@@ -116,11 +123,11 @@
 								// 						});
 							</script>
 							<!-- 					<input id="family"> -->
-							<select id="family" class="borderBlack">
+							<select id="family" >
 								<c:forEach var="Families" items="${Families}">
 									<option value="">${Families}</option>
 								</c:forEach>
-							</select> <select id="breed" class="borderBlack ml-173 mt-10">
+							</select> <select id="breed" class="ml-173 mt-10">
 								<c:forEach var="breed" items="${breed}">
 									<option value="">${breed.breed}</option>
 								</c:forEach>
@@ -137,7 +144,7 @@
 						<!-- ===================================================================================== -->
 						<div class="mb-20">
 							<form:label path="gender" class="mb-0">*性別：</form:label>
-							<form:select path="gender" id="gender" class="borderBlack">
+							<form:select path="gender" id="gender" >
 								<form:option value="1">公</form:option>
 								<form:option value="0">母</form:option>
 							</form:select>
@@ -147,7 +154,7 @@
 						<div class="mb-20">
 							<form:label path="isAdoptionAvailable" class="mb-0">*是否開放領養：</form:label>
 							<form:select path="isAdoptionAvailable" id="isAdoptionAvailable"
-								class="font22 borderBlack">
+								>
 								<form:option value="1">開放</form:option>
 								<form:option value="0">不開放</form:option>
 							</form:select>
@@ -177,7 +184,7 @@
 						<div class="mb-50">
 							<form:label path="note" class="posAbs">備註：</form:label>
 							<form:textarea path="note" name="note" rows="5" cols="18"
-								id="note" placeholder="可輸入寵物年齡" class="font22 wid320 ml-173" />
+								id="note" placeholder="可輸入寵物年齡" class="wid320 ml-173 font22" />
 							<br>
 						</div>
 						<!-- ===================================================================================== -->
@@ -185,7 +192,7 @@
 							<a
 								href="<c:url value='/MemberCenter/preCreateAnimal.controller' />"
 								class="btn-style-cancel btn-style-border">重填</a>
-							<form:button value="Send" class="btn-style1">送出</form:button>
+							<form:button value="Send" class="btn-style1" onclick="success('新增')">新增</form:button>
 						</div>
 					</form:form>
 				</c:when>
@@ -194,7 +201,7 @@
 						method="POST" modelAttribute="animals"
 						enctype="multipart/form-data">
 						<div class="mb-20">
-							<form:label path="animalFiles" class="mb-0 font22">*照片：</form:label>
+							<form:label path="animalFiles" class="mb-0">*照片：</form:label>
 							<form:input path="animalFiles" type="file" id="animalFilesUpdate" />
 							<br>
 						</div>
@@ -212,8 +219,8 @@
 						</div>
 						<!-- ===================================================================================== -->
 						<div class="mb-20">
-							<form:label path="breedId" class="mb-0 font22">*品種：</form:label>
-							<select id="family" class="borderBlack">
+							<form:label path="breedId" class="mb-0">*品種：</form:label>
+							<select id="family" >
 								<c:forEach var="Families" items="${Families}">
 									<c:choose>
 										<c:when test="${Families == animals.breeds.family}">
@@ -224,7 +231,7 @@
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
-							</select> <select id="breed" class="borderBlack ml-173 mt-10">
+							</select> <select id="breed" class="ml-173 mt-10">
 								<c:forEach var="breed" items="${breed}">
 									<c:choose>
 										<c:when test="${breed.breed == animals.breeds.breed}">
@@ -246,8 +253,8 @@
 						</div>
 						<!-- ===================================================================================== -->
 						<div class="mb-20">
-							<form:label path="gender" class="mb-0 font22">*性別：</form:label>
-							<form:select path="gender" class="font22 borderBlack wid40p">
+							<form:label path="gender" class="mb-0">*性別：</form:label>
+							<form:select path="gender" >
 								<c:choose>
 									<c:when test="${animals.gender == 1}">
 										<form:option value="1" selected="selected">公</form:option>
@@ -263,9 +270,8 @@
 						</div>
 						<!-- ===================================================================================== -->
 						<div class="mb-20">
-							<form:label path="isAdoptionAvailable" class="mb-0 font22">*是否開放領養：</form:label>
-							<form:select path="isAdoptionAvailable"
-								class="font22 borderBlack wid40p">
+							<form:label path="isAdoptionAvailable" class="mb-0">*是否開放領養：</form:label>
+							<form:select path="isAdoptionAvailable">
 								<c:choose>
 									<c:when test="${animals.isAdoptionAvailable == 1}">
 										<form:option value="1" selected="selected">開放</form:option>
@@ -281,7 +287,7 @@
 						</div>
 						<!-- ===================================================================================== -->
 						<div class="divHidden">
-							<form:label path="animalId" class="mb-0 font22">動物編號：</form:label>
+							<form:label path="animalId" class="mb-0">動物編號：</form:label>
 							<form:input path="animalId" type="text" name="animalId"
 								value="${animals.animalId}" class="divHidden" id="animalId" />
 							<form:label path="animalId">${animals.animalId}</form:label>
@@ -289,7 +295,7 @@
 						<!-- 		label不能用value，input readonly="readonly", disable="disabled"無作用-->
 						<!-- ===================================================================================== -->
 						<div class="divHidden">
-							<form:label path="memberId" class="mb-0 font22">會員編號：</form:label>
+							<form:label path="memberId" class="mb-0">會員編號：</form:label>
 							<form:input path="memberId" type="text" name="memberId"
 								value="${animals.member.id}" onblur="checkmemberId()"
 								id="memberId" />
@@ -300,10 +306,10 @@
 						</div>
 						<!-- ===================================================================================== -->
 						<div class="mb-20">
-							<form:label path="acceptionId" class="mb-0 font22">收容動物編號：</form:label>
+							<form:label path="acceptionId" class="mb-0">收容動物編號：</form:label>
 							<form:input path="acceptionId" type="text" name="acceptionId"
 								value="${animals.acceptionId}" onblur="checkacceptionId()"
-								id="acceptionId" class="font22" />
+								id="acceptionId" />
 							<br>
 						</div>
 						<div id="acceptionIdDiv" class="divHidden">
@@ -311,10 +317,10 @@
 						</div>
 						<!-- ===================================================================================== -->
 						<div class="mb-20">
-							<form:label path="coatColor" class="mb-0 font22">毛色：</form:label>
+							<form:label path="coatColor" class="mb-0">毛色：</form:label>
 							<form:input path="coatColor" type="text" name="coatColor"
 								value="${animals.coatColor}" onblur="checkcoatColor()"
-								id="coatColor" class="font22" />
+								id="coatColor" />
 							<br>
 						</div>
 						<div id="coatColorDiv" class="divHidden">
@@ -324,7 +330,7 @@
 						<div class="mb-20">
 							<form:label path="note" class="posAbs">備註：</form:label>
 							<form:textarea path="note" name="note" rows="5" cols="18"
-								class="font22 wid320 ml-173" value="${animals.note}" />
+								class="wid320 ml-173 font22" value="${animals.note}" />
 							<br>
 						</div>
 						<!-- ===================================================================================== -->
@@ -332,7 +338,7 @@
 							<a
 								href="<c:url value='/MemberCenter/preUpdateAnimal.controller' />?animalId=${animals.animalId}"
 								class="btn-style-cancel btn-style-border">回復修改</a>
-							<form:button value="Send" name="update" class="btn-style1 font22">修改</form:button>
+							<form:button value="Send" name="update" class="btn-style1" onclick="success('修改')">修改</form:button>
 						</div>
 					</form:form>
 				</c:when>
@@ -342,7 +348,20 @@
 	</div>
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
+	
+<!-- 跳轉網頁動畫2 -->
+	</div>
 </body>
+<script>
+    setTimeout(function () {
+        $(document).ready(function () {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("myDiv").style.display = "block";
+        });
+     }, 500);
+</script>
+<!-- 跳轉網頁動畫2 -->
+
 <script>
 	//一鍵輸入(不開放)
 	$('#createInput2').click(function() {

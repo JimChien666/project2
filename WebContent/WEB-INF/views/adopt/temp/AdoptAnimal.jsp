@@ -11,11 +11,11 @@
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
-<jsp:include page="../fragments/links.jsp" />
+<%-- <jsp:include page="../fragments/links.jsp" /> --%>
 </head>
 <body>
 	<div>
-		<jsp:include page="../fragments/headerArea.jsp" />
+<%-- 		<jsp:include page="../fragments/headerArea.jsp" /> --%>
 	</div>
 	<!-- 	麵包屑 -->
 	<div class="breadcrumb-area pt-95 pb-95 bg-img"
@@ -106,7 +106,7 @@
 	</div>
 
 
-	<jsp:include page="../fragments/footerArea.jsp" />
-	<jsp:include page="../fragments/allJs.jsp" />
+<%-- 	<jsp:include page="../fragments/footerArea.jsp" /> --%>
+<%-- 	<jsp:include page="../fragments/allJs.jsp" /> --%>
 </body>
 </html>
