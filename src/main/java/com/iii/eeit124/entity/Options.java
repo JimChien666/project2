@@ -13,6 +13,7 @@ public class Options {
 	private int id;
 	private int voteid;
 	private String content;
+	private Integer optionFileId;
 
 	@Id @Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +41,14 @@ public class Options {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	@Column(name = "OPTIONFILEID")
+	public Integer getOptionFileId() {
+		return optionFileId;
+	}
+
+	public void setOptionFileId(Integer optionFileId) {
+		this.optionFileId = optionFileId;
 	}
 
 }

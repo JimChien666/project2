@@ -12,7 +12,8 @@ import javax.persistence.Table;
 public class Vote {
 	private int id;
 	private String title;
-
+	private Integer fileid;
+	
 	@Id @Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
@@ -30,6 +31,15 @@ public class Vote {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	@Column(name = "FILEID")
+	public Integer getFileid() {
+		return fileid;
+	}
+
+	public void setFileid(Integer fileid) {
+		this.fileid = fileid;
 	}
 
 }
