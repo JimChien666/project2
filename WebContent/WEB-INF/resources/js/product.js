@@ -81,13 +81,15 @@ function readURL(input) {
 	}
 }
 //給showContentImage的readURL用的
+
 function readContentURL(input) {
+	var contentImglength=input.files.length;
 	if (input.files[0]&&input.files) {
-//		for (var i = 0; i < 2; i++) {
+//		for (var i = 0; i < contentImglength; i++) {
+			
 			var reader = new FileReader();		
 			var reader1 = new FileReader();		
-	//		let productContentDivAlter = document.getElementById("productContentDivAlter").value;
-	//		let productContentDivAlterLength = productContentDivAlter.length;
+
 			reader.onload = function(f) {
 //				$("#preview_productContent"+[i]).attr('src', f.target.result);
 				$("#preview_productContent0").attr('src', f.target.result);
@@ -96,9 +98,9 @@ function readContentURL(input) {
 //				$("#preview_productContent"+[i]).attr('src', f.target.result);
 				$("#preview_productContent1").attr('src', f.target.result);
 			}						
+//		}
 			reader.readAsDataURL(input.files[0]);		
 			reader1.readAsDataURL(input.files[1]);		
-//		}
 	}
 }
 

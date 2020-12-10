@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>新增商品</title>
+<link rel="stylesheet" href="<c:url value='/css/Product.css' />">
 <script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />" ></script>
 <script>
 window.onload = function() {
@@ -77,6 +78,8 @@ function getAnimalTypes(){
 }
 
 </script>
+<script src="<c:url value='/js/product.js' />" type="text/javascript" charset="UTF-8"></script>
+
 <jsp:include page="../fragments/links.jsp" />
 <style>
 .btncls{
@@ -101,25 +104,51 @@ button.btncls:hover{
 <jsp:include page="../fragments/headerArea.jsp" />
 
 <%-- <jsp:include page="../public/top.jsp" /> --%>
-<div class="container">
-	<form:form  method="POST" action="${pageContext.servletContext.contextPath}/product/processCreateProduct.controller" modelAttribute="products" enctype="multipart/form-data"  >
-		<b>
-		商品名稱:<form:input id="input1" path="name"/><span style="color: red;">${errors.name}</span><br/>
-		商品價格:<form:input id="input2" path="price"/><span style="color: red;">${errors.price}</span><br/>
-		商品折扣:<form:input id="input3" path="discount"/><span style="color: red;">${errors.discount}</span><br/>
-		商品圖片:<form:input id="input4" path="multipartFile" type="file" /><span style="color: red;">${errors.multipartFile}</span><br/>
-		商品內容圖片:<input  name="contentImage" type="file" multiple/><span style="color: red;">${errors.multipartFile}</span><br/>
-		商品描述:<form:input id="input5" path="description"/><span style="color: red;">${errors.description}</span><br/>
-		商品數量:<form:input id="input6" path="quantity"/><span style="color: red;">${errors.quantity}</span><br/>
-		商品狀態:<br/>	
-			 <form:radiobutton style="width:20px;height:20px;" path="status" value="上架中"/>上架中
+<form:form  method="POST" action="${pageContext.servletContext.contextPath}/product/processCreateProduct.controller" modelAttribute="products" enctype="multipart/form-data"  >
+	<div class="container">
+		
+		*商品名稱:<form:input id="input1" path="name"/><span style="color: red;">${errors.name}</span><br/>
+		*商品價格:<form:input id="input2" path="price"/><span style="color: red;">${errors.price}</span><br/>
+		*商品折扣:<form:input id="input3" path="discount"/><span style="color: red;">${errors.discount}</span><br/>
+<!--商品封面圖===================================================================================== -->
+			<div class="mb-20">	
+				<form:label path="multipartFile" class="mb-20">*商品圖片:</form:label>
+				<form:input path="multipartFile" type="file" id="productFilesUpdate" />
+				<span style="color: red;">${errors.multipartFile}</span>
+			</div>
+			<!--原始圖片區域 ===================================================================================== -->			
+			<div class="mb-20" >								
+			
+			<!--隱藏的預覽圖區域 ===================================================================================== -->
+				<div style="display:none;"  id="productFilesDivAlter">
+					<img style="height: 25%; width: 25%;"  id="preview_productFiles" src="#" /><br>
+				</div>
+			</div>				
+
+<!--商品內容圖 ===================================================================================== -->
+			<div class="mb-20">
+				*商品內容圖片(請選擇兩張圖):
+				<input name="contentImage" type="file" multiple id="productContentUpdate"/>
+<!-- 				<input name="contentImage" type="file" multiple /> -->
+				<span style="color: red;">${errors.multipartFile}</span><br />
+			</div>
+			<!--隱藏的內容預覽圖區域 ===================================================================================== -->
+			<div style="display: none;" id="productContentDivAlter">
+				
+					
+			</div>				
+
+			<!-- ===================================================================================== -->		*商品描述:<form:input id="input4" path="description"/><span style="color: red;">${errors.description}</span><br/>
+		*商品數量:<form:input id="input5" path="quantity"/><span style="color: red;">${errors.quantity}</span><br/>
+		*商品狀態:<br/>	
+			 <form:radiobutton id="input6" style="width:20px;height:20px;" path="status" value="上架中"/>上架中
           	 <form:radiobutton style="width:20px;height:20px;" path="status" value="已下架"/>  已下架 <span style="color: red;">${errors.status}</span><br/>
         <div id='somedivS'></div>
          ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/> 
-		</b>
+		
         <form:button value="Send" class="btncls">送出</form:button>
-	</form:form>
-</div>	
+	</div>	
+</form:form>
 <%-- <jsp:include page="../public/top.jsp" /> --%>
 <%-- 	<form method="POST" action="${pageContext.servletContext.contextPath}/product/processCreateProduct.controller" modelAttribute="products" enctype="multipart/form-data"  > --%>
 <%-- 		商品名稱:<input name="name"/><span style="color: red;">${errors.name}</span><br/> --%>
@@ -135,23 +164,38 @@ button.btncls:hover{
 <!--         <button value="Send">Submit</button>		 -->
 <%-- 	</form>	 --%>
 
-<div class="divFixed btn-style1 pointerCursor" id="createInput">一鍵輸入</div>
+<button type="button" class="divFixed btn-style1 pointerCursor" id="createInput">一鍵輸入</button>
+<script type="text/javascript">
+	$(function(){		
+		$('input[name="contentImage"]').change(function(){
+			document.getElementById("productContentDivAlter").innerHTML= '';
+			var contentImglength=this.files.length;
+			var content='';
+			for (i=0;i<contentImglength;i++){
+				 content += '<img style="height: 350px; width: 300px;" 	id="preview_productContent'+i+  '" src="#" />';
+			}
+			
+			var divs = document.getElementById("productContentDivAlter");
+			divs.innerHTML += content;
+		});
 
+	});
+</script>
 <jsp:include page="../fragments/footerArea.jsp" />
 <jsp:include page="../fragments/allJs.jsp" />
 </body>
 <script >
 //一鍵輸入(開放)
 $('#createInput').click(function() {
-	$('#input1').val("米格魯");
-	$('#input2').val("米格魯");
-	$('#input3').val("W081204-12");
-	$('#input4').val("花");
-	$('#input5').val("很愛吃、有點邊緣狗個性");
-	$('#input6').val("很愛吃、有點邊緣狗個性");
-	$('#select1')[0].selectedIndex = 1;
+	$('#input1').val('Pawbby | 寵物剃毛器');
+	$('#input2').val('390');
+	$('#input3').val('1');
+	$('#input4').val('產品介紹	<br/>● 新手必備<br/>● 安全圓潤刀頭 不傷愛寵皮膚<br/>● 強勁修剪不卡毛 <br/>● 三重降噪 愛寵無壓力不抗拒<br/>● 搭配定位梳 四種長度隨心剪 <br/>			● 快速充電 持久續航 <br/>	● 智能監控電量 低電量提醒<br/> 	● 刀頭一秒拆卸 清理方便 <br/>● 握感舒適<br/>產品規格	尺寸	175x33x35mm	重量	190g 額定功率 5W輸入電源DC 5V 1A材質	ABS	執行標準 GB 4706.1-2005 GB 4706.9-2008 	產品詳情');
+	$('#input5').val('10');
+	$('#input6').prop('checked', true)
+	$('#select1')[0].selectedIndex = 4;
 	$('#select2')[0].selectedIndex = 1;
-	$('#select3')[0].selectedIndex = 1;
+	$('#select3')[0].selectedIndex = 2;
 
 });
 
