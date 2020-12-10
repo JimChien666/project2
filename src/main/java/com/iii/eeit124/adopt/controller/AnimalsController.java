@@ -35,6 +35,7 @@ import com.iii.eeit124.entity.ImageResponse;
 import com.iii.eeit124.entity.Members;
 //import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import oracle.net.aso.m;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -292,5 +293,20 @@ public class AnimalsController {
 			    .baseUrl(ImgurAPI.SERVER)
 			    .build();
 		return retrofit.create(ImgurAPI.class);
+	}
+
+	//==============================================================================================
+	
+	//領養申請列表
+	@GetMapping("/adoptionRequestList.controller")
+	public String processAdoptionRequestList(Model m) {
+		
+		Integer memberId = ((Members) session.getAttribute("LoginOK")).getId();
+		
+		List<Integer> readMyAnimalId = animalsService.readMyAnimalId(memberId);
+		System.out.println("readMyAnimalId:"+readMyAnimalId);
+		System.out.println("adoptionRecordsService.readReviewStatus(memberId, 1, 1, readMyAnimalId)"+adoptionRecordsService.readReviewStatus(memberId, 1, 1, readMyAnimalId));
+		m.addAttribute("AdoptionRequestList",adoptionRecordsService.readReviewStatus(memberId, 1, 1, readMyAnimalId));
+		return "adopt/AdoptionRequestList";
 	}
 }

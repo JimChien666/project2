@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.adopt.service.BreedsService;
+import com.iii.eeit124.adopt.service.EmailService;
 import com.iii.eeit124.entity.Animals;
 import com.iii.eeit124.entity.AnimalsFiles;
 import com.iii.eeit124.entity.Breeds;
@@ -38,6 +39,8 @@ public class SharedController {
 	public AnimalsService animalsService;
 	@Autowired
 	public BreedsService breedsService;
+	@Autowired
+	public EmailService emailService;
 
 	@GetMapping("/none")
 	public String processNone() {
@@ -112,5 +115,14 @@ public class SharedController {
 			m.addAttribute("member", ((Members) session.getAttribute("LoginOK")).getId());
 		}
 		return "adopt/ReadAnimalDetails";
+	}
+	
+	@GetMapping("/adoptApplyMail.controller")
+	public String processMail(Model m) {
+		emailService.sendSimpleMessage("weybrian@gmail.com", "串起來!!", "成功拉~~");
+		System.out.println("寄信成功");
+		m.addAttribute("AnimalsList", animalsService.readAll());
+		m.addAttribute("source", "AdoptAnimal");
+		return "adopt/ReadAnimal";
 	}
 }

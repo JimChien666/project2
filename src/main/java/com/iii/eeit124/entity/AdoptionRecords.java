@@ -24,7 +24,7 @@ public class AdoptionRecords {
 	private Integer memberId;//多對一
 	private Integer animalId;//一對一
 	private Date adoptionDate;
-	private String reviewStatus;//審核狀態
+	private Integer reviewStatus;//審核狀態1.審核中
 	private Integer adoptionStatus;//1.領養中 2.送養中 3.已送養
 	private Date createdAt;
 	private Date updatedAt;
@@ -82,10 +82,10 @@ public class AdoptionRecords {
 		this.adoptionDate = adoptionDate;
 	}
 	@Column(name = "Review_Status")
-	public String getReviewStatus() {
+	public Integer getReviewStatus() {
 		return reviewStatus;
 	}
-	public void setReviewStatus(String reviewStatus) {
+	public void setReviewStatus(Integer reviewStatus) {
 		this.reviewStatus = reviewStatus;
 	}
 	@Column(name = "Adoption_Status")

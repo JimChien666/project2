@@ -13,6 +13,8 @@ public interface AnimalsDao {
 	
 	public List<Animals> readMyAnimals(Integer memberId);
 	
+	public List<Integer> readMyAnimalId(Integer memberId);
+	
 	public Animals update(Animals entity);
 	
 	public boolean delete(Integer animalsId);

@@ -13,6 +13,8 @@ public interface AnimalsService {
 	
 	public List<Animals> readMyAnimals(Integer memberId);
 	
+	public List<Integer> readMyAnimalId(Integer memberId);
+	
 	public Animals update(Animals animals);
 	
 	public boolean delete(Integer animalsId);

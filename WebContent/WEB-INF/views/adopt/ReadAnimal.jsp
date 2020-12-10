@@ -56,7 +56,7 @@
 					<li><a href="<c:url value='/'/>">首頁</a></li>
 					<c:choose>
 						<c:when test="${source == 'MyAnimals'}">
-							<li class="active">會員中心</li>
+					<li><a href="<c:url value='/member/myAccount' />">會員中心</a></li>
 							<li class="active">我的寵物</li>
 						</c:when>
 						<c:when test="${source == 'AdoptAnimal'}">
@@ -73,6 +73,9 @@
 		</c:when>
 	</c:choose>
 	<!-- ===================================================================================== -->
+	
+<%-- 	<a href="<c:url value='/mail'/>" --%>
+<!-- 				class="btn-style-cancel btn-style-border">寄信</a> -->
 
 	<div class="blog-area pt-50 pb-50 clearfix">
 		<div class="container">

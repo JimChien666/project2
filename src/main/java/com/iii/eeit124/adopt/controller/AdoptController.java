@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.iii.eeit124.adopt.service.AdoptionRecordsService;
 import com.iii.eeit124.adopt.service.AnimalsService;
+import com.iii.eeit124.adopt.service.EmailService;
 import com.iii.eeit124.entity.AdoptionRecords;
 import com.iii.eeit124.entity.Animals;
 import com.iii.eeit124.entity.Members;
@@ -33,6 +34,8 @@ public class AdoptController {
 	public AnimalsService animalsService;
 	@Autowired
 	public AdoptionRecordsService adoptionRecordsService;
+	@Autowired
+	public EmailService emailService;
 
 	// detail轉至notice
 	@GetMapping("/adoptNotice/{animalId}")
@@ -128,9 +131,9 @@ public class AdoptController {
 		Members member = (Members) session.getAttribute("LoginOK");
 		Animals animals = animalsService.read(adoptionRecords.getAnimalId());
 
-		animals.setMember(member);
-		animals.setIsAdoptionAvailable(0);
-		animalsService.update(animals);
+//		animals.setMember(member);
+//		animals.setIsAdoptionAvailable(0);
+//		animalsService.update(animals);
 
 		if (null == adoptionRecords.getAgreement()) {
 			adoptionRecords.setAgreement(0);
@@ -144,9 +147,21 @@ public class AdoptController {
 			Date birthday = sdf.parse(adoptionRecords.getBirthdayString());
 			adoptionRecords.setBirthday(birthday);
 		}
-		adoptionRecords.setCreatedAt(new Date());
+//		adoptionRecords.setCreatedAt(new Date());
+		
+		//設定審核狀態
+		adoptionRecords.setReviewStatus(1);
+		
+		//將新增的資料更新進領養紀錄
 		adoptionRecordsService.update(adoptionRecords);
 		session.setAttribute("myAdoptionRecord", adoptionRecords);
+		
+		//信件內容
+//		String content=null;
+//		content = "";
+		
+		//寄mail
+//		emailService.sendSimpleMessage(adoptionRecords.getEmail(), "有人向您的寵物提出領養申請", content);
 
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		m.addAttribute("source", "AdoptAnimal");

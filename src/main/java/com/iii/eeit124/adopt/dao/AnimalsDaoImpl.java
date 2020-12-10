@@ -45,6 +45,14 @@ public class AnimalsDaoImpl implements AnimalsDao {
 		return list;
 	}
 
+	public List<Integer> readMyAnimalId(Integer memberId) {
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		Query<Integer> query = session.createQuery("select animalId from Animals where MEMBER_ID=" + memberId + " order by animal_id");
+		List<Integer> list = query.list();
+		return list;
+	}
+
 	public Animals update(Animals entity) {// entity為更新的內容
 		Session session = sessionFactory.getCurrentSession();
 //		Animals result = session.get(Animals.class, entity.getAnimalId());
