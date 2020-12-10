@@ -58,7 +58,7 @@ public class UpdateProductController {
 		
 		if(id != null) {
 			Products products = service.selectById(id);	
-			map.put("products",products); //要跟JSP的名子一樣
+			map.put("products",products); //要跟Bean 的名子一樣(開頭小寫)
 			
 			map.put("Colors",service.findAllColors());
 			map.put("Categories",service.findAllCatrgories());
@@ -74,7 +74,7 @@ public class UpdateProductController {
 
 	@RequestMapping(value = "/processUpdateProduct.controller", method = RequestMethod.POST)
 	public String processUpdateProduct(
-			@ModelAttribute("products") Products products,
+			@ModelAttribute("products")Products products,
 			@RequestParam(name="animalTypeId", required = false) Integer animalTypeId,
 			@RequestParam(name="colorId", required = false) Integer colorId,
 			@RequestParam(name="categoryId", required = false) Integer categoryId,

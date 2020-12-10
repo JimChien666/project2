@@ -21,7 +21,7 @@ function getCategories(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "選擇分類：<select name='categoryId' style='background-color:RGB(236,239,248);height:50px;'>";
+			var content = "選擇分類：<select id='select1' name='categoryId' style='background-color:RGB(236,239,248);height:50px;'>";
 			content += "<option value='' disabled selected='selected'>請選擇分類</option>"
 			var categories = JSON.parse(xhr.responseText);
 			for(var i=0; i < categories.length; i++){
@@ -41,7 +41,7 @@ function getColors(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "商品顏色：<select name='colorId' style='background-color:RGB(236,239,248);height:50px;'>";
+			var content = "商品顏色：<select id='select2' name='colorId' style='background-color:RGB(236,239,248);height:50px;'>";
 			content += "<option value='' disabled selected='selected'>請選擇顏色</option>"
 			var colors = JSON.parse(xhr.responseText);
 			for(var i=0; i < colors.length; i++){
@@ -62,7 +62,7 @@ function getAnimalTypes(){
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var content = "寵物類別：<select name='animalTypeId' style='background-color:RGB(236,239,248);height:50px;'>";
+			var content = "寵物類別：<select id='select3' name='animalTypeId' style='background-color:RGB(236,239,248);height:50px;'>";
 			content += "<option value='' disabled selected='selected'>請選擇寵物類別</option>"
 			var animalTypes = JSON.parse(xhr.responseText);
 			for(var i=0; i < animalTypes.length; i++){
@@ -104,13 +104,13 @@ button.btncls:hover{
 <div class="container">
 	<form:form  method="POST" action="${pageContext.servletContext.contextPath}/product/processCreateProduct.controller" modelAttribute="products" enctype="multipart/form-data"  >
 		<b>
-		商品名稱:<form:input path="name"/><span style="color: red;">${errors.name}</span><br/>
-		商品價格:<form:input path="price"/><span style="color: red;">${errors.price}</span><br/>
-		商品折扣:<form:input path="discount"/><span style="color: red;">${errors.discount}</span><br/>
-		商品圖片:<form:input path="multipartFile" type="file" /><span style="color: red;">${errors.multipartFile}</span><br/>
-		商品內容圖片:<input name="contentImage" type="file" multiple/><span style="color: red;">${errors.multipartFile}</span><br/>
-		商品描述:<form:input path="description"/><span style="color: red;">${errors.description}</span><br/>
-		商品數量:<form:input path="quantity"/><span style="color: red;">${errors.quantity}</span><br/>
+		商品名稱:<form:input id="input1" path="name"/><span style="color: red;">${errors.name}</span><br/>
+		商品價格:<form:input id="input2" path="price"/><span style="color: red;">${errors.price}</span><br/>
+		商品折扣:<form:input id="input3" path="discount"/><span style="color: red;">${errors.discount}</span><br/>
+		商品圖片:<form:input id="input4" path="multipartFile" type="file" /><span style="color: red;">${errors.multipartFile}</span><br/>
+		商品內容圖片:<input  name="contentImage" type="file" multiple/><span style="color: red;">${errors.multipartFile}</span><br/>
+		商品描述:<form:input id="input5" path="description"/><span style="color: red;">${errors.description}</span><br/>
+		商品數量:<form:input id="input6" path="quantity"/><span style="color: red;">${errors.quantity}</span><br/>
 		商品狀態:<br/>	
 			 <form:radiobutton style="width:20px;height:20px;" path="status" value="上架中"/>上架中
           	 <form:radiobutton style="width:20px;height:20px;" path="status" value="已下架"/>  已下架 <span style="color: red;">${errors.status}</span><br/>
@@ -134,7 +134,28 @@ button.btncls:hover{
 <%-- <%--         ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/> --%> 
 <!--         <button value="Send">Submit</button>		 -->
 <%-- 	</form>	 --%>
+
+<div class="divFixed btn-style1 pointerCursor" id="createInput">一鍵輸入</div>
+
 <jsp:include page="../fragments/footerArea.jsp" />
 <jsp:include page="../fragments/allJs.jsp" />
 </body>
+<script >
+//一鍵輸入(開放)
+$('#createInput').click(function() {
+	$('#input1').val("米格魯");
+	$('#input2').val("米格魯");
+	$('#input3').val("W081204-12");
+	$('#input4').val("花");
+	$('#input5').val("很愛吃、有點邊緣狗個性");
+	$('#input6').val("很愛吃、有點邊緣狗個性");
+	$('#select1')[0].selectedIndex = 1;
+	$('#select2')[0].selectedIndex = 1;
+	$('#select3')[0].selectedIndex = 1;
+
+});
+
+</script>
+
+
 </html>
