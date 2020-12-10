@@ -237,16 +237,19 @@ public class ArticleController {
 		Long recordCounts = articleService.getRecordCounts(id);
 		List<Article> articleList = articleService.select(pageNo, recordsPerPage, id);
 		Members member = (Members) session.getAttribute("LoginOK");
-		Integer memberid = member.getId();
-		List<FollowedArticle> statusList = followedService.statusCheck(memberid);
 		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));	
-		map.put("statusList", statusList);
 		map.put("articleList", articleList);
 		map.put("totalPage", totalPage);
 		map.put("currPage", pageNo);
 		map.put("recordCounts", recordCounts);
 		map.put("recordsPerPage", recordsPerPage);		
-		System.out.println(map);
+		if (member==null) {
+			map.put("statusList", null);			
+			return map;
+		}
+		Integer memberid = member.getId();
+		List<FollowedArticle> statusList = followedService.statusCheck(memberid);
+		map.put("statusList", statusList);		
 		return map;
 	}
 	
@@ -258,8 +261,7 @@ public class ArticleController {
 		Integer memberid = member.getId();
 		List<Article> articleList = articleService.personalFollowed(memberid, id);
 //		List<FollowedArticle> statusList = followedService.personalFollowed(memberid);
-		map.put("articleList", articleList);
-	
+		map.put("articleList", articleList);	
 		return map;
 	}
 
