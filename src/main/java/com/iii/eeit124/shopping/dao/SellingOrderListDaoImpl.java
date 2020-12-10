@@ -23,7 +23,7 @@ public class SellingOrderListDaoImpl implements SellingOrderListDao {
 	@Override
 	public List<Orders> indAllOrdersByMemberId(Integer pageNo ,Integer recordsPerPage, Integer id, Integer paidStatus, String orderStatus) {
 		
-		Query q = sessionFactory.getCurrentSession().createSQLQuery("select order_id from order_items where seller_id=?0 group by order_id");
+		Query q = sessionFactory.getCurrentSession().createSQLQuery("select order_id from order_items where seller_id=?0 group by order_id order by order_id desc");
 		q.setParameter(0, id);
 		String idList = q.getResultList().toString().replace("[", "").replace("]", "");
 		System.out.println(idList);
@@ -43,7 +43,7 @@ public class SellingOrderListDaoImpl implements SellingOrderListDao {
 		}
 		
 		@SuppressWarnings("unchecked")
-		TypedQuery<Orders> query = sessionFactory.getCurrentSession().createQuery("from Orders " + condiction + " order by id");
+		TypedQuery<Orders> query = sessionFactory.getCurrentSession().createQuery("from Orders " + condiction + " order by id desc");
 		query.setFirstResult(startRecordNo).setMaxResults(recordsPerPage);
 		if (paidStatus != null) {
 			query.setParameter("isPaid", paidStatus);
@@ -60,7 +60,7 @@ public class SellingOrderListDaoImpl implements SellingOrderListDao {
 
 	@Override
 	public Long getRecordCounts(Integer id, Integer paidStatus, String orderStatus) {
-		Query q = sessionFactory.getCurrentSession().createSQLQuery("select order_id from order_items where seller_id=?0 group by order_id");
+		Query q = sessionFactory.getCurrentSession().createSQLQuery("select order_id from order_items where seller_id=?0 group by order_id  order by order_id desc");
 		q.setParameter(0, id);
 		String idList = q.getResultList().toString().replace("[", "").replace("]", "");
 		System.out.println(idList);
@@ -92,14 +92,14 @@ public class SellingOrderListDaoImpl implements SellingOrderListDao {
 
 	@Override
 	public List<Orders> indAllOrdersByMemberId(Integer pageNo ,Integer recordsPerPage, Integer id) {
-		Query q = sessionFactory.getCurrentSession().createSQLQuery("select order_id from order_items where seller_id=?0 group by order_id");
+		Query q = sessionFactory.getCurrentSession().createSQLQuery("select order_id from order_items where seller_id=?0 group by order_id  order by order_id desc");
 		q.setParameter(0, id);
 		String idList = q.getResultList().toString().replace("[", "").replace("]", "");
 		System.out.println(idList);
 		
 		Integer startRecordNo = (pageNo - 1) * recordsPerPage; 
 		@SuppressWarnings("unchecked")
-		TypedQuery<Orders> query = sessionFactory.getCurrentSession().createQuery("from Orders where id in ("+idList+") order by id");
+		TypedQuery<Orders> query = sessionFactory.getCurrentSession().createQuery("from Orders where id in ("+idList+") order by id desc");
 		query.setFirstResult(startRecordNo).setMaxResults(recordsPerPage);
 		query.getResultList();
 		return query.getResultList();
@@ -108,7 +108,7 @@ public class SellingOrderListDaoImpl implements SellingOrderListDao {
 
 	@Override
 	public Long getRecordCounts(Integer id) {
-		Query q = sessionFactory.getCurrentSession().createSQLQuery("select order_id from order_items where seller_id=?0 group by order_id");
+		Query q = sessionFactory.getCurrentSession().createSQLQuery("select order_id from order_items where seller_id=?0 group by order_id order by order_id desc");
 		q.setParameter(0, id);
 		String idList = q.getResultList().toString().replace("[", "").replace("]", "");
 		System.out.println(idList);

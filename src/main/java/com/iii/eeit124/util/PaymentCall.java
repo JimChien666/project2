@@ -12,7 +12,6 @@ public class PaymentCall {
 		AllInOne all = new AllInOne("");
 		AioCheckOutALL obj = new AioCheckOutALL();
 		InvoiceObj invoice = new InvoiceObj();
-		System.out.println(uid);
 		obj.setMerchantTradeNo(uid.toString().replaceAll("-", "").substring(0, 20));
 		obj.setMerchantTradeDate(date);
 		obj.setTotalAmount(total);

@@ -14,7 +14,9 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.iii.eeit124.entity.AnimalTypes;
 import com.iii.eeit124.entity.Categories;
+import com.iii.eeit124.entity.Colors;
 
 @Repository
 @Transactional
@@ -25,19 +27,9 @@ public class ShoppingAanlysisDaoImpl implements ShoppingAanlysisDao {
 	
 	@Override
 	public Map<String, BigDecimal> getAllCategoriesCost(Integer id) {
-		//每月第一天
-		Calendar cal_1=Calendar.getInstance();
-		cal_1.add(Calendar.MONTH, 0);
-		cal_1.set(Calendar.DAY_OF_MONTH,0);
-		//每月最後一天
-		Calendar cale = Calendar.getInstance();
-		cal_1.add(Calendar.MONTH, 0);
-		cal_1.set(Calendar.DAY_OF_MONTH,1);
 		@SuppressWarnings("rawtypes")
 		Query query = sessionFactory.getCurrentSession().createQuery("From Categories");
 		Map<String, BigDecimal> map = new HashMap<String, BigDecimal>();
-		System.out.println(cal_1.getTime());
-		System.out.println(cale.getTime());
 		@SuppressWarnings("unchecked")
 		List<Categories> categories = query.getResultList();
 		for(Categories categoriey:categories) {
@@ -52,6 +44,66 @@ public class ShoppingAanlysisDaoImpl implements ShoppingAanlysisDao {
 			map.put(categoriey.getName(), sum);
 		}
 		return map;
+	}
+
+	@Override
+	public Map<String, BigDecimal> getAllAnimalTypeCost(Integer id) {
+		@SuppressWarnings("rawtypes")
+		Query query = sessionFactory.getCurrentSession().createQuery("From AnimalTypes");
+		Map<String, BigDecimal> map = new HashMap<String, BigDecimal>();
+		@SuppressWarnings("unchecked")
+		List<AnimalTypes> animalTypes = query.getResultList();
+		for(AnimalTypes animalType:animalTypes) {
+			BigDecimal sum = new BigDecimal(0);
+			@SuppressWarnings("rawtypes")
+			Query query2 = sessionFactory.getCurrentSession().createSQLQuery("select sum(oi.price*oi.discount) from order_items oi left join products p on p.id=oi.product_id left join orders o on o.id=oi.order_id left join animal_types ats on ats.id=p.animal_type_id where o.buyer_id=?0 and ats.id=?1 group by p.animal_type_id");
+			query2.setParameter(0, id);
+			query2.setParameter(1, animalType.getId());
+			if (query2.uniqueResult() != null) {				
+				sum = (BigDecimal)query2.uniqueResult();
+			}
+			map.put(animalType.getName(), sum);
+		}
+		return map;
+	}
+
+	@Override
+	public Map<String, BigDecimal> getAllColorCost(Integer id) {
+		@SuppressWarnings("rawtypes")
+		Query query = sessionFactory.getCurrentSession().createQuery("From Colors");
+		Map<String, BigDecimal> map = new HashMap<String, BigDecimal>();
+		@SuppressWarnings("unchecked")
+		List<Colors> colors = query.getResultList();
+		for(Colors color:colors) {
+			BigDecimal sum = new BigDecimal(0);
+			@SuppressWarnings("rawtypes")
+			Query query2 = sessionFactory.getCurrentSession().createSQLQuery("select sum(oi.price*oi.discount) from order_items oi left join products p on p.id=oi.product_id left join orders o on o.id=oi.order_id left join colors c on c.id=p.color_id where o.buyer_id=?0 and c.id=?1 group by p.color_id");
+			query2.setParameter(0, id);
+			query2.setParameter(1, color.getId());
+			if (query2.uniqueResult() != null) {				
+				sum = (BigDecimal)query2.uniqueResult();
+			}
+			map.put(color.getName(), sum);
+		}
+		return map;
+	}
+
+	@Override
+	public Integer getMostBuyAnimalType(Integer id) {
+		Query query = sessionFactory.getCurrentSession().createSQLQuery("select p.animal_type_id from order_items oi left join products p on p.id=oi.product_id left join orders o on o.id=oi.order_id left join animal_types ats on ats.id=p.animal_type_id where o.buyer_id=?0 group by p.animal_type_id order by sum(oi.price*oi.discount) desc");
+		query.setParameter(0, id);
+		List<BigDecimal> list = query.getResultList();
+		Integer firstResult = list.get(0).intValue();
+		return firstResult;
+	}
+
+	@Override
+	public Integer getMostBuyColor(Integer id) {
+		Query query = sessionFactory.getCurrentSession().createSQLQuery("select p.color_id from order_items oi left join products p on p.id=oi.product_id left join orders o on o.id=oi.order_id left join colors c on c.id=p.color_id where o.buyer_id=?0 group by p.color_id order by sum(oi.price*oi.discount) desc");
+		query.setParameter(0, id);
+		List<BigDecimal> list = query.getResultList();
+		Integer firstResult = list.get(0).intValue();
+		return firstResult;
 	}
 	
 

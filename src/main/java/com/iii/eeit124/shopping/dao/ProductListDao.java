@@ -2,6 +2,7 @@ package com.iii.eeit124.shopping.dao;
 
 import java.util.List;
 
+import com.iii.eeit124.entity.FollowProducts;
 import com.iii.eeit124.entity.Products;
 
 public interface ProductListDao {
@@ -22,4 +23,16 @@ public interface ProductListDao {
 	Long getRecordCounts();
 	
 	List<Products> selectByName(String keyword);
+
+	Integer changeLikeStatus(Integer productId, Integer memberId);
+
+	void updateFollowProductStatus(FollowProducts followProduct);
+
+	void saveFollowProduct(FollowProducts followProduct);
+
+	FollowProducts getFollowProduct(Integer productId, Integer memberId);
+
+	List<FollowProducts> getLikeProduct(Integer memberId);
+
+	List<Products> getLikeProductList(Integer memberId);
 }

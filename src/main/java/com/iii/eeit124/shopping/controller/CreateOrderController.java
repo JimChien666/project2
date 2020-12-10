@@ -140,8 +140,15 @@ public class CreateOrderController {
 		session.setAttribute("order", order);
 		session.setAttribute("orderItems", order.getOrderItems());
 		session.removeAttribute("cartItems");
+		String allProductName = "";
 		for(CartItems cartItem:cartItems) {
-			String form = PaymentCall.genAioCheckOutALL(uid, buyer.getId().toString(), ((Integer)order.getTotal().intValue()).toString(), cartItem.getProductName().toString(), cartItem.getQuantity().toString(), cartItem.getDiscountPrice().toString(), order.getBuyerName(), order.getBuyerAddress(), order.getBuyerTel(), date);
+			allProductName +=cartItem.getProductName().toString()+"#";
+		}
+		if (allProductName.length()>=40) {
+			allProductName = (String) allProductName.subSequence(0, 40);
+		}
+		for(CartItems cartItem:cartItems) {
+			String form = PaymentCall.genAioCheckOutALL(uid, buyer.getId().toString(), ((Integer)order.getTotal().intValue()).toString(), allProductName, cartItem.getQuantity().toString(), cartItem.getDiscountPrice().toString(), order.getBuyerName(), order.getBuyerAddress(), order.getBuyerTel(), date);
 			m.addAttribute("form", form);
 			return "orders/goPayPage";
 		}

@@ -11,13 +11,34 @@
 <script>
 window.onload = function() {
 	addToCartList();
+	addRecommendProduct();
 }
 
 function adder(productId){
 	var count=document.getElementById("countnum"+ productId).value;
-	count=parseInt(count)+1;
-	document.getElementById("countnum"+productId).value=count;
-	fixProductQuantity(productId, count);
+	var xhr = new XMLHttpRequest();
+	var queryString = "?productId=" + productId;
+	xhr.open("Get", "<c:url value='/cart/getProductQuantity'/>" + queryString , true);
+	xhr.send();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 ) {
+			if (xhr.status == 200){
+				var responseData = xhr.responseText;
+				var quantity = JSON.parse(responseData);
+				console.log(quantity);
+				if (parseInt(count)+1<=quantity){
+				count=parseInt(count)+1;
+				document.getElementById("countnum"+productId).value=count;
+				fixProductQuantity(productId, count);
+				}else{
+					document.getElementById("countnum"+productId).value=quantity;
+					alert("庫存最多"+quantity+"個");
+					
+				}
+			}
+		}
+	}
+	
 }
 function minuser(productId){
 	var count=document.getElementById("countnum"+productId).value;
@@ -136,7 +157,7 @@ function addToCartList(){
             '<td class="product-quantity">'+
                 '<div class="cart-plus-minus">'+
             	'<div class="dec qtybutton" onclick="minuser(' + cartList[i].productId + ')">-</div>'+
-                    '<input class="cart-plus-minus-box" id="countnum'+ cartList[i].productId +'" type="text" name="qtybutton" value="' + cartList[i].quantity + '">'+
+                    '<input class="cart-plus-minus-box" id="countnum'+ cartList[i].productId +'" type="text" name="qtybutton" value="' + cartList[i].quantity + '" onblur="adder(' + cartList[i].productId + ')">'+
                 '<div class="inc qtybutton" onclick="adder(' + cartList[i].productId + ')">+</div>'+
                 '</div>'+
             '</td>'+
@@ -148,9 +169,6 @@ function addToCartList(){
 		content +="</tbody></table>"
 		
         
-		/* content +="<tr><td colspan='7'></td><td align='right'>共</td><td align='center'><span id='num' style='font-size: 20px; color:red;'>" + num + "</span>項商品</td></tr>"
-		content +="<tr><td colspan='7'></td><td align='right'>總價：</td><td align='center'><span id='total' style='font-size: 20px; color:red;'>" + total + "</span>元</td></tr>"
-		content += "</table>"; */
 		
 		document.getElementById("cartList").innerHTML = content;
 
@@ -164,52 +182,62 @@ function addToCartList(){
 }
 
 
+function addRecommendProduct(){
 
-/* function addToCartList(){
-	queryString="?productId=0&cartNum=0";
 	var xhr = new XMLHttpRequest();
-	xhr.open("Get", "<c:url value='/cart/AddCart'/>" + queryString , true);
+	xhr.open("GET", "<c:url value='/product/memberRecommandProducts.json' />", true);
 	xhr.send();
-	var imageURL = "<c:url value='/product/getProductImage' />";
 	xhr.onreadystatechange = function() {
-	if (xhr.readyState == 4 && xhr.status == 200) {
-		var responseData = xhr.responseText;
-		var cartList = JSON.parse(responseData);
-		var num = cartList.length;
-		var total = 0;
-		var content = "<table><tr style='border: 1px solid black;'>";
-		content +=  "<th>編號</th><th>封面</th><th colspan='4'>商品名稱</th>";
-	    content +=  "<th>實售單價</th>";
-	    content +=  "<th>數量</th>";
-	    content +=  "<th>總價</th>";
-	   	content +=  "<th>操作</th>";
-		content +=  "</tr>";
-		for(var i=0; i < cartList.length; i++){
-			content += "<tr id='tr" + cartList[i].productId + "' height='80'>" + 
-	        "<td>" + cartList[i].productId + "&nbsp;</td>" + 
-	        "<td><img  width='60' height='80' " +   
-	        " src='" + imageURL + "?productId=" + cartList[i].productId + "'></td>" + 
-            "<td colspan='4' align='center'>" + cartList[i].productName + "</td>" +
-            "<td>" + (cartList[i].discount * cartList[i].price) + "</td>" +
-            "<td><ul class='counter'>" + 
-            "<li id='minus" + cartList[i].productId + "'><input type='button' onclick='minuser(" + cartList[i].productId + ")' value='-'/></li>"+
-            "<li id='countnum" + cartList[i].productId + "'>" + cartList[i].quantity + "</li>"+
-            "<li id='plus" + cartList[i].productId + "'><input type='button' onclick='adder(" + cartList[i].productId + ")' value='+'/></li>"+
-           	"</ul></td>" +
-           	"<td id='subtotal" + cartList[i].productId + "'>" + (cartList[i].discount * cartList[i].price * cartList[i].quantity) + "</td>"+
-           	"<td><button onclick='deleteCartItem("+cartList[i].productId+")'>刪除</button></td>"+
-           	"</tr>";
-			total+=cartList[i].discount * cartList[i].price * cartList[i].quantity;
+		if (xhr.readyState == 4 ) {
+			if (xhr.status == 200){
+				var responseData = xhr.responseText;
+				displayRecommendProducts(responseData);   // 顯示讀取到的非文字性資料
+			} else {
+				alert(xhr.status);
+			}
 		}
-		content +="<tr><td colspan='7'></td><td align='right'>共</td><td align='center'><span id='num' style='font-size: 20px; color:red;'>" + num + "</span>項商品</td></tr>"
-		content +="<tr><td colspan='7'></td><td align='right'>總價：</td><td align='center'><span id='total' style='font-size: 20px; color:red;'>" + total + "</span>元</td></tr>"
-		content += "</table>";
-		
-		document.getElementById("cartList").innerHTML = content;
 	}
-	
 }
-} */
+
+function displayRecommendProducts(responseData){
+	var content = "";
+	var products = JSON.parse(responseData);
+	
+	var imageURL = "<c:url value='/product/getProductImage' />";
+	var productsInfo = "<c:url value='/product/productsInfo/productsPath' />";
+	var salesInfo = "<c:url value='/product/salesInfo/salesInfoPath' />";
+	content="";
+	for(var i=0; i < products.length; i++){
+		content +='<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">'+
+            '<div class="product-wrapper mb-10">'+
+        '<div class="product-img">'+
+            '<a href="'+productsInfo.replace("productsPath",products[i].id)+'">'+
+                '<img src="' + imageURL + '?productId=' + products[i].id +'" alt="">'+
+            '</a>'+
+            '<div class="product-action">'+
+                '<a title="Quick View" data-toggle="modal" data-target="#exampleModal" href="<a href="'+productsInfo.replace("productsPath",products[i].id)+'">'+
+                    '<i class="ti-plus"></i>'+
+                '</a>'+
+                '<a title="Add To Cart" onclick="addToCart(' + products[i].id + ')"  href="#">'+
+                    '<i class="ti-shopping-cart"></i>'+
+                '</a>'+
+            '</div>'+
+
+        '</div>'+
+        '<div class="product-content">'+
+            '<h4><a href="<a href="'+productsInfo.replace("productsPath",products[i].id)+'">'+products[i].name+'</a></h4>'+
+            '<div class="product-price">';
+            content += '<span class="new">$'+products[i].discountPrice+' </span>';
+			if(products[i].discount < 1){
+				content += '<span class="old">$'+products[i].price+'</span>';
+			}
+		content += '</div>'+
+        '</div>'+
+    '</div>'+
+'</div>'
+	}
+	document.getElementById("recommendProductShow").innerHTML = content;
+}
 
 function comfirmOrder(){
 	var check = confirm("前往結帳");
@@ -217,6 +245,7 @@ function comfirmOrder(){
 		window.location.href = "<c:url value='/order/CreateOrder' />";
 	}
 }
+
 </script>
 <jsp:include page="../fragments/links.jsp" />
 </head>
@@ -236,8 +265,9 @@ function comfirmOrder(){
     
     <!-- shopping-cart-area start -->
         <div class="cart-main-area pt-95 pb-100">
+        
             <div class="container">
-                <h3 class="page-title">購物清單</h3>
+                <h5>購物清單</h5>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                         <form action="#">
@@ -258,17 +288,22 @@ function comfirmOrder(){
                                 </div>
                             </div>
                         </form>
-                        <div class="row">
-                            
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                            
-                                
-                                </div>
-                            </div>
+                        
                         </div>
                     </div>
+                    
+                    
                 </div>
             </div>
+            <div class="product-area pt-95 pb-70" style="padding-top: 0;">
+            <div class="container">
+                <div><h5>猜你喜歡</h5></div>
+                <div class="row" id="recommendProductShow" style="border-top: 1px gray solid; padding-top: 10px;">
+
+                    
+                </div>
+            </div>
+        </div>
 
     
     

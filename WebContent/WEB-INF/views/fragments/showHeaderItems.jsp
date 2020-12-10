@@ -28,6 +28,10 @@ function addToCart(productId){
 			total += cartList[i].price * cartList[i].discount * cartList[i].quantity;
 			} */
 		document.getElementById("shopCart").innerHTML=num;
+		if (document.getElementById("recommendProductShow")!=null){
+			addToCartList();
+		}
+		
 		}
 	
 	}

@@ -124,7 +124,7 @@ function fillUpData(){
 	<form:form action="CreateOrder.controller" method="POST" modelAttribute="order">
 	<div class="checkout-area pt-95 pb-70">
             <div class="container">
-                <h3 class="page-title">checkout</h3>
+                <h3 class="page-title">結帳</h3>
                 <div class="row">
                     <div class="col-lg-9">
                         <div class="checkout-wrapper">
@@ -230,8 +230,8 @@ function fillUpData(){
                                                     </div>
                                                     <div class="billing-back-btn">
                                                         <span>
-                                                            Forgot an Item?
-                                                            <a href="<c:url value='/cart/CartList' />"> Edit Your Cart.</a>
+                                                            訂單有誤?
+                                                            <a href="<c:url value='/cart/CartList' />"> 回購物車</a>
 
                                                         </span>
                                                         <div class="billing-btn">

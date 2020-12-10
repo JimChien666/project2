@@ -1,7 +1,12 @@
 package com.iii.eeit124.shopping.controller;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,12 +86,58 @@ public class OrderListController {
 	@GetMapping("/orderAnalysis")
 	public String getMyAccountPage(Model model) {
 		Members member = (Members)session.getAttribute("LoginOK");
-		Map<String, BigDecimal> dataPerMonth =  memberCenterService.getDataPerMonth(member.getId());
-		System.out.println("hi");
-		System.out.println(dataPerMonth);
+		Map<String, BigDecimal> dataPerMonth =  memberCenterService.getCostHistory(member.getId());
 		model.addAttribute("dataPerMonth", dataPerMonth);
 		Map<String, BigDecimal> categoriesCost = shoppingAanlysisService.getAllCategoriesCost(member.getId());
+		Map<String, BigDecimal> animalTypesCost = shoppingAanlysisService.getAllAnimalTypeCost(member.getId());
+		Map<String, BigDecimal> colorsCost = shoppingAanlysisService.getAllColorCost(member.getId());
 		model.addAttribute("categoriesCost", categoriesCost);
+		model.addAttribute("animalTypesCost", animalTypesCost);
+		model.addAttribute("colorsCost", colorsCost);
 		return "orders/orderAnalysis";
+	}
+	
+	@GetMapping("/sellingData.json")
+	public @ResponseBody Map<String, Object> getSellingData(
+			@RequestParam(value="date", required = false) String date
+			) throws ParseException{
+		Map<String, Object> sellingCount = new HashMap<>();
+		Members member = (Members)session.getAttribute("LoginOK");
+		if (date == null) {
+			sellingCount =  memberCenterService.getSellingHistory(member.getId());			
+		}else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date start = sdf.parse(date+"-01");
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(start);
+			calendar.set(Calendar.DAY_OF_MONTH,1);
+			calendar.add(Calendar.MONTH, 1);
+			Date last = calendar.getTime();
+			System.out.println(last);
+			sellingCount =  memberCenterService.getSellingHistory(member.getId(), start, last);
+		}
+		return sellingCount;
+	}
+	
+	@GetMapping("/sellingCountByDate.json")
+	public @ResponseBody Map<String, List<Object>> getSellingCountByDate(
+			@RequestParam(value="date", required = false) String date
+			) throws ParseException{
+		Map<String, List<Object>> sellingCount = new HashMap<>();
+		Members member = (Members)session.getAttribute("LoginOK");
+		if (date == null) {
+			sellingCount =  memberCenterService.getSellingCountByDate(member.getId());
+		}else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date start = sdf.parse(date+"-01");
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(start);
+			calendar.set(Calendar.DAY_OF_MONTH,1);
+			calendar.add(Calendar.MONTH, 1);
+			Date last = calendar.getTime();
+			System.out.println(last);
+			sellingCount =  memberCenterService.getSellingCountByDate(member.getId(), start, last);
+		}
+		return sellingCount;
 	}
 }

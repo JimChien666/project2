@@ -28,32 +28,10 @@
 
 	<div class="container">
 		<div class="row flex-row-reverse">
-			<div class="col-lg-12 col-md-8">
+			<div class="col-lg-12 col-md-8"">
 				<div class="row" style="margin-top: 10px;">
 					<div class="col-lg-3 col-md-12">
-						<div class="blog-wrapper mb-30 gray-bg">
-							
-							<div class="blog-img hover-effect">
-								<div style="margin-left: 20%;width: 60%; text-align: center; border-bottom: 1px solid gray">
-									<img alt=""
-										src="<c:url value='/member/processFileReadAction.contoller?fileId=${LoginOK.getFileId()}' />" style="height: 150px;border-radius: 50%;">
-									<h4 style="padding: 20px;">${LoginOK.name}你好</h4>
-								</div>
-								
-							</div>
-							<div class="blog-content">
-							<div class="shop-widget mt-50">
-                                <h4 class="shop-sidebar-title">會員管理</h4>
-                                 <div class="shop-list-style mt-20">
-                                    <ul>
-                                        <li><a href="#">編輯個人資料</a></li>
-                                        <li><a href="#">修改密碼</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            </div>
-							
-						</div>
+						<jsp:include page="./fragments/myAccountLeftArea.jsp" />
 					</div>
 					<div class="col-lg-9 col-md-12">
                         <div class="contact-message-wrapper">

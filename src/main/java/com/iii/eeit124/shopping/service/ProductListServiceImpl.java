@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.iii.eeit124.entity.FollowProducts;
 import com.iii.eeit124.entity.Products;
 import com.iii.eeit124.shopping.dao.ProductListDao;
 
@@ -58,5 +59,39 @@ public class ProductListServiceImpl implements ProductListService {
 	public List<Products> selectByName(String keyword){
 		return dao.selectByName(keyword);
 	}
+
+	@Override
+	public Integer changeLikeStatus(Integer productId, Integer memberId) {
+		return dao.changeLikeStatus(productId, memberId);
+	}
+
+	@Override
+	public void saveFollowProduct(FollowProducts followProduct) {
+		dao.saveFollowProduct(followProduct);
+		
+	}
+
+	@Override
+	public void updateFollowProductStatus(FollowProducts followProduct) {
+		dao.updateFollowProductStatus(followProduct);
+		
+	}
+
+	@Override
+	public FollowProducts getFollowProduct(Integer productId, Integer memberId) {
+		return dao.getFollowProduct(productId, memberId);
+	}
+
+	@Override
+	public List<FollowProducts> getLikeProduct(Integer memberId) {
+		return dao.getLikeProduct(memberId);
+	}
+
+	@Override
+	public List<Products> getLikeProductList(Integer memberId) {
+		return dao.getLikeProductList(memberId);
+	}
+
+	
 
 }
