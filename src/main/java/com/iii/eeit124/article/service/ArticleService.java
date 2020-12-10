@@ -23,4 +23,6 @@ public interface ArticleService {
 	List<Article> select(Integer pageNo, Integer recordsPerPage, Integer id);
 
 	Long getRecordCounts(Integer id);
+	
+	List<Article> personalFollowed(Integer memberid, Integer id);
 }

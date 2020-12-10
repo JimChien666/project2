@@ -50,4 +50,9 @@ public class FollowedServiceImpl implements FollowedService {
 		return followedDAO.statusList(memberid);
 	}
 
+	@Override
+	public List<FollowedArticle> personalFollowed(Integer memberid) {
+		return followedDAO.personalFollowed(memberid);
+	}
+
 }

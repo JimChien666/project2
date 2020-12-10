@@ -10,5 +10,5 @@ public interface FollowedDAO {
 	void statusUpdate(FollowedArticle followedArticle);
 	Integer checkId(Integer id);
 	List<FollowedArticle> statusList(Integer memberid);
-
+	List<FollowedArticle> personalFollowed(Integer memberid);
 }

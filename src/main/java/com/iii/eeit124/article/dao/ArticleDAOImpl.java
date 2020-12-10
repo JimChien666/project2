@@ -1,5 +1,6 @@
 package com.iii.eeit124.article.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -90,6 +91,20 @@ public class ArticleDAOImpl implements ArticleDAO {
 		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Article where ARTICLETYPES_ID=?0").setParameter(0, id).getSingleResult();
 		return count;
 	}
+
+	@Override
+	public List<Article> personalFollowed(Integer memberid, Integer id) {
+		  Query query = sessionFactory.getCurrentSession().createQuery("select articleid from FollowedArticle where memeberid = ?1 and status = 1 order by id desc");
+		  query.setParameter(1, memberid);
+		  List resultList = query.getResultList();
+		  List<Article> resultList2 = new ArrayList();
+		  if(resultList.size()!= 0) {
+		   Query<Article> query2 = sessionFactory.getCurrentSession().createQuery("from Article where articleTypes_Id=?0 and id in ("+ resultList.toString().replace("[", "").replace("]", "") +")", Article.class);
+		   query2.setParameter(0,id);
+		   resultList2 = query2.getResultList();
+		  	}  
+		  return resultList2;
+		 }
 
 
 

@@ -62,4 +62,17 @@ public class FollowedDAOImpl implements FollowedDAO {
 		List<FollowedArticle> list = query.list();
 		return list;
 	}
+
+	@Override
+	public List<FollowedArticle> personalFollowed(Integer memberid) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<FollowedArticle> query = session.createQuery("from FollowedArticle where memeberid = ?1 and status = 1 order by id desc");
+		query.setParameter(1, memberid);
+		List<FollowedArticle> list = query.list();
+		return list;
+	}
+	
+	
+	
+	
 }

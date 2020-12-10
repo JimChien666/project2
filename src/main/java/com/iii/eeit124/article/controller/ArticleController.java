@@ -55,7 +55,7 @@ public class ArticleController {
 		return new Article();
 	}
 	
-	@GetMapping("goArticlePage")
+	@GetMapping("/goArticlePage")
 	public String goArticlePage(@RequestParam("articleId") Integer articleId, Model model) {
 		model.addAttribute("articleId", articleId);
 		model.addAttribute("thisArticle", articleService.select(articleId));
@@ -68,7 +68,7 @@ public class ArticleController {
 //		return "article/Article";
 //	}
 
-	@GetMapping(value = "articleList")
+	@GetMapping(value = "/articleList")
 	public String list() {
 //	public String list(Locale locale, Model model, @RequestParam(value = "articletypesId", required = false, defaultValue = "1") Integer id) {
 //		model.addAttribute("allArticleTypes", articleService.getAllArticleTypes());
@@ -82,7 +82,7 @@ public class ArticleController {
 //		return "article/ShowAllArticle";
 //	}
 
-	@GetMapping(value = "backArticle")
+	@GetMapping(value = "/backArticle")
 	public String backArticle() {
 		return "redirect:/articleList";
 	}
@@ -98,14 +98,14 @@ public class ArticleController {
 		return "article/replyArticle";
 	}
 
-	@GetMapping(value = "saveArticle")
+	@GetMapping(value = "/saveArticle")
 	public String saveArticle(Model model) {
 		Forums forums = new Forums();
 		model.addAttribute(forums);
 		return "article/SaveArticle";
 	}
 	
-	@GetMapping(value = "updateArticle")
+	@GetMapping(value = "/updateArticle")
 	public String updateArticle(Model model, @RequestParam(value = "articleId") Integer id) {
 		Article article = articleService.select(id);
 		List<Forums> forumList = forumsService.selectForumById(id);
@@ -115,14 +115,14 @@ public class ArticleController {
 		return "article/UpdateArticle";
 	}
 
-	@GetMapping(value = "deleteArticle")
+	@GetMapping(value = "/deleteArticle")
 	public String deleteArticle(@RequestParam(value = "articleId", required = false) Integer id) {
 		articleService.delete(articleService.select(id));
 		System.out.println("...........");
 		return "redirect:/articleList";
 	}
 
-	@GetMapping(value = "saveComments", produces = "text/plain;charset=UTF-8")
+	@GetMapping(value = "/saveComments", produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String saveComments(
 			@RequestParam(value = "id") Integer id,
 			@RequestParam(value = "comment")String comment			
@@ -206,7 +206,7 @@ public class ArticleController {
 //	}
 	
 	
-	@GetMapping(value = "article")
+	@GetMapping(value = "/article")
 	public @ResponseBody Map<String, Object> getPageArticle(Model model, @RequestParam(value="pageNo",defaultValue = "1") Integer pageNo, @RequestParam(value = "articleId")Integer id){
 		Map<String, Object> map = new HashMap<>();
 		Integer recordsPerPage = 2;
@@ -226,6 +226,7 @@ public class ArticleController {
 		map.put("recordsPerPage", recordsPerPage);
 		return map;		
 	}
+	
 	@GetMapping(value = "/getArticleList")
 	public @ResponseBody Map<String, Object> getArtilceList(Model model, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "articleTypeId", defaultValue = "1")Integer id){
 		Map<String, Object> map = new HashMap<>();
@@ -248,8 +249,21 @@ public class ArticleController {
 		System.out.println(map);
 		return map;
 	}
+	
+	@GetMapping(value = "/getPersonalArtilceList")
+	public @ResponseBody Map<String, Object> getPersonalArtilceList(Model model, @RequestParam(value = "articleTypeId", defaultValue = "1")Integer id){
+		Map<String, Object> map = new HashMap<>();
 
-	@GetMapping(value = "showComments")
+		Members member = (Members) session.getAttribute("LoginOK");
+		Integer memberid = member.getId();
+		List<Article> articleList = articleService.personalFollowed(memberid, id);
+//		List<FollowedArticle> statusList = followedService.personalFollowed(memberid);
+		map.put("articleList", articleList);
+	
+		return map;
+	}
+
+	@GetMapping(value = "/showComments")
 	public @ResponseBody List<Comments> showComments(@RequestParam(value = "forumsId") Integer id) {
 		System.out.println("hi:" + id);
 		Forums forums = forumsService.selectForum(id);
@@ -258,7 +272,7 @@ public class ArticleController {
 		return comments;		
 	}
 	
-	@GetMapping(value = "statusChange")
+	@GetMapping(value = "/statusChange")
 	public @ResponseBody Integer statusChange(Model model, @RequestParam(value = "memberid")Integer memberid, @RequestParam(value = "articleid")Integer articleid) {
 		Integer statusResult = followedService.statusChange(memberid, articleid);
 		return statusResult;		

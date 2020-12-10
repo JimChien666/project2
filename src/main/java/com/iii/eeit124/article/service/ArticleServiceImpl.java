@@ -61,4 +61,9 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleDAO.getRecordCounts(id);
 	}
 
+	@Override
+	public List<Article> personalFollowed(Integer memberid, Integer id) {
+		return articleDAO.personalFollowed(memberid, id);
+	}
+
 }
