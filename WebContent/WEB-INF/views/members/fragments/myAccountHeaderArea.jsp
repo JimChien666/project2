@@ -31,6 +31,11 @@
 								<li><a href="<c:url value='/MemberCenter/ReadAnimal' />">我的寵物</a></li>
 
 							</ul></li>
+						<li><a href="#"> 討論區管理 <i class="icon-arrow-down"></i></a>
+							<ul>
+								<li><a href="<c:url value='/member/myArticle' />">追蹤文章</a></li>
+								<li><a href="#">我的文章</a></li>
+							</ul></li>
 					</ul>
 				</div>
 			</div>

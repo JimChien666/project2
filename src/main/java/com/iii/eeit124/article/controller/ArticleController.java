@@ -226,7 +226,7 @@ public class ArticleController {
 		map.put("recordsPerPage", recordsPerPage);
 		return map;		
 	}
-	@GetMapping(value = "getArticleList")
+	@GetMapping(value = "/getArticleList")
 	public @ResponseBody Map<String, Object> getArtilceList(Model model, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "articleTypeId", defaultValue = "1")Integer id){
 		Map<String, Object> map = new HashMap<>();
 		Integer recordsPerPage = 10;
@@ -235,7 +235,11 @@ public class ArticleController {
 		System.out.println("model:"+model);
 		Long recordCounts = articleService.getRecordCounts(id);
 		List<Article> articleList = articleService.select(pageNo, recordsPerPage, id);
-		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));		
+		Members member = (Members) session.getAttribute("LoginOK");
+		Integer memberid = member.getId();
+		List<FollowedArticle> statusList = followedService.statusCheck(memberid);
+		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));	
+		map.put("statusList", statusList);
 		map.put("articleList", articleList);
 		map.put("totalPage", totalPage);
 		map.put("currPage", pageNo);
@@ -254,15 +258,15 @@ public class ArticleController {
 		return comments;		
 	}
 	
-	@GetMapping(value = "statusCheck")
-	public @ResponseBody Integer statusCheck(Model model, @RequestParam(value = "memberid")Integer memberid, @RequestParam(value = "articleid")Integer articleid) {
-		System.out.println("memberidININ"+memberid);
-		System.out.println("articleidININ"+articleid);
-		Integer statusResult = followedService.statusCheck(memberid, articleid);
-		System.out.println("statusResult"+statusResult);
+	@GetMapping(value = "statusChange")
+	public @ResponseBody Integer statusChange(Model model, @RequestParam(value = "memberid")Integer memberid, @RequestParam(value = "articleid")Integer articleid) {
+		Integer statusResult = followedService.statusChange(memberid, articleid);
 		return statusResult;		
 	}
 
-	
+	@GetMapping("/member/myArticle")
+	public String goMyArticle() {
+		return "article/myArticle";
+	}
 	
 }

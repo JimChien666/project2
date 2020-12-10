@@ -1,5 +1,7 @@
 package com.iii.eeit124.article.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ public class FollowedServiceImpl implements FollowedService {
 	FollowedDAO followedDAO;
 	
 	@Override
-	public Integer statusCheck(Integer memberid, Integer articleid) {
+	public Integer statusChange(Integer memberid, Integer articleid) {
 		FollowedArticle statusCheck = followedDAO.statusCheck(memberid, articleid);
 //		Integer id = statusCheck.getId();
 
@@ -33,9 +35,7 @@ public class FollowedServiceImpl implements FollowedService {
 //			followedDAO.update(memberid, articleid, status);
 			followedDAO.statusUpdate(statusCheck);
 			return 1; 
-		} else {			
-
-			
+		} else {
 			
 			statusCheck.setStatus(0);
 //			followedDAO.update(memberid, articleid, status);
@@ -43,6 +43,11 @@ public class FollowedServiceImpl implements FollowedService {
 			return 0;
 		}
 
+	}
+
+	@Override
+	public List<FollowedArticle> statusCheck(Integer memberid) {
+		return followedDAO.statusList(memberid);
 	}
 
 }

@@ -1,74 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<%
-	response.setContentType("text/html;charset=UTF-8");
-response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
-response.setHeader("Pragma", "no-cache"); // HTTP 1.0
-response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
-%>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
-<!-- <script src="https://code.jquery.com/jquery-3.3.1.sactivelim.min.js" -->
-<!-- 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" -->
-<!-- 	crossorigin="anonymous"></script> -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-	crossorigin="anonymous"></script>
-
-
-<link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
-<script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
-<jsp:include page="../fragments/links.jsp" />
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-
-
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<style type="text/css">
-.forumC:hover {
-	border: 10px solid black;
-}
-
-.forumC {
-	border: 10px solid #7e4c4f;
-}
-
-
-
-.forum {
-	font-size: 4.5em;
-}
-
-/* table { */
-/* 	font-size: 2em; */
-/* } */
-</style>
-<title>討論區</title>
-</head>
+<title>Insert title here</title>
+<script src="<c:url value='/assets/js/vendor/jquery-1.12.0.min.js' />"></script>
 <script>
 	$(function() {
 
 		$.ajax({
 			type : "GET",
-			url : "<c:url value='getArticleList' />?articleTypeId=1",
+			url : "<c:url value='/getArticleList' />?articleTypeId=1",
 			success : function(mapData) {
 				showArticleList(mapData)
 			}
@@ -81,7 +25,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					console.log(selectResult)
 					$.ajax({
 						type : "GET",
-						url : "<c:url value='getArticleList' />?articleTypeId="
+						url : "<c:url value='/getArticleList' />?articleTypeId="
 								+ selectResult,
 						success : function(mapData) {
 							showArticleList(mapData)
@@ -96,7 +40,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					console.log(selectResult)
 					$.ajax({
 						type : "GET",
-						url : "<c:url value='getArticleList' />?articleTypeId="
+						url : "<c:url value='/getArticleList' />?articleTypeId="
 								+ selectResult,
 						success : function(mapData) {
 							showArticleList(mapData)
@@ -221,7 +165,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			// 注意，查詢字串的前面有問號
 			queryString = "&pageNo=" + no + "&totalPage=" + totalPage;
 			if (typeof selectResult == 'undefined') {
-				xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId="
+				xhr.open("GET", "<c:url value='/getArticleList' />?articleTypeId="
 						+ "1" + queryString, true);
 				// 		xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId=1" + queryString , true);
 				// 		console.log(no)
@@ -238,7 +182,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 				}
 			}
 	
-			xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId="
+			xhr.open("GET", "<c:url value='/getArticleList' />?articleTypeId="
 					+ selectResult + queryString, true);
 			// 		xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId=1" + queryString , true);
 			// 		console.log(no)
@@ -301,70 +245,79 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 		}
 	}
 </script>
+</head>
+<jsp:include page="../fragments/links.jsp" />
 <body>
-	<div>
-		<jsp:include page="../fragments/headerArea.jsp" />
-	</div>
-	<!-- 	麵包屑 -->
+	<jsp:include page="../fragments/headerArea.jsp" />
 	<div class="breadcrumb-area pt-95 pb-95 bg-img"
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
 		<div class="container">
 			<div class="breadcrumb-content text-center">
-				<h2>討論區</h2>
+				<h2>會員編輯</h2>
 				<ul>
-					<li><a href="<c:url value='/'/>">首頁</a></li>
-					<li class="active">討論區</li>
+					<li><a href="<c:url value='/' />">首頁</a></li>
+					<li><a href="<c:url value='/member/myAccount'/>">會員中心</a></li>
+					<li class="active">會員編輯</li>
 				</ul>
 			</div>
 		</div>
 	</div>
-
+	<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
 
 
 	<div class="container">
-		<ul style="list-style: none; margin: 20px 0;">
-			<li style="float: left; margin: 10px 10px 15px 10px;">
-				<table>
-					<tr>
-						<td class="product-wishlist-cart" id="forumsSelect1"><a
-							style='color: white; cursor: pointer;' id="1">狗狗討論版</a></td>
-					</tr>
-				</table>
-			</li>
-		</ul>
-		<ul style="list-style: none; margin: 20px 0;">
-			<li style="float: left; margin: 10px 10px 15px 10px;">
+		<div class="row flex-row-reverse">
+			<div class="col-lg-12 col-md-8"">
+				<div class="row" style="margin-top: 10px;">
+					<div class="col-lg-3 col-md-12">
+						<jsp:include page="../members/fragments/myAccountLeftArea.jsp" />
+					</div>
+					<div class="col-lg-9 col-md-12">
+						<!-- 放 -->
+						<div class="container">
+							<ul style="list-style: none; margin: 20px 0;">
+								<li style="float: left; margin: 10px 10px 15px 10px;">
+									<table>
+										<tr>
+											<td class="product-wishlist-cart" id="forumsSelect1"><a
+												style='color: white; cursor: pointer;' id="1">狗狗討論版</a></td>
+										</tr>
+									</table>
+								</li>
+							</ul>
+							<ul style="list-style: none; margin: 20px 0;">
+								<li style="float: left; margin: 10px 10px 15px 10px;">
 
-				<table>
-					<tr>
-						<td class="product-wishlist-cart" id="forumsSelect2"><a
-							style='color: white; cursor: pointer;' id="2">貓咪討論版</a></td>
-					</tr>
-				</table>
+									<table>
+										<tr>
+											<td class="product-wishlist-cart" id="forumsSelect2"><a
+												style='color: white; cursor: pointer;' id="2">貓咪討論版</a></td>
+										</tr>
+									</table>
 
-			</li>
-		</ul>
-
-
-		<ul style="list-style: none; margin: 0px 0;  clear:both;">
-			<li style="float: left; margin: 0px 10px 10px 10px;"><a
-				href="<c:url value='saveArticle' />">
-					<button class="submit btn-style" type="submit"
-						style="margin-top: 10px;">
-						<span style="color: white; margin-top: 0px;">發文</span>
-					</button>
-			</a></li>
-		</ul>
+								</li>
+							</ul>
 
 
-		<!-- 	<div id="forumsSelect1"> -->
-		<!-- 		<button value="1" id="dog">狗</button> -->
-		<!-- 	</div> -->
-		<!-- 	<div id="forumsSelect2"> -->
-		<!-- 		<button value="2" id="cat">貓</button>	 -->
-		<!-- 	</div> -->
+							<ul style="list-style: none; margin: 0px 0; clear: both;">
+								<li style="float: left; margin: 0px 10px 10px 10px;"><a
+									href="<c:url value='saveArticle' />">
+										<button class="submit btn-style" type="submit"
+											style="margin-top: 10px;">
+											<span style="color: white; margin-top: 0px;">發文</span>
+										</button>
+								</a></li>
+							</ul>
 
-		<!-- 
+
+							<!-- 	<div id="forumsSelect1"> -->
+							<!-- 		<button value="1" id="dog">狗</button> -->
+							<!-- 	</div> -->
+							<!-- 	<div id="forumsSelect2"> -->
+							<!-- 		<button value="2" id="cat">貓</button>	 -->
+							<!-- 	</div> -->
+
+							<!-- 
 	<ul style="list-style: none; margin: 10px 0; clear:both;">
 		<c:forEach items="${allArticleTypes}" var="ArticleType" varStatus="id">
 				<a href="<c:url value='articleList?articletypesId=${ArticleType.getId()}' />" >
@@ -383,26 +336,34 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	</ul>
  -->
 
-		<div style="clear: both; width: 100%;">
-			<!-- 下面要放文章 -->
-			<!-- 		<div id="artilceList"> -->
-			<table id="artilceListTable" border=1
-				style='width: 100%; font-size: 2em;'>
-			</table>
-			<!-- 		</div> -->
+							<div style="clear: both; width: 100%;">
+								<!-- 下面要放文章 -->
+								<!-- 		<div id="artilceList"> -->
+								<table id="artilceListTable" border=1
+									style='width: 100%; font-size: 2em;'>
+								</table>
+								<!-- 		</div> -->
+							</div>
+						</div>
+						<div class="pagination-style text-center mt-20">
+							<ul id='navigation'>
+								<!-- 			<li><a href="#"><i class="icon-arrow-left"></i></a></li> -->
+								<!-- 			<li><a href="#">1</a></li> -->
+								<!-- 			<li><a href="#">2</a></li> -->
+								<!-- 			<li><a class="active" href="#"><i class="icon-arrow-right"></i></a> -->
+								<!-- 			</li> -->
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
 		</div>
 	</div>
-	<div class="pagination-style text-center mt-20">
-		<ul id='navigation'>
-			<!-- 			<li><a href="#"><i class="icon-arrow-left"></i></a></li> -->
-			<!-- 			<li><a href="#">1</a></li> -->
-			<!-- 			<li><a href="#">2</a></li> -->
-			<!-- 			<li><a class="active" href="#"><i class="icon-arrow-right"></i></a> -->
-			<!-- 			</li> -->
-		</ul>
-	</div>
+
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
+
 </body>
 </html>

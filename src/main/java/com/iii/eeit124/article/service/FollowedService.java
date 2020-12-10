@@ -1,7 +1,10 @@
 package com.iii.eeit124.article.service;
 
+import java.util.List;
+
 import com.iii.eeit124.entity.FollowedArticle;
 
 public interface FollowedService {
-	Integer statusCheck(Integer memberid, Integer articleid);
+	Integer statusChange(Integer memberid, Integer articleid);
+	List<FollowedArticle> statusCheck(Integer memberid);
 }

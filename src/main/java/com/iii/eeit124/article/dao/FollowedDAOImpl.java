@@ -1,5 +1,7 @@
 package com.iii.eeit124.article.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -50,5 +52,14 @@ public class FollowedDAOImpl implements FollowedDAO {
 		Query<FollowedArticle> query = session.createQuery("from FollowedArticle where id = ?1");
 		query.setParameter(1, id);
 		return null;
+	}
+
+	@Override
+	public List<FollowedArticle> statusList(Integer memberid) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<FollowedArticle> query = session.createQuery("from FollowedArticle where memeberid = ?1 order by id desc");
+		query.setParameter(1, memberid);
+		List<FollowedArticle> list = query.list();
+		return list;
 	}
 }
