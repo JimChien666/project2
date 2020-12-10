@@ -38,7 +38,7 @@ public class OrderListDaoImpl implements OrderListDao {
 		}
 		
 		@SuppressWarnings("unchecked")
-		TypedQuery<Orders> query = sessionFactory.getCurrentSession().createQuery("from Orders " + condiction + " order by id");
+		TypedQuery<Orders> query = sessionFactory.getCurrentSession().createQuery("from Orders " + condiction + " order by id desc");
 		query.setParameter(0, id).setFirstResult(startRecordNo).setMaxResults(recordsPerPage);
 		if (paidStatus != null) {
 			query.setParameter("isPaid", paidStatus);
@@ -83,7 +83,7 @@ public class OrderListDaoImpl implements OrderListDao {
 	public List<Orders> indAllOrdersByMemberId(Integer pageNo ,Integer recordsPerPage, Integer id) {
 		Integer startRecordNo = (pageNo - 1) * recordsPerPage; 
 		@SuppressWarnings("unchecked")
-		TypedQuery<Orders> query = sessionFactory.getCurrentSession().createQuery("from Orders where BUYER_ID=?0 order by id");
+		TypedQuery<Orders> query = sessionFactory.getCurrentSession().createQuery("from Orders where BUYER_ID=?0 order by id desc");
 		query.setParameter(0, id).setFirstResult(startRecordNo).setMaxResults(recordsPerPage);
 		query.getResultList();
 		return query.getResultList();

@@ -40,4 +40,14 @@ public class AnimalsServiceImpl implements AnimalsService{
 	public boolean delete(Integer animalsId) {
 		return animalsDao.delete(animalsId);
 	}
+
+	@Override
+	public List<Animals> showIndexAnimals() {
+		if (animalsDao.readAll().size()>=6) {
+			return animalsDao.readAll().subList(0, 6);
+		}
+		return animalsDao.readAll();
+	}
+	
+	
 }

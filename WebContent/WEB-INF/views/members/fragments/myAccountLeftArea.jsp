@@ -52,6 +52,15 @@
 				</ul>
 			</div>
 		</div>
+		<div class="shop-widget mt-50">
+			<h4 class="shop-sidebar-title">活動管理</h4>
+			<div class="shop-list-style mt-20">
+				<ul>
+					<li><a href="<c:url value='/activitys/appliedActivity' />">參加的活動</a></li>
+					<li><a href="<c:url value='/activitys/myActivity' />">舉辦過的活動</a></li>
+				</ul>
+			</div>
+		</div>
 		
 	</div>
 

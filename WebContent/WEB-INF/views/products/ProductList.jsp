@@ -334,10 +334,10 @@ function displayPageProducts(responseData){
 				}
 			}
 		if (isLike){
-			content += '<i class="ti-heart"></i>';
+			content += '🤎';
 		}
 		else{
-			content += '<i class="ti-heart-broken"></i>';
+			content += '🤍';
 		}
 			
 				content += '</a>';
@@ -439,10 +439,10 @@ function like(productId){
 			var responseData = xhr.responseText;
 			var status = JSON.parse(responseData);
 			if (status == 0){
-				document.getElementById("like"+productId).innerHTML="<i class='ti-heart-broken'></i>";
+				document.getElementById("like"+productId).innerHTML="🤍";
 				
 			}else{
-				document.getElementById("like"+productId).innerHTML="<i class='ti-heart'></i>";
+				document.getElementById("like"+productId).innerHTML="🤎";
 			}
 			console.log(status);
 		}

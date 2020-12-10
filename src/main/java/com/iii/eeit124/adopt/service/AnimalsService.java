@@ -16,5 +16,7 @@ public interface AnimalsService {
 	public Animals update(Animals animals);
 	
 	public boolean delete(Integer animalsId);
+
+	public List<Animals> showIndexAnimals();
 	
 }

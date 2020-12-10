@@ -25,7 +25,7 @@ public class ActivitysDaoImpl implements ActivitysDao {
 	
 	@Override
 	public void update(Activitys entity) {
-		sessionFactory.getCurrentSession().update(entity);
+		sessionFactory.getCurrentSession().merge(entity);
 	}
 	
 	@Override
@@ -36,7 +36,7 @@ public class ActivitysDaoImpl implements ActivitysDao {
 	@Override
 	public List<Activitys> list() {
 		@SuppressWarnings("unchecked")
-		TypedQuery<Activitys> query = sessionFactory.getCurrentSession().createQuery("from Activitys");
+		TypedQuery<Activitys> query = sessionFactory.getCurrentSession().createQuery("from Activitys e where e.activityDate >= current_date order by e.activityDate desc");
 		return query.getResultList();
 	}
 
@@ -47,6 +47,16 @@ public class ActivitysDaoImpl implements ActivitysDao {
 		query.setParameter("id", id);
 		List<Activitys> list = query.getResultList();
 		return list != null ? list.get(0) : null;
+	}
+	
+	@Override
+	public List<Activitys> findByMemberId(Integer memberId, String applyType) {
+		@SuppressWarnings("unchecked")
+		TypedQuery<Activitys> query = sessionFactory.getCurrentSession().createQuery("select e from Activitys e JOIN ActivityApply aa ON e.id = aa.activitysId where aa.memberId = :memberId and aa.applyType = :applyType");
+		query.setParameter("memberId", memberId);
+		query.setParameter("applyType", applyType);
+		List<Activitys> list = query.getResultList();
+		return query.getResultList();
 	}
 
 }

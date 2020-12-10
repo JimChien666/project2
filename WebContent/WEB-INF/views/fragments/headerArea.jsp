@@ -38,6 +38,8 @@
 								
 								<li><a href="<c:url value='/backArticle' />" style="font-size: 22px;">討論區</a>
 									</li>
+								<li><a href="<c:url value='/activitys/list' />" style="font-size: 22px;">活動</a>
+									</li>
 								
 							</ul>
 						</nav>

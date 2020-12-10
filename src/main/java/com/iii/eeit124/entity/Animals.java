@@ -18,6 +18,8 @@ import javax.persistence.Transient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "animals")//大小寫沒差別，跟資料庫名一樣就好
 @Component
@@ -146,7 +148,7 @@ public class Animals {
 	public void setAnimalFiles(MultipartFile animalFiles) {
 		this.animalFiles = animalFiles;
 	}
-	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "animals", cascade = CascadeType.ALL)//mappedBy對映的是AnimalsFiles的private Animals animals;
 	public Set<AnimalsFiles> getFiles() {
 		return files;
@@ -154,7 +156,7 @@ public class Animals {
 	public void setFiles(Set<AnimalsFiles> files) {
 		this.files = files;
 	}
-
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity=Members.class)
 	@JoinColumn(name = "MEMBER_ID")
 	public Members getMember() {
@@ -163,7 +165,7 @@ public class Animals {
 	public void setMember(Members member) {
 		this.member = member;
 	}
-	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity=Breeds.class)
 	@JoinColumn(name = "BREED_ID")
 	public Breeds getBreeds() {
@@ -198,5 +200,12 @@ public class Animals {
 //				+ ", deletedAt=" + deletedAt + ", animalFiles=" + animalFiles + ", files=" + files + ", member="
 //				+ member + ", breeds=" + breeds + "]";
 //	}
-
+	@Transient
+	public String getBreed() {
+		return this.breeds.getBreed();
+	}
+	@Transient
+	public String getMemberAddress() {
+		return this.member.getAddress();
+	}
 }

@@ -31,6 +31,11 @@
 								<li><a href="<c:url value='/MemberCenter/ReadAnimal' />">我的寵物</a></li>
 
 							</ul></li>
+						<li><a href="#"> 活動管理 <i class="icon-arrow-down"></i></a>
+							<ul>
+								<li><a href="<c:url value='/activitys/appliedActivity' />">參加的活動</a></li>
+								<li><a href="<c:url value='/activitys/myActivity' />">舉辦過的活動</a></li>
+							</ul></li>
 					</ul>
 				</div>
 			</div>

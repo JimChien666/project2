@@ -106,7 +106,7 @@ function removeLike(productId){
 				<ul>
 					<li><a href="<c:url value='/' />">首頁</a></li>
 					<li><a href="<c:url value='/member/myAccount' />">會員中心</a></li>
-					<li class="active">交易數據</li>
+					<li class="active">商品最愛</li>
 				</ul>
 			</div>
 		</div>

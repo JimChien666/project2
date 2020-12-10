@@ -18,7 +18,54 @@ window.onload = function() {
 			}
 		}
 	}
+	var xhr2 = new XMLHttpRequest();
+	xhr2.open("GET", "<c:url value='/getAllAnimal.json' />", true);
+	xhr2.send();
+	xhr2.onreadystatechange = function() {
+		if (xhr2.readyState == 4 ) {
+			if (xhr2.status == 200){
+				var responseData = xhr2.responseText;
+				displayAnimals(responseData);   // 顯示讀取到的非文字性資料
+			} else {
+				alert(xhr2.status);
+			}
+		}
+	} 
+
+	
 }
+
+function displayAnimals(responseData){
+	var content = "";
+	var animals = JSON.parse(responseData);
+	var adoptUrl="<c:url value='/AdoptAnimalDetails.controller'/>";
+	var imgUrl="<c:url value='/filuploadAction.contoller'/>";
+	for(var i=0; i < animals.length; i++){
+		console.log(animals[i]);
+		content+=
+		'<div class="col-lg-3 col-md-6 white-bg"style=" margin: 20px; margin-left: 30px;padding: 20px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">'+
+        '<div class="about-us-img pr-30 wow fadeInLeft">'+
+            '<img alt="" width=300 height=180 src="'+imgUrl+'/'+animals[i].animalId+'">'+
+        '</div>'+
+    
+        '<div class="about-us-content">'+
+            '<h6>'+animals[i].breed+'</h6>'+
+            
+            '<div class="about-us-list">'+
+                '<ul>'+
+                    '<li>'+animals[i].memberAddress+'</li>'+
+                    
+                '</ul>'+
+            '</div>'+
+            '<div class="about-us-btn">'+
+                '<a class="btn-style" href="'+adoptUrl+'?id='+animals[i].animalId+'">詳細</a>'+
+            '</div>'+
+        '</div>'+
+    '</div>';
+	}
+	document.getElementById("animalContent").innerHTML = content;
+}
+
 function displayPageProducts(responseData){
     var content = "";
 	var products = JSON.parse(responseData);

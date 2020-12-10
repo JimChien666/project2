@@ -7,6 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Activitys</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	crossorigin="anonymous"></script>
 <style type="text/css">
 .error {
 	color: red;
@@ -22,89 +25,163 @@ table td {
 	border: 1px solid #565454;
 	padding: 20px;
 }
+
+.btncls {
+	background-color: #7E4C4F; /* Green */
+	border: none;
+	color: white;
+	padding: 10px 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	border-radius: 10px;
+	transition-duration: 0.3s;
+	cursor: pointer;
+}
+
+button.btncls:hover {
+	background-color: #000000;
+}
+.btncls2 {
+	background-color: gray; /* Green */
+	border: none;
+	color: black;
+	padding: 10px 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	border-radius: 10px;
+	transition-duration: 0.3s;
+}
 </style>
+<jsp:include page="../fragments/links.jsp" />
+<script>
+window.onload = function() {
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "<c:url value='/activityApply/getAppliedActivityIds' />", true);
+	xhr.send();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 ) {
+			if (xhr.status == 200){
+				var list = JSON.parse(xhr.responseText);
+				
+				for (var i=0;i<list.length;i++){
+					if(document.getElementById("btn"+list[i].activitysId)){
+						document.getElementById("btn"+list[i].activitysId).innerHTML="已報名";
+						document.getElementById("btn"+list[i].activitysId).disabled = true;
+						$("#btn"+list[i].activitysId).removeClass("btncls");
+						$("#btn"+list[i].activitysId).addClass("btncls2");
+					}
+					
+				}
+			} else {
+				alert(xhr.status);
+			}
+		}
+	}
+}
+
+
+function AddActivity(){
+	window.location.href = "<c:url value='/activitys/add' />";
+}
+function apply(activityId){
+	if(${!empty LoginOK}){
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "<c:url value='/activityApply/saveActivityApply' />?activityId="+activityId, true);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 ) {
+				if (xhr.status == 200){
+					var responseData = JSON.parse(xhr.responseText);
+					console.log(responseData);
+					
+					if(responseData){
+						alert('報名成功');
+						document.getElementById("btn"+activityId).innerHTML="已報名";
+						document.getElementById("btn"+activityId).disabled = true;
+						$("#btn"+activityId).removeClass("btncls");
+						$("#btn"+activityId).addClass("btncls2");
+					}else{
+						alert("報名過囉");
+						document.getElementById("btn"+activityId).innerHTML="已報名";
+						document.getElementById("btn"+activityId).disabled = true;
+						$("#btn"+activityId).removeClass("btncls");
+						$("#btn"+activityId).addClass("btncls2");
+					}
+					
+				} else {
+					alert(xhr.status);
+				}
+			}
+		}
+	
+	}else{
+		alert("尚未登入");
+	}
+}
+</script>
 </head>
 <body>
-<jsp:include page="../public/top.jsp" />
-	<h1>Input Form</h1>
-	<form:form action="addActivitys" method="post" modelAttribute="activitys">
-		<table>
-<!-- 			<tr> -->
-<!-- 				<td>ID</td> -->
-<%-- 				<td><form:input path="id" /><br /><form:errors path="id" cssClass="error" /></td> --%>
-<!-- 			</tr> -->
-			<tr>
-				<td>Name</td>
-				<td><form:input path="name" /><br /><form:errors path="name" cssClass="error" /></td>
-			</tr>
-			<tr>
-				<td>Topic</td>
-				<td><form:input path="topic" /><br /><form:errors path="topic" cssClass="error" /></td>
-			</tr>
-			<tr>
-				<td>Content</td>
-				<td><form:input path="content" /><br /><form:errors path="content" cssClass="error" /></td>
-			</tr>
-			<tr>
-				<td>Amount</td>
-				<td><form:input path="amount" /><br /><form:errors path="amount" cssClass="error" /></td>
-			</tr>
-			<tr>
-				<td>Location</td>
-				<td><form:input path="location" /><br /><form:errors path="location" cssClass="error" /></td>
-			</tr>
-			<tr>
-				<td>Limit Number</td>
-				<td><form:input path="limitNum" /><br /><form:errors path="limitNum" cssClass="error" /></td>
-			</tr>
-			<tr>
-				<td>Limit Type</td>
-				<td><form:input path="limitType" /><br /><form:errors path="limitType" cssClass="error" /></td>
-			</tr>
-			<tr>
-				<td>Limit People</td>
-				<td><form:input path="limitPeople" /><br /><form:errors path="limitPeople" cssClass="error" /></td>
-			</tr>
-			<tr>
-				<td>Activitys Type</td>
-				<td><form:input path="activitysType" /><br /><form:errors path="activitysType" cssClass="error" /></td>
-			</tr>
-			<tr>
-				<td colspan="2"><button type="submit">Submit</button></td>
-			</tr>
-		</table>
-	</form:form>
+	<jsp:include page="../fragments/headerArea.jsp" />
+	<div class="breadcrumb-area pt-95 pb-95 bg-img"
+		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
+		<div class="container">
+			<div class="breadcrumb-content text-center">
+				<h2>活動</h2>
+				<ul>
+					<li><a href="<c:url value='/' />">首頁</a></li>
+					<li class="active">活動</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="blog-area pt-100 pb-100 clearfix">
+		<div class="container">
+			<c:if test="${!empty LoginOK}">
+				<button class="btncls" style="margin-bottom: 30px;"
+					onclick="AddActivity()">我要辦活動</button>
+			</c:if>
+			<div class="row">
 
-	<h2>Activitys List</h2>
-	<table>
-		<tr>
-			<td><strong>id</strong></td>
-			<td><strong>Name</strong></td>
-			<td><strong>Topic</strong></td>
-			<td><strong>Content</strong></td>
-			<td><strong>Amount</strong></td>
-			<td><strong>Location</strong></td>
-			<td><strong>Limit Number</strong></td>
-			<td><strong>Limit Type</strong></td>
-			<td><strong>Limit People</strong></td>
-			<td><strong>Activitys Type</strong></td>
-			<td><strong>Create Date</strong></td>
-		</tr>
-		<c:forEach items="${activitysList}" var="activitys">
-			<tr>
-				<td>${activitys.id}</td>
-				<td>${activitys.name}</td>
-				<td>${activitys.topic}</td>
-				<td>${activitys.content}</td>
-				<td>${activitys.amount}</td>
-				<td>${activitys.location}</td>
-				<td>${activitys.limitNum}</td>
-				<td>${activitys.limitType}</td>
-				<td>${activitys.limitPeople}</td>
-				<td>${activitys.activitysType}</td>
-				<td>${activitys.createDate}</td>
-			</tr>
-		</c:forEach>
-	</table>
+				<c:forEach items="${activitysVoList}" var="activitys">
+					<div class="col-lg-6 col-md-6">
+						<div class="blog-wrapper mb-30 gray-bg">
+							<div class="blog-img hover-effect">
+								<a href="blog-details.html"><img alt=""
+									src="<c:url value='/assets/img/banner/act1.jpg' />"></a>
+							</div>
+							<div class="blog-content">
+								<div class="blog-meta">
+									<h4>
+										<a href="blog-details.html">${activitys.name}</a>
+									</h4>
+									<ul>
+										<li>名稱：${activitys.name}</li>
+										<br />
+										<li>報名截止：${activitys.activityDate}</li>
+										<br />
+										<li>活動費用：${activitys.amount}</li>
+										<br />
+										<li>活動地點：${activitys.location}</li>
+										<br />
+										<li>活動內容：${activitys.content}</li>
+
+									</ul>
+								</div>
+								<button class="btncls" onclick="apply(${activitys.id})" id="btn${activitys.id}">我要報名</button>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+
+		</div>
+	</div>
+
+	<jsp:include page="../fragments/footerArea.jsp" />
+	<jsp:include page="../fragments/allJs.jsp" />
 </body>
 </html>

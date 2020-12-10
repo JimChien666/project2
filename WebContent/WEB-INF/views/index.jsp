@@ -19,7 +19,7 @@
         <!-- 輪播 -->
         <div class="slider-area">
             <div class="slider-active owl-dot-style owl-carousel">
-                <div class="single-slider pt-100 pb-100 yellow-bg">
+                <div class="single-slider pt-100 pb-100" style="background-image: url('${pageContext.request.contextPath}/assets/img/banner/image.jpg')">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-12 col-sm-7">
@@ -32,14 +32,12 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-12 col-sm-5">
-                                <div class="slider-single-img slider-animated-1">
-                                    <img class="animated" src="assets/img/slider/slider-single-img.png" alt="">
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="single-slider pt-100 pb-100 yellow-bg">
+                <div class="single-slider pt-100 pb-100" style="background-image: url('${pageContext.request.contextPath}/assets/img/banner/image2.jpg')">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-7 col-12">
@@ -52,57 +50,34 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-5 col-12">
-                                <div class="slider-single-img slider-animated-1">
-                                    <img class="animated" src="assets/img/slider/slider-single-img-2.png" alt="">
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
         
         <!-- part1 -->
-        <div class="food-category food-category-col pt-100 pb-60">
+        <div class="deal-area bg-img pt-95 pb-100 gray-bg">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="single-food-category cate-padding-1 text-center mb-30">
-                            <div class="single-food-hover-2">
-                                <img src="assets/img/product/product-1.jpg" alt="">
-                            </div>
-                            <div class="single-food-content">
-                                <h3>Dogs Food</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="single-food-category cate-padding-2 text-center mb-30">
-                            <div class="single-food-hover-2">
-                                <img src="assets/img/product/product-2.jpg" alt="">
-                            </div>
-                            <div class="single-food-content">
-                                <h3>Cats Food</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="single-food-category cate-padding-3 text-center mb-30">
-                            <div class="single-food-hover-2">
-                                <img src="assets/img/product/product-3.jpg" alt="">
-                            </div>
-                            <div class="single-food-content">
-                                <h3>Fishs Food</h3>
-                            </div>
-                        </div>
-                    </div>
+                <div class="section-title text-center mb-50 ">
+                    
+                    <h2>浪浪專區</h2>
+                </div>
+                <div class="row" id="animalContent">
+                	
+                    
+                    
                 </div>
             </div>
         </div>
         
         
-		<!-- part2 -->        
-        <div class="product-area pt-95 pb-70 gray-bg">
+		<!-- part2 -->     
+		   
+        <div class="product-area pt-95 pb-70">
             <div class="container">
                 <div class="section-title text-center mb-55">
                     <h5>精選商品</h5>
@@ -114,34 +89,59 @@
                 </div>
             </div>
         </div>
-        
-        
-        <!-- part3 -->
-        <div class="deal-area bg-img pt-95 pb-100">
+        <!-- part5 -->
+		
+		<div class="service-area bg-img pt-100 pb-65  gray-bg">
+		    <div class="container">
+		        <div class="row">
+		            <div class="col-lg-4 col-md-4">
+		                <div class="service-content text-center mb-30 service-color-1">
+		                    <img src="assets/img/icon-img/shipping.png" alt="">
+		                    <h4>FREE SHIPPING</h4>
+		                    <p>Free shipping on all order </p>
+		                </div>
+		            </div>
+		            <div class="col-lg-4 col-md-4">
+		                <div class="service-content text-center mb-30 service-color-2">
+		                    <img src="assets/img/icon-img/support.png" alt="">
+		                    <h4>ONLINE SUPPORT</h4>
+		                    <p>Online support 24 hours a day</p>
+		                </div>
+		            </div>
+		            <div class="col-lg-4 col-md-4">
+		                <div class="service-content text-center mb-30 service-color-3">
+		                    <img src="assets/img/icon-img/money.png" alt="">
+		                    <h4>MONEY RETURN</h4>
+		                    <p>Back guarantee under 5 days</p>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+        <div class="food-category food-category-col pt-100 pb-60">
             <div class="container">
-                <div class="section-title text-center mb-50">
-                    <h4>Best Product</h4>
-                    <h2>Deal of the Week</h2>
+            <div class="section-title text-center mb-55">
+                    <h5>疑難排解</h5>
+                    <h2>討論專區</h2>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="deal-img wow fadeInLeft">
-                            <a href="#"><img src="assets/img/banner/banner-2.png" alt=""></a>
+                    <div class="col-lg-6 col-md-4">
+                        <div class="single-food-category cate-padding-1 text-center mb-30">
+                            <div class="single-food-hover-2">
+                                <img src="assets/img/product/product-1.jpg" alt="">
+                            </div>
+                            <div class="single-food-content">
+                                <h3>狗勾討論區</h3>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="deal-content">
-                            <h3><a href="#">Name Your Product</a></h3>
-                            <div class="deal-pro-price">
-                                <span class="deal-old-price">$16.00 </span>
-                                <span> $10.00</span>
+                    <div class="col-lg-6 col-md-4">
+                        <div class="single-food-category cate-padding-2 text-center mb-30">
+                            <div class="single-food-hover-2">
+                                <img src="assets/img/product/product-2.jpg" alt="">
                             </div>
-                            <p>Lorem ipsum dolor sit amet, co adipisicing elit, sed do eiusmod tempor incididunt labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita ullamco laboris nisi ut aliquip ex ea commodo </p>
-                            <div class="timer timer-style">
-                                <div data-countdown="2017/10/01"></div>
-                            </div>
-                            <div class="discount-btn mt-35">
-                                <a class="btn-style" href="#">SHOP NOW</a>
+                            <div class="single-food-content">
+                                <h3>貓咪討論區</h3>
                             </div>
                         </div>
                     </div>
@@ -149,9 +149,13 @@
             </div>
         </div>
         
+        
+        <!-- part3 -->
+        
+        
         <!-- part4 -->
         
-		<div class="testimonial-area pt-90 pb-70 bg-img" style="background-image:url(assets/img/banner/banner-1.jpg);">
+		<!-- <div class="testimonial-area pt-90 pb-70 bg-img" style="background-image:url(assets/img/banner/banner-1.jpg);">
 		    <div class="container">
                 <div class="row">
                     <div class="col-lg-10 ml-auto mr-auto">
@@ -201,37 +205,9 @@
             </div>
 		</div>
 		
-		<!-- part5 -->
 		
-		<div class="service-area bg-img pt-100 pb-65">
-		    <div class="container">
-		        <div class="row">
-		            <div class="col-lg-4 col-md-4">
-		                <div class="service-content text-center mb-30 service-color-1">
-		                    <img src="assets/img/icon-img/shipping.png" alt="">
-		                    <h4>FREE SHIPPING</h4>
-		                    <p>Free shipping on all order </p>
-		                </div>
-		            </div>
-		            <div class="col-lg-4 col-md-4">
-		                <div class="service-content text-center mb-30 service-color-2">
-		                    <img src="assets/img/icon-img/support.png" alt="">
-		                    <h4>ONLINE SUPPORT</h4>
-		                    <p>Online support 24 hours a day</p>
-		                </div>
-		            </div>
-		            <div class="col-lg-4 col-md-4">
-		                <div class="service-content text-center mb-30 service-color-3">
-		                    <img src="assets/img/icon-img/money.png" alt="">
-		                    <h4>MONEY RETURN</h4>
-		                    <p>Back guarantee under 5 days</p>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</div>
 		
-		<!-- part6 -->
+		part6
 		
 		<div class="blog-area pb-70">
 		    <div class="container">
@@ -290,7 +266,7 @@
                     </div>
                 </div>
 		    </div>
-		</div>
+		</div> -->
 		<jsp:include page="fragments/footerArea.jsp" />
 		<!-- modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
