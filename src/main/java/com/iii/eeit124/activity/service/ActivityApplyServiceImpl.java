@@ -47,10 +47,15 @@ public class ActivityApplyServiceImpl implements ActivityApplyService {
 	}
 
 	@Override
+	public ActivityApply findById(Integer activitysId, Integer memberId) {
+		return activityApplyDao.findById(activitysId, memberId);
+	}
+
+	@Override
 	public ActivityApply findById(Integer id) {
 		return activityApplyDao.findById(id);
 	}
-
+	
 	@Override
 	public ActivityApply createPlanner(Activitys activitys, Members members) {
 		ActivityApply entity = new ActivityApply();

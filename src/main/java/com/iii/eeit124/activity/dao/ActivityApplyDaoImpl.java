@@ -40,10 +40,11 @@ public class ActivityApplyDaoImpl implements ActivityApplyDao {
 	}
 	
 	@Override
-	public ActivityApply findById(Integer id) {
+	public ActivityApply findById(Integer activitysId, Integer memberId) {
 		@SuppressWarnings("unchecked")
-		TypedQuery<ActivityApply> query = sessionFactory.getCurrentSession().createQuery("from ActivityApply e where e.id = :id");
-		query.setParameter("id", id);
+		TypedQuery<ActivityApply> query = sessionFactory.getCurrentSession().createQuery("from ActivityApply e where e.activitysId = :activitysId and e.memberId=:memberId");
+		query.setParameter("activitysId", activitysId);
+		query.setParameter("memberId", memberId);
 		List<ActivityApply> list = query.getResultList();
 		return list != null ? list.get(0) : null;
 	}
@@ -71,5 +72,14 @@ public class ActivityApplyDaoImpl implements ActivityApplyDao {
 		query.setParameter("memberId", memberId);
 		List<ActivityApply> list = query.getResultList();
 		return list;
+	}
+
+	@Override
+	public ActivityApply findById(Integer id) {
+		@SuppressWarnings("unchecked")
+		TypedQuery<ActivityApply> query = sessionFactory.getCurrentSession().createQuery("from ActivityApply e where e.id = :id");
+		query.setParameter("id", id);
+		List<ActivityApply> list = query.getResultList();
+		return list != null ? list.get(0) : null;
 	}
 }

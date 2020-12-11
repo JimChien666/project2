@@ -12,6 +12,19 @@ import com.iii.eeit124.util.DateUtils;
 
 public class ActivitysVo {
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(" {\"id\":\"").append(id).append("\", \"createDate\":\"").append(createDate)
+				.append("\", \"activityDate\":\"").append(activityDate).append("\", \"name\":\"").append(name)
+				.append("\", \"topic\":\"").append(topic).append("\", \"content\":\"").append(content)
+				.append("\", \"location\":\"").append(location).append("\", \"limitNum\":\"").append(limitNum)
+				.append("\", \"limitType\":\"").append(limitType).append("\", \"limitPeople\":\"").append(limitPeople)
+				.append("\", \"activitysType\":\"").append(activitysType).append("\", \"amount\":\"").append(amount)
+				.append("}");
+		return builder.toString();
+	}
+
 	private Integer id;
 
 	/**

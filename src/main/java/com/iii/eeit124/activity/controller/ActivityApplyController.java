@@ -169,9 +169,14 @@ public class ActivityApplyController {
 	 * @return
 	 */
 	@GetMapping("delete/{id}")
-	public String goDeletePage(@PathVariable(value = "id") Integer id, Locale locale, Model model) {
-		model.addAttribute("activityApplyVo", activityApplyService.findById(id));
-		return "activityApply/delete";
+	public @ResponseBody boolean goDeletePage(@PathVariable(value = "id") Integer id, Locale locale, Model model) {
+		Members member = ((Members) session.getAttribute("LoginOK"));
+		ActivityApply activityApply = activityApplyService.findById(id, member.getId());
+		if (activityApply != null && activityApply.getApplyId() != null) {
+			activityApplyService.deleteById(activityApply.getApplyId());
+			return true;
+		}
+		return false;
 	}
 
 	/**

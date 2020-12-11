@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iii.eeit124.activity.service.ActivityApplyService;
 import com.iii.eeit124.activity.service.ActivitysService;
@@ -80,8 +82,8 @@ public class ActivitysController {
 	 */
 	@PostMapping("saveActivitys")
 	public String saveActivitys(@ModelAttribute("activitysVo") ActivitysVo activitysVo, BindingResult result,
-			Model model) {
-
+			Model model, @RequestParam("amount") Integer amount) {
+		activitysVo.setAmount(amount);
 		validate(activitysVo, result);
 		if (result.hasErrors()) {
 			return "activitys/add";
@@ -119,13 +121,13 @@ public class ActivitysController {
 	 */
 	@PostMapping("updateActivitys")
 	public String updateActivitys(@ModelAttribute("activitysVo") ActivitysVo activitysVo, BindingResult result,
-			Model model) {
-
+			Model model, @RequestParam("amount") Integer amount) {
+		activitysVo.setAmount(amount);
 		validate(activitysVo, result);
 		if (result.hasErrors()) {
 			return "activitys/update";
 		}
-
+		System.out.println(activitysVo);
 		Activitys dbActivitys = null;
 
 		if (activitysVo != null && activitysVo.getId() != null) {
@@ -140,7 +142,7 @@ public class ActivitysController {
 		Activitys updateActivitys = activitysVo.toEntity();
 		activitysService.update(updateActivitys);
 
-		return returnToList(model);
+		return "activitys/myActivity";
 	}
 
 	/**
@@ -152,9 +154,16 @@ public class ActivitysController {
 	 * @return
 	 */
 	@GetMapping("delete/{id}")
-	public String goDeletePage(@PathVariable(value = "id") Integer id, Locale locale, Model model) {
+	public @ResponseBody boolean goDeletePage(@PathVariable(value = "id") Integer id, Locale locale, Model model) {
 		model.addAttribute("activitys", activitysService.findById(id));
-		return "activitys/delete";
+		ActivitysVo activitysVo = new ActivitysVo();
+		activitysVo.setId(id);
+		if (activitysVo != null && activitysVo.getId() != null) {
+			activitysService.deleteById(activitysVo.getId());
+			activityApplyService.deleteByActivitysId(activitysVo.getId());
+			return true;
+		}
+		return false;
 	}
 
 	/**

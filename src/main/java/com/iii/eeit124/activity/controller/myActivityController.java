@@ -35,10 +35,24 @@ public class myActivityController {
 		return "activitys/myActivity";
 	}
 	
+	@GetMapping("/appliedActivity")
+	public String goAppliedActivityPage() {
+		return "activityApply/appliedActivity";
+	}
+	
 	@GetMapping("/getMyActivity")
 	public @ResponseBody List<ActivitysVo> getMyActivity() {
 		Members member = ((Members) session.getAttribute("LoginOK"));
-		List<ActivitysVo> list = activitysVoService.findByMemberId(member.getId(), null);
+		List<ActivitysVo> list = activitysVoService.findByMemberId(member.getId(), "1");
 		return list;
 	}
+	
+	@GetMapping("/getAppliedActivity")
+	public @ResponseBody List<ActivitysVo> getAppliedActivity() {
+		Members member = ((Members) session.getAttribute("LoginOK"));
+		List<ActivitysVo> list = activitysVoService.findByMemberId(member.getId(), "2");
+		
+		return list;
+	}
+	
 }

@@ -72,7 +72,7 @@ table td {
                                         <div class="col-lg-7">
                                         費用：
                                             <div class="contact-form-style mb-20">
-                                                <form:input path="amount" /><br /><form:errors path="amount" cssClass="error" />
+                                                <input name="amount" type="text" value="${activitysVo.amount}"/><br /><form:errors path="amount" cssClass="error" />
                                             </div>
                                         </div>
                                         
@@ -88,7 +88,7 @@ table td {
                                             <div class="contact-form-style">
                                                 <form:input path="content" /><br /><form:errors path="content" cssClass="error" />
                                                 <button class="submit btn-style" type="submit">送出</button>
-                                                <button class="submit btn-style" type="submit"><a href="<c:url value='/activitys/list' />" style="color: white;">返回活動頁面</a></button>
+                                                <button class="submit btn-style"><a href="<c:url value='/activitys/list' />" style="color: white;">返回活動頁面</a></button>
                                             </div>
                                         </div>
                                     </div>

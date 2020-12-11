@@ -14,11 +14,13 @@ public interface ActivityApplyDao {
 	
 	List<ActivityApply> list();
 	
-	ActivityApply findById(Integer id);
+	ActivityApply findById(Integer activitysId, Integer memberId);
 	
 	void deleteByActivitysId(Integer activitysId);
 
 	boolean findByActivityIdAndMenberId(Integer activityId, Integer memberId);
 
 	List<ActivityApply> getAppliedActivityIds(Integer memberId);
+
+	ActivityApply findById(Integer id);
 }

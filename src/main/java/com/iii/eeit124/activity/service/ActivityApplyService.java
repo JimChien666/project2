@@ -18,7 +18,7 @@ public interface ActivityApplyService {
 
 	List<ActivityApply> list();
 
-	ActivityApply findById(Integer id);
+	ActivityApply findById(Integer activitysId, Integer memberId);
 
 	/**
 	 * 建立活動主辦人資料
@@ -38,4 +38,6 @@ public interface ActivityApplyService {
 	boolean findByActivityIdAndMenberId(Integer activityId, Integer id);
 
 	List<ActivityApply> getAppliedActivityIds(Integer id);
+
+	ActivityApply findById(Integer id);
 }
