@@ -16,8 +16,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,11 +31,14 @@ public class Forums {
 //	private int articleid;
 	private String content;
 	private Date createdat;
-	private int voteid;
+//	private int voteid;
+	private String votetopic;
+	private ForumFiles forumFiles;
 	private int memberid;
 	private Article article;
 	private Members member;
 	private Set<Comments> comments = new HashSet<Comments>();
+	private MultipartFile multipartFile;
 
 	@Id
 	@Column(name = "ID")
@@ -65,14 +71,14 @@ public class Forums {
 		this.createdat = createdat;
 	}
 
-	@Column(name = "VOTE_ID")
-	public int getVoteid() {
-		return voteid;
-	}
-
-	public void setVoteid(int voteid) {
-		this.voteid = voteid;
-	}
+//	@Column(name = "VOTE_ID")
+//	public int getVoteid() {
+//		return voteid;
+//	}
+//
+//	public void setVoteid(int voteid) {
+//		this.voteid = voteid;
+//	}
 
 //	@Column(name = "MEMBER_ID")
 	@Transient
@@ -104,7 +110,7 @@ public class Forums {
 //		this.articleid = articleid;
 		this.content = content;
 		this.createdat = createdat;
-		this.voteid = voteid;
+//		this.voteid = voteid;
 		this.memberid = memberid;
 		this.article = article;
 	}
@@ -135,4 +141,32 @@ public class Forums {
 	public Integer getForumOwnerFileId() {
 		return this.member.getFileId();
 	}
+	
+	@Column(name = "VOTETOPIC")
+	public String getVotetopic() {
+		return votetopic;
+	}
+
+	public void setVotetopic(String votetopic) {
+		this.votetopic = votetopic;
+	}
+
+//	public ForumFiles getForumFiles() {
+//		return forumFiles;
+//	}
+//
+//	public void setForumFiles(ForumFiles forumFiles) {
+//		this.forumFiles = forumFiles;
+//	}
+
+	@Transient
+	public MultipartFile getMultipartFile() {
+		return multipartFile;
+	}
+
+	public void setMultipartFile(MultipartFile multipartFile) {
+		this.multipartFile = multipartFile;
+	}
+	
+	
 }

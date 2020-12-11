@@ -120,12 +120,21 @@ articleType:
 
 <br>
 <br>
-article:<form:textarea name="editor" id="editor" path="content" />
+內文:<form:textarea name="editor" id="editor" path="content" />
 				
 		<br>
-		<form:hidden value="1" path="article.activitysid" />
+		<form:hidden value="0" path="article.activitysid" />
 		<form:hidden value="1" path="article.showarticle" />
-		<form:hidden value="1" path="voteid" />
+<%-- 		<form:hidden value="0" path="voteid" /> --%>
+
+		投票主題:<form:textarea   path="votetopic" placeholder="請輸入投票主題" />
+		插入圖片:<input name="contentImage" type="file" multiple/><span style="color: red;">${errors.multipartFile}</span><br/>
+		
+		加入投票選項:<button></button>
+
+
+
+
 		<form:button value="submit" type="submit">送出</form:button>
 	
 	
