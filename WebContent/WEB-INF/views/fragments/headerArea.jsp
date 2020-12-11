@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-
 <header class="header-area">
 	<div class="header-bottom transparent-bar">
 		<div class="container">

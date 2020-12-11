@@ -26,16 +26,30 @@ public class AdoptionRecordsDaoImpl implements AdoptionRecordsDao {
 	@Override//不能list，只能一筆
 	public List<AdoptionRecords> read(Integer memberId, Integer animalId) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where MEMBER_ID=" + memberId + " and ANIMAL_ID=" + animalId , AdoptionRecords.class);
+		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where MEMBER_ID=" + memberId + " and ANIMAL_ID=" + animalId + "order by ADOPTION_ID", AdoptionRecords.class);
 		List<AdoptionRecords> list = query.list();
 		return list;
 	}
 
 	@Override//AdoptionRequestList
-	public List<AdoptionRecords> readReviewStatus(Integer memberId, Integer animalId, Integer reviewStatus, List<Integer> listAnimals) {
+	public List<AdoptionRecords> readReviewStatus(List<Integer> listAnimals) {
 		Session session = sessionFactory.getCurrentSession();
 		String string = listAnimals.toString().replace("[", "(").replace("]", ")");
-		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where Animal_Id in " + string + " and Review_Status=" + reviewStatus , AdoptionRecords.class);
+		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where Animal_Id in " + string, AdoptionRecords.class);
+		List<AdoptionRecords> list = query.list();
+		return list;
+	}
+	
+	public List<AdoptionRecords> readMyAdoptionRecords(Integer memberId){
+		Session session = sessionFactory.getCurrentSession();
+		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where MEMBER_ID=" + memberId + "order by ADOPTION_ID", AdoptionRecords.class);
+		List<AdoptionRecords> list = query.list();
+		return list;
+	}
+	
+	public List<AdoptionRecords> readAdoptionRecords2(String string1, String string2){
+		Session session = sessionFactory.getCurrentSession();
+		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where " + string1 + "and "+ string2 +"order by ADOPTION_ID", AdoptionRecords.class);
 		List<AdoptionRecords> list = query.list();
 		return list;
 	}

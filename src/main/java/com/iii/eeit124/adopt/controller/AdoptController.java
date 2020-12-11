@@ -43,14 +43,18 @@ public class AdoptController {
 
 		// 讀會員entity
 		Members member = (Members) session.getAttribute("LoginOK");
+		//讀ownerMember
+		Members ownerMember = animalsService.read(animalsId).getMember();
 		// 讀領養紀錄list
 		List<AdoptionRecords> adoptionRecordList = adoptionRecordsService.read(member.getId(), animalsId);
 		if (adoptionRecordList.isEmpty()) {
 			// 若無領養紀錄list，則新增一個
 			AdoptionRecords adoptionRecords = new AdoptionRecords();
 			adoptionRecords.setMember(member);
+			adoptionRecords.setOwnerMember(ownerMember);
 			adoptionRecords.setAnimal(animalsService.read(animalsId));
 			adoptionRecords.setNoticeOptions(0);
+			adoptionRecords.setCreatedAt(new Date());
 			adoptionRecordsService.create(adoptionRecords);
 			m.addAttribute("adoptionRecord", adoptionRecords);
 			session.setAttribute("myAdoptionRecord", adoptionRecords);
@@ -103,6 +107,7 @@ public class AdoptController {
 		adoptionRecords.setMember((Members) session.getAttribute("LoginOK"));// 更新還是要重設一次
 		adoptionRecords.setAnimal(animalsService.read(adoptionRecords.getAnimalId()));
 		adoptionRecords.setNoticeOptions(sum);
+		adoptionRecords.setUpdatedAt(new Date());
 		adoptionRecordsService.update(adoptionRecords);
 
 		m.addAttribute("adoptionRecord", adoptionRecords);
@@ -131,10 +136,6 @@ public class AdoptController {
 		Members member = (Members) session.getAttribute("LoginOK");
 		Animals animals = animalsService.read(adoptionRecords.getAnimalId());
 
-//		animals.setMember(member);
-//		animals.setIsAdoptionAvailable(0);
-//		animalsService.update(animals);
-
 		if (null == adoptionRecords.getAgreement()) {
 			adoptionRecords.setAgreement(0);
 		}
@@ -147,12 +148,13 @@ public class AdoptController {
 			Date birthday = sdf.parse(adoptionRecords.getBirthdayString());
 			adoptionRecords.setBirthday(birthday);
 		}
-//		adoptionRecords.setCreatedAt(new Date());
+		adoptionRecords.setApplyTime(new Date());
 		
 		//設定審核狀態
 		adoptionRecords.setReviewStatus(1);
 		
 		//將新增的資料更新進領養紀錄
+		adoptionRecords.setUpdatedAt(new Date());
 		adoptionRecordsService.update(adoptionRecords);
 		session.setAttribute("myAdoptionRecord", adoptionRecords);
 		

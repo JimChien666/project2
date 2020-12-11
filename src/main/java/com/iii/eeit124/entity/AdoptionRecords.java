@@ -21,12 +21,12 @@ import org.springframework.stereotype.Component;
 public class AdoptionRecords {
 
 	private Integer adoptionId;
-	private Integer memberId;//多對一
+	private Integer memberId;//多對一，領養申請者
 	private Integer animalId;//一對一
 	private Date adoptionDate;
 	private Integer reviewStatus;//審核狀態1.審核中
-	private Integer adoptionStatus;//1.領養中 2.送養中 3.已送養
-	private Date createdAt;
+	private Integer adoptionStatus;//1.領養中 2.送養中 3.已送養，因設計方向不同，沒用到
+	private Date createdAt;//成功領養時間
 	private Date updatedAt;
 	private Date deletedAt;
 	private Members member;
@@ -34,12 +34,12 @@ public class AdoptionRecords {
 	//領養注意事項
 	private Integer noticeOptions;
 	//領養申請
-	private String applicantName;
+	private String applicantName;//申請人
 	private Integer agreement;
 	private String feedAddress;
 	private String feedAddressType;
 	private Integer currentAnimalsNum;
-	private String adopterName;
+	private String adopterName;//領養人
 	private String personalId;
 	private Date birthday;
 	private String birthdayString;
@@ -48,6 +48,11 @@ public class AdoptionRecords {
 	private String email;
 	private String residentAddress;
 	private String mailingAddress;
+	private Date applyTime;//申請時間
+	private Integer ownerMemberId;//寵物原始擁有者
+	private Members ownerMember;
+	private Date applyRejectedAt;
+	private Date applyApprovedAt;
 	
 	@Id
 	@Column(name = "ADOPTION_ID")//大小寫沒差別，跟資料庫名一樣就好
@@ -238,6 +243,42 @@ public class AdoptionRecords {
 	public void setMailingAddress(String mailingAddress) {
 		this.mailingAddress = mailingAddress;
 	}
+	@Column(name = "Apply_Time")
+	public Date getApplyTime() {
+		return applyTime;
+	}
+	public void setApplyTime(Date applyTime) {
+		this.applyTime = applyTime;
+	}
+	@Transient
+	public Integer getOwnerMemberId() {
+		return ownerMemberId;
+	}
+	public void setOwnerMemberId(Integer ownerMemberId) {
+		this.ownerMemberId = ownerMemberId;
+	}
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity=Members.class)
+	@JoinColumn(name = "OwnerMemberId")
+	public Members getOwnerMember() {
+		return ownerMember;
+	}
+	public void setOwnerMember(Members ownerMember) {
+		this.ownerMember = ownerMember;
+	}
+	@Column(name = "Apply_Rejected_At")
+	public Date getApplyRejectedAt() {
+		return applyRejectedAt;
+	}
+	public void setApplyRejectedAt(Date applyRejectedAt) {
+		this.applyRejectedAt = applyRejectedAt;
+	}
+	@Column(name = "Apply_Approved_At")
+	public Date getApplyApprovedAt() {
+		return applyApprovedAt;
+	}
+	public void setApplyApprovedAt(Date applyApprovedAt) {
+		this.applyApprovedAt = applyApprovedAt;
+	}
 	@Override
 	public String toString() {
 		return "AdoptionRecords [adoptionId=" + adoptionId + ", memberId=" + memberId + ", animalId=" + animalId
@@ -248,6 +289,8 @@ public class AdoptionRecords {
 				+ feedAddressType + ", currentAnimalsNum=" + currentAnimalsNum + ", adopterName=" + adopterName
 				+ ", personalId=" + personalId + ", birthday=" + birthday + ", birthdayString=" + birthdayString
 				+ ", tel=" + tel + ", mobile=" + mobile + ", email=" + email + ", residentAddress=" + residentAddress
-				+ ", mailingAddress=" + mailingAddress + "]";
+				+ ", mailingAddress=" + mailingAddress + ", applyTime=" + applyTime + ", ownerMemberId=" + ownerMemberId
+				+ ", ownerMember=" + ownerMember + ", applyRejectedAt=" + applyRejectedAt + ", applyApprovedAt="
+				+ applyApprovedAt + "]";
 	}
 }

@@ -28,6 +28,7 @@ import com.iii.eeit124.adopt.ImgurAPI;
 import com.iii.eeit124.adopt.service.AdoptionRecordsService;
 import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.adopt.service.BreedsService;
+import com.iii.eeit124.entity.AdoptionRecords;
 import com.iii.eeit124.entity.Animals;
 import com.iii.eeit124.entity.AnimalsFiles;
 import com.iii.eeit124.entity.Breeds;
@@ -299,14 +300,52 @@ public class AnimalsController {
 	
 	//領養申請列表
 	@GetMapping("/adoptionRequestList.controller")
-	public String processAdoptionRequestList(Model m) {
-		
+	public String processAdoptionRequestList(@RequestParam("source") String source, Model m) {
 		Integer memberId = ((Members) session.getAttribute("LoginOK")).getId();
-		
-		List<Integer> readMyAnimalId = animalsService.readMyAnimalId(memberId);
-		System.out.println("readMyAnimalId:"+readMyAnimalId);
-		System.out.println("adoptionRecordsService.readReviewStatus(memberId, 1, 1, readMyAnimalId)"+adoptionRecordsService.readReviewStatus(memberId, 1, 1, readMyAnimalId));
-		m.addAttribute("AdoptionRequestList",adoptionRecordsService.readReviewStatus(memberId, 1, 1, readMyAnimalId));
+		if ("AdoptionRequest".equals(source)) {
+			//找出該會員擁有的寵物，但被其他領養人提出領養申請的寵物
+			List<AdoptionRecords> readAdoptionRecords2 = adoptionRecordsService.readAdoptionRecords2("OWNERMEMBERID = "+ memberId, "REVIEW_STATUS >= 0");
+			m.addAttribute("AdoptionRequestList", readAdoptionRecords2);
+			m.addAttribute("source", "AdoptionRequest");
+		}else if ("MyAdoptionProgress".equals(source)) {
+			//找出該會員申請領養的紀錄
+			List<AdoptionRecords> readMyAdoptionRecords = adoptionRecordsService.readMyAdoptionRecords(memberId);
+			m.addAttribute("AdoptionRequestList", readMyAdoptionRecords);
+			m.addAttribute("source", "MyAdoptionProgress");
+		}
 		return "adopt/AdoptionRequestList";
+	}
+	
+	@GetMapping("/adoptionRequestList.controller.0")//退回申請
+	public String processAdoptionRequestList0(@RequestParam("animalId") Integer animalId, @RequestParam("memberId") Integer memberId) {
+		AdoptionRecords adoptionRecord = adoptionRecordsService.read(memberId, animalId).get(0);
+		adoptionRecord.setReviewStatus(0);
+		adoptionRecord.setApplyRejectedAt(new Date());
+		adoptionRecordsService.update(adoptionRecord);
+		return "redirect:/MemberCenter/adoptionRequestList.controller?source=AdoptionRequest";
+	}
+	
+	@GetMapping("/adoptionRequestList.controller.2")//核准申請
+	public String processAdoptionRequestList2(@RequestParam("animalId") Integer animalId, @RequestParam("memberId") Integer memberId) {
+		AdoptionRecords adoptionRecord = adoptionRecordsService.read(memberId, animalId).get(0);
+		adoptionRecord.setReviewStatus(2);
+		adoptionRecord.setApplyApprovedAt(new Date());
+		adoptionRecordsService.update(adoptionRecord);
+		return "redirect:/MemberCenter/adoptionRequestList.controller?source=AdoptionRequest";
+	}
+	
+	@GetMapping("/adoptionRequestList.controller.3")//完成領養
+	public String processAdoptionRequestList3(@RequestParam("animalId") Integer animalId, @RequestParam("memberId") Integer memberId) {
+		AdoptionRecords adoptionRecord = adoptionRecordsService.read(memberId, animalId).get(0);
+		adoptionRecord.setReviewStatus(3);
+		adoptionRecord.setAdoptionDate(new Date());
+		adoptionRecordsService.update(adoptionRecord);
+
+		Members member = (Members) session.getAttribute("LoginOK");
+		Animals animals = animalsService.read(adoptionRecord.getAnimal().getAnimalId());
+		animals.setMember(member);
+		animals.setIsAdoptionAvailable(0);
+		animalsService.update(animals);
+		return "redirect:/MemberCenter/adoptionRequestList.controller?source=MyAdoptionProgress";
 	}
 }

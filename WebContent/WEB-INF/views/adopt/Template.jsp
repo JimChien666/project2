@@ -6,15 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	
-<!-- 跳轉網頁動畫1 -->
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <jsp:include page="../fragments/links.jsp" />
+
+<!-- 轉頁載入動畫1 -->
+<link rel="stylesheet"
+	href="<c:url value='/css/loadingAnimation.css' />">
 </head>
-<body style="margin:0;">
+<body>
 	<div id="loader"></div>
-	<div style="display:none;" id="myDiv" class="animate-bottom">
-<!-- 跳轉網頁動畫1 -->
+	<div style="display: none;" id="myDiv" class="animate-bottom">
+		<!-- 轉頁載入動畫1 -->
 	
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
@@ -38,18 +40,18 @@
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
-	
-<!-- 跳轉網頁動畫2 -->
+
+		<!-- 轉頁載入動畫2 -->
 	</div>
 </body>
 <script>
-    setTimeout(function () {
-        $(document).ready(function () {
-            document.getElementById("loader").style.display = "none";
-            document.getElementById("myDiv").style.display = "block";
-        });
-     }, 500);
+setTimeout(function() {
+	$(document).ready(function() {
+		document.getElementById("loader").style.display = "none";
+		document.getElementById("myDiv").style.display = "block";
+	});
+}, 500);
 </script>
-<!-- 跳轉網頁動畫2 -->
+<!-- 轉頁載入動畫2 -->
 
 </html>

@@ -9,15 +9,17 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
-	
-<!-- 跳轉網頁動畫1 -->
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <jsp:include page="../fragments/links.jsp" />
+
+<!-- 轉頁載入動畫1 -->
+<link rel="stylesheet"
+	href="<c:url value='/css/loadingAnimation.css' />">
 </head>
-<body style="margin:0;">
+<body>
 	<div id="loader"></div>
-	<div style="display:none;" id="myDiv" class="animate-bottom">
-<!-- 跳轉網頁動畫1 -->
+	<div style="display: none;" id="myDiv" class="animate-bottom">
+		<!-- 轉頁載入動畫1 -->
 	
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
@@ -93,7 +95,8 @@
 	</div>
 
 	<div class="divCenter">
-		<div class="about-us-btn mb-50">
+		<div class="mb-50">
+<!-- 		<div class="about-us-btn mb-50"> -->
 			<c:choose>
 				<c:when test="${source=='ReadAnimal'}">
 					<a href="<c:url value='/MemberCenter/ReadAnimal' />"
@@ -124,17 +127,18 @@
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
-	
-<!-- 跳轉網頁動畫2 -->
+
+		<!-- 轉頁載入動畫2 -->
 	</div>
 </body>
 <script>
-    setTimeout(function () {
-        $(document).ready(function () {
-            document.getElementById("loader").style.display = "none";
-            document.getElementById("myDiv").style.display = "block";
-        });
-     }, 500);
+setTimeout(function() {
+	$(document).ready(function() {
+		document.getElementById("loader").style.display = "none";
+		document.getElementById("myDiv").style.display = "block";
+	});
+}, 500);
 </script>
-<!-- 跳轉網頁動畫2 -->
+<!-- 轉頁載入動畫2 -->
+
 </html>

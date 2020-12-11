@@ -1,14 +1,12 @@
 package com.iii.eeit124.adopt.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.iii.eeit124.adopt.dao.AdoptionRecordsDao;
 import com.iii.eeit124.entity.AdoptionRecords;
-import com.iii.eeit124.entity.Animals;
 
 @Service("adoptionRecordsService")@Lazy
 public class AdoptionRecordsServiceImpl implements AdoptionRecordsService{
@@ -26,10 +24,18 @@ public class AdoptionRecordsServiceImpl implements AdoptionRecordsService{
 		return adoptionRecordsDao.read(memberId, animalId);
 	}
 	
-	public List<AdoptionRecords> readReviewStatus(Integer memberId, Integer animalId, Integer reviewStatus, List<Integer> listAnimals){
-		return adoptionRecordsDao.readReviewStatus(memberId, animalId, reviewStatus, listAnimals);
+	public List<AdoptionRecords> readReviewStatus(List<Integer> listAnimals){
+		return adoptionRecordsDao.readReviewStatus(listAnimals);
+	}
+	
+	public List<AdoptionRecords> readMyAdoptionRecords(Integer memberId){
+		return adoptionRecordsDao.readMyAdoptionRecords(memberId);
 	}
 
+	public List<AdoptionRecords> readAdoptionRecords2(String string1, String string2){
+		return adoptionRecordsDao.readAdoptionRecords2(string1, string2);
+	}
+	
 	@Override
 	public AdoptionRecords update(AdoptionRecords entity) {
 		return adoptionRecordsDao.update(entity);
