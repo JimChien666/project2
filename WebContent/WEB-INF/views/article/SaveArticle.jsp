@@ -93,13 +93,13 @@ h1 {
 		<div class="starter-template" style="clear:both">
 			<h1>文章發表</h1>
 			<p class="lead">
-				Share your story...<br>
+				Share your story~<br>
 			</p>
 		</div>
 
 
 
-	<form:form action="saveToDB" method="POST" modelAttribute="forums">
+	<form:form action="saveToDB" method="POST" modelAttribute="forums" enctype="multipart/form-data" >
 <form:input path="article.title" placeholder="請輸入標題"/>
 		<br>
 		<br>
@@ -126,16 +126,17 @@ articleType:
 		<form:hidden value="0" path="article.activitysid" />
 		<form:hidden value="1" path="article.showarticle" />
 <%-- 		<form:hidden value="0" path="voteid" /> --%>
+		發起投票:<button class="btncls">發起投票</button>
 
 		投票主題:<form:textarea   path="votetopic" placeholder="請輸入投票主題" />
 		插入圖片:<input name="contentImage" type="file" multiple/><span style="color: red;">${errors.multipartFile}</span><br/>
 		
-		加入投票選項:<button></button>
+		加入投票選項:<button class="btncls"></button>
 
 
 
 
-		<form:button value="submit" type="submit">送出</form:button>
+		<form:button class="btncls" value="submit" type="submit">送出</form:button>
 	
 	
 	<script>
