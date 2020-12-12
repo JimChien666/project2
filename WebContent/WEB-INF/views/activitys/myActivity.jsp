@@ -48,7 +48,7 @@ button.btncls:hover {
 						content += '<div class="col-lg-6 col-md-6" id="show'+list[i].id+'">'
 								+ '<div class="blog-wrapper mb-30 gray-bg">'
 								+ '<div class="blog-img hover-effect">'
-								+ '<a href="#"><img alt="img" src="data:image/jpeg;base64,'+list[i].base64Pic+'"/></a>'
+								+ '<a href="#"><img height=280; alt="img" src="data:image/jpeg;base64,'+list[i].base64Pic+'"/></a>'
 								+ '</div>'
 								+ '<div class="blog-content">'
 								+ '<div class="blog-meta">'
