@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.iii.eeit124.adopt.ImgurAPI;
 import com.iii.eeit124.adopt.service.AdoptionRecordsService;
@@ -195,6 +196,16 @@ public class AnimalsController {
 		return "redirect:/MemberCenter/ReadAnimal";
 	}
 
+//==============================================================================================
+
+	//查詢
+	@GetMapping("/readKeyword.controller")
+	public @ResponseBody List<Animals> processReadKeyword(@RequestParam("factor1") String factor1, @RequestParam("orderBy") String orderBy) {
+		List<Animals> list = null;
+		animalsService.readAnimals1("", orderBy);//先查貓狗種類，再將全部list合起來
+		return list;
+	}
+	
 //==============================================================================================
 
 	// PreUpdate

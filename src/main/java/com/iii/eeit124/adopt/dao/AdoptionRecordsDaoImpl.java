@@ -53,6 +53,14 @@ public class AdoptionRecordsDaoImpl implements AdoptionRecordsDao {
 		List<AdoptionRecords> list = query.list();
 		return list;
 	}
+	
+//	public List<AdoptionRecords> readAdoptionRecords1(String string1, String orderBy){
+//		Session session = sessionFactory.getCurrentSession();
+//		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where " + string1 + "and "+ string2 +"order by ADOPTION_ID", AdoptionRecords.class);
+//		List<AdoptionRecords> list = query.list();
+//		return list;
+//		
+//	}
 
 	@Override
 	public AdoptionRecords update(AdoptionRecords entity) {
