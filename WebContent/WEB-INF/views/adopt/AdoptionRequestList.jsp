@@ -102,26 +102,64 @@ td {
 									<c:choose>
 										<c:when test="${source == 'AdoptionRequest'}">
 								退回申請
-								<!-- 退回原因 -->
 										</c:when>
 										<c:when test="${source == 'MyAdoptionProgress'}">
 								被退回申請
-								<!-- 退回原因 -->
 										</c:when>
 									</c:choose>
+									<div class="mt-10 btn-style-cancel btn-style-border"
+										data-toggle="modal" data-target="#rejectedReason${AdoptionRequestList.animal.animalId}">查看退回原因
+									</div>
+									<div class="modal fade" id="rejectedReason${AdoptionRequestList.animal.animalId}" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="exampleModalLabel">退回原因</h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<form>
+													<div class="modal-body">
+														<div class="form-group">
+															<label for="message-text" class="col-form-label font22">
+									<c:choose>
+										<c:when test="${source == 'AdoptionRequest'}">
+															回覆給申請者的話：
+										</c:when>
+										<c:when test="${source == 'MyAdoptionProgress'}">
+															回覆給您的話：
+										</c:when>
+									</c:choose>
+															</label>
+															<label class="font22">${AdoptionRequestList.rejectedReason}</label>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+															class="btn-style-cancel btn-style-border"
+															data-dismiss="modal">返回</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
 								</c:when>
 								<c:when test="${AdoptionRequestList.reviewStatus == 1}">
 								待核准申請
 									<c:choose>
 										<c:when test="${source == 'AdoptionRequest'}">
-											<div class="mt-20 btn-style1 btn-style-border"
-												data-toggle="modal" data-target="#reviewStatus2">核准申請
+											<div class="mt-10 btn-style1 btn-style-border"
+												data-toggle="modal" data-target="#reviewStatus2${AdoptionRequestList.animal.animalId}">核准申請
 											</div>
 											<div class="mt-10 btn-style-cancel btn-style-border"
-												data-toggle="modal" data-target="#reviewStatus0">退回申請
+												data-toggle="modal" data-target="#reviewStatus0${AdoptionRequestList.animal.animalId}">退回申請
 											</div>
 											<!-- 核准申請 -->
-											<div class="modal fade" id="reviewStatus2" tabindex="-1"
+											<div class="modal fade" id="reviewStatus2${AdoptionRequestList.animal.animalId}" tabindex="-1"
 												role="dialog" aria-labelledby="exampleModalLabel"
 												aria-hidden="true">
 												<div class="modal-dialog" role="document">
@@ -133,28 +171,29 @@ td {
 																<span aria-hidden="true">&times;</span>
 															</button>
 														</div>
-														<div class="modal-body">
-															<form>
+														<form
+															action="<c:url value='/MemberCenter/adoptionRequestList.controller.2?animalId=${AdoptionRequestList.animal.animalId}&memberId=${AdoptionRequestList.member.id}'/>"
+															method="post">
+															<div class="modal-body">
 																<div class="form-group">
 																	<label for="message-text" class="col-form-label font22">回覆給申請者的話：</label>
 																	<textarea class="form-control" id="message-text"
-																		rows="5" cols="80"></textarea>
-																	<!-- 																	textarea可加預設對話 -->
+																		name="approvedReason" rows="5" cols="80">感謝您的領養申請，請於2020年12月25日中午12點至中央大學宵夜街領取寵物。</textarea>
 																</div>
-															</form>
-														</div>
-														<div class="modal-footer">
-															<button type="button"
-																class="btn-style-cancel btn-style-border"
-																data-dismiss="modal">取消</button>
-															<a class="btn-style1 btn-style-border"
-																href="<c:url value='/MemberCenter/adoptionRequestList.controller.2?animalId=${AdoptionRequestList.animal.animalId}&memberId=${AdoptionRequestList.member.id}'/>">核准</a>
-														</div>
+															</div>
+															<div class="modal-footer">
+																<button type="button"
+																	class="btn-style-cancel btn-style-border"
+																	data-dismiss="modal">取消</button>
+																<button type="submit" value="submit"
+																	class="btn-style1 btn-style-border">核准</button>
+															</div>
+														</form>
 													</div>
 												</div>
 											</div>
 											<!-- 退回申請 -->
-											<div class="modal fade" id="reviewStatus0" tabindex="-1"
+											<div class="modal fade" id="reviewStatus0${AdoptionRequestList.animal.animalId}" tabindex="-1"
 												role="dialog" aria-labelledby="exampleModalLabel"
 												aria-hidden="true">
 												<div class="modal-dialog" role="document">
@@ -166,23 +205,24 @@ td {
 																<span aria-hidden="true">&times;</span>
 															</button>
 														</div>
-														<div class="modal-body">
-															<form>
+														<form
+															action="<c:url value='/MemberCenter/adoptionRequestList.controller.0?animalId=${AdoptionRequestList.animal.animalId}&memberId=${AdoptionRequestList.member.id}'/>"
+															method="post">
+															<div class="modal-body">
 																<div class="form-group">
 																	<label for="message-text" class="col-form-label font22">回覆給申請者的話：</label>
 																	<textarea class="form-control" id="message-text"
-																		rows="5" cols="80"></textarea>
-																	<!-- 																	textarea可加預設對話 -->
+																		name="rejectedReason" rows="5" cols="80">很抱歉，您的申請不符合送養者的需求。</textarea>
 																</div>
-															</form>
-														</div>
-														<div class="modal-footer">
-															<button type="button"
-																class="btn-style-cancel btn-style-border"
-																data-dismiss="modal">取消</button>
-															<a class="btn-style1 btn-style-border"
-																href="<c:url value='/MemberCenter/adoptionRequestList.controller.0?animalId=${AdoptionRequestList.animal.animalId}&memberId=${AdoptionRequestList.member.id}'/>">退回</a>
-														</div>
+															</div>
+															<div class="modal-footer">
+																<button type="button"
+																	class="btn-style-cancel btn-style-border"
+																	data-dismiss="modal">取消</button>
+																<button type="submit" value="submit"
+																	class="btn-style1 btn-style-border">退回</button>
+															</div>
+														</form>
 													</div>
 												</div>
 											</div>
@@ -201,10 +241,10 @@ td {
 										</c:when>
 										<c:when test="${source == 'MyAdoptionProgress'}">
 											按下按鈕以完成領養
-											<div class="mt-20 btn-style1 btn-style-border"
-												data-toggle="modal" data-target="#reviewStatus3">完成領養
+											<div class="mt-10 btn-style1 btn-style-border"
+												data-toggle="modal" data-target="#reviewStatus3${AdoptionRequestList.animal.animalId}">完成領養
 											</div>
-											<div class="modal fade" id="reviewStatus3" tabindex="-1"
+											<div class="modal fade" id="reviewStatus3${AdoptionRequestList.animal.animalId}" tabindex="-1"
 												role="dialog" aria-labelledby="exampleModalLabel"
 												aria-hidden="true">
 												<div class="modal-dialog" role="document">
@@ -216,28 +256,69 @@ td {
 																<span aria-hidden="true">&times;</span>
 															</button>
 														</div>
-														<div class="modal-body">
-															<form>
+														<form
+															action="<c:url value='/MemberCenter/adoptionRequestList.controller.3?animalId=${AdoptionRequestList.animal.animalId}&memberId=${AdoptionRequestList.member.id}'/>"
+															method="post">
+															<div class="modal-body">
 																<div class="form-group">
 																	<label for="message-text" class="col-form-label font22">回覆給送養者的話：</label>
 																	<textarea class="form-control" id="message-text"
-																		rows="5" cols="80"></textarea>
-																	<!--textarea可加預設對話 -->
+																		name="adopterMessage" rows="5" cols="80">謝謝您的送養，我會好好照顧她/他的。</textarea>
 																</div>
-															</form>
-														</div>
-														<div class="modal-footer">
-															<button type="button"
-																class="btn-style-cancel btn-style-border"
-																data-dismiss="modal">取消</button>
-															<a class="btn-style1 btn-style-border"
-																href="<c:url value='/MemberCenter/adoptionRequestList.controller.3?animalId=${AdoptionRequestList.animal.animalId}&memberId=${AdoptionRequestList.member.id}'/>">完成領養</a>
-														</div>
+															</div>
+															<div class="modal-footer">
+																<button type="button"
+																	class="btn-style-cancel btn-style-border"
+																	data-dismiss="modal">取消</button>
+																<button type="submit" value="submit"
+																	class="btn-style1 btn-style-border">完成領養</button>
+															</div>
+														</form>
 													</div>
 												</div>
 											</div>
 										</c:when>
 									</c:choose>
+									<div class="mt-10 btn-style-cancel btn-style-border"
+										data-toggle="modal" data-target="#approvedReason${AdoptionRequestList.animal.animalId}">查看核准訊息
+									</div>
+									<div class="modal fade" id="approvedReason${AdoptionRequestList.animal.animalId}" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="exampleModalLabel">核准訊息</h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<form>
+													<div class="modal-body">
+														<div class="form-group">
+															<label for="message-text" class="col-form-label font22">
+									<c:choose>
+										<c:when test="${source == 'AdoptionRequest'}">
+															回覆給申請者的話：
+										</c:when>
+										<c:when test="${source == 'MyAdoptionProgress'}">
+															回覆給您的話：
+										</c:when>
+									</c:choose>
+															</label>
+															<label class="font22">${AdoptionRequestList.approvedReason}</label>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+															class="btn-style-cancel btn-style-border"
+															data-dismiss="modal">返回</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
 								</c:when>
 								<c:when test="${AdoptionRequestList.reviewStatus == 3}">
 									<fmt:formatDate value="${AdoptionRequestList.adoptionDate}"
@@ -251,6 +332,101 @@ td {
 										已完成領養
 										</c:when>
 									</c:choose>
+									<div class="mt-10 btn-style-cancel btn-style-border"
+										data-toggle="modal" data-target="#approvedReason${AdoptionRequestList.animal.animalId}">
+									<c:choose>
+										<c:when test="${source == 'AdoptionRequest'}">
+															您給領養者的訊息
+										</c:when>
+										<c:when test="${source == 'MyAdoptionProgress'}">
+															送養者給您的訊息
+										</c:when>
+									</c:choose>
+									</div>
+									<div class="modal fade" id="approvedReason${AdoptionRequestList.animal.animalId}" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="exampleModalLabel">核准訊息</h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<form>
+													<div class="modal-body">
+														<div class="form-group">
+															<label for="message-text" class="col-form-label font22">
+									<c:choose>
+										<c:when test="${source == 'AdoptionRequest'}">
+															回覆給申請者的話：
+										</c:when>
+										<c:when test="${source == 'MyAdoptionProgress'}">
+															回覆給您的話：
+										</c:when>
+									</c:choose>
+															</label>
+															<label class="font22">${AdoptionRequestList.approvedReason}</label>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+															class="btn-style-cancel btn-style-border"
+															data-dismiss="modal">返回</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+									<div class="mt-10 btn-style-cancel btn-style-border"
+										data-toggle="modal" data-target="#adopterMessage${AdoptionRequestList.animal.animalId}">
+									<c:choose>
+										<c:when test="${source == 'AdoptionRequest'}">
+															領養者給您的訊息
+										</c:when>
+										<c:when test="${source == 'MyAdoptionProgress'}">
+															您給送養者的訊息
+										</c:when>
+									</c:choose>
+									</div>
+									<div class="modal fade" id="adopterMessage${AdoptionRequestList.animal.animalId}" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="exampleModalLabel">領養者訊息</h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<form>
+													<div class="modal-body">
+														<div class="form-group">
+															<label for="message-text" class="col-form-label font22">
+									<c:choose>
+										<c:when test="${source == 'AdoptionRequest'}">
+															回覆給您的話：
+										</c:when>
+										<c:when test="${source == 'MyAdoptionProgress'}">
+															回覆給送養者的話：
+										</c:when>
+									</c:choose></label>
+															<label class="font22">${AdoptionRequestList.adopterMessage}</label>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+															class="btn-style-cancel btn-style-border"
+															data-dismiss="modal">返回</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
 								</c:when>
 							</c:choose></td>
 					</tr>

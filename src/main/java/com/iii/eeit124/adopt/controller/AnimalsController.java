@@ -316,29 +316,32 @@ public class AnimalsController {
 		return "adopt/AdoptionRequestList";
 	}
 	
-	@GetMapping("/adoptionRequestList.controller.0")//退回申請
-	public String processAdoptionRequestList0(@RequestParam("animalId") Integer animalId, @RequestParam("memberId") Integer memberId) {
+	@RequestMapping("/adoptionRequestList.controller.0")//退回申請
+	public String processAdoptionRequestList0(@RequestParam("animalId") Integer animalId, @RequestParam("memberId") Integer memberId, @RequestParam("rejectedReason") String rejectedReason) {
 		AdoptionRecords adoptionRecord = adoptionRecordsService.read(memberId, animalId).get(0);
 		adoptionRecord.setReviewStatus(0);
 		adoptionRecord.setApplyRejectedAt(new Date());
+		adoptionRecord.setRejectedReason(rejectedReason);
 		adoptionRecordsService.update(adoptionRecord);
 		return "redirect:/MemberCenter/adoptionRequestList.controller?source=AdoptionRequest";
 	}
 	
-	@GetMapping("/adoptionRequestList.controller.2")//核准申請
-	public String processAdoptionRequestList2(@RequestParam("animalId") Integer animalId, @RequestParam("memberId") Integer memberId) {
+	@RequestMapping("/adoptionRequestList.controller.2")//核准申請
+	public String processAdoptionRequestList2(@RequestParam("animalId") Integer animalId, @RequestParam("memberId") Integer memberId, @RequestParam("approvedReason") String approvedReason) {
 		AdoptionRecords adoptionRecord = adoptionRecordsService.read(memberId, animalId).get(0);
 		adoptionRecord.setReviewStatus(2);
 		adoptionRecord.setApplyApprovedAt(new Date());
+		adoptionRecord.setApprovedReason(approvedReason);
 		adoptionRecordsService.update(adoptionRecord);
 		return "redirect:/MemberCenter/adoptionRequestList.controller?source=AdoptionRequest";
 	}
 	
-	@GetMapping("/adoptionRequestList.controller.3")//完成領養
-	public String processAdoptionRequestList3(@RequestParam("animalId") Integer animalId, @RequestParam("memberId") Integer memberId) {
+	@RequestMapping("/adoptionRequestList.controller.3")//完成領養
+	public String processAdoptionRequestList3(@RequestParam("animalId") Integer animalId, @RequestParam("memberId") Integer memberId, @RequestParam("adopterMessage") String adopterMessage) {
 		AdoptionRecords adoptionRecord = adoptionRecordsService.read(memberId, animalId).get(0);
 		adoptionRecord.setReviewStatus(3);
 		adoptionRecord.setAdoptionDate(new Date());
+		adoptionRecord.setAdopterMessage(adopterMessage);
 		adoptionRecordsService.update(adoptionRecord);
 
 		Members member = (Members) session.getAttribute("LoginOK");

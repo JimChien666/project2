@@ -53,6 +53,9 @@ public class AdoptionRecords {
 	private Members ownerMember;
 	private Date applyRejectedAt;
 	private Date applyApprovedAt;
+	private String rejectedReason;
+	private String approvedReason;
+	private String adopterMessage;
 	
 	@Id
 	@Column(name = "ADOPTION_ID")//大小寫沒差別，跟資料庫名一樣就好
@@ -279,6 +282,27 @@ public class AdoptionRecords {
 	public void setApplyApprovedAt(Date applyApprovedAt) {
 		this.applyApprovedAt = applyApprovedAt;
 	}
+	@Column(name = "Rejected_Reason")
+	public String getRejectedReason() {
+		return rejectedReason;
+	}
+	public void setRejectedReason(String rejectedReason) {
+		this.rejectedReason = rejectedReason;
+	}
+	@Column(name = "Approved_Reason")
+	public String getApprovedReason() {
+		return approvedReason;
+	}
+	public void setApprovedReason(String approvedReason) {
+		this.approvedReason = approvedReason;
+	}
+	@Column(name = "Adopter_Message")
+	public String getAdopterMessage() {
+		return adopterMessage;
+	}
+	public void setAdopterMessage(String adopterMessage) {
+		this.adopterMessage = adopterMessage;
+	}
 	@Override
 	public String toString() {
 		return "AdoptionRecords [adoptionId=" + adoptionId + ", memberId=" + memberId + ", animalId=" + animalId
@@ -291,6 +315,7 @@ public class AdoptionRecords {
 				+ ", tel=" + tel + ", mobile=" + mobile + ", email=" + email + ", residentAddress=" + residentAddress
 				+ ", mailingAddress=" + mailingAddress + ", applyTime=" + applyTime + ", ownerMemberId=" + ownerMemberId
 				+ ", ownerMember=" + ownerMember + ", applyRejectedAt=" + applyRejectedAt + ", applyApprovedAt="
-				+ applyApprovedAt + "]";
+				+ applyApprovedAt + ", rejectedReason=" + rejectedReason + ", approvedReason=" + approvedReason
+				+ ", adopterMessage=" + adopterMessage + "]";
 	}
 }
