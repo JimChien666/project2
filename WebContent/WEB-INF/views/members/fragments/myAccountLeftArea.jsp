@@ -41,6 +41,7 @@
 				<ul>
 					<li><a href="<c:url value='/product/goLikeProductPage' />">商品最愛</a></li>
 					<li><a href="#">瀏覽紀錄</a></li>
+					<li><a href="<c:url value='/product/goMyProductPage' />">我的商品</a></li>				
 				</ul>
 			</div>
 		</div>

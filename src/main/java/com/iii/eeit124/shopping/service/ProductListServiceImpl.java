@@ -91,7 +91,7 @@ public class ProductListServiceImpl implements ProductListService {
 	public List<Products> getLikeProductList(Integer memberId) {
 		return dao.getLikeProductList(memberId);
 	}
-
 	
+
 
 }

@@ -66,6 +66,7 @@ public class ProductListController {
 		return products;
 	}
 	
+	
 	@GetMapping(value = "/pagingProducts.json", produces = { "application/json; charset=UTF-8" })
 	public @ResponseBody Map<String, Object> getPageProducts(
 		@RequestParam(value="pageNo", required = false, defaultValue = "1") Integer pageNo,
@@ -76,7 +77,8 @@ public class ProductListController {
 		@RequestParam(value="recordsPerPage", required = false,defaultValue = "6") Integer recordsPerPage,
 		@RequestParam(value ="keywordSearch", required = false) String keywordSearch,
 		@RequestParam(value ="orderBy", required = false, defaultValue = "0") Integer orderBy //"0"用color_Id排序
-		) {
+		
+			) {
 		
 		Long recordCounts= (long) 0;
 		List<Products> list = new ArrayList<Products>();
@@ -138,10 +140,7 @@ public class ProductListController {
 		
 		list = service.getPageProducts(page, mostBuyColor, null, mostBuyAnimalType,4,"");
 		return list;
-	}
-	
-	
-	
+	}	
 	
 	
 	@GetMapping(value="/getProductImage")

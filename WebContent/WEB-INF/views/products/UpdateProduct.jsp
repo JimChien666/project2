@@ -161,8 +161,8 @@ button.btncls:hover {
 				<c:forEach items="${products.productFilesId}" var="contentFileId"
 				varStatus="s">
 						
-				<img style="height: 25%; width: 25%;" 
-					id="preview_productContent${s.index}" src="#" /><br>
+				<img style="height: 350px; width: 300px;" 
+					id="preview_productContent${s.index}" src="#" />
 				</c:forEach>
 					
 			</div>				
