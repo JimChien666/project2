@@ -42,6 +42,7 @@ table td {
 			<td><strong>Limit People</strong></td>
 			<td><strong>Activitys Type</strong></td>
 			<td><strong>Create Date</strong></td>
+			<td><strong>File</strong></td>
 		</tr>
 		<c:forEach items="${activitysVoList}" var="activitys">
 			<tr>
@@ -57,6 +58,7 @@ table td {
 				<td>${activitys.limitPeople}</td>
 				<td>${activitys.activitysType}</td>
 				<td>${activitys.createDate}</td>
+				<td><img alt="img" src="data:image/jpeg;base64,${activitys.base64Pic}"/></td>
 			</tr>
 		</c:forEach>
 	</table>

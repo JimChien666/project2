@@ -75,6 +75,10 @@ table td {
 				<td><form:input path="activitysType" /><br /><form:errors path="activitysType" cssClass="error" /></td>
 			</tr>
 			<tr>
+				<td>Pic</td>
+				<td><form:input path="pic" type="file" /><br /><form:errors path="pic" cssClass="error" /></td>
+			</tr>			
+			<tr>
 				<td colspan="2"><button type="submit">Submit</button></td>
 			</tr>
 		</table>

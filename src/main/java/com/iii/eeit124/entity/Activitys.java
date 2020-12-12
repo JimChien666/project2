@@ -1,5 +1,6 @@
 package com.iii.eeit124.entity;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,7 +29,7 @@ public class Activitys {
 	@Column(name = "create_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
-	
+
 	@Column(name = "activity_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date activityDate;
@@ -58,6 +60,10 @@ public class Activitys {
 
 	@Column(name = "amount")
 	private Integer amount;
+
+	@Lob
+	@Column(name = "pic", columnDefinition = "BLOB")
+	private byte[] pic;
 
 	public Integer getId() {
 		return id;
@@ -155,12 +161,20 @@ public class Activitys {
 		this.activityDate = activityDate;
 	}
 
+	public byte[] getPic() {
+		return pic;
+	}
+
+	public void setPic(byte[] pic) {
+		this.pic = pic;
+	}
+
 	@Override
 	public String toString() {
 		return "Activitys [id=" + id + ", createDate=" + createDate + ", activityDate=" + activityDate + ", name="
 				+ name + ", topic=" + topic + ", content=" + content + ", location=" + location + ", limitNum="
 				+ limitNum + ", limitType=" + limitType + ", limitPeople=" + limitPeople + ", activitysType="
-				+ activitysType + ", amount=" + amount + "]";
+				+ activitysType + ", amount=" + amount + ", pic=" + Arrays.toString(pic) + "]";
 	}
-	
+
 }

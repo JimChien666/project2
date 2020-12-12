@@ -26,7 +26,7 @@ table td {
 </head>
 <body>
 	<h1>Input Form</h1>
-	<form:form action="${pageContext.request.contextPath}/activitys/updateActivitys" method="post" modelAttribute="activitysVo">
+	<form:form action="${pageContext.request.contextPath}/activitys/updateActivitys" method="post" modelAttribute="activitysVo" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>ID</td>
@@ -82,6 +82,11 @@ table td {
 				<td>Activitys Type</td>
 				<td><form:input path="activitysType" /><br />
 				<form:errors path="activitysType" cssClass="error" /></td>
+			</tr>
+			<tr>
+				<td>Pic</td>
+				<td><form:input path="pic" type="file" /><br />
+				<form:errors path="pic" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><button type="submit">Submit</button></td>
