@@ -1,9 +1,13 @@
 package com.iii.eeit124.activity.vo;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.iii.eeit124.entity.Activitys;
 import com.iii.eeit124.enums.ActivitysType;
@@ -11,19 +15,6 @@ import com.iii.eeit124.enums.LimitType;
 import com.iii.eeit124.util.DateUtils;
 
 public class ActivitysVo {
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(" {\"id\":\"").append(id).append("\", \"createDate\":\"").append(createDate)
-				.append("\", \"activityDate\":\"").append(activityDate).append("\", \"name\":\"").append(name)
-				.append("\", \"topic\":\"").append(topic).append("\", \"content\":\"").append(content)
-				.append("\", \"location\":\"").append(location).append("\", \"limitNum\":\"").append(limitNum)
-				.append("\", \"limitType\":\"").append(limitType).append("\", \"limitPeople\":\"").append(limitPeople)
-				.append("\", \"activitysType\":\"").append(activitysType).append("\", \"amount\":\"").append(amount)
-				.append("}");
-		return builder.toString();
-	}
 
 	private Integer id;
 
@@ -82,6 +73,13 @@ public class ActivitysVo {
 	 */
 	private Integer amount;
 
+	/**
+	 * 活動圖片
+	 */
+	private MultipartFile pic;
+
+	private String base64Pic;
+
 	public void validate() {
 		if (getActivityDate() == null) {
 			System.out.println("請填活動日期");
@@ -121,6 +119,20 @@ public class ActivitysVo {
 		result.setActivityDate(DateUtils.format(activitys.getActivityDate()));
 		result.setActivitysType(ActivitysType.findByCode(activitys.getActivitysType()).getDescription());
 		result.setLimitType(LimitType.findByCode(activitys.getLimitType()).getDescription());
+
+		byte[] bytes = activitys.getPic();
+		if (bytes != null) {
+			byte[] encodeBase64 = Base64.getEncoder().encode(bytes);
+			String base64Encoded = "";
+			try {
+				base64Encoded = new String(encodeBase64, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			result.setBase64Pic(base64Encoded);
+		}
+
 		return result;
 	}
 
@@ -131,6 +143,13 @@ public class ActivitysVo {
 		result.setActivityDate(DateUtils.format(this.getActivityDate()));
 		result.setActivitysType(ActivitysType.findByDesc(this.getActivitysType()).getCode());
 		result.setLimitType(LimitType.findByDesc(this.getLimitType()).getCode());
+		if (getPic() != null) {
+			try {
+				result.setPic(getPic().getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		return result;
 	}
 
@@ -228,6 +247,30 @@ public class ActivitysVo {
 
 	public void setActivityDate(String activityDate) {
 		this.activityDate = activityDate;
+	}
+
+	public MultipartFile getPic() {
+		return pic;
+	}
+
+	public void setPic(MultipartFile pic) {
+		this.pic = pic;
+	}
+
+	public String getBase64Pic() {
+		return base64Pic;
+	}
+
+	public void setBase64Pic(String base64Pic) {
+		this.base64Pic = base64Pic;
+	}
+
+	@Override
+	public String toString() {
+		return "ActivitysVo [id=" + id + ", createDate=" + createDate + ", activityDate=" + activityDate + ", name="
+				+ name + ", topic=" + topic + ", content=" + content + ", location=" + location + ", limitNum="
+				+ limitNum + ", limitType=" + limitType + ", limitPeople=" + limitPeople + ", activitysType="
+				+ activitysType + ", amount=" + amount + ", pic=" + pic + ", base64Pic=" + base64Pic + "]";
 	}
 
 }

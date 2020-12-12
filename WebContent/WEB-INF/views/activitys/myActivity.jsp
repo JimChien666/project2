@@ -29,10 +29,10 @@ button.btncls:hover {
 <script>
 	window.onload = function() {
 		getContent();
-		
+
 	}
 
-	function getContent(){
+	function getContent() {
 		var xhr = new XMLHttpRequest();
 		xhr.open("GET", "<c:url value='/activitys/getMyActivity' />", true);
 		xhr.send();
@@ -48,10 +48,11 @@ button.btncls:hover {
 						content += '<div class="col-lg-6 col-md-6" id="show'+list[i].id+'">'
 								+ '<div class="blog-wrapper mb-30 gray-bg">'
 								+ '<div class="blog-img hover-effect">'
-								+ '<a href="blog-details.html"><img alt=""'+
-									'src="'+imgUrl+'"></a>'
-								+ '</div>' + '<div class="blog-content">'
-								+ '<div class="blog-meta">' + '<h4>'
+								+ '<a href="#"><img alt="img" src="data:image/jpeg;base64,'+list[i].base64Pic+'"/></a>'
+								+ '</div>'
+								+ '<div class="blog-content">'
+								+ '<div class="blog-meta">'
+								+ '<h4>'
 								+ '<a href="blog-details.html">'
 								+ list[i].name
 								+ '</a>'
@@ -76,13 +77,15 @@ button.btncls:hover {
 								+ '<li>活動內容：'
 								+ list[i].content
 								+ '</li>'
-								
-								+'</ul>'
+
+								+ '</ul>'
 								+ '</div>'
 								+ '<button class="btncls"><a href="'+updateUrl+'/'+list[i].id+'" style="color: white;">編輯活動</a></button>'
 								+ '<button class="btncls" onclick="deleteActivity('
-								+ list[i].id + ')">刪除活動</button>'+
-						'</div>' + '</div>' + '</div>'
+								+ list[i].id
+								+ ')">刪除活動</button>'
+								+ '</div>'
+								+ '</div>' + '</div>'
 					}
 					document.getElementById("content").innerHTML = content;
 				} else {
@@ -92,34 +95,33 @@ button.btncls:hover {
 
 		}
 	}
-	
-	function deleteActivity(activityId) {
 
-		var yes = confirm('你確定嗎？');
-		if (yes) {
-			var xhr = new XMLHttpRequest();
-			xhr.open("GET", "<c:url value='/activitys/delete' />" + "/"
-					+ activityId, true);
-			xhr.send();
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState == 4) {
-					if (xhr.status == 200) {
-						var status = JSON.parse(xhr.responseText);
-						if (status) {
-							alert("刪除失敗");
-							document.getElementById("show"+activityId).remove();
-							
-							
-						} else {
-							alert("刪除失敗");
-							
-						}
+	function deleteActivity(activityId) {
+		/* var yes = swal("你確定嗎?", {
+			  buttons: ["取消", "確認"],
+			}) */
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "<c:url value='/activitys/delete' />" + "/"
+				+ activityId, true);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					var status = JSON.parse(xhr.responseText);
+					if (status) {
+						swal("刪除成功");
+						document.getElementById("show" + activityId).remove();
+
+					} else {
+						swal("刪除失敗");
+
 					}
+
 				}
 			}
 		}
 	}
-	function AddActivity(){
+	function AddActivity() {
 		window.location.href = "<c:url value='/activitys/add' />";
 	}
 </script>

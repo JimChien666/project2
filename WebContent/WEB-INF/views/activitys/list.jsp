@@ -150,8 +150,7 @@ function apply(activityId){
 					<div class="col-lg-6 col-md-6">
 						<div class="blog-wrapper mb-30 gray-bg">
 							<div class="blog-img hover-effect">
-								<a href="blog-details.html"><img alt=""
-									src="<c:url value='/assets/img/banner/act1.jpg' />"></a>
+								<a href="#"><img alt="img" src="data:image/jpeg;base64,${activitys.base64Pic}"/></a>
 							</div>
 							<div class="blog-content">
 								<div class="blog-meta">

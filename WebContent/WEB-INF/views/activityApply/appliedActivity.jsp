@@ -29,7 +29,9 @@ button.btncls:hover {
 <script>
 	window.onload = function() {
 		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "<c:url value='/activitys/getAppliedActivity' />", true);
+		xhr
+				.open("GET", "<c:url value='/activitys/getAppliedActivity' />",
+						true);
 		xhr.send();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4) {
@@ -43,10 +45,11 @@ button.btncls:hover {
 						content += '<div class="col-lg-6 col-md-6" id="show'+list[i].id+'">'
 								+ '<div class="blog-wrapper mb-30 gray-bg">'
 								+ '<div class="blog-img hover-effect">'
-								+ '<a href="blog-details.html"><img alt=""'+
-									'src="'+imgUrl+'"></a>'
-								+ '</div>' + '<div class="blog-content">'
-								+ '<div class="blog-meta">' + '<h4>'
+								+ '<a href="#"><img alt="img" src="data:image/jpeg;base64,'+list[i].base64Pic+'"/></a>'
+								+ '</div>'
+								+ '<div class="blog-content">'
+								+ '<div class="blog-meta">'
+								+ '<h4>'
 								+ '<a href="blog-details.html">'
 								+ list[i].name
 								+ '</a>'
@@ -71,15 +74,17 @@ button.btncls:hover {
 								+ '<li>活動內容：'
 								+ list[i].content
 								+ '</li>'
-								
 
-								+'</ul>'
+								+ '</ul>'
 								+ '</div>'
-								+ '<button class="btncls" onclick="deleteActivityApply('+list[i].id+')">取消報名</button>'
-						+'</div>' + '</div>' + '</div>'+ '</div>'
+								+ '<button class="btncls" onclick="deleteActivityApply('
+								+ list[i].id
+								+ ')">取消報名</button>'
+								+ '</div>'
+								+ '</div>' + '</div>' + '</div>'
 					}
-					if(list.length==0){
-						content+="<div style='width: 100%; text-align:center;'><I>無參加活動</I></div>";
+					if (list.length == 0) {
+						content += "<div style='width: 100%; text-align:center;'><I>無參加活動</I></div>";
 					}
 					document.getElementById("content").innerHTML = content;
 				} else {
@@ -91,28 +96,26 @@ button.btncls:hover {
 	}
 	function deleteActivityApply(activityId) {
 
-		var yes = confirm('你確定嗎？');
-		if (yes) {
-			var xhr = new XMLHttpRequest();
-			xhr.open("GET", "<c:url value='/activityApply/delete' />" + "/"
-					+ activityId, true);
-			xhr.send();
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState == 4) {
-					if (xhr.status == 200) {
-						var status = JSON.parse(xhr.responseText);
-						if (status) {
-							alert("取消成功");
-							document.getElementById("show"+activityId).remove();
-						} else {
-							alert("取消失敗");
-						}
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "<c:url value='/activityApply/delete' />" + "/"
+				+ activityId, true);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					var status = JSON.parse(xhr.responseText);
+					if (status) {
+						swal("取消成功");
+						document.getElementById("show" + activityId).remove();
+					} else {
+						swal("取消失敗");
 					}
 				}
 			}
 		}
+
 	}
-	function AddActivity(){
+	function AddActivity() {
 		window.location.href = "<c:url value='/activitys/add' />";
 	}
 </script>

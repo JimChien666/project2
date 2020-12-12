@@ -46,7 +46,7 @@ table td {
                         <div class="contact-message-wrapper">
                             <h4 class="contact-title">活動報名</h4>
                             <div class="contact-message">
-                                <form:form action="${pageContext.request.contextPath}/activitys/updateActivitys" method="post" modelAttribute="activitysVo">
+                                <form:form action="${pageContext.request.contextPath}/activitys/updateActivitys" method="post" modelAttribute="activitysVo" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-lg-7">
                                         <form:input type="hidden" path="id" readonly="true" />
@@ -81,6 +81,13 @@ table td {
                                         活動地點：
                                             <div class="contact-form-style mb-20">
                                                 <form:input path="location" /><br /><form:errors path="location" cssClass="error" />
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-lg-7">
+                                        活動圖片：
+                                            <div class="contact-form-style mb-20">
+                                                <form:input path="pic" type="file" /><br /><form:errors path="pic" cssClass="error" />
                                             </div>
                                         </div>
                                         

@@ -46,7 +46,7 @@ table td {
                         <div class="contact-message-wrapper">
                             <h4 class="contact-title">活動報名</h4>
                             <div class="contact-message">
-                                <form:form action="saveActivitys" method="post" modelAttribute="activitysVo">
+                                <form:form action="saveActivitys" method="post" modelAttribute="activitysVo" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-lg-7">
                                         活動名稱：
@@ -84,6 +84,13 @@ table td {
                                         </div>
                                         
                                         <div class="col-lg-7">
+                                        活動圖片：
+                                            <div class="contact-form-style mb-20">
+                                                <form:input path="pic" type="file" /><br /><form:errors path="pic" cssClass="error" />
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-lg-7">
                                         活動內容：
                                             <div class="contact-form-style">
                                                 <form:input path="content" /><br /><form:errors path="content" cssClass="error" />
@@ -91,6 +98,8 @@ table td {
                                                 <button class="submit btn-style"><a href="<c:url value='/activitys/list' />" style="color: white;">返回活動頁面</a></button>
                                             </div>
                                         </div>
+                                        
+                                        
                                     </div>
                                 </form:form>
                             </div>
