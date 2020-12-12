@@ -122,7 +122,7 @@
 			<div class="mb-30">
 				<form:checkbox path="agreement" value="1" class="square20px"
 					id="agreement" />
-				<h3 class="displayInlineBlock">我已詳盡閱讀以上內容</h3>
+				<h3 class="displayInlineBlock">我已詳盡閱讀並同意以上內容</h3>
 			</div>
 			<!-- 申請 -->
 			<div class="wid700 margin0Auto">
@@ -167,7 +167,7 @@
 						<br>
 					</div>
 					<div class="mb-10">
-						<div>室內電話：</div>
+						<div>市內電話：</div>
 						<form:input path="tel" type="text" id="tel" />
 						<br>
 					</div>

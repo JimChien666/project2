@@ -104,6 +104,16 @@ function success(content) {
 	});
 }
 
+function info(content, url) {
+	swal({
+		title: content,
+		text: " ",
+		icon: "info",
+		buttons: false
+	});
+	setTimeout(function() { window.location = url; }, 2000);
+}
+
 //function timer() {
 //	swal("Don't evade!", "dsfdsfsdf", "success");
 //	setTimeout(function() { window.location = "/team6/adopt/adoptApply"; }, 2000);

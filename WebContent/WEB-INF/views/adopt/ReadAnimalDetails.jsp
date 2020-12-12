@@ -9,6 +9,9 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
+<script src="<c:url value='/js/animal.js' />" type="text/javascript"
+	charset="UTF-8"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <jsp:include page="../fragments/links.jsp" />
 
@@ -112,8 +115,8 @@
 							<div class="btn-style1 btn-style-border">領養請登入</div>
 						</c:when>
 						<c:when test="${member==animal.member.id}">
-							<a class="btn-style1 btn-style-border"
-								href="<c:url value='/MemberCenter/ReadAnimal'/>">我的寵物</a>
+							<button class="btn-style1 btn-style-border"
+								onclick="info('跳轉頁面至我的寵物', '<c:url value='/MemberCenter/ReadAnimal'/>')">我的寵物</button>
 						</c:when>
 						<c:otherwise>
 							<a class="btn-style1 btn-style-border"

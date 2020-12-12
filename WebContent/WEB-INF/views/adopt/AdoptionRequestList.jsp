@@ -91,8 +91,60 @@ td {
 							</div></td>
 						<td><fmt:formatDate value="${AdoptionRequestList.applyTime}"
 								pattern="yyyy/MM/dd HH:mm:ss" /></td>
-						<td><div>
-								<a class="btn-style1" href="<c:url value='/'/>">查看申請資料</a>
+						<td><div class="btn-style1 btn-style-border"
+								data-toggle="modal"
+								data-target="#applyData${AdoptionRequestList.animal.animalId}">
+								查看申請資料</div>
+							<div class="modal fade"
+								id="applyData${AdoptionRequestList.animal.animalId}"
+								tabindex="-1" role="dialog"
+								aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-scrollable"
+									role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="exampleModalScrollableTitle">領養申請資料</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="textLeft">
+											申請日期：${AdoptionRequestList.createdAt}<br> <br> 動物資料<br>
+											<%-- 收容編號：${AdoptionRequestList.animal.acceptionId}<br> --%>
+											動物類別：${AdoptionRequestList.animal.breeds.family}<br>
+											動物品種：${AdoptionRequestList.animal.breeds.breed}<br>
+											<c:choose>
+												<c:when test="${AdoptionRequestList.animal.gender == 1}">
+													<div class="displayInlineBlock">性別：</div>公<br>
+												</c:when>
+												<c:otherwise>
+													<div class="displayInlineBlock">性別：</div>母<br>
+												</c:otherwise>
+											</c:choose>
+											毛色：${AdoptionRequestList.animal.coatColor}<br>
+											<div class="hover-effect square250px">
+												<img class="cardImg marginAuto" alt=""
+													src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${AdoptionRequestList.animal.animalId}">
+											</div>
+											<br> 申請者資料<br> 1.申請者皆同意與了解認養須知<br>
+											2.申請者已閱讀並同意定型化契約<br>
+											3.申請人已年滿20歲<br>
+											4.飼養地點型態：${AdoptionRequestList.feedAddressType}<br>
+											5.現有動物隻數：${AdoptionRequestList.currentAnimalsNum}<br>
+											<br>
+											申請人聯絡方式<br>
+											1.市內電話：${AdoptionRequestList.tel}<br>
+											2.行動電話：${AdoptionRequestList.mobile}<br>
+											3.電子郵件：${AdoptionRequestList.email}<br>
+										</div>
+										<div class="modal-footer">
+											<button type="button"
+												class="btn-style-cancel btn-style-border"
+												data-dismiss="modal">返回</button>
+										</div>
+									</div>
+								</div>
 							</div></td>
 						<td><c:choose>
 								<c:when test="${AdoptionRequestList.reviewStatus == 0}">
@@ -108,11 +160,13 @@ td {
 										</c:when>
 									</c:choose>
 									<div class="mt-10 btn-style-cancel btn-style-border"
-										data-toggle="modal" data-target="#rejectedReason${AdoptionRequestList.animal.animalId}">查看退回原因
+										data-toggle="modal"
+										data-target="#rejectedReason${AdoptionRequestList.animal.animalId}">查看退回原因
 									</div>
-									<div class="modal fade" id="rejectedReason${AdoptionRequestList.animal.animalId}" tabindex="-1"
-										role="dialog" aria-labelledby="exampleModalLabel"
-										aria-hidden="true">
+									<div class="modal fade"
+										id="rejectedReason${AdoptionRequestList.animal.animalId}"
+										tabindex="-1" role="dialog"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -126,16 +180,15 @@ td {
 													<div class="modal-body">
 														<div class="form-group">
 															<label for="message-text" class="col-form-label font22">
-									<c:choose>
-										<c:when test="${source == 'AdoptionRequest'}">
+																<c:choose>
+																	<c:when test="${source == 'AdoptionRequest'}">
 															回覆給申請者的話：
 										</c:when>
-										<c:when test="${source == 'MyAdoptionProgress'}">
+																	<c:when test="${source == 'MyAdoptionProgress'}">
 															回覆給您的話：
 										</c:when>
-									</c:choose>
-															</label>
-															<label class="font22">${AdoptionRequestList.rejectedReason}</label>
+																</c:choose>
+															</label> <label class="font22">${AdoptionRequestList.rejectedReason}</label>
 														</div>
 													</div>
 													<div class="modal-footer">
@@ -153,15 +206,18 @@ td {
 									<c:choose>
 										<c:when test="${source == 'AdoptionRequest'}">
 											<div class="mt-10 btn-style1 btn-style-border"
-												data-toggle="modal" data-target="#reviewStatus2${AdoptionRequestList.animal.animalId}">核准申請
+												data-toggle="modal"
+												data-target="#reviewStatus2${AdoptionRequestList.animal.animalId}">核准申請
 											</div>
 											<div class="mt-10 btn-style-cancel btn-style-border"
-												data-toggle="modal" data-target="#reviewStatus0${AdoptionRequestList.animal.animalId}">退回申請
+												data-toggle="modal"
+												data-target="#reviewStatus0${AdoptionRequestList.animal.animalId}">退回申請
 											</div>
 											<!-- 核准申請 -->
-											<div class="modal fade" id="reviewStatus2${AdoptionRequestList.animal.animalId}" tabindex="-1"
-												role="dialog" aria-labelledby="exampleModalLabel"
-												aria-hidden="true">
+											<div class="modal fade"
+												id="reviewStatus2${AdoptionRequestList.animal.animalId}"
+												tabindex="-1" role="dialog"
+												aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog" role="document">
 													<div class="modal-content">
 														<div class="modal-header">
@@ -193,9 +249,10 @@ td {
 												</div>
 											</div>
 											<!-- 退回申請 -->
-											<div class="modal fade" id="reviewStatus0${AdoptionRequestList.animal.animalId}" tabindex="-1"
-												role="dialog" aria-labelledby="exampleModalLabel"
-												aria-hidden="true">
+											<div class="modal fade"
+												id="reviewStatus0${AdoptionRequestList.animal.animalId}"
+												tabindex="-1" role="dialog"
+												aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog" role="document">
 													<div class="modal-content">
 														<div class="modal-header">
@@ -242,11 +299,13 @@ td {
 										<c:when test="${source == 'MyAdoptionProgress'}">
 											按下按鈕以完成領養
 											<div class="mt-10 btn-style1 btn-style-border"
-												data-toggle="modal" data-target="#reviewStatus3${AdoptionRequestList.animal.animalId}">完成領養
+												data-toggle="modal"
+												data-target="#reviewStatus3${AdoptionRequestList.animal.animalId}">完成領養
 											</div>
-											<div class="modal fade" id="reviewStatus3${AdoptionRequestList.animal.animalId}" tabindex="-1"
-												role="dialog" aria-labelledby="exampleModalLabel"
-												aria-hidden="true">
+											<div class="modal fade"
+												id="reviewStatus3${AdoptionRequestList.animal.animalId}"
+												tabindex="-1" role="dialog"
+												aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog" role="document">
 													<div class="modal-content">
 														<div class="modal-header">
@@ -280,11 +339,13 @@ td {
 										</c:when>
 									</c:choose>
 									<div class="mt-10 btn-style-cancel btn-style-border"
-										data-toggle="modal" data-target="#approvedReason${AdoptionRequestList.animal.animalId}">查看核准訊息
+										data-toggle="modal"
+										data-target="#approvedReason${AdoptionRequestList.animal.animalId}">查看核准訊息
 									</div>
-									<div class="modal fade" id="approvedReason${AdoptionRequestList.animal.animalId}" tabindex="-1"
-										role="dialog" aria-labelledby="exampleModalLabel"
-										aria-hidden="true">
+									<div class="modal fade"
+										id="approvedReason${AdoptionRequestList.animal.animalId}"
+										tabindex="-1" role="dialog"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -298,16 +359,15 @@ td {
 													<div class="modal-body">
 														<div class="form-group">
 															<label for="message-text" class="col-form-label font22">
-									<c:choose>
-										<c:when test="${source == 'AdoptionRequest'}">
+																<c:choose>
+																	<c:when test="${source == 'AdoptionRequest'}">
 															回覆給申請者的話：
 										</c:when>
-										<c:when test="${source == 'MyAdoptionProgress'}">
+																	<c:when test="${source == 'MyAdoptionProgress'}">
 															回覆給您的話：
 										</c:when>
-									</c:choose>
-															</label>
-															<label class="font22">${AdoptionRequestList.approvedReason}</label>
+																</c:choose>
+															</label> <label class="font22">${AdoptionRequestList.approvedReason}</label>
 														</div>
 													</div>
 													<div class="modal-footer">
@@ -333,19 +393,21 @@ td {
 										</c:when>
 									</c:choose>
 									<div class="mt-10 btn-style-cancel btn-style-border"
-										data-toggle="modal" data-target="#approvedReason${AdoptionRequestList.animal.animalId}">
-									<c:choose>
-										<c:when test="${source == 'AdoptionRequest'}">
+										data-toggle="modal"
+										data-target="#approvedReason${AdoptionRequestList.animal.animalId}">
+										<c:choose>
+											<c:when test="${source == 'AdoptionRequest'}">
 															您給領養者的訊息
 										</c:when>
-										<c:when test="${source == 'MyAdoptionProgress'}">
+											<c:when test="${source == 'MyAdoptionProgress'}">
 															送養者給您的訊息
 										</c:when>
-									</c:choose>
+										</c:choose>
 									</div>
-									<div class="modal fade" id="approvedReason${AdoptionRequestList.animal.animalId}" tabindex="-1"
-										role="dialog" aria-labelledby="exampleModalLabel"
-										aria-hidden="true">
+									<div class="modal fade"
+										id="approvedReason${AdoptionRequestList.animal.animalId}"
+										tabindex="-1" role="dialog"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -359,16 +421,15 @@ td {
 													<div class="modal-body">
 														<div class="form-group">
 															<label for="message-text" class="col-form-label font22">
-									<c:choose>
-										<c:when test="${source == 'AdoptionRequest'}">
+																<c:choose>
+																	<c:when test="${source == 'AdoptionRequest'}">
 															回覆給申請者的話：
 										</c:when>
-										<c:when test="${source == 'MyAdoptionProgress'}">
+																	<c:when test="${source == 'MyAdoptionProgress'}">
 															回覆給您的話：
 										</c:when>
-									</c:choose>
-															</label>
-															<label class="font22">${AdoptionRequestList.approvedReason}</label>
+																</c:choose>
+															</label> <label class="font22">${AdoptionRequestList.approvedReason}</label>
 														</div>
 													</div>
 													<div class="modal-footer">
@@ -381,19 +442,21 @@ td {
 										</div>
 									</div>
 									<div class="mt-10 btn-style-cancel btn-style-border"
-										data-toggle="modal" data-target="#adopterMessage${AdoptionRequestList.animal.animalId}">
-									<c:choose>
-										<c:when test="${source == 'AdoptionRequest'}">
+										data-toggle="modal"
+										data-target="#adopterMessage${AdoptionRequestList.animal.animalId}">
+										<c:choose>
+											<c:when test="${source == 'AdoptionRequest'}">
 															領養者給您的訊息
 										</c:when>
-										<c:when test="${source == 'MyAdoptionProgress'}">
+											<c:when test="${source == 'MyAdoptionProgress'}">
 															您給送養者的訊息
 										</c:when>
-									</c:choose>
+										</c:choose>
 									</div>
-									<div class="modal fade" id="adopterMessage${AdoptionRequestList.animal.animalId}" tabindex="-1"
-										role="dialog" aria-labelledby="exampleModalLabel"
-										aria-hidden="true">
+									<div class="modal fade"
+										id="adopterMessage${AdoptionRequestList.animal.animalId}"
+										tabindex="-1" role="dialog"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -407,15 +470,15 @@ td {
 													<div class="modal-body">
 														<div class="form-group">
 															<label for="message-text" class="col-form-label font22">
-									<c:choose>
-										<c:when test="${source == 'AdoptionRequest'}">
+																<c:choose>
+																	<c:when test="${source == 'AdoptionRequest'}">
 															回覆給您的話：
 										</c:when>
-										<c:when test="${source == 'MyAdoptionProgress'}">
+																	<c:when test="${source == 'MyAdoptionProgress'}">
 															回覆給送養者的話：
 										</c:when>
-									</c:choose></label>
-															<label class="font22">${AdoptionRequestList.adopterMessage}</label>
+																</c:choose>
+															</label> <label class="font22">${AdoptionRequestList.adopterMessage}</label>
 														</div>
 													</div>
 													<div class="modal-footer">
