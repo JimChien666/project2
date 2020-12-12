@@ -39,10 +39,12 @@ import com.iii.eeit124.article.service.ArticleService;
 import com.iii.eeit124.article.service.CommentsService;
 import com.iii.eeit124.article.service.FollowedService;
 import com.iii.eeit124.article.service.ForumsService;
+import com.iii.eeit124.article.service.MemberOptionService;
 import com.iii.eeit124.entity.Article;
 import com.iii.eeit124.entity.Comments;
 import com.iii.eeit124.entity.FollowedArticle;
 import com.iii.eeit124.entity.Forums;
+import com.iii.eeit124.entity.MemberOption;
 import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.entity.Options;
 import com.iii.eeit124.entity.ProductFiles;
@@ -64,6 +66,8 @@ public class ArticleController {
 	CommentsService commentsService;
 	@Autowired
 	FollowedService followedService;
+	@Autowired
+	MemberOptionService memberOptionService;
 
 	@ModelAttribute("article")
 	public Article formBackingObject() {
@@ -102,7 +106,7 @@ public class ArticleController {
 		return "redirect:/articleList";
 	}
 
-	@GetMapping(value = "/replyArticle/{articleId}")
+	@GetMapping(value = "replyArticle/{articleId}")
 	public String replyArticle(Model model, @PathVariable(value = "articleId") Integer articleId) {
 		System.out.println(articleId);
 		Forums forums = new Forums();
@@ -204,7 +208,7 @@ public class ArticleController {
 					File dirPath = new File(fileTempDirPath);
 					if(!dirPath.exists()) {
 					    boolean status = dirPath.mkdirs();
-					    System.out.println("status" + status);
+					    System.out.println("status:" + status);
 					}
 					String fileSavePath = fileTempDirPath + fileName;
 						
@@ -235,6 +239,17 @@ public class ArticleController {
 		forumsService.saveArticle(article);
 		System.out.println("success");
 		return "redirect:/articleList";
+	}
+	
+	@GetMapping(value = "voteConfirm")
+	public String voteConfirm(@RequestParam Integer optionid) {
+		MemberOption mOption = new MemberOption();
+		mOption.setMemberid((int) session.getAttribute("LoginOK"));
+		mOption.setOptionid(optionid);
+		memberOptionService.save(mOption);
+		
+		return null;
+		
 	}
 	
 	/*

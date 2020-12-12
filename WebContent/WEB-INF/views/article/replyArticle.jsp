@@ -91,7 +91,7 @@ h1 {
 		<br>
 回覆內容:<form:textarea name="content" id="editor" path="content" />
 		<br>
-		<form:hidden value="1" path="voteid" />
+<%-- 		<form:hidden value="1" path="voteid" /> --%>
 <%-- 		<form:hidden value="${article.getId()}" path="aricle.id" /> --%>
 <%-- 		<form:hidden value="${forum.getArticle().getId()}" path="forums.aricle.id" /> --%>
 <%--        <input type="hidden" name="id" value="${forums.getArticle().getId()}"> --%>

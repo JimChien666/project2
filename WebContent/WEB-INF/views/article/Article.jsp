@@ -27,6 +27,38 @@
 <html>
 <head>
 <style>
+.btncls{
+	background-color: #7E4C4F; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+button.btncls:hover{
+	background-color: #000000;
+}
+.greybtn{
+	background-color: #8A9199; /* Grey */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+button.greybtn:hover{
+	background-color: #000000;
+}
 </style>
 <meta charset="UTF-8">
 <title><c:out value="${thisArticle.title}" /></title>
@@ -85,16 +117,24 @@
 		$.each(forumList, function(i, forum) {
 			console.log(forum);
 			if(forum.votetopic != null){
-				var voteJump = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">投票</h5><button type="button" class="close" data-dismiss="modal"aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">
+// 				var x = ""
+// 				for (i = 0; i < forum.options.length; i++) {
+// 						  x += forum.options[i].content	+"/";
+// 						}
+// 					console.log(String(x))
+// 					console.log(forum.id)
+// 					forum.id
+				var voteBlock = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">`+forum.votetopic+`</h5><button type="button" class="close" data-dismiss="modal"aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="greybtn"data-dismiss="modal">取消</button><button id="sandOption" type="button" class="btncls">送出</button></div></div></div></div>`
+					$("#voteSpace").append(voteBlock);
+// 				var voteFoot = ``
+				
+// 					$("#voteSpace").append(voteFoot);
+					$.each(forum.options, function(k, options){
+						$(".modal-body").append("<p><input style='width:20px;height:20px;' type='radio'id=radio"+options.id+" name='vote' value="+options.id+"><label for=radio"+options.id+">"+options.content+"</label></p><br><br><br>")
+						})
 					<!-- 回家寫迴圈把選項抓出來 -->
-
-					</div><div class="modal-footer"><button type="button" class="btn btn-secondary"data-dismiss="modal">Close</button><button type="button" class="btn btn-primary">Save changes</button></div></div></div></div>`
-					$("#voteSpace").append(voteJump);
+					$(".modal-body").append("")
 				}
-
-			
-
-
 				
 			var imgTag = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + forum.forumOwnerFileId + `' />" width="50" height="50" class="d-inline-block align-top" alt="" style="border-radius: 50%; border: 2px white solid;">`
 // 			$article.append("<tr><td><div style='width:60px; background-color: coral; box-shadow:1px 3px 5px 2px #cccccc;'>"+ imgTag + forum.memberid + "</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
@@ -276,9 +316,35 @@ function asynRequest(id) {
 }
 
 
+$("#sandOption").click(function(){
+
+var optionid = $('input[name="vote"]:checked').val();
+console.log(optionid)
+console.log("hihi")
+if(typeof(optionid)!= "undefined"){
+	
+
+$.ajax({
+	  url: "voteConfirm",
+	  data: {
+		  optionid:optionid
+		  },
+	  success:function(){
+//			  reset();
+// 			showPage(mapData);
+//			  var $comments = $('.${Forums.id}');
+//				console.log($comments);
+
+console.log(optionid)
+$('#toVoteBtn').attr('disabled', true);
+	}
+	//  dataType: dataType
+	});
+}
 
 
 
+	})
 
 
 
@@ -369,10 +435,10 @@ function asynRequest(id) {
 			</ul>
 			<ul style="list-style: none; margin: 0px 0;">
 				<li style="float: right; margin: 0px 10px 30px 10px;">
-					<button class="submit btn-style" style="margin-top: 10px;"
+					<button class="submit btn-style" style="margin-top: 10px;" id="toVoteBtn"
 						data-toggle='modal' data-target="#exampleModal">
 						<span style="color: white; margin-top: 0px;">進行投票</span>
-					</button> </a>
+					</button>
 				</li>
 			</ul>
 		</c:if>
