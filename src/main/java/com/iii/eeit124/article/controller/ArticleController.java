@@ -1,5 +1,11 @@
 package com.iii.eeit124.article.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,9 +14,14 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -22,6 +33,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.iii.eeit124.article.service.ArticleService;
 import com.iii.eeit124.article.service.CommentsService;
@@ -32,13 +44,16 @@ import com.iii.eeit124.entity.Comments;
 import com.iii.eeit124.entity.FollowedArticle;
 import com.iii.eeit124.entity.Forums;
 import com.iii.eeit124.entity.Members;
+import com.iii.eeit124.entity.Options;
+import com.iii.eeit124.entity.ProductFiles;
 
 import oracle.security.o3logon.a;
 
 @Controller
 @SessionAttributes(names = { "article" })
 public class ArticleController {
-
+	@Autowired
+	private ServletContext ctx;
 	@Autowired
 	HttpSession session;
 	@Autowired
@@ -153,7 +168,10 @@ public class ArticleController {
 
 	// save article to DB and return the articleList page.
 	@PostMapping(value = "/saveToDB")
-	public String saveToDB(@ModelAttribute(name = "forums") Forums forums, BindingResult result, ModelMap model) {
+	public String saveToDB(@ModelAttribute(name = "forums") Forums forums, BindingResult result, ModelMap model,
+			@RequestParam(value = "voteOption" , required = false) String[] voteOptions,
+			@RequestParam(value = "voteImg" , required = false) MultipartFile[] multipartfiles
+			) throws SerialException, SQLException {
 //		public String saveToDB(@ModelAttribute(name = "article")Article article, BindingResult result, ModelMap model) {
 //		Article article = forums.getArticle();
 //		Date date = new Date();
@@ -163,7 +181,59 @@ public class ArticleController {
 		forums.setMember((Members) session.getAttribute("LoginOK"));
 		article.getForums().add(forums);
 		article.setMember((Members) session.getAttribute("LoginOK"));
+		System.out.println("................................................................");
+		System.out.println(voteOptions.toString());
+		
+		List<Options> options = new ArrayList<Options>();
+		for(String voteOption:voteOptions) {
+			Options option = new Options();
+			option.setContent(voteOption);
+			option.setForums(forums);
+			options.add(option);
+		}
+		try {
+			int index = 0;
+			for(MultipartFile file : multipartfiles){
+			
+				if(file.getSize()>0) {
+					
+				
+					String fileName = file.getOriginalFilename(); //得到原始檔名
+					
+					String fileTempDirPath = ctx.getRealPath("/") + "UploadTempDir\\"; //創一個臨時資料夾
+					File dirPath = new File(fileTempDirPath);
+					if(!dirPath.exists()) {
+					    boolean status = dirPath.mkdirs();
+					    System.out.println("status" + status);
+					}
+					String fileSavePath = fileTempDirPath + fileName;
+						
+				    File saveFile = new File(fileSavePath); 				    
+				    file.transferTo(saveFile);
+				    
+				    HttpHeaders headers = new HttpHeaders();
+				    headers.setContentType(MediaType.IMAGE_JPEG);
+				    FileInputStream is1 = new FileInputStream(fileSavePath); 
+				    byte[] b = new byte[is1.available()];
+				    is1.read(b);
+				    is1.close();
+				    Blob blob = new SerialBlob(b);
+				    options.get(index).setOptionBlob(blob);
+				    
+				    
+				}
+				index++;
+			}
+			Set<Options> optionSet = new HashSet<Options>(options);
+			forums.setOptions(optionSet);
+
+
+		}catch (IOException e) {
+//			errors.put("errorAccountDup", "新增此筆資料有誤(RegisterServlet)");
+			return "redirect:/articleList";
+		}
 		forumsService.saveArticle(article);
+		System.out.println("success");
 		return "redirect:/articleList";
 	}
 	

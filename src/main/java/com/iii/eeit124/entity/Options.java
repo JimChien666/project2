@@ -4,6 +4,7 @@ import java.sql.Blob;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,7 +55,7 @@ public class Options {
 	}
 
 	@JsonIgnore
-	@ManyToOne(targetEntity = Forums.class)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FORUM_ID")
 	public Forums getForums() {
 		return forums;
@@ -63,7 +64,7 @@ public class Options {
 	public void setForums(Forums forums) {
 		this.forums = forums;
 	}
-
+	@JsonIgnore
 	@Column(name = "OPTIONBLOB")
 	public Blob getOptionBlob() {
 		return optionBlob;

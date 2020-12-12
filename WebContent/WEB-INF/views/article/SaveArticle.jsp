@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,43 @@
 	crossorigin="anonymous"></script>
 <!-- <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script> -->
 
-
+<style>
+.btncls{
+	background-color: #7E4C4F; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+.remove{
+	background-color: #7E4C4F; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+button.btncls:hover{
+	background-color: #000000;
+}
+div.btncls:hover{
+	background-color: #000000;
+}
+div.remove:hover{
+	background-color: #FF0000;
+}
+</style>
 
 
 
@@ -56,10 +92,11 @@ h1 {
 
 </head>
 <body>
-<%-- <script src="<c:url value='/js/ckeditor/config.js' />"></script> --%>
+	<%-- <script src="<c:url value='/js/ckeditor/config.js' />"></script> --%>
 
-<%-- <script src="<c:url value='/js/ckeditor/ckeditor.js' />"></script> --%>
-<script src="<c:url value='/assets/javascripts/ckeditor/ckeditor.js' />"></script>
+	<%-- <script src="<c:url value='/js/ckeditor/ckeditor.js' />"></script> --%>
+	<script
+		src="<c:url value='/assets/javascripts/ckeditor/ckeditor.js' />"></script>
 
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
@@ -80,7 +117,7 @@ h1 {
 
 
 	<div class="container">
-		<ul style="list-style: none; margin: 0px 0; ;">
+		<ul style="list-style: none; margin: 0px 0;">
 			<li style="float: left; margin: 0px 10px 10px 10px;"><a
 				href="<c:url value='/backArticle' />">
 					<button class="submit btn-style" type="submit"
@@ -90,7 +127,7 @@ h1 {
 			</a></li>
 		</ul>
 
-		<div class="starter-template" style="clear:both">
+		<div class="starter-template" style="clear: both">
 			<h1>文章發表</h1>
 			<p class="lead">
 				Share your story~<br>
@@ -99,56 +136,76 @@ h1 {
 
 
 
-	<form:form action="saveToDB" method="POST" modelAttribute="forums" enctype="multipart/form-data" >
-<form:input path="article.title" placeholder="請輸入標題"/>
-		<br>
-		<br>
+		<form:form action="saveToDB" method="POST" modelAttribute="forums"
+			enctype="multipart/form-data">
+			<form:input path="article.title" placeholder="請輸入標題" />
+			<br>
+			<br>
 		
 articleType:
 <%-- <form:select path="articletypesid" items="${allArticleTypes}" itemLabel="articletype" itemValue="id"> --%>
-		<div style="width:75px">
-		<form:select path="article.articletypesid">
-<%-- 									<form:option value="NONE" label="請選擇" /> --%>
-			<form:option value="1" label="狗" />
-			<form:option value="2" label="貓" />
-		</form:select>
-		</div>
-		<br>
-<%-- 		發表到狗狗討論版:<form:radiobutton value="1" path="article.articletypesid" /> --%>
-<%-- 		發表到貓咪討論版:<form:radiobutton value="2" path="article.articletypesid" /> --%>
-<%-- article:<form:textarea path="content" /> --%>
+			<div style="width: 75px">
+				<form:select path="article.articletypesid">
+					<%-- 									<form:option value="NONE" label="請選擇" /> --%>
+					<form:option value="1" label="狗" />
+					<form:option value="2" label="貓" />
+				</form:select>
+			</div>
+			<br>
+			<%-- 		發表到狗狗討論版:<form:radiobutton value="1" path="article.articletypesid" /> --%>
+			<%-- 		發表到貓咪討論版:<form:radiobutton value="2" path="article.articletypesid" /> --%>
+			<%-- article:<form:textarea path="content" /> --%>
 
-<br>
-<br>
+			<br>
+			<br>
 內文:<form:textarea name="editor" id="editor" path="content" />
-				
-		<br>
-		<form:hidden value="0" path="article.activitysid" />
-		<form:hidden value="1" path="article.showarticle" />
-<%-- 		<form:hidden value="0" path="voteid" /> --%>
-		發起投票:<button class="btncls">發起投票</button>
 
-		投票主題:<form:textarea   path="votetopic" placeholder="請輸入投票主題" />
-		插入圖片:<input name="contentImage" type="file" multiple/><span style="color: red;">${errors.multipartFile}</span><br/>
+			<br>
+			<form:hidden value="0" path="article.activitysid" />
+			<form:hidden value="1" path="article.showarticle" />
+			<%-- 		<form:hidden value="0" path="voteid" /> --%>
 		
-		加入投票選項:<button class="btncls"></button>
+			<label>發起投票:</label><div class="btncls" id="vote">發起投票</div>
+				<br />
+				
+				<div id="voteBlock" style="display: none">
+			投票主題:<form:textarea path="votetopic" placeholder="請輸入投票主題" />
+				<br />			
+<%-- 			插入主題圖片:<input name="contentImage" type="file" multiple /><span style="color: red;">${errors.multipartFile}</span> --%>
+<!-- 				<br /> -->
+		加入選項:<div class="btncls" id="addOption">加入</div>					
+				<div id="options">				
+				<div class='option'><input name='voteOption' style='display:inline-block; float:left; width: 95%;'><input type='file' name='voteImg' ><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><br><br></div>
+				<div class='option'><input name='voteOption' style='display:inline-block; float:left; width: 95%;'><input type='file' name='voteImg' ><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><br><br></div>
+				</div>		
+				</div>				
+			<center><form:button class="btncls" value="submit" type="submit"><h5 style="color: white;">送出</h5></form:button></center>
+			<script>
+				$( "#vote" ).click(function() {
+				  $( "#voteBlock" ).toggle( "slow", function() {
+				    // Animation complete.
+				  });
+				});
+				
+				$( "#addOption" ).on("click",function() {
+				  $( "#options" ).append("<div class='option'><input name='voteOption' style='display:inline-block; float:left; width: 95%;'><input type='file' name='voteImg' ><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><br><br></div>");
+				});
+				
+				$(document).on("click",".remove",function() {
+					
+ 					console.log($(".option").length)
+ 					if(($(".option").length)<=2){
+						alert("選項至少為2")
+ 	 				}else{
 
-
-
-
-		<form:button class="btncls" value="submit" type="submit">送出</form:button>
-	
-	
-	<script>
-
-CKEDITOR.replace( "editor", {});
-
-    </script>
-	
-	
-	
-	
-	</form:form>
+						$(this).parent().remove();									
+ 	 	 			}
+					});	
+			</script>
+			<script>
+				CKEDITOR.replace("editor", {});
+			</script>
+		</form:form>
 
 
 	</div>

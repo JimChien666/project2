@@ -33,12 +33,13 @@ public class Forums {
 	private Date createdat;
 //	private int voteid;
 	private String votetopic;
-	private ForumFiles forumFiles;
+//	private ForumFiles forumFiles;
 	private int memberid;
 	private Article article;
 	private Members member;
 	private Set<Comments> comments = new HashSet<Comments>();
-	private MultipartFile multipartFile;
+	private Set<Options> options = new HashSet<Options>();
+//	private MultipartFile multipartFile;
 
 	@Id
 	@Column(name = "ID")
@@ -150,6 +151,15 @@ public class Forums {
 	public void setVotetopic(String votetopic) {
 		this.votetopic = votetopic;
 	}
+//	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "forums", cascade = CascadeType.ALL)
+	public Set<Options> getOptions() {
+		return options;
+	}
+
+	public void setOptions(Set<Options> options) {
+		this.options = options;
+	}
 
 //	public ForumFiles getForumFiles() {
 //		return forumFiles;
@@ -159,14 +169,14 @@ public class Forums {
 //		this.forumFiles = forumFiles;
 //	}
 
-	@Transient
-	public MultipartFile getMultipartFile() {
-		return multipartFile;
-	}
-
-	public void setMultipartFile(MultipartFile multipartFile) {
-		this.multipartFile = multipartFile;
-	}
+//	@Transient
+//	public MultipartFile getMultipartFile() {
+//		return multipartFile;
+//	}
+//
+//	public void setMultipartFile(MultipartFile multipartFile) {
+//		this.multipartFile = multipartFile;
+//	}
 	
 	
 }

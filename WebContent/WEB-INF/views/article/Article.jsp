@@ -18,14 +18,15 @@
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 <jsp:include page="../fragments/links.jsp" />
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
 
 <html>
 <head>
 <style>
-
 </style>
 <meta charset="UTF-8">
 <title><c:out value="${thisArticle.title}" /></title>
@@ -82,6 +83,19 @@
 // 		$article.append("<table style='width: 100%;' class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
 // 		console.log(forumList)
 		$.each(forumList, function(i, forum) {
+			console.log(forum);
+			if(forum.votetopic != null){
+				var voteJump = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">投票</h5><button type="button" class="close" data-dismiss="modal"aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">
+					<!-- 回家寫迴圈把選項抓出來 -->
+
+					</div><div class="modal-footer"><button type="button" class="btn btn-secondary"data-dismiss="modal">Close</button><button type="button" class="btn btn-primary">Save changes</button></div></div></div></div>`
+					$("#voteSpace").append(voteJump);
+				}
+
+			
+
+
+				
 			var imgTag = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + forum.forumOwnerFileId + `' />" width="50" height="50" class="d-inline-block align-top" alt="" style="border-radius: 50%; border: 2px white solid;">`
 // 			$article.append("<tr><td><div style='width:60px; background-color: coral; box-shadow:1px 3px 5px 2px #cccccc;'>"+ imgTag + forum.memberid + "</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
 			$article.append("<tr><td style='padding:0px 0px 0px 0px;'><div style='width:60px; margin:0px 10px 10px 10px;valign=top'>"+ imgTag +"</div></td><td id="+forum.id+"><div style='margin:10px 10px 10px 10px; padding:10px 20px 10px 30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "</div></td></tr>")
@@ -288,7 +302,9 @@ function asynRequest(id) {
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
 		<div class="container">
 			<div class="breadcrumb-content text-center">
-				<h2><c:out value="${thisArticle.title}" /></h2>
+				<h2>
+					<c:out value="${thisArticle.title}" />
+				</h2>
 				<ul>
 					<li><a href="<c:url value='/'/>">首頁</a></li>
 					<li class="active"><c:out value="${thisArticle.title}" /></li>
@@ -305,10 +321,10 @@ function asynRequest(id) {
 
 
 
-<%-- 	<jsp:include page="../public/top.jsp" /> --%>
+	<%-- 	<jsp:include page="../public/top.jsp" /> --%>
 
-<%-- 		<h3>${article.getTitle()}</h3> --%>
-	<div class="container" style='box-shadow:1px 3px 5px 2px #cccccc;'>
+	<%-- 		<h3>${article.getTitle()}</h3> --%>
+	<div class="container" style='box-shadow: 1px 3px 5px 2px #cccccc;'>
 		<ul style="list-style: none; margin: 0px 0;">
 			<li style="float: left; margin: 0px 10px 30px 10px;"><a
 				href="<c:url value='/backArticle' />">
@@ -318,8 +334,8 @@ function asynRequest(id) {
 					</button>
 			</a></li>
 		</ul>
-		
-		
+
+
 		<ul style="list-style: none; margin: 0px 0;">
 			<li style="float: right; margin: 0px 10px 30px 10px;"><a
 				href="<c:url value='/replyArticle/${articleId}' />">
@@ -329,29 +345,38 @@ function asynRequest(id) {
 					</button>
 			</a></li>
 		</ul>
-		
-		
-<c:if test="${LoginOK.id==thisArticle.memberid}">	
-		<ul style="list-style: none; margin: 0px 0;">
-			<li style="float: right; margin: 0px 10px 30px 10px;"><a
-				href="<c:url value='/updateArticle?articleId=${articleId}' />">
-					<button class="submit btn-style" type="submit"
-						style="margin-top: 10px;">
-						<span style="color: white; margin-top: 0px;">修改</span>
-					</button>
-			</a></li>
-		</ul>		
-		<ul style="list-style: none; margin: 0px 0;">
-			<li style="float: right; margin: 0px 10px 30px 10px;"><a id = 'deleteArticle'
-				href="<c:url value='/deleteArticle?articleId=${articleId}' />">
-					<button class="submit btn-style" type="submit"
-						style="margin-top: 10px;">
-						<span style="color: white; margin-top: 0px;">刪除</span>
-					</button>
-			</a></li>
-		</ul>		
-</c:if>		
-<script>
+
+
+		<c:if test="${LoginOK.id==thisArticle.memberid}">
+			<ul style="list-style: none; margin: 0px 0;">
+				<li style="float: right; margin: 0px 10px 30px 10px;"><a
+					href="<c:url value='/updateArticle?articleId=${articleId}' />">
+						<button class="submit btn-style" type="submit"
+							style="margin-top: 10px;">
+							<span style="color: white; margin-top: 0px;">修改</span>
+						</button>
+				</a></li>
+			</ul>
+			<ul style="list-style: none; margin: 0px 0;">
+				<li style="float: right; margin: 0px 10px 30px 10px;"><a
+					id='deleteArticle'
+					href="<c:url value='/deleteArticle?articleId=${articleId}' />">
+						<button class="submit btn-style" type="submit"
+							style="margin-top: 10px;">
+							<span style="color: white; margin-top: 0px;">刪除</span>
+						</button>
+				</a></li>
+			</ul>
+			<ul style="list-style: none; margin: 0px 0;">
+				<li style="float: right; margin: 0px 10px 30px 10px;">
+					<button class="submit btn-style" style="margin-top: 10px;"
+						data-toggle='modal' data-target="#exampleModal">
+						<span style="color: white; margin-top: 0px;">進行投票</span>
+					</button> </a>
+				</li>
+			</ul>
+		</c:if>
+		<script>
 $('#deleteArticle').confirm({
 	title: '提醒!',
     content: "確定要刪除嗎?",
@@ -371,40 +396,40 @@ $('#deleteArticle').confirm({
        }        
     }		
 });
-</script>	
-		
-			<div id="articleShow" style="padding:70px 0px 0px 0px;">
-			</div>
-		</div>
+</script>
 
-		<!-- <table id='articleShow'> -->
-		<!-- <thead> -->
-		<!-- 	<th>id</th> -->
-		<!-- 	<th>content</th> -->
-		<!-- </thead> -->
-		<!-- <tfoot> -->
-		<!-- 	<th>id</th> -->
-		<!-- 	<th>content</th> -->
-		<!-- </tfoot> -->
-		<!-- </table> -->
+		<div id="articleShow" style="padding: 70px 0px 0px 0px;"></div>
+	</div>
+
+	<!-- <table id='articleShow'> -->
+	<!-- <thead> -->
+	<!-- 	<th>id</th> -->
+	<!-- 	<th>content</th> -->
+	<!-- </thead> -->
+	<!-- <tfoot> -->
+	<!-- 	<th>id</th> -->
+	<!-- 	<th>content</th> -->
+	<!-- </tfoot> -->
+	<!-- </table> -->
 
 
-<!-- 		<div id='navigation' style='height: 60px;'></div> -->
+	<!-- 		<div id='navigation' style='height: 60px;'></div> -->
 
 
 	<div class="pagination-style text-center mt-20">
-		<ul id = 'navigation'>
-<!-- 			<li><a href="#"><i class="icon-arrow-left"></i></a></li> -->
-<!-- 			<li><a href="#">1</a></li> -->
-<!-- 			<li><a href="#">2</a></li> -->
-<!-- 			<li><a class="active" href="#"><i class="icon-arrow-right"></i></a> -->
-<!-- 			</li> -->
+		<ul id='navigation'>
+			<!-- 			<li><a href="#"><i class="icon-arrow-left"></i></a></li> -->
+			<!-- 			<li><a href="#">1</a></li> -->
+			<!-- 			<li><a href="#">2</a></li> -->
+			<!-- 			<li><a class="active" href="#"><i class="icon-arrow-right"></i></a> -->
+			<!-- 			</li> -->
 		</ul>
 	</div>
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
-	
+
+	<div id="voteSpace"></div>
 	
 </body>
 </html>
