@@ -40,7 +40,6 @@
 			<div class="shop-list-style mt-20">
 				<ul>
 					<li><a href="<c:url value='/product/goLikeProductPage' />">商品最愛</a></li>
-					<li><a href="#">瀏覽紀錄</a></li>
 				</ul>
 			</div>
 		</div>
