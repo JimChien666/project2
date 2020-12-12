@@ -165,9 +165,7 @@ public class AdoptController {
 		//寄mail
 //		emailService.sendSimpleMessage(adoptionRecords.getEmail(), "有人向您的寵物提出領養申請", content);
 
-		m.addAttribute("AnimalsList", animalsService.readAll());
-		m.addAttribute("source", "AdoptAnimal");
-		return "adopt/ReadAnimal";
+		return "redirect:/MemberCenter/adoptionRequestList.controller?source=MyAdoptionProgress";
 	}
 	
 	// Refresh

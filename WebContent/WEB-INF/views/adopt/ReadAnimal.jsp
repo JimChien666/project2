@@ -106,13 +106,13 @@
 								<div
 									class="blog-wrapper mb-15 mt-15 gray-bg card2 pointerCursor"
 									<c:choose>
-						<c:when test="${source == 'MyAnimals'}">
-								onclick="location.href='<c:url value='/MemberCenter/ReadAnimalDetails.controller?id=${AnimalsList.animalId}' />'"
-						</c:when>
-						<c:when test="${source == 'AdoptAnimal'}">
-								onclick="location.href='<c:url value='/AdoptAnimalDetails.controller?id=${AnimalsList.animalId}' />'"
-						</c:when>
-					</c:choose>>
+										<c:when test="${source == 'MyAnimals'}">
+												onclick="location.href='<c:url value='/MemberCenter/ReadAnimalDetails.controller?id=${AnimalsList.animalId}' />'"
+										</c:when>
+										<c:when test="${source == 'AdoptAnimal'}">
+												onclick="location.href='<c:url value='/AdoptAnimalDetails.controller?id=${AnimalsList.animalId}' />'"
+										</c:when>
+									</c:choose>>
 									<div class="hover-effect square250px">
 										<img class="cardImg marginAuto" alt=""
 											src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${AnimalsList.animalId}">
@@ -196,12 +196,12 @@
 	</div>
 </body>
 <script>
-setTimeout(function() {
-	$(document).ready(function() {
-		document.getElementById("loader").style.display = "none";
-		document.getElementById("myDiv").style.display = "block";
-	});
-}, 500);
+	setTimeout(function() {
+		$(document).ready(function() {
+			document.getElementById("loader").style.display = "none";
+			document.getElementById("myDiv").style.display = "block";
+		});
+	}, 500);
 </script>
 <!-- 轉頁載入動畫2 -->
 
