@@ -85,7 +85,7 @@ table td {
 			</tr>
 			<tr>
 				<td>Pic</td>
-				<td><form:input path="pic" type="file" /><br />
+				<td><form:input path="pic" type="file" /><img alt="img" src="data:image/jpeg;base64,${activitysVo.base64Pic}"/><br />
 				<form:errors path="pic" cssClass="error" /></td>
 			</tr>
 			<tr>
