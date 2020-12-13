@@ -47,9 +47,7 @@ import com.iii.eeit124.entity.Forums;
 import com.iii.eeit124.entity.MemberOption;
 import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.entity.Options;
-import com.iii.eeit124.entity.ProductFiles;
 
-import oracle.security.o3logon.a;
 
 @Controller
 @SessionAttributes(names = { "article" })
@@ -73,11 +71,14 @@ public class ArticleController {
 	public Article formBackingObject() {
 		return new Article();
 	}
-	
+	// TODO
 	@GetMapping("/goArticlePage")
 	public String goArticlePage(@RequestParam("articleId") Integer articleId, Model model) {
 		model.addAttribute("articleId", articleId);
 		model.addAttribute("thisArticle", articleService.select(articleId));
+		List<Forums> forumList = forumsService.selectForumById(articleId);
+		Forums forumID = forumList.get(0);
+		model.addAttribute("forumID", forumID);
 		return "article/Article";
 	}
 	
@@ -241,15 +242,28 @@ public class ArticleController {
 		return "redirect:/articleList";
 	}
 	
-	@GetMapping(value = "voteConfirm")
-	public String voteConfirm(@RequestParam Integer optionid) {
+	@GetMapping(value = "/getVoteResult")
+	public @ResponseBody List<MemberOption> getVoteResult(@RequestParam Integer forumId){
+		List<MemberOption> list = memberOptionService.getVoteResult(forumId);		
+		return list;		
+	}
+	
+	@GetMapping(value = "/voteConfirm")
+	public @ResponseBody boolean voteConfirm(@RequestParam Integer optionid, @RequestParam Integer forumId) {
 		MemberOption mOption = new MemberOption();
-		mOption.setMemberid((int) session.getAttribute("LoginOK"));
-		mOption.setOptionid(optionid);
-		memberOptionService.save(mOption);
-		
-		return null;
-		
+		mOption.setMembers((Members) session.getAttribute("LoginOK"));
+		Options option = memberOptionService.findOptionById(optionid);
+		mOption.setOptions(option);
+		Forums forums = option.getForums();
+		mOption.setForums(forums);		
+		boolean checkMemberVoteStatus = memberOptionService.CheckMemberVoteStatus(((Members) session.getAttribute("LoginOK")).getId(), forums.getId());
+		System.out.println(checkMemberVoteStatus);
+		if (checkMemberVoteStatus) {
+			
+			memberOptionService.save(mOption);
+			return true;
+		}
+		return false;		
 	}
 	
 	/*

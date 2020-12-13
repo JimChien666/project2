@@ -17,8 +17,7 @@
 <jsp:include page="../fragments/links.jsp" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.18/c3.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.18/c3.js"></script>
+
 </head>
 <body>
 	<jsp:include page="../fragments/headerArea.jsp" />

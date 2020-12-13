@@ -13,7 +13,6 @@
 <!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script> -->
 
 
-
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 <jsp:include page="../fragments/links.jsp" />
@@ -22,6 +21,9 @@
 	href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!-- Load c3.css -->
 
 
 <html>
@@ -59,12 +61,13 @@ button.btncls:hover{
 button.greybtn:hover{
 	background-color: #000000;
 }
+.autoModal.modal .modal-body{
+    max-height: 100%;
+}
 </style>
 <meta charset="UTF-8">
 <title><c:out value="${thisArticle.title}" /></title>
 <%-- <title>ID:<c:out value="${articleId}" />/<c:out	value="${thisArticle.title}" /></title> --%>
-</head>
-
 <script>
 	// $(document).ready(function(){
 	// 	console.log("hi")
@@ -86,7 +89,7 @@ button.greybtn:hover{
 
 // 	var article = $.ajax({
 	
-	$(function() {	
+	$(function() {
 	$.ajax({
 		type : "GET",
 		url : "<c:url value='article' />?articleId=${articleId}",
@@ -94,7 +97,7 @@ button.greybtn:hover{
 			showPage(mapData)
 		}
 	});
-
+	
 	function showPage(mapData) {
 		var $article = $("#articleShow")
 		// 	var mapData = JSON.parse(responseData);
@@ -124,17 +127,53 @@ button.greybtn:hover{
 // 					console.log(String(x))
 // 					console.log(forum.id)
 // 					forum.id
-				var voteBlock = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">`+forum.votetopic+`</h5><button type="button" class="close" data-dismiss="modal"aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="greybtn"data-dismiss="modal">取消</button><button id="sandOption" type="button" class="btncls">送出</button></div></div></div></div>`
+				var voteBlock = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog modal-xl" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">`+forum.votetopic+`</h5><button type="button" class="close" data-dismiss="modal"aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="greybtn"data-dismiss="modal">取消</button><button type="button" id="voteComfirmBTN" value="`+forum.id+`" data-dismiss="modal" class="btncls" onclick="voteComfirm()">送出</button></div></div></div></div>`
 					$("#voteSpace").append(voteBlock);
 // 				var voteFoot = ``
 				
 // 					$("#voteSpace").append(voteFoot);
+						$(".modal-body").empty();
 					$.each(forum.options, function(k, options){
-						$(".modal-body").append("<p><input style='width:20px;height:20px;' type='radio'id=radio"+options.id+" name='vote' value="+options.id+"><label for=radio"+options.id+">"+options.content+"</label></p><br><br><br>")
+						$(".modal-body").append("<p style='height:20px;'><input style='width:20px;height:20px;' type='radio'id=radio"+options.id+" name='vote' value="+options.id+"><label for=radio"+options.id+">"+options.content+"</label></p><br><br>")
 						})
-					<!-- 回家寫迴圈把選項抓出來 -->
-					$(".modal-body").append("")
+// 					$(".modal-body").append("<center><div style='height:20%; width: 20%' id='chart'></div></center>")
+// 					$(".modal-body").append("<center><div style='height:20%; width: 20%' id='chart'></div></center>")
+// 					$(".modal-body").append("<p style='background-color:#FFBB73;' id='chart'></p>")
 				}
+
+
+			var forumId = ${forumID.id};
+			console.log("id:"+forumId);
+			$.ajax({
+				  url: "getVoteResult",
+				  size: {
+				        height: 200,
+				        width: 200
+				    },
+				  data: {
+					  forumId:forumId
+					  },
+				  success:function(result){
+					  console.log("result:"+result);
+					  console.log(result);
+						var chart = c3.generate({
+						    bindto: '#chart',		
+						    data: {
+						        type : 'donut',
+						        columns: [
+						            ['data1', 30],
+						            ['data2', 120],
+						        ]
+						    },
+						    donut: {
+						        title: "投票結果"
+						    }
+						});
+						}
+					});
+					
+
+			
 				
 			var imgTag = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + forum.forumOwnerFileId + `' />" width="50" height="50" class="d-inline-block align-top" alt="" style="border-radius: 50%; border: 2px white solid;">`
 // 			$article.append("<tr><td><div style='width:60px; background-color: coral; box-shadow:1px 3px 5px 2px #cccccc;'>"+ imgTag + forum.memberid + "</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
@@ -315,46 +354,15 @@ function asynRequest(id) {
 		
 }
 
-
-$("#sandOption").click(function(){
-
-var optionid = $('input[name="vote"]:checked').val();
-console.log(optionid)
-console.log("hihi")
-if(typeof(optionid)!= "undefined"){
-	
-
-$.ajax({
-	  url: "voteConfirm",
-	  data: {
-		  optionid:optionid
-		  },
-	  success:function(){
-//			  reset();
-// 			showPage(mapData);
-//			  var $comments = $('.${Forums.id}');
-//				console.log($comments);
-
-console.log(optionid)
-$('#toVoteBtn').attr('disabled', true);
-	}
-	//  dataType: dataType
-	});
-}
-
-
-
-	})
-
-
-
-
-
-
-
-
 	});	
+
+
+
+	
 </script>
+</head>
+
+
 
 
 
@@ -411,6 +419,19 @@ $('#toVoteBtn').attr('disabled', true);
 					</button>
 			</a></li>
 		</ul>
+		
+		
+		
+		<c:if test="${LoginOK.id!=null}">
+			<ul style="list-style: none; margin: 0px 0;">
+				<li style="float: right; margin: 0px 10px 30px 10px;">
+					<button class="submit btn-style" style="margin-top: 10px;" id="toVoteBtn"
+						data-toggle='modal' data-target="#exampleModal">
+						<span style="color: white; margin-top: 0px;">進行投票</span>
+					</button>
+				</li>
+			</ul>
+		</c:if>
 
 
 		<c:if test="${LoginOK.id==thisArticle.memberid}">
@@ -433,14 +454,7 @@ $('#toVoteBtn').attr('disabled', true);
 						</button>
 				</a></li>
 			</ul>
-			<ul style="list-style: none; margin: 0px 0;">
-				<li style="float: right; margin: 0px 10px 30px 10px;">
-					<button class="submit btn-style" style="margin-top: 10px;" id="toVoteBtn"
-						data-toggle='modal' data-target="#exampleModal">
-						<span style="color: white; margin-top: 0px;">進行投票</span>
-					</button>
-				</li>
-			</ul>
+
 		</c:if>
 		<script>
 $('#deleteArticle').confirm({
@@ -467,28 +481,11 @@ $('#deleteArticle').confirm({
 		<div id="articleShow" style="padding: 70px 0px 0px 0px;"></div>
 	</div>
 
-	<!-- <table id='articleShow'> -->
-	<!-- <thead> -->
-	<!-- 	<th>id</th> -->
-	<!-- 	<th>content</th> -->
-	<!-- </thead> -->
-	<!-- <tfoot> -->
-	<!-- 	<th>id</th> -->
-	<!-- 	<th>content</th> -->
-	<!-- </tfoot> -->
-	<!-- </table> -->
-
-
-	<!-- 		<div id='navigation' style='height: 60px;'></div> -->
 
 
 	<div class="pagination-style text-center mt-20">
 		<ul id='navigation'>
-			<!-- 			<li><a href="#"><i class="icon-arrow-left"></i></a></li> -->
-			<!-- 			<li><a href="#">1</a></li> -->
-			<!-- 			<li><a href="#">2</a></li> -->
-			<!-- 			<li><a class="active" href="#"><i class="icon-arrow-right"></i></a> -->
-			<!-- 			</li> -->
+
 		</ul>
 	</div>
 
@@ -496,6 +493,58 @@ $('#deleteArticle').confirm({
 	<jsp:include page="../fragments/allJs.jsp" />
 
 	<div id="voteSpace"></div>
-	
+	<center><div  id='chart'></div></center>
+	<script>
+	function voteComfirm() {
+		console.log("hihi")
+		var optionid = $('input[name="vote"]:checked').val();
+		var forumId = $("#voteComfirmBTN").attr("value");
+		console.log(forumId)
+		console.log(optionid)
+		if(typeof(optionid)!= "undefined"){
+
+		$.ajax({
+			  url: "voteConfirm",
+			  data: {
+				  optionid:optionid,
+				  forumId:forumId
+				  },
+			  success:function(result){
+				  console.log(result);
+
+					if (result) {						
+						swal({
+							  title: "完成!",
+							  icon: "success",
+							  button: "確認",
+							});
+					}else {						
+					swal({
+						  title: "投過了!",
+						  text: "你投過了唷!",
+						  icon: "error",
+						  button: "確認",
+						});	
+					}
+				  
+//					  reset();
+//		 			showPage(mapData);
+//					  var $comments = $('.${Forums.id}');
+//						console.log($comments);
+// 				console.log(optionid)
+// 				$('#toVoteBtn').attr('disabled', true);
+					}
+					//  dataType: dataType
+			});
+		}
+		console.log("byebye")		
+	}
+
+
+
+
+	</script>
+
+
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.iii.eeit124.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +22,9 @@ public class MemberOption {
 	private int memberid;
 	private Members members;
 
+	private Integer forumid;
+	private Forums forums;
+	
 	@Id @Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
@@ -70,6 +74,26 @@ public class MemberOption {
 
 	public void setMembers(Members members) {
 		this.members = members;
+	}
+
+	@Transient
+	public Integer getForumid() {
+		return forumid;
+	}
+
+	public void setForumid(Integer forumid) {
+		this.forumid = forumid;
+	}
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FORUM_ID")
+	public Forums getForums() {
+		return forums;
+	}
+
+	public void setForums(Forums forums) {
+		this.forums = forums;
 	}
 
 	

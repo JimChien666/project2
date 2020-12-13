@@ -18,3 +18,5 @@
         <link rel="stylesheet" href="<c:url value='/assets/css/style.css' />">
         <link rel="stylesheet" href="<c:url value='/assets/css/responsive.css' />">
         <script src="<c:url value='/assets/js/vendor/modernizr-2.8.3.min.js' />"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.18/c3.js"></script>
