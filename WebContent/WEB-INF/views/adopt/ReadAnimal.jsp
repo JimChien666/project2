@@ -129,7 +129,7 @@
 												onclick="location.href='<c:url value='/AdoptAnimalDetails.controller?id=${AnimalsList.animalId}' />'"
 										</c:when>
 									</c:choose>>
-									<div class="hover-effect square250px">
+									<div class="hover-effect square250px bgcWhite">
 										<img class="cardImg marginAuto" alt=""
 											src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${AnimalsList.animalId}">
 									</div>
