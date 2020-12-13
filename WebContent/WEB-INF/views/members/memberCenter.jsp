@@ -28,7 +28,7 @@
 
 	<div class="container">
 		<div class="row flex-row-reverse">
-			<div class="col-lg-12 col-md-8"">
+			<div class="col-lg-12 col-md-8">
 				<div class="row" style="margin-top: 10px;">
 					<div class="col-lg-3 col-md-12">
 						<jsp:include page="./fragments/myAccountLeftArea.jsp" />

@@ -22,4 +22,5 @@ public interface ProductListService {
 	FollowProducts getFollowProduct(Integer productId, Integer memberId);
 	List<FollowProducts> getLikeProduct(Integer id);
 	List<Products> getLikeProductList(Integer memberId);
+
 }

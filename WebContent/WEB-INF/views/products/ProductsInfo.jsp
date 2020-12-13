@@ -68,24 +68,40 @@
 		
 		}
 	}
+
 </script>
 <jsp:include page="../fragments/links.jsp" />
+<jsp:include page="../fragments/getIndexData.jsp" />
 </head>
 
 <body>
 <jsp:include page="../fragments/headerArea.jsp" />
 <%-- <jsp:include page="../public/top.jsp" /> --%>
+<!-- TOP圖片麵包屑 -->
+	<div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
+            <div class="container">
+                <div class="breadcrumb-content text-center">
+                    <h2>購物</h2>
+                    <ul>
+                        <li><a href="<c:url value='/' />">首頁</a></li>
+                        <li class="active"><a href="<c:url value='/product/ProductList' />">購物</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
 <div align='center'>
 	<h3>商品資訊</h3>
 	
-<div style='position:absolute; top:134px;  right:100px; font-family:Microsoft JhengHei;'>	
+<div style='position:absolute; top:425px;  right:100px; font-family:Microsoft JhengHei;'>	
 	<p style='font-family:cwtexhei; border-left:18px #ab7661 solid;'> ${ProductsInfo.name}</p>
 	<p style='color:#ab7661; font-size:22px;'><b> NT$${ProductsInfo.price}</b></p>
 	<button id='button1' class='btn btn-danger' onclick='addToCart(${ProductsInfo.id})'  style='background-color:#ab7661; width:200px;'>加入購物車</button>
 	<br/>
 <!-- 	<a style='color:#ab7661;' href='http://tw.yahoo.com/' >♡加入追蹤清單</a> -->
 </div>
-<div style='position:absolute; top:134px;  left:100px; '>
+<div style='position:absolute; top:425px;  left:100px; '>
 
 	<c:forEach  items="${ProductsInfo.productFilesId}" var="contentFileId" varStatus="s">
 		<img  class='btnFollow${s.index}' style='height:120px; width:120px;' src='${pageContext.request.contextPath}/product/getProductFilesImage/?productFilesId=${contentFileId}'>
@@ -98,21 +114,23 @@
 
 	<!-- 	抓ProductListController/getProductImage的封面圖 -->
 	<img id='chgicon' style='border:1px black solid; height:450px; width:450px;' src='${pageContext.request.contextPath}/product/getProductImage/?productId=${ProductsInfo.id}'>
-
-	<br/>
-	<hr/>
-	${ProductsInfo.description}
-	<br/>
-	
+	<div style="font-size:22px">
+		<br/>
+		<hr/>
+		${ProductsInfo.description}
+		<br/>
+	</div>
 <c:forEach  items="${ProductsInfo.productFilesId}" var="contentFileId">
 		<img src='${pageContext.request.contextPath}/product/getProductFilesImage/?productFilesId=${contentFileId}'>
 		<br/>
 		<br/>
 </c:forEach>
+	<br>
+	<div class="container">
 	
-	<div id="selectBar"></div>
-	<div id='somedivS'  style='height:260px;'></div>
-	<div id='navigation' style='height:60px;'></div>
+	<div><h5>猜你喜歡</h5></div>
+	<div class="row" id="productList"style="border-top: 1px gray solid; padding-top: 10px;"></div>
+	</div>
 	<hr/>
 	
 	<a href="<c:url value='/' />">回前頁</a>

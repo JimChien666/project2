@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>購物車清單</title>
 
 <script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />"></script>
 <script>

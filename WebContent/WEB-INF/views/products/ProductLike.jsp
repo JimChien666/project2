@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>我的最愛</title>
 <jsp:include page="../fragments/links.jsp" />
 <script>
 window.onload = function() {

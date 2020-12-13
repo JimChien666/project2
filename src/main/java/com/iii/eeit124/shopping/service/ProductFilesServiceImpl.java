@@ -35,7 +35,10 @@ public class ProductFilesServiceImpl implements ProductFilesService {
 	public ProductFiles getProductFiles(Integer Id) {
 		return productFilesDao.getProductFiles(Id);
 	}
-
+	@Override
+	public List<ProductFiles>  getProductFilesList(Integer Id) {
+		return productFilesDao.getProductFilesList(Id);
+	}
 //	@Override
 //	public List<Products> getPageProducts(Integer pageNo, Integer colorId, Integer categoryId, Integer animalTypeId,Integer recordsPerPage) {
 //		return dao.getPageProducts(pageNo, colorId, categoryId, animalTypeId,recordsPerPage);

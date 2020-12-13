@@ -1,0 +1,261 @@
+@charset "UTF-8";
+
+.border{
+	border:5px solid black;
+}
+
+.bgcGray{
+	background-color: #dadada;
+}
+
+
+.btn-style1 {
+    background-color: #7e4c4f;
+    border-radius: 50px;
+    color: #fff;
+    display: inline-block;
+    font-family: "Montserrat", sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1;
+    padding: 18px 30px 17px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+}
+
+.btn-style1:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.btn-style-cancel {
+    background-color: #fff;
+    border-radius: 50px;
+    color: #7e4c4f;
+    display: inline-block;
+    font-family: "Montserrat", sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1;
+    padding: 18px 30px 17px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+}
+
+.btn-style-border {
+    border: 3px #7e4c4f solid;
+}
+
+.borderBlack{
+	border: 1px black solid;
+}
+
+.borderOriginGray {
+    border: 3px #dadada solid;
+}
+
+.card2 {
+	padding: 5px;
+	width:265px;
+	border: 3px #fff solid;
+	border-radius:5px;
+}
+
+.card2:hover{
+	border: 3px #7e4c4f solid;
+}
+
+.cardImg {
+    max-height: 100%;  
+    max-width: 100%; 
+    width: auto;
+    height: auto;
+    position: absolute;  
+    top: 0;  
+    bottom: 0;  
+    left: 0;  
+    right: 0;
+}
+
+.divCenter{
+	text-align:center;
+}
+
+.dispblok {
+	display: block;
+}
+
+.div1 {
+	display: inline-block;
+}
+
+.divHidden {
+	display: none;
+	color: red;
+}
+
+.divVerticalCenter50{
+	padding-top:50px;
+	padding-bottom:50px;
+}
+
+.font16{
+	font-size:16px;
+}
+
+.font20{
+	font-size:20px;
+}
+
+.font22{
+	font-size:22px;
+}
+
+.form1 {
+	height:250px;
+	overflow: auto;
+}
+
+.H260 {
+	height: 260px;
+}
+
+.H700W540{
+	width:540px;
+	height:700px;
+}
+
+#imgChange:hover{
+	border: 3px #7e4c4f solid;
+}
+
+.inputInit{
+	background-color:white;
+	border:0px;
+}
+
+.inputH30W200{
+	height:30px;
+	width:200px;
+}
+
+.inputBorder{
+	border-bottom:1px black solid;
+}
+
+.lineH10{
+	line-height:50px;
+}
+
+.margin0Auto{
+	margin: 0 auto;
+}
+
+.margin10px {
+	margin: 10px;
+}
+
+.marginAuto{
+	margin:auto;
+}
+
+.margleft125px {
+	margin-left: 125px;
+}
+
+.note1 {
+	height: auto;
+	word-wrap: break-word;
+}
+
+.p-10{
+	padding:10px;
+}
+
+.page1 {
+	margin: 0 auto;
+	width: 96%;
+}
+
+.posAbs {
+	position: absolute;
+}
+
+.posRelat {
+	position: relative;
+}
+
+.square20px {
+	height: 20px;
+	width: 20px;
+}
+
+.square100px {
+	height: 100px;
+	width: 100px;
+	position: relative;
+}
+
+.square250px {
+	height: 250px;
+	width: 250px;
+	position: relative;
+}
+
+.square500px {
+	height: 500px;
+	width: 500px;
+	position: relative;
+}
+
+.tdVertical{
+	vertical-align:top;
+}
+
+.textRight{
+	text-align:right;
+}
+
+.wid40p{
+	width: 40%;
+}
+
+.wid20{
+	width: 20px;
+}
+
+.wid100{
+	width: 100px;
+}
+
+.wid200px {
+	width: 200px;
+}
+
+.wid305px {
+	width: 305px;
+}
+
+.wid400px {
+	width: 400px;
+}
+
+.wid450px {
+	width: 450px;
+}
+
+.wid700px {
+	margin: 0 auto;
+	width: 700px;
+}
+
+.wid1000px {
+	margin: 0 auto;
+	width: 1000px;
+}
+
+.W1200{
+	width: 1200px;
+}

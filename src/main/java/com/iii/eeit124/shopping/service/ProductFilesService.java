@@ -8,5 +8,6 @@ import com.iii.eeit124.entity.Products;
 public interface ProductFilesService {
 	
 	ProductFiles getProductFiles(Integer Id);
-
+	
+	List<ProductFiles> getProductFilesList(Integer Id); 
 }

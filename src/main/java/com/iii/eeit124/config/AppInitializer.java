@@ -46,6 +46,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		filterRegistration = servletContext.addFilter("LoginCheckingFilter", LoginCheckingFilter.class);
 //		filterRegistration.setInitParameter("sessionFactoryBeanName", "sessionFactory");
 		filterRegistration.addMappingForUrlPatterns(null, true, "/*");
+		filterRegistration.setInitParameter("mustLogin", "/product/preUpdateProduct/*");
 		filterRegistration.setInitParameter("mustLogin1", "/product/CreateProduct");
 		filterRegistration.setInitParameter("mustLogin2", "/saveArticle");
 		filterRegistration.setInitParameter("mustLogin3", "/order/*");
