@@ -33,6 +33,7 @@
 	background-color: #7e4c4f;
 	border-radius: 50px;
 	color: #fff;
+	cursor: pointer;
 	display: inline-block;
 	font-family: "Montserrat", sans-serif;
 	font-size: 22px;
@@ -53,6 +54,7 @@
 	background-color: #fff;
 	border-radius: 50px;
 	color: #7e4c4f;
+	cursor: pointer;
 	display: inline-block;
 	font-family: "Montserrat", sans-serif;
 	font-size: 22px;

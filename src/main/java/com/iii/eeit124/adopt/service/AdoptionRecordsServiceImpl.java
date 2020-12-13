@@ -32,8 +32,8 @@ public class AdoptionRecordsServiceImpl implements AdoptionRecordsService{
 		return adoptionRecordsDao.readMyAdoptionRecords(memberId);
 	}
 
-	public List<AdoptionRecords> readAdoptionRecords2(String string1, String string2){
-		return adoptionRecordsDao.readAdoptionRecords2(string1, string2);
+	public List<AdoptionRecords> readAdoptionRecords2(String string1, String string2, String orderBy){
+		return adoptionRecordsDao.readAdoptionRecords2(string1, string2, orderBy);
 	}
 	
 	@Override

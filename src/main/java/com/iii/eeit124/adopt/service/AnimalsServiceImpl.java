@@ -35,8 +35,8 @@ public class AnimalsServiceImpl implements AnimalsService{
 //		return animalsDao.readMyAnimalId(memberId);
 //	}
 	
-	public List<Animals> readAnimals1(String factor1, String orderBy){
-		return animalsDao.readAnimals1(factor1, orderBy);
+	public List<Animals> readAnimals1(String factor1){//, String orderBy
+		return animalsDao.readAnimals1(factor1);//, orderBy
 	}
 	
 	@Transactional

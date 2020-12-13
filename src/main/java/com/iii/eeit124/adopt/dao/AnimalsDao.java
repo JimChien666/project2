@@ -15,7 +15,7 @@ public interface AnimalsDao {
 	
 //	public List<Integer> readMyAnimalId(Integer memberId);
 	
-	public List<Animals> readAnimals1(String factor1, String orderBy);
+	public List<Animals> readAnimals1(String factor1);//, String orderBy
 	
 	public Animals update(Animals entity);
 	

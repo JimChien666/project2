@@ -91,14 +91,24 @@ td {
 							</div></td>
 						<td><fmt:formatDate value="${AdoptionRequestList.applyTime}"
 								pattern="yyyy/MM/dd HH:mm:ss" /></td>
-						<td><div class="btn-style1 btn-style-border"
-								data-toggle="modal"
-								data-target="#applyData${AdoptionRequestList.animal.animalId}">
-								查看申請資料</div>
+						<td><c:choose>
+								<c:when
+									test="${AdoptionRequestList.reviewStatus == 1 && source == 'AdoptionRequest'}">
+									<div class="btn-style1 btn-style-border" data-toggle="modal"
+										data-target="#applyData${AdoptionRequestList.adoptionId}">
+										查看申請資料</div>
+								</c:when>
+								<c:otherwise>
+									<div class="btn-style-cancel btn-style-border"
+										data-toggle="modal"
+										data-target="#applyData${AdoptionRequestList.adoptionId}">
+										查看申請資料</div>
+								</c:otherwise>
+							</c:choose>
 							<div class="modal fade"
-								id="applyData${AdoptionRequestList.animal.animalId}"
-								tabindex="-1" role="dialog"
-								aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+								id="applyData${AdoptionRequestList.adoptionId}" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalScrollableTitle"
+								aria-hidden="true">
 								<div class="modal-dialog modal-dialog-scrollable"
 									role="document">
 									<div class="modal-content">
@@ -128,13 +138,10 @@ td {
 													src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${AdoptionRequestList.animal.animalId}">
 											</div>
 											<br> 申請者資料<br> 1.申請者皆同意與了解認養須知<br>
-											2.申請者已閱讀並同意定型化契約<br>
-											3.申請人已年滿20歲<br>
+											2.申請者已閱讀並同意定型化契約<br> 3.申請人已年滿20歲<br>
 											4.飼養地點型態：${AdoptionRequestList.feedAddressType}<br>
-											5.現有動物隻數：${AdoptionRequestList.currentAnimalsNum}<br>
-											<br>
-											申請人聯絡方式<br>
-											1.市內電話：${AdoptionRequestList.tel}<br>
+											5.現有動物隻數：${AdoptionRequestList.currentAnimalsNum}<br> <br>
+											申請人聯絡方式<br> 1.市內電話：${AdoptionRequestList.tel}<br>
 											2.行動電話：${AdoptionRequestList.mobile}<br>
 											3.電子郵件：${AdoptionRequestList.email}<br>
 										</div>
@@ -161,10 +168,10 @@ td {
 									</c:choose>
 									<div class="mt-10 btn-style-cancel btn-style-border"
 										data-toggle="modal"
-										data-target="#rejectedReason${AdoptionRequestList.animal.animalId}">查看退回原因
+										data-target="#rejectedReason${AdoptionRequestList.adoptionId}">查看退回原因
 									</div>
 									<div class="modal fade"
-										id="rejectedReason${AdoptionRequestList.animal.animalId}"
+										id="rejectedReason${AdoptionRequestList.adoptionId}"
 										tabindex="-1" role="dialog"
 										aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog" role="document">
@@ -207,15 +214,15 @@ td {
 										<c:when test="${source == 'AdoptionRequest'}">
 											<div class="mt-10 btn-style1 btn-style-border"
 												data-toggle="modal"
-												data-target="#reviewStatus2${AdoptionRequestList.animal.animalId}">核准申請
+												data-target="#reviewStatus2${AdoptionRequestList.adoptionId}">核准申請
 											</div>
 											<div class="mt-10 btn-style-cancel btn-style-border"
 												data-toggle="modal"
-												data-target="#reviewStatus0${AdoptionRequestList.animal.animalId}">退回申請
+												data-target="#reviewStatus0${AdoptionRequestList.adoptionId}">退回申請
 											</div>
 											<!-- 核准申請 -->
 											<div class="modal fade"
-												id="reviewStatus2${AdoptionRequestList.animal.animalId}"
+												id="reviewStatus2${AdoptionRequestList.adoptionId}"
 												tabindex="-1" role="dialog"
 												aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog" role="document">
@@ -250,7 +257,7 @@ td {
 											</div>
 											<!-- 退回申請 -->
 											<div class="modal fade"
-												id="reviewStatus0${AdoptionRequestList.animal.animalId}"
+												id="reviewStatus0${AdoptionRequestList.adoptionId}"
 												tabindex="-1" role="dialog"
 												aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog" role="document">
@@ -300,10 +307,10 @@ td {
 											按下按鈕以完成領養
 											<div class="mt-10 btn-style1 btn-style-border"
 												data-toggle="modal"
-												data-target="#reviewStatus3${AdoptionRequestList.animal.animalId}">完成領養
+												data-target="#reviewStatus3${AdoptionRequestList.adoptionId}">完成領養
 											</div>
 											<div class="modal fade"
-												id="reviewStatus3${AdoptionRequestList.animal.animalId}"
+												id="reviewStatus3${AdoptionRequestList.adoptionId}"
 												tabindex="-1" role="dialog"
 												aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog" role="document">
@@ -340,10 +347,10 @@ td {
 									</c:choose>
 									<div class="mt-10 btn-style-cancel btn-style-border"
 										data-toggle="modal"
-										data-target="#approvedReason${AdoptionRequestList.animal.animalId}">查看核准訊息
+										data-target="#approvedReason${AdoptionRequestList.adoptionId}">查看核准訊息
 									</div>
 									<div class="modal fade"
-										id="approvedReason${AdoptionRequestList.animal.animalId}"
+										id="approvedReason${AdoptionRequestList.adoptionId}"
 										tabindex="-1" role="dialog"
 										aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog" role="document">
@@ -394,7 +401,7 @@ td {
 									</c:choose>
 									<div class="mt-10 btn-style-cancel btn-style-border"
 										data-toggle="modal"
-										data-target="#approvedReason${AdoptionRequestList.animal.animalId}">
+										data-target="#approvedReason${AdoptionRequestList.adoptionId}">
 										<c:choose>
 											<c:when test="${source == 'AdoptionRequest'}">
 															您給領養者的訊息
@@ -405,7 +412,7 @@ td {
 										</c:choose>
 									</div>
 									<div class="modal fade"
-										id="approvedReason${AdoptionRequestList.animal.animalId}"
+										id="approvedReason${AdoptionRequestList.adoptionId}"
 										tabindex="-1" role="dialog"
 										aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog" role="document">
@@ -443,7 +450,7 @@ td {
 									</div>
 									<div class="mt-10 btn-style-cancel btn-style-border"
 										data-toggle="modal"
-										data-target="#adopterMessage${AdoptionRequestList.animal.animalId}">
+										data-target="#adopterMessage${AdoptionRequestList.adoptionId}">
 										<c:choose>
 											<c:when test="${source == 'AdoptionRequest'}">
 															領養者給您的訊息
@@ -454,7 +461,7 @@ td {
 										</c:choose>
 									</div>
 									<div class="modal fade"
-										id="adopterMessage${AdoptionRequestList.animal.animalId}"
+										id="adopterMessage${AdoptionRequestList.adoptionId}"
 										tabindex="-1" role="dialog"
 										aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog" role="document">

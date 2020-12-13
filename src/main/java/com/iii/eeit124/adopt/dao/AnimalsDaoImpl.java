@@ -57,9 +57,9 @@ public class AnimalsDaoImpl implements AnimalsDao {
 //		return list;
 //	}
 
-	public List<Animals> readAnimals1(String factor1, String orderBy) {
+	public List<Animals> readAnimals1(String factor1) {//, String orderBy
 		Session session = sessionFactory.getCurrentSession();
-		Query<Animals> query = session.createQuery("from Animals where " + factor1 + orderBy, Animals.class);
+		Query<Animals> query = session.createQuery("from Animals where " + factor1, Animals.class);// + " order by " + orderBy
 		List<Animals> list = query.list();
 		return list;
 	}

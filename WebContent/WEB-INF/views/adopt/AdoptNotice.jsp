@@ -45,7 +45,7 @@
 		</div>
 	</div>
 
-	<div class="divFixed btn-style1 pointerCursor" id="noticeInput">一鍵輸入</div>
+	<div class="divFixed btn-style1" id="noticeInput">一鍵輸入</div>
 
 	<!-- ============================================================================================= -->
 
@@ -326,7 +326,7 @@
 		<div class="divCenter mb-50">
 			<a href="<c:url value='/adopt'/>"
 				class="btn-style-cancel btn-style-border">取消</a>
-			<form:button value="Send" class="btn-style1 btn-style-border pointerCursor" onclick="success('儲存')">儲存</form:button>
+			<form:button value="Send" class="btn-style1 btn-style-border" onclick="success('儲存')">儲存</form:button>
 		</div>
 	</form:form>
 	<jsp:include page="../fragments/footerArea.jsp" />

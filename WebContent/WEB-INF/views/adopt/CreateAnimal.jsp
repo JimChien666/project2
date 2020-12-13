@@ -72,11 +72,11 @@
 	<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
 	<c:choose>
 		<c:when test="${source == 'create'}">
-			<div class="divFixed2 btn-style1 pointerCursor" id="createInput2">一鍵輸入(不開放)</div>
-			<div class="divFixed btn-style1 pointerCursor" id="createInput">一鍵輸入(開放)</div>
+			<div class="divFixed2 btn-style1" id="createInput2">一鍵輸入(不開放)</div>
+			<div class="divFixed btn-style1" id="createInput">一鍵輸入(開放)</div>
 		</c:when>
 		<c:when test="${source == 'update'}">
-			<div class="divFixed btn-style1 pointerCursor" id="updateInput">一鍵輸入</div>
+			<div class="divFixed btn-style1" id="updateInput">一鍵輸入</div>
 		</c:when>
 	</c:choose>
 

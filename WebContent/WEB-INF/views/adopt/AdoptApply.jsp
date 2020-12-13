@@ -202,7 +202,7 @@
 			<a href="<c:url value='/adopt'/>"
 				class="btn-style-cancel btn-style-border">取消</a>
 			<form:button value="Send"
-				class="btn-style1 btn-style-border pointerCursor" onclick="success('申請')">送出申請</form:button>
+				class="btn-style1 btn-style-border" onclick="success('申請')">送出申請</form:button>
 		</div>
 	</form:form>
 	<jsp:include page="../fragments/footerArea.jsp" />

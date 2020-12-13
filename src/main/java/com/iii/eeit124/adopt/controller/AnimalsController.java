@@ -200,10 +200,11 @@ public class AnimalsController {
 
 	//查詢
 	@GetMapping("/readKeyword.controller")
-	public @ResponseBody List<Animals> processReadKeyword(@RequestParam("factor1") String factor1, @RequestParam("orderBy") String orderBy) {
-		List<Animals> list = null;
-		animalsService.readAnimals1("", orderBy);//先查貓狗種類，再將全部list合起來
-		return list;
+	public @ResponseBody List<Animals> processReadKeyword(@RequestParam("factor1") String factor1) {//, @RequestParam("orderBy") String orderBy
+//		List<Animals> list = null;
+		System.out.println("inside processReadKeyword");
+		List<Animals> readAnimals1 = animalsService.readAnimals1(" breed_id = "+factor1);//先查貓狗種類，再將全部list合起來, "breed_id"
+		return readAnimals1;
 	}
 	
 //==============================================================================================
@@ -315,7 +316,7 @@ public class AnimalsController {
 		Integer memberId = ((Members) session.getAttribute("LoginOK")).getId();
 		if ("AdoptionRequest".equals(source)) {
 			//找出該會員擁有的寵物，但被其他領養人提出領養申請的寵物
-			List<AdoptionRecords> readAdoptionRecords2 = adoptionRecordsService.readAdoptionRecords2("OWNERMEMBERID = "+ memberId, "REVIEW_STATUS >= 0");
+			List<AdoptionRecords> readAdoptionRecords2 = adoptionRecordsService.readAdoptionRecords2("OWNERMEMBERID = "+ memberId, "REVIEW_STATUS >= 0", "APPLY_TIME");
 			m.addAttribute("AdoptionRequestList", readAdoptionRecords2);
 			m.addAttribute("source", "AdoptionRequest");
 		}else if ("MyAdoptionProgress".equals(source)) {

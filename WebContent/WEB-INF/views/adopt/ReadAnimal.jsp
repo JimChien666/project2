@@ -91,13 +91,29 @@
 							</c:when>
 						</c:choose>
 						<%-- <%=application.getContextPath()%> --%>
-						<!-- 			搜尋框框 -->
-						<!-- 			<div class="input-group mb-3 search1"> -->
-						<!-- 			  <input type="text" class="form-control" placeholder="Search"> -->
-						<!-- 			  <div class="input-group-append"> -->
-						<!-- 			    <button class="btn btn-success" type="submit">Go</button> -->
-						<!-- 			  </div> -->
-						<!-- 			</div> -->
+						<nav class="navbar navbar-light bg-light justify-content-between">
+							<a class="navbar-brand"></a>
+<%-- 							<form class="" action="<c:url value='/MemberCenter/readKeyword.controller'/>"> --%>
+								<div class="form-inline">
+								<input class="form-control mr-sm-2" type="search"
+									placeholder="搜尋動物類別/品種/收容編號" aria-label="Search" name="factor1">
+								<button class="btn btn-success my-2 my-sm-0" id="keywordSearch"
+									type="submit" style="height:38px;border-radius:5px;"><font class="font22">搜尋</font></button>
+								</div>
+<!-- 							</form> -->
+						</nav>
+						<script type="text/javascript">
+						$("#keywordSearch").click(function(){
+							var xhr = new XMLHttpRequest();
+							var keyword = $("input[name='factor1']").val();
+							alert(keyword)
+							//ing
+
+
+
+							
+							});
+						</script>
 						<!-- ===================================================================================== -->
 						<!-- card來源https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_card_image&stacked=h -->
 						<!-- 					自行上架的 -->

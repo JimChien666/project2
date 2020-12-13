@@ -15,7 +15,7 @@ public interface AdoptionRecordsService {
 	
 	public List<AdoptionRecords> readMyAdoptionRecords(Integer memberId);
 	
-	public List<AdoptionRecords> readAdoptionRecords2(String string1, String string2);
+	public List<AdoptionRecords> readAdoptionRecords2(String string1, String string2, String orderBy);
 
 	public AdoptionRecords update(AdoptionRecords entity);
 }

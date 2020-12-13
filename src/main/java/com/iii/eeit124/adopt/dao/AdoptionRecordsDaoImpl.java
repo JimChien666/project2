@@ -47,9 +47,9 @@ public class AdoptionRecordsDaoImpl implements AdoptionRecordsDao {
 		return list;
 	}
 	
-	public List<AdoptionRecords> readAdoptionRecords2(String string1, String string2){
+	public List<AdoptionRecords> readAdoptionRecords2(String string1, String string2, String orderBy){
 		Session session = sessionFactory.getCurrentSession();
-		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where " + string1 + "and "+ string2 +"order by ADOPTION_ID", AdoptionRecords.class);
+		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where " + string1 + "and "+ string2 +"order by " + orderBy, AdoptionRecords.class);
 		List<AdoptionRecords> list = query.list();
 		return list;
 	}
