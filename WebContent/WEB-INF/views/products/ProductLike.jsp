@@ -77,7 +77,7 @@ function displayProducts(responseData){
 }
 function removeLike(productId){
 	if (${empty LoginOK}){
-		alert("請登入");
+		swal("請登入");
 		window.location.href = "<c:url value='/member/login' />";
 	}
 	console.log(productId);

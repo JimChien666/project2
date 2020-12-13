@@ -27,7 +27,7 @@ public class ProductListDaoImpl implements ProductListDao {
 	public static String getPageOrderBy(Integer orderBy) {
 		switch(orderBy) { 
 	        case 0:
-	        	orderByString=" order by color_Id";
+	        	orderByString=" order by color_Id, id";
 	        	break;
 	        case 1: 
 	        	orderByString=" order by name";
@@ -157,8 +157,7 @@ public class ProductListDaoImpl implements ProductListDao {
 		}
 		
 		Query query = sessionFactory.getCurrentSession().createQuery("FROM Products Where deleted_at=null and status='上架中' " + condiction  + orderByString);
-		query.setFirstResult(startRecordNo)
-			.setMaxResults(recordsPerPage);
+		
 		
 		if (keywordSearch != null) {
 			query.setParameter("keywordSearch", "%"+keywordSearch+"%");
@@ -172,6 +171,8 @@ public class ProductListDaoImpl implements ProductListDao {
 		if (animalTypeId != null) {
 			query.setParameter("animalTypeId", animalTypeId);
 		}
+		query.setFirstResult(startRecordNo)
+		.setMaxResults(recordsPerPage);
 		list = query.getResultList();
 //  			  .setFirstResult(startRecordNo)
 //  			  .setMaxResults(recordsPerPage)

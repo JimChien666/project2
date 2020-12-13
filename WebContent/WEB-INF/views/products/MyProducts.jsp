@@ -538,7 +538,7 @@ button.btncls:hover {
 			</div>
 		</div>
 	</div>
-
+	<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
 
 	<div class="shop-area pt-100 pb-100 gray-bg">
 		<div class="container">

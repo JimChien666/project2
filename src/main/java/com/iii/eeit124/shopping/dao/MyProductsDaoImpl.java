@@ -27,7 +27,7 @@ public class MyProductsDaoImpl implements MyProductsDao {
 	public static String getPageOrderBy(Integer orderBy) {
 		switch(orderBy) { 
 	        case 0:
-	        	orderByString=" order by color_Id";
+	        	orderByString=" order by color_Id, id";
 	        	break;
 	        case 1: 
 	        	orderByString=" order by name";

@@ -241,6 +241,7 @@ function asynRequest(id) {
 	    } else if (id == "last") {
 	    	no = totalPage;	    	
 	    }
+	    console.log(no);
 	    var animalTypeId = document.getElementById("animalTypeId").value;
 		var colorId = document.getElementById("colorId").value;
 		var categoryId = document.getElementById("categoryId").value;

@@ -22,6 +22,7 @@
 						<li><a href="#"> 商品管理 <i class="icon-arrow-down"></i></a>
 							<ul>
 								<li><a href="<c:url value='/product/goLikeProductPage' />">商品最愛</a></li>
+								<li><a href="<c:url value='/product/goMyProductPage' />">我的商品</a></li>		
 							</ul></li>
 						<li><a href="#"> 寵物管理 <i class="icon-arrow-down"></i></a>
 							<ul>
