@@ -122,12 +122,12 @@ public class UpdateProductController {
 		//抓form:form的商品封面圖
 		MultipartFile multipartFile = products.getMultipartFile();
 		
-		AnimalTypes animalType = service.findOneAnimalType(products.getAnimalTypeId());
-		Colors color = service.findOneColor(products.getColorId());
-		Categories category = service.findOneCatrgory(products.getCategoryId());
+		AnimalTypes animalType = service.findOneAnimalType(animalTypeId);
+		Colors color = service.findOneColor(colorId);
+		Categories category = service.findOneCatrgory(categoryId);
+		products.setCategory(category);
 		products.setColor(color);
 		products.setAnimalType(animalType);
-		products.setCategory(category);
 		//用ID查詢原本的Product BEAN
 		Products product = service.selectById(products.getId());
 
@@ -187,7 +187,6 @@ public class UpdateProductController {
 
 			}catch (IOException e) {
 				System.out.println("UpdateProductController.java，Line 190");
-
 				errors.put("errorAccountDup", "修改此筆資料有誤(RegisterServlet)");
 				return "products/UpdateProduct";
 			}			
@@ -252,7 +251,7 @@ public class UpdateProductController {
 		products.setMember((Members)session.getAttribute("LoginOK"));
 	    service.updateProduct(products);
 	    
-		return "redirect:/";
+		return "redirect:/product/goMyProductPage";
 	}
 	
 }

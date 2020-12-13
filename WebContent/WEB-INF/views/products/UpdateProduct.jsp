@@ -161,7 +161,7 @@ button.btncls:hover {
 				<c:forEach items="${products.productFilesId}" var="contentFileId"
 				varStatus="s">
 						
-				<img style="height: 350px; width: 300px;" 
+				<img style='height: 25%; width: 25%;' 
 					id="preview_productContent${s.index}" src="#" />
 				</c:forEach>
 					
@@ -204,7 +204,7 @@ button.btncls:hover {
 									<option selected value="${products.color.id}">${products.color.name}</option>
 								</c:when>
 								<c:otherwise>
-									<option value="${Color.id}">${Colors.name}</option>
+									<option value="${Colors.id}">${Colors.name}</option>
 								</c:otherwise>
 							</c:choose>			
 						</c:forEach>
@@ -249,11 +249,26 @@ button.btncls:hover {
 <!-- 			<div id='somedivS'> -->
 <%-- 				${errors.color}<br />${errors.category}<br />${errors.animalType}<br /> --%>
 <!-- 			</div> -->
-				<a href="<c:url value='/product/preUpdateProduct' />?Id=${product.Id}"
-				class="btn-style-cancel btn-style-border">回復修改</a>
-		<form:button value="Send" class="btncls">送出</form:button>
+			<span >	
+				<a href="<c:url value='/product/preUpdateProduct' />/${products.id}"
+				 class="btn-style-cancel btn-style-border" style="font-size:13px;height:45px;width:85px;">回復</a>
+			</span>
+		<form:button onclick="myFunction()" value="Send" class="btncls btn-style-border" >送出</form:button>
 		</div>
 	</form:form>
+	<script>
+		function myFunction() {
+		  var yes = confirm('你確定嗎？');
+		
+		  if (yes) {
+		      alert('你按了確定按鈕');
+		  } else {
+		      alert('你按了取消按鈕');
+		  }
+		
+		  
+		}
+	</script>
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
 </BODY>

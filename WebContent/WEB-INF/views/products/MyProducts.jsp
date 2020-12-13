@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
+<title>我的商品</title>
 <style>
 th, td{
 width: 200px;
@@ -301,7 +302,6 @@ function displayPageProducts(responseData){
 	var productsInfo = "<c:url value='/product/productsInfo/productsPath' />";
 	var salesInfo = "<c:url value='/product/salesInfo/salesInfoPath' />";
 
-	
 	document.getElementById("showRecordCounts").innerHTML = recordCounts;
 	for(var i=0; i < products.length; i++){
 		console.log(products[i]);
@@ -325,10 +325,10 @@ function displayPageProducts(responseData){
 		content += '</a>';
 		content += ' <a title="加入購物車" onclick="addToCart(' + products[i].id + ')"  href="#">';
 		content += '   <i class="ti-shopping-cart"></i>';
-		content += ' </a>';
+		content += ' </a>';	
 		content += '</div>';
 		content += '<div class="product-action-wishlist">';
-		content += '<a title="Wishlist" id="like'+products[i].id+'" href="#" onclick=like('+products[i].id+')>';
+		content += '<a title="加入我的最愛" id="like'+products[i].id+'" href="#" onclick=like('+products[i].id+')>';
 		var isLike = false;
 		
 		for (var j = 0;j<likeList.length;j++){
@@ -347,18 +347,20 @@ function displayPageProducts(responseData){
 					content += '</div>';
 		content += '</div>';
 		content += '<div class="product-action-wishlist">';
-		content += '<a title="Wishlist" href="#">';
+		content += '<a title="加入我的最愛" href="#">';
 		content += '</a>';
 		content += '</div>';
 		content += '</div>';
 		content += '<div class="product-content">';
 		content += '<h4><a href="'+productsInfo.replace("productsPath",products[i].id)+'">'+products[i].name+'</a></h4>';
 		content += '<div class="product-price">';
-		content += '<span class="new">$'+products[i].discountPrice+' </span>';
+		content += '<span class="new">$'+products[i].discountPrice+' </span>';	
 		if(products[i].discount < 1){
 			content += '<span class="old">$'+products[i].price+'</span>';
 		}
 		content += '</div>';
+		content += ' <button  class="btncls" type="submit" onclick="updateProduct('+products[i].id+')" >修改</button>';
+		content += ' <button  class="btncls" type="submit" onclick="createProduct()" >刪除</button>';
 		content += '</div>';
 		content += '<div class="product-list-content">';
 		content += '<h4><a href="'+productsInfo.replace("productsPath",products[i].id)+'">' + products[i].name + '</a></h4>';
@@ -457,6 +459,10 @@ function goToCartPage(){
 }
 function createProduct(){
 	window.location.href = "<c:url value='/product/CreateProduct' />";
+}
+function updateProduct(productId){
+	var preUpdateProduct = "<c:url value='/product/preUpdateProduct/"+productId+"' />";
+	window.location.href = preUpdateProduct;
 }
 </script>
 <jsp:include page="../fragments/links.jsp" />

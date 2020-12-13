@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
+<title>購物商城首頁</title>
 <style>
 th, td{
 width: 200px;
@@ -293,15 +294,15 @@ function displayPageProducts(responseData){
 		content += '<img src="' + imageURL + '?productId=' + products[i].id +'" alt="">';
 		content += '</a>';
 		content += '<div class="product-action">';
-		content += '<a title="Quick View" href="'+productsInfo.replace("productsPath",products[i].id)+'">';
+		content += '<a title="查看商品詳情" href="'+productsInfo.replace("productsPath",products[i].id)+'">';
 		content += ' <i class="ti-plus"></i>';
 		content += '</a>';
-		content += ' <a title="Add To Cart" onclick="addToCart(' + products[i].id + ')"  href="#">';
+		content += ' <a title="加入購物車" onclick="addToCart(' + products[i].id + ')"  href="#">';
 		content += '   <i class="ti-shopping-cart"></i>';
 		content += ' </a>';
 		content += '</div>';
 		content += '<div class="product-action-wishlist">';
-		content += '<a title="Wishlist" id="like'+products[i].id+'" href="#" onclick=like('+products[i].id+')>';
+		content += '<a title="加到我的最愛" id="like'+products[i].id+'" href="#" onclick=like('+products[i].id+')>';
 		var isLike = false;
 		
 		for (var j = 0;j<likeList.length;j++){
@@ -320,7 +321,7 @@ function displayPageProducts(responseData){
 					content += '</div>';
 		content += '</div>';
 		content += '<div class="product-action-wishlist">';
-		content += '<a title="Wishlist" href="#">';
+		content += '<a title="加到我的最愛" href="#">';
 		content += '</a>';
 		content += '</div>';
 		content += '</div>';
@@ -338,13 +339,13 @@ function displayPageProducts(responseData){
 		content += '<div class="product-price">';
 		content += '<span class="new">$'+products[i].discountPrice+' </span>';
 		content += '</div>';
-		content += '<p>' + products[i].description.substring(0, 200) + '...</p>';
+		content += '<p>' + products[i].description.substring(0, 150) + '...</p>';
 		content += '<div class="product-list-action">';
 		content += '<div class="product-list-action-left">';
-		content += '<a class="addtocart-btn" title="Add to cart" onclick="addToCart(' + products[i].id + ')" style="color: white; cursor: pointer;"><i class="ion-bag"></i> Add to cart</a>';
+		content += '<a class="addtocart-btn" title="加入購物車" onclick="addToCart(' + products[i].id + ')" style="color: white; cursor: pointer;"><i class="ion-bag"></i> Add to cart</a>';
 		content += '</div>';
 		content += '<div class="product-list-action-right">';
-		content += '<a title="Quick View" href="'+productsInfo.replace("productsPath",products[i].id)+'"><i class="ti-plus"></i></a>';
+		content += '<a title="查看商品詳情" href="'+productsInfo.replace("productsPath",products[i].id)+'"><i class="ti-plus"></i></a>';
 		content += '</div>';
 		content += '</div>';
 		content += '</div>';
@@ -425,9 +426,6 @@ function like(productId){
 function goToCartPage(){
 	window.location.href = "<c:url value='/cart/CartList' />";
 }
-function createProduct(){
-	window.location.href = "<c:url value='/product/CreateProduct' />";
-}
 </script>
 <jsp:include page="../fragments/links.jsp" />
 <style>
@@ -506,7 +504,6 @@ button.btncls:hover{
 				<div class="col-lg-3">
                         <div class="shop-sidebar">
                             <div class="shop-widget">
-                                <button  class="btncls" type="submit" onclick="createProduct()" >新增商品</button>
                             
                             	<h4 class="shop-sidebar-title">搜尋商品</h4>
                                 <div class="shop-search mt-25 mb-50" >                               
