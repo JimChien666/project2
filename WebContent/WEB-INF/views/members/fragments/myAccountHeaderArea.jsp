@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="header-top theme-bg">
 	<div class="container">
-		<div class="row">
+		<div class="row font22">
 			<div class="col-lg-4 col-md-4 col-12">
 				<div class="welcome-area">
-					<p><a href="<c:url value='/member/myAccount' />" style="color: white;">會員中心</a></p>
+					<p class="font22"><a href="<c:url value='/member/myAccount' />" style="color: white;">會員中心</a></p>
 				</div>
 			</div>
 			<div class="col-lg-8 col-md-8 col-12">
@@ -15,7 +15,7 @@
 						<li class="top-hover"><a href="#">訂單管理 <i
 								class="icon-arrow-down"></i></a>
 							<ul>
-								<li><a href="<c:url value='/order/OrderList' />">購買紀錄</a></li>
+								<li><a href="<c:url value='/order/OrderList'/>">購買紀錄</a></li>
 								<li><a href="<c:url value='/order/SellingOrderList' />">販售紀錄</a></li>
 								<li><a href="<c:url value='/order/orderAnalysis' />">交易數據</a></li>
 							</ul></li>
@@ -26,7 +26,8 @@
 						<li><a href="#"> 寵物管理 <i class="icon-arrow-down"></i></a>
 							<ul>
 								<li><a href="<c:url value='/MemberCenter/ReadAnimal' />">我的寵物</a></li>
-
+								<li><a href="<c:url value='/MemberCenter/adoptionRequestList.controller?source=AdoptionRequest' />">領養申請</a></li>
+								<li><a href="<c:url value='/MemberCenter/adoptionRequestList.controller?source=MyAdoptionProgress' />">我的領養進度</a></li>
 							</ul></li>
 						<li><a href="#"> 活動管理 <i class="icon-arrow-down"></i></a>
 							<ul>

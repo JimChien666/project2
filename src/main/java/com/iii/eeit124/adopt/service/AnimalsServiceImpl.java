@@ -31,6 +31,14 @@ public class AnimalsServiceImpl implements AnimalsService{
 		return animalsDao.readMyAnimals(memberId);
 	}
 	
+//	public List<Integer> readMyAnimalId(Integer memberId){
+//		return animalsDao.readMyAnimalId(memberId);
+//	}
+	
+	public List<Animals> readAnimals1(String factor1){//, String orderBy
+		return animalsDao.readAnimals1(factor1);//, orderBy
+	}
+	
 	@Transactional
 	public Animals update(Animals animals) {
 		return animalsDao.update(animals);

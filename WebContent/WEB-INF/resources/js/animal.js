@@ -14,20 +14,21 @@
 //};
 window.onload = function() {
 	//noticeOptions
-//	$("#test").click(function() {
-//		var sum = 0;
-//		for ( var i = 0 ; i < 10 ; i++ ) {
-//			var value = $('input[name=notice' + (i + 1) + ']:checked').val();
-//			sum = sum + value * (2 ** i);
-////			console.log("i = " + i + ", sum = " + sum + ", value = " + value);
-//		}
-//		console.log(sum);
-////		window.location = 'adoptApply?animalId='+$("#animalId").text;
-//	});
+	//	$("#test").click(function() {
+	//		var sum = 0;
+	//		for ( var i = 0 ; i < 10 ; i++ ) {
+	//			var value = $('input[name=notice' + (i + 1) + ']:checked').val();
+	//			sum = sum + value * (2 ** i);
+	////			console.log("i = " + i + ", sum = " + sum + ", value = " + value);
+	//		}
+	//		console.log(sum);
+	////		window.location = 'adoptApply?animalId='+$("#animalId").text;
+	//	});
 
 	$("#animalFilesCreate").change(function() {
 		$("#animalFilesDiv").show();
 		readURL(this);
+		//		alert(this.files.length);
 	});
 	$("#animalFilesUpdate").change(function() {
 		$("#animalFilesDivOrigin").hide();
@@ -85,8 +86,8 @@ window.onload = function() {
 			}
 		}
 	}
+	//onload尾=========================================================================
 };
-//onload尾=========================================================================
 
 //ReadAnimal
 //預防新增後，重整頁面會跳出是否重複新增的提示視窗
@@ -94,10 +95,29 @@ if (window.history.replaceState) {
 	window.history.replaceState(null, null, window.location.href);
 }
 
-function timer() {
-	swal("Don't evade!", "dsfdsfsdf", "success");
-	setTimeout(function() { window.location = "MemberCenter/preCreateAnimal.controller"; }, 2000);
+function success(content) {
+	swal({
+		title: content + "成功!",
+		text: " ",
+		icon: "success",
+		buttons: false
+	});
 }
+
+function info(content, url) {
+	swal({
+		title: content,
+		text: " ",
+		icon: "info",
+		buttons: false
+	});
+	setTimeout(function() { window.location = url; }, 2000);
+}
+
+//function timer() {
+//	swal("Don't evade!", "dsfdsfsdf", "success");
+//	setTimeout(function() { window.location = "/team6/adopt/adoptApply"; }, 2000);
+//}
 
 //SweetAlert刪除
 function deleteAnimal(animalId) {

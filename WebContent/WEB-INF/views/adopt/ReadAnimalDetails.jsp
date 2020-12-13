@@ -6,10 +6,24 @@
 <head>
 <meta charset="UTF-8">
 <title>動物資料</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	crossorigin="anonymous"></script>
+<script src="<c:url value='/js/animal.js' />" type="text/javascript"
+	charset="UTF-8"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <jsp:include page="../fragments/links.jsp" />
+
+<!-- 轉頁載入動畫1 -->
+<link rel="stylesheet"
+	href="<c:url value='/css/loadingAnimation.css' />">
 </head>
 <body>
+	<div id="loader"></div>
+	<div style="display: none;" id="myDiv" class="animate-bottom">
+		<!-- 轉頁載入動畫1 -->
+	
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
 	</div>
@@ -36,18 +50,20 @@
 			</div>
 		</div>
 	</div>
+	
 	<c:choose>
 		<c:when test="${source=='ReadAnimal'}">
 			<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
 		</c:when>
 	</c:choose>
+	
 	<!-- ============================================================================================= -->
 
 	<!-- 	<div class="mt-50 divCenter"> -->
 	<!-- 		<h1>動物資料</h1> -->
 	<!-- 	</div> -->
-	<div class="mt-50 mb-50 wid1000px">
-		<div class="H700W540 pl-20 pr-20 pt-20 bgcGray div1">
+	<div class="mt-50 mb-50 wid1000">
+		<div class="H700W540 pl-20 pr-20 pt-20 bgcGray displayInlineBlock">
 			<div class="square500px">
 				<img class="cardImg marginAuto" alt=""
 					src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animal.animalId}">
@@ -60,7 +76,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="wid400px div1 posAbs p-10 font22 lineH10">
+		<div class="wid400 displayInlineBlock posAbs p-10 font22 lineH10">
 			收容編號：${animal.acceptionId}<br> 領養地區：${animal.member.address}<br>
 			動物類別：${animal.breeds.family}<br> 動物品種：${animal.breeds.breed}<br>
 			性別：
@@ -82,41 +98,50 @@
 	</div>
 
 	<div class="divCenter">
-		<div class="div1"></div>
-		<div class="div1">
-			<div class="about-us-btn mb-50">
-				<c:choose>
-					<c:when test="${source=='ReadAnimal'}">
-						<a href="<c:url value='/MemberCenter/ReadAnimal' />"
-							class="btn-style-cancel btn-style-border">返回</a>
-						<a class="btn-style1 btn-style-border"
-							href="<c:url value='/MemberCenter/preUpdateAnimal.controller'/>?animalId=${animal.animalId}">維護</a>
-					</c:when>
-					<c:when test="${source=='AdoptAnimal'}">
-						<a href="<c:url value='/adopt' />"
-							class="btn-style-cancel btn-style-border">返回</a>
-						<c:choose>
-							<c:when test="${member==0}">
-								<div class="btn-style1 btn-style-border">領養請登入</div>
-							</c:when>
-							<c:when test="${member==animal.member.id}">
-								<a class="btn-style1 btn-style-border"
-									href="<c:url value='/MemberCenter/ReadAnimal'/>">我的寵物</a>
-							</c:when>
-							<c:otherwise>
-								<a class="btn-style1 btn-style-border"
-									href="<c:url value='/adopt/adoptNotice'/>/${animal.animalId}">我要認養</a>
-							</c:otherwise>
-						</c:choose>
-					</c:when>
-				</c:choose>
-<%-- 							<div>member:${member}</div> --%>
-<%-- 							<div>animal.member.id:${animal.member.id}</div> --%>
-			</div>
+		<div class="mb-50">
+<!-- 		<div class="about-us-btn mb-50"> -->
+			<c:choose>
+				<c:when test="${source=='ReadAnimal'}">
+					<a href="<c:url value='/MemberCenter/ReadAnimal' />"
+						class="btn-style-cancel btn-style-border">返回</a>
+					<a class="btn-style1 btn-style-border"
+						href="<c:url value='/MemberCenter/preUpdateAnimal.controller'/>?animalId=${animal.animalId}">更新寵物資訊</a>
+				</c:when>
+				<c:when test="${source=='AdoptAnimal'}">
+					<a href="<c:url value='/adopt' />"
+						class="btn-style-cancel btn-style-border">返回</a>
+					<c:choose>
+						<c:when test="${member==0}">
+							<div class="btn-style1 btn-style-border">領養請登入</div>
+						</c:when>
+						<c:when test="${member==animal.member.id}">
+							<button class="btn-style1 btn-style-border"
+								onclick="info('跳轉頁面至我的寵物', '<c:url value='/MemberCenter/ReadAnimal'/>')">我的寵物</button>
+						</c:when>
+						<c:otherwise>
+							<a class="btn-style1 btn-style-border"
+								href="<c:url value='/adopt/adoptNotice'/>/${animal.animalId}">我要認養</a>
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+			</c:choose>
 		</div>
 	</div>
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
+
+		<!-- 轉頁載入動畫2 -->
+	</div>
 </body>
+<script>
+setTimeout(function() {
+	$(document).ready(function() {
+		document.getElementById("loader").style.display = "none";
+		document.getElementById("myDiv").style.display = "block";
+	});
+}, 500);
+</script>
+<!-- 轉頁載入動畫2 -->
+
 </html>

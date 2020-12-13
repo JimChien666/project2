@@ -26,11 +26,13 @@ public class AnimalsDaoImpl implements AnimalsDao {
 //		return null;
 	}
 
+	//給animalsId讀單筆
 	public Animals read(Integer animalsId) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Animals.class, animalsId);
 	}
 	
+	//讀全部開放領養的動物
 	public List<Animals> readAll() {
 		Session session = sessionFactory.getCurrentSession();
 		Query<Animals> query = session.createQuery("from Animals where isAdoptionAvailable = 1 order by animal_id desc", Animals.class);
@@ -38,9 +40,26 @@ public class AnimalsDaoImpl implements AnimalsDao {
 		return list;
 	}
 
+	//讀該memberId擁有的動物
 	public List<Animals> readMyAnimals(Integer memberId) {
 		Session session = sessionFactory.getCurrentSession();
 		Query<Animals> query = session.createQuery("from Animals where MEMBER_ID=" + memberId + " order by animal_id desc", Animals.class);
+		List<Animals> list = query.list();
+		return list;
+	}
+
+	//
+//	public List<Integer> readMyAnimalId(Integer memberId) {
+//		Session session = sessionFactory.getCurrentSession();
+//		@SuppressWarnings("unchecked")
+//		Query<Integer> query = session.createQuery("select animalId from Animals where MEMBER_ID=" + memberId + " order by animal_id");
+//		List<Integer> list = query.list();
+//		return list;
+//	}
+
+	public List<Animals> readAnimals1(String factor1) {//, String orderBy
+		Session session = sessionFactory.getCurrentSession();
+		Query<Animals> query = session.createQuery("from Animals where " + factor1, Animals.class);// + " order by " + orderBy
 		List<Animals> list = query.list();
 		return list;
 	}

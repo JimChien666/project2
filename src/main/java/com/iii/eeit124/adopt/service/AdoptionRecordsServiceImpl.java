@@ -1,7 +1,6 @@
 package com.iii.eeit124.adopt.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -21,8 +20,25 @@ public class AdoptionRecordsServiceImpl implements AdoptionRecordsService{
 	}
 
 	@Override
-	public List<AdoptionRecords> read(Integer memberId) {
-		return adoptionRecordsDao.read(memberId);
+	public List<AdoptionRecords> read(Integer memberId, Integer animalId) {
+		return adoptionRecordsDao.read(memberId, animalId);
+	}
+	
+	public List<AdoptionRecords> readReviewStatus(List<Integer> listAnimals){
+		return adoptionRecordsDao.readReviewStatus(listAnimals);
+	}
+	
+	public List<AdoptionRecords> readMyAdoptionRecords(Integer memberId){
+		return adoptionRecordsDao.readMyAdoptionRecords(memberId);
+	}
+
+	public List<AdoptionRecords> readAdoptionRecords2(String string1, String string2, String orderBy){
+		return adoptionRecordsDao.readAdoptionRecords2(string1, string2, orderBy);
+	}
+	
+	@Override
+	public AdoptionRecords update(AdoptionRecords entity) {
+		return adoptionRecordsDao.update(entity);
 	}
 
 }
