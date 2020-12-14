@@ -17,7 +17,7 @@ public class PaymentCall {
 		obj.setTotalAmount(total);
 		obj.setTradeDesc("test Description");
 		obj.setItemName(productName);
-		obj.setReturnURL("https://f9bf69860689.ngrok.io/team6/TestApi");
+		obj.setReturnURL("https://2efacc701f54.ngrok.io/team6/TestApi");
 		obj.setClientBackURL("http://localhost:8080/team6/goOrderSuccessPage");
 		obj.setNeedExtraPaidInfo("Y");
 		obj.setStoreExpireDate("3");
