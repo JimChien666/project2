@@ -1,6 +1,7 @@
 package com.iii.eeit124.article.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,11 @@ public class MemberOptionServiceImpl implements MemberOptionService{
 	@Override
 	public List<MemberOption> getVoteResult(Integer fid) {
 		return memberOptionDAO.getVoteResult(fid);
+	}
+
+	@Override
+	public Map<String, Integer> getVoteCount(Integer fid) {
+		return memberOptionDAO.getVoteCount(fid);
 	}
 	
 	

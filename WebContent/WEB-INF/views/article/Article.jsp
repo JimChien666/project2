@@ -136,41 +136,44 @@ button.greybtn:hover{
 					$.each(forum.options, function(k, options){
 						$(".modal-body").append("<p style='height:20px;'><input style='width:20px;height:20px;' type='radio'id=radio"+options.id+" name='vote' value="+options.id+"><label for=radio"+options.id+">"+options.content+"</label></p><br><br>")
 						})
-// 					$(".modal-body").append("<center><div style='height:20%; width: 20%' id='chart'></div></center>")
+					$(".modal-body").append("<div style='height:20%; width: 20%' id='chart'></div>")					
+// 					$(".modal-body").append("<center><div id='chart'></div></center>")
 // 					$(".modal-body").append("<center><div style='height:20%; width: 20%' id='chart'></div></center>")
 // 					$(".modal-body").append("<p style='background-color:#FFBB73;' id='chart'></p>")
 				}
 
+// .......................................................... 			
+					var forumId = ${forumID.id};
 
-			var forumId = ${forumID.id};
-			console.log("id:"+forumId);
-			$.ajax({
-				  url: "getVoteResult",
-				  size: {
-				        height: 200,
-				        width: 200
-				    },
-				  data: {
-					  forumId:forumId
-					  },
-				  success:function(result){
-					  console.log("result:"+result);
-					  console.log(result);
-						var chart = c3.generate({
-						    bindto: '#chart',		
-						    data: {
-						        type : 'donut',
-						        columns: [
-						            ['data1', 30],
-						            ['data2', 120],
-						        ]
-						    },
-						    donut: {
-						        title: "投票結果"
-						    }
-						});
-						}
+	$("#exampleModal").on("shown.bs.modal",function(e){
+		  console.log('轉場特效結束，已完全呈現時呼叫');
+		  $.ajax({
+			  url: "getVoteResult",
+			  size: {
+			        height: 200,
+			        width: 200
+			    },
+			  data: {
+				  forumId:forumId
+				  },
+			  success:function(result){
+				  console.log("result:"+result);
+				  console.log(result);
+					var chart = c3.generate({
+					    bindto: '#chart',		
+					    data: {
+					        type : 'donut',
+					        json: result
+					    },
+					    donut: {
+					        title: "投票結果"
+					    }
 					});
+					
+					}
+				});
+			
+		});
 					
 
 			
@@ -357,7 +360,6 @@ function asynRequest(id) {
 	});	
 
 
-
 	
 </script>
 </head>
@@ -422,7 +424,7 @@ function asynRequest(id) {
 		
 		
 		
-		<c:if test="${LoginOK.id!=null}">
+		<c:if test="${LoginOK.id!=null&&forumID.votetopic!=null}">
 			<ul style="list-style: none; margin: 0px 0;">
 				<li style="float: right; margin: 0px 10px 30px 10px;">
 					<button class="submit btn-style" style="margin-top: 10px;" id="toVoteBtn"
@@ -476,6 +478,8 @@ $('#deleteArticle').confirm({
        }        
     }		
 });
+
+
 </script>
 
 		<div id="articleShow" style="padding: 70px 0px 0px 0px;"></div>
@@ -493,7 +497,7 @@ $('#deleteArticle').confirm({
 	<jsp:include page="../fragments/allJs.jsp" />
 
 	<div id="voteSpace"></div>
-	<center><div  id='chart'></div></center>
+	
 	<script>
 	function voteComfirm() {
 		console.log("hihi")
@@ -542,6 +546,12 @@ $('#deleteArticle').confirm({
 
 
 
+
+
+
+
+
+	
 
 	</script>
 

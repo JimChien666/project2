@@ -83,6 +83,7 @@ public class ArticleController {
 	}
 	
 	
+	
 //	@GetMapping(value = "testArticle")
 //	public String testArticle() {
 //		return "article/Article";
@@ -243,9 +244,9 @@ public class ArticleController {
 	}
 	
 	@GetMapping(value = "/getVoteResult")
-	public @ResponseBody List<MemberOption> getVoteResult(@RequestParam Integer forumId){
-		List<MemberOption> list = memberOptionService.getVoteResult(forumId);		
-		return list;		
+	public @ResponseBody Map<String, Integer> getVoteResult(@RequestParam Integer forumId){
+		Map<String, Integer> voteCount = memberOptionService.getVoteCount(forumId);
+		return voteCount;		
 	}
 	
 	@GetMapping(value = "/voteConfirm")
