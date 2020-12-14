@@ -3195,7 +3195,7 @@ input.cart-plus-minus-box {
     cursor: pointer;
     font-size: 14px;
     height: 40px;
-    min-width: 200px;
+    min-width: 100px;
     padding: 0 40px 0 10px;
     text-transform: capitalize;
     width: inherit;

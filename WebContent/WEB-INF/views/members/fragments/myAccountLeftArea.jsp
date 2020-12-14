@@ -40,6 +40,16 @@
 			<div class="shop-list-style mt-20">
 				<ul>
 					<li><a href="<c:url value='/product/goLikeProductPage' />">商品最愛</a></li>
+					<li><a href="<c:url value='/product/goMyProductPage' />">我的商品</a></li>				
+				</ul>
+			</div>
+		</div>
+		<div class="shop-widget mt-50">
+			<h4 class="shop-sidebar-title">討論區管理</h4>
+			<div class="shop-list-style mt-20">
+				<ul>
+					<li><a href="<c:url value='/member/myArticle' />">追蹤文章</a></li>
+					<li><a href="#">我的文章</a></li>
 				</ul>
 			</div>
 		</div>

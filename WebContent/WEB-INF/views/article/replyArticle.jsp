@@ -25,7 +25,7 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
+<!-- <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script> -->
 
 <meta charset="UTF-8">
 <meta name="viewport"
@@ -46,6 +46,7 @@ h1 {
 </style>
 </head>
 <body>
+<script src="<c:url value='/assets/javascripts/ckeditor/ckeditor.js' />"></script>
 
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
@@ -90,7 +91,7 @@ h1 {
 		<br>
 回覆內容:<form:textarea name="content" id="editor" path="content" />
 		<br>
-		<form:hidden value="1" path="voteid" />
+<%-- 		<form:hidden value="1" path="voteid" /> --%>
 <%-- 		<form:hidden value="${article.getId()}" path="aricle.id" /> --%>
 <%-- 		<form:hidden value="${forum.getArticle().getId()}" path="forums.aricle.id" /> --%>
 <%--        <input type="hidden" name="id" value="${forums.getArticle().getId()}"> --%>
@@ -98,11 +99,7 @@ h1 {
                                 
 		<form:button value="submit" type="submit">送出</form:button>
 	<script>
-        ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+	CKEDITOR.replace( "editor", {});
     </script>
 	</form:form>
 		

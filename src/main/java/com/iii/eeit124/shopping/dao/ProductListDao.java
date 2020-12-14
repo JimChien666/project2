@@ -35,4 +35,6 @@ public interface ProductListDao {
 	List<FollowProducts> getLikeProduct(Integer memberId);
 
 	List<Products> getLikeProductList(Integer memberId);
+
+
 }

@@ -23,6 +23,8 @@ public interface CreateProductDao {
 
 	Products insertProduct(Products prducts);
 
-	List<Products> selectById(Integer id);
+	Products selectById(Integer id);
+	
+	Products updateProduct(Products products);
 }
 

@@ -71,6 +71,16 @@ public class Comments {
 		return member;
 	}
 
+	@Transient
+	public Integer getForumOwnerFileId() {
+		return this.member.getFileId();
+	}
+	
+	@Transient
+	public String getMemberName() {
+		return this.member.getName();
+	}
+	
 	public void setMember(Members member) {
 		this.member = member;
 	}

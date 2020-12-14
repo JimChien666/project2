@@ -17,17 +17,21 @@ import com.iii.eeit124.entity.ProductFiles;
 @Repository
 public class ProductFilesDaoImpl implements ProductFilesDao {
 	@Autowired
-	SessionFactory sessionFactory;
-	
+	SessionFactory sessionFactory;	
 	
 	@Override
 	public ProductFiles  getProductFiles(Integer Id) {
 		Query<ProductFiles> query = sessionFactory.getCurrentSession().createQuery(" from ProductFiles where ID = ?0", ProductFiles.class);
-		query.setParameter(0, Id);
-		
+		query.setParameter(0, Id);		
 		 ProductFiles productFiles = query.uniqueResult();
-
 		return productFiles;		
+	}
+	@Override
+	public List<ProductFiles>  getProductFilesList(Integer Id) {
+		Query<ProductFiles> query = sessionFactory.getCurrentSession().createQuery(" from ProductFiles where product_id = ?0", ProductFiles.class);
+		query.setParameter(0, Id);		
+		List<ProductFiles> productFilesList = query.getResultList();
+		return productFilesList;		
 	}
 
 	

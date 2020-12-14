@@ -218,7 +218,7 @@ function goBuyCountPage(){
 			'<div class="single-count mb-30 text-center">'+
 				'<span>平均訂單金額</span>'	
 				if(${dataPerMonth.count}!=0){
-					content+='<h2 class="count" id="avgCost">${dataPerMonth.sum/dataPerMonth.count}</h2>';
+					content+='<h2 class="count" id="avgCost">${dataPerMonth.avg}</h2>';
 				}else{
 					content+='<h2 class="count" id="avgCost">0</h2>';
 				}
@@ -236,6 +236,7 @@ function goBuyCountPage(){
 	
 }
 </script>
+
 </head>
 <body>
 	<jsp:include page="../fragments/headerArea.jsp" />
@@ -290,7 +291,7 @@ function goBuyCountPage(){
 									<div class="single-count mb-30 text-center">
 										<span>平均訂單金額</span>
 										<c:if test="${dataPerMonth.count!=0}">
-											<h2 class="count" id="avgCost">${dataPerMonth.sum/dataPerMonth.count}</h2>
+											<h2 class="count" id="avgCost">${dataPerMonth.avg}</h2>
 										</c:if>
 										<c:if test="${dataPerMonth.count==0}">
 											<h2 class="count" id="avgCost">0</h2>

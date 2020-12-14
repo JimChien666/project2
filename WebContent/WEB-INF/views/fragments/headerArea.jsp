@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <header class="header-area">
+<script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />" ></script>
 	<div class="header-bottom transparent-bar">
 		<div class="container">
 			<div class="row">
@@ -16,7 +17,9 @@
 					<div class="main-menu text-center">
 						<nav>
 							<ul>
-								<li><a href="<c:url value='/' />" style="font-size: 22px;">首頁</a>
+								<li class="mega-menu-position" id="homeLi"><a href="<c:url value='/' />" style="font-size: 22px;"><img
+										src="<c:url value='/images/home.svg' />" id="homeIcon"
+										style="height: 35px; width: 35px;">首頁</a>
 									<!-- <ul class="submenu">
                                                 <li>
                                                     <a href="index.html">home version 1</a>
@@ -29,16 +32,21 @@
 									href="<c:url value='/adopt' />" style="font-size: 22px;"><img
 										src="<c:url value='/images/cat.png' />" id="adoptIcon"
 										style="height: 35px; width: 35px;">領養</a></li>
-								<li class="mega-menu-position"><a
-									href="<c:url value='/product/ProductList' />"
-									style="font-size: 22px;">購物</a>
-									<ul class="mega-menu" id='ShoppingOptionsArea'>
 
-									</ul></li>
 
-								<li><a href="<c:url value='/backArticle' />" style="font-size: 22px;">討論區</a>
+								<li class="mega-menu-position" id="shopLi"><a
+									href="<c:url value='/product/ProductList' />" style="font-size: 22px;">
+									<img src="<c:url value='/images/shop.png' />" id="shopIcon" style="height:35px;width:35px;"> 購物</a>
+									<ul class="mega-menu" id='ShoppingOptionsArea'>  
+									</ul>
+								</li>
+								<li class="mega-menu-position" id="articleLi"><a href="<c:url value='/backArticle' />" style="font-size: 22px;"><img
+										src="<c:url value='/images/notepad.svg' />" id="articleIcon"
+										style="height: 35px; width: 35px;">討論區</a>
 									</li>
-								<li><a href="<c:url value='/activitys/list' />" style="font-size: 22px;">活動</a>
+								<li class="mega-menu-position" id="activityLi"><a href="<c:url value='/activitys/list' />" style="font-size: 22px;"><img
+										src="<c:url value='/images/activism.svg' />" id="activityIcon"
+										style="height: 35px; width: 35px;">活動</a>
 									</li>
 
 							</ul>
@@ -226,6 +234,39 @@
 	$("#adoptLi").mouseout(function() {
 		$("#adoptIcon").attr("src", "<c:url value='/images/cat.png' />");
 	})
+
+	
+	$("#shopLi").mouseover(function(){
+		$("#shopIcon").attr("src", "<c:url value='/images/shop_brown.png' />");
+		})
+	
+	$("#shopLi").mouseout(function(){
+		$("#shopIcon").attr("src", "<c:url value='/images/shop.png' />");
+		})
+		
+	$("#articleLi").mouseover(function(){
+		$("#articleIcon").attr("src", "<c:url value='/images/notepadCHG.svg' />");
+		})
+	
+	$("#articleLi").mouseout(function(){
+		$("#articleIcon").attr("src", "<c:url value='/images/notepad.svg' />");
+		})
+		
+	$("#activityLi").mouseover(function(){
+		$("#activityIcon").attr("src", "<c:url value='/images/activismCHG.svg' />");
+		})
+	
+	$("#activityLi").mouseout(function(){
+		$("#activityIcon").attr("src", "<c:url value='/images/activism.svg' />");
+		})
+	$("#homeLi").mouseover(function(){
+		$("#homeIcon").attr("src", "<c:url value='/images/homeCHG.svg' />");
+		})
+	
+	$("#homeLi").mouseout(function(){
+		$("#homeIcon").attr("src", "<c:url value='/images/home.svg' />");
+		})
+
 </script>
 <script async defer crossorigin="anonymous"
 	src="https://connect.facebook.net/en_US/sdk.js"></script>

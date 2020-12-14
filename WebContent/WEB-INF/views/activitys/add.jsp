@@ -24,6 +24,7 @@ table td {
 </style>
 <jsp:include page="../fragments/links.jsp" />
 </head>
+
 <body>
 <jsp:include page="../fragments/headerArea.jsp" />
 <div class="breadcrumb-area pt-95 pb-95 bg-img"
@@ -86,7 +87,7 @@ table td {
                                         <div class="col-lg-7">
                                         活動圖片：
                                             <div class="contact-form-style mb-20">
-                                                <form:input path="pic" type="file" /><br /><form:errors path="pic" cssClass="error" />
+                                                <form:input path="pic" type="file" id="file"/><img id="demo"  /><br /><form:errors path="pic" cssClass="error" />
                                             </div>
                                         </div>
                                         
@@ -112,5 +113,18 @@ table td {
 	
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
+	<script>
+
+	$('#file').change(function() {
+		  var file = $('#file')[0].files[0];
+		  var reader = new FileReader;
+		  reader.onload = function(e) {
+		    $('#demo').attr('src', e.target.result);
+		    $('#demo').attr('style', "width: 420px; height: 300px;");		    
+		  };
+		  reader.readAsDataURL(file);
+		});
+
+</script>
 </body>
 </html>

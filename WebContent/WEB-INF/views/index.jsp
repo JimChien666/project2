@@ -42,7 +42,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-7 col-12">
                                 <div class="slider-content slider-animated-1 pt-114">
-                                    <h3 class="animated">We keep pets for pleasure.</h3>
+                                    <h3 class="animated"></h3>
                                     <h1 class="animated">Food & Vitamins <br>For all Pets</h1>
                                     <div class="slider-btn">
                                         <a class="animated" href="product-details.html">SHOP NOW</a>
@@ -131,7 +131,7 @@
                                 <img src="assets/img/product/product-1.jpg" alt="">
                             </div>
                             <div class="single-food-content">
-                                <h3>狗勾討論區</h3>
+                                <h3 style="font-family: Microsoft JhengHei;">狗勾討論區</h3>
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                                 <img src="assets/img/product/product-2.jpg" alt="">
                             </div>
                             <div class="single-food-content">
-                                <h3>貓咪討論區</h3>
+                                <h3 style="font-family: Microsoft JhengHei;">貓咪討論區</h3>
                             </div>
                         </div>
                     </div>

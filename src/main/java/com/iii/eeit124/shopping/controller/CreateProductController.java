@@ -122,6 +122,7 @@ public class CreateProductController {
 		}
 		
 		if (errors!=null&&!errors.isEmpty()) {
+			System.out.println(errors);
 			return "products/CreateProduct";
 		}
 		
@@ -180,6 +181,7 @@ public class CreateProductController {
 
 
 			}catch (IOException e) {
+				e.printStackTrace();
 				errors.put("errorAccountDup", "新增此筆資料有誤(RegisterServlet)");
 				return "products/CreateProduct";
 			}
@@ -223,6 +225,7 @@ public class CreateProductController {
 //				   Files file = new Files("image", blob);
 //			    product.setCoverImg(blob);
 			}catch (IOException e) {
+				e.printStackTrace();
 				errors.put("errorAccountDup", "新增此筆資料有誤(RegisterServlet)");
 				return "products/CreateProduct";
 			}	

@@ -15,3 +15,4 @@
         <script src="<c:url value='/assets/js/plugins.js' />"></script>
         <script src="<c:url value='/assets/js/main.js' />"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="<c:url value='/assets/js/jquery.ns-autogrow.min.js' />"></script>

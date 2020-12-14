@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
+<title>購物商城首頁</title>
 <style>
 th, td{
 width: 200px;
@@ -12,7 +13,6 @@ align: left;
 .counter li input{font-size:20px; width:100%; height:100%; outline:none; -webkit-appearance:none; background:none; margin:0; padding:0; border: 1px solid transparent; border-radius: 0;}
 #countnum{ border-left:hidden; border-right:hidden; color:#666}
 ul,li{margin:0; padding:0; display:inline;}
-
 .discountTag{
       background-color: red;
       color: white;
@@ -22,7 +22,6 @@ ul,li{margin:0; padding:0; display:inline;}
       padding: 2px 20px;
       transform: rotate(-45deg); 
 }
-
 .btncls{
 	background-color: #7E4C4F; /* Green */
     border: none;
@@ -44,7 +43,6 @@ button.btncls:hover{
 <script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />"></script>
 
 <script>
-
 var pageNo = 0;
 var totalPage  = 0;
 // 本網頁一開始時先向後端發出非同步請求：/product/pagingProducts.json，要求第一頁
@@ -58,7 +56,6 @@ window.onload = function() {
 	var xhr = new XMLHttpRequest();
 	var recordsPerPage = document.getElementById("recordsPerPage").value;
 	xhr.open("GET", "<c:url value='/product/pagingProducts.json' />" + "?recordsPerPage="+recordsPerPage, true);
-
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 ) {
@@ -73,7 +70,6 @@ window.onload = function() {
 	}
 	addToCart(0);
 }
-
 function adder(productId, quantity){
 	var count=document.getElementById("countnum"+ productId).innerHTML;
 	if(count>=quantity){
@@ -94,8 +90,6 @@ function minuser(productId, quantity){
 	}	
 	document.getElementById("countnum"+productId).innerHTML=count;
 }
-
-
 //從資料庫 [{id:1, name:"狗"}, {id:2, name:"貓"}]
 function getCategories(){
 	var xhr = new XMLHttpRequest();
@@ -117,7 +111,6 @@ function getCategories(){
 		}
 	}
 }
-
 function getColors(){
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "<c:url value='/product/getColors' />", true);
@@ -137,8 +130,6 @@ function getColors(){
 		}
 	}
 }
-
-
 function getAnimalTypes(){
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "<c:url value='/product/getAnimalTypes' />", true);
@@ -158,7 +149,6 @@ function getAnimalTypes(){
 		}
 	}
 }
-
 function getPage(){
 			var content = "商品分頁：<select id='recordsPerPage' name='recordsPerPage' onchange=getData() >";
 			for(var i=3; i <= 9; i+=3){
@@ -169,23 +159,19 @@ function getPage(){
 			divs.innerHTML += content;
 			/* divs.innerHTML += "<br/>"; */
 }
-
 function getOrderBy(){
 	var content = "商品排序：<select id='orderBy' name='orderBy' onchange=getData() >";
-
 	content += "<option value=0>" + "以顏色排序 " + "</option>";
 	content += "<option value=1>" + "以名稱小至大排序 ↑" + "</option>";
 	content += "<option value=2>" + "以價格小至大排序 ↑" + "</option>";
 	content += "<option value=3>" + "以名稱大至小排序 ↓" + "</option>";
 	content += "<option value=4>" + "以價格大至小排序 ↓" + "</option>";
 	content += "<option value=5>" + "以上架時間排序 ↓" + "</option>";
-
 	content += "</select>";
 	var divs = document.getElementById("OrderBySelectBar");
 	divs.innerHTML += content;
 	/* divs.innerHTML += "<br/>"; */
 }
-
 function getData(){
 	var animalTypeId = document.getElementById("animalTypeId").value;
 	var colorId = document.getElementById("colorId").value;
@@ -211,11 +197,6 @@ function getData(){
 	}
 	
 }
-
-
-
-
-
 //若productId為零,後端會直接回傳購物車列表
 function addToCart(productId){
 	
@@ -246,8 +227,6 @@ function addToCart(productId){
 	
 	}
 }
-
-
 // 當使用者按下『第一頁』、『前一頁』、『下一頁』、『最末頁』的連結時，由本方法發出非同步請求。
 function asynRequest(id) {
 	var xhr = new XMLHttpRequest();
@@ -262,6 +241,7 @@ function asynRequest(id) {
 	    } else if (id == "last") {
 	    	no = totalPage;	    	
 	    }
+	    console.log(no);
 	    var animalTypeId = document.getElementById("animalTypeId").value;
 		var colorId = document.getElementById("colorId").value;
 		var categoryId = document.getElementById("categoryId").value;
@@ -273,7 +253,6 @@ function asynRequest(id) {
 	    // 查詢字串包含1.即將要讀取的頁數(pageNo), 2.總共有幾頁(totalPage)
 	    // 注意，查詢字串的前面有問號
 	    queryString = "?pageNo=" + no + "&totalPage=" + totalPage + condiction;
-
 		xhr.open("GET", "<c:url value='/product/pagingProducts.json'/>" + queryString , true);
 		xhr.send();
 		xhr.onreadystatechange = function() {
@@ -297,7 +276,6 @@ function displayPageProducts(responseData){
 	var imageURL = "<c:url value='/product/getProductImage' />";
 	var productsInfo = "<c:url value='/product/productsInfo/productsPath' />";
 	var salesInfo = "<c:url value='/product/salesInfo/salesInfoPath' />";
-
 	
 	document.getElementById("showRecordCounts").innerHTML = recordCounts;
 	for(var i=0; i < products.length; i++){
@@ -317,15 +295,15 @@ function displayPageProducts(responseData){
 		content += '<img src="' + imageURL + '?productId=' + products[i].id +'" alt="">';
 		content += '</a>';
 		content += '<div class="product-action">';
-		content += '<a title="Quick View" href="'+productsInfo.replace("productsPath",products[i].id)+'">';
+		content += '<a title="查看商品詳情" href="'+productsInfo.replace("productsPath",products[i].id)+'">';
 		content += ' <i class="ti-plus"></i>';
 		content += '</a>';
-		content += ' <a title="Add To Cart" onclick="addToCart(' + products[i].id + ')"  href="#">';
+		content += ' <a title="加入購物車" onclick="addToCart(' + products[i].id + ')"  href="#">';
 		content += '   <i class="ti-shopping-cart"></i>';
 		content += ' </a>';
 		content += '</div>';
 		content += '<div class="product-action-wishlist">';
-		content += '<a title="Wishlist" id="like'+products[i].id+'" href="#" onclick=like('+products[i].id+')>';
+		content += '<a title="加到我的最愛" id="like'+products[i].id+'" href="#" onclick=like('+products[i].id+')>';
 		var isLike = false;
 		
 		for (var j = 0;j<likeList.length;j++){
@@ -344,7 +322,7 @@ function displayPageProducts(responseData){
 					content += '</div>';
 		content += '</div>';
 		content += '<div class="product-action-wishlist">';
-		content += '<a title="Wishlist" href="#">';
+		content += '<a title="加到我的最愛" href="#">';
 		content += '</a>';
 		content += '</div>';
 		content += '</div>';
@@ -362,19 +340,18 @@ function displayPageProducts(responseData){
 		content += '<div class="product-price">';
 		content += '<span class="new">$'+products[i].discountPrice+' </span>';
 		content += '</div>';
-		content += '<p>' + products[i].description.substring(0, 200) + '...</p>';
+		content += '<p>' + products[i].description.substring(0, 150) + '...</p>';
 		content += '<div class="product-list-action">';
 		content += '<div class="product-list-action-left">';
-		content += '<a class="addtocart-btn" title="Add to cart" onclick="addToCart(' + products[i].id + ')" style="color: white; cursor: pointer;"><i class="ion-bag"></i> Add to cart</a>';
+		content += '<a class="addtocart-btn" title="加入購物車" onclick="addToCart(' + products[i].id + ')" style="color: white; cursor: pointer;"><i class="ion-bag"></i>加入購物車</a>';
 		content += '</div>';
 		content += '<div class="product-list-action-right">';
-		content += '<a title="Quick View" href="'+productsInfo.replace("productsPath",products[i].id)+'"><i class="ti-plus"></i></a>';
+		content += '<a title="查看商品詳情" href="'+productsInfo.replace("productsPath",products[i].id)+'"><i class="ti-plus"></i></a>';
 		content += '</div>';
 		content += '</div>';
 		content += '</div>';
 		content += '</div>';
 	}
-
 	
 	document.getElementById("ProductListBox").innerHTML = content;
 	
@@ -424,7 +401,6 @@ function displayPageProducts(responseData){
 		}
 	}	
 }
-
 function like(productId){
 	if (${empty LoginOK}){
 		alert("請登入");
@@ -448,12 +424,8 @@ function like(productId){
 		}
 	}
 }
-
 function goToCartPage(){
 	window.location.href = "<c:url value='/cart/CartList' />";
-}
-function createProduct(){
-	window.location.href = "<c:url value='/product/CreateProduct' />";
 }
 </script>
 <jsp:include page="../fragments/links.jsp" />
@@ -533,7 +505,6 @@ button.btncls:hover{
 				<div class="col-lg-3">
                         <div class="shop-sidebar">
                             <div class="shop-widget">
-                                <button  class="btncls" type="submit" onclick="createProduct()" >新增商品</button>
                             
                             	<h4 class="shop-sidebar-title">搜尋商品</h4>
                                 <div class="shop-search mt-25 mb-50" >                               

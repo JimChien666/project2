@@ -13,45 +13,65 @@
 <!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script> -->
 
 
-
 <link rel="stylesheet" href="<c:url value='/css/Animal.css' />">
 <script src="js/animal.js" type="text/javascript" charset="UTF-8"></script>
 <jsp:include page="../fragments/links.jsp" />
 
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<!-- Load c3.css -->
 
 
 <html>
 <head>
-<style type="text/css">
-.fixed {
-	position: fixed;
-	bottom: 3%;
-	right: 2%;
-}
+<style>
 
-.fixed0 {
-	position: fixed;
-	bottom: 15%;
-	right: 2%;
+.btncls{
+	background-color: #7E4C4F; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    cursor: pointer;
 }
-
-/*  table, th, td {  */
-/*  	border: 1px solid black;  */
-/*  }  */
-/* td { */
-/* 	border: 1px solid black; */
-/* } */
-/* table{ */
-/* 	table-dark */
-/* 	table */
-/* } */
+button.btncls:hover{
+	background-color: #000000;
+}
+.greybtn{
+	background-color: #8A9199; /* Grey */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+button.greybtn:hover{
+	background-color: #000000;
+}
+.autoModal.modal .modal-body{
+    max-height: 100%;
+}
+img{
+width: 50%;
+}
 </style>
 <meta charset="UTF-8">
 <title><c:out value="${thisArticle.title}" /></title>
 <%-- <title>ID:<c:out value="${articleId}" />/<c:out	value="${thisArticle.title}" /></title> --%>
-</head>
-
 <script>
 	// $(document).ready(function(){
 	// 	console.log("hi")
@@ -73,7 +93,7 @@
 
 // 	var article = $.ajax({
 	
-	$(function() {	
+	$(function() {
 	$.ajax({
 		type : "GET",
 		url : "<c:url value='article' />?articleId=${articleId}",
@@ -81,7 +101,7 @@
 			showPage(mapData)
 		}
 	});
-
+	
 	function showPage(mapData) {
 		var $article = $("#articleShow")
 		// 	var mapData = JSON.parse(responseData);
@@ -102,17 +122,76 @@
 // 		$article.append("<table style='width: 100%;' class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
 // 		console.log(forumList)
 		$.each(forumList, function(i, forum) {
-			var imgTag = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + forum.forumOwnerFileId + `' />" width="50" height="50" class="d-inline-block align-top" alt="" style="border-radius: 50%; border: 2px white solid;">`
+			console.log(forum);
+			if(forum.votetopic != null){
+// 				var x = ""
+// 				for (i = 0; i < forum.options.length; i++) {
+// 						  x += forum.options[i].content	+"/";
+// 						}
+// 					console.log(String(x))
+// 					console.log(forum.id)
+// 					forum.id
+				var voteBlock = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog modal-xl" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">`+forum.votetopic+`</h5><button type="button" class="close" data-dismiss="modal"aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="greybtn"data-dismiss="modal">取消</button><button type="button" id="voteComfirmBTN" value="`+forum.id+`" data-dismiss="modal" class="btncls" onclick="voteComfirm()">送出</button></div></div></div></div>`
+					$("#voteSpace").append(voteBlock);
+// 				var voteFoot = ``
+				
+// 					$("#voteSpace").append(voteFoot);
+						$(".modal-body").empty();
+					$.each(forum.options, function(k, options){
+						$(".modal-body").append("<p style='height:20px;'><input style='width:20px;height:20px;' type='radio'id=radio"+options.id+" name='vote' value="+options.id+"><label for=radio"+options.id+">"+options.content+"</label></p><br><br>")
+						})
+					$(".modal-body").append("<div style='height:20%; width: 20%' id='chart'></div>")					
+// 					$(".modal-body").append("<center><div id='chart'></div></center>")
+// 					$(".modal-body").append("<center><div style='height:20%; width: 20%' id='chart'></div></center>")
+// 					$(".modal-body").append("<p style='background-color:#FFBB73;' id='chart'></p>")
+				}
+
+// .......................................................... 			
+					var forumId = ${forumID.id};
+
+	$("#exampleModal").on("shown.bs.modal",function(e){
+		  console.log('轉場特效結束，已完全呈現時呼叫');
+		  $.ajax({
+			  url: "getVoteResult",
+			  size: {
+			        height: 200,
+			        width: 200
+			    },
+			  data: {
+				  forumId:forumId
+				  },
+			  success:function(result){
+				  console.log("result:"+result);
+				  console.log(result);
+					var chart = c3.generate({
+					    bindto: '#chart',		
+					    data: {
+					        type : 'donut',
+					        json: result
+					    },
+					    donut: {
+					        title: "投票結果"
+					    }
+					});
+					
+					}
+				});
+			
+		});
+					
+
+			
+				
+			var imgTag = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + forum.forumOwnerFileId + `' />" class="d-inline-block align-top" alt="" style="width:50px; height:50px; border-radius: 50%; border: 2px white solid;">`
 // 			$article.append("<tr><td><div style='width:60px; background-color: coral; box-shadow:1px 3px 5px 2px #cccccc;'>"+ imgTag + forum.memberid + "</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
-			$article.append("<tr><td style='padding:0px 0px 0px 0px;'><div style='width:60px; margin:0px 10px 10px 10px;valign=top'>"+ imgTag +"</div></td><td id="+forum.id+"><div style='margin:10px 10px 10px 10px; padding:10px 20px 10px 30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "</div></td></tr>")
+			$article.append("<tr><td><div style='margin:0px 10px 10px 10px;valign=top'>"+ imgTag +"</div></td><td id="+forum.id+"><div style=' width:100%;margin:10px 10px 10px 10px; padding:10px 20px 10px 30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "</div></td></tr>")
 // 			$article.append("<tr><td><div style='width:60px;'>"+ imgTag +"</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "</div></td></tr>")
 			$article.append("</table>");
 //--------------------------------------
 			var forumId  = forum.id
 			var $forums = $("#"+forum.id)
 // 	 		console.log("forumId: "+forumId)
-	 		
-	 		
+	 			 		
 									$.ajax({
 										type:'GET',
 										url:'showComments?forumsId='+forumId,
@@ -122,8 +201,11 @@
 										$.each(comments, function(j, order){
 											if(order.forumid===forumId){
 // 												console.log("order.forumid:"+order.forumid);
-// 												console.log("forumId:"+forumId);								
-												$forums.append('<div style="margin: 0px 20px 10px 10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc;">'+order.memberid+':'+order.comment+'</div>')
+// 												console.log("forumId:"+forumId);	
+<!--fuck-->
+												
+												var imgTag2 = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + order.forumOwnerFileId + `' />" class="d-inline-block align-top" alt="" style="width:50px; height:50px; border-radius: 50%;">`
+												$forums.append('<div style="margin: 0px 20px 10px 10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc; line-height: 50px;">'+imgTag2+'<p>'+order.memberName+":"+order.comment+'</p></div>')
 // 												$forums.append('<div style="width:1050px; margin: 0px 20px 10px 10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc;">'+order.memberid+':'+order.comment+'</div>')
 // 										 		console.log("$forums: "+ $forums)												
 												}
@@ -131,23 +213,33 @@
 
 										const login = `<a href="<c:url value='/member/login' />">`
 										if(${empty LoginOK}){
-											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
+											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
+// 											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 										}else{											
-											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
+											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<br/><textarea style='overflow:hidden;'  type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></textarea></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
 											}
 
-
-											$("#reply"+forum.id).keypress(function (e) {
+// 											$('.auto').autoboxBind();
+											$('textarea').autogrow();
+											$("#reply"+forum.id).keydown(function (e) {
 												// $("input").keypress(function (e) {
 // 													console.log("hi hi");
 // 													console.log(forumId);
 // 													var id = this.forumId;
-													var comment = this.value;
+// 													var comment = this.value;
+													var comment = $(this).val().replace(/\n/g, "<br />")
+													var commentNoBr = comment.replace(/<br \/>/g,"")													
+// 															.val().replace(/\n/g, "<br />")
 // 													console.log(id);
 // 													console.log(comment);
-												if (e.keyCode == 13&&comment!="") {
+												if (e.shiftKey && e.keyCode == 13) {
+													var event = $(this).val();
+// 											        $(this).val(event + '/n' );
+// 											        $(this).val(event + '<br>');
+												}												
+												else if (e.keyCode == 13 && commentNoBr!="") {
 												$.ajax({
 												  url: "saveComments",
 												  data: {
@@ -157,11 +249,10 @@
 												  success:function(){
 //														  reset();
 														showPage(mapData);
-
 //														  var $comments = $('.${Forums.id}');
 //															console.log($comments);
 
-												  $("input").prop("value","");
+												  $("textarea").prop("value","");
 												}
 												//  dataType: dataType
 												});
@@ -273,20 +364,14 @@ function asynRequest(id) {
 		
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 	});	
+
+
+	
 </script>
+</head>
+
+
 
 
 
@@ -300,7 +385,9 @@ function asynRequest(id) {
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
 		<div class="container">
 			<div class="breadcrumb-content text-center">
-				<h2><c:out value="${thisArticle.title}" /></h2>
+				<h2>
+					<c:out value="${thisArticle.title}" />
+				</h2>
 				<ul>
 					<li><a href="<c:url value='/'/>">首頁</a></li>
 					<li class="active"><c:out value="${thisArticle.title}" /></li>
@@ -317,10 +404,10 @@ function asynRequest(id) {
 
 
 
-<%-- 	<jsp:include page="../public/top.jsp" /> --%>
+	<%-- 	<jsp:include page="../public/top.jsp" /> --%>
 
-<%-- 		<h3>${article.getTitle()}</h3> --%>
-	<div class="container" style='box-shadow:1px 3px 5px 2px #cccccc;'>
+	<%-- 		<h3>${article.getTitle()}</h3> --%>
+	<div class="container" style='box-shadow: 1px 3px 5px 2px #cccccc;'>
 		<ul style="list-style: none; margin: 0px 0;">
 			<li style="float: left; margin: 0px 10px 30px 10px;"><a
 				href="<c:url value='/backArticle' />">
@@ -330,8 +417,8 @@ function asynRequest(id) {
 					</button>
 			</a></li>
 		</ul>
-		
-		
+
+
 		<ul style="list-style: none; margin: 0px 0;">
 			<li style="float: right; margin: 0px 10px 30px 10px;"><a
 				href="<c:url value='/replyArticle/${articleId}' />">
@@ -343,58 +430,184 @@ function asynRequest(id) {
 		</ul>
 		
 		
-<c:if test="${LoginOK.id==thisArticle.memberid}">	
-		<ul style="list-style: none; margin: 0px 0;">
-			<li style="float: right; margin: 0px 10px 30px 10px;"><a
-				href="<c:url value='/updateArticle?articleId=${articleId}' />">
-					<button class="submit btn-style" type="submit"
-						style="margin-top: 10px;">
-						<span style="color: white; margin-top: 0px;">修改</span>
-					</button>
-			</a></li>
-		</ul>		
-		<ul style="list-style: none; margin: 0px 0;">
-			<li style="float: right; margin: 0px 10px 30px 10px;"><a
-				href="<c:url value='/deleteArticle?articleId=${articleId}' />">
-					<button class="submit btn-style" type="submit"
-						style="margin-top: 10px;">
-						<span style="color: white; margin-top: 0px;">刪除</span>
-					</button>
-			</a></li>
-		</ul>		
-</c:if>		
 		
-		
-			<div id="articleShow" style="padding:70px 0px 0px 0px;">
-			</div>
-		</div>
-
-		<!-- <table id='articleShow'> -->
-		<!-- <thead> -->
-		<!-- 	<th>id</th> -->
-		<!-- 	<th>content</th> -->
-		<!-- </thead> -->
-		<!-- <tfoot> -->
-		<!-- 	<th>id</th> -->
-		<!-- 	<th>content</th> -->
-		<!-- </tfoot> -->
-		<!-- </table> -->
+		<c:if test="${LoginOK.id!=null&&forumID.votetopic!=null}">
+			<ul style="list-style: none; margin: 0px 0;">
+				<li style="float: right; margin: 0px 10px 30px 10px;">
+					<button class="submit btn-style" style="margin-top: 10px;" id="toVoteBtn"
+						data-toggle='modal' data-target="#exampleModal">
+						<span style="color: white; margin-top: 0px;">進行投票</span>
+					</button>
+				</li>
+			</ul>
+		</c:if>
 
 
-<!-- 		<div id='navigation' style='height: 60px;'></div> -->
+		<c:if test="${LoginOK.id==thisArticle.memberid}">
+			<ul style="list-style: none; margin: 0px 0;">
+				<li style="float: right; margin: 0px 10px 30px 10px;"><a
+					href="<c:url value='/updateArticle?articleId=${articleId}' />">
+						<button class="submit btn-style" type="submit"
+							style="margin-top: 10px;">
+							<span style="color: white; margin-top: 0px;">修改</span>
+						</button>
+				</a></li>
+			</ul>
+			<ul style="list-style: none; margin: 0px 0;">
+				<li style="float: right; margin: 0px 10px 30px 10px;">
+						<button class="submit btn-style" type="submit" id='deleteArticle'
+							style="margin-top: 10px;">
+							<span style="color: white; margin-top: 0px;">刪除</span>
+						</button>
+				</a></li>
+			</ul>
+
+		</c:if>
+<script>
+
+
+
+$("#deleteArticle").on("click",	function() {
+
+	swal({
+		title: "確認刪除文章?",
+		icon: "warning",
+		buttons: {
+			Btn: false,
+			cancel: { text: "取消", visible: true },
+			danger: { text: "刪除", visible: true }
+		},
+		dangerMode: true
+	}).then((value) => {
+		switch (value) {
+			case "danger":
+				swal("提示", "刪除", "success");
+				setTimeout(
+					function() {
+						window.location = "deleteArticle?articleId=" + ${articleId};  
+					}
+					, 2000
+				);
+
+				//				document.forms[0].action="DeleteAnimal.controller?animalId="+animalId;
+				//				document.forms[0].method="POST";
+				//				document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
+				break;
+		}
+	});
+				})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					
+</script>
+
+		<div id="articleShow" style="padding: 70px 0px 0px 0px;"></div>
+	</div>
+
 
 
 	<div class="pagination-style text-center mt-20">
-		<ul id = 'navigation'>
-<!-- 			<li><a href="#"><i class="icon-arrow-left"></i></a></li> -->
-<!-- 			<li><a href="#">1</a></li> -->
-<!-- 			<li><a href="#">2</a></li> -->
-<!-- 			<li><a class="active" href="#"><i class="icon-arrow-right"></i></a> -->
-<!-- 			</li> -->
+		<ul id='navigation'>
+
 		</ul>
 	</div>
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
+
+	<div id="voteSpace"></div>
+	
+	<script>
+	function voteComfirm() {
+		console.log("hihi")
+		var optionid = $('input[name="vote"]:checked').val();
+		var forumId = $("#voteComfirmBTN").attr("value");
+		console.log(forumId)
+		console.log(optionid)
+		if(typeof(optionid)!= "undefined"){
+
+		$.ajax({
+			  url: "voteConfirm",
+			  data: {
+				  optionid:optionid,
+				  forumId:forumId
+				  },
+			  success:function(result){
+				  console.log(result);
+
+					if (result) {						
+						swal({
+							  title: "完成!",
+							  icon: "success",
+							  button: "確認",
+							});
+					}else {						
+					swal({
+						  title: "投過了!",
+						  text: "你投過了唷!",
+						  icon: "error",
+						  button: "確認",
+						});	
+					}
+				  
+//					  reset();
+//		 			showPage(mapData);
+//					  var $comments = $('.${Forums.id}');
+//						console.log($comments);
+// 				console.log(optionid)
+// 				$('#toVoteBtn').attr('disabled', true);
+					}
+					//  dataType: dataType
+			});
+		}
+		console.log("byebye")		
+	}
+
+
+
+
+
+
+
+
+	
+
+	</script>
+
+
 </body>
 </html>

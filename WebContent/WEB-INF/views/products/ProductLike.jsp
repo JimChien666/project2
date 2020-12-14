@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>我的最愛</title>
 <jsp:include page="../fragments/links.jsp" />
 <script>
 window.onload = function() {
@@ -77,7 +77,7 @@ function displayProducts(responseData){
 }
 function removeLike(productId){
 	if (${empty LoginOK}){
-		alert("請登入");
+		swal("請登入");
 		window.location.href = "<c:url value='/member/login' />";
 	}
 	console.log(productId);
