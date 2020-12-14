@@ -94,15 +94,15 @@
 <div align='center'>
 		<h3>商品資訊</h3>
 		
-	<div style='position:absolute; top:430px;  right:150px; font-family:Microsoft JhengHei;'>	
-		<p style='font-family:cwtexhei; border-left:18px #ab7661 solid;'> ${ProductsInfo.name}</p>
+	<div style='position:absolute; top:440px;  right:150px; font-family:Microsoft JhengHei;'>	
+		<p style='font-family:cwtexhei; border-left:14px #ab7661 solid;'> ${ProductsInfo.name}</p>
 		<p style='color:#ab7661; font-size:22px;'><b> NT$${ProductsInfo.price}</b></p>
 		<button id='button1' class='btn btn-danger' onclick='addToCart(${ProductsInfo.id})'  style='background-color:#ab7661; width:200px;'>加入購物車</button>
 		<br/>
 	<!-- 	<a style='color:#ab7661;' href='http://tw.yahoo.com/' >♡加入追蹤清單</a> -->
 	</div>
 	
-	<div style='position:absolute; top:430px;  left:100px; '>	
+	<div style='position:absolute; top:440px;  left:100px; '>	
 		<c:forEach  items="${ProductsInfo.productFilesId}" var="contentFileId" varStatus="s">
 			<img  class='btnFollow${s.index}' style='height:120px; width:120px;' src='${pageContext.request.contextPath}/product/getProductFilesImage/?productFilesId=${contentFileId}'>
 			<br/>
