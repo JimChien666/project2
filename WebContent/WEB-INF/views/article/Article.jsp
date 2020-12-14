@@ -454,10 +454,8 @@ function asynRequest(id) {
 				</a></li>
 			</ul>
 			<ul style="list-style: none; margin: 0px 0;">
-				<li style="float: right; margin: 0px 10px 30px 10px;"><a
-					id='deleteArticle'
-					href="<c:url value='/deleteArticle?articleId=${articleId}' />">
-						<button class="submit btn-style" type="submit"
+				<li style="float: right; margin: 0px 10px 30px 10px;">
+						<button class="submit btn-style" type="submit" id='deleteArticle'
 							style="margin-top: 10px;">
 							<span style="color: white; margin-top: 0px;">刪除</span>
 						</button>
@@ -465,28 +463,76 @@ function asynRequest(id) {
 			</ul>
 
 		</c:if>
-		<script>
-$('#deleteArticle').confirm({
-	title: '提醒!',
-    content: "確定要刪除嗎?",
-    buttons: {
-        ok: {
-        	text:'確定',
-			action: function () {
-        	location.href = this.$target.attr('href');
-				}
-        },
-        close: {
-        	text:'取消',  			
-            //close
-//             action: function () {
-//                 $.alert('已取消');
-//             }
-       }        
-    }		
-});
+<script>
 
 
+
+$("#deleteArticle").on("click",	function() {
+
+	swal({
+		title: "確認刪除文章?",
+		icon: "warning",
+		buttons: {
+			Btn: false,
+			cancel: { text: "取消", visible: true },
+			danger: { text: "刪除", visible: true }
+		},
+		dangerMode: true
+	}).then((value) => {
+		switch (value) {
+			case "danger":
+				swal("提示", "刪除", "success");
+				setTimeout(
+					function() {
+						window.location = "deleteArticle?articleId=" + ${articleId};  
+					}
+					, 2000
+				);
+
+				//				document.forms[0].action="DeleteAnimal.controller?animalId="+animalId;
+				//				document.forms[0].method="POST";
+				//				document.forms[0].submit();//submit is not a function可能是因為有按鈕的name也叫submit
+				break;
+		}
+	});
+				})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					
 </script>
 
 		<div id="articleShow" style="padding: 70px 0px 0px 0px;"></div>
