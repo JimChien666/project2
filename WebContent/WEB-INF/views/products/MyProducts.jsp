@@ -394,8 +394,12 @@ function displayPageProducts(responseData){
 			content += '<span class="old">$'+products[i].price+'</span>';
 		}
 		content += '</div>';
-		content += ' <button  class="btncls" type="submit" onclick="updateProduct('+products[i].id+')" >修改</button>';
-		content += ' <button  class="btncls" type="submit" onclick="createProduct()" >刪除</button>';
+		content += '<div style="text-align:center;">';
+		content += ' <button  class="btncls"  type="submit" onclick="updateProduct('+products[i].id+')" >修改</button>';
+// 		按鈕隔開符號
+		content += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+		content += ' <button  class="btncls"  type="submit" onclick="deleteProduct('+products[i].id+')" >刪除</button>';
+		content += '</div>';
 		content += '</div>';
 		content += '<div class="product-list-content">';
 		content += '<h4><a href="'+productsInfo.replace("productsPath",products[i].id)+'">' + products[i].name + '</a></h4>';
@@ -498,6 +502,10 @@ function createProduct(){
 function updateProduct(productId){
 	var preUpdateProduct = "<c:url value='/product/preUpdateProduct/"+productId+"' />";
 	window.location.href = preUpdateProduct;
+}
+function deleteProduct(productId){
+	var preDeleteProduct = "<c:url value='/product/preDeleteProduct/"+productId+"' />";
+	window.location.href = preDeleteProduct;
 }
 </script>
 <jsp:include page="../fragments/links.jsp" />

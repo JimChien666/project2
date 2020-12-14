@@ -62,5 +62,10 @@ public class CreateProductServiceImpl implements CreateProductService {
 	public Products updateProduct(Products prducts) {
 		return dao.updateProduct(prducts);
 	}
+	
+	@Override
+	public Products deleteProduct(Products prducts) {
+		return dao.deleteProduct(prducts);
+	}
 }
 

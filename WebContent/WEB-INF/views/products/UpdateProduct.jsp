@@ -251,7 +251,7 @@ button.btncls:hover {
 <!-- 			</div> -->
 			<span >	
 				<a href="<c:url value='/product/preUpdateProduct' />/${products.id}"
-				 class="btn-style-cancel btn-style-border" style="font-size:13px;height:45px;width:85px;">回復</a>
+				 class="btn-style-cancel btn-style-border" style="font-size:13px;height:45px;width:85px; ">回復</a>
 			</span>
 		<form:button onclick="myFunction()" value="Send" class="btncls btn-style-border" >送出</form:button>
 		</div>

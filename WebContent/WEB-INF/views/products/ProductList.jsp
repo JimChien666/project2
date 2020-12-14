@@ -473,8 +473,7 @@ button.btncls:hover{
                        <div class="shop-topbar-wrapper">
                        	<div class="product-sorting-wrapper">
                               	<div class="product-show shorting-style" id="selectBar">
-                                  	<label>共有 <span id="showRecordCounts"></span> 項商品</label>
-                                   	
+                                  	<label>共有 <span id="showRecordCounts"></span> 項商品</label>                                   	
                                 <div style="display:inline;" class="shop-list-style mt-20" id="OrderBySelectBar"></div>                        
                                 </div>
                                 

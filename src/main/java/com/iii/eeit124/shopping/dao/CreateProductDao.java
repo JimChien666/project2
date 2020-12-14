@@ -26,5 +26,7 @@ public interface CreateProductDao {
 	Products selectById(Integer id);
 	
 	Products updateProduct(Products products);
+
+	Products deleteProduct(Products products);
 }
 

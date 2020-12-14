@@ -18,5 +18,7 @@ public interface CreateProductService {
 	Products insertProduct(Products prducts);
 	Products selectById(Integer id);
 	Products updateProduct(Products prducts);
+	Products deleteProduct(Products prducts);
+	
 
 }

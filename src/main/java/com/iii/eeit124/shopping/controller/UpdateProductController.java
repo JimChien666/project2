@@ -66,14 +66,14 @@ public class UpdateProductController {
 		}	
 	}
 	
-	@GetMapping("/preUpdateProduct/{id}")
+	@GetMapping("/preDeleteProduct/{id}")
 	public  String getQueryPage(@PathVariable(value = "id")Integer id,Model model) {
 		
 		return "products/UpdateProduct";
 	}
 
-	@RequestMapping(value = "/processUpdateProduct.controller", method = RequestMethod.POST)
-	public String processUpdateProduct(
+	@RequestMapping(value = "/processDeleteProduct.controller", method = RequestMethod.POST)
+	public String processDeleteProduct(
 			@ModelAttribute("products")Products products,
 			@RequestParam(name="animalTypeId", required = false) Integer animalTypeId,
 			@RequestParam(name="colorId", required = false) Integer colorId,
