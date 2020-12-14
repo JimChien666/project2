@@ -236,6 +236,7 @@ function goBuyCountPage(){
 	
 }
 </script>
+
 </head>
 <body>
 	<jsp:include page="../fragments/headerArea.jsp" />

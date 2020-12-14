@@ -17,7 +17,9 @@
 					<div class="main-menu text-center">
 						<nav>
 							<ul>
-								<li><a href="<c:url value='/' />" style="font-size: 22px;">首頁</a>
+								<li class="mega-menu-position" id="homeLi"><a href="<c:url value='/' />" style="font-size: 22px;"><img
+										src="<c:url value='/images/home.svg' />" id="homeIcon"
+										style="height: 35px; width: 35px;">首頁</a>
 									<!-- <ul class="submenu">
                                                 <li>
                                                     <a href="index.html">home version 1</a>
@@ -38,9 +40,13 @@
 									<ul class="mega-menu" id='ShoppingOptionsArea'>  
 									</ul>
 								</li>
-								<li><a href="<c:url value='/backArticle' />" style="font-size: 22px;">討論區</a>
+								<li class="mega-menu-position" id="articleLi"><a href="<c:url value='/backArticle' />" style="font-size: 22px;"><img
+										src="<c:url value='/images/notepad.svg' />" id="articleIcon"
+										style="height: 35px; width: 35px;">討論區</a>
 									</li>
-								<li><a href="<c:url value='/activitys/list' />" style="font-size: 22px;">活動</a>
+								<li class="mega-menu-position" id="activityLi"><a href="<c:url value='/activitys/list' />" style="font-size: 22px;"><img
+										src="<c:url value='/images/activism.svg' />" id="activityIcon"
+										style="height: 35px; width: 35px;">活動</a>
 									</li>
 
 							</ul>
@@ -236,6 +242,29 @@
 	
 	$("#shopLi").mouseout(function(){
 		$("#shopIcon").attr("src", "<c:url value='/images/shop.png' />");
+		})
+		
+	$("#articleLi").mouseover(function(){
+		$("#articleIcon").attr("src", "<c:url value='/images/notepadCHG.svg' />");
+		})
+	
+	$("#articleLi").mouseout(function(){
+		$("#articleIcon").attr("src", "<c:url value='/images/notepad.svg' />");
+		})
+		
+	$("#activityLi").mouseover(function(){
+		$("#activityIcon").attr("src", "<c:url value='/images/activismCHG.svg' />");
+		})
+	
+	$("#activityLi").mouseout(function(){
+		$("#activityIcon").attr("src", "<c:url value='/images/activism.svg' />");
+		})
+	$("#homeLi").mouseover(function(){
+		$("#homeIcon").attr("src", "<c:url value='/images/homeCHG.svg' />");
+		})
+	
+	$("#homeLi").mouseout(function(){
+		$("#homeIcon").attr("src", "<c:url value='/images/home.svg' />");
 		})
 
 </script>

@@ -24,4 +24,6 @@ public interface ArticleDAO {
 	Article select(int id);
 	
 	Article saveFullArticle(Article article);
+	
+	List<Article> personalFollowed(Integer memberid, Integer id);
 }
