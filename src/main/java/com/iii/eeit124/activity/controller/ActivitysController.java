@@ -140,6 +140,10 @@ public class ActivitysController {
 		}
 
 		Activitys updateActivitys = activitysVo.toEntity();
+		
+		if(updateActivitys.getPic().length==0) {			
+			updateActivitys.setPic(dbActivitys.getPic());
+		}
 		activitysService.update(updateActivitys);
 
 		return "activitys/myActivity";

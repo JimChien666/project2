@@ -87,7 +87,7 @@ table td {
                                         <div class="col-lg-7">
                                         活動圖片：
                                             <div class="contact-form-style mb-20">
-                                                <form:input path="pic" type="file" /><br /><form:errors path="pic" cssClass="error" />
+                                                <form:input path="pic" type="file" /><img style="width: 420px; height: 300px;" alt="img" src="data:image/jpeg;base64,${activitysVo.base64Pic}"/><br /><form:errors path="pic" cssClass="error" />
                                             </div>
                                         </div>
                                         
