@@ -43,8 +43,18 @@ public class MemberCenterDaoImpl implements MemberCenterDao {
 		query2.setParameter(0, memberId);
 		BigDecimal sum = (BigDecimal)query2.uniqueResult();
 		Map<String, BigDecimal> map = new HashMap<String, BigDecimal>();
+		if (sum ==null) {
+			sum= new BigDecimal("0");
+		}
 		map.put("sum", sum);
+		
 		map.put("count", count);
+		if (count.intValue() == 0) {
+			map.put("avg", new BigDecimal("0"));
+		}
+		else {
+			map.put("avg", sum.divide(count));
+		}
 		return map;
 	}
 
