@@ -153,7 +153,7 @@ button.btncls:hover{
 			 <form:radiobutton id="input6" style="width:20px;height:20px;" path="status" value="上架中"/>上架中
           	 <form:radiobutton style="width:20px;height:20px;" path="status" value="已下架"/>  已下架 <span style="color: red;">${errors.status}</span><br/>
         <div id='somedivS'></div>
-         ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/> 
+<%--          ${errors.color}<br/>${errors.category}<br/>${errors.animalType}<br/>  --%>
 		
         <form:button value="Send" class="btncls">送出</form:button>
 	</div>	

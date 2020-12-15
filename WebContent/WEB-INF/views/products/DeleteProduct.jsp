@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>維護產品資料</title>
+<title>刪除產品頁面</title>
 <link rel="stylesheet" href="<c:url value='/css/Product.css' />">
 <script type="text/javascript"
 	src="<c:url value='/js/jquery-1.12.2.min.js' />"></script>
@@ -106,26 +106,27 @@ button.btncls:hover {
 	<jsp:include page="../fragments/headerArea.jsp" />
 
 	<form:form method="POST"
-		action="${pageContext.servletContext.contextPath}/product/processUpdateProduct.controller"
+		action="${pageContext.servletContext.contextPath}/product/processDeteleProduct.controller"
 		modelAttribute="products" enctype="multipart/form-data" >
-		<div class="container">
+		<div class="container" >
 
-			<form:input path="id" class="divHidden"/> 
+			<form:input path="id" class="divHidden" /> 
 			*商品名稱:
-			<form:input path="name"  />
+			<form:input path="name"  disabled="true"/>
 			<span style="color: red;">${errors.name}</span><br />
 			 *商品價格:
-			<form:input path="price" />
+			<form:input path="price" disabled="true"/>
 			<span style="color: red;">${errors.price}</span><br /> 
 			*商品折扣:
-			<form:input path="discount" />
+			<form:input path="discount" disabled="true"/>
 			<span style="color: red;">${errors.discount}</span><br /> 
 			
 
 <!--商品封面圖===================================================================================== -->
 			<div class="mb-20">	
-				<form:label path="multipartFile" class="mb-20">*商品圖片:</form:label>
-				<form:input path="multipartFile" type="file" id="productFilesUpdate"/>
+				<form:label path="multipartFile" >*商品圖片:</form:label>
+				<form:input path="multipartFile" type="file" class="divHidden" id="productFilesUpdate"/>
+<%-- 				<form:input path="multipartFile" type="file" id="productFilesUpdate"/> --%>
 			</div>
 			<span style="color: red;">${errors.multipartFile}</span><br />
 						
@@ -144,8 +145,8 @@ button.btncls:hover {
 			</div>	
 <!--商品內容圖 ===================================================================================== -->
 			<div class="mb-20">
-				*商品內容圖片(請選擇兩張圖):
-				<input name="contentImage" type="file" multiple id="productContentUpdate"/>
+				*商品內容圖片
+				<input name="contentImage" type="text" class="divHidden" multiple id="productContentUpdate"/>
 <!-- 				<input name="contentImage" type="file" multiple /> -->
 				<span style="color: red;">${errors.multipartFile}</span><br />
 			</div>
@@ -169,35 +170,31 @@ button.btncls:hover {
 
 			<!-- ===================================================================================== -->
 			*商品描述:
-			<form:textarea path="description" rows="5" cols="18" />
+			<form:textarea path="description" rows="5" cols="18" disabled="true"/>
 			<span style="color: red;">${errors.description}</span><br /> 
 			*商品數量:
-			<form:input path="quantity" />
+			<form:input path="quantity" disabled="true"/>
 			<span style="color: red;">${errors.quantity}</span><br /> 
 			<!--讀商品狀態的屬性===================================================================================== -->
 			<div>
 				*商品狀態:<br/>			
-				<c:choose>
+				<c:choose >
 					<c:when test="${products.status == '已下架'}">
-						<form:radiobutton style="width:20px;height:20px;" path="status"	value="上架中"/>
-						上架中
-						<form:radiobutton checked="checked" style="width:20px;height:20px;"	path="status" value="已下架" />
+						<form:radiobutton disable="true" checked="checked" style="width:20px;height:20px;"	path="status" value="已下架" />
 						已下架
 					</c:when>
 					<c:otherwise>
-						<form:radiobutton checked="checked" style="width:20px;height:20px;" path="status"	value="上架中"/>
+						<form:radiobutton disable="true" checked="checked" style="width:20px;height:20px;" path="status"	value="上架中"/>
 						上架中
-						<form:radiobutton  style="width:20px;height:20px;"	path="status" value="已下架" />
-						已下架
 					</c:otherwise>
 				</c:choose>
 				<span style="color: red;">${errors.status}</span>
 			</div>
 			<!--商品顏色 ===================================================================================== -->
 			<div class="mb-20">
-				<form:label path="colorId" class="">*商品顏色： </form:label>				 	
+				<form:label path="colorId" class="" >*商品顏色： </form:label>				 	
 				<span style="color: red;">${errors.color}</span><br /> 
-					<form:select path="colorId" style="background-color:RGB(236,239,248);height:50px;">								
+					<form:select path="colorId" disabled="true" style="background-color:RGB(236,239,248);height:50px;">								
 						<c:forEach items="${Colors}" var="Colors" >
 							<c:choose>
 								<c:when test="${Colors.name == products.color.name}">
@@ -214,7 +211,7 @@ button.btncls:hover {
 			<div class="mb-20">
 				<form:label path="categoryId" class="">*商品分類： </form:label>				 	
 				<span style="color: red;">${errors.category}</span><br /> 
-					<form:select path="categoryId" style="background-color:RGB(236,239,248);height:50px;">								
+					<form:select path="categoryId" disabled="true" style="background-color:RGB(236,239,248);height:50px;">								
 						<c:forEach items="${Categories}" var="Categories" >
 							<c:choose>
 								<c:when test="${Categories.name == products.category.name}">
@@ -230,9 +227,9 @@ button.btncls:hover {
 			
 			<!--寵物類別 ===================================================================================== -->
 			<div class="mb-20">
-				<form:label path="animalTypeId" class="">*寵物類別：</form:label>				 	
+				<form:label path="animalTypeId" >*寵物類別：</form:label>				 	
 				<span style="color: red;">${errors.animalType}</span><br /> 
-					<form:select path="animalTypeId" style="background-color:RGB(236,239,248);height:50px;">								
+					<form:select path="animalTypeId" disabled="true" style="background-color:RGB(236,239,248);height:50px;">								
 						<c:forEach items="${AnimalTypes}" var="AnimalTypes" >
 							<c:choose>
 								<c:when test="${AnimalTypes.name == products.animalType.name}">
@@ -249,16 +246,13 @@ button.btncls:hover {
 <!-- 			<div id='somedivS'> -->
 <%-- 				${errors.color}<br />${errors.category}<br />${errors.animalType}<br /> --%>
 <!-- 			</div> -->
-			<span >	
-				<a href="<c:url value='/product/preUpdateProduct' />/${products.id}"
-				 class="btn-style-cancel btn-style-border" style="font-size:13px;height:45px;width:85px; ">回復</a>
-			</span>
-		<form:button onclick="myFunction()" value="Send" class="btncls btn-style-border" >送出</form:button>
+
+		<form:button onclick="myFunction()" value="Send" class="btncls btn-style-border" >確認刪除</form:button>
 		</div>
 	</form:form>
 	<script>
 		function myFunction() {
-			swal("修改完成");
+			swal("刪除完成");
 		}
 	</script>
 	<jsp:include page="../fragments/footerArea.jsp" />

@@ -40,7 +40,7 @@ import com.iii.eeit124.shopping.service.ProductFilesService;
 
 @Controller
 @RequestMapping("/product")
-public class UpdateProductController {
+public class DeleteProductController {
 	@Autowired
 	private ServletContext ctx;
 	@Autowired
@@ -49,8 +49,7 @@ public class UpdateProductController {
 	ProductFilesService productFilesService;
 	@Autowired
 	HttpSession session;
-	
-	
+
 //	有@ModelAttribute的方法，會被SpringMVC在每個方法前被調用
 	@ModelAttribute("products")
 //	public void getProduct(@PathVariable(value="id",required=false)Integer id,Map<String,Object> map,Model model) {
@@ -66,14 +65,14 @@ public class UpdateProductController {
 		}	
 	}
 	
-	@GetMapping("/preUpdateProduct/{id}")
+	
+	@GetMapping("/preDeleteProduct/{id}")
 	public  String getQueryPage(@PathVariable(value = "id")Integer id,Model model) {
-		
-		return "products/UpdateProduct";
+		return "products/DeleteProduct";
 	}
 
-	@RequestMapping(value = "/processUpdateProduct.controller", method = RequestMethod.POST)
-	public String UpdateProduct(
+	@RequestMapping(value = "/processDeteleProduct.controller", method = RequestMethod.POST)
+	public String processDeleteProduct(
 			@ModelAttribute("products")Products products,
 			@RequestParam(name="animalTypeId", required = false) Integer animalTypeId,
 			@RequestParam(name="colorId", required = false) Integer colorId,
@@ -83,54 +82,11 @@ public class UpdateProductController {
 			throws SQLException, IOException {
 		Map<String, String> errors = new HashMap<String, String>();
 		model.addAttribute("errors", errors);
-		System.out.println(products);
-		if("".equals(products.getName())||products.getName()==null) {
-			errors.put("name", "請填入商品名稱");
-		}
-		if(products.getPrice()==null) {
-			errors.put("price", "請填入價格");
-		}
-		if("".equals(products.getDescription())||products.getDescription()==null) {
-			errors.put("description", "請填入商品介紹");
-		}
-		if("".equals(products.getStatus())||products.getStatus()==null) {
-			errors.put("status", "請選擇商品狀態");
-		}
-		if(products.getQuantity()==null) {
-			errors.put("quantity", "請填入數量");
-		}
-		if(products.getPrice()==null) {
-			errors.put("price", "請填入價格");
-		}
-		if(products.getDiscount()==null) {
-			errors.put("discount", "請填入折扣");
-		}		
-		if(products.getAnimalTypeId()==null) {
-			errors.put("animalType", "請選擇寵物類別");
-		}
-		if(products.getColorId()==null) {
-			errors.put("color", "請選擇商品顏色");
-		}
-		if(products.getCategoryId()==null) {
-			errors.put("category", "請選擇商品分類");
-		}
-		
-		if (errors!=null&&!errors.isEmpty()) {
-			return "products/UpdateProduct/";
-		}
-		
+		System.out.println(products);		
 		//抓form:form的商品封面圖
-		MultipartFile multipartFile = products.getMultipartFile();
-		
-		AnimalTypes animalType = service.findOneAnimalType(animalTypeId);
-		Colors color = service.findOneColor(colorId);
-		Categories category = service.findOneCatrgory(categoryId);
-		products.setCategory(category);
-		products.setColor(color);
-		products.setAnimalType(animalType);
+		MultipartFile multipartFile = products.getMultipartFile();		
 		//用ID查詢原本的Product BEAN
 		Products product = service.selectById(products.getId());
-
 		//new HashSet<ProductFiles>()
 //		內容圖片
 		Set<ProductFiles> productFilesSet = new HashSet<ProductFiles>();
@@ -186,9 +142,9 @@ public class UpdateProductController {
 				}				
 
 			}catch (IOException e) {
-				System.out.println("UpdateProductController.java，Line 190");
+				System.out.println("DeleteProductController.java，Line 190");
 				errors.put("errorAccountDup", "修改此筆資料有誤(RegisterServlet)");
-				return "products/UpdateProduct";
+				return "products/DeleteProduct";
 			}			
 		
 //		封面圖片
@@ -236,18 +192,25 @@ public class UpdateProductController {
 
 				}    
 			}catch (IOException e) {
-				System.out.println("UpdateProductController.java，Line 235");
+				System.out.println("DeleteProductController.java，Line 235");
 
 				errors.put("errorAccountDup", "修改此筆資料有誤(RegisterServlet)");
-				return "products/UpdateProduct";
+				return "products/DeleteProduct";
 			}	
 		}
-//		products.setName(products.getName());
-//		products.setStatus(products.getStatus());
-//		products.setQuantity(products.getQuantity());
-//		products.setDescription(products.getDescription());
-		products.setCreatedAt(product.getCreatedAt());		
-		products.setUpdatedAt(new Date());
+		products.setAnimalType(product.getAnimalType());
+		products.setCategory(product.getCategory());
+		products.setColor(product.getColor());
+		products.setName(product.getName());
+		products.setStatus(product.getStatus());
+		products.setQuantity(product.getQuantity());
+		products.setDescription(product.getDescription());
+		products.setCreatedAt(product.getCreatedAt());
+		products.setPrice(product.getPrice());		
+		products.setStatus(product.getStatus());
+		products.setDiscount(product.getDiscount());		
+		products.setDeletedAt(new Date());
+		
 		products.setMember((Members)session.getAttribute("LoginOK"));
 	    service.updateProduct(products);
 	    

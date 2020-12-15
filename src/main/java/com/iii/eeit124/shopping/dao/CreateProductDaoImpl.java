@@ -89,5 +89,11 @@ public class CreateProductDaoImpl implements CreateProductDao {
 		session.merge(products);
 		return products;
 	}
+	@Override
+	public Products deleteProduct(Products products) {
+		Session session = sessionFactory.getCurrentSession();
+		session.merge(products);
+		return products;
+	}
 
 }
