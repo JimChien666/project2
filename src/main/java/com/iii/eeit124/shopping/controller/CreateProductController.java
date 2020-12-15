@@ -234,7 +234,7 @@ public class CreateProductController {
 		product.setMember((Members)session.getAttribute("LoginOK"));
 	    service.insertProduct(product);
 	    
-		return "redirect:/";
+		return "redirect:/product/goMyProductPage";
 	}
 	
 }

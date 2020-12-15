@@ -246,11 +246,8 @@ button.btncls:hover {
 <!-- 			<div id='somedivS'> -->
 <%-- 				${errors.color}<br />${errors.category}<br />${errors.animalType}<br /> --%>
 <!-- 			</div> -->
-			<span >	
-				<a href="<c:url value='/product/preDeleteProduct' />/${products.id}"
-				 class="btn-style-cancel btn-style-border" style="font-size:13px;height:45px;width:85px; ">回復</a>
-			</span>
-		<form:button onclick="myFunction()" value="Send" class="btncls btn-style-border" >送出</form:button>
+
+		<form:button onclick="myFunction()" value="Send" class="btncls btn-style-border" >確認刪除</form:button>
 		</div>
 	</form:form>
 	<script>
