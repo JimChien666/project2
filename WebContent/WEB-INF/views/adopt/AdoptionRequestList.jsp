@@ -241,7 +241,7 @@ td {
 																<div class="form-group">
 																	<label for="message-text" class="col-form-label font22">回覆給申請者的話：</label>
 																	<textarea class="form-control" id="message-text"
-																		name="approvedReason" rows="5" cols="80">感謝您的領養申請，請於2020年12月25日中午12點至中央大學宵夜街領取寵物。</textarea>
+																		name="approvedReason" rows="5" cols="80">感謝您的領養申請，請於OOOO年OO月OO日OO時間至OO地點領取寵物。</textarea>
 																</div>
 															</div>
 															<div class="modal-footer">
