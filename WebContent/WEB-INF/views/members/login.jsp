@@ -30,16 +30,16 @@ button.btncls:hover {
 </style>
 <script>
 function insertS(){
-	document.getElementById("account").value="s1875678";
-	document.getElementById("password").value="a5021678";
+	document.getElementById("account").value="ming";
+	document.getElementById("password").value="mING123";
 }
 function insertB(){
-	document.getElementById("account").value="a1875678";
-	document.getElementById("password").value="a5021678";
+	document.getElementById("account").value="bigMing";
+	document.getElementById("password").value="mING123";
 }
 function insertT(){
-	document.getElementById("account").value="sss";
-	document.getElementById("password").value="a5021678";
+	document.getElementById("account").value="taipei";
+	document.getElementById("password").value="Taipei123";
 }
 </script>
 </head>
@@ -109,7 +109,7 @@ function insertT(){
 											</div>
 										</form>
 										<button class="btncls" onclick="insertS()">
-													<span>王小明</span>
+													<span>黃小明</span>
 												</button>
 												<button class="btncls" onclick="insertB()">
 													<span>王大明</span>

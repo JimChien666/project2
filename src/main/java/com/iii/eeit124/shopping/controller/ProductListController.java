@@ -137,8 +137,8 @@ public class ProductListController {
 			ProductListDaoImpl.getPageOrderBy((int)(Math.random()*(5-1+1)) + 1);
 		}
 		
-		
 		list = service.getPageProducts(page, mostBuyColor, null, mostBuyAnimalType,4,"");
+		System.out.println(list);
 		return list;
 	}	
 	

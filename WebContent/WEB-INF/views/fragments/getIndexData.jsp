@@ -12,6 +12,7 @@ window.onload = function() {
 		if (xhr.readyState == 4 ) {
 			if (xhr.status == 200){
 				var responseData = xhr.responseText;
+				console.log(responseData);
 				displayPageProducts(responseData);   // 顯示讀取到的非文字性資料
 			} else {
 				alert(xhr.status);
@@ -69,7 +70,6 @@ function displayAnimals(responseData){
 function displayPageProducts(responseData){
     var content = "";
 	var products = JSON.parse(responseData);
-	
 	var imageURL = "<c:url value='/product/getProductImage' />";
 	var productsInfo = "<c:url value='/product/productsInfo/productsPath' />";
 	var salesInfo = "<c:url value='/product/salesInfo/salesInfoPath' />";
