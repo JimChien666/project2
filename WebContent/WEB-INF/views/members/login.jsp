@@ -8,6 +8,40 @@
 <meta charset="UTF-8">
 <title>會員登入</title>
 <jsp:include page="../fragments/links.jsp" />
+<style>
+.btncls {
+	margin:10px;
+	background-color: #7E4C4F; /* Green */
+	border: none;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	border-radius: 10px;
+	transition-duration: 0.3s;
+	cursor: pointer;
+}
+
+button.btncls:hover {
+	background-color: #000000;
+}
+</style>
+<script>
+function insertS(){
+	document.getElementById("account").value="s1875678";
+	document.getElementById("password").value="a5021678";
+}
+function insertB(){
+	document.getElementById("account").value="a1875678";
+	document.getElementById("password").value="a5021678";
+}
+function insertT(){
+	document.getElementById("account").value="sss";
+	document.getElementById("password").value="a5021678";
+}
+</script>
 </head>
 <body>
 
@@ -42,19 +76,19 @@
 											action="<c:url value='/member/processLogin.controller' />"
 											method="POST" name="loginForm">
 											<c:if test="${param.account != null}">
-												<input type="text" name="account" value="${param.account}" />
+												<input id ="account" type="text" name="account" value="${param.account}" />
 											</c:if>
 	
 											<c:if test="${param.account == null}">
-												<input type="text" name="account"
+												<input type="text" name="account" id ="account"
 													value="${requestScope.user}" />
 											</c:if>
 											<c:if test="${param.password != null}">
-												<input type="password" name="password"
+												<input type="password" name="password" id="password"
 													value="${param.password}" />
 											</c:if>
 											<c:if test="${param.password == null}">
-												<input type="password" name="password"
+												<input type="password" name="password" id="password"
 													value="${requestScope.password}" />
 											</c:if>
 											<div class="button-box">
@@ -63,15 +97,26 @@
 														checked="checked"> <label>記住我</label> <a href="#">Forgot
 														Password?</a>
 												</div>
-												<div class="fb-login-button" data-size="large" onlogin="goindex()" 
+												<!-- <div class="fb-login-button" data-size="large" onlogin="goindex()" 
 													data-button-type="continue_with" data-layout="default"
 													data-auto-logout-link="false" data-use-continue-as="false"
-													data-width=""></div>
+													data-width=""></div> -->
 												<button type="submit" name="send" value="send">
 													<span>送出</span>
 												</button>
+												
+												
 											</div>
 										</form>
+										<button class="btncls" onclick="insertS()">
+													<span>王小明</span>
+												</button>
+												<button class="btncls" onclick="insertB()">
+													<span>王大明</span>
+												</button>
+												<button class="btncls" onclick="insertT()">
+													<span>台北收容所</span>
+												</button>
 									</div>
 								</div>
 							</div>	
