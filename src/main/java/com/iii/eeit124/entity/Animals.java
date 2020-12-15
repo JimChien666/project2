@@ -192,14 +192,6 @@ public class Animals {
 //	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
 //	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ANIMAL_ID")})//第一個ANIMAL_ID為Files的，第二個為Animals的。
 
-//	@Override
-//	public String toString() {
-//		return "Animals [animalId=" + animalId + ", memberId=" + memberId + ", acceptionId=" + acceptionId
-//				+ ", breedId=" + breedId + ", gender=" + gender + ", coatColor=" + coatColor + ", isAdoptionAvailable="
-//				+ isAdoptionAvailable + ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-//				+ ", deletedAt=" + deletedAt + ", animalFiles=" + animalFiles + ", files=" + files + ", member="
-//				+ member + ", breeds=" + breeds + "]";
-//	}
 	@Transient
 	public String getBreed() {
 		return this.breeds.getBreed();
@@ -208,4 +200,13 @@ public class Animals {
 	public String getMemberAddress() {
 		return this.member.getAddress();
 	}
+	@Override
+	public String toString() {
+		return "Animals [animalId=" + animalId + ", memberId=" + memberId + ", acceptionId=" + acceptionId
+				+ ", breedId=" + breedId + ", gender=" + gender + ", coatColor=" + coatColor + ", isAdoptionAvailable="
+				+ isAdoptionAvailable + ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+				+ ", deletedAt=" + deletedAt + ", animalFiles=" + animalFiles + ", files=" + files + ", member="
+				+ member + ", breeds=" + breeds + ", animalChipNumber=" + animalChipNumber + "]";
+	}
+	
 }

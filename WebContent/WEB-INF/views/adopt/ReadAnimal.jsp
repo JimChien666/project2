@@ -93,26 +93,43 @@
 						<%-- <%=application.getContextPath()%> --%>
 						<nav class="navbar navbar-light bg-light justify-content-between">
 							<a class="navbar-brand"></a>
-<%-- 							<form class="" action="<c:url value='/MemberCenter/readKeyword.controller'/>"> --%>
-								<div class="form-inline">
+							<%-- 							<form class="" action="<c:url value='/MemberCenter/readKeyword.controller'/>"> --%>
+							<div class="form-inline">
 								<input class="form-control mr-sm-2" type="search"
 									placeholder="搜尋動物類別/品種/收容編號" aria-label="Search" name="factor1">
 								<button class="btn btn-success my-2 my-sm-0" id="keywordSearch"
-									type="submit" style="height:38px;border-radius:5px;"><font class="font22">搜尋</font></button>
-								</div>
-<!-- 							</form> -->
+									type="submit" style="height: 38px; border-radius: 5px;">
+									<font class="font22">搜尋</font>
+								</button>
+							</div>
+							<!-- 							</form> -->
 						</nav>
+						<a href="<c:url value='/MemberCenter/readKeyword.controller?factor1=混種狗'/>">search</a>
 						<script type="text/javascript">
-						$("#keywordSearch").click(function(){
-							var xhr = new XMLHttpRequest();
-							var keyword = $("input[name='factor1']").val();
-							alert(keyword)
-							//ing
+							$("#keywordSearch")
+									.click(
+											function() {
+												var xhr = new XMLHttpRequest();
+												var keyword = $(
+														"input[name='factor1']")
+														.val();
+												alert(keyword)
+												xhr.open("GET",
+														"<c:url value='/MemberCenter/readKeyword.controller?factor1="+keyword+"'/>", true);
+												xhr.send();
+												xhr.onreadystatechange = function() {
+													// 向伺服器提出的請求已經收到回應
+													if (xhr.readyState === 4) {
+														// 伺服器回應成功
+														if (xhr.status === 200) {
+															var searchResult = xhr.responseText;
+// 															var searchResult = JSON.parse(xhr.responseText);
+															alert(searchResult);
+														}
+													}
+												}
 
-
-
-							
-							});
+											});
 						</script>
 						<!-- ===================================================================================== -->
 						<!-- card來源https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_card_image&stacked=h -->
