@@ -117,7 +117,7 @@ table th{
 
 		
 		$("#forumsSelect1>a").on("click",function() {
-					selectResult = $(this).attr("id")
+					selectResult = $(this).attr("id").slice(5);
 					console.log(selectResult)
 					$.ajax({
 						type : "GET",
@@ -132,7 +132,7 @@ table th{
 		$("#forumsSelect2>a").on(
 				"click",
 				function() {
-					selectResult = $(this).attr("id")
+					selectResult = $(this).attr("id").slice(5);
 					console.log(selectResult)
 					$.ajax({
 						type : "GET",
@@ -178,7 +178,7 @@ table th{
 				var popularity = (article.forums.length)-1;
 				$artilceListTable
 						.append("<tr><td align='center'  width='100px'>"+popularity+"</td><td><a href="+urlStringent+"><div>"  
-								+ (article.title.length>14 ? article.title.slice(0,13)+'..' : article.title) +"</div></a></td><td width='50px' class='product-wishlist-cart' id='forumsSelect1'><a onclick='follow(this)' style='color: white; cursor: pointer;' id='"+article.id+"'>"+(checkStatus? "取消追蹤":"追蹤")+"</a></td></tr>")
+								+ (article.title.length>14 ? article.title.slice(0,13)+'..' : article.title) +"</div></a></td><td width='110px' class='product-wishlist-cart' id='forumsSelect1'><a onclick='follow(this)' style='color: white; cursor: pointer;' id='follow"+article.id+"'>"+(checkStatus? "取消追蹤":"追蹤")+"</a></td></tr>")
 			})
 
 // 			var navContent = "" ;
@@ -313,7 +313,7 @@ table th{
 				});
 
 		var member = "${LoginOK.id}"
-		var	articleid = Obj.id
+		var	articleid = Obj.id.slice(6);
 		$.ajax({
 			type : "GET",
 			url : "<c:url value='statusChange' />?memberid="+member+"&articleid="+articleid,
@@ -321,15 +321,16 @@ table th{
 				console.log("success get result")
 			if(result==1){
 				console.log("新增成功");
-				console.log($("#"+articleid).text);
-				
-				$("#"+articleid).text("取消追蹤");
+// 				console.log($("#"+articleid).text);				
+				console.log(articleid);
+				$("#follow"+articleid).text("取消追蹤");
 				
 			} else {
 				console.log("取消追蹤");
-				console.log($("#"+articleid).text);
-				console.log(result);
-				$("#"+articleid).text("追蹤");
+// 				console.log($("#"+articleid).text);
+// 				console.log(result);
+				console.log(articleid);
+				$("#follow"+articleid).text("追蹤");
 				}
 			}
 		});
@@ -370,7 +371,7 @@ table th{
 				<table>
 					<tr>
 						<td class="product-wishlist-cart" id="forumsSelect1"><a
-							style='color: white; cursor: pointer;' id="1">狗狗討論版</a></td>
+							style='color: white; cursor: pointer;' id="forum1">狗狗討論版</a></td>
 					</tr>
 				</table>
 			</li>
@@ -381,7 +382,7 @@ table th{
 				<table>
 					<tr>
 						<td class="product-wishlist-cart" id="forumsSelect2"><a
-							style='color: white; cursor: pointer;' id="2">貓咪討論版</a></td>
+							style='color: white; cursor: pointer;' id="forum2">貓咪討論版</a></td>
 					</tr>
 				</table>
 
