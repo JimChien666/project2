@@ -153,10 +153,29 @@ em {
 			border="0" id="post-sign">
 			<tr height="10">
 			</tr>
+			
+			<tr>
+				<td width="120" align="right">id:<em>*</em></td>
+				<td valign="top"><input name="id" type="text"
+					placeholder="請輸入姓名" maxlength='100' value="${LoginOK.getId()}"
+					size="20"></td>
+			</tr>
 			<tr>
 				<td width="120" align="right">姓名:<em>*</em></td>
 				<td valign="top"><input name="name" type="text"
 					placeholder="請輸入姓名" maxlength='100' value="${LoginOK.getName()}"
+					size="20"></td>
+			</tr>
+			<tr>
+				<td width="120" align="right">帳號:<em>*</em></td>
+				<td valign="top"><input name="account" type="text"
+					placeholder="請輸入帳號" maxlength='100' value="${LoginOK.getAccount()}"
+					size="20"></td>
+			</tr>
+			<tr>
+				<td width="120" align="right">性別:<em>*</em></td>
+				<td valign="top"><input name="sex"  type="text"
+					placeholder="請輸入性別" maxlength='100' value="${LoginOK.getSex()}"
 					size="20"></td>
 			</tr>
 
@@ -164,7 +183,7 @@ em {
 			<tr>
 
 				<td width="120" align="right">密碼:<em>*</em></td>
-				<td valign="top"><input name="name" type="text"
+				<td valign="top"><input name="password" type="text"
 					placeholder="請輸入密碼" maxlength='100'
 					value="${LoginOK.getPassword()}" size="20"></td>
 			</tr>
@@ -173,23 +192,30 @@ em {
 			<tr>
 
 				<td width="120" align="right">電話:<em>*</em></td>
-				<td valign="top"><input name="name" type="text"
+				<td valign="top"><input name="tel" type="text"
 					placeholder="請輸入電話" maxlength='100' value="${LoginOK.getTel()}"
 					size="20"></td>
 			</tr>
 
 			<tr>
 				<td width="120" align="right">信箱:<em>*</em></td>
-				<td valign="top"><input name="name" type="text"
+				<td valign="top"><input name="email" type="text"
 					placeholder="請輸入信箱" maxlength='100' value="${LoginOK.getEmail()}"
 					size="20"></td>
 			</tr>
 			<tr>
 				<td width="120" align="right">地址:<em>*</em></td>
-				<td valign="top"><input name="name" type="text"
+				<td valign="top"><input name="address" type="text"
 					placeholder="請輸入地址" maxlength='100' value="${LoginOK.getAddress()}"
 					size="20"></td>
 			</tr>
+			<tr>
+				<td width="120" align="right">會員種類:<em>*</em></td>
+				<td valign="top"><input name="memberType" type="text"
+					placeholder="請輸入會員種類" maxlength='100' value="${LoginOK.getMemberType()}"
+					size="20"></td>
+			</tr>
+			
 <!-- 			<tr> -->
 <!-- 				<td colspan="2" align="right" height="30"><br> <input -->
 <!-- 					type="submit" style="width: 45%" class='button' value="送出" -->
