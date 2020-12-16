@@ -195,23 +195,6 @@ public class AnimalsController {
 	public String processCreateAnimal(Model m) {
 		return "redirect:/MemberCenter/ReadAnimal";
 	}
-
-//==============================================================================================
-
-	//查詢
-	@GetMapping("/readKeyword.controller")
-	public @ResponseBody List<Animals> processReadKeyword(@RequestParam("factor1") String factor1) {//, @RequestParam("orderBy") String orderBy
-//		List<Animals> list = null;
-		System.out.println("inside processReadKeyword");
-//		List<Breeds> readAllBreeds = breedsService.readAllBreeds(factor1);//讀類別
-		List<Breeds> readBreed = breedsService.readBreed(factor1);//讀品種取得id
-		System.out.println("readBreed.get(0)"+readBreed.get(0).toString());
-		List<Animals> readAnimal = animalsService.readAnimals1("breed_id = "+readBreed.get(0).getBreedId());
-		System.out.println("readAnimal:"+readAnimal);
-//		list.add(readAnimal.get(0));
-//		System.out.println("list:"+list);
-		return readAnimal;
-	}
 	
 //==============================================================================================
 

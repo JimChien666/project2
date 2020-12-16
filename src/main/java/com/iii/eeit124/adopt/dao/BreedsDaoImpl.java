@@ -62,7 +62,8 @@ public class BreedsDaoImpl implements BreedsDao{
 	public List<Breeds> readBreed(String breedText) {
 		Session session = sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
-		Query<Breeds> query = session.createQuery("from Breeds where breed='"+breedText+"'");
+//		Query<Breeds> query = session.createQuery("from Breeds where breed like '"+breedText+"'");
+		Query<Breeds> query = session.createQuery("from Breeds where breed like '%"+breedText+"%'");
 		List<Breeds> list = query.list();
 		return list;
 	}

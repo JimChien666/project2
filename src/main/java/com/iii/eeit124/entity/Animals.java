@@ -165,7 +165,7 @@ public class Animals {
 	public void setMember(Members member) {
 		this.member = member;
 	}
-	@JsonIgnore
+//	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity=Breeds.class)
 	@JoinColumn(name = "BREED_ID")
 	public Breeds getBreeds() {

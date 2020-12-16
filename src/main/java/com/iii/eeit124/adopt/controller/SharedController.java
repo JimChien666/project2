@@ -3,6 +3,7 @@ package com.iii.eeit124.adopt.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletContext;
@@ -94,6 +95,57 @@ public class SharedController {
 //		return breed;
 //	}
 
+	// ==============================================================================================
+
+	// 查詢
+	@GetMapping("/readKeyword.controller")
+	public @ResponseBody List<List<Animals>> processReadKeyword(@RequestParam("factor1") String factor1, Model m) {
+		List<List<Animals>> list = new ArrayList<List<Animals>>();
+//		List<Animals> readAnimal2 = animalsService.readAnimals1("coat_color = '黑'");// 用毛色讀取
+////		List<Animals> readAnimal2 = animalsService.readAnimals1("coat_color like '%" + factor1 + "%'");// 用毛色讀取
+//		if (readAnimal2.size() > 0) {
+//			System.out.println("inside2");
+//			list.add(readAnimal2);
+//			return list;
+//		}
+		if (null != breedsService.readAllBreeds(factor1)) {
+			List<Breeds> readAllBreeds = breedsService.readAllBreeds(factor1);// 讀類別
+			if (readAllBreeds.size() > 0) {
+				System.out.println("inside0");
+				for (int i = 0; i < readAllBreeds.size(); i++) {
+					List<Animals> readAnimal = animalsService
+							.readAnimals1("breed_id = " + readAllBreeds.get(i).getBreedId());
+					list.add(readAnimal);
+				}
+				return list;
+			}
+		}
+		if (null != breedsService.readBreed(factor1)) {
+			List<Breeds> readBreed = breedsService.readBreed(factor1);// 讀品種取得id
+			if (readBreed.size() > 0) {
+				System.out.println("inside1");
+				for (int i = 0; i < readBreed.size(); i++) {
+					List<Animals> readAnimal = animalsService
+							.readAnimals1("breed_id = " + readBreed.get(i).getBreedId());
+					list.add(readAnimal);
+				}
+				return list;
+			}
+		}
+//		if (null != animalsService.readAnimals1("acception_Id = '" + factor1.trim() +"'")) {
+//			List<Animals> readAnimal3 = animalsService.readAnimals1("acception_Id = '" + factor1.trim() +"'");// 用收容編號讀取
+////		List<Animals> readAnimal3 = animalsService.readAnimals1("acception_Id like '%" + factor1 + "%'");// 用收容編號讀取
+//			if (readAnimal3.size() > 0) {
+//				System.out.println("factor1:"+factor1);
+//				System.out.println("inside3 readAnimal3.size():" + readAnimal3.size());
+//				System.out.println(readAnimal3);
+//				list.add(readAnimal3);
+//				return list;
+//			}
+//		}
+		return list;
+	}
+
 	@GetMapping("/adopt")
 	public String processAdopt(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readAll());
@@ -116,7 +168,7 @@ public class SharedController {
 		}
 		return "adopt/ReadAnimalDetails";
 	}
-	
+
 	@GetMapping("/adoptApplyMail.controller")
 	public String processMail(Model m) {
 		emailService.sendSimpleMessage("weybrian@gmail.com", "串起來!!", "成功拉~~");

@@ -63,7 +63,7 @@ window.onload = function() {
 				// 伺服器回應成功
 				if (xhr.status === 200) {
 					var breed = JSON.parse(xhr.responseText);
-
+					alert(breed);
 					//可再確認用array.join或用一般字串相加，哪個效率好
 					var content = "";
 					for (var i = 0; i < breed.length; i++) {
