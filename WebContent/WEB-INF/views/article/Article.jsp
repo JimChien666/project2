@@ -72,6 +72,9 @@ width:50vw;
 /*     width: auto; */
     height: auto;
 }
+p{
+col-11
+}
 
 </style>
 <meta charset="UTF-8">
@@ -145,7 +148,7 @@ width:50vw;
 // 					$("#voteSpace").append(voteFoot);
 						$(".modal-body").empty();
 					$.each(forum.options, function(k, options){
-						$(".modal-body").append("<p style='height:20px; border-style:solid;'><input style='width:20px;height:20px;' type='radio'id=radio"+options.id+" name='vote' value="+options.id+"><label for=radio"+options.id+">"+options.content+"</label><img style='width:50px; height:auto;'  src='"+imageURL+"?optionId="+options.id+"' alt=''></p><br><br>")
+						$(".modal-body").append("<p style='height:20px;'><input style='width:20px;height:20px;' type='radio'id=radio"+options.id+" name='vote' value="+options.id+"><label for=radio"+options.id+">"+options.content+"</label><img style='width:50px; height:auto;'  src='"+imageURL+"?optionId="+options.id+"' alt=''></p><br><br>")
 						})
 					$(".modal-body").append("<div style='height:20%; width: 20%' id='chart'></div>")					
 // 					$(".modal-body").append("<center><div id='chart'></div></center>")
