@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
- pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+em {
+	color: #FF0000;
+	font-style: normal;
+	font-weight: bold;
+}
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -34,55 +41,68 @@
 						<jsp:include page="./fragments/myAccountLeftArea.jsp" />
 					</div>
 					<div class="col-lg-9 col-md-12">
-                        <div class="contact-message-wrapper">
-                            <h4 class="contact-title">編輯個人資料</h4>
-                            <div class="contact-message">
-                                <form id="contact-form" action="assets/mail.php" method="post">
-                                    <div class="row">
-                                    	
-                                        <div class="col-lg-9">
-                                            <div class="contact-form-style mb-20">
-                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getName()}">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="contact-form-style mb-20">
-                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getAccount()}">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="contact-form-style mb-20">
-                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getTel()}">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="contact-form-style mb-20">
-                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getAddress()}">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="contact-form-style mb-20">
-                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getEmail()}">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="contact-form-style">
-                                                
-                                                <button class="submit btn-style" type="submit">修改資料</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <p class="form-messege"></p>
-                            </div>
-                        </div>
-                    </div>
-					
+						<div class="contact-message-wrapper">
+							<h4 class="contact-title">編輯個人資料</h4>
+							<div class="contact-message">
+								<form id="contact-form" action="assets/mail.php" method="post">
+									<div class="row">
+
+										<tr class="col-lg-9">
+										<tr class="contact-form-style mb-20">
+											<td width="120" align="right">姓名:<em>*</em></td>
+											<input name="name" placeholder="Full Name" type="text"
+												readonly value="${LoginOK.getName()}">
+										</tr>
+										</tr>
+										<tr class="col-lg-9">
+											<td width="120" align="right">帳號:<em>*</em></td>
+										<tr class="contact-form-style mb-20">
+											<input name="name" placeholder="Full Name" type="text"
+												readonly value="${LoginOK.getAccount()}">
+										</tr>
+										</tr>
+										<tr class="col-lg-9">
+											<td width="120" align="right">電話:<em>*</em></td>
+										<tr class="contact-form-style mb-20">
+											<input name="name" placeholder="Full Name" type="text"
+												readonly value="${LoginOK.getTel()}">
+										</tr>
+										</tr>
+										<tr class="col-lg-9">
+											<td width="120" align="right">地址:<em>*</em></td>
+										<tr class="contact-form-style mb-20">
+
+											<input name="name" placeholder="Full Name" type="text"
+												readonly value="${LoginOK.getAddress()}">
+										</tr>
+										</tr>
+										<tr class="col-lg-9">
+											<td width="120" align="right">信箱:<em>*</em></td>
+										<tr class="contact-form-style mb-20">
+											<input name="name" placeholder="Full Name" type="text"
+												readonly value="${LoginOK.getEmail()}">
+										</tr>
+										</tr>
+										<tr class="col-lg-9">
+											<div class="contact-form-style">
+
+												<!--                                                 <button class="submit btn-style" type="submit">修改資料</button> -->
+												<a class="btn-style1 btn-style-border"
+													href="<c:url value='/member/myAccount.controller'/>">修改資料</a>
+											</div>
+									</div>
+							</div>
+							</form>
+							<p class="form-messege"></p>
+						</div>
+					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
-	
+	</div>
+
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />

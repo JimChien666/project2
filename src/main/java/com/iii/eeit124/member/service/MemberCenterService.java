@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.iii.eeit124.entity.Animals;
 import com.iii.eeit124.entity.Members;
 
 public interface MemberCenterService {
@@ -19,4 +20,8 @@ public interface MemberCenterService {
 	Map<String, Object> getSellingHistory(Integer id, Date start, Date last);
 
 	Map<String, List<Object>> getSellingCountByDate(Integer id, Date start, Date last);
+
+//	void update(Members post);
+	
+	public Members update(Members members);
 }

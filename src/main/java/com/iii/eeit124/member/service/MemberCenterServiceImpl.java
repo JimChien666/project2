@@ -6,18 +6,23 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.entity.Members;
 import com.iii.eeit124.member.dao.MemberCenterDao;
 
-@Service
+@Service("memberCenterService")
 public class MemberCenterServiceImpl implements MemberCenterService{
 	@Autowired
 	MemberCenterDao dao;
 	public Members getMemberById(Integer memberId) {
 		return dao.getMemberById(memberId);
 	}
+	
+	
 	@Override
 	public Map<String, BigDecimal> getCostHistory(Integer memberId) {
 		
@@ -39,5 +44,15 @@ public class MemberCenterServiceImpl implements MemberCenterService{
 	public Map<String, List<Object>> getSellingCountByDate(Integer memberId, Date start, Date last) {
 		return dao.getSellingCountByDate(memberId, start, last);
 	}
+//	@Override
+//	public void update(Members post) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+	@Transactional
+	public Members update(Members members) {
+		return dao.update(members);
+	}
+	
 	
 }

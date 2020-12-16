@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Entity
@@ -41,6 +42,7 @@ public class Members implements Serializable {
 	private Integer adoptedLevelId;
 	private String memberType;
 	private Date createdAt;
+	private MultipartFile memberFiles;
 	private Set<MemberFiles> files = new HashSet<MemberFiles>();
 //	private Set<Products> products = new HashSet<Products>();
 //	private Set<Orders> orders = new HashSet<Orders>();
@@ -201,6 +203,7 @@ public class Members implements Serializable {
 		}
 		return fileId;
 	}
+	
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "member", cascade = CascadeType.ALL)
 	public Set<MemberFiles> getFiles() {
@@ -219,6 +222,14 @@ public class Members implements Serializable {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+	
+	@Transient
+	public MultipartFile getMemberFiles() {
+		return memberFiles;
+	}
+	public void setAnimalFiles(MultipartFile memberFiles) {
+		this.memberFiles = memberFiles;
 	}
 
 //	@JsonIgnore

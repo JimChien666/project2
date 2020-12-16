@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
@@ -20,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.iii.eeit124.entity.Members;
 @Transactional
-@Repository
+@Repository("memberCenterDao")
 public class MemberCenterDaoImpl implements MemberCenterDao {
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -157,5 +158,11 @@ public class MemberCenterDaoImpl implements MemberCenterDao {
 		map.put("sum", result);
 		map.put("sumPerDay", query.getResultList());
 		return map;
+	}
+
+	public Members update(Members entity) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(entity);
+		return entity;
 	}
 }

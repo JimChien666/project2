@@ -19,4 +19,6 @@ public interface MemberCenterDao {
 	public Map<String, Object> getSellingHistory(Integer memberId, Date start, Date last);
 
 	public Map<String, List<Object>> getSellingCountByDate(Integer memberId, Date start, Date last);
+	
+	public Members update(Members entity);
 }
