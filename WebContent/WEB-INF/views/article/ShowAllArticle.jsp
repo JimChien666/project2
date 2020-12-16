@@ -448,16 +448,13 @@ table th{
 			<!-- 		</div> -->
 		</div>
 	</div>
+	<hr>
+	
 	<div class="pagination-style text-center mt-20">
 		<ul id='navigation'>
-			<!-- 			<li><a href="#"><i class="icon-arrow-left"></i></a></li> -->
-			<!-- 			<li><a href="#">1</a></li> -->
-			<!-- 			<li><a href="#">2</a></li> -->
-			<!-- 			<li><a class="active" href="#"><i class="icon-arrow-right"></i></a> -->
-			<!-- 			</li> -->
 		</ul>
 	</div>
-
+<hr>
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
 </body>
