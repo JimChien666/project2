@@ -43,6 +43,22 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <style type="text/css">
+.btncls{
+	background-color: #7E4C4F; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+button.btncls:hover{
+	background-color: #000000;
+}
 .forumC:hover {
 	border: 10px solid black;
 }
@@ -70,6 +86,22 @@ table th{
 </head>
 <script>
 	$(function() {
+	$("#search").on("click",function() {
+	var keywordSearch = $("#keywordSearch").val();
+	
+	$.ajax({
+		type : "GET",
+		url : "<c:url value='getArtilceSerchList' />?keywordSearch="+keywordSearch,
+		success : function(mapData) {
+			showArticleList(mapData)
+		}
+	});
+	});
+
+
+
+
+
 
 		$.ajax({
 			type : "GET",
@@ -79,9 +111,12 @@ table th{
 			}
 		});
 
-		$("#forumsSelect1>a").on(
-				"click",
-				function() {
+
+
+
+
+		
+		$("#forumsSelect1>a").on("click",function() {
 					selectResult = $(this).attr("id")
 					console.log(selectResult)
 					$.ajax({
@@ -363,7 +398,19 @@ table th{
 					</button>
 			</a></li>
 		</ul>
+                            <div class="shop-widget" style="float:right;">
+                            
+                            	<h4 class="shop-sidebar-title">搜尋文章</h4>
+                                <div class="shop-search mt-25 mb-0" >                               
 
+                                        <input  type="text" name="keywordSearch" id="keywordSearch" placeholder="輸入主題關鍵字" style="width: 200px;">
+                                        <button  class="btncls" type="submit" id="search" >
+
+                                            <i class="icon-magnifier"></i>
+                                        </button>
+
+                                </div>
+                            </div>
 
 		<!-- 	<div id="forumsSelect1"> -->
 		<!-- 		<button value="1" id="dog">狗</button> -->

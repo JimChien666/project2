@@ -405,6 +405,33 @@ public class ArticleController {
 		return map;
 	}
 	
+	
+	@GetMapping(value = "/getArtilceSerchList")
+	public @ResponseBody Map<String, Object> getArtilceSerchList(Model model, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "keywordSearch")String serch){
+		Map<String, Object> map = new HashMap<>();
+		Integer recordsPerPage = 10;
+		System.out.println("serch:"+serch);
+		System.out.println("pageNo:"+pageNo);
+		System.out.println("model:"+model);
+		Long recordCounts = articleService.getAllRecordCounts();
+		List<Article> articleList = articleService.serchArticles(pageNo, recordsPerPage, serch);
+		Members member = (Members) session.getAttribute("LoginOK");
+		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));	
+		map.put("articleList", articleList);
+		map.put("totalPage", totalPage);
+		map.put("currPage", pageNo);
+		map.put("recordCounts", recordCounts);
+		map.put("recordsPerPage", recordsPerPage);		
+		if (member==null) {
+			map.put("statusList", null);			
+			return map;
+		}
+		Integer memberid = member.getId();
+		List<FollowedArticle> statusList = followedService.statusCheck(memberid);
+		map.put("statusList", statusList);		
+		return map;
+	}
+	
 	@GetMapping(value = "/getPersonalArtilceList")
 	public @ResponseBody Map<String, Object> getPersonalArtilceList(Model model, @RequestParam(value = "articleTypeId", defaultValue = "1")Integer id){
 		Map<String, Object> map = new HashMap<>();

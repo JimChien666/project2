@@ -21,6 +21,10 @@ public interface ArticleDAO {
 
 	Long getRecordCounts(Integer id);
 	
+	List<Article> serchArticles(Integer pageNo ,Integer recordsPerPage, String serch);
+	
+	Long getAllRecordCounts();
+	
 	Article select(int id);
 	
 	Article saveFullArticle(Article article);

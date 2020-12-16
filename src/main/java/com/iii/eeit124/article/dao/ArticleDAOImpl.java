@@ -106,6 +106,22 @@ public class ArticleDAOImpl implements ArticleDAO {
 		  return resultList2;
 		 }
 
+	@Override
+	public List<Article> serchArticles(Integer pageNo, Integer recordsPerPage, String serch) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Article> query = session.createQuery("from Article where title like ?1 order by id desc",	Article.class);
+		query.setParameter(1, "%"+serch+"%");
+		List<Article> list = query.list();
+		return list;
+	}
+
+	@Override
+	public Long getAllRecordCounts() {
+		Long count = 0L; // 必須使用 long 型態
+		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Article").getSingleResult();
+		return count;
+	}
+
 
 
 
