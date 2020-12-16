@@ -1,8 +1,10 @@
 package com.iii.eeit124.article.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,8 +22,11 @@ import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -242,6 +247,53 @@ public class ArticleController {
 		System.out.println("success");
 		return "redirect:/articleList";
 	}
+	
+	
+	@GetMapping(value = "/getOptionImg")
+	public ResponseEntity<byte[]> getOptionImg(@RequestParam("optionId")Integer optionId) throws SQLException, IOException{
+		ResponseEntity<byte[]> re = null;
+		Options option = memberOptionService.findOptionById(optionId);
+		Blob blob = option.getOptionBlob();
+		String mimeType = ctx.getMimeType("abc.jpg");
+		MediaType mediaType = MediaType.valueOf(mimeType);
+		HttpHeaders headers = new HttpHeaders();
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();			
+			InputStream is = blob.getBinaryStream();
+			byte[] b = new byte[81920];
+			int len = 0;
+			while ((len = is.read(b)) != -1) {
+				baos.write(b, 0, len);				
+			}
+			headers.setContentType(mediaType);
+			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+			re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
+		} catch (Exception e) {
+//			e.printStackTrace();
+			Options option0 = memberOptionService.findOptionById(0);
+			Blob blob0 = option0.getOptionBlob();
+			String mimeType0 = ctx.getMimeType("abc.jpg");
+			MediaType mediaType0 = MediaType.valueOf(mimeType0);
+			HttpHeaders headers0 = new HttpHeaders();
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();			
+			InputStream is0 = blob0.getBinaryStream();
+			byte[] b = new byte[81920];
+			int len = 0;
+			while ((len = is0.read(b)) != -1) {
+				baos.write(b, 0, len);				
+			}
+			headers0.setContentType(mediaType0);
+			headers0.setCacheControl(CacheControl.noCache().getHeaderValue());
+			re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
+			return re;
+		}
+		return re;		
+	}
+	
+	
+	
+	
+	
 	
 	@GetMapping(value = "/getVoteResult")
 	public @ResponseBody Map<String, Integer> getVoteResult(@RequestParam Integer forumId){
