@@ -199,7 +199,9 @@ em {
                     <tr>
                     
                     <td  colspan="2" align="center" height="30"  >
-                    <a href="<c:url value='/member/UpdateMember.controller'/>">修改完成</a>
+                    <button  type="submit"  formmethod="post">提交</a></button>
+<!--                     <button  type="submit"  formmethod="post">重填</a></button> -->
+<%--                     <a href="<c:url value='/member/UpdateMember.controller'/>">修改完成</a> --%>
 					<a href="<c:url value='/member/myAccount.controller'/>">重填</a>
 					</form></td>
 			        </tr>
