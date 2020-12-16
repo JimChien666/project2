@@ -56,7 +56,12 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 .forum {
 	font-size: 4.5em;
 }
-
+tr:hover {
+	background-color:#FCE6C9;
+}
+table th{
+	background-color:#FDEEDB;
+}
 /* table { */
 /* 	font-size: 2em; */
 /* } */
@@ -117,9 +122,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			$artilceListTable.empty();
 			// 		$artilceList.append("<table border=1 style='width: 100%; font-size: 2em;' ><tbody>")
 
-			$artilceListTable.append("<tr><th>文章標題</th><th>追蹤</th></tr>")
-			
-			
+			$artilceListTable.append("<tr><th>人氣</th><th>主題</th><th>"+""+"</th></tr>")
 			
 			
 			$.each(articleList, function(i, article) {
@@ -132,10 +135,15 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					checkStatus = true;
 					}
  					});
-				
+
+// 				console.log("articleList"+article);				
+// 				console.log("forums"+JSON.stringify(article.forums));				
+// 				console.log("forums"+article.forums.length);				
+				console.log("member:"+JSON.stringify(article.member));
+				var popularity = (article.forums.length)-1;
 				$artilceListTable
-						.append("<tr><td><a href="+urlStringent+"><div>"
-								+ article.title + "</div></a></td><td class='product-wishlist-cart' id='forumsSelect1'><a onclick='follow(this)' style='color: white; cursor: pointer;' id='"+article.id+"'>"+(checkStatus? "取消追蹤":"追蹤")+"</a></td></tr>")
+						.append("<tr><td align='center'  width='100px'>"+popularity+"</td><td><a href="+urlStringent+"><div>"  
+								+ (article.title.length>14 ? article.title.slice(0,13)+'..' : article.title) +"</div></a></td><td width='50px' class='product-wishlist-cart' id='forumsSelect1'><a onclick='follow(this)' style='color: white; cursor: pointer;' id='"+article.id+"'>"+(checkStatus? "取消追蹤":"追蹤")+"</a></td></tr>")
 			})
 
 // 			var navContent = "" ;
@@ -386,8 +394,8 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 		<div style="clear: both; width: 100%;">
 			<!-- 下面要放文章 -->
 			<!-- 		<div id="artilceList"> -->
-			<table id="artilceListTable" border=1
-				style='width: 100%; font-size: 2em;'>
+			<table id="artilceListTable" 
+				style='width: 100%; font-size: 2em; box-shadow:1px 3px 5px 2px #cccccc;'>
 			</table>
 			<!-- 		</div> -->
 		</div>
