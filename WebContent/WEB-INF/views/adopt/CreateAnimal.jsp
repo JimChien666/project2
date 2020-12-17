@@ -386,5 +386,52 @@ setTimeout(function() {
 		$('#coatColor').val("橘");
 		$('#note').val("跟主人熟了會撒嬌");
 	});
+	//品種選擇
+	//都不選的預設
+	var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
+	document.getElementById("breedText").value = breedId;
+	//只選breed
+	breed.onchange = function() {
+		var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
+		document.getElementById("breedText").value = breedId;
+	}
+	var family = document.getElementById("family");
+	family.onchange = function() {
+		$("#breed").html("");
+		$("#breed").empty();//或用下一行
+		//	$("#breed").find("option").remove();
+		var xhr = new XMLHttpRequest();
+		var familyValue = family.options[family.selectedIndex].text;
+		var url = "/team6/getBreed.controller?family=" + familyValue;
+		xhr.open("GET", url, true);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			// 向伺服器提出的請求已經收到回應
+			if (xhr.readyState === 4) {
+				// 伺服器回應成功
+				if (xhr.status === 200) {
+					var breed = JSON.parse(xhr.responseText);
+					//可再確認用array.join或用一般字串相加，哪個效率好
+					var content = "";
+					for (var i = 0; i < breed.length; i++) {
+						content += "<option value='" + breed[i].breedId + "'>"
+							+ breed[i].breed + "</option>";
+					}
+					document.getElementById("breed").innerHTML = content;
+
+					//改變family和breed時的預設值
+					var breed = document.getElementById("breed");
+					breed.onchange = function() {
+						var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
+						document.getElementById("breedText").value = breedId;
+					}
+
+					//只改變family時的預設值
+					var breedId = document.getElementById("breed").options[breed.selectedIndex].text;
+					document.getElementById("breedText").value = breedId;
+				}
+			}
+		}
+	}
 </script>
 </html>

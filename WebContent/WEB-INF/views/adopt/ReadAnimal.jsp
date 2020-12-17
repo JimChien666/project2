@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,33 +85,21 @@
 					<div class="page1">
 						<c:choose>
 							<c:when test="${source == 'MyAnimals'}">
-								<div class="about-us-btn mb-20 textRight">
+								<div class="about-us-btn mb-20 f-left wid150">
 									<a class="btn-style1"
 										href="<c:url value='/MemberCenter/preCreateAnimal.controller'/>">新增寵物</a>
 								</div>
 							</c:when>
 						</c:choose>
 						<%-- <%=application.getContextPath()%> --%>
-						<nav class="navbar navbar-light bg-light justify-content-between">
-							<a class="navbar-brand"></a>
+						<div class="wid1100 textRight">
 							<div class="header-search same-style">
-							<button class="search-toggle">
-								<i class="icon-magnifier s-open"></i> <i
-									class="ti-close s-close"></i>
-							</button>
-							<div class="search-content">
-								<form action="#">
-									<input type="text" placeholder="搜尋動物類別/品種" id="keywordInput" name="factor1">
-<!-- 									<button> -->
-<!-- 										<i class="icon-magnifier"></i> -->
-<!-- 									</button> -->
-								</form>
+								<i class="icon-magnifier font22"></i> <input type="text"
+									placeholder="搜尋動物類別/品種" id="keywordInput" name="factor1"
+									class="wid200">
 							</div>
+							<div id="searchResultText" class="font22">總隻數：${fn:length(AnimalsList)}隻</div>
 						</div>
-							<!-- 							</form> -->
-						</nav>
-						<!-- 						<a -->
-						<%-- 							href="<c:url value='/MemberCenter/readKeyword.controller?factor1=混種狗'/>">search</a> --%>
 						<div class="divHidden" id="source">${source}</div>
 						<script type="text/javascript">
 							$("#keywordInput")
@@ -134,6 +123,7 @@
 															var searchResult = JSON
 																	.parse(xhr.responseText);
 															var content = "";
+															var num = 0;
 															for (var i = 0; i < searchResult.length; i++) {
 																for (var j = 0; j < searchResult[i].length; j++) {
 																	content += "<div class='col-xl-3 col-lg-4 col-md-6 f-left'>"
@@ -198,13 +188,34 @@
 																	content += "</div>"
 																	content += "</a>"
 																	content += "</div>"
+																	num = num + 1;
 																}
-																$("#card")
-																		.empty();
-																$("#card")
-																		.append(
-																				content);
 															}
+															$(
+																	"#searchResultText")
+																	.empty();
+															$(
+																	"#searchResultText")
+																	.text(
+																			"搜尋關鍵字「"
+																					+ keyword
+																					+ "」，共有"
+																					+ num
+																					+ "隻符合");
+															if ("" == keyword) {
+																$(
+																		"#searchResultText")
+																		.empty();
+																$(
+																		"#searchResultText")
+																		.text(
+																				"總隻數："
+																						+ num
+																						+ "隻");
+															}
+															$("#card").empty();
+															$("#card").append(
+																	content);
 														}
 													}
 												}

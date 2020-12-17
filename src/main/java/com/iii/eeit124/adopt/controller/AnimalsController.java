@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -29,6 +30,7 @@ import com.iii.eeit124.adopt.ImgurAPI;
 import com.iii.eeit124.adopt.service.AdoptionRecordsService;
 import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.adopt.service.BreedsService;
+import com.iii.eeit124.adopt.service.EmailService;
 import com.iii.eeit124.entity.AdoptionRecords;
 import com.iii.eeit124.entity.Animals;
 import com.iii.eeit124.entity.AnimalsFiles;
@@ -43,6 +45,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+//會員中心的controller
 @Controller
 @RequestMapping("/MemberCenter")
 public class AnimalsController {
@@ -54,6 +57,8 @@ public class AnimalsController {
 	public AnimalsService animalsService;
 	@Autowired
 	public BreedsService breedsService;
+	@Autowired
+	public EmailService emailService;
 	@Autowired
 	public AdoptionRecordsService adoptionRecordsService;
 	static final ImgurAPI imgurApi = createImgurAPI();
@@ -303,11 +308,29 @@ public class AnimalsController {
 	@GetMapping("/adoptionRequestList.controller")
 	public String processAdoptionRequestList(@RequestParam("source") String source, Model m) {
 		Integer memberId = ((Members) session.getAttribute("LoginOK")).getId();
+		Integer reviewStatus = 1;//若某隻動物還沒被核准過，則為1
+		Integer animalId = 0;
+		
+		//看要用什麼把reviewStatus、animalId裝起來
+		
+		
 		if ("AdoptionRequest".equals(source)) {
 			//找出該會員擁有的寵物，但被其他領養人提出領養申請的寵物
 			List<AdoptionRecords> readAdoptionRecords2 = adoptionRecordsService.readAdoptionRecords2("OWNERMEMBERID = "+ memberId, "REVIEW_STATUS >= 0", "APPLY_TIME");
 			m.addAttribute("AdoptionRequestList", readAdoptionRecords2);
 			m.addAttribute("source", "AdoptionRequest");
+			for (AdoptionRecords adoptionRecords : readAdoptionRecords2) {
+				if(adoptionRecords.getReviewStatus() == 3) {
+					reviewStatus = 3;
+					animalId = adoptionRecords.getAnimalId();
+					break;
+				}else if(adoptionRecords.getReviewStatus() == 2) {
+					reviewStatus = 2;
+					animalId = adoptionRecords.getAnimalId();
+				}
+			}
+			m.addAttribute("reviewStatus", reviewStatus);
+			System.out.println("reviewStatus"+reviewStatus);
 		}else if ("MyAdoptionProgress".equals(source)) {
 			//找出該會員申請領養的紀錄
 			List<AdoptionRecords> readMyAdoptionRecords = adoptionRecordsService.readMyAdoptionRecords(memberId);
@@ -324,6 +347,15 @@ public class AnimalsController {
 		adoptionRecord.setApplyRejectedAt(new Date());
 		adoptionRecord.setRejectedReason(rejectedReason);
 		adoptionRecordsService.update(adoptionRecord);
+
+		// 信件內容
+		String content = null;
+		content = "很抱歉您未被送養者選中為寵物的新領養者，可透過下列網址查看申請退回原因。\r\n"
+				+ "我的領養進度連結：http://localhost:8080/team6/MemberCenter/adoptionRequestList.controller?source=MyAdoptionProgress\r\n"
+				+ "繼續領養：http://localhost:8080/team6/adopt";
+
+		// 寄mail給owner
+		emailService.sendSimpleMessage(adoptionRecord.getEmail(), "寵物領養申請_退回申請", content);
 		return "redirect:/MemberCenter/adoptionRequestList.controller?source=AdoptionRequest";
 	}
 	
@@ -334,6 +366,16 @@ public class AnimalsController {
 		adoptionRecord.setApplyApprovedAt(new Date());
 		adoptionRecord.setApprovedReason(approvedReason);
 		adoptionRecordsService.update(adoptionRecord);
+
+		// 信件內容
+		String content = null;
+		content = "您的領養申請已被送養者核准，請於送養者指定的時間或地點領取寵物，或另外跟送養者約時間領取，謝謝您的愛心。\r\n"
+				+ "並於領取寵物後，至「我的領養進度」連結點選「完成領養」，以完成領養手續。\r\n"
+				+ "我的領養進度連結：http://localhost:8080/team6/MemberCenter/adoptionRequestList.controller?source=MyAdoptionProgress\r\n"
+				+ "繼續領養：http://localhost:8080/team6/adopt";
+
+		// 寄mail給owner
+		emailService.sendSimpleMessage(adoptionRecord.getEmail(), "寵物領養申請_成功申請", content);
 		return "redirect:/MemberCenter/adoptionRequestList.controller?source=AdoptionRequest";
 	}
 	

@@ -43,7 +43,7 @@ public class AdoptController {
 
 		// 讀會員entity
 		Members member = (Members) session.getAttribute("LoginOK");
-		//讀ownerMember
+		// 讀ownerMember
 		Members ownerMember = animalsService.read(animalsId).getMember();
 		// 讀領養紀錄list
 		List<AdoptionRecords> adoptionRecordList = adoptionRecordsService.read(member.getId(), animalsId);
@@ -114,6 +114,8 @@ public class AdoptController {
 		session.setAttribute("myAdoptionRecord", adoptionRecords);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		m.addAttribute("Today", sdf.format(new Date()));
+		List<Animals> readMyAnimals = animalsService.readMyAnimals(((Members) session.getAttribute("LoginOK")).getId());
+		m.addAttribute("currentAnimalsNum", readMyAnimals.size());
 		return "adopt/AdoptApply";
 	}
 
@@ -125,6 +127,8 @@ public class AdoptController {
 						((AdoptionRecords) session.getAttribute("myAdoptionRecord")).getAnimalId())).get(0));
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		m.addAttribute("Today", sdf.format(new Date()));
+		List<Animals> readMyAnimals = animalsService.readMyAnimals(((Members) session.getAttribute("LoginOK")).getId());
+		m.addAttribute("currentAnimalsNum", readMyAnimals.size());
 		return "adopt/AdoptApply";
 	}
 
@@ -149,30 +153,121 @@ public class AdoptController {
 			adoptionRecords.setBirthday(birthday);
 		}
 		adoptionRecords.setApplyTime(new Date());
-		
-		//設定審核狀態
+
+		// 設定審核狀態
 		adoptionRecords.setReviewStatus(1);
-		
-		//將新增的資料更新進領養紀錄
+
+		// 將新增的資料更新進領養紀錄
 		adoptionRecords.setUpdatedAt(new Date());
 		adoptionRecordsService.update(adoptionRecords);
 		session.setAttribute("myAdoptionRecord", adoptionRecords);
-		
-		//信件內容
-//		String content=null;
-//		content = "";
-		
-		//寄mail
-//		emailService.sendSimpleMessage(adoptionRecords.getEmail(), "有人向您的寵物提出領養申請", content);
+
+		// 信件內容
+		String content = null;
+		content = "有會員向您的寵物提出領養申請，請按下下列連結回網站，或至網站->會員中心->寵物管理->領養申請，去核准/退回申請，謝謝。\r\n"
+				+ "領養申請審核連結：http://localhost:8080/team6/MemberCenter/adoptionRequestList.controller?source=AdoptionRequest";
+
+		// 寄mail給owner
+		emailService.sendSimpleMessage(adoptionRecords.getOwnerMember().getEmail(), "寵物領養申請", content);
 
 		return "redirect:/MemberCenter/adoptionRequestList.controller?source=MyAdoptionProgress";
 	}
-	
+
 	// Refresh
 	@GetMapping("/apply")
 	public String processAdoptRefresh(Model m) {
 		m.addAttribute("AnimalsList", animalsService.readAll());
 		m.addAttribute("source", "AdoptAnimal");
 		return "adopt/ReadAnimal";
+	}
+
+	// oneButtonApply
+	@GetMapping("/oneButtonApply.controller/{animalId}")
+	public String processOneButtonApply(@PathVariable("animalId") Integer animalsId) throws ParseException {
+
+		// 讀會員entity
+		Members member = (Members) session.getAttribute("LoginOK");
+		// 讀ownerMember entity
+		Members ownerMember = animalsService.read(animalsId).getMember();
+		// 讀領養紀錄list
+		List<AdoptionRecords> adoptionRecordList = adoptionRecordsService.read(member.getId(), animalsId);
+		if (adoptionRecordList.isEmpty()) {
+			// 若無領養紀錄list，則新增一個
+			AdoptionRecords adoptionRecords = new AdoptionRecords();
+			adoptionRecords.setMember(member);
+			adoptionRecords.setOwnerMember(ownerMember);
+			adoptionRecords.setAnimal(animalsService.read(animalsId));
+			adoptionRecords.setCreatedAt(new Date());
+			adoptionRecords.setNoticeOptions(1023);
+			adoptionRecords.setAgreement(1);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			adoptionRecords.setBirthday(sdf.parse("2020-12-25"));
+			adoptionRecords.setApplyTime(new Date());
+			
+			//applyContent
+			adoptionRecords.setAdopterName(member.getName());
+			adoptionRecords.setApplicantName(member.getName());
+			List<Animals> readMyAnimals = animalsService.readMyAnimals(member.getId());
+			adoptionRecords.setCurrentAnimalsNum(readMyAnimals.size());
+			adoptionRecords.setEmail(member.getEmail());
+			adoptionRecords.setFeedAddress(member.getAddress());
+			adoptionRecords.setFeedAddressType("大樓");
+			adoptionRecords.setMailingAddress(member.getAddress());
+			adoptionRecords.setMobile("0983654751");
+			adoptionRecords.setPersonalId("S123586975");
+			adoptionRecords.setResidentAddress(member.getAddress());
+			adoptionRecords.setTel("05-22658521");
+
+			// 設定審核狀態
+			adoptionRecords.setReviewStatus(1);
+
+			// 信件內容
+			String content = null;
+			content = "有會員向您的寵物提出領養申請，請按下下列連結回網站，或至網站->會員中心->寵物管理->領養申請，去核准/退回申請，謝謝。\r\n"
+					+ "領養申請審核連結：http://localhost:8080/team6/MemberCenter/adoptionRequestList.controller?source=AdoptionRequest";
+
+			// 寄mail給owner
+			emailService.sendSimpleMessage(adoptionRecords.getOwnerMember().getEmail(), "寵物領養申請", content);
+			adoptionRecordsService.create(adoptionRecords);
+			session.setAttribute("myAdoptionRecord", adoptionRecords);
+		} else {
+			// 若有領養紀錄list
+			for (AdoptionRecords adoptionRecord : adoptionRecordList) {
+				adoptionRecord.setNoticeOptions(1023);
+				adoptionRecord.setAgreement(1);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				adoptionRecord.setBirthday(sdf.parse("2020-12-25"));
+				adoptionRecord.setApplyTime(new Date());
+				
+				//applyContent
+				adoptionRecord.setAdopterName(member.getName());
+				adoptionRecord.setApplicantName(member.getName());
+				List<Animals> readMyAnimals = animalsService.readMyAnimals(member.getId());
+				adoptionRecord.setCurrentAnimalsNum(readMyAnimals.size());
+				adoptionRecord.setEmail(member.getEmail());
+				adoptionRecord.setFeedAddress(member.getAddress());
+				adoptionRecord.setFeedAddressType("大樓");
+				adoptionRecord.setMailingAddress(member.getAddress());
+				adoptionRecord.setMobile("0983654751");
+				adoptionRecord.setPersonalId("S123586975");
+				adoptionRecord.setResidentAddress(member.getAddress());
+				adoptionRecord.setTel("05-22658521");
+
+				// 設定審核狀態
+				adoptionRecord.setReviewStatus(1);
+
+				// 信件內容
+				String content = null;
+				content = "有會員向您的寵物提出領養申請，請按下下列連結回網站，或至網站->會員中心->寵物管理->領養申請，去核准/退回申請，謝謝。\r\n"
+						+ "領養申請審核連結：http://localhost:8080/team6/MemberCenter/adoptionRequestList.controller?source=AdoptionRequest";
+
+				// 寄mail給owner
+				emailService.sendSimpleMessage(adoptionRecord.getOwnerMember().getEmail(), "寵物領養申請", content);
+				adoptionRecord.setUpdatedAt(new Date());
+				adoptionRecordsService.update(adoptionRecord);
+			}
+		}
+
+		return "redirect:/MemberCenter/adoptionRequestList.controller?source=MyAdoptionProgress";
 	}
 }

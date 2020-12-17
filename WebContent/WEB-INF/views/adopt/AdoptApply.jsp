@@ -142,8 +142,9 @@
 					</div>
 					<div class="mb-20">
 						<div>3.現有動物隻數</div>
+						<form:label path="currentAnimalsNum" class="font22">${currentAnimalsNum}隻(您在本平台擁有的寵物數量)</form:label>
 						<form:input path="currentAnimalsNum" placeholder="請輸入隻數"
-							id="currentAnimalsNum" />
+							id="currentAnimalsNum" value="${currentAnimalsNum}" class="divHidden"/>
 					</div>
 				</div>
 				<div class="font22 applyInputW2 mb-20">
@@ -202,7 +203,7 @@
 			<a href="<c:url value='/adopt'/>"
 				class="btn-style-cancel btn-style-border">取消</a>
 			<form:button value="Send"
-				class="btn-style1 btn-style-border" onclick="success('申請')">送出申請</form:button>
+				class="btn-style1 btn-style-border" onclick="success('申請', ' 寄送審核資料給送養者中')">送出申請</form:button>
 		</div>
 	</form:form>
 	<jsp:include page="../fragments/footerArea.jsp" />
@@ -226,12 +227,11 @@ setTimeout(function() {
 	$('#applyInput').click(function() {
 		$('input:checkbox:first').attr("checked", 'checked');
 		$('#feedAddressType').val("大樓");
-		$('#currentAnimalsNum').val("0");
 		$('#personalId').val("A123456789");
 		$('#date').val("1991-05-05");
 		$('#tel').val("02-2239-5214");
 		$('#mobile').val("0985-459-725");
-		$('#residentAddress').val("桃園市平鎮區")
+		$('#residentAddress').val($('#mailingAddress').val());
 	});
 </script>
 </html>

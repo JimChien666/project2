@@ -70,6 +70,7 @@ td {
 
 
 		<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
+		<%-- 		<jsp:include page="../members/fragments/myAccountLeftArea.jsp" /> --%>
 
 		<!-- 	==================================================================================== -->
 
@@ -120,7 +121,10 @@ td {
 											</button>
 										</div>
 										<div class="textLeft">
-											申請日期：${AdoptionRequestList.createdAt}<br> <br> 動物資料<br>
+											申請日期：
+											<fmt:formatDate value="${AdoptionRequestList.applyTime}"
+												pattern="yyyy/MM/dd HH:mm:ss" />
+											<br> <br> ===動物資料===<br>
 											<%-- 收容編號：${AdoptionRequestList.animal.acceptionId}<br> --%>
 											動物類別：${AdoptionRequestList.animal.breeds.family}<br>
 											動物品種：${AdoptionRequestList.animal.breeds.breed}<br>
@@ -137,13 +141,16 @@ td {
 												<img class="cardImg marginAuto" alt=""
 													src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${AdoptionRequestList.animal.animalId}">
 											</div>
-											<br> 申請者資料<br> 1.申請者皆同意與了解認養須知<br>
+											<br> ===申請者資料===<br> 1.申請者皆同意與了解認養須知<br>
 											2.申請者已閱讀並同意定型化契約<br> 3.申請人已年滿20歲<br>
 											4.飼養地點型態：${AdoptionRequestList.feedAddressType}<br>
 											5.現有動物隻數：${AdoptionRequestList.currentAnimalsNum}<br> <br>
-											申請人聯絡方式<br> 1.市內電話：${AdoptionRequestList.tel}<br>
+											===申請人聯絡方式===<br> 1.市內電話：${AdoptionRequestList.tel}<br>
 											2.行動電話：${AdoptionRequestList.mobile}<br>
-											3.電子郵件：${AdoptionRequestList.email}<br>
+											3.電子郵件：${AdoptionRequestList.email}<br> <br>
+											===送養者聯絡方式===<br>
+											1.電話：${AdoptionRequestList.ownerMember.tel}<br>
+											2.電子郵件：${AdoptionRequestList.ownerMember.email}<br>
 										</div>
 										<div class="modal-footer">
 											<button type="button"
@@ -209,17 +216,34 @@ td {
 									</div>
 								</c:when>
 								<c:when test="${AdoptionRequestList.reviewStatus == 1}">
-								待核准申請
 									<c:choose>
 										<c:when test="${source == 'AdoptionRequest'}">
-											<div class="mt-10 btn-style1 btn-style-border"
-												data-toggle="modal"
-												data-target="#reviewStatus2${AdoptionRequestList.adoptionId}">核准申請
-											</div>
-											<div class="mt-10 btn-style-cancel btn-style-border"
-												data-toggle="modal"
-												data-target="#reviewStatus0${AdoptionRequestList.adoptionId}">退回申請
-											</div>
+											<c:choose>
+
+
+												<!-- 還需要綁動物ID -->
+												<c:when test="${reviewStatus == 2}">
+												尚在等待其他申請者領取寵物
+												</c:when>
+												<c:when test="${reviewStatus == 3}">
+													該寵物已被領養
+													<div class="mt-10 btn-style-cancel btn-style-border"
+														data-toggle="modal"
+														data-target="#reviewStatus0${AdoptionRequestList.adoptionId}">退回申請
+													</div>
+												</c:when>
+												<c:when test="${reviewStatus == 0 || reviewStatus == 1}">
+													待核准申請
+													<div class="mt-10 btn-style1 btn-style-border"
+														data-toggle="modal"
+														data-target="#reviewStatus2${AdoptionRequestList.adoptionId}">核准申請
+													</div>
+													<div class="mt-10 btn-style-cancel btn-style-border"
+														data-toggle="modal"
+														data-target="#reviewStatus0${AdoptionRequestList.adoptionId}">退回申請
+													</div>
+												</c:when>
+											</c:choose>
 											<!-- 核准申請 -->
 											<div class="modal fade"
 												id="reviewStatus2${AdoptionRequestList.adoptionId}"
@@ -292,6 +316,7 @@ td {
 											</div>
 										</c:when>
 										<c:when test="${source == 'MyAdoptionProgress'}">
+								待核准申請
 										</c:when>
 									</c:choose>
 								</c:when>
