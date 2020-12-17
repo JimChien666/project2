@@ -67,7 +67,7 @@ button.greybtn:hover{
 }
 p img{
 /* width: 50%; */
-width:50vw;
+width:35vw;
 /* height:50vmin; */
 /*     width: auto; */
     height: auto;
@@ -127,7 +127,8 @@ col-11
 		$article.empty();
 // 		console.log(article)
 // 		$article.append("<h3>" + article.title + "</h3>")
-		$article.append("<h2 style='clear:both; box-shadow:1px 3px 5px 2px #cccccc;'>"+"標題: " + article.title + "</h2>")
+		$article.append("<hr><center><h2 style='clear:both;'>"+ article.title + "</h2></center><hr>")
+// 		$article.append("<h2 style='clear:both; box-shadow:1px 3px 5px 2px #cccccc;'>"+"標題: " + article.title + "</h2>")
 		$article.append("<table style='width: 100%;'><tr><th>"+""+"</th><th>"+""+"</th></tr>")
 // 		$article.append("<table style='width: 100%;' class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
 // 		console.log(forumList)
@@ -194,7 +195,7 @@ col-11
 				
 			var imgTag = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + forum.forumOwnerFileId + `' />" class="d-inline-block align-top" alt="" style="width:50px; height:50px; border-radius: 50%; border: 2px white solid;">`
 // 			$article.append("<tr><td><div style='width:60px; background-color: coral; box-shadow:1px 3px 5px 2px #cccccc;'>"+ imgTag + forum.memberid + "</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
-			$article.append("<tr><td><div style='margin:0px 10px 10px 10px;valign=top'>"+ imgTag +"</div></td><td id="+forum.id+"><div style=' width:100%;margin:10px 10px 10px 10px; padding:10px 20px 10px 30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "</div></td></tr>")
+			$article.append("<tr><td valign='top'><div style='margin:10px 10px 10px 10px;valign=top'>"+ imgTag +forum.member+"</div></td><td id="+forum.id+"><div style=' width:100%;margin:10px 10px 10px 10px; padding:10px 20px 10px 30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "</div></td></tr>")
 // 			$article.append("<tr><td><div style='width:60px;'>"+ imgTag +"</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "</div></td></tr>")
 			$article.append("</table>");
 //--------------------------------------
@@ -506,52 +507,21 @@ $("#deleteArticle").on("click",	function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 					
 </script>
 
 		<div id="articleShow" style="padding: 70px 0px 0px 0px;"></div>
-	</div>
-
-
-
+	
+	
+<hr>
 	<div class="pagination-style text-center mt-20">
 		<ul id='navigation'>
 
 		</ul>
 	</div>
+<hr>
+	</div> <!-- container -->
+
 
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
@@ -605,13 +575,6 @@ $("#deleteArticle").on("click",	function() {
 	}
 
 
-
-
-
-
-
-
-	
 
 	</script>
 
