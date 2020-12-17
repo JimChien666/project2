@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import com.iii.eeit124.util.FindUserPassword;
 import com.iii.eeit124.util.LoginCheckingFilter;
 import com.iii.eeit124.util.OpenSessionViewFilter;
+import com.iii.eeit124.webSocket.SpringWebSocketConfig;
 
 
 
@@ -31,7 +32,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		rootContext.register(SpringMVCJavaConfig.class); //���U�γ]�w���O
+		rootContext.register(getServletConfigClasses()); //���U�γ]�w���O
 		rootContext.setServletContext(servletContext);
 		ServletRegistration.Dynamic mvc = servletContext.addServlet("mvc", new DispatcherServlet(rootContext)); // �ʺA���U�]�w���
 		mvc.setLoadOnStartup(1);									//servletcontext�W�r
@@ -64,12 +65,11 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Class[] {SpringMVCJavaConfig.class, SpringWebSocketConfig.class};
 	}
 
 	@Override
 	protected String[] getServletMappings() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

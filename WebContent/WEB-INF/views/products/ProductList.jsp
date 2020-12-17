@@ -494,7 +494,10 @@ button.btncls:hover{
 </head>
 <body>
 <jsp:include page="../fragments/headerArea.jsp" />
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/heads/jim
 
 <!-- TOP圖片麵包屑 -->
 	<div class="breadcrumb-area pt-95 pb-95 bg-img" style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
@@ -574,6 +577,7 @@ button.btncls:hover{
           </div>
       </div>
 
+<<<<<<< HEAD
 
 <!--         Welcome<br/><input id="text" type="text"/> -->
 <!-- 		<button onclick="send()">傳送訊息</button> -->
@@ -594,6 +598,8 @@ button.btncls:hover{
 	        </div>      		
 		<div class="page-header" id="tou" style="color:red;">狀態列
         </div>
+=======
+>>>>>>> refs/heads/jim
 <jsp:include page="../fragments/footerArea.jsp" />
 <jsp:include page="../fragments/allJs.jsp" />
 </body>
