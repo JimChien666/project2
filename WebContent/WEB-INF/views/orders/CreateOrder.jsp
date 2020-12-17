@@ -144,25 +144,25 @@ function fillUpData(){
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="billing-info">
                                                             <label>訂購人</label>
-                                                            <form:input id="buyerName" path="buyerName" value="${LoginOK.name}"/>${errors.buyerName}
+                                                            <form:input id="buyerName" path="buyerName" value="${LoginOK.name}"/><span style="color: red;">${errors.buyerName}</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="billing-info">
                                                             <label>訂購人電話</label>
-                                                            <form:input id="buyerTel" path="buyerTel" value="${LoginOK.tel}"/>${errors.buyerTel}
+                                                            <form:input id="buyerTel" path="buyerTel" value="${LoginOK.tel}"/><span style="color: red;">${errors.buyerTel}</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="billing-info">
                                                             <label>訂購人地址</label>
-                                                            <form:input id="buyerAddress" path="buyerAddress" value="${LoginOK.address}"/>${errors.buyerAddress}
+                                                            <form:input id="buyerAddress" path="buyerAddress" value="${LoginOK.address}"/><span style="color: red;">${errors.buyerAddress}</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="billing-info">
                                                             <label>訂購人Email</label>
-                                                            <form:input id="buyerEmail" path="buyerEmail" value="${LoginOK.email}"/>${errors.buyerEmail}
+                                                            <form:input id="buyerEmail" path="buyerEmail" value="${LoginOK.email}"/><span style="color: red;">${errors.buyerEmail}</span>
                                                         </div>
                                                     </div>
                                             </div>
@@ -184,25 +184,25 @@ function fillUpData(){
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="billing-info">
                                                             <label>收件人</label>
-                                                            <form:input id="recipientName" path="recipientName" value=""/>${errors.recipientName}
+                                                            <form:input id="recipientName" path="recipientName" value=""/><span style="color: red;">${errors.recipientName}</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="billing-info">
                                                             <label>收件人電話</label>
-                                                            <form:input id="recipientTel" path="recipientTel" value=""/>${errors.recipientTel}
+                                                            <form:input id="recipientTel" path="recipientTel" value=""/><span style="color: red;">${errors.recipientTel}</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="billing-info">
                                                             <label>收件人地址</label>
-                                                            <form:input id="recipientAddress" path="recipientAddress" value=""/>${errors.recipientAddress}
+                                                            <form:input id="recipientAddress" path="recipientAddress" value=""/><span style="color: red;">${errors.recipientAddress}</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="billing-info">
                                                             <label>收件人Email</label>
-                                                            <form:input id="recipientEmail" path="recipientEmail" value=""/>${errors.recipientEmail}
+                                                            <form:input id="recipientEmail" path="recipientEmail" value=""/><span style="color: red;">${errors.recipientEmail}</span>
                                                         </div>
                                                     </div>
                                             	</div>

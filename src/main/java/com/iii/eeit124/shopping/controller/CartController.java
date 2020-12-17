@@ -75,9 +75,6 @@ public class CartController {
 	//進入購物車頁面
 	@GetMapping(value = "/CartList")
 	public String goToCartPage(Model model) {
-		if (session.getAttribute("cartItems")==null) {
-			session.setAttribute("cartItems", new ArrayList<CartItems>());
-		}
 		return "products/CartList";
 	}
 	//修改購物車商品的數量

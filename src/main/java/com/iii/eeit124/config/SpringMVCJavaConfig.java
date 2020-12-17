@@ -16,6 +16,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.iii.eeit124.aop.controller.MyControllerAspect;
+
 //import com.iii.eeit124.shopping.controller.CartController;
 //import com.iii.eeit124.util.MyAspect;
 
@@ -23,7 +25,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.iii.eeit124")
 @PropertySource(value = { "classpath:application.properties" })
-//@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy
 public class SpringMVCJavaConfig implements WebMvcConfigurer {
 //	@Autowired
 //	private Environment env;
@@ -77,5 +79,10 @@ public class SpringMVCJavaConfig implements WebMvcConfigurer {
 	    props.put("mail.debug", "true");
 	    
 	    return mailSender;
+	}
+	
+	@Bean
+	public MyControllerAspect getMyControllerAspect() {
+		return new MyControllerAspect();
 	}
 }
