@@ -96,10 +96,10 @@ button.btncls:hover {
 		<div class="starter-template" style="clear: both">
 			<h1>文章回覆</h1>
 			<p class="lead">
-				Share your story.<br> ...
+				分享更多您的故事~<br>
 			</p>
 		</div>
-
+		<hr>
 		<form:form action="/team6/replyToDB" method="POST"
 			modelAttribute="forums">
 			<br>
@@ -111,10 +111,12 @@ button.btncls:hover {
 			<%-- 		<form:hidden value="${forum.getArticle().getId()}" path="forums.aricle.id" /> --%>
 			<%--        <input type="hidden" name="id" value="${forums.getArticle().getId()}"> --%>
 			<input type="hidden" name="id" value="${article.getId()}">
-
+				
 			<center>
 				<form:button class="btncls" value="submit" type="submit">送出</form:button>
 			</center>
+					<hr>
+			
 			<script>
 				CKEDITOR.replace("editor", {});
 			</script>

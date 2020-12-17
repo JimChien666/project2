@@ -117,18 +117,19 @@ div.remove:hover {
 		<div class="starter-template" style="clear: both">
 			<h1>文章修改</h1>
 			<p class="lead">
-				Change your story.<br> ...
+				修改您的文章<br>
 			</p>
 		</div>
-
+		<hr>
 		<form:form action="updateToDB" method="POST" modelAttribute="article">
-title:<form:input path="title" value="${article.getTitle()}" />
+<form:input path="title" value="${article.getTitle()}"  required="required"/>
 			<br>
+		<hr>
 
 			<%-- article:<textarea name="content">${article.getFirstForum().getContent()}</textarea> --%>
 
 
-article:<textarea name="content" id="editor">${forum.getContent()}</textarea>
+		<textarea name="content" id="editor">${forum.getContent()}</textarea>
 			<br>
 			<%-- <form:hidden value="1" path="article.activitysid"/>		 --%>
 			<%-- <form:hidden value="1" path="article.showarticle"/>		 --%>
@@ -138,7 +139,9 @@ article:<textarea name="content" id="editor">${forum.getContent()}</textarea>
 			<center>
 				<form:button class="btncls" value="submit" type="submit">送出</form:button>
 			</center>
-			<br>
+			<hr>
+			
+
 			<script>
 				//         ClassicEditor
 				//             .create( document.querySelector( '#editor' ) )
