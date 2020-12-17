@@ -21,7 +21,7 @@
 <body>
 
 	請輸入訊息：<textarea rows="5" cols="30" id="inputMsg" name="inputMsg" ></textarea>
-	<input id="sendBtn" type="button" onclick="doSendUser(${memberId});" value="123"/>
+	<div id="sendBtn"><input type="button" onclick="doSendUser(${memberId});" value="123"/></div>
 	
 	<button type="button" οnmouseover="doSendUser(${memberId});">發送</button>
 	<button οnclick="doSendUsers();">群發</button>
@@ -52,9 +52,9 @@
         function onMessage(evt) {
             alert("管理員發送訊息:" + evt.data);
             console.log(evt.data);
-            var memberId=(evt.data).split("#燚#")[0];
+            var memberId="'"+(evt.data).split("#燚#")[0]+"'";
             var message=(evt.data).split("#燚#")[1];
-            document.getElementById('sendBtn').onclick =  doSendUser2(memberId) 
+            document.getElementById('sendBtn').innerHTML='<input type="button" onclick="doSendUser('+memberId+');" value="123"/>';
             
             console.log(memberId);
             console.log(message);
