@@ -84,8 +84,14 @@ h1 {
 <jsp:include page="../fragments/links.jsp" />
 
 
+<!-- 轉頁載入動畫1 -->
+<link rel="stylesheet"
+	href="<c:url value='/css/loadingAnimation.css' />">
 </head>
 <body>
+	<div id="loader"></div>
+	<div style="display: none;" id="myDiv" class="animate-bottom">
+		<!-- 轉頁載入動畫1 -->
 	<%-- <script src="<c:url value='/js/ckeditor/config.js' />"></script> --%>
 
 	<%-- <script src="<c:url value='/js/ckeditor/ckeditor.js' />"></script> --%>
@@ -250,5 +256,16 @@ h1 {
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
 
+		<!-- 轉頁載入動畫2 -->
+	</div>
 </body>
+<script>
+setTimeout(function() {
+	$(document).ready(function() {
+		document.getElementById("loader").style.display = "none";
+		document.getElementById("myDiv").style.display = "block";
+	});
+}, 500);
+</script>
+<!-- 轉頁載入動畫2 -->
 </html>

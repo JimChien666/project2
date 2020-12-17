@@ -122,9 +122,14 @@ table th{
 		}
 	}
 </script>
-</head>
 <jsp:include page="../fragments/links.jsp" />
+
+<link rel="stylesheet"
+	href="<c:url value='/css/loadingAnimation.css' />">
+</head>
 <body>
+	<div id="loader"></div>
+	<div style="display: none;" id="myDiv" class="animate-bottom">
 	<jsp:include page="../fragments/headerArea.jsp" />
 	<div class="breadcrumb-area pt-95 pb-95 bg-img"
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
@@ -217,5 +222,14 @@ table th{
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
 
+	</div>
 </body>
+<script>
+setTimeout(function() {
+	$(document).ready(function() {
+		document.getElementById("loader").style.display = "none";
+		document.getElementById("myDiv").style.display = "block";
+	});
+}, 500);
+</script>
 </html>

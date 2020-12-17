@@ -379,14 +379,11 @@ function asynRequest(id) {
 
 	
 </script>
+<link rel="stylesheet" href="<c:url value='/css/loadingAnimation.css' />">
 </head>
-
-
-
-
-
 <body>
-
+<div id="loader"></div>
+<div style="display: none;" id="myDiv" class="animate-bottom">
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
 	</div>
@@ -618,6 +615,14 @@ $("#deleteArticle").on("click",	function() {
 
 	</script>
 
-
+</div>
 </body>
+<script>
+setTimeout(function() {
+	$(document).ready(function() {
+		document.getElementById("loader").style.display = "none";
+		document.getElementById("myDiv").style.display = "block";
+	});
+}, 500);
+</script>
 </html>
