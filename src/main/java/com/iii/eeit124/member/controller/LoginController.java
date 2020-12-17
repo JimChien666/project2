@@ -120,6 +120,8 @@ public class LoginController {
 			if (member != null) {
 				// OK, 登入成功, 將mb物件放入Session範圍內，識別字串為"LoginOK"
 				session.setAttribute("LoginOK", member);
+				String username = String.valueOf(member.getId());
+	            session.setAttribute("SESSION_USERNAME", username);
 			} else {
 				// NG, 登入失敗, userid與密碼的組合錯誤，放相關的錯誤訊息到 errorMsgMap 之內
 				errors.put("LoginError", "該帳號不存在或密碼錯誤");

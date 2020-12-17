@@ -268,6 +268,7 @@ function comfirmOrder(){
         
             <div class="container">
                 <h5>購物清單</h5>
+                <span style="color: red;">${error}</span>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                         <form action="#">

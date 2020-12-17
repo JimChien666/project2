@@ -26,20 +26,19 @@ public class WebSocketController {
  
  
     @RequestMapping("/websocket/loginPage")
-    public String loginPage(@RequestParam String memberId, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String loginPage(@RequestParam(value="memberId", required = false) String memberId, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	HttpSession session = request.getSession();
         Members member=(Members)session.getAttribute("LoginOK");
         session.setAttribute("memberId",memberId); //把商品詳細頁面的memberId帶出來，讓商品有問題的人詢問
         if(member==null) {
         	return "order/login";
         }else {
-            String username = member.getName();
-            session.setAttribute("SESSION_USERNAME", username);        	
+            String username = String.valueOf(member.getId());
+            session.setAttribute("SESSION_USERNAME", username);
         	return "order/send";
         }
     }
- 
- 
+
     @RequestMapping("/websocket/login")
     public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String username = request.getParameter("username");
@@ -48,7 +47,7 @@ public class WebSocketController {
         session.setAttribute("SESSION_USERNAME", username); //一般直接保存user实体
         return "order/send";
     }
- 
+
     @RequestMapping("/websocket/send")
     @ResponseBody
     public String send(HttpServletRequest request) {

@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.iii.eeit124.aop.controller.MyControllerAspect;
+
 //import com.iii.eeit124.shopping.controller.CartController;
 //import com.iii.eeit124.util.MyAspect;
 
@@ -22,11 +25,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.iii.eeit124")
 @PropertySource(value = { "classpath:application.properties" })
-//@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy
 public class SpringMVCJavaConfig implements WebMvcConfigurer {
 //	@Autowired
 //	private Environment env;
-	
+
 	public SpringMVCJavaConfig() {
 			
 		}
@@ -59,23 +62,8 @@ public class SpringMVCJavaConfig implements WebMvcConfigurer {
 	    resolver.setDefaultEncoding("utf-8");
 	    return resolver;
 	}
-	
-
 	@Bean
-	public JavaMailSender getJavaMailSender() {
-	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-	    mailSender.setHost("smtp.gmail.com");
-	    mailSender.setPort(587);
-	    mailSender.setUsername("eeit124team6@gmail.com");
-	    mailSender.setPassword("eeit1246");
-	    //生日2000/12/25
-	    Properties props = mailSender.getJavaMailProperties();
-	    props.put("mail.transport.protocol", "smtp");
-	    props.put("mail.smtp.auth", "true");
-	    props.put("mail.smtp.starttls.enable", "true");
-	    props.put("mail.debug", "true");
-	    
-	    return mailSender;
+	public MyControllerAspect getMyControllerAspect() {
+		return new MyControllerAspect();
 	}
-
 }
