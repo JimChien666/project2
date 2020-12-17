@@ -21,6 +21,8 @@ import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -153,9 +155,16 @@ public class ArticleController {
 			@RequestParam(value = "id") Integer id,
 			@RequestParam(value = "comment")String comment			
 			) {
+		Whitelist whitelist = new Whitelist();
+		whitelist.addTags("br");
+		String cleanComment = Jsoup.clean(comment, whitelist);
 		Comments c = new Comments();
-		c.setComment(comment);
-
+		System.out.println("clean before.........................................");
+		System.out.println("comment:"+comment);
+		System.out.println("clean after.........................................");
+		System.out.println("cleanComment:"+cleanComment);
+		c.setComment(cleanComment);
+		
 		Forums forums = forumsService.selectForum(id);
 		c.setMember((Members) session.getAttribute("LoginOK"));
 		c.setForums(forums);
@@ -209,9 +218,9 @@ public class ArticleController {
 				if(file.getSize()>0) {
 					
 				
-					String fileName = file.getOriginalFilename(); //得到原始檔名
+					String fileName = file.getOriginalFilename(); //敺������
 					
-					String fileTempDirPath = ctx.getRealPath("/") + "UploadTempDir\\"; //創一個臨時資料夾
+					String fileTempDirPath = ctx.getRealPath("/") + "UploadTempDir\\"; //�銝������冗
 					File dirPath = new File(fileTempDirPath);
 					if(!dirPath.exists()) {
 					    boolean status = dirPath.mkdirs();
@@ -240,7 +249,7 @@ public class ArticleController {
 
 
 		}catch (IOException e) {
-//			errors.put("errorAccountDup", "新增此筆資料有誤(RegisterServlet)");
+//			errors.put("errorAccountDup", "�憓迨蝑���炊(RegisterServlet)");
 			return "redirect:/articleList";
 		}
 		forumsService.saveArticle(article);
