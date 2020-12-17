@@ -136,6 +136,7 @@
 				<div class="row" id="productList"style="border-top: 1px gray solid; padding-top: 10px;"></div>
 				</div>
 				<hr/>
+			<a style="color:blue;" href="<c:url value='/websocket/loginPage'  />?memberId=${ProductsInfo.memberId}"><b>即時客服</b></a>
 			<a style="color:blue;" href="<c:url value='/' />"><b>回前頁</b></a>
 		</div>
 	</div>			

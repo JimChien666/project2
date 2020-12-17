@@ -21,17 +21,29 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
             HttpSession session = servletRequest.getServletRequest().getSession(false);
             Members member=(Members)session.getAttribute("LoginOK");
-            if (member != null) {
-                //使用userName区分WebSocketHandler，以便定向发送消息            	            	
-                String userName = (String) member.getName();  //一般直接保存user实体
-                if (userName!=null) {
-                	//使用者登入的名子
-                    attributes.put("WEBSOCKET_USERID",userName);
-                }else {
-                	attributes.put("WEBSOCKET_USERID",session.getAttribute("SESSION_USERNAME"));
-                } 
-            }
+            String userName = (String) session.getAttribute("SESSION_USERNAME");  //一般直接儲存user實體
+            
+            //getAttribute("LoginOK")!=null <=意思就是有登入
+			if (member != null) {
+				// 使用userName区分WebSocketHandler，以便定向发送消息
+				userName = (String) member.getName(); // 抓登入的會員名字
+				attributes.put("WEBSOCKET_USERID", userName);
+			} else {
+				attributes.put("WEBSOCKET_USERID", userName);
+			}
         }
+//        if (request instanceof ServletServerHttpRequest) {
+//            ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
+//            HttpSession session = servletRequest.getServletRequest().getSession(false);
+//            if (session != null) {
+//                //使用userName區分WebSocketHandler，以便定向傳送訊息
+//                String userName = (String) session.getAttribute("SESSION_USERNAME");  //一般直接儲存user實體
+//                if (userName!=null) {
+//                    attributes.put("WEBSOCKET_USERID",userName);
+//                }
+//
+//            }
+//        }        
         return super.beforeHandshake(request, response, wsHandler, attributes); 
     }
  

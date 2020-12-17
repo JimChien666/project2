@@ -19,15 +19,16 @@
  
 </head>
 <body>
- <div>
 
 	請輸入訊息：<textarea rows="5" cols="30" id="inputMsg" name="inputMsg" ></textarea>
-	 <form> 
-	<button οnclick="doSendUser();">發送</button>
+	<input id="sendBtn" type="button" onclick="doSendUser(${memberId});" value="123"/>
+	
+	<button type="button" οnmouseover="doSendUser(${memberId});">發送</button>
 	<button οnclick="doSendUsers();">群發</button>
 	<button οnclick="websocketClose();">關閉連接</button>
-	</form>
-</div>
+
+
+
     <script>
         var websocket = null;
         if ('WebSocket' in window) {
@@ -50,6 +51,13 @@
  
         function onMessage(evt) {
             alert("管理員發送訊息:" + evt.data);
+            console.log(evt.data);
+            var memberId=(evt.data).split("#燚#")[0];
+            var message=(evt.data).split("#燚#")[1];
+            document.getElementById('sendBtn').onclick =  doSendUser2(memberId) 
+            
+            console.log(memberId);
+            console.log(message);
         }
         function onOpen() {
         	
@@ -57,16 +65,17 @@
         function onError() {}
         function onClose() {}
  
-        function doSendUser() {
-        	alert("fuck");
-        alert(websocket.readyState + ":" + websocket.OPEN);
-            if (websocket.readyState == websocket.OPEN) {
-                var msg = document.getElementById("inputMsg").value;
-                websocket.send("#anyone#"+msg);//调用后台handleTextMessage方法
-                alert("發送成功!");
-            } else {
-                alert("連接失敗!");
-            }
+        function doSendUser(memberId) {
+	        	alert("fuck");
+	        alert(websocket.readyState + ":" + websocket.OPEN);
+	            if (websocket.readyState == websocket.OPEN) {
+	                var msg = document.getElementById("inputMsg").value;
+	                console.log(msg);
+	                websocket.send("#anyone#"+memberId+"#燚#"+msg);//调用后台handleTextMessage方法
+	                alert("發送成功!");
+	            } else {
+	                alert("連接失敗!");
+	            }
         }
  
  

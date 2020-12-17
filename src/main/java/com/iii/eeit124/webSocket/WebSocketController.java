@@ -6,10 +6,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.socket.TextMessage;
+
+import com.iii.eeit124.entity.Members;
 
 @Controller
 public class WebSocketController {
@@ -22,8 +26,17 @@ public class WebSocketController {
  
  
     @RequestMapping("/websocket/loginPage")
-    public String loginPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return "order/login";
+    public String loginPage(@RequestParam String memberId, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	HttpSession session = request.getSession();
+        Members member=(Members)session.getAttribute("LoginOK");
+        session.setAttribute("memberId",memberId); //把商品詳細頁面的memberId帶出來，讓商品有問題的人詢問
+        if(member==null) {
+        	return "order/login";
+        }else {
+            String username = member.getName();
+            session.setAttribute("SESSION_USERNAME", username);        	
+        	return "order/send";
+        }
     }
  
  

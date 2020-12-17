@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -12,7 +14,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.iii.eeit124.entity.Members;
 
 public class SpringWebSocketHandler extends TextWebSocketHandler {
-    HttpSession httpSession;
+
  
     private static final Map<String, WebSocketSession> users;  //Map来存储WebSocketSession，key用USER_ID 即在线用户列表
  
@@ -50,6 +52,7 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
      * 关闭连接时触发
      */
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
+    	
         String userId= (String) session.getAttributes().get(USER_ID);
         System.out.println("用户"+userId+"已退出！");
         users.remove(userId);
@@ -64,19 +67,24 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
  
         super.handleTextMessage(session, message);
- 
+        //自己
+        String userId = (String) session.getAttributes().get(USER_ID);
         /**
          * 收到消息，自定义处理机制，实现业务
          */
         System.out.println("服務器收到消息："+message);
- 
+        //1:1
         if(message.getPayload().startsWith("#anyone#")){ //单发某人
- 
-             sendMessageToUser((String)session.getAttributes().get(USER_ID), new TextMessage("服務器群發：" +message.getPayload())) ;
- 
+        	 String result = message.getPayload();
+        	 //發送對象
+        	 String memberId = result.split("#anyone#")[1].split("#燚#")[0];
+        	 String reply = result.split("#燚#")[1];
+//        	 sendMessageToUser((String)session.getAttributes().get(USER_ID), new TextMessage("服務器群發：" +message.getPayload())) ;
+             sendMessageToUser(memberId, new TextMessage(userId+"#燚#"+reply));
+        //群發
         }else if(message.getPayload().startsWith("#everyone#")){
  
-             sendMessageToUsers(new TextMessage("服務器群發：" +message.getPayload()));
+             sendMessageToUsers(new TextMessage("伺服器群發："+message.getPayload()));
  
         }else{
  
@@ -107,6 +115,8 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
      */
     public void sendMessageToUser(String userId, TextMessage message) {
         for (String id : users.keySet()) {
+        	System.out.println("shit");
+        	System.out.println(id);
             if (id.equals(userId)) {
                 try {
                     if (users.get(id).isOpen()) {
