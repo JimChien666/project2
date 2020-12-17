@@ -15,7 +15,20 @@
 <!--     <script type="text/javascript" src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script> -->
 <!--     <script type="text/javascript" src="http://cdn.bootcss.com/sockjs-client/1.1.1/sockjs.js"></script> -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.js"></script>
-    <script type="text/javascript">
+
+ 
+</head>
+<body>
+ <div>
+
+	請輸入訊息：<textarea rows="5" cols="30" id="inputMsg" name="inputMsg" ></textarea>
+	 <form> 
+	<button οnclick="doSendUser();">發送</button>
+	<button οnclick="doSendUsers();">群發</button>
+	<button οnclick="websocketClose();">關閉連接</button>
+	</form>
+</div>
+    <script>
         var websocket = null;
         if ('WebSocket' in window) {
             websocket = new WebSocket("ws://localhost:8080/team6/websocket/socketServer");
@@ -45,7 +58,7 @@
         function onClose() {}
  
         function doSendUser() {
-        	
+        	alert("fuck");
         alert(websocket.readyState + ":" + websocket.OPEN);
             if (websocket.readyState == websocket.OPEN) {
                 var msg = document.getElementById("inputMsg").value;
@@ -76,17 +89,5 @@
         	websocket.close();
         }
     </script>
- 
-</head>
-<body>
- <div>
-
-	請輸入訊息：<textarea rows="5" cols="30" id="inputMsg" name="inputMsg" ></textarea>
-	 <form> 
-	<button οnclick="doSendUser();">發送</button>
-	<button οnclick="doSendUsers();">群發</button>
-	<button οnclick="websocketClose();">關閉連接</button>
-	</form>
-</div>
 </body>
 </html>
