@@ -76,4 +76,9 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleDAO.getAllRecordCounts();
 	}
 
+	@Override
+	public List<Article> getPersonalPostList(Integer memberid, Integer id) {
+		return articleDAO.getPersonalPostList(memberid, id);
+	}
+
 }

@@ -122,6 +122,16 @@ public class ArticleDAOImpl implements ArticleDAO {
 		return count;
 	}
 
+	@Override
+	public List<Article> getPersonalPostList(Integer memberid, Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Article> query = session.createQuery("from Article where MEMBER_ID=?0 and ARTICLETYPES_ID=?1 order by id desc", Article.class);
+		query.setParameter(0, memberid);
+		query.setParameter(1, id);
+		List<Article> list = query.list();
+		return list;
+	}
+
 
 
 

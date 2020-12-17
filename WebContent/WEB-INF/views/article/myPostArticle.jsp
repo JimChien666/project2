@@ -18,14 +18,14 @@ table th{
 
 
 </style>
-<title>追蹤文章e</title>
+<title>我的文章</title>
 <script src="<c:url value='/assets/js/vendor/jquery-1.12.0.min.js' />"></script>
 <script>
 	$(function() {
 
 		$.ajax({
 			type : "GET",
-			url : "<c:url value='/getPersonalArtilceList' />?articleTypeId=1",
+			url : "<c:url value='/getPersonalPostList' />?articleTypeId=1",
 			success : function(mapData) {
 				showArticleList(mapData)
 			}
@@ -38,7 +38,7 @@ table th{
 					console.log(selectResult)
 					$.ajax({
 						type : "GET",
-						url : "<c:url value='/getPersonalArtilceList' />?articleTypeId="
+						url : "<c:url value='/getPersonalPostList' />?articleTypeId="
 								+ selectResult,
 						success : function(mapData) {
 							showArticleList(mapData)
@@ -53,7 +53,7 @@ table th{
 					console.log(selectResult)
 					$.ajax({
 						type : "GET",
-						url : "<c:url value='/getPersonalArtilceList' />?articleTypeId="
+						url : "<c:url value='/getPersonalPostList' />?articleTypeId="
 								+ selectResult,
 						success : function(mapData) {
 							showArticleList(mapData)
@@ -65,27 +65,22 @@ table th{
 // 			var $artilceList = $("#artilceList")
 			var $artilceListTable = $("#artilceListTable")
 			articleList = mapData.articleList;
-			statusList = mapData.statusList;
-			console.log(statusList);
-			pageNo = mapData.currPage;
-			totalPage = mapData.totalPage;
+
 			recordCounts = mapData.recordCounts;
 			// 		$artilceList.empty();
 			$artilceListTable.empty();
 			// 		$artilceList.append("<table border=1 style='width: 100%; font-size: 2em;' ><tbody>")
 
-			$artilceListTable.append("<tr><th>文章標題</th><th>追蹤</th></tr>")
+			$artilceListTable.append("<tr><th>文章標題</th></tr>")
 			
 			$.each(articleList, function(i, article) {
-				var urlStringent = "<c:url value='goArticlePage?articleId="
-						+ article.id + "' />";
-				var checkStatus = false;
+				var urlStringent = "<c:url value='goArticlePage?articleId="	+ article.id + "' />";
 				
 				$artilceListTable
 // 						.append("<tr><td align='center'  width='100px'>"+popularity+"</td><td><a href="+urlStringent+"><div>"  
 // 						+ (article.title.length>14 ? article.title.slice(0,13)+'..' : article.title) +"</div></a></td><td width='110px' class='product-wishlist-cart' id='forumsSelect1'><a onclick='follow(this)' style='color: white; cursor: pointer;' id='follow"+article.id+"'>"+(checkStatus? "取消追蹤":"追蹤")+"</a></td></tr>")
 						.append("<tr id='tr"+article.id+"'><td><a href="+urlStringent+"><div>"
-								+ article.title + "</div></a></td><td width='110px' class='product-wishlist-cart' id='forumsSelect1'><a onclick='follow(this)' style='color: white; cursor: pointer;' id='"+article.id+"'>取消追蹤</a></td></tr>")
+								+ article.title + "</div></a></td></tr>")
 			});
 		}		
 	});

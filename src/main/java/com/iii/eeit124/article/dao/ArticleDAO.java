@@ -30,4 +30,7 @@ public interface ArticleDAO {
 	Article saveFullArticle(Article article);
 	
 	List<Article> personalFollowed(Integer memberid, Integer id);
+	
+	List<Article> getPersonalPostList(Integer memberid, Integer id);
+	
 }

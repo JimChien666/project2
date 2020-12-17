@@ -79,6 +79,7 @@ public class ArticleController {
 		return new Article();
 	}
 	// TODO
+	
 	@GetMapping("/goArticlePage")
 	public String goArticlePage(@RequestParam("articleId") Integer articleId, Model model) {
 		model.addAttribute("articleId", articleId);
@@ -448,6 +449,18 @@ public class ArticleController {
 		map.put("articleList", articleList);	
 		return map;
 	}
+	
+	@GetMapping(value = "/getPersonalPostList")
+	public @ResponseBody Map<String, Object> getPersonalPostList(Model model, @RequestParam(value = "articleTypeId", defaultValue = "1")Integer id){
+		Map<String, Object> map = new HashMap<>();
+		
+		Members member = (Members) session.getAttribute("LoginOK");
+		Integer memberid = member.getId();
+		List<Article> articleList = articleService.getPersonalPostList(memberid, id);
+//		List<FollowedArticle> statusList = followedService.personalFollowed(memberid);
+		map.put("articleList", articleList);	
+		return map;
+	}
 
 	@GetMapping(value = "/showComments")
 	public @ResponseBody List<Comments> showComments(@RequestParam(value = "forumsId") Integer id) {
@@ -467,6 +480,11 @@ public class ArticleController {
 	@GetMapping("/member/myArticle")
 	public String goMyArticle() {
 		return "article/myArticle";
+	}
+	
+	@GetMapping("/member/myPostArticle")
+	public String goMyPostArticle() {
+		return "article/myPostArticle";
 	}
 	
 }
