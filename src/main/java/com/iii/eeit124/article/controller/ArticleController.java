@@ -159,10 +159,6 @@ public class ArticleController {
 		whitelist.addTags("br");
 		String cleanComment = Jsoup.clean(comment, whitelist);
 		Comments c = new Comments();
-		System.out.println("clean before.........................................");
-		System.out.println("comment:"+comment);
-		System.out.println("clean after.........................................");
-		System.out.println("cleanComment:"+cleanComment);
 		c.setComment(cleanComment);
 		
 		Forums forums = forumsService.selectForum(id);

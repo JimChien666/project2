@@ -151,7 +151,7 @@ h1 {
 			<br>
 			<br>
 		
-articleType:
+選擇發表版面:
 <%-- <form:select path="articletypesid" items="${allArticleTypes}" itemLabel="articletype" itemValue="id"> --%>
 			<div style="width: 75px">
 				<form:select path="article.articletypesid">
@@ -201,10 +201,13 @@ articleType:
 					if (($(".option").length)<=4) {						
 				  $( "#options" ).append("<div class='option'><input name='voteOption' style='display:inline-block; float:left; width: 95%;'><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><input type='file' name='voteImg' ><br><br></div>");
 					}else {
-						alert("選項最多五個")						
+// 						alert("選項最多五個")
+						swal({
+							  icon: "info",
+							  title: "選項最多五個 !",
+							  button: "確認"								  							  
+							});					
 					}
-					
-
 
 					});
 				
@@ -212,9 +215,19 @@ articleType:
 					
  					console.log($(".option").length)
  					if(($(".option").length)<=2){
-						alert("最少要有兩個選項")
+// 						alert("最少要有兩個選項")
+						swal({
+							  icon: "info",
+							  title: "最少要有兩個選項 !",
+							  button: "確認"							  							  
+							});	
  	 				}else{
-						$(this).parent().remove();									
+// 						$(this).parent().remove();	
+
+					    $( this ).parent().fadeOut( "slow", function() {
+					        // After animation completed:
+					        $( this ).remove();
+					      });								
  	 	 			}
 					});	
 			</script>
