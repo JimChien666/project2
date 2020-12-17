@@ -105,6 +105,7 @@ table th{
 		function goSerch(){
 			var keywordSearch = $("#keywordSearch").val();
 			if (keywordSearch==""||keywordSearch==null) {
+				$("#forumNow").text("");
 				swal({
 					  icon: "info",
 					  title: "請輸入關鍵字 !",
@@ -119,6 +120,7 @@ table th{
 					console.log("resultCount:"+mapData.articleList.length)
 //	 				mapData.articleList.length
 					if (mapData.articleList.length==0) {
+						$("#forumNow").text("查無結果");						
 						swal({
 							  icon: "info",
 							  title: "查無結果 !",
@@ -126,6 +128,8 @@ table th{
 							});
 					} else {
 					showArticleList(mapData)
+					$("#forumNow").text("共有"+mapData.articleList.length+"項結果");				
+					
 					}				
 				}
 				});
@@ -141,6 +145,7 @@ table th{
 			url : "<c:url value='getArticleList' />?articleTypeId=1",
 			success : function(mapData) {
 				showArticleList(mapData)
+				$("#forumNow").text("狗狗討論版");				
 			}
 		});
 
@@ -158,6 +163,7 @@ table th{
 								+ selectResult,
 						success : function(mapData) {
 							showArticleList(mapData)
+							$("#forumNow").text("狗狗討論版");
 						}
 					});
 				})
@@ -173,6 +179,7 @@ table th{
 								+ selectResult,
 						success : function(mapData) {
 							showArticleList(mapData)
+							$("#forumNow").text("貓咪討論版");
 						}
 					});
 				})
@@ -299,6 +306,7 @@ table th{
 			if (typeof selectResult == 'undefined') {
 				xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId="
 						+ "1" + queryString, true);
+				$("#forumNow").text("狗狗討論版")
 				// 		xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId=1" + queryString , true);
 				// 		console.log(no)
 				// 		console.log(totalPage)
@@ -316,6 +324,11 @@ table th{
 	
 			xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId="
 					+ selectResult + queryString, true);
+			if(selectResult==1){
+				$("#forumNow").text("狗狗討論版");				
+			}else{
+				$("#forumNow").text("貓咪討論版");
+				}
 			// 		xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId=1" + queryString , true);
 			// 		console.log(no)
 			// 		console.log(totalPage)
@@ -398,6 +411,7 @@ table th{
 				<ul>
 					<li><a href="<c:url value='/'/>">首頁</a></li>
 					<li class="active">討論區</li>
+					<li class="active" id="forumNow"></li>
 				</ul>
 			</div>
 		</div>
