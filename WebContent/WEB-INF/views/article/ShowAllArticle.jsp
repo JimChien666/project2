@@ -86,18 +86,51 @@ table th{
 </head>
 <script>
 	$(function() {
-	$("#search").on("click",function() {
-	var keywordSearch = $("#keywordSearch").val();
-	
-	$.ajax({
-		type : "GET",
-		url : "<c:url value='getArtilceSerchList' />?keywordSearch="+keywordSearch,
-		success : function(mapData) {
-			showArticleList(mapData)
-		}
-	});
-	});
+		
+		$("#search").on("click",function() {
+			goSerch();
+		});
 
+// 		$("#keywordSearch").on("keydown",function(){
+// 			if
+// 			})
+		
+		$("#keywordSearch").on('keypress',function(e) {
+    		if(e.which == 13) {
+    			goSerch();
+    		}
+		});
+
+		
+		function goSerch(){
+			var keywordSearch = $("#keywordSearch").val();
+			if (keywordSearch==""||keywordSearch==null) {
+				swal({
+					  icon: "info",
+					  title: "請輸入關鍵字 !",
+					  button: "確認"								  							  
+					});	
+			} else {
+
+			$.ajax({
+				type : "GET",
+				url : "<c:url value='getArtilceSerchList' />?keywordSearch="+keywordSearch,
+				success : function(mapData) {
+					console.log("resultCount:"+mapData.articleList.length)
+//	 				mapData.articleList.length
+					if (mapData.articleList.length==0) {
+						swal({
+							  icon: "info",
+							  title: "查無結果 !",
+							  button: "確認"								  							  
+							});
+					} else {
+					showArticleList(mapData)
+					}				
+				}
+				});
+			}
+			}
 
 
 
@@ -447,7 +480,6 @@ table th{
 			</table>
 			<!-- 		</div> -->
 		</div>
-	</div>
 	<hr>
 	
 	<div class="pagination-style text-center mt-20">
@@ -455,6 +487,7 @@ table th{
 		</ul>
 	</div>
 <hr>
+	</div> <!-- container -->
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
 </body>
