@@ -6,12 +6,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>测试spring websocket</title>
+    <title>登入測試頁面</title>
 </head>
 <body>
  
 <form action="${ctx}/websocket/login">
-    登录名：<input type="text" name="username"/>
-    <input type="submit" value="登录聊天室"/>
+    用戶名：<input type="text" name="username"/>
+    <input type="submit" value="登入聊天室"/>
 </form>
 </body>

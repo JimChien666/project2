@@ -10,18 +10,21 @@
     <!--
 	<link rel="stylesheet" href="/css/style.css"/>
     -->
-    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="http://cdn.bootcss.com/sockjs-client/1.1.1/sockjs.js"></script>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<!--     <script type="text/javascript" src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script> -->
+<!--     <script type="text/javascript" src="http://cdn.bootcss.com/sockjs-client/1.1.1/sockjs.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.js"></script>
     <script type="text/javascript">
         var websocket = null;
         if ('WebSocket' in window) {
-            websocket = new WebSocket("ws://localhost:8080/springfirst/websocket/socketServer");
+            websocket = new WebSocket("ws://localhost:8080/team6/websocket/socketServer");
         }
         else if ('MozWebSocket' in window) {
-            websocket = new MozWebSocket("ws://localhost:8080/springfirst/websocket/socketServer");
+            websocket = new MozWebSocket("ws://localhost:8080/team6/websocket/socketServer");
         }
         else {
-            websocket = new SockJS("http://localhost:8080/springfirst/sockjs/socketServer");
+            websocket = new SockJS("http://localhost:8080/team6/sockjs/socketServer");
         }
         websocket.onopen = onOpen;
         websocket.onmessage = onMessage;
@@ -33,9 +36,10 @@
         }
  
         function onMessage(evt) {
-            alert("super is:" + evt.data);
+            alert("管理員發送訊息:" + evt.data);
         }
         function onOpen() {
+        	
         }
         function onError() {}
         function onClose() {}
@@ -46,9 +50,9 @@
             if (websocket.readyState == websocket.OPEN) {
                 var msg = document.getElementById("inputMsg").value;
                 websocket.send("#anyone#"+msg);//调用后台handleTextMessage方法
-                alert("发送成功!");
+                alert("發送成功!");
             } else {
-                alert("连接失败!");
+                alert("連接失敗!");
             }
         }
  
@@ -57,9 +61,9 @@
             if (websocket.readyState == websocket.OPEN) {
                 var msg = document.getElementById("inputMsg").value;
                 websocket.send("#everyone#"+msg);//调用后台handleTextMessage方法
-                alert("发送成功!");
+                alert("發送成功!");
             } else {
-                alert("连接失败!");
+                alert("連接失敗!");
             }
         }
  
@@ -75,10 +79,14 @@
  
 </head>
 <body>
- 
-请输入：<textarea rows="5" cols="10" id="inputMsg" name="inputMsg"></textarea>
-<button οnclick="doSendUser();">发送</button>
-<button οnclick="doSendUsers();">群发</button>
-<button οnclick="websocketClose();">关闭连接</button>
+ <div>
+
+	請輸入訊息：<textarea rows="5" cols="30" id="inputMsg" name="inputMsg" ></textarea>
+	 <form> 
+	<button οnclick="doSendUser();">發送</button>
+	<button οnclick="doSendUsers();">群發</button>
+	<button οnclick="websocketClose();">關閉連接</button>
+	</form>
+</div>
 </body>
 </html>
