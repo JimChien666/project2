@@ -67,8 +67,9 @@ function goToOrderPage(){
                             </div>
                 </div>
             </div>
-
+	
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
+	${sellingOrderNotation}
 </body>
 </html>

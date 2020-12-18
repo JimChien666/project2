@@ -1,24 +1,20 @@
 package com.iii.eeit124.aop.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import com.iii.eeit124.entity.CartItems;
-import com.iii.eeit124.entity.Members;
+import com.iii.eeit124.entity.OrderItems;
 import com.iii.eeit124.entity.Products;
 import com.iii.eeit124.shopping.service.CartService;
 
@@ -34,6 +30,8 @@ public class MyControllerAspect {
  @Pointcut(value="execution(* com.iii.eeit124.shopping.controller.CartController.goToCartPage(..))") 
  public void pointcut() {}  
  
+ @Pointcut(value="execution(* com.iii.eeit124.shopping.controller.TestECPayApi.goOrderSuccessPage(..))") 
+ public void pointcutOrderSuccess() {}  
 
  
  @Before(value = "pointcut()")
@@ -62,5 +60,16 @@ public class MyControllerAspect {
 		}
  	}
  	
-	 
+ @Before(value = "pointcutOrderSuccess()")
+ public void snedToSeller(JoinPoint joinPoint) throws InterruptedException {
+	 Thread.sleep(1000);
+	 Set<OrderItems> set = (Set<OrderItems>)session.getAttribute("orderItems");
+		Iterator<OrderItems> iterator = set.iterator();
+		Integer sellerId = 0;
+		if (iterator.hasNext()) {
+			OrderItems oi = iterator.next();
+			sellerId = oi.getSellerId();
+		}
+		session.setAttribute("sellingOrderNotation", "<script>window.onload = function() {doSendCreateOrder("+sellerId+")};</script>");
+	 }
 }

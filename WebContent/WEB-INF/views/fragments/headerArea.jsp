@@ -6,6 +6,11 @@
 <!--     <script type="text/javascript" src="http://cdn.bootcss.com/sockjs-client/1.1.1/sockjs.js"></script> -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.js"></script>
 <header class="header-area">
+<style>
+.orderClass{
+margin: 20px;width:200px;height: 60px; right:5%; position: fixed; z-index: 999;background-color: white;line-height:60px;text-align: center;cursor: pointer;
+}
+</style>
 <script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />" ></script>
 	<div class="header-bottom transparent-bar">
 		<div class="container">
@@ -63,14 +68,9 @@
 								<i class="icon-magnifier s-open"></i> <i
 									class="ti-close s-close"></i>
 							</button>
-							<div class="search-content">
-								<form action="#">
-									<input type="text" placeholder="Search">
-									<button>
-										<i class="icon-magnifier"></i>
-									</button>
-								</form>
-							</div>
+<!-- 							<div id="search-content" class="search-content open"style="width: 100px;border: 1px black solid;"> -->
+<!-- 								<div>您有一筆新訂單</div> -->
+<!-- 							</div> -->
 						</div>
 						<%-- <div class="header-login same-style">
                                     <a href="<c:url value='/member/login' />"><i class="icon-user icons"></i></a>
@@ -171,61 +171,12 @@
 			</div>
 		</div>
 	</div>
+	<div id="search-content">
+	</div>
 </header>
 <jsp:include page="showHeaderItems.jsp" />
 
-<!-- fb登入 -->
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous"
-	src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v9.0&appId=828838284343258&autoLogAppEvents=1"
-	nonce="pRsln6Qn"></script>
-
 <script>
-	function statusChangeCallback(response) { // Called with the results from FB.getLoginStatus().
-		console.log('statusChangeCallback');
-		console.log(response); // The current login status of the person.
-		if (response.status === 'connected') { // Logged into your webpage and Facebook.
-			testAPI();
-
-		}
-	}
-	function checkLoginState() { // Called when a person is finished with the Login Button.
-		FB.getLoginStatus(function(response) { // See the onlogin handler
-			statusChangeCallback(response);
-		});
-	}
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId : 'team6project',
-			cookie : true, // Enable cookies to allow the server to access the session.
-			xfbml : true, // Parse social plugins on this webpage.
-			version : 'v9.0' // Use this Graph API version for this call.
-		});
-		FB.getLoginStatus(function(response) { // Called after the JS SDK has been initialized.
-			statusChangeCallback(response); // Returns the login status.
-		});
-	};
-	function testAPI() { // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-		FB
-				.api(
-						'/me',
-						function(response) {
-							console.log(response);
-							document.getElementById('fbname').innerHTML = '<i class="icon-user icons"></i><span class="count-style">'
-									+ response.name + '</span>';
-							var memberCenterUrl = "<c:url value='/member/myAccount' />";
-							var orderListUrl = "<c:url value='/order/OrderList' />";
-							var logoutUrl = "<c:url value='/member/logout' />";
-							document.getElementById('fbstatus').innerHTML = "<li><a href='"+memberCenterUrl+"'>會員中心</a></li><li><a onclick='logout()'>登出</a></li>";
-						});
-
-	}
-	function logout() {
-		FB.logout(function(response) {
-			var logoutUrl = "<c:url value='/member/logout' />";
-			window.location.href = logoutUrl;
-		});
-	}
 	function goindex() {
 		window.location.href = "<c:url value='/' />";
 	}
@@ -271,74 +222,5 @@
 		})
 
 </script>
-<script async defer crossorigin="anonymous"
-	src="https://connect.facebook.net/en_US/sdk.js"></script>
-    <script>
-        var websocket = null;
-        if ('WebSocket' in window) {
-            websocket = new WebSocket("ws://localhost:8080/team6/websocket/socketServer");
-        }
-        else if ('MozWebSocket' in window) {
-            websocket = new MozWebSocket("ws://localhost:8080/team6/websocket/socketServer");
-        }
-        else {
-            websocket = new SockJS("http://localhost:8080/team6/sockjs/socketServer");
-        }
-        websocket.onopen = onOpen;
-        websocket.onmessage = onMessage;
-        websocket.onerror = onError;
-        websocket.onclose = onClose;
- 
-        function onOpen(openEvt) {
-            alert(openEvt.Data);
-        }
- 
-        function onMessage(evt) {
-            alert("管理員發送訊息:" + evt.data);
-            console.log(evt.data);
-            var memberId="'"+(evt.data).split("#燚#")[0]+"'";
-            var message=(evt.data).split("#燚#")[1];
-            document.getElementById('sendBtn').innerHTML='<input type="button" onclick="doSendUser('+memberId+');" value="123"/>';
-            
-            console.log(memberId);
-            console.log(message);
-        }
-        function onOpen() {
-        	
-        }
-        function onError() {}
-        function onClose() {}
- 
-        function doSendUser(memberId) {
-	        	alert("fuck");
-	        alert(websocket.readyState + ":" + websocket.OPEN);
-	            if (websocket.readyState == websocket.OPEN) {
-	                var msg = document.getElementById("inputMsg").value;
-	                console.log(msg);
-	                websocket.send("#anyone#"+memberId+"#燚#"+msg);//调用后台handleTextMessage方法
-	                alert("發送成功!");
-	            } else {
-	                alert("連接失敗!");
-	            }
-        }
- 
- 
-        function doSendUsers() {
-            if (websocket.readyState == websocket.OPEN) {
-                var msg = document.getElementById("inputMsg").value;
-                websocket.send("#everyone#"+msg);//调用后台handleTextMessage方法
-                alert("發送成功!");
-            } else {
-                alert("連接失敗!");
-            }
-        }
- 
- 
-        window.close=function()
-        {
-            websocket.onclose();
-        }
-        function websocketClose() {
-        	websocket.close();
-        }
-    </script>
+
+<script type="text/javascript" src="<c:url value='/js/websocket.js' />" ></script>
