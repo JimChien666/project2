@@ -19,36 +19,37 @@ import com.iii.eeit124.entity.Members;
 public class WebSocketController {
 	//这个注解会从Spring容器拿出Bean
     @Bean  
-    public SpringWebSocketHandler infoHandler() {
- 
+    public SpringWebSocketHandler infoHandler() { 
         return new SpringWebSocketHandler();
-    }
- 
+    } 
  
     @RequestMapping("/websocket/loginPage")
-    public String loginPage(@RequestParam String memberId, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String loginPage(@RequestParam(name="memberId",required = false) String memberId, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	HttpSession session = request.getSession();
         Members member=(Members)session.getAttribute("LoginOK");
-        session.setAttribute("memberId",memberId); //把商品詳細頁面的memberId帶出來，讓商品有問題的人詢問
+        session.setAttribute("memberId",memberId); //把商品詳細頁面的memberId設到Session，讓商品有問題的人詢問
         if(member==null) {
-        	return "order/login";
+        	//沒登入PetMe系統，則導入到登入頁面
+        	return "websocket/login";
         }else {
-            String username = member.getName();
-            session.setAttribute("SESSION_USERNAME", username);        	
-        	return "order/send";
+            String userId = String.valueOf(member.getId());
+            session.setAttribute("SESSION_USERNAME", userId);  //有登入，把ID設到   "SESSION_USERNAME"，Interceptor會把他抓出來   	
+        	return "websocket/send";
         }
     }
  
  
     @RequestMapping("/websocket/login")
     public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String username = request.getParameter("username");
+        String username = request.getParameter("username");  //login.jsp的username
         System.out.println(username+"登入");
         HttpSession session = request.getSession(false);
-        session.setAttribute("SESSION_USERNAME", username); //一般直接保存user实体
-        return "order/send";
+        session.setAttribute("SESSION_USERNAME", username); //沒登入，把username設到   "SESSION_USERNAME" ，Interceptor會把他抓出來   	
+        return "websocket/send";
     }
  
+    
+    //單發測試
     @RequestMapping("/websocket/send")
     @ResponseBody
     public String send(HttpServletRequest request) {
@@ -57,12 +58,12 @@ public class WebSocketController {
         return null;
     }
  
- 
+    //群發測試
     @RequestMapping("/websocket/broad")
     @ResponseBody
     public  String broad() {
         infoHandler().sendMessageToUsers(new TextMessage("發送測試訊息!"));
-        System.out.println("群发成功");
+        System.out.println("群發成功");
         return "broad";
     }
  

@@ -44,8 +44,8 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         System.out.println("當前線上用戶數量:"+users.size());
  
         //这块会实现自己业务，比如，当用户登录后，会把离线消息推送给用户
-        //TextMessage returnMessage = new TextMessage("成功建立socket连接，你将收到的离线");
-        //session.sendMessage(returnMessage);
+//        TextMessage returnMessage = new TextMessage("成功建立socket连接，你将收到的离线");
+//        session.sendMessage(returnMessage);
     }
  
     /**
@@ -114,9 +114,10 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
      * @param message
      */
     public void sendMessageToUser(String userId, TextMessage message) {
+    	
         for (String id : users.keySet()) {
-        	System.out.println("shit");
         	System.out.println(id);
+        	//
             if (id.equals(userId)) {
                 try {
                     if (users.get(id).isOpen()) {

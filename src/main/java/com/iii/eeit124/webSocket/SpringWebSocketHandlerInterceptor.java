@@ -26,12 +26,15 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
             //getAttribute("LoginOK")!=null <=意思就是有登入
 			if (member != null) {
 				// 使用userName区分WebSocketHandler，以便定向发送消息
-				userName = (String) member.getName(); // 抓登入的會員名字
+	            userName = String.valueOf(member.getId());
 				attributes.put("WEBSOCKET_USERID", userName);
 			} else {
 				attributes.put("WEBSOCKET_USERID", userName);
 			}
         }
+        
+        
+        
 //        if (request instanceof ServletServerHttpRequest) {
 //            ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
 //            HttpSession session = servletRequest.getServletRequest().getSession(false);

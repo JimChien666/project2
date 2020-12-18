@@ -452,45 +452,6 @@ button.btncls:hover{
 	background-color: #000000;
 }
 </style>
-
-        <script type="text/javascript">
-            $(function() {
-                var websocket;
-                
-                if('WebSocket' in window) {
-                                        console.log("此瀏覽器支持websocket");
-                    websocket = new WebSocket("ws://127.0.0.1:8080/team6/websocketDemo/66");
-                } else if('MozWebSocket' in window) {
-                    alert("此瀏覽器只支持MozWebSocket");
-                } else {
-                    alert("此瀏覽器只支持SockJS");
-                }
-                websocket.onopen = function(evnt) {
-                    $("#tou").html("連接伺服器成功!")
-                };
-                websocket.onmessage = function(evnt) {
-                    $("#msg").html($("#msg").html() + "<br/>" + evnt.data);
-                };
-                websocket.onerror = function(evnt) {};
-                websocket.onclose = function(evnt) {
-                    $("#tou").html("與伺服器段開了連接!");
-                }
-                $('#send').bind('click', function() {
-                    send();
-                });
-
-                function send() {
-                    if(websocket != null) {
-                        var message = document.getElementById('message').value;
-                        websocket.send(message);
-                    } else {
-                        alert('未與伺服器連接.');
-                    }
-                }
-            });
-        </script>
-
-
 </head>
 <body>
 <jsp:include page="../fragments/headerArea.jsp" />
@@ -574,73 +535,7 @@ button.btncls:hover{
           </div>
       </div>
 
-
-<!--         Welcome<br/><input id="text" type="text"/> -->
-<!-- 		<button onclick="send()">傳送訊息</button> -->
-<!-- 		<hr/> -->
-<!-- 		<button onclick="closeWebSocket()">關閉WebSocket連線</button> -->
-<!-- 		<hr/> -->
-<!-- 		<div id="message"></div> -->
-		
-		
-	        <div class="col-lg">
-		        <div id="msg" style="background-color:grey;"></div>
-	            <div class="input-group">
-	                <input type="text" class="form-control" placeholder="歡迎來到，【Pet Me,陪你】客服系統~" id="message">
-	                <span class="input-group-btn">
-	                    <button class="btncls" type="button" id="send" >發送</button>
-	                </span>
-	            </div>
-	        </div>      		
-		<div class="page-header" id="tou" style="color:red;">狀態列
-        </div>
 <jsp:include page="../fragments/footerArea.jsp" />
 <jsp:include page="../fragments/allJs.jsp" />
 </body>
-
-<!-- 
-<script type="text/javascript">
-	var websocket = null;
-	//判斷當前瀏覽器是否支援WebSocket
-	if ('WebSocket' in window) {
-	websocket = new WebSocket("ws://localhost:8080/websocket");
-	}
-	else {
-	alert('當前瀏覽器 Not support websocket')
-	}
-	//連線發生錯誤的回撥方法
-	websocket.onerror = function () {
-	setMessageInnerHTML("WebSocket連線發生錯誤");
-	};
-	//連線成功建立的回撥方法
-	websocket.onopen = function () {
-	setMessageInnerHTML("WebSocket連線成功");
-	}
-	//接收到訊息的回撥方法
-	websocket.onmessage = function (event) {
-	setMessageInnerHTML(event.data);
-	}
-	//連線關閉的回撥方法
-	websocket.onclose = function () {
-	setMessageInnerHTML("WebSocket連線關閉");
-	}
-	//監聽視窗關閉事件，當視窗關閉時，主動去關閉websocket連線，防止連線還沒斷開就關閉視窗，server端會拋異常。
-	window.onbeforeunload = function () {
-	closeWebSocket();
-	}
-	//將訊息顯示在網頁上
-	function setMessageInnerHTML(innerHTML) {
-	document.getElementById('message').innerHTML  = innerHTML +'<br/>';
-	}
-	//關閉WebSocket連線
-	function closeWebSocket() {
-	websocket.close();
-	}
-	//傳送訊息
-	function send() {
-	var message = document.getElementById('text').value;
-	websocket.send(message);
-	}
-</script>
- -->
 </html>
