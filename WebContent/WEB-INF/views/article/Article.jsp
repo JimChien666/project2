@@ -107,12 +107,24 @@ col-11
 	function replyCommentFunction(com){
 		var commentId = com.id.slice(7);<!--Anchor NUMBER -->
 		var commentIdLen = commentId.length;
-		var memberName = $("#"+com.id).parent().attr('id').slice(commentIdLen);<!--Anchor NAME -->
-		var tdIdName = $("#"+com.id).parent().parent().attr('id');
+		var memberName = $("#"+com.id).parent().parent().attr('id').slice(commentIdLen);<!--Anchor NAME -->
+// 		var tdIdName = $("#"+com.id).parent().parent().parent().attr('id');
+		var tdIdName = $("#"+com.id).parentsUntil($("tr"),"td").attr('id');
 		console.log(commentId);<!--Anchor NUMBER -->
 		console.log(memberName);<!--Anchor NAME -->
 		console.log(tdIdName);
 		$("#forumReply"+tdIdName).prepend("<a href='#"+commentId+memberName+"'>"+memberName+"</a>");
+// 		let scrollTop = $(this).scrollTop();
+// 		console.log(scrollTop);
+// 		console.log($(window)scrollTop())
+// 		console.log(window.scrollY);
+		var nowTop= $("#forumReply"+tdIdName).offset().top;
+		console.log("nowTop:"+nowTop);
+		adjustTop = (nowTop-90);
+		console.log("adjustTop:"+adjustTop);
+// 		$(window).scrollTop(0);
+		$('html,body').animate({scrollTop:adjustTop},400)
+// 		$("#forumReply"+tdIdName).scrollTop(adjustTop);
 	};
 	
 	
@@ -232,7 +244,7 @@ col-11
 <!--                                            comment start area           -->
 												
 												var imgTag2 = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + order.forumOwnerFileId + `' />" class="d-inline-block align-top" alt="" style="width:50px; height:50px; border-radius: 50%;">`
-												$forums.append('<div style="margin: 0px 20px 10px 10px;padding:10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc; line-height: 50px;" id='+order.id+order.memberName+'><p class="btncls" style="float:right;" onclick="replyCommentFunction(this)" id="comment'+order.id+'">回覆本則</p>'+imgTag2+'<b>'+order.memberName+'</b><p>'+order.comment+'</p></div>')
+												$forums.append('<div style="margin: 0px 20px 10px 10px;padding:10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc; line-height: 50px;" id='+order.id+order.memberName+'><a href=#forumReply'+forum.id+'><p class="btncls" style="float:right;" onclick="replyCommentFunction(this)" id="comment'+order.id+'">回覆本則</p></a>'+imgTag2+'<b>'+order.memberName+'</b><p>'+order.comment+'</p></div>')
 // 												$forums.append('<div style="width:1050px; margin: 0px 20px 10px 10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc;">'+order.memberid+':'+order.comment+'</div>')
 // 										 		console.log("$forums: "+ $forums)												
 												}
