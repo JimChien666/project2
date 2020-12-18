@@ -104,6 +104,13 @@ col-11
 
 // 	var article = $.ajax({
 	
+	function cancelReply(cr){
+// 		console.log(cr.parent().id);
+		var replyId = cr.id.slice(1);<!--Anchor NUMBER -->
+		console.log(replyId);
+		
+		$("#forumReply"+replyId+">a").remove();
+		}
 	function replyCommentFunction(com){
 		var commentId = com.id.slice(7);<!--Anchor NUMBER -->
 		var commentIdLen = commentId.length;
@@ -260,13 +267,12 @@ col-11
 // 											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 										}else{											
-											$forums.append("<div class='reply' id='forumReply"+forum.id+"' style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'><br/><textarea style='overflow:hidden;height:45px;'  type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></textarea></div>")
+											$forums.append("<div class='reply' id='forumReply"+forum.id+"' style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'><p id='p"+forum.id+"' class='btncls' onclick='cancelReply(this)' style='float:right;'>x</p><br/><textarea style='overflow:hidden;height:45px;'  type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></textarea></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
 											}
 
 // 											$('.auto').autoboxBind();
 											$('textarea').autogrow({horizontal:false,flickering:false});
-
 
 										
 
