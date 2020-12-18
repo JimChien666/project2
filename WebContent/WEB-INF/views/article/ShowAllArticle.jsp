@@ -74,6 +74,7 @@ button.btncls:hover{
 }
 tr:hover {
 	background-color:#FCE6C9;
+	color:#blue;
 }
 table th{
 	background-color:#FDEEDB;
@@ -216,9 +217,10 @@ table th{
 // 				console.log("forums"+article.forums.length);				
 				console.log("member:"+JSON.stringify(article.member));
 				var popularity = (article.forums.length)-1;
+				var articleAuthor = article.memberName;
 				$artilceListTable
 						.append("<tr><td align='center'  width='100px'>"+popularity+"</td><td><a href="+urlStringent+"><div>"  
-								+ (article.title.length>14 ? article.title.slice(0,13)+'..' : article.title) +"</div></a></td><td width='110px' class='product-wishlist-cart' id='forumsSelect1'><a onclick='follow(this)' style='color: white; cursor: pointer;' id='follow"+article.id+"'>"+(checkStatus? "取消追蹤":"追蹤")+"</a></td></tr>")
+								+ (article.title.length>14 ? article.title.slice(0,13)+'..' : article.title) +"/"+articleAuthor+"</div></a></td><td width='110px' class='product-wishlist-cart' id='forumsSelect1'><a onclick='follow(this)' style='color: white; cursor: pointer;' id='follow"+article.id+"'>"+(checkStatus? "取消追蹤":"追蹤")+"</a></td></tr>")
 			})
 
 // 			var navContent = "" ;
