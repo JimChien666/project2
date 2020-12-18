@@ -125,6 +125,7 @@ col-11
 // 		$(window).scrollTop(0);
 		$('html,body').animate({scrollTop:adjustTop},400)
 // 		$("#forumReply"+tdIdName).scrollTop(adjustTop);
+		
 	};
 	
 	
@@ -259,7 +260,7 @@ col-11
 // 											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 										}else{											
-											$forums.append("<div class='reply' id='forumReply"+forum.id+"' style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆:<br/><textarea style='overflow:hidden;height:45px;'  type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></textarea></div>")
+											$forums.append("<div class='reply' id='forumReply"+forum.id+"' style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'><br/><textarea style='overflow:hidden;height:45px;'  type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></textarea></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
 											}
 
@@ -289,11 +290,14 @@ col-11
 // 											        $(this).val(event + '<br>');
 												}											
 												else if(e.keyCode == 13 && commentNoBr!="") {
+													var anchor = $(this).parent().html();
+													var newComment = anchor+comment;
+													console.log(newComment);
 												$.ajax({
 												  url: "saveComments",
 												  data: {
 													  id:forumId,
-													  comment:comment
+													  comment:newComment
 													  },
 												  success:function(){
 //														  reset();

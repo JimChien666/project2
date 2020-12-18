@@ -157,7 +157,8 @@ public class ArticleController {
 			@RequestParam(value = "comment")String comment			
 			) {
 		Whitelist whitelist = new Whitelist();
-		whitelist.addTags("br");
+		whitelist.addTags("br","a");
+		whitelist.addAttributes("a", "href");
 		String cleanComment = Jsoup.clean(comment, whitelist);
 		Comments c = new Comments();
 		c.setComment(cleanComment);
