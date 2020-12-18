@@ -56,6 +56,9 @@ public class AdoptionRecords {
 	private String rejectedReason;
 	private String approvedReason;
 	private String adopterMessage;
+	private Date abandonedAdoptionAt;//ReviewStatus4
+	private String confirmedAdoptionMessage;
+	private Date confirmedAdoptionAt;//ReviewStatus5
 	
 	@Id
 	@Column(name = "ADOPTION_ID")//大小寫沒差別，跟資料庫名一樣就好
@@ -303,19 +306,26 @@ public class AdoptionRecords {
 	public void setAdopterMessage(String adopterMessage) {
 		this.adopterMessage = adopterMessage;
 	}
-	@Override
-	public String toString() {
-		return "AdoptionRecords [adoptionId=" + adoptionId + ", memberId=" + memberId + ", animalId=" + animalId
-				+ ", adoptionDate=" + adoptionDate + ", reviewStatus=" + reviewStatus + ", adoptionStatus="
-				+ adoptionStatus + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt
-				+ ", member=" + member + ", animal=" + animal + ", noticeOptions=" + noticeOptions + ", applicantName="
-				+ applicantName + ", agreement=" + agreement + ", feedAddress=" + feedAddress + ", feedAddressType="
-				+ feedAddressType + ", currentAnimalsNum=" + currentAnimalsNum + ", adopterName=" + adopterName
-				+ ", personalId=" + personalId + ", birthday=" + birthday + ", birthdayString=" + birthdayString
-				+ ", tel=" + tel + ", mobile=" + mobile + ", email=" + email + ", residentAddress=" + residentAddress
-				+ ", mailingAddress=" + mailingAddress + ", applyTime=" + applyTime + ", ownerMemberId=" + ownerMemberId
-				+ ", ownerMember=" + ownerMember + ", applyRejectedAt=" + applyRejectedAt + ", applyApprovedAt="
-				+ applyApprovedAt + ", rejectedReason=" + rejectedReason + ", approvedReason=" + approvedReason
-				+ ", adopterMessage=" + adopterMessage + "]";
+	@Column(name = "Abandoned_Adoption_At")
+	public Date getAbandonedAdoptionAt() {
+		return abandonedAdoptionAt;
 	}
+	public void setAbandonedAdoptionAt(Date abandonedAdoptionAt) {
+		this.abandonedAdoptionAt = abandonedAdoptionAt;
+	}
+	@Column(name = "Confirmed_Adoption_Message")
+	public String getConfirmedAdoptionMessage() {
+		return confirmedAdoptionMessage;
+	}
+	public void setConfirmedAdoptionMessage(String confirmedAdoptionMessage) {
+		this.confirmedAdoptionMessage = confirmedAdoptionMessage;
+	}
+	@Column(name = "Confirmed_Adoption_At")
+	public Date getConfirmedAdoptionAt() {
+		return confirmedAdoptionAt;
+	}
+	public void setConfirmedAdoptionAt(Date confirmedAdoptionAt) {
+		this.confirmedAdoptionAt = confirmedAdoptionAt;
+	}
+
 }

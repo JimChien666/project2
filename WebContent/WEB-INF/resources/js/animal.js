@@ -64,6 +64,26 @@ function info(content, url) {
 	setTimeout(function() { window.location = url; }, 1000);
 }
 
+function confirm(title, icon, confirm, animalId, memberId){
+	swal({
+		title:title,
+		text:" ",
+		icon:icon,
+		buttons:{
+			Btn: false,
+			cancel: { text: "取消", visible: true },
+			danger: { text: confirm, visible: true }
+		},
+		dangerMode: true
+	}).then((value) => {
+		switch (value) {
+			case "danger":
+						window.location = "/team6/MemberCenter/adoptionRequestList.controller.4?animalId="+animalId+"&memberId=" + memberId;
+				break;
+		}
+	});
+}
+
 //function timer() {
 //	swal("Don't evade!", "dsfdsfsdf", "success");
 //	setTimeout(function() { window.location = "/team6/adopt/adoptApply"; }, 2000);
