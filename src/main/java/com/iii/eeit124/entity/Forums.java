@@ -86,6 +86,11 @@ public class Forums {
 	public int getMemberid() {
 		return this.member.getId();
 	}
+	
+	@Transient
+	public String getMemberName() {
+		return this.member.getName();
+	}
 
 	public void setMemberid(int memberid) {
 		this.memberid = memberid;
