@@ -158,7 +158,8 @@ public class ArticleController {
 			) {
 		Whitelist whitelist = new Whitelist();
 		whitelist.addTags("br","a");
-		whitelist.addAttributes("a", "href");
+//		whitelist.addAttributes("a", "href","class");
+		whitelist.addAttributes("a", "href", "onclick");
 		String cleanComment = Jsoup.clean(comment, whitelist);
 		Comments c = new Comments();
 		c.setComment(cleanComment);

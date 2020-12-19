@@ -22,6 +22,7 @@
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 <!-- Load c3.css -->
 
@@ -75,10 +76,14 @@ width:35vw;
 /*     width: auto; */
     height: auto;
 }
-p{
-col-11
+/* p{ */
+/* col-10 */
+/* } */
+p a{
+color:#4c687e;
+font-weight: 900;
+font-size:16px;
 }
-
 </style>
 <meta charset="UTF-8">
 <title><c:out value="${thisArticle.title}" /></title>
@@ -103,7 +108,29 @@ col-11
 	// })
 
 // 	var article = $.ajax({
-	
+	function tagComment(tc){
+
+		var href = tc.href;
+		var id = href.split("#")[1]
+		console.log(id);
+		// Run the effect
+// 	      $("#"+id).effect( "bounce", "slow" );
+		var nowTop= $("#"+id).offset().top;
+		console.log("nowTop:"+nowTop);
+		adjustTop = (nowTop-90);
+		console.log("adjustTop:"+adjustTop);
+// 		$(window).scrollTop(0);
+		$('html,body').animate({scrollTop:adjustTop},400)
+	    };
+	 
+	    // Callback function to bring a hidden box back
+// 	    function callback() {
+// 	      setTimeout(function() {
+// 	        $("#"+id).removeAttr( "style" ).hide().fadeIn();
+// 	      }, 1000 );
+// 	    };
+
+// 		};
 	function cancelReply(cr){
 // 		console.log(cr.parent().id);
 		var replyId = cr.id.slice(1);<!--Anchor NUMBER -->
@@ -111,6 +138,7 @@ col-11
 		
 		$("#forumReply"+replyId+">a").remove();
 		}
+	
 	function replyCommentFunction(com){
 		var commentId = com.id.slice(7);<!--Anchor NUMBER -->
 		var commentIdLen = commentId.length;
@@ -120,11 +148,13 @@ col-11
 		console.log(commentId);<!--Anchor NUMBER -->
 		console.log(memberName);<!--Anchor NAME -->
 		console.log(tdIdName);
-		$("#forumReply"+tdIdName).prepend("<a href='#"+commentId+memberName+"'>"+memberName+"</a>");
+		$("#forumReply"+tdIdName).prepend("<a href='#"+commentId+memberName+"' onclick='tagComment(this)'>"+memberName+"</a>");
 // 		let scrollTop = $(this).scrollTop();
 // 		console.log(scrollTop);
 // 		console.log($(window)scrollTop())
 // 		console.log(window.scrollY);
+		console.log($("#forumReply"+tdIdName));
+
 		var nowTop= $("#forumReply"+tdIdName).offset().top;
 		console.log("nowTop:"+nowTop);
 		adjustTop = (nowTop-90);
@@ -164,7 +194,7 @@ col-11
 // 		$article.append("<h3>" + article.title + "</h3>")
 		$article.append("<hr><center><h2 style='clear:both;'>"+ article.title + "</h2></center><hr>")
 // 		$article.append("<h2 style='clear:both; box-shadow:1px 3px 5px 2px #cccccc;'>"+"標題: " + article.title + "</h2>")
-		$article.append("<table style='width: 100%;'><tr><th>"+""+"</th><th>"+""+"</th></tr>")
+		$article.append("<table class='table table-bordered' style='width: 100%;'><tr><th class='col-2'>"+""+"</th><th class='col-10'>"+""+"</th></tr>")
 // 		$article.append("<table style='width: 100%;' class='table table-striped'><tr><th>討論串編號</th><th>討論串內容</th></tr>")
 // 		console.log(forumList)
 		$.each(forumList, function(i, forum) {
@@ -230,7 +260,7 @@ col-11
 			var memberName = forum.memberName;
 			var imgTag = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + forum.forumOwnerFileId + `' />" class="d-inline-block align-top" alt="" style="width:50px; height:50px; border-radius: 50%; border: 2px white solid;">`
 // 			$article.append("<tr><td><div style='width:60px; background-color: coral; box-shadow:1px 3px 5px 2px #cccccc;'>"+ imgTag + forum.memberid + "</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
-			$article.append("<tr><td valign='top'><div style='margin:10px 10px 10px 10px;valign=top; line-height:50px'>"+ imgTag +"<b>"+memberName+"</b></div></td><td id="+forum.id+"><div style=' width:100%;margin:10px 10px 10px 10px; padding:10px 20px 10px 30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "</div></td></tr>")
+			$article.append("<tr class='d-flex'><td valign='top' class='col-1'><div style='margin:10px 10px 10px 10px;valign=top; line-height:50px'>"+ imgTag +"<b>"+memberName+"</b></div></td><td class='col-11' id="+forum.id+"><div class='col-12' style=' width:100%;margin:10px 10px 10px 10px; padding:10px 20px 10px 30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "</div></td></tr>")
 // 			$article.append("<tr><td><div style='width:60px;'>"+ imgTag +"</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "</div></td></tr>")
 			$article.append("</table>");
 //--------------------------------------
@@ -251,23 +281,27 @@ col-11
 
 <!--                                            comment start area           -->
 												
+												const login = `<a href="<c:url value='/member/login' />">`
 												var imgTag2 = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + order.forumOwnerFileId + `' />" class="d-inline-block align-top" alt="" style="width:50px; height:50px; border-radius: 50%;">`
+												if(${empty LoginOK}){
+												$forums.append('<div style="margin: 0px 20px 10px 10px;padding:10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc; line-height: 50px;" id='+order.id+order.memberName+'><a href=#forumReply'+forum.id+'><p class="btncls" style="float:right;" onclick="replyCommentFunction(this)" id="comment'+order.id+'">回覆本則</p></a>'+imgTag2+'<b>'+order.memberName+'</b><p>'+order.comment+'</p></div>')
+													}else{
 												$forums.append('<div style="margin: 0px 20px 10px 10px;padding:10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc; line-height: 50px;" id='+order.id+order.memberName+'><a href=#forumReply'+forum.id+'><p class="btncls" style="float:right;" onclick="replyCommentFunction(this)" id="comment'+order.id+'">回覆本則</p></a>'+imgTag2+'<b>'+order.memberName+'</b><p>'+order.comment+'</p></div>')
 // 												$forums.append('<div style="width:1050px; margin: 0px 20px 10px 10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc;">'+order.memberid+':'+order.comment+'</div>')
 // 										 		console.log("$forums: "+ $forums)												
+													}
 												}
 											});
 
 <!--                                    commentReply start area           -->
 
 
-										const login = `<a href="<c:url value='/member/login' />">`
 										if(${empty LoginOK}){
 											$forums.append("<div id='replyDiv"+forum.id+"' style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;'>回覆:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id='reply"+forum.id+"'></a></div>")
 // 											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 										}else{											
-											$forums.append("<div class='reply' id='forumReply"+forum.id+"' style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'><p id='p"+forum.id+"' class='btncls' onclick='cancelReply(this)' style='float:right;'>x</p><br/><textarea style='overflow:hidden;height:45px;'  type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></textarea></div>")
+											$forums.append("<div class='reply' id='forumReply"+forum.id+"' style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'><i onclick='cancelReply(this)' style='float:right;cursor: pointer;' id='p"+forum.id+"' class='ti-close s-close'></i><br/><textarea style='overflow:hidden;height:45px;'  type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></textarea></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
 											}
 
