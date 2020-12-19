@@ -81,7 +81,7 @@ button.btncls:hover {
 				content += "<td>付款失敗</td>"
 			}
 			content += "<td><button class='btncls' onclick='showOrderInfo("
-					+ orders[i].id + ")'>訂單詳細</button></td>" + "</tr>"
+					+ orders[i].id + ")'>訂單詳細</button><button type='button' class='btncls' data-toggle='modal' data-target='.bd-example-modal-lg' onclick='getDetail("+orders[i].id+")'>地址</button></td>" + "</tr>"
 					+ "</table>"
 			content += "<table id='orderInfo"+orders[i].id+"' style='display: none;'>"
 					+ "<tr>"
@@ -180,6 +180,38 @@ button.btncls:hover {
 		if (lastBtn != null) {
 			lastBtn.onclick = function() {
 				asynRequest(this.id);
+			}
+		}
+	}
+    
+	function getDetail(orderId){
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "<c:url value='/order/getOneOrder' />?orderId="+orderId,
+				true);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					var order = JSON.parse(xhr.responseText);
+					console.log(order);
+					document.getElementById("modal-content").innerHTML=
+						`
+						<div style="margin:10px;padding-left: 30px;">訂購人姓名：\${order.buyerName}</div>
+						<br/><div style="margin:10px;padding-left: 30px;">訂購人地址：\${order.buyerAddress}</div>
+						<br/><div style="margin:10px;padding-left: 30px;">訂購人Email：\${order.buyerEmail}</div>
+						<br/><div style="margin:10px;padding-left: 30px;">訂購人電話：\${order.buyerTel}</div>
+						<br/><div style="margin:10px;padding-left: 30px;">收件人姓名：\${order.recipientName}</div>
+						<br/><div style="margin:10px;padding-left: 30px;">收件人地址：\${order.recipientAddress}</div>
+						<br/><div style="margin:10px;padding-left: 30px;">收件人Email：\${order.recipientEmail}</div>
+						<br/><div style="margin:10px;padding-left: 30px;">收件人電話：\${order.recipientTel}</div>
+						`
+
+
+						;
+
+				} else {
+					alert(xhr.status);
+				}
 			}
 		}
 	}
@@ -348,7 +380,13 @@ button.btncls:hover {
 			</div>
 		</div>
 	</div>
-
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" id="modal-content">
+      
+    </div>
+  </div>
+</div>
 
 
 

@@ -453,42 +453,7 @@ button.btncls:hover{
 }
 </style>
 
-        <script type="text/javascript">
-            $(function() {
-                var websocket;
-                
-                if('WebSocket' in window) {
-                                        console.log("此瀏覽器支持websocket");
-                    websocket = new WebSocket("ws://127.0.0.1:8080/team6/websocketDemo/66");
-                } else if('MozWebSocket' in window) {
-                    alert("此瀏覽器只支持MozWebSocket");
-                } else {
-                    alert("此瀏覽器只支持SockJS");
-                }
-                websocket.onopen = function(evnt) {
-                    $("#tou").html("連接伺服器成功!")
-                };
-                websocket.onmessage = function(evnt) {
-                    $("#msg").html($("#msg").html() + "<br/>" + evnt.data);
-                };
-                websocket.onerror = function(evnt) {};
-                websocket.onclose = function(evnt) {
-                    $("#tou").html("與伺服器段開了連接!");
-                }
-                $('#send').bind('click', function() {
-                    send();
-                });
-
-                function send() {
-                    if(websocket != null) {
-                        var message = document.getElementById('message').value;
-                        websocket.send(message);
-                    } else {
-                        alert('未與伺服器連接.');
-                    }
-                }
-            });
-        </script>
+        
 
 
 </head>
@@ -583,17 +548,7 @@ button.btncls:hover{
 <!-- 		<div id="message"></div> -->
 		
 		
-	        <div class="col-lg">
-		        <div id="msg" style="background-color:grey;"></div>
-	            <div class="input-group">
-	                <input type="text" class="form-control" placeholder="歡迎來到，【Pet Me,陪你】客服系統~" id="message">
-	                <span class="input-group-btn">
-	                    <button class="btncls" type="button" id="send" >發送</button>
-	                </span>
-	            </div>
-	        </div>      		
-		<div class="page-header" id="tou" style="color:red;">狀態列
-        </div>
+	        
 <jsp:include page="../fragments/footerArea.jsp" />
 <jsp:include page="../fragments/allJs.jsp" />
 </body>

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.iii.eeit124.entity.Activitys;
 import com.iii.eeit124.entity.Orders;
 import com.iii.eeit124.entity.Products;
 
@@ -95,5 +96,15 @@ public class OrderListDaoImpl implements OrderListDao {
 		Long count = 0L; // 必須使用 long 型態
 		count = (Long) sessionFactory.getCurrentSession().createQuery("SELECT count(*) FROM Orders where BUYER_ID=?0").setParameter(0, id).getSingleResult();
 		return count;
+	}
+
+
+	@Override
+	public Orders getOneOrder(Integer orderId) {
+		@SuppressWarnings("unchecked")
+		TypedQuery<Orders> query = sessionFactory.getCurrentSession().createQuery("from Orders e where e.id = :id");
+		query.setParameter("id", orderId);
+		List<Orders> list = query.getResultList();
+		return list != null ? list.get(0) : null;
 	}
 }

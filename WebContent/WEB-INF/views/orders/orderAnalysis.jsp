@@ -69,8 +69,7 @@ function goSellingCountPage(){
 				content += '<ul class="nav nav-tabs navCustom">'+
 					'<li id="buyCountli" onclick="getActive()">購買統計</li>'+
 					'<li onclick="getActive()" class="activeCustom" >販賣統計</li>'+
-					'<li onclick="getActive()">購買商品紀錄</li>'+
-					'<li onclick="getActive()">販賣商品紀錄</li>'+
+
 				'</ul>'+
 				'<button onclick="goSellingCountPage()">整體</button><select style="width: 100px;" onchange="goSellingCountPageByMonth(this.options[this.options.selectedIndex].value)"><option>依月分</option>'
 				for(i=0;i<data["dateChooseList"].length;i++){
@@ -87,8 +86,9 @@ function goSellingCountPage(){
 					'</div>'+
 					'<div class="col-lg-4 col-md-4 col-sm-6 col-12">'+
 						'<div class="single-count mb-30 text-center">'+
-							'<span>總營業額</span>'+
-							'<h2 class="count" id="totalCost">'+ parseInt(data["sum"]) + '</h2>'+
+							'<span>總營業額</span>';
+							var a = parseInt(data["sum"]) ? parseInt(data["sum"]):0;
+							content += '<h2 class="count" id="totalCost">'+ a + '</h2>'+
 							'<span>元</span>'+
 						'</div>'+
 					'</div>'+
@@ -135,8 +135,6 @@ function goSellingCountPageByMonth(date){
 				content += '<ul class="nav nav-tabs navCustom">'+
 					'<li id="buyCountli" onclick="getActive()">購買統計</li>'+
 					'<li onclick="getActive()" class="activeCustom" >販賣統計</li>'+
-					'<li onclick="getActive()">購買商品紀錄</li>'+
-					'<li onclick="getActive()">販賣商品紀錄</li>'+
 				'</ul>'+
 				'<button onclick="goSellingCountPage()">整體</button><select style="width: 100px;" onchange="goSellingCountPageByMonth(this.options[this.options.selectedIndex].value)"><option>依月分</option>'
 				for(i=0;i<data["dateChooseList"].length;i++){
@@ -158,8 +156,9 @@ function goSellingCountPageByMonth(date){
 					'</div>'+
 					'<div class="col-lg-4 col-md-4 col-sm-6 col-12">'+
 						'<div class="single-count mb-30 text-center">'+
-							'<span>總營業額</span>'+
-							'<h2 class="count" id="totalCost">'+ parseInt(data["sum"]) + '</h2>'+
+							'<span>總營業額</span>';
+							var a = parseInt(data["sum"]) ? parseInt(data["sum"]):0;
+							content += '<h2 class="count" id="totalCost">'+ a + '</h2>'+
 							'<span>元</span>'+
 						'</div>'+
 					'</div>'+
@@ -196,8 +195,6 @@ function goBuyCountPage(){
 	content += '<ul class="nav nav-tabs navCustom">'+
 		'<li id="buyCountli" class="activeCustom" onclick="getActive()">購買統計</li>'+
 		'<li onclick="getActive()">販賣統計</li>'+
-		'<li onclick="getActive()">購買商品紀錄</li>'+
-		'<li onclick="getActive()">販賣商品紀錄</li>'+
 	'</ul>'+
 	'<div class="row">'+
 		'<div class="col-lg-4 col-md-4 col-sm-6 col-12">'+
@@ -268,8 +265,7 @@ function goBuyCountPage(){
 							<ul class="nav nav-tabs navCustom">
 								<li id="buyCountli" class="activeCustom" onclick="getActive()">購買統計</li>
 								<li onclick="getActive()">販賣統計</li>
-								<li onclick="getActive()">購買商品紀錄</li>
-								<li onclick="getActive()">販賣商品紀錄</li>
+								
 
 							</ul>
 							<div class="row" >

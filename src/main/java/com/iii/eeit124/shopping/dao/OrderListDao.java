@@ -13,4 +13,6 @@ public interface OrderListDao {
 	List<Orders> indAllOrdersByMemberId(Integer pageNo,Integer recordsPerPage,Integer id);
 
 	Long getRecordCounts(Integer id);
+
+	Orders getOneOrder(Integer orderId);
 }

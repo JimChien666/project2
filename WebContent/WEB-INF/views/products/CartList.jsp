@@ -240,10 +240,7 @@ function displayRecommendProducts(responseData){
 }
 
 function comfirmOrder(){
-	var check = confirm("前往結帳");
-	if (check){
-		window.location.href = "<c:url value='/order/CreateOrder' />";
-	}
+	window.location.href = "<c:url value='/order/CreateOrder' />";
 }
 
 </script>

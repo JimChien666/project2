@@ -47,6 +47,12 @@ public class OrderListController {
 	@GetMapping("/OrderList")
 	public String goToOrderPage() {
 		return "orders/OrderList";
+	}	
+	
+	@GetMapping("/getOneOrder")
+	public @ResponseBody Orders getPageOrders(@RequestParam("orderId") Integer orderId){
+		Orders order = service.getOneOrder(orderId);
+		return order;
 	}
 	
 	@GetMapping("/pagingOrders.json")

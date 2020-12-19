@@ -25,8 +25,7 @@
 			if (document.getElementById('sendBtn')){
 	            document.getElementById('sendBtn').innerHTML='<input type="button" onclick="doSendUser('+memberId+');" value="123"/>';				
 			}else{
-				document.getElementById('search-content').innerHTML='<div onclick="goOrderPage()">'+message+'</div>';
-				document.getElementById('search-content').classList.add("orderClass");
+				document.getElementById('search-content').innerHTML='<div class="alert alert-info" role="alert" onclick="goOrderPage()">'+message+'</div>';
 			}
             
         }

@@ -33,4 +33,9 @@ public class OrderListServiceImpl implements OrderListService {
 	public Long getRecordCounts(Integer id) {
 		return dao.getRecordCounts(id);
 	}
+
+	@Override
+	public Orders getOneOrder(Integer orderId) {
+		return dao.getOneOrder(orderId);
+	}
 }

@@ -7,6 +7,25 @@
 <meta charset="UTF-8">
 <title>我的最愛</title>
 <jsp:include page="../fragments/links.jsp" />
+<style>
+
+.btncls{
+	background-color: #7E4C4F; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+button.btncls:hover{
+	background-color: #000000;
+}
+</style>
 <script>
 window.onload = function() {
 	var xhr = new XMLHttpRequest();
@@ -25,6 +44,27 @@ window.onload = function() {
 		}
 	}
 }
+
+function addAll(){
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "<c:url value='/product/getFollowProduct.controller' />", true);
+	xhr.send();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4) {
+			if (xhr.status == 200) {
+				var responseData = xhr.responseText;
+
+				var products = JSON.parse(responseData);
+				for(var i=0; i < products.length; i++){
+					addToCart(products[i].id);
+				}
+			} else {
+				alert(xhr.status);
+			}
+		}
+	}
+}
+
 function displayProducts(responseData){
     var content = "";
 	var products = JSON.parse(responseData);
@@ -70,7 +110,7 @@ function displayProducts(responseData){
 		}
 	content+=
 	'</tbody>'+
-    '</table>'+
+    '</table><div class="btncls" style="float: right;" onclick="addAll()">一鍵購物車</div>'+
 '</div>'+
 '</form>';
 	document.getElementById("content").innerHTML = content;

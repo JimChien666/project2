@@ -12,6 +12,8 @@ margin: 20px;width:200px;height: 60px; right:5%; position: fixed; z-index: 999;b
 }
 </style>
 <script type="text/javascript" src="<c:url value='/js/jquery-1.12.2.min.js' />" ></script>
+<div id="search-content">
+</div>
 	<div class="header-bottom transparent-bar">
 		<div class="container">
 			<div class="row">
@@ -171,8 +173,8 @@ margin: 20px;width:200px;height: 60px; right:5%; position: fixed; z-index: 999;b
 			</div>
 		</div>
 	</div>
-	<div id="search-content">
-	</div>
+	
+	
 </header>
 <jsp:include page="showHeaderItems.jsp" />
 

@@ -14,4 +14,6 @@ public interface OrderListService {
 
 	Long getRecordCounts(Integer id);
 
+	Orders getOneOrder(Integer orderId);
+
 }
