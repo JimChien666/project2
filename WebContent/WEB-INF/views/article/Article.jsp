@@ -164,17 +164,26 @@ font-size:16px;
 // 		$("#forumReply"+tdIdName).scrollTop(adjustTop);
 		
 	};
-	$("#colComment").on("click",function() {
-		console.log("hi boy")
-		  $(this).parent().siblings().toggle( "slow", function() {
-		    // Animation complete.
-		  });
-		});
 
-	function colComment(cc){
-		$("#colComment").parent().siblings().toggle( "slow", function() {
-		  });
-		};
+
+	$(document).on('click', '.colComment', function(event){
+	    $(this).parent().siblings().toggle( "slow", function() {
+	    });
+	    	});
+// 	$(".colComment").on("click",function(e) {
+// 		console.log("hi boy")
+// 		e.parent().siblings().toggle( "slow", function() {
+		
+// // 		  $(this).parent().siblings().toggle( "slow", function() {
+// // 		  $(this).parent().siblings().toggle( "slow", function() {
+// 		    // Animation complete.
+// 		  });
+// 		});
+
+// 	function colComment(cc){
+// 		$("#colComment").parent().siblings().toggle( "slow", function() {
+// 		  });
+// 		};
 	
 	$(function() {
 	$.ajax({
@@ -270,7 +279,7 @@ font-size:16px;
 			var memberName = forum.memberName;
 			var imgTag = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + forum.forumOwnerFileId + `' />" class="d-inline-block align-top" alt="" style="width:50px; height:50px; border-radius: 50%; border: 2px white solid;">`
 // 			$article.append("<tr><td><div style='width:60px; background-color: coral; box-shadow:1px 3px 5px 2px #cccccc;'>"+ imgTag + forum.memberid + "</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
-			$article.append("<tr class='d-flex'><td valign='top' class='col-1'><div style='margin:10px 10px 10px 10px;valign=top; line-height:50px'>"+ imgTag +"<b>"+memberName+"</b></div></td><td class='col-11' id="+forum.id+"><div class='col-12' style=' width:100%;margin:10px 10px 10px 10px; padding:10px 20px 10px 30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "<div style='position: absolute; bottom:0; right:0;' class='btncls'  onclick='colComment(this)' id='colComment'>收合留言</div></div></td></tr>")
+			$article.append("<tr class='d-flex'><td valign='top' class='col-1'><div style='margin:10px 10px 10px 10px;valign=top; line-height:50px'>"+ imgTag +"<b>"+memberName+"</b></div></td><td class='col-11' id="+forum.id+"><div class='col-12' style=' width:100%;margin:10px 10px 10px 10px; padding:10px 20px 10px 30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "<div style='position: absolute; bottom:0; right:0;' class='btncls colComment'  >收合留言</div></div></td></tr>")
 // 			$article.append("<tr><td><div style='width:60px;'>"+ imgTag +"</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content + "</div></td></tr>")
 			$article.append("</table>");
 //--------------------------------------
