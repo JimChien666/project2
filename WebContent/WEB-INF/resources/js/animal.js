@@ -64,21 +64,21 @@ function info(content, url) {
 	setTimeout(function() { window.location = url; }, 1000);
 }
 
-function confirm(title, icon, confirm, animalId, memberId){
+function confirm(title, icon, confirm, status, animalId, memberId){
 	swal({
 		title:title,
 		text:" ",
 		icon:icon,
 		buttons:{
 			Btn: false,
-			cancel: { text: "取消", visible: true },
+			cancel: { text: "返回", visible: true },
 			danger: { text: confirm, visible: true }
 		},
 		dangerMode: true
 	}).then((value) => {
 		switch (value) {
 			case "danger":
-						window.location = "/team6/MemberCenter/adoptionRequestList.controller.4?animalId="+animalId+"&memberId=" + memberId;
+						window.location = "/team6/MemberCenter/adoptionRequestList.controller."+status+"?animalId="+animalId+"&memberId=" + memberId;
 				break;
 		}
 	});

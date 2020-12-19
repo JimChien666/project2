@@ -57,7 +57,7 @@
 			</c:when>
 		</c:choose>
 
-		<c:if test="${!empty LoginOK}">
+		<c:if test="${!empty LoginOK && member!=animal.member.id}">
 			<a class="divFixed btn-style1"
 				href="<c:url value='/adopt/oneButtonApply.controller/${animal.animalId}'/>"
 				onclick="success('申請', ' 寄送審核資料給送養者中')">一鍵領養申請</a>
@@ -118,7 +118,8 @@
 							class="btn-style-cancel btn-style-border">返回</a>
 						<c:choose>
 							<c:when test="${member==0}">
-								<div class="btn-style1 btn-style-border">領養請登入</div>
+								<button class="btn-style1 btn-style-border"
+									onclick="info('領養請先登入', '<c:url value='/adopt/adoptNotice'/>/${animal.animalId}')">領養請登入</button>
 							</c:when>
 							<c:when test="${member==animal.member.id}">
 								<button class="btn-style1 btn-style-border"

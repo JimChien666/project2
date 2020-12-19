@@ -342,7 +342,7 @@ td {
 										</c:when>
 										<c:when test="${source == 'MyAdoptionProgress'}">
 											待核准申請
-											<button class="mt-10 btn-style-cancel btn-style-border" onclick="confirm('是否要放棄領養?', 'warning', '放棄', ${AdoptionRequestList.animal.animalId}, ${AdoptionRequestList.member.id})">放棄領養</button>
+											<button class="mt-10 btn-style-cancel btn-style-border" onclick="confirm('是否要取消申請?', 'warning', '取消申請', 41, ${AdoptionRequestList.animal.animalId}, ${AdoptionRequestList.member.id})">取消申請</button>
 										</c:when>
 									</c:choose>
 								</c:when>
@@ -359,7 +359,7 @@ td {
 												data-toggle="modal"
 												data-target="#reviewStatus5${AdoptionRequestList.adoptionId}">確認領養
 											</div>
-											<button class="mt-10 btn-style-cancel btn-style-border" onclick="confirm('是否要放棄領養?', 'warning', '放棄', ${AdoptionRequestList.animal.animalId}, ${AdoptionRequestList.member.id})">放棄領養</button>
+											<button class="mt-10 btn-style-cancel btn-style-border" onclick="confirm('是否要放棄領養?', 'warning', '放棄', 4, ${AdoptionRequestList.animal.animalId}, ${AdoptionRequestList.member.id})">放棄領養</button>
 											<!-- 確認領養 -->
 											<div class="modal fade"
 												id="reviewStatus5${AdoptionRequestList.adoptionId}"
@@ -459,6 +459,24 @@ td {
 												value="${AdoptionRequestList.abandonedAdoptionAt}"
 												pattern="yyyy/MM/dd HH:mm:ss" />
 											<br>放棄領養
+										</c:when>
+									</c:choose>
+								</c:when>
+								<c:when test="${AdoptionRequestList.reviewStatus == 41}">
+									<c:choose>
+										<c:when test="${source == 'AdoptionRequest'}">
+										申請者於<br>
+											<fmt:formatDate
+												value="${AdoptionRequestList.cancelApplyAt}"
+												pattern="yyyy/MM/dd HH:mm:ss" />
+											<br>取消申請
+										</c:when>
+										<c:when test="${source == 'MyAdoptionProgress'}">
+										您已於<br>
+											<fmt:formatDate
+												value="${AdoptionRequestList.cancelApplyAt}"
+												pattern="yyyy/MM/dd HH:mm:ss" />
+											<br>取消申請
 										</c:when>
 									</c:choose>
 								</c:when>

@@ -59,6 +59,7 @@ public class AdoptionRecords {
 	private Date abandonedAdoptionAt;//ReviewStatus4
 	private String confirmedAdoptionMessage;
 	private Date confirmedAdoptionAt;//ReviewStatus5
+	private Date cancelApplyAt;//ReviewStatus41
 	
 	@Id
 	@Column(name = "ADOPTION_ID")//大小寫沒差別，跟資料庫名一樣就好
@@ -327,6 +328,13 @@ public class AdoptionRecords {
 	public void setConfirmedAdoptionAt(Date confirmedAdoptionAt) {
 		this.confirmedAdoptionAt = confirmedAdoptionAt;
 	}
+	@Column(name = "Cancel_Apply_At")
+	public Date getCancelApplyAt() {
+		return cancelApplyAt;
+	}
+	public void setCancelApplyAt(Date cancelApplyAt) {
+		this.cancelApplyAt = cancelApplyAt;
+	}
 	@Override
 	public String toString() {
 		return "AdoptionRecords [adoptionId=" + adoptionId + ", memberId=" + memberId + ", animalId=" + animalId
@@ -342,7 +350,6 @@ public class AdoptionRecords {
 				+ applyApprovedAt + ", rejectedReason=" + rejectedReason + ", approvedReason=" + approvedReason
 				+ ", adopterMessage=" + adopterMessage + ", abandonedAdoptionAt=" + abandonedAdoptionAt
 				+ ", confirmedAdoptionMessage=" + confirmedAdoptionMessage + ", confirmedAdoptionAt="
-				+ confirmedAdoptionAt + "]";
+				+ confirmedAdoptionAt + ", cancelApplyAt=" + cancelApplyAt + "]";
 	}
-
 }
