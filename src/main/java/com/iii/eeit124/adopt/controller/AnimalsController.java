@@ -318,21 +318,23 @@ public class AnimalsController {
 			//領養請求
 			//找出該會員擁有的寵物，但被其他領養人提出領養申請的寵物
 			List<AdoptionRecords> readAdoptionRecords2 = adoptionRecordsService.readAdoptionRecords2("OWNERMEMBERID = "+ memberId, "REVIEW_STATUS >= 0", "APPLY_TIME");
-			m.addAttribute("AdoptionRequestList", readAdoptionRecords2);
-			m.addAttribute("source", "AdoptionRequest");
 			
 			for (AdoptionRecords adoptionRecords : readAdoptionRecords2) {
 				//狀態為送養者已核准，等待領養者確認或放棄
 				int applyApprovedAt = (int)(adoptionRecords.getApplyApprovedAt().getTime()/1000);
 				int now = (int)(new Date().getTime()/1000);
 				if (adoptionRecords.getReviewStatus() == 2) {
+					//領養者超過一天未確認領養的處置
 					if ((now - applyApprovedAt)>86400) {
 						adoptionRecords.setReviewStatus(6);
 						adoptionRecordsService.update(adoptionRecords);
-						m.addAttribute("confirmedTimeOutAt", new Date(((long)(applyApprovedAt+86400))*1000L));
 					}
 				}
+				if (adoptionRecords.getReviewStatus() == 6) {
+				m.addAttribute("confirmedTimeOutAt", new Date(((long)(applyApprovedAt+86400))*1000L));
+				}
 				
+				//判斷同時多人申請時，其他同寵物申請人的顯示按鈕
 				if(adoptionRecords.getReviewStatus() == 3) {
 					map.put(adoptionRecords.getAnimal().getAnimalId(), 3);
 					break;
@@ -343,13 +345,13 @@ public class AnimalsController {
 					break;
 				}
 			}
+			m.addAttribute("AdoptionRequestList", readAdoptionRecords2);
+			m.addAttribute("source", "AdoptionRequest");
 			m.addAttribute("reviewStatusMap", map);
 		}else if ("MyAdoptionProgress".equals(source)) {
 			//我的領養進度
 			//找出該會員申請領養的紀錄
 			List<AdoptionRecords> readMyAdoptionRecords = adoptionRecordsService.readMyAdoptionRecords(memberId);
-			m.addAttribute("AdoptionRequestList", readMyAdoptionRecords);
-			m.addAttribute("source", "MyAdoptionProgress");
 			for (AdoptionRecords adoptionRecords : readMyAdoptionRecords) {
 				//狀態為送養者已核准，等待領養者確認或放棄
 				int applyApprovedAt = (int)(adoptionRecords.getApplyApprovedAt().getTime()/1000);
@@ -358,10 +360,14 @@ public class AnimalsController {
 					if ((now - applyApprovedAt)>86400) {
 						adoptionRecords.setReviewStatus(6);
 						adoptionRecordsService.update(adoptionRecords);
-						m.addAttribute("confirmedTimeOutAt", new Date(((long)(applyApprovedAt+86400))*1000L));
 					}
 				}
+				if (adoptionRecords.getReviewStatus() == 6) {
+				m.addAttribute("confirmedTimeOutAt", new Date(((long)(applyApprovedAt+86400))*1000L));
+				}
 			}
+			m.addAttribute("AdoptionRequestList", readMyAdoptionRecords);
+			m.addAttribute("source", "MyAdoptionProgress");
 		}
 		return "adopt/AdoptionRequestList";
 	}
@@ -445,5 +451,14 @@ public class AnimalsController {
 		animals.setIsAdoptionAvailable(0);
 		animalsService.update(animals);
 		return "redirect:/MemberCenter/adoptionRequestList.controller?source=MyAdoptionProgress";
+	}
+	
+	//讓送養者核准日期倒回一天
+	@RequestMapping("/setConfirmedTimeOut.controller")
+	public String processSetConfirmedTimeOut(@RequestParam("source") String source, @RequestParam("adoptionId") Integer adoptionId, Model m) {
+		List<AdoptionRecords> readAdoptionRecords1 = adoptionRecordsService.readAdoptionRecords1("adoption_Id = "+adoptionId);
+		int applyApprovedAtOrigin = (int)(readAdoptionRecords1.get(0).getApplyApprovedAt().getTime()/1000);
+		readAdoptionRecords1.get(0).setApplyApprovedAt(new Date(((long)(applyApprovedAtOrigin-86400))*1000L));
+		return "redirect:/MemberCenter/adoptionRequestList.controller?source="+source;
 	}
 }

@@ -186,10 +186,10 @@ td {
 										pattern="yyyy/MM/dd HH:mm:ss" />
 									<c:choose>
 										<c:when test="${source == 'AdoptionRequest'}">
-								退回申請
+											退回申請
 										</c:when>
 										<c:when test="${source == 'MyAdoptionProgress'}">
-								被退回申請
+											被退回申請
 										</c:when>
 									</c:choose>
 									<div class="mt-10 btn-style-cancel btn-style-border"
@@ -215,13 +215,17 @@ td {
 															<label for="message-text" class="col-form-label font22">
 																<c:choose>
 																	<c:when test="${source == 'AdoptionRequest'}">
-															回覆給申請者的話：
-										</c:when>
+																		回覆給申請者的話：
+																	</c:when>
 																	<c:when test="${source == 'MyAdoptionProgress'}">
-															回覆給您的話：
-										</c:when>
+																		回覆給您的話：
+																	</c:when>
 																</c:choose>
-															</label> <label class="font22">${AdoptionRequestList.rejectedReason}</label>
+															</label> <label class="font22">${AdoptionRequestList.rejectedReason}</label><br>
+															退回申請時間：
+															<fmt:formatDate
+																value="${AdoptionRequestList.applyRejectedAt}"
+																pattern="yyyy/MM/dd HH:mm:ss" />
 														</div>
 													</div>
 													<div class="modal-footer">
@@ -422,10 +426,15 @@ td {
 																	回覆給您的話：
 																	</c:when>
 																</c:choose>
-															</label> <label class="font22">${AdoptionRequestList.approvedReason}</label>
+															</label> <label class="font22">${AdoptionRequestList.approvedReason}</label><br>
+															核准申請時間：
+															<fmt:formatDate
+																value="${AdoptionRequestList.applyApprovedAt}"
+																pattern="yyyy/MM/dd HH:mm:ss" />
 														</div>
 													</div>
 													<div class="modal-footer">
+													<a href="<c:url value='/MemberCenter/setConfirmedTimeOut.controller?source=${source}&adoptionId=${AdoptionRequestList.adoptionId}'/>" class="btn-style-cancel btn-style-border">核准日倒回一天</a>
 														<button type="button"
 															class="btn-style-cancel btn-style-border"
 															data-dismiss="modal">返回</button>
@@ -498,7 +507,11 @@ td {
 																				回覆給送養者的話：
 																			</c:when>
 																		</c:choose>
-																	</label> <label class="font22">${AdoptionRequestList.confirmedAdoptionMessage}</label>
+																	</label> <label class="font22">${AdoptionRequestList.confirmedAdoptionMessage}</label><br>
+															確認領養時間：
+															<fmt:formatDate
+																value="${AdoptionRequestList.confirmedAdoptionAt}"
+																pattern="yyyy/MM/dd HH:mm:ss" />
 																</div>
 															</div>
 															<div class="modal-footer">
@@ -547,7 +560,11 @@ td {
 																		回覆給您的話：
 																	</c:when>
 																		</c:choose>
-																	</label> <label class="font22">${AdoptionRequestList.approvedReason}</label>
+																	</label> <label class="font22">${AdoptionRequestList.approvedReason}</label><br>
+															核准申請時間：
+															<fmt:formatDate
+																value="${AdoptionRequestList.applyApprovedAt}"
+																pattern="yyyy/MM/dd HH:mm:ss" />
 																</div>
 															</div>
 															<div class="modal-footer">
@@ -743,6 +760,51 @@ td {
 											<br>被取消領養
 										</c:when>
 									</c:choose>
+									<div class="mt-10 btn-style-cancel btn-style-border"
+										data-toggle="modal"
+										data-target="#approvedReason${AdoptionRequestList.adoptionId}">查看核准訊息
+									</div>
+									<div class="modal fade"
+										id="approvedReason${AdoptionRequestList.adoptionId}"
+										tabindex="-1" role="dialog"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="exampleModalLabel">核准訊息</h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<form>
+													<div class="modal-body">
+														<div class="form-group">
+															<label for="message-text" class="col-form-label font22">
+																<c:choose>
+																	<c:when test="${source == 'AdoptionRequest'}">
+																	回覆給申請者的話：
+																	</c:when>
+																	<c:when test="${source == 'MyAdoptionProgress'}">
+																	回覆給您的話：
+																	</c:when>
+																</c:choose>
+															</label> <label class="font22">${AdoptionRequestList.approvedReason}</label><br>
+															核准申請時間：
+															<fmt:formatDate
+																value="${AdoptionRequestList.applyApprovedAt}"
+																pattern="yyyy/MM/dd HH:mm:ss" />
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+															class="btn-style-cancel btn-style-border"
+															data-dismiss="modal">返回</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
 								</c:when>
 							</c:choose></td>
 					</tr>

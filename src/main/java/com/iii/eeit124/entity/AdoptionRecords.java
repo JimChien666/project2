@@ -327,5 +327,22 @@ public class AdoptionRecords {
 	public void setConfirmedAdoptionAt(Date confirmedAdoptionAt) {
 		this.confirmedAdoptionAt = confirmedAdoptionAt;
 	}
+	@Override
+	public String toString() {
+		return "AdoptionRecords [adoptionId=" + adoptionId + ", memberId=" + memberId + ", animalId=" + animalId
+				+ ", adoptionDate=" + adoptionDate + ", reviewStatus=" + reviewStatus + ", adoptionStatus="
+				+ adoptionStatus + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt
+				+ ", member=" + member + ", animal=" + animal + ", noticeOptions=" + noticeOptions + ", applicantName="
+				+ applicantName + ", agreement=" + agreement + ", feedAddress=" + feedAddress + ", feedAddressType="
+				+ feedAddressType + ", currentAnimalsNum=" + currentAnimalsNum + ", adopterName=" + adopterName
+				+ ", personalId=" + personalId + ", birthday=" + birthday + ", birthdayString=" + birthdayString
+				+ ", tel=" + tel + ", mobile=" + mobile + ", email=" + email + ", residentAddress=" + residentAddress
+				+ ", mailingAddress=" + mailingAddress + ", applyTime=" + applyTime + ", ownerMemberId=" + ownerMemberId
+				+ ", ownerMember=" + ownerMember + ", applyRejectedAt=" + applyRejectedAt + ", applyApprovedAt="
+				+ applyApprovedAt + ", rejectedReason=" + rejectedReason + ", approvedReason=" + approvedReason
+				+ ", adopterMessage=" + adopterMessage + ", abandonedAdoptionAt=" + abandonedAdoptionAt
+				+ ", confirmedAdoptionMessage=" + confirmedAdoptionMessage + ", confirmedAdoptionAt="
+				+ confirmedAdoptionAt + "]";
+	}
 
 }
