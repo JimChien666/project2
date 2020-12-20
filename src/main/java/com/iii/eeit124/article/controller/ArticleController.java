@@ -182,7 +182,7 @@ public class ArticleController {
 		forums.setArticle(article);
 		article.getForums().add(forums);
 		forumsService.save(forums);
-		return "redirect:/articleList";
+		return "redirect:/goArticlePage?articleId="+id;
 	}
 
 	// save article to DB and return the articleList page.
