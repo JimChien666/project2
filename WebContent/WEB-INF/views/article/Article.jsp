@@ -138,16 +138,22 @@ font-size:16px;
 		
 		$("#forumReply"+replyId+">a").remove();
 		}
-	
+	function replyComment(com){
+		window.location.href = "<c:url value='/member/login' />";		
+		}
+		
 	function replyCommentFunction(com){
 		var commentId = com.id.slice(7);<!--Anchor NUMBER -->
 		var commentIdLen = commentId.length;
 		var memberName = $("#"+com.id).parent().parent().attr('id').slice(commentIdLen);<!--Anchor NAME -->
 // 		var tdIdName = $("#"+com.id).parent().parent().parent().attr('id');
 		var tdIdName = $("#"+com.id).parentsUntil($("tr"),"td").attr('id');
+// 		var textareaId = ("reply"+tdIdName);
 		console.log(commentId);<!--Anchor NUMBER -->
 		console.log(memberName);<!--Anchor NAME -->
 		console.log(tdIdName);
+// 		console.log("textareaId:"+textareaId);
+		
 		$("#forumReply"+tdIdName).prepend("<a href='#"+commentId+memberName+"' onclick='tagComment(this)'>"+memberName+"</a>");
 // 		let scrollTop = $(this).scrollTop();
 // 		console.log(scrollTop);
@@ -161,10 +167,31 @@ font-size:16px;
 		console.log("adjustTop:"+adjustTop);
 // 		$(window).scrollTop(0);
 		$('html,body').animate({scrollTop:adjustTop},400)
+		console.log("reply:"+"#reply"+tdIdName);
+// 		$("#reply"+tdIdName).setfocus();
+		if($('#reply'+tdIdName).length>0){setTimeout(function(){try{$('#reply'+tdIdName)[0].focus();}catch(e){}},0);}
+// 		$("#reply"+tdIdName).prepend("<a href='#"+commentId+memberName+"' onclick='tagComment(this)'>"+memberName+"</a>");
 // 		$("#forumReply"+tdIdName).scrollTop(adjustTop);
 		
 	};
 
+// 	(function($)
+// 			{
+// 			    jQuery.fn.setfocus = function()
+// 			    {
+// 			        return this.each(function()
+// 			        {
+// 			            var dom = this;
+// 			            setTimeout(function()
+// 			            {
+// 			                try { dom.focus(); } catch (e) { } 
+// 			            }, 0);
+// 			        });
+// 			    };
+// 			})(jQuery);
+
+
+	
 
 	$(document).on('click', '.colComment', function(event){
 	    $(this).parent().siblings().toggle( "slow", function() {
@@ -299,12 +326,10 @@ font-size:16px;
 // 												console.log("forumId:"+forumId);
 
 <!--                                            comment start area           -->
-
-
 												const login = `<a href="<c:url value='/member/login' />">`
 												var imgTag2 = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + order.forumOwnerFileId + `' />" class="d-inline-block align-top" alt="" style="width:50px; height:50px; border-radius: 50%;">`
 												if(${empty LoginOK}){
-												$forums.append('<div style="margin: 0px 20px 10px 10px;padding:10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc; line-height: 50px;" id='+order.id+order.memberName+'><a href=#forumReply'+forum.id+'><p class="btncls" style="float:right;" onclick="replyCommentFunction(this)" id="comment'+order.id+'">回覆本則</p></a>'+imgTag2+'<b>'+order.memberName+'</b><p>'+order.comment+'</p></div>')
+												$forums.append('<div style="margin: 0px 20px 10px 10px;padding:10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc; line-height: 50px;" id='+order.id+order.memberName+'><a href=#forumReply'+forum.id+'><p class="btncls" style="float:right;" onclick="replyComment(this)" id="comment'+order.id+'">回覆本則</p></a>'+imgTag2+'<b>'+order.memberName+'</b><p>'+order.comment+'</p></div>')
 													}else{
 												$forums.append('<div style="margin: 0px 20px 10px 10px;padding:10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc; line-height: 50px;" id='+order.id+order.memberName+'><a href=#forumReply'+forum.id+'><p class="btncls" style="float:right;" onclick="replyCommentFunction(this)" id="comment'+order.id+'">回覆本則</p></a>'+imgTag2+'<b>'+order.memberName+'</b><p>'+order.comment+'</p></div>')
 // 												$forums.append('<div style="width:1050px; margin: 0px 20px 10px 10px; background-color:#fcedda; box-shadow:1px 3px 5px 2px #cccccc;">'+order.memberid+':'+order.comment+'</div>')
@@ -327,11 +352,6 @@ font-size:16px;
 
 // 											$('.auto').autoboxBind();
 											$('textarea').autogrow({horizontal:false,flickering:false});
-
-										
-
-
-
 											
 											$("#reply"+forum.id).keydown(function (e) {
 												// $("input").keypress(function (e) {
