@@ -299,7 +299,8 @@ font-size:16px;
 // 												console.log("forumId:"+forumId);
 
 <!--                                            comment start area           -->
-												
+
+
 												const login = `<a href="<c:url value='/member/login' />">`
 												var imgTag2 = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + order.forumOwnerFileId + `' />" class="d-inline-block align-top" alt="" style="width:50px; height:50px; border-radius: 50%;">`
 												if(${empty LoginOK}){
@@ -313,13 +314,13 @@ font-size:16px;
 											});
 
 <!--                                    commentReply start area           -->
-
+										const login = `<a href="<c:url value='/member/login' />">`
 
 										if(${empty LoginOK}){
 											$forums.append("<div id='replyDiv"+forum.id+"' style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;'>回覆:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id='reply"+forum.id+"'></a></div>")
 // 											$forums.append("<div style='margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:	#F5F5F5;'>回覆本討論串:"+login+"<input type='text' disabled placeholder='請登入後留言' name='comments' id=reply"+forum.id+"></a></div>")
-										}else{											
+										}else{										
 											$forums.append("<div class='reply' id='forumReply"+forum.id+"' style='margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'><i onclick='cancelReply(this)' style='float:right;cursor: pointer;' id='p"+forum.id+"' class='ti-close s-close'></i><br/><textarea style='overflow:hidden;height:45px;'  type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></textarea></div>")
 // 											$forums.append("<div style='width:1100px; margin: 0px 10px 10px 10px; background-color:#F5F5F5;;'>回覆本討論串:<input type='text' name='comments' placeholder='有甚麼想法呢?' id=reply"+forum.id+"></div>")
 											}
