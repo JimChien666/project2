@@ -66,4 +66,19 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleDAO.personalFollowed(memberid, id);
 	}
 
+	@Override
+	public List<Article> serchArticles(Integer pageNo, Integer recordsPerPage, String serch) {
+		return articleDAO.serchArticles(pageNo, recordsPerPage, serch);
+	}
+
+	@Override
+	public Long getAllRecordCounts() {
+		return articleDAO.getAllRecordCounts();
+	}
+
+	@Override
+	public List<Article> getPersonalPostList(Integer memberid, Integer id) {
+		return articleDAO.getPersonalPostList(memberid, id);
+	}
+
 }

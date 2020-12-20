@@ -24,5 +24,12 @@ public interface ArticleService {
 
 	Long getRecordCounts(Integer id);
 	
+	List<Article> serchArticles(Integer pageNo ,Integer recordsPerPage, String serch);
+	
+	Long getAllRecordCounts();
+	
 	List<Article> personalFollowed(Integer memberid, Integer id);
+	
+	List<Article> getPersonalPostList(Integer memberid, Integer id);
+
 }

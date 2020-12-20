@@ -158,7 +158,7 @@ margin: 20px;width:200px;height: 60px; right:5%; position: fixed; z-index: 999;b
 												<li><a href="shop-page.html">Cultivation</a></li>
 											</ul></li>
 									</ul></li>
-								<li><a href="#">討論區</a>
+								<li><a href="<c:url value='/backArticle'/>">討論區</a>
 									<ul>
 										<li><a href="blog.html">blog page</a></li>
 										<li><a href="blog-leftsidebar.html">blog left sidebar</a>

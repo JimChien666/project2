@@ -43,6 +43,22 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <style type="text/css">
+.btncls{
+	background-color: #7E4C4F; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+button.btncls:hover{
+	background-color: #000000;
+}
 .forumC:hover {
 	border: 10px solid black;
 }
@@ -56,28 +72,91 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 .forum {
 	font-size: 4.5em;
 }
-
+tr:hover {
+	background-color:#FCE6C9;
+	color:#blue;
+}
+table th{
+	background-color:#FDEEDB;
+}
 /* table { */
 /* 	font-size: 2em; */
 /* } */
 </style>
 <title>討論區</title>
-</head>
+
 <script>
 	$(function() {
+		
+		$("#search").on("click",function() {
+			goSerch();
+		});
+
+// 		$("#keywordSearch").on("keydown",function(){
+// 			if
+// 			})
+		
+		$("#keywordSearch").on('keypress',function(e) {
+    		if(e.which == 13) {
+    			goSerch();
+    		}
+		});
+
+		
+		function goSerch(){
+			var keywordSearch = $("#keywordSearch").val();
+			if (keywordSearch==""||keywordSearch==null) {
+				$("#forumNow").text("");
+				swal({
+					  icon: "info",
+					  title: "請輸入關鍵字 !",
+					  button: "確認"								  							  
+					});	
+			} else {
+
+			$.ajax({
+				type : "GET",
+				url : "<c:url value='getArtilceSerchList' />?keywordSearch="+keywordSearch,
+				success : function(mapData) {
+					console.log("resultCount:"+mapData.articleList.length)
+//	 				mapData.articleList.length
+					if (mapData.articleList.length==0) {
+						$("#forumNow").text("查無結果");						
+						swal({
+							  icon: "info",
+							  title: "查無結果 !",
+							  button: "確認"								  							  
+							});
+					} else {
+					showArticleList(mapData)
+					$("#forumNow").text("共有"+mapData.articleList.length+"項結果");				
+					
+					}				
+				}
+				});
+			}
+			}
+
+
+
+
 
 		$.ajax({
 			type : "GET",
 			url : "<c:url value='getArticleList' />?articleTypeId=1",
 			success : function(mapData) {
 				showArticleList(mapData)
+				$("#forumNow").text("狗狗討論版");				
 			}
 		});
 
-		$("#forumsSelect1>a").on(
-				"click",
-				function() {
-					selectResult = $(this).attr("id")
+
+
+
+
+		
+		$("#forumsSelect1>a").on("click",function() {
+					selectResult = $(this).attr("id").slice(5);
 					console.log(selectResult)
 					$.ajax({
 						type : "GET",
@@ -85,6 +164,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 								+ selectResult,
 						success : function(mapData) {
 							showArticleList(mapData)
+							$("#forumNow").text("狗狗討論版");
 						}
 					});
 				})
@@ -92,7 +172,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 		$("#forumsSelect2>a").on(
 				"click",
 				function() {
-					selectResult = $(this).attr("id")
+					selectResult = $(this).attr("id").slice(5);
 					console.log(selectResult)
 					$.ajax({
 						type : "GET",
@@ -100,6 +180,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 								+ selectResult,
 						success : function(mapData) {
 							showArticleList(mapData)
+							$("#forumNow").text("貓咪討論版");
 						}
 					});
 				})
@@ -117,9 +198,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			$artilceListTable.empty();
 			// 		$artilceList.append("<table border=1 style='width: 100%; font-size: 2em;' ><tbody>")
 
-			$artilceListTable.append("<tr><th>文章標題</th><th>追蹤</th></tr>")
-			
-			
+			$artilceListTable.append("<tr><th>人氣</th><th>主題</th><th>"+""+"</th></tr>")
 			
 			
 			$.each(articleList, function(i, article) {
@@ -132,10 +211,16 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					checkStatus = true;
 					}
  					});
-				
+
+// 				console.log("articleList"+article);				
+// 				console.log("forums"+JSON.stringify(article.forums));				
+// 				console.log("forums"+article.forums.length);				
+				console.log("member:"+JSON.stringify(article.member));
+				var popularity = (article.forums.length)-1;
+				var articleAuthor = article.memberName;
 				$artilceListTable
-						.append("<tr><td><a href="+urlStringent+"><div>"
-								+ article.title + "</div></a></td><td class='product-wishlist-cart' id='forumsSelect1'><a onclick='follow(this)' style='color: white; cursor: pointer;' id='"+article.id+"'>"+(checkStatus? "取消追蹤":"追蹤")+"</a></td></tr>")
+						.append("<tr><td align='center'  width='100px'>"+popularity+"</td><td><a href="+urlStringent+"><div>"  
+								+ (article.title.length>14 ? article.title.slice(0,13)+'..' : article.title) +"/"+articleAuthor+"</div></a></td><td width='110px' class='product-wishlist-cart' id='forumsSelect1'><a onclick='follow(this)' style='color: white; cursor: pointer;' id='follow"+article.id+"'>"+(checkStatus? "取消追蹤":"追蹤")+"</a></td></tr>")
 			})
 
 // 			var navContent = "" ;
@@ -223,6 +308,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 			if (typeof selectResult == 'undefined') {
 				xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId="
 						+ "1" + queryString, true);
+				$("#forumNow").text("狗狗討論版")
 				// 		xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId=1" + queryString , true);
 				// 		console.log(no)
 				// 		console.log(totalPage)
@@ -240,6 +326,11 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 	
 			xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId="
 					+ selectResult + queryString, true);
+			if(selectResult==1){
+				$("#forumNow").text("狗狗討論版");				
+			}else{
+				$("#forumNow").text("貓咪討論版");
+				}
 			// 		xhr.open("GET", "<c:url value='getArticleList' />?articleTypeId=1" + queryString , true);
 			// 		console.log(no)
 			// 		console.log(totalPage)
@@ -270,7 +361,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 				});
 
 		var member = "${LoginOK.id}"
-		var	articleid = Obj.id
+		var	articleid = Obj.id.slice(6);
 		$.ajax({
 			type : "GET",
 			url : "<c:url value='statusChange' />?memberid="+member+"&articleid="+articleid,
@@ -278,15 +369,16 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 				console.log("success get result")
 			if(result==1){
 				console.log("新增成功");
-				console.log($("#"+articleid).text);
-				
-				$("#"+articleid).text("取消追蹤");
+// 				console.log($("#"+articleid).text);				
+				console.log(articleid);
+				$("#follow"+articleid).text("取消追蹤");
 				
 			} else {
 				console.log("取消追蹤");
-				console.log($("#"+articleid).text);
-				console.log(result);
-				$("#"+articleid).text("追蹤");
+// 				console.log($("#"+articleid).text);
+// 				console.log(result);
+				console.log(articleid);
+				$("#follow"+articleid).text("追蹤");
 				}
 			}
 		});
@@ -301,7 +393,14 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 		}
 	}
 </script>
+<!-- 轉頁載入動畫1 -->
+<link rel="stylesheet"
+	href="<c:url value='/css/loadingAnimation.css' />">
+</head>
 <body>
+	<div id="loader"></div>
+	<div style="display: none;" id="myDiv" class="animate-bottom">
+		<!-- 轉頁載入動畫1 -->
 	<div>
 		<jsp:include page="../fragments/headerArea.jsp" />
 	</div>
@@ -314,6 +413,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 				<ul>
 					<li><a href="<c:url value='/'/>">首頁</a></li>
 					<li class="active">討論區</li>
+					<li class="active" id="forumNow"></li>
 				</ul>
 			</div>
 		</div>
@@ -327,7 +427,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 				<table>
 					<tr>
 						<td class="product-wishlist-cart" id="forumsSelect1"><a
-							style='color: white; cursor: pointer;' id="1">狗狗討論版</a></td>
+							style='color: white; cursor: pointer;' id="forum1">狗狗討論版</a></td>
 					</tr>
 				</table>
 			</li>
@@ -338,7 +438,7 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 				<table>
 					<tr>
 						<td class="product-wishlist-cart" id="forumsSelect2"><a
-							style='color: white; cursor: pointer;' id="2">貓咪討論版</a></td>
+							style='color: white; cursor: pointer;' id="forum2">貓咪討論版</a></td>
 					</tr>
 				</table>
 
@@ -355,7 +455,19 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 					</button>
 			</a></li>
 		</ul>
+                            <div class="shop-widget" style="float:right;">
+                            
+                            	<h4 class="shop-sidebar-title">搜尋文章</h4>
+                                <div class="shop-search mt-25 mb-0" >                               
 
+                                        <input  type="text" name="keywordSearch" id="keywordSearch" placeholder="輸入主題關鍵字" style="width: 200px;">
+                                        <button  class="btncls" type="submit" id="search" >
+
+                                            <i class="icon-magnifier"></i>
+                                        </button>
+
+                                </div>
+                            </div>
 
 		<!-- 	<div id="forumsSelect1"> -->
 		<!-- 		<button value="1" id="dog">狗</button> -->
@@ -386,23 +498,31 @@ response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
 		<div style="clear: both; width: 100%;">
 			<!-- 下面要放文章 -->
 			<!-- 		<div id="artilceList"> -->
-			<table id="artilceListTable" border=1
-				style='width: 100%; font-size: 2em;'>
+			<table id="artilceListTable" 
+				style='width: 100%; font-size: 2em; box-shadow:1px 3px 5px 2px #cccccc;'>
 			</table>
 			<!-- 		</div> -->
 		</div>
-	</div>
+	<hr>
+	
 	<div class="pagination-style text-center mt-20">
 		<ul id='navigation'>
-			<!-- 			<li><a href="#"><i class="icon-arrow-left"></i></a></li> -->
-			<!-- 			<li><a href="#">1</a></li> -->
-			<!-- 			<li><a href="#">2</a></li> -->
-			<!-- 			<li><a class="active" href="#"><i class="icon-arrow-right"></i></a> -->
-			<!-- 			</li> -->
 		</ul>
 	</div>
-
+<hr>
+	</div> <!-- container -->
 	<jsp:include page="../fragments/footerArea.jsp" />
 	<jsp:include page="../fragments/allJs.jsp" />
+		<!-- 轉頁載入動畫2 -->
+	</div>
 </body>
+<script>
+setTimeout(function() {
+	$(document).ready(function() {
+		document.getElementById("loader").style.display = "none";
+		document.getElementById("myDiv").style.display = "block";
+	});
+}, 500);
+</script>
+<!-- 轉頁載入動畫2 -->
 </html>

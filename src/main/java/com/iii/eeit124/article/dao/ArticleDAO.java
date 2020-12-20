@@ -21,9 +21,16 @@ public interface ArticleDAO {
 
 	Long getRecordCounts(Integer id);
 	
+	List<Article> serchArticles(Integer pageNo ,Integer recordsPerPage, String serch);
+	
+	Long getAllRecordCounts();
+	
 	Article select(int id);
 	
 	Article saveFullArticle(Article article);
 	
 	List<Article> personalFollowed(Integer memberid, Integer id);
+	
+	List<Article> getPersonalPostList(Integer memberid, Integer id);
+	
 }

@@ -1,8 +1,10 @@
 package com.iii.eeit124.article.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,9 +21,14 @@ import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -72,6 +79,7 @@ public class ArticleController {
 		return new Article();
 	}
 	// TODO
+	
 	@GetMapping("/goArticlePage")
 	public String goArticlePage(@RequestParam("articleId") Integer articleId, Model model) {
 		model.addAttribute("articleId", articleId);
@@ -148,9 +156,14 @@ public class ArticleController {
 			@RequestParam(value = "id") Integer id,
 			@RequestParam(value = "comment")String comment			
 			) {
+		Whitelist whitelist = new Whitelist();
+		whitelist.addTags("br","a");
+//		whitelist.addAttributes("a", "href","class");
+		whitelist.addAttributes("a", "href", "onclick");
+		String cleanComment = Jsoup.clean(comment, whitelist);
 		Comments c = new Comments();
-		c.setComment(comment);
-
+		c.setComment(cleanComment);
+		
 		Forums forums = forumsService.selectForum(id);
 		c.setMember((Members) session.getAttribute("LoginOK"));
 		c.setForums(forums);
@@ -169,7 +182,7 @@ public class ArticleController {
 		forums.setArticle(article);
 		article.getForums().add(forums);
 		forumsService.save(forums);
-		return "redirect:/articleList";
+		return "redirect:/goArticlePage?articleId="+id;
 	}
 
 	// save article to DB and return the articleList page.
@@ -204,9 +217,9 @@ public class ArticleController {
 				if(file.getSize()>0) {
 					
 				
-					String fileName = file.getOriginalFilename(); //得到原始檔名
+					String fileName = file.getOriginalFilename(); //敺������
 					
-					String fileTempDirPath = ctx.getRealPath("/") + "UploadTempDir\\"; //創一個臨時資料夾
+					String fileTempDirPath = ctx.getRealPath("/") + "UploadTempDir\\"; //�銝������冗
 					File dirPath = new File(fileTempDirPath);
 					if(!dirPath.exists()) {
 					    boolean status = dirPath.mkdirs();
@@ -235,13 +248,60 @@ public class ArticleController {
 
 
 		}catch (IOException e) {
-//			errors.put("errorAccountDup", "新增此筆資料有誤(RegisterServlet)");
+//			errors.put("errorAccountDup", "�憓迨蝑���炊(RegisterServlet)");
 			return "redirect:/articleList";
 		}
 		forumsService.saveArticle(article);
 		System.out.println("success");
 		return "redirect:/articleList";
 	}
+	
+	
+	@GetMapping(value = "/getOptionImg")
+	public ResponseEntity<byte[]> getOptionImg(@RequestParam("optionId")Integer optionId) throws SQLException, IOException{
+		ResponseEntity<byte[]> re = null;
+		Options option = memberOptionService.findOptionById(optionId);
+		Blob blob = option.getOptionBlob();
+		String mimeType = ctx.getMimeType("abc.jpg");
+		MediaType mediaType = MediaType.valueOf(mimeType);
+		HttpHeaders headers = new HttpHeaders();
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();			
+			InputStream is = blob.getBinaryStream();
+			byte[] b = new byte[81920];
+			int len = 0;
+			while ((len = is.read(b)) != -1) {
+				baos.write(b, 0, len);				
+			}
+			headers.setContentType(mediaType);
+			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+			re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
+		} catch (Exception e) {
+//			e.printStackTrace();
+			Options option0 = memberOptionService.findOptionById(0);
+			Blob blob0 = option0.getOptionBlob();
+			String mimeType0 = ctx.getMimeType("abc.jpg");
+			MediaType mediaType0 = MediaType.valueOf(mimeType0);
+			HttpHeaders headers0 = new HttpHeaders();
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();			
+			InputStream is0 = blob0.getBinaryStream();
+			byte[] b = new byte[81920];
+			int len = 0;
+			while ((len = is0.read(b)) != -1) {
+				baos.write(b, 0, len);				
+			}
+			headers0.setContentType(mediaType0);
+			headers0.setCacheControl(CacheControl.noCache().getHeaderValue());
+			re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
+			return re;
+		}
+		return re;		
+	}
+	
+	
+	
+	
+	
 	
 	@GetMapping(value = "/getVoteResult")
 	public @ResponseBody Map<String, Integer> getVoteResult(@RequestParam Integer forumId){
@@ -353,6 +413,33 @@ public class ArticleController {
 		return map;
 	}
 	
+	
+	@GetMapping(value = "/getArtilceSerchList")
+	public @ResponseBody Map<String, Object> getArtilceSerchList(Model model, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "keywordSearch")String serch){
+		Map<String, Object> map = new HashMap<>();
+		Integer recordsPerPage = 10;
+		System.out.println("serch:"+serch);
+		System.out.println("pageNo:"+pageNo);
+		System.out.println("model:"+model);
+		Long recordCounts = articleService.getAllRecordCounts();
+		List<Article> articleList = articleService.serchArticles(pageNo, recordsPerPage, serch);
+		Members member = (Members) session.getAttribute("LoginOK");
+		Integer totalPage = (int) (Math.ceil(recordCounts / (double) recordsPerPage));	
+		map.put("articleList", articleList);
+		map.put("totalPage", totalPage);
+		map.put("currPage", pageNo);
+		map.put("recordCounts", recordCounts);
+		map.put("recordsPerPage", recordsPerPage);		
+		if (member==null) {
+			map.put("statusList", null);			
+			return map;
+		}
+		Integer memberid = member.getId();
+		List<FollowedArticle> statusList = followedService.statusCheck(memberid);
+		map.put("statusList", statusList);		
+		return map;
+	}
+	
 	@GetMapping(value = "/getPersonalArtilceList")
 	public @ResponseBody Map<String, Object> getPersonalArtilceList(Model model, @RequestParam(value = "articleTypeId", defaultValue = "1")Integer id){
 		Map<String, Object> map = new HashMap<>();
@@ -360,6 +447,18 @@ public class ArticleController {
 		Members member = (Members) session.getAttribute("LoginOK");
 		Integer memberid = member.getId();
 		List<Article> articleList = articleService.personalFollowed(memberid, id);
+//		List<FollowedArticle> statusList = followedService.personalFollowed(memberid);
+		map.put("articleList", articleList);	
+		return map;
+	}
+	
+	@GetMapping(value = "/getPersonalPostList")
+	public @ResponseBody Map<String, Object> getPersonalPostList(Model model, @RequestParam(value = "articleTypeId", defaultValue = "1")Integer id){
+		Map<String, Object> map = new HashMap<>();
+		
+		Members member = (Members) session.getAttribute("LoginOK");
+		Integer memberid = member.getId();
+		List<Article> articleList = articleService.getPersonalPostList(memberid, id);
 //		List<FollowedArticle> statusList = followedService.personalFollowed(memberid);
 		map.put("articleList", articleList);	
 		return map;
@@ -383,6 +482,11 @@ public class ArticleController {
 	@GetMapping("/member/myArticle")
 	public String goMyArticle() {
 		return "article/myArticle";
+	}
+	
+	@GetMapping("/member/myPostArticle")
+	public String goMyPostArticle() {
+		return "article/myPostArticle";
 	}
 	
 }
