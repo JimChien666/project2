@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>訂單列表</title>
 <style type="text/css">
 th, td{
 width: 200px;

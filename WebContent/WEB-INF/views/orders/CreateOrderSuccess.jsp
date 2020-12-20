@@ -15,7 +15,7 @@ function goToOrderPage(){
 </script>
 <jsp:include page="../fragments/links.jsp" />
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>下單成功</title>
 </head>
 <body>
 	

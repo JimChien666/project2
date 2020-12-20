@@ -37,7 +37,7 @@ li.activeCustom:hover {
 }
 </style>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>訂單分析</title>
 <jsp:include page="../fragments/links.jsp" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.18/c3.css">

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>會員中心</title>
 </head>
 <jsp:include page="../fragments/links.jsp" />
 <body>

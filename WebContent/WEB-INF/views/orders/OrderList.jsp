@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>訂單列表</title>
 <style>
 .btncls {
 	background-color: #7E4C4F; /* Green */
