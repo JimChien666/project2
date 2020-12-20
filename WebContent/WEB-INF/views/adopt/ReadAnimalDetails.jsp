@@ -57,7 +57,7 @@
 			</c:when>
 		</c:choose>
 
-		<c:if test="${!empty LoginOK && member!=animal.member.id}">
+		<c:if test="${!empty LoginOK && member!=animal.member.id && source=='AdoptAnimal'}">
 			<a class="divFixed btn-style1"
 				href="<c:url value='/adopt/oneButtonApply.controller/${animal.animalId}'/>"
 				onclick="success('申請', ' 寄送審核資料給送養者中')">一鍵領養申請</a>

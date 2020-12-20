@@ -42,7 +42,7 @@ public class AdoptionRecordsDaoImpl implements AdoptionRecordsDao {
 	
 	public List<AdoptionRecords> readMyAdoptionRecords(Integer memberId){
 		Session session = sessionFactory.getCurrentSession();
-		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where MEMBER_ID=" + memberId + " order by ADOPTION_ID", AdoptionRecords.class);
+		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where MEMBER_ID=" + memberId + " and REVIEW_STATUS >= 0 order by My_Adoption_Progress_Order", AdoptionRecords.class);
 		List<AdoptionRecords> list = query.list();
 		return list;
 	}

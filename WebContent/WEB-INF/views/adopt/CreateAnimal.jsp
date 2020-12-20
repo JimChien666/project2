@@ -194,7 +194,7 @@
 							<a
 								href="<c:url value='/MemberCenter/preCreateAnimal.controller' />"
 								class="btn-style-cancel btn-style-border">重填</a>
-							<form:button value="Send" class="btn-style1" onclick="success('新增')">新增</form:button>
+							<form:button value="Send" class="btn-style1" onclick="success('新增','')">新增</form:button>
 						</div>
 					</form:form>
 				</c:when>
@@ -340,7 +340,7 @@
 							<a
 								href="<c:url value='/MemberCenter/preUpdateAnimal.controller' />?animalId=${animals.animalId}"
 								class="btn-style-cancel btn-style-border">回復修改</a>
-							<form:button value="Send" name="update" class="btn-style1" onclick="success('修改')">修改</form:button>
+							<form:button value="Send" name="update" class="btn-style1" onclick="success('修改','')">修改</form:button>
 						</div>
 					</form:form>
 				</c:when>

@@ -60,6 +60,8 @@ public class AdoptionRecords {
 	private String confirmedAdoptionMessage;
 	private Date confirmedAdoptionAt;//ReviewStatus5
 	private Date cancelApplyAt;//ReviewStatus41
+	private Integer AdoptionRequestOrder;
+	private Integer MyAdoptionProgressOrder;	
 	
 	@Id
 	@Column(name = "ADOPTION_ID")//大小寫沒差別，跟資料庫名一樣就好
@@ -334,6 +336,20 @@ public class AdoptionRecords {
 	}
 	public void setCancelApplyAt(Date cancelApplyAt) {
 		this.cancelApplyAt = cancelApplyAt;
+	}
+	@Column(name = "Adoption_Request_Order")
+	public Integer getAdoptionRequestOrder() {
+		return AdoptionRequestOrder;
+	}
+	public void setAdoptionRequestOrder(Integer adoptionRequestOrder) {
+		AdoptionRequestOrder = adoptionRequestOrder;
+	}
+	@Column(name = "My_Adoption_Progress_Order")
+	public Integer getMyAdoptionProgressOrder() {
+		return MyAdoptionProgressOrder;
+	}
+	public void setMyAdoptionProgressOrder(Integer myAdoptionProgressOrder) {
+		MyAdoptionProgressOrder = myAdoptionProgressOrder;
 	}
 	@Override
 	public String toString() {

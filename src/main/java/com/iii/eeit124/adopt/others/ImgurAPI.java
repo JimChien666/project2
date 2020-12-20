@@ -1,4 +1,4 @@
-package com.iii.eeit124.adopt;
+package com.iii.eeit124.adopt.others;
 
 import com.iii.eeit124.entity.ImageResponse;
 import okhttp3.RequestBody;

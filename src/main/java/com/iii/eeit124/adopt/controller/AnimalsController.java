@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Blob;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,6 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.persistence.criteria.CriteriaBuilder.Case;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
@@ -26,9 +27,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import com.iii.eeit124.adopt.ImgurAPI;
+
+import com.iii.eeit124.adopt.others.ImgurAPI;
 import com.iii.eeit124.adopt.service.AdoptionRecordsService;
 import com.iii.eeit124.adopt.service.AnimalsService;
 import com.iii.eeit124.adopt.service.BreedsService;
@@ -37,14 +38,8 @@ import com.iii.eeit124.entity.AdoptionRecords;
 import com.iii.eeit124.entity.Animals;
 import com.iii.eeit124.entity.AnimalsFiles;
 import com.iii.eeit124.entity.Breeds;
-import com.iii.eeit124.entity.ImageResponse;
 import com.iii.eeit124.entity.Members;
-import kotlin.reflect.TypeOfKt;
 //import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import oracle.net.aso.m;
-import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -309,13 +304,47 @@ public class AnimalsController {
 //		Integer reviewStatus = 1;//若某隻動物還沒被核准過，則為1
 //		Integer animalId = 0;
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		
 		if ("AdoptionRequest".equals(source)) {
-			// 領養請求
-			// 找出該會員擁有的寵物，但被其他領養人提出領養申請的寵物
+			//排序
 			List<AdoptionRecords> readAdoptionRecords2 = adoptionRecordsService
 					.readAdoptionRecords2("OWNERMEMBERID = " + memberId, "REVIEW_STATUS >= 0", "APPLY_TIME");
-
 			for (AdoptionRecords adoptionRecords : readAdoptionRecords2) {
+				switch (adoptionRecords.getReviewStatus()) {
+				case 0:
+					adoptionRecords.setAdoptionRequestOrder(8);
+					break;
+				case 1:
+					adoptionRecords.setAdoptionRequestOrder(1);
+					break;
+				case 2:
+					adoptionRecords.setAdoptionRequestOrder(2);
+					break;
+				case 3:
+					adoptionRecords.setAdoptionRequestOrder(4);
+					break;
+				case 4:
+					adoptionRecords.setAdoptionRequestOrder(5);
+					break;
+				case 41:
+					adoptionRecords.setAdoptionRequestOrder(6);
+					break;
+				case 5:
+					adoptionRecords.setAdoptionRequestOrder(3);
+					break;
+				case 6:
+					adoptionRecords.setAdoptionRequestOrder(7);
+					break;
+				default:
+					break;
+				}
+			}
+
+			// 領養請求
+			// 找出該會員擁有的寵物，但被其他領養人提出領養申請的寵物
+			List<AdoptionRecords> readAdoptionRecords22 = adoptionRecordsService
+					.readAdoptionRecords2("OWNERMEMBERID = " + memberId, "REVIEW_STATUS >= 0", "Adoption_Request_Order, Animal_Id");
+			for (AdoptionRecords adoptionRecords : readAdoptionRecords22) {
 				// 狀態為送養者已核准，等待領養者確認或放棄
 				int now = (int) (new Date().getTime() / 1000);
 				if (adoptionRecords.getReviewStatus() == 2) {
@@ -350,14 +379,49 @@ public class AnimalsController {
 					map.put(adoptionRecords.getAnimal().getAnimalId(), 1);
 				}
 			}
-			m.addAttribute("AdoptionRequestList", readAdoptionRecords2);
+			m.addAttribute("AdoptionRequestList", readAdoptionRecords22);
 			m.addAttribute("source", "AdoptionRequest");
 			m.addAttribute("reviewStatusMap", map);
 		} else if ("MyAdoptionProgress".equals(source)) {
-			// 我的領養進度
-			// 找出該會員申請領養的紀錄
+			//排序
 			List<AdoptionRecords> readMyAdoptionRecords = adoptionRecordsService.readMyAdoptionRecords(memberId);
 			for (AdoptionRecords adoptionRecords : readMyAdoptionRecords) {
+				switch (adoptionRecords.getReviewStatus()) {
+				case 0:
+					adoptionRecords.setMyAdoptionProgressOrder(5);
+					break;
+				case 1:
+					adoptionRecords.setMyAdoptionProgressOrder(3);
+					break;
+				case 2:
+					adoptionRecords.setMyAdoptionProgressOrder(1);
+					break;
+				case 3:
+					adoptionRecords.setMyAdoptionProgressOrder(4);
+					break;
+				case 4:
+					adoptionRecords.setMyAdoptionProgressOrder(7);
+					break;
+				case 41:
+					adoptionRecords.setMyAdoptionProgressOrder(8);
+					break;
+				case 5:
+					adoptionRecords.setMyAdoptionProgressOrder(2);
+					break;
+				case 6:
+					adoptionRecords.setMyAdoptionProgressOrder(6);
+					break;
+				default:
+					break;
+				}
+				adoptionRecordsService.update(adoptionRecords);
+			}
+			
+			// 我的領養進度
+			// 找出該會員申請領養的紀錄
+			List<AdoptionRecords> readMyAdoptionRecordsOrder = adoptionRecordsService.readMyAdoptionRecords(memberId);
+			for (AdoptionRecords adoptionRecords : readMyAdoptionRecordsOrder) {
+				
 				// 狀態為送養者已核准，等待領養者確認或放棄
 				int now = (int) (new Date().getTime() / 1000);
 				if (adoptionRecords.getReviewStatus() == 2) {
@@ -372,7 +436,7 @@ public class AnimalsController {
 					m.addAttribute("confirmedTimeOutAt", new Date(((long) (applyApprovedAt + 86400)) * 1000L));
 				}
 			}
-			m.addAttribute("AdoptionRequestList", readMyAdoptionRecords);
+			m.addAttribute("AdoptionRequestList", readMyAdoptionRecordsOrder);
 			m.addAttribute("source", "MyAdoptionProgress");
 		}
 		return "adopt/AdoptionRequestList";
@@ -382,6 +446,7 @@ public class AnimalsController {
 	// 1申請者提出申請
 	// 2送養者核准申請
 	// 4申請者放棄領養
+	// 41申請者取消申請
 	// 5申請者確認領養
 	// 3申請者完成領養
 	// 6領養者逾期確認
