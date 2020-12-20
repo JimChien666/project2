@@ -112,8 +112,12 @@ font-size:16px;
 	function tagComment(tc){
 
 		var href = tc.href;
-		var id = href.split("#")[1]
-		console.log(id);
+		var unCodeid = href.split("#")[1]
+
+		var id = decodeURIComponent(unCodeid);
+		console.log(unCodeid);
+		console.log(decodeURIComponent(id));
+		
 		// Run the effect
 // 	      $("#"+id).effect( "bounce", "slow" );
 		var nowTop= $("#"+id).offset().top;
