@@ -29,6 +29,10 @@
 	background-color: #dadada;
 }
 
+.bgcWhite{
+	background-color: #fff;
+}
+
 .btn-style1 {
 	background-color: #7e4c4f;
 	border-radius: 50px;
@@ -361,6 +365,10 @@
 .wid1000 {
 	margin: 0 auto;
 	width: 1000px;
+}
+
+.wid1100 {
+	width: 1100px;
 }
 
 .w1200 {

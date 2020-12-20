@@ -31,7 +31,7 @@ public class MyControllerAspect {
  public void pointcut() {}  
  
  @Pointcut(value="execution(* com.iii.eeit124.shopping.controller.TestECPayApi.goOrderSuccessPage(..))") 
- public void pointcutOrderSuccess() {}  
+ public void pointcutOrderSuccess() {}
 
  
  @Before(value = "pointcut()")

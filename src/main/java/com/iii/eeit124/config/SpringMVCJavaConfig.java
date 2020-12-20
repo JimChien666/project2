@@ -2,11 +2,13 @@ package com.iii.eeit124.config;
 
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -27,8 +29,8 @@ import com.iii.eeit124.aop.controller.MyControllerAspect;
 @PropertySource(value = { "classpath:application.properties" })
 @EnableAspectJAutoProxy
 public class SpringMVCJavaConfig implements WebMvcConfigurer {
-//	@Autowired
-//	private Environment env;
+	@Autowired
+	Environment env;
 
 	public SpringMVCJavaConfig() {
 			
@@ -62,17 +64,20 @@ public class SpringMVCJavaConfig implements WebMvcConfigurer {
 	    resolver.setDefaultEncoding("utf-8");
 	    return resolver;
 	}
+
+	
 	@Bean
 	public MyControllerAspect getMyControllerAspect() {
 		return new MyControllerAspect();
 	}
+
 	@Bean
 	public JavaMailSender getJavaMailSender() {
 	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 	    mailSender.setHost("smtp.gmail.com");
 	    mailSender.setPort(587);
-	    mailSender.setUsername("eeit124team6@gmail.com");
-	    mailSender.setPassword("eeit1246");
+	    mailSender.setUsername(env.getProperty("JavaMailSender.username"));
+	    mailSender.setPassword(env.getProperty("JavaMailSender.password"));
 	    //生日2000/12/25
 	    Properties props = mailSender.getJavaMailProperties();
 	    props.put("mail.transport.protocol", "smtp");

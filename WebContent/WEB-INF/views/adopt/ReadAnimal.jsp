@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,44 +85,151 @@
 					<div class="page1">
 						<c:choose>
 							<c:when test="${source == 'MyAnimals'}">
-								<div class="about-us-btn mb-20 textRight">
+								<div class="about-us-btn mb-20 f-left wid150">
 									<a class="btn-style1"
 										href="<c:url value='/MemberCenter/preCreateAnimal.controller'/>">新增寵物</a>
 								</div>
 							</c:when>
 						</c:choose>
 						<%-- <%=application.getContextPath()%> --%>
-						<nav class="navbar navbar-light bg-light justify-content-between">
-							<a class="navbar-brand"></a>
-<%-- 							<form class="" action="<c:url value='/MemberCenter/readKeyword.controller'/>"> --%>
-								<div class="form-inline">
-								<input class="form-control mr-sm-2" type="search"
-									placeholder="搜尋動物類別/品種/收容編號" aria-label="Search" name="factor1">
-								<button class="btn btn-success my-2 my-sm-0" id="keywordSearch"
-									type="submit" style="height:38px;border-radius:5px;"><font class="font22">搜尋</font></button>
-								</div>
-<!-- 							</form> -->
-						</nav>
+						<div class="wid1100 textRight">
+							<div class="header-search same-style">
+								<i class="icon-magnifier font22"></i> <input type="text"
+									placeholder="搜尋動物類別/品種" id="keywordInput" name="factor1"
+									class="wid200">
+							</div>
+							<div id="searchResultText" class="font22">總隻數：${fn:length(AnimalsList)}隻</div>
+						</div>
+						<div class="divHidden" id="source">${source}</div>
 						<script type="text/javascript">
-						$("#keywordSearch").click(function(){
-							var xhr = new XMLHttpRequest();
-							var keyword = $("input[name='factor1']").val();
-							alert(keyword)
-							//ing
-
-
-
-							
-							});
+							$("#keywordInput")
+									.on(
+											"input",
+											function() {
+												var xhr = new XMLHttpRequest();
+												var keyword = $(
+														"input[name='factor1']")
+														.val();
+												xhr.open("GET",
+														"<c:url value='/readKeyword.controller?factor1="
+																+ keyword
+																+ "'/>", true);
+												xhr.send();
+												xhr.onreadystatechange = function() {
+													// 向伺服器提出的請求已經收到回應
+													if (xhr.readyState === 4) {
+														// 伺服器回應成功
+														if (xhr.status === 200) {
+															var searchResult = JSON
+																	.parse(xhr.responseText);
+															var content = "";
+															var num = 0;
+															for (var i = 0; i < searchResult.length; i++) {
+																for (var j = 0; j < searchResult[i].length; j++) {
+																	content += "<div class='col-xl-3 col-lg-4 col-md-6 f-left'>"
+																	if ($(
+																			"#source")
+																			.text() == "AdoptAnimal") {
+																		content += "<a href='/team6/AdoptAnimalDetails.controller?id="
+																				+ searchResult[i][j].animalId
+																				+ "'>"
+																	} else if ($(
+																			"#source")
+																			.text() == "MyAnimals") {
+																		content += "<a href='/team6/MemberCenter/ReadAnimalDetails.controller?id="
+																				+ searchResult[i][j].animalId
+																				+ "'>"
+																	}
+																	content += "<div class='blog-wrapper mb-15 mt-15 gray-bg card2 pointerCursor'>"
+																	content += "<div class='hover-effect square250px bgcWhite'>"
+																	content += "<img class='cardImg marginAuto' src='/team6/filuploadAction.contoller/"+searchResult[i][j].animalId+"'>"
+																	content += "</div>"
+																	content += "<div class='blog-content form1 font22 H260 cardContentW'>"
+																	content += "<ul>"
+																	content += "<li><div>品種：</div>"
+																	content += "<div>"
+																			+ searchResult[i][j].breed
+																			+ "</div> <br></li>"
+																	content += "<li><div>類別：</div>"
+																	content += "<div>"
+																			+ searchResult[i][j].family
+																			+ "</div> <br></li>"
+																	content += "<li>"
+																	if (searchResult[i][j].gender == 1) {
+																		content += "<div>性別：&nbsp;</div>公<br>"
+																	} else {
+																		content += "<div>性別：&nbsp;</div>母<br>"
+																	}
+																	content += "</li>"
+																	content += "<li><div>毛色：</div>"
+																	content += "<div>"
+																			+ searchResult[i][j].coatColor
+																			+ "</div> <br></li>"
+																	if ($(
+																			"#source")
+																			.text() == "AdoptAnimal") {
+																		content += "<li><div>領養地區：&nbsp;</div>"
+																		content += "<div>"
+																				+ searchResult[i][j].memberAddress
+																				+ "</div> <br></li>"
+																	} else if ($(
+																			"#source")
+																			.text() == "MyAnimals") {
+																		content += "<li>"
+																		if (searchResult[i][j].isAdoptionAvailable == 1) {
+																			content += "<div>是否開放領養：&nbsp;</div>是<br>"
+																		} else {
+																			content += "<div>是否開放領養：&nbsp;</div>否<br>"
+																		}
+																		content += "</li>"
+																	}
+																	content += "</ul>"
+																	content += "</div>"
+																	content += "</div>"
+																	content += "</a>"
+																	content += "</div>"
+																	num = num + 1;
+																}
+															}
+															$(
+																	"#searchResultText")
+																	.empty();
+															$(
+																	"#searchResultText")
+																	.text(
+																			"搜尋關鍵字「"
+																					+ keyword
+																					+ "」，共有"
+																					+ num
+																					+ "隻符合");
+															if ("" == keyword) {
+																$(
+																		"#searchResultText")
+																		.empty();
+																$(
+																		"#searchResultText")
+																		.text(
+																				"總隻數："
+																						+ num
+																						+ "隻");
+															}
+															$("#card").empty();
+															$("#card").append(
+																	content);
+														}
+													}
+												}
+											});
 						</script>
 						<!-- ===================================================================================== -->
 						<!-- card來源https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_card_image&stacked=h -->
 						<!-- 					自行上架的 -->
-						<c:forEach var="AnimalsList" items="${AnimalsList}">
-							<div class="col-xl-3 col-lg-4 col-md-6 f-left">
-								<div
-									class="blog-wrapper mb-15 mt-15 gray-bg card2 pointerCursor"
-									<c:choose>
+						<div id="card">
+							<c:forEach var="AnimalsList" items="${AnimalsList}">
+								<div class="col-xl-3 col-lg-4 col-md-6 f-left">
+									<div
+										class="blog-wrapper mb-15 mt-15 gray-bg card2 pointerCursor"
+										<c:choose>
 										<c:when test="${source == 'MyAnimals'}">
 												onclick="location.href='<c:url value='/MemberCenter/ReadAnimalDetails.controller?id=${AnimalsList.animalId}' />'"
 										</c:when>
@@ -129,68 +237,69 @@
 												onclick="location.href='<c:url value='/AdoptAnimalDetails.controller?id=${AnimalsList.animalId}' />'"
 										</c:when>
 									</c:choose>>
-									<div class="hover-effect square250px">
-										<img class="cardImg marginAuto" alt=""
-											src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${AnimalsList.animalId}">
-									</div>
-									<div class="blog-content form1 font22 H260 cardContentW">
-										<ul>
-											<!--<li><div class="div1">動物編號：&nbsp;</div> -->
-											<%--	<div class="div1">${AnimalsList.animalId}</div> <br></li> --%>
-											<!--===================================================================================== -->
-											<li><div>品種：</div>
-												<div>${AnimalsList.breeds.breed}</div> <br></li>
-											<li><div>類別：</div>
-												<div>${AnimalsList.breeds.family}</div> <br></li>
-											<!-- ===================================================================================== -->
-											<li><c:choose>
-													<c:when test="${AnimalsList.gender == 1}">
-														<div>性別：&nbsp;</div>公<br>
+										<div class="hover-effect square250px bgcWhite">
+											<img class="cardImg marginAuto" alt=""
+												src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${AnimalsList.animalId}">
+										</div>
+										<div class="blog-content form1 font22 H260 cardContentW">
+											<ul>
+												<!--<li><div class="div1">動物編號：&nbsp;</div> -->
+												<%--	<div class="div1">${AnimalsList.animalId}</div> <br></li> --%>
+												<!--===================================================================================== -->
+												<li><div>品種：</div>
+													<div>${AnimalsList.breeds.breed}</div> <br></li>
+												<li><div>類別：</div>
+													<div>${AnimalsList.breeds.family}</div> <br></li>
+												<!-- ===================================================================================== -->
+												<li><c:choose>
+														<c:when test="${AnimalsList.gender == 1}">
+															<div>性別：&nbsp;</div>公<br>
+														</c:when>
+														<c:otherwise>
+															<div>性別：&nbsp;</div>母<br>
+														</c:otherwise>
+													</c:choose></li>
+												<!-- ===================================================================================== -->
+												<li><div>毛色：</div>
+													<div>${AnimalsList.coatColor}</div> <br></li>
+												<!-- ===================================================================================== -->
+												<c:choose>
+													<c:when test="${source == 'AdoptAnimal'}">
+														<li><div>領養地區：&nbsp;</div>
+															<div>${AnimalsList.member.address}</div> <br></li>
 													</c:when>
-													<c:otherwise>
-														<div>性別：&nbsp;</div>母<br>
-													</c:otherwise>
-												</c:choose></li>
-											<!-- ===================================================================================== -->
-											<li><div>毛色：</div>
-												<div>${AnimalsList.coatColor}</div> <br></li>
-											<!-- ===================================================================================== -->
-											<c:choose>
-												<c:when test="${source == 'AdoptAnimal'}">
-													<li><div>領養地區：&nbsp;</div>
-														<div>${AnimalsList.member.address}</div> <br></li>
-												</c:when>
-											</c:choose>
-											<!-- ===================================================================================== -->
-											<c:choose>
-												<c:when test="${source == 'MyAnimals'}">
-													<li><c:choose>
-															<c:when test="${AnimalsList.isAdoptionAvailable == 1}">
-																<div>是否開放領養：&nbsp;</div>是<br>
-															</c:when>
-															<c:otherwise>
-																<div>是否開放領養：&nbsp;</div>否<br>
-															</c:otherwise>
-														</c:choose></li>
-												</c:when>
-											</c:choose>
-											<!-- ===================================================================================== -->
-											<!--<li><div class="div1">備註：&nbsp;</div> -->
-											<%--	<div class="div1 note1 mb-10">${AnimalsList.note}</div> <br></li> --%>
-										</ul>
-										<!--<h4><a href="blog-details.html">Lorem ipsum dolor amet cons adipisicing elit</a></h4> -->
+												</c:choose>
+												<!-- ===================================================================================== -->
+												<c:choose>
+													<c:when test="${source == 'MyAnimals'}">
+														<li><c:choose>
+																<c:when test="${AnimalsList.isAdoptionAvailable == 1}">
+																	<div>是否開放領養：&nbsp;</div>是<br>
+																</c:when>
+																<c:otherwise>
+																	<div>是否開放領養：&nbsp;</div>否<br>
+																</c:otherwise>
+															</c:choose></li>
+													</c:when>
+												</c:choose>
+												<!-- ===================================================================================== -->
+												<!--<li><div class="div1">備註：&nbsp;</div> -->
+												<%--	<div class="div1 note1 mb-10">${AnimalsList.note}</div> <br></li> --%>
+											</ul>
+											<!--<h4><a href="blog-details.html">Lorem ipsum dolor amet cons adipisicing elit</a></h4> -->
+										</div>
+										<!--<div> -->
+										<!--	<a -->
+										<%--		href="<c:url value='/preUpdateAnimal.controller'/>?animalId=${AnimalsList.animalId}" --%>
+										<!--		class="btn btn-secondary" style="width: 49%;">維護</a> <input -->
+										<!--		type="button" value="刪除" -->
+										<%--		onclick="deleteAnimal(${AnimalsList.animalId})" --%>
+										<!--		class="btn btn-danger" style="width: 49%;"> -->
+										<!--</div> -->
 									</div>
-									<!--<div> -->
-									<!--	<a -->
-									<%--		href="<c:url value='/preUpdateAnimal.controller'/>?animalId=${AnimalsList.animalId}" --%>
-									<!--		class="btn btn-secondary" style="width: 49%;">維護</a> <input -->
-									<!--		type="button" value="刪除" -->
-									<%--		onclick="deleteAnimal(${AnimalsList.animalId})" --%>
-									<!--		class="btn btn-danger" style="width: 49%;"> -->
-									<!--</div> -->
 								</div>
-							</div>
-						</c:forEach>
+							</c:forEach>
+						</div>
 					</div>
 				</div>
 				<div class="pagination-style text-center mt-20">

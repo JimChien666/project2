@@ -95,7 +95,10 @@ public class Animals {
 
 	@Column(name = "COAT_COLOR")
 	public String getCoatColor() {
-		return coatColor;
+		if(coatColor!=null) {			
+			return coatColor;
+		}
+		return "";
 	}
 	public void setCoatColor(String coatColor) {
 		this.coatColor = coatColor;
@@ -192,20 +195,30 @@ public class Animals {
 //	@OneToMany(fetch = FetchType.LAZY, targetEntity=Files.class, cascade = CascadeType.ALL)
 //	@JoinColumns(value = { @JoinColumn(name="ANIMAL_ID",referencedColumnName="ANIMAL_ID")})//第一個ANIMAL_ID為Files的，第二個為Animals的。
 
-//	@Override
-//	public String toString() {
-//		return "Animals [animalId=" + animalId + ", memberId=" + memberId + ", acceptionId=" + acceptionId
-//				+ ", breedId=" + breedId + ", gender=" + gender + ", coatColor=" + coatColor + ", isAdoptionAvailable="
-//				+ isAdoptionAvailable + ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-//				+ ", deletedAt=" + deletedAt + ", animalFiles=" + animalFiles + ", files=" + files + ", member="
-//				+ member + ", breeds=" + breeds + "]";
-//	}
 	@Transient
 	public String getBreed() {
 		return this.breeds.getBreed();
 	}
+	
+	@Transient
+	public String getFamily() {
+		if(this.breeds.getFamily()!=null) {
+			return this.breeds.getFamily();
+		}
+		return "";
+	}
+	
 	@Transient
 	public String getMemberAddress() {
 		return this.member.getAddress();
 	}
+	@Override
+	public String toString() {
+		return "Animals [animalId=" + animalId + ", memberId=" + memberId + ", acceptionId=" + acceptionId
+				+ ", breedId=" + breedId + ", gender=" + gender + ", coatColor=" + coatColor + ", isAdoptionAvailable="
+				+ isAdoptionAvailable + ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+				+ ", deletedAt=" + deletedAt + ", animalFiles=" + animalFiles + ", files=" + files + ", member="
+				+ member + ", breeds=" + breeds + ", animalChipNumber=" + animalChipNumber + "]";
+	}
+	
 }

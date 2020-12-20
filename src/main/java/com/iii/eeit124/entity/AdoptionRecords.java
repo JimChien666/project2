@@ -56,6 +56,12 @@ public class AdoptionRecords {
 	private String rejectedReason;
 	private String approvedReason;
 	private String adopterMessage;
+	private Date abandonedAdoptionAt;//ReviewStatus4
+	private String confirmedAdoptionMessage;
+	private Date confirmedAdoptionAt;//ReviewStatus5
+	private Date cancelApplyAt;//ReviewStatus41
+	private Integer AdoptionRequestOrder;
+	private Integer MyAdoptionProgressOrder;	
 	
 	@Id
 	@Column(name = "ADOPTION_ID")//大小寫沒差別，跟資料庫名一樣就好
@@ -303,6 +309,48 @@ public class AdoptionRecords {
 	public void setAdopterMessage(String adopterMessage) {
 		this.adopterMessage = adopterMessage;
 	}
+	@Column(name = "Abandoned_Adoption_At")
+	public Date getAbandonedAdoptionAt() {
+		return abandonedAdoptionAt;
+	}
+	public void setAbandonedAdoptionAt(Date abandonedAdoptionAt) {
+		this.abandonedAdoptionAt = abandonedAdoptionAt;
+	}
+	@Column(name = "Confirmed_Adoption_Message")
+	public String getConfirmedAdoptionMessage() {
+		return confirmedAdoptionMessage;
+	}
+	public void setConfirmedAdoptionMessage(String confirmedAdoptionMessage) {
+		this.confirmedAdoptionMessage = confirmedAdoptionMessage;
+	}
+	@Column(name = "Confirmed_Adoption_At")
+	public Date getConfirmedAdoptionAt() {
+		return confirmedAdoptionAt;
+	}
+	public void setConfirmedAdoptionAt(Date confirmedAdoptionAt) {
+		this.confirmedAdoptionAt = confirmedAdoptionAt;
+	}
+	@Column(name = "Cancel_Apply_At")
+	public Date getCancelApplyAt() {
+		return cancelApplyAt;
+	}
+	public void setCancelApplyAt(Date cancelApplyAt) {
+		this.cancelApplyAt = cancelApplyAt;
+	}
+	@Column(name = "Adoption_Request_Order")
+	public Integer getAdoptionRequestOrder() {
+		return AdoptionRequestOrder;
+	}
+	public void setAdoptionRequestOrder(Integer adoptionRequestOrder) {
+		AdoptionRequestOrder = adoptionRequestOrder;
+	}
+	@Column(name = "My_Adoption_Progress_Order")
+	public Integer getMyAdoptionProgressOrder() {
+		return MyAdoptionProgressOrder;
+	}
+	public void setMyAdoptionProgressOrder(Integer myAdoptionProgressOrder) {
+		MyAdoptionProgressOrder = myAdoptionProgressOrder;
+	}
 	@Override
 	public String toString() {
 		return "AdoptionRecords [adoptionId=" + adoptionId + ", memberId=" + memberId + ", animalId=" + animalId
@@ -316,6 +364,8 @@ public class AdoptionRecords {
 				+ ", mailingAddress=" + mailingAddress + ", applyTime=" + applyTime + ", ownerMemberId=" + ownerMemberId
 				+ ", ownerMember=" + ownerMember + ", applyRejectedAt=" + applyRejectedAt + ", applyApprovedAt="
 				+ applyApprovedAt + ", rejectedReason=" + rejectedReason + ", approvedReason=" + approvedReason
-				+ ", adopterMessage=" + adopterMessage + "]";
+				+ ", adopterMessage=" + adopterMessage + ", abandonedAdoptionAt=" + abandonedAdoptionAt
+				+ ", confirmedAdoptionMessage=" + confirmedAdoptionMessage + ", confirmedAdoptionAt="
+				+ confirmedAdoptionAt + ", cancelApplyAt=" + cancelApplyAt + "]";
 	}
 }

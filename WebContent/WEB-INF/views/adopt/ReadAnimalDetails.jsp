@@ -23,113 +23,120 @@
 	<div id="loader"></div>
 	<div style="display: none;" id="myDiv" class="animate-bottom">
 		<!-- 轉頁載入動畫1 -->
-	
-	<div>
-		<jsp:include page="../fragments/headerArea.jsp" />
-	</div>
-	<!-- 	麵包屑 -->
-	<div class="breadcrumb-area pt-95 pb-95 bg-img"
-		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
-		<div class="container">
-			<div class="breadcrumb-content text-center">
-				<h2>動物資料</h2>
-				<ul>
-					<li><a href="<c:url value='/'/>">首頁</a></li>
-					<c:choose>
-						<c:when test="${source=='ReadAnimal'}">
-							<li class="active">會員中心</li>
-							<li><a href="<c:url value='/MemberCenter/ReadAnimal'/>">我的寵物</a></li>
-							<li class="active">動物資料</li>
-						</c:when>
-						<c:when test="${source=='AdoptAnimal'}">
-							<li><a href="<c:url value='/adopt'/>">全部動物</a></li>
-							<li class="active">動物資料</li>
-						</c:when>
-					</c:choose>
-				</ul>
-			</div>
-		</div>
-	</div>
-	
-	<c:choose>
-		<c:when test="${source=='ReadAnimal'}">
-			<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
-		</c:when>
-	</c:choose>
-	
-	<!-- ============================================================================================= -->
 
-	<!-- 	<div class="mt-50 divCenter"> -->
-	<!-- 		<h1>動物資料</h1> -->
-	<!-- 	</div> -->
-	<div class="mt-50 mb-50 wid1000">
-		<div class="H700W540 pl-20 pr-20 pt-20 bgcGray displayInlineBlock">
-			<div class="square500px">
-				<img class="cardImg marginAuto" alt=""
-					src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animal.animalId}">
-			</div>
-			<div class="inputBorder mt-20"></div>
-			<div class="pr-20 pt-20">
-				<div class="square100px borderOriginGray" id="imgChange">
-					<img class="cardImg marginAuto" alt=""
-						src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animal.animalId}">
+		<div>
+			<jsp:include page="../fragments/headerArea.jsp" />
+		</div>
+		<!-- 	麵包屑 -->
+		<div class="breadcrumb-area pt-95 pb-95 bg-img"
+			style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
+			<div class="container">
+				<div class="breadcrumb-content text-center">
+					<h2>動物資料</h2>
+					<ul>
+						<li><a href="<c:url value='/'/>">首頁</a></li>
+						<c:choose>
+							<c:when test="${source=='ReadAnimal'}">
+								<li class="active">會員中心</li>
+								<li><a href="<c:url value='/MemberCenter/ReadAnimal'/>">我的寵物</a></li>
+								<li class="active">動物資料</li>
+							</c:when>
+							<c:when test="${source=='AdoptAnimal'}">
+								<li><a href="<c:url value='/adopt'/>">全部動物</a></li>
+								<li class="active">動物資料</li>
+							</c:when>
+						</c:choose>
+					</ul>
 				</div>
 			</div>
 		</div>
-		<div class="wid400 displayInlineBlock posAbs p-10 font22 lineH10">
-			收容編號：${animal.acceptionId}<br> 領養地區：${animal.member.address}<br>
-			動物類別：${animal.breeds.family}<br> 動物品種：${animal.breeds.breed}<br>
-			性別：
-			<c:if test="${animal.gender==1}">
+
+		<c:choose>
+			<c:when test="${source=='ReadAnimal'}">
+				<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
+			</c:when>
+		</c:choose>
+
+		<c:if test="${!empty LoginOK && member!=animal.member.id && source=='AdoptAnimal'}">
+			<a class="divFixed btn-style1"
+				href="<c:url value='/adopt/oneButtonApply.controller/${animal.animalId}'/>"
+				onclick="success('申請', ' 寄送審核資料給送養者中')">一鍵領養申請</a>
+		</c:if>
+
+		<!-- ============================================================================================= -->
+
+		<!-- 	<div class="mt-50 divCenter"> -->
+		<!-- 		<h1>動物資料</h1> -->
+		<!-- 	</div> -->
+		<div class="mt-50 mb-50 wid1000">
+			<div class="H700W540 pl-20 pr-20 pt-20 bgcGray displayInlineBlock">
+				<div class="square500px">
+					<img class="cardImg marginAuto" alt=""
+						src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animal.animalId}">
+				</div>
+				<div class="inputBorder mt-20"></div>
+				<div class="pr-20 pt-20">
+					<div class="square100px borderOriginGray" id="imgChange">
+						<img class="cardImg marginAuto" alt=""
+							src="${pageContext.servletContext.contextPath}/filuploadAction.contoller/${animal.animalId}">
+					</div>
+				</div>
+			</div>
+			<div class="wid400 displayInlineBlock posAbs p-10 font22 lineH10">
+				收容編號：${animal.acceptionId}<br> 領養地區：${animal.member.address}<br>
+				動物類別：${animal.breeds.family}<br> 動物品種：${animal.breeds.breed}<br>
+				性別：
+				<c:if test="${animal.gender==1}">
 			公<br>
-			</c:if>
-			<c:if test="${animal.gender==0}">
+				</c:if>
+				<c:if test="${animal.gender==0}">
 			母<br>
-			</c:if>
-			毛色：${animal.coatColor}<br> 是否開放認領養：
-			<c:if test="${animal.isAdoptionAvailable==1}">
+				</c:if>
+				毛色：${animal.coatColor}<br> 是否開放認領養：
+				<c:if test="${animal.isAdoptionAvailable==1}">
 			是<br>
-			</c:if>
-			<c:if test="${animal.isAdoptionAvailable==0}">
+				</c:if>
+				<c:if test="${animal.isAdoptionAvailable==0}">
 			否<br>
-			</c:if>
-			備註：${animal.note}<br>
+				</c:if>
+				備註：${animal.note}<br>
+			</div>
 		</div>
-	</div>
 
-	<div class="divCenter">
-		<div class="mb-50">
-<!-- 		<div class="about-us-btn mb-50"> -->
-			<c:choose>
-				<c:when test="${source=='ReadAnimal'}">
-					<a href="<c:url value='/MemberCenter/ReadAnimal' />"
-						class="btn-style-cancel btn-style-border">返回</a>
-					<a class="btn-style1 btn-style-border"
-						href="<c:url value='/MemberCenter/preUpdateAnimal.controller'/>?animalId=${animal.animalId}">更新寵物資訊</a>
-				</c:when>
-				<c:when test="${source=='AdoptAnimal'}">
-					<a href="<c:url value='/adopt' />"
-						class="btn-style-cancel btn-style-border">返回</a>
-					<c:choose>
-						<c:when test="${member==0}">
-							<div class="btn-style1 btn-style-border">領養請登入</div>
-						</c:when>
-						<c:when test="${member==animal.member.id}">
-							<button class="btn-style1 btn-style-border"
-								onclick="info('跳轉頁面至我的寵物', '<c:url value='/MemberCenter/ReadAnimal'/>')">我的寵物</button>
-						</c:when>
-						<c:otherwise>
-							<a class="btn-style1 btn-style-border"
-								href="<c:url value='/adopt/adoptNotice'/>/${animal.animalId}">我要認養</a>
-						</c:otherwise>
-					</c:choose>
-				</c:when>
-			</c:choose>
+		<div class="divCenter">
+			<div class="mb-50">
+				<!-- 		<div class="about-us-btn mb-50"> -->
+				<c:choose>
+					<c:when test="${source=='ReadAnimal'}">
+						<a href="<c:url value='/MemberCenter/ReadAnimal' />"
+							class="btn-style-cancel btn-style-border">返回</a>
+						<a class="btn-style1 btn-style-border"
+							href="<c:url value='/MemberCenter/preUpdateAnimal.controller'/>?animalId=${animal.animalId}">更新寵物資訊</a>
+					</c:when>
+					<c:when test="${source=='AdoptAnimal'}">
+						<a href="<c:url value='/adopt' />"
+							class="btn-style-cancel btn-style-border">返回</a>
+						<c:choose>
+							<c:when test="${member==0}">
+								<button class="btn-style1 btn-style-border"
+									onclick="info('領養請先登入', '<c:url value='/adopt/adoptNotice'/>/${animal.animalId}')">領養請登入</button>
+							</c:when>
+							<c:when test="${member==animal.member.id}">
+								<button class="btn-style1 btn-style-border"
+									onclick="info('正在導向頁面至我的寵物', '<c:url value='/MemberCenter/ReadAnimal'/>')">我的寵物</button>
+							</c:when>
+							<c:otherwise>
+								<a class="btn-style1 btn-style-border"
+									href="<c:url value='/adopt/adoptNotice'/>/${animal.animalId}">我要認養</a>
+							</c:otherwise>
+						</c:choose>
+					</c:when>
+				</c:choose>
+			</div>
 		</div>
-	</div>
 
-	<jsp:include page="../fragments/footerArea.jsp" />
-	<jsp:include page="../fragments/allJs.jsp" />
+		<jsp:include page="../fragments/footerArea.jsp" />
+		<jsp:include page="../fragments/allJs.jsp" />
 
 		<!-- 轉頁載入動畫2 -->
 	</div>

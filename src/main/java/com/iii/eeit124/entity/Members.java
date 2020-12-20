@@ -221,6 +221,13 @@ public class Members implements Serializable {
 		this.createdAt = createdAt;
 	}
 
+	@Override
+	public String toString() {
+		return "Members [id=" + id + ", name=" + name + ", sex=" + sex + ", tel=" + tel + ", account=" + account
+				+ ", password=" + password + ", email=" + email + ", address=" + address + ", adoptedLevelId="
+				+ adoptedLevelId + ", memberType=" + memberType + ", createdAt=" + createdAt + ", files=" + files + "]";
+	}
+
 //	@JsonIgnore
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 //	public Set<Article> getArticles() {

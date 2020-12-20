@@ -12,7 +12,6 @@ window.onload = function() {
 		if (xhr.readyState == 4 ) {
 			if (xhr.status == 200){
 				var responseData = xhr.responseText;
-				console.log(responseData);
 				displayPageProducts(responseData);   // 顯示讀取到的非文字性資料
 			} else {
 				alert(xhr.status);
@@ -26,6 +25,7 @@ window.onload = function() {
 		if (xhr2.readyState == 4 ) {
 			if (xhr2.status == 200){
 				var responseData = xhr2.responseText;
+				console.log(responseData);
 				displayAnimals(responseData);   // 顯示讀取到的非文字性資料
 			} else {
 				alert(xhr2.status);
@@ -42,7 +42,6 @@ function displayAnimals(responseData){
 	var adoptUrl="<c:url value='/AdoptAnimalDetails.controller'/>";
 	var imgUrl="<c:url value='/filuploadAction.contoller'/>";
 	for(var i=0; i < animals.length; i++){
-		console.log(animals[i]);
 		content+=
 		'<div class="col-lg-3 col-md-6 white-bg"style=" margin: 20px; margin-left: 30px;padding: 20px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">'+
         '<div class="about-us-img pr-30 wow fadeInLeft">'+

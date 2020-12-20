@@ -71,6 +71,11 @@ public class Breeds {
 	public void setDeleteAt(Date deleteAt) {
 		this.deleteAt = deleteAt;
 	}
+	@Override
+	public String toString() {
+		return "Breeds [breedId=" + breedId + ", family=" + family + ", breed=" + breed + ", createAt=" + createAt
+				+ ", updatedAt=" + updatedAt + ", deleteAt=" + deleteAt + "]";
+	}
 	
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "breeds", cascade = CascadeType.ALL)
 //	public Set<Animals> getAnimals() {

@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="header-top theme-bg">
 	<div class="container">
-		<div class="row font22">
+		<div class="row" style="font-size: 20px">
 			<div class="col-lg-4 col-md-4 col-12">
 				<div class="welcome-area">
-					<p class="font22"><a href="<c:url value='/member/myAccount' />" style="color: white;">會員中心</a></p>
+					<p style="font-size: 20px"><a href="<c:url value='/member/myAccount' />" style="color: white;">會員中心</a></p>
 				</div>
 			</div>
 			<div class="col-lg-8 col-md-8 col-12">

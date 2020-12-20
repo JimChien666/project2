@@ -30,16 +30,16 @@ button.btncls:hover {
 </style>
 <script>
 function insertS(){
-	document.getElementById("account").value="ming";
-	document.getElementById("password").value="mING123";
+	document.getElementById("account").value="s1875678";
+	document.getElementById("password").value="a5021678";
 }
 function insertB(){
-	document.getElementById("account").value="bigMing";
-	document.getElementById("password").value="mING123";
+	document.getElementById("account").value="a1875678";
+	document.getElementById("password").value="a5021678";
 }
 function insertT(){
-	document.getElementById("account").value="taipei";
-	document.getElementById("password").value="Taipei123";
+	document.getElementById("account").value="sss";
+	document.getElementById("password").value="a5021678";
 }
 </script>
 </head>
