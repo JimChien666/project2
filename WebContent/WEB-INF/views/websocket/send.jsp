@@ -31,9 +31,9 @@
     cursor: pointer;
     width:100px;
 }
-button.btncls:hover{
-	background-color: #000000;
-}
+button.btncls:hover{ 
+ 	background-color: #FFFFFF;
+} 
 
 .msg1{
 	background-color: #7E4C4F; /* Green */
@@ -47,7 +47,23 @@ button.btncls:hover{
     font-size: 18px;
     transition-duration: 0.3s;
     cursor: pointer;
-    width:100px;
+    width:auto;
+    margin-bottom:10px;
+}
+.msg2{
+	background-color: #7E4C4F; /* Green */
+    border-radius: 10px;
+    border: 8px;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+    width:auto;
+    margin-bottom:10px;
 }
 </style>
 
@@ -59,7 +75,7 @@ button.btncls:hover{
 
 	請輸入訊息：<input type="text" id="inputMsg" name="inputMsg" style="width:80%;">
 	<span>
-		<input  type="button" id="sendBtn" style="width:70px;" class="btncls" onclick="doSendUser(${memberId});" value="傳送"/>
+		<input type="button" id="sendBtn" style="width:70px;" class="btncls" onclick="doSendUser(${memberId});" value="傳送"/>
 	</span>
 	<input class="btncls" type="button" onclick="message1();" value="1"/>
 	<input class="btncls" type="button" onclick="message2();" value="2"/>
@@ -99,7 +115,7 @@ button.btncls:hover{
             console.log(memberId);
             console.log(message);
             
-            document.getElementById("messageBox").innerHTML+=" 對方:"+message+"<br/>" ;
+            document.getElementById("messageBox").innerHTML+="<div><span  class='msg2'>對方:"+message+"</span></div>" ;
         }
         function onOpen() {
         	
@@ -108,6 +124,7 @@ button.btncls:hover{
         function onClose() {}
  
         function doSendUser(memberId) {
+            if(document.getElementById("inputMsg").value!=''){
 // 	        alert(websocket.readyState + ":" + websocket.OPEN);
 	            if (websocket.readyState == websocket.OPEN) {
 	                var message = document.getElementById("inputMsg").value;
@@ -116,11 +133,13 @@ button.btncls:hover{
 	                document.getElementById("messageBox").innerHTML+= "<div align='right'><span  class='msg1'> 我:"+message+"</span></div>" ;
 // 	                alert("發送成功!");
 
+	                document.getElementById("inputMsg").value="";//發送成功把inputBox刪掉
 	            } else {
 	                alert("連接失敗!");
 	            }
+            }else{
+            }    
         }
- 
  
         function doSendUsers() {
             if (websocket.readyState == websocket.OPEN) {
@@ -130,8 +149,7 @@ button.btncls:hover{
             } else {
                 alert("連接失敗!");
             }
-        }
- 
+        } 
  
         window.close=function()
         {
@@ -141,17 +159,21 @@ button.btncls:hover{
         	websocket.close();
         }
         
-        function message1() {
-            document.getElementById("messageBox").innerHTML+="<div align='right'><span  class='msg1' > 我: 你好，我有問題想請教~</span></div>" ;
+        function message1() { 
+        	document.getElementById("inputMsg").value="";
+            document.getElementById("inputMsg").value+="你好，我有問題想請教~" ;
         }
         function message2() {
-            document.getElementById("messageBox").innerHTML+="<div align='right'><span  class='msg1' > 我: 麻煩請說</span></div>" ;
+        	document.getElementById("inputMsg").value="";
+        	document.getElementById("inputMsg").value+="麻煩請說";
         }
         function message3() {
-            document.getElementById("messageBox").innerHTML+="<div align='right'><span  class='msg1' > 我: 請問此項商品有現貨嗎?</span></div>" ;
+        	document.getElementById("inputMsg").value="";
+        	document.getElementById("inputMsg").value+="請問此項商品有現貨嗎?";
         }        
         function message4() {
-            document.getElementById("messageBox").innerHTML+="<div align='right'><span  class='msg1' > 我: 有的，若有需要請直接下單。感謝您~</span></div>" ;
+        	document.getElementById("inputMsg").value="";
+        	document.getElementById("inputMsg").value+="有的，若有需要請直接下單。感謝您~";
         }
     </script>
  <jsp:include page="../fragments/allJs.jsp" />    
