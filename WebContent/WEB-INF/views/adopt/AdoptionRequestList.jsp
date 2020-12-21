@@ -352,7 +352,7 @@ td {
 											<fmt:formatDate
 												value="${AdoptionRequestList.applyApprovedAt}"
 												pattern="yyyy/MM/dd HH:mm:ss" />
-											<br>已通知領養者領養
+											<br>通知領養者<br>領養申請已核准
 										</c:when>
 										<c:when test="${source == 'MyAdoptionProgress'}">
 											<div class="mt-10 btn-style1 btn-style-border"

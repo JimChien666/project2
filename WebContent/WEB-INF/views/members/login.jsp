@@ -30,16 +30,16 @@ button.btncls:hover {
 </style>
 <script>
 function insertS(){
-	document.getElementById("account").value="s1875678";
-	document.getElementById("password").value="a5021678";
+	document.getElementById("account").value="ming";
+	document.getElementById("password").value="mING123";
 }
 function insertB(){
-	document.getElementById("account").value="a1875678";
-	document.getElementById("password").value="a5021678";
+	document.getElementById("account").value="bigMing";
+	document.getElementById("password").value="mING123";
 }
 function insertT(){
-	document.getElementById("account").value="sss";
-	document.getElementById("password").value="a5021678";
+	document.getElementById("account").value="taipei";
+	document.getElementById("password").value="Taipei123";
 }
 </script>
 </head>
@@ -65,7 +65,7 @@ function insertT(){
 					<div class="login-register-wrapper">
 						<div class="login-register-tab-list nav">
 							<a class="active" data-toggle="tab" href="#lg1">
-								<h4>login</h4>
+								<h4>會員登入</h4>
 							</a>
 						</div>
 						<div class="tab-content">
@@ -94,8 +94,9 @@ function insertT(){
 											<div class="button-box">
 												<div class="login-toggle-btn">
 													<input type="checkbox" name="rememberMe" value="true"
-														checked="checked"> <label>記住我</label> <a href="#">Forgot
-														Password?</a>
+														checked="checked"> <label>記住我</label> 
+<!-- 														<a href="#">Forgot -->
+<!-- 														Password?</a> -->
 												</div>
 												<!-- <div class="fb-login-button" data-size="large" onlogin="goindex()" 
 													data-button-type="continue_with" data-layout="default"
