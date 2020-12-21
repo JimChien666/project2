@@ -183,7 +183,7 @@ table th{
 
 							<ul style="list-style: none; margin: 0px 0; clear: both;">
 								<li style="float: left; margin: 0px 10px 10px 10px;"><a
-									href="<c:url value='saveArticle' />">
+									href="<c:url value='/saveArticle' />">
 										<button class="submit btn-style" type="submit"
 											style="margin-top: 10px;">
 											<span style="color: white; margin-top: 0px;">發文</span>
