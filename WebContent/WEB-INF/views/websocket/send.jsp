@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title></title>
+    <title>Pet Me~陪你! 聊天系統 </title>
     <!--
 	<link rel="stylesheet" href="/css/style.css"/>
     -->
@@ -21,13 +21,9 @@
 <body>
 
 	請輸入訊息：<textarea rows="5" cols="30" id="inputMsg" name="inputMsg" ></textarea>
-	<div id="sendBtn"><input type="button" onclick="doSendUser(${memberId});" value="123"/></div>
-	
-	<button type="button" οnmouseover="doSendUser(${memberId});">發送</button>
-	<button οnclick="doSendUsers();">群發</button>
-	<button οnclick="websocketClose();">關閉連接</button>
-
-
+	<div id="sendBtn"><input type="button" onclick="doSendUser(${memberId});" value="傳送訊息"/></div>
+	<input type="button" onclick="doSendUsers();" value="群發"/>
+	<input type="button" onclick="websocketClose();" value="關閉連接"/>
 
     <script>
         var websocket = null;
@@ -50,11 +46,11 @@
         }
  
         function onMessage(evt) {
-            alert("管理員發送訊息:" + evt.data);
+            alert("發送訊息:" + evt.data);
             console.log(evt.data);
             var memberId="'"+(evt.data).split("#燚#")[0]+"'";
             var message=(evt.data).split("#燚#")[1];
-            document.getElementById('sendBtn').innerHTML='<input type="button" onclick="doSendUser('+memberId+');" value="123"/>';
+            document.getElementById('sendBtn').innerHTML='<input type="button" value="傳送訊息" onclick="doSendUser('+memberId+');" />';
             
             console.log(memberId);
             console.log(message);

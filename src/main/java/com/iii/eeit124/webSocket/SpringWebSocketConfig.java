@@ -12,8 +12,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 @Configuration
 @EnableWebSocket
 @ComponentScan(basePackages = "com.iii.eeit124")
-public class SpringWebSocketConfig implements WebSocketConfigurer {
-    
+public class SpringWebSocketConfig implements WebSocketConfigurer {    
 
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(webSocketHandler(),"/websocket/socketServer")

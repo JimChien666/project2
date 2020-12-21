@@ -32,6 +32,9 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
 				attributes.put("WEBSOCKET_USERID", userName);
 			}
         }
+        
+        
+        
 //        if (request instanceof ServletServerHttpRequest) {
 //            ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
 //            HttpSession session = servletRequest.getServletRequest().getSession(false);

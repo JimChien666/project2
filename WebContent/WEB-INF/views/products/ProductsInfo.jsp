@@ -136,8 +136,17 @@
 				<div class="row" id="productList"style="border-top: 1px gray solid; padding-top: 10px;"></div>
 				</div>
 				<hr/>
-			<a style="color:blue;" href="<c:url value='/websocket/loginPage'  />?memberId=${ProductsInfo.memberId}"><b>即時客服</b></a>
-			<a style="color:blue;" href="<c:url value='/' />"><b>回前頁</b></a>
+			<a style="color:blue; cursor:pointer;" onclick="openWindows()"><b>聯絡賣家</b></a>
+			&nbsp &nbsp <a style="color:blue;" href="<c:url value='/' />"><b>回前頁</b></a>
+			
+<!-- 			<input type="button" value="點選跳轉" onclick="openWindows()"> -->
+
+	<script type="text/javascript">
+	function openWindows(){
+	window.open (href="<c:url value='/websocket/loginPage'  />?memberId=${ProductsInfo.memberId}","Sample","fullscreen=no,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no, copyhistory=no,width=600,height=300,left=200,top=300");
+	
+	}
+	</script>
 		</div>
 	</div>			
 </div>
