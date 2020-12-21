@@ -452,13 +452,7 @@ button.btncls:hover{
 	background-color: #000000;
 }
 </style>
-<<<<<<< HEAD
 
-        
-
-
-=======
->>>>>>> refs/heads/websocket
 </head>
 <body>
 <jsp:include page="../fragments/headerArea.jsp" />

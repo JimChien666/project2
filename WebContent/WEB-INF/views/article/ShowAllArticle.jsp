@@ -198,7 +198,7 @@ table th{
 			$artilceListTable.empty();
 			// 		$artilceList.append("<table border=1 style='width: 100%; font-size: 2em;' ><tbody>")
 
-			$artilceListTable.append("<tr><th>人氣</th><th>主題</th><th>"+""+"</th></tr>")
+			$artilceListTable.append("<tr><th>人氣</th><th>主題/作者</th><th>"+""+"</th></tr>")
 			
 			
 			$.each(articleList, function(i, article) {

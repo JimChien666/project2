@@ -243,9 +243,11 @@ font-size:16px;
 		forumList = mapData.forumList;
 		var num = forumList[0].createdat;
 		var df = new Date(num);
-		var firstDate = df.getFullYear()+"年"+df.getMonth()+"月"+df.getDate()+"日 "+pad(df.getHours(),2)+":"+pad(df.getMinutes(),2);
+		var month = df.getMonth();
+		var cMonth = month+1;
+		console.log("month"+cMonth);
+		var firstDate = df.getFullYear()+"年"+cMonth+"月"+df.getDate()+"日 "+pad(df.getHours(),2)+":"+pad(df.getMinutes(),2);
 // 		var time = `<fmt:formatDate value="" pattern="yyyy/MM/dd HH:mm:ss" />`;
-// 		console.log(time);
 // 		var content = "";
 		$article.empty();
 // 		console.log(article)
@@ -319,7 +321,8 @@ font-size:16px;
 <!--        forum start area           -->
 			var num = forum.createdat;
 			var dd = new Date(num);
-			var date = dd.getFullYear()+"年"+dd.getMonth()+"月"+dd.getDate()+"日 "+pad(dd.getHours(),2)+":"+pad(dd.getMinutes(),2);
+			var month = (dd.getMonth())+1;
+			var date = dd.getFullYear()+"年"+month+"月"+dd.getDate()+"日 "+pad(dd.getHours(),2)+":"+pad(dd.getMinutes(),2);
 			var memberName = forum.memberName;
 			var imgTag = `<img src="<c:url value='/member/processFileReadAction.contoller?fileId=` + forum.forumOwnerFileId + `' />" class="d-inline-block align-top" alt="" style="width:50px; height:50px; border-radius: 50%; border: 2px white solid;">`
 // 			$article.append("<tr><td><div style='width:60px; background-color: coral; box-shadow:1px 3px 5px 2px #cccccc;'>"+ imgTag + forum.memberid + "</div></td><td id="+forum.id+"><div style='width:1100px; margin:0px 10px 10px 10px; padding:30px; box-shadow:1px 3px 5px 2px #cccccc;'>" + forum.content
