@@ -24,30 +24,32 @@ public class WebSocketController {
     } 
  
     @RequestMapping("/websocket/loginPage")
-    public String loginPage(@RequestParam(value="memberId", required = false) String memberId, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String loginPage(@RequestParam(name="memberId",required = false) String memberId, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	HttpSession session = request.getSession();
         Members member=(Members)session.getAttribute("LoginOK");
-        session.setAttribute("memberId",memberId); //把商品詳細頁面的memberId設到Session，讓商品有問題的人詢問
+        if(memberId!=null) {
+        	session.setAttribute("memberId",memberId); //把商品詳細頁面的memberId設到Session，讓商品有問題的人詢問
+        }
         if(member==null) {
         	//沒登入PetMe系統，則導入到登入頁面
         	return "websocket/login";
         }else {
-
             String userId = String.valueOf(member.getId());
             session.setAttribute("SESSION_USERNAME", userId);  //有登入，把ID設到   "SESSION_USERNAME"，Interceptor會把他抓出來   	
         	return "websocket/send";
         }
     }
-
+ 
+ 
     @RequestMapping("/websocket/login")
     public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String username = request.getParameter("username");  //login.jsp的username
         System.out.println(username+"登入");
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         session.setAttribute("SESSION_USERNAME", username); //沒登入，把username設到   "SESSION_USERNAME" ，Interceptor會把他抓出來   	
         return "websocket/send";
     }
-
+ 
     
     //單發測試
     @RequestMapping("/websocket/send")

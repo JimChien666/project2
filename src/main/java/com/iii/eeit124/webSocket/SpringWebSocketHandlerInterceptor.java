@@ -19,7 +19,7 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
         System.out.println("Before Handshake");
         if (request instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
-            HttpSession session = servletRequest.getServletRequest().getSession();
+            HttpSession session = servletRequest.getServletRequest().getSession(false);
             Members member=(Members)session.getAttribute("LoginOK");
             String userName = (String) session.getAttribute("SESSION_USERNAME");  //一般直接儲存user實體
             
