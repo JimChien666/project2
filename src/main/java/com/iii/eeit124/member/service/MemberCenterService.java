@@ -19,4 +19,6 @@ public interface MemberCenterService {
 	Map<String, Object> getSellingHistory(Integer id, Date start, Date last);
 
 	Map<String, List<Object>> getSellingCountByDate(Integer id, Date start, Date last);
+	
+	public Members update(Members members);
 }
