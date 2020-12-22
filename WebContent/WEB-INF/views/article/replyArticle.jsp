@@ -71,6 +71,12 @@ button.btncls:hover {
 		<jsp:include page="../fragments/headerArea.jsp" />
 	</div>
 	<!-- 	麵包屑 -->
+	
+	
+
+	
+	
+	
 	<div class="breadcrumb-area pt-95 pb-95 bg-img"
 		style="background-image:url(<c:url value='/assets/img/banner/banner-2.jpg' />);">
 		<div class="container">
@@ -98,6 +104,14 @@ button.btncls:hover {
 			</a></li>
 		</ul>
 
+			<ul style="list-style: none; margin: 0px 0;">
+				<li style="float: right; margin: 0px 10px 30px 10px;">
+						<button class="submit btn-style" type="submit" id='createArticle'
+							style="margin-top: 10px;">
+							<span style="color: white; margin-top: 0px;">快速輸入資料</span>
+						</button>
+				</li>
+			</ul>
 
 		<div class="starter-template" style="clear: both">
 			<h1>文章回覆</h1>
@@ -124,7 +138,11 @@ button.btncls:hover {
 					<hr>
 			
 			<script>
-				CKEDITOR.replace("editor", {});
+			var myeditor=CKEDITOR.replace("editor", {});
+			$(document).on("click","#createArticle",function() {					
+					console.log("產生!")
+					myeditor.setData('<h2 style="font-style:italic"><span style="font-size:24px"><span style="font-family:微軟正黑體">我家的貓咪也很可愛</span></span></h2><p><img src="https://i.imgur.com/RXuuCv5.jpg" width="100%" /><span style="font-size:18px">在院子裡面的樣子</span></p><p>&nbsp;</p><p><img src="https://i.imgur.com/GbR2UDQ.jpg" width="100%" /><span style="font-size:18px">故意壓在草上</span></p><p><img src="https://i.imgur.com/Wgweiy0.jpg" width="100%" /><span style="font-size:18px">天氣冷，窩在紙箱裡</span></p><p>&nbsp;</p><p><img src="https://i.imgur.com/7ecmFyF.jpg" width="100%" /><span style="font-size:18px">傻呼呼的扭來扭去</span></p>');
+				});	
 			</script>
 		</form:form>
 
