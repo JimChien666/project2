@@ -70,7 +70,21 @@
 				</ul>
 			</div>
 		</div>
+		<div class="shop-widget mt-50">
+			<h4 class="shop-sidebar-title">線上客服</h4>
+			<div class="shop-list-style mt-20">
+				<ul>
+					<li><a  onclick="openWindows()"><b>客服系統</b></a></li>
+				</ul>
+			</div>
+		</div>
 		
 	</div>
 
 </div>
+
+	<script type="text/javascript">
+	function openWindows(){
+	window.open (href="<c:url value='/websocket/loginPage'  />?memberId=${LoginOK.id}","Sample","fullscreen=no,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no, copyhistory=no,width=600,height=300,left=200,top=300");
+	}
+	</script>

@@ -100,10 +100,7 @@ margin: 20px;width:200px;height: 60px; right:5%; position: fixed; z-index: 999;b
 										<li><a href="<c:url value='/member/register' />">註冊</a></li>
 									</c:if>
 								</ul>
-
 							</div>
-
-
 						</div>
 						<div class="header-cart same-style">
 							<button class="icon-cart" onclick="goToCartPage()"
