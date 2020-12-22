@@ -146,12 +146,12 @@ h1 {
 
 		<form:form action="saveToDB" method="POST" modelAttribute="forums" 
 			enctype="multipart/form-data">
-			<form:input id="title" path="article.title" placeholder="請輸入標題" required="required"/>
+<h4>請輸入標題:</h4><form:input id="title" path="article.title" placeholder="標題" required="required"/>
 			<br>
 			<br>
 			<hr>
 		
-選擇發表版面:
+<h4>選擇發表版面:</h4>
 <%-- <form:select path="articletypesid" items="${allArticleTypes}" itemLabel="articletype" itemValue="id"> --%>
 			<div style="width: 75px">
 				<form:select path="article.articletypesid" required="required">
