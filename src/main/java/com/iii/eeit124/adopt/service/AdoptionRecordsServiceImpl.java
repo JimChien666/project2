@@ -1,6 +1,9 @@
 package com.iii.eeit124.adopt.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -38,6 +41,14 @@ public class AdoptionRecordsServiceImpl implements AdoptionRecordsService{
 
 	public List<AdoptionRecords> readAdoptionRecords2(String string1, String string2, String orderBy){
 		return adoptionRecordsDao.readAdoptionRecords2(string1, string2, orderBy);
+	}
+	
+	public Map<String, BigDecimal> readVarietyAdoptionAppliesNums(Integer memberId){
+		return adoptionRecordsDao.readVarietyAdoptionAppliesNums(memberId);
+	}
+	
+	public Map<String, BigDecimal> readVarietyAdoptionSuccessedAppliesNums(Integer memberId){
+		return adoptionRecordsDao.readVarietyAdoptionSuccessedAppliesNums(memberId);
 	}
 	
 	@Override

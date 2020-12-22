@@ -48,7 +48,7 @@
 		</div>
 	</div>
 
-	<div class="divFixed btn-style1" id="applyInput">一鍵輸入</div>
+	<div class="divFixed btn-style1" id="applyInput">輸入資料</div>
 
 	<!-- ============================================================================================= -->
 
@@ -131,12 +131,12 @@
 				</div>
 				<div class="mt-30 font22 applyInputW">
 					<div class="mb-20">
-						<div>1.飼養地點</div>
+						<div><font color="red">*</font>1.飼養地點</div>
 						<form:input path="feedAddress" placeholder="請輸入地址"
 							value="${adoptionRecord.member.address}" />
 					</div>
 					<div class="mb-20">
-						<div>2.飼養地點型態</div>
+						<div><font color="red">*</font>2.飼養地點型態</div>
 						<form:input path="feedAddressType"
 							placeholder="請輸入飼養地點型態(大樓、公寓、平房等)" id="feedAddressType" />
 					</div>
@@ -158,37 +158,37 @@
 						<br>
 					</div>
 					<div class="mb-10">
-						<div>*身分證字號：</div>
+						<div><font color="red">*</font>身分證字號：</div>
 						<form:input path="personalId" type="text" id="personalId" />
 						<br>
 					</div>
 					<div class="mb-10">
-						<div>*出生日期：</div>
+						<div><font color="red">*</font>出生日期：</div>
 						<form:input path="birthdayString" type="date" id="date" />
 						<br>
 					</div>
 					<div class="mb-10">
-						<div>市內電話：</div>
+						<div><font color="red">*</font>市內電話：</div>
 						<form:input path="tel" type="text" id="tel" />
 						<br>
 					</div>
 					<div class="mb-10">
-						<div>行動電話：</div>
+						<div><font color="red">*</font>行動電話：</div>
 						<form:input path="mobile" type="text" id="mobile" />
 						<br>
 					</div>
 					<div class="mb-10">
-						<div>電子郵件：</div>
+						<div><font color="red">*</font>電子郵件：</div>
 						<form:input path="email" value="${adoptionRecord.member.email}" />
 						<br>
 					</div>
 					<div class="mb-10">
-						<div>*戶籍地址：</div>
+						<div><font color="red">*</font>戶籍地址：</div>
 						<form:input path="residentAddress" type="text" />
 						<br>
 					</div>
 					<div class="mb-50">
-						<div>通訊地址：</div>
+						<div><font color="red">*</font>通訊地址：</div>
 						<form:input path="mailingAddress"
 							value="${adoptionRecord.member.address}" />
 						<br>

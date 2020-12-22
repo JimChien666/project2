@@ -3,6 +3,7 @@ package com.iii.eeit124.adopt.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.sql.Blob;
 import java.util.Date;
 import java.util.HashMap;
@@ -343,7 +344,7 @@ public class AnimalsController {
 			// 領養請求
 			// 找出該會員擁有的寵物，但被其他領養人提出領養申請的寵物
 			List<AdoptionRecords> readAdoptionRecords22 = adoptionRecordsService
-					.readAdoptionRecords2("OWNERMEMBERID = " + memberId, "REVIEW_STATUS >= 0", "Adoption_Request_Order, Animal_Id");
+					.readAdoptionRecords2("OWNERMEMBERID = " + memberId, "REVIEW_STATUS >= 0", "Adoption_Request_Order, Animal_Id desc");
 			for (AdoptionRecords adoptionRecords : readAdoptionRecords22) {
 				// 狀態為送養者已核准，等待領養者確認或放棄
 				int now = (int) (new Date().getTime() / 1000);
@@ -555,5 +556,40 @@ public class AnimalsController {
 		int applyApprovedAtOrigin = (int) (readAdoptionRecords1.get(0).getApplyApprovedAt().getTime() / 1000);
 		readAdoptionRecords1.get(0).setApplyApprovedAt(new Date(((long) (applyApprovedAtOrigin - 86400)) * 1000L));
 		return "redirect:/MemberCenter/adoptionRequestList.controller?source=" + source;
+	}
+	
+	//寵物領養分析
+	@RequestMapping("/animalsAdoptionAnalysis.controller")
+	public String processAnimalsAdoptionAnalysis(Model m) {
+		Integer memberId = ((Members) session.getAttribute("LoginOK")).getId();
+		
+		//動物總數
+		List<Animals> readMyAnimals = animalsService.readMyAnimals(memberId);
+		Integer myAnimalsNum = 0;
+		for (Animals animals : readMyAnimals) {
+			myAnimalsNum = myAnimalsNum+1;
+		}
+		m.addAttribute("myAnimalsNum", myAnimalsNum);
+		m.addAttribute("readVarietyAnimalsNums", animalsService.readVarietyAnimalsNums(memberId));
+		
+		//領養申請總數
+		List<AdoptionRecords> readMyAdoptionRecords = adoptionRecordsService.readAdoptionRecords1(" ownerMemberId = "+memberId);
+		Integer adoptionApplyNum = 0;
+		for (AdoptionRecords adoptionRecords : readMyAdoptionRecords) {
+			adoptionApplyNum = adoptionApplyNum+1;
+		}
+		m.addAttribute("adoptionApplyNum", adoptionApplyNum);
+		m.addAttribute("readVarietyAdoptionAppliesNums", adoptionRecordsService.readVarietyAdoptionAppliesNums(memberId));
+
+		//領養成功總數
+		List<AdoptionRecords> readMyAdoptionRecords1 = adoptionRecordsService.readAdoptionRecords1(" ownerMemberId = "+memberId+" and Review_Status = 3");
+		Integer adoptionSussessedNum = 0;
+		for (AdoptionRecords adoptionRecords : readMyAdoptionRecords1) {
+			adoptionSussessedNum = adoptionSussessedNum+1;
+		}
+		m.addAttribute("adoptionSussessedNum", adoptionSussessedNum);
+		m.addAttribute("readVarietyAdoptionSuccessedAppliesNums", adoptionRecordsService.readVarietyAdoptionSuccessedAppliesNums(memberId));
+		
+		return "adopt/AnimalsStatisticAnalysis";
 	}
 }

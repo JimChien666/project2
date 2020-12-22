@@ -72,11 +72,11 @@
 	<jsp:include page="../members/fragments/myAccountHeaderArea.jsp" />
 	<c:choose>
 		<c:when test="${source == 'create'}">
-			<div class="divFixed2 btn-style1" id="createInput2">一鍵輸入(不開放)</div>
-			<div class="divFixed btn-style1" id="createInput">一鍵輸入(開放)</div>
+			<div class="divFixed btn-style-cancel btn-style-border" id="createInput">輸入資料(開放)</div>
+			<div class="divFixed2 btn-style1 btn-style-border" id="createInput2">輸入資料(不開放)</div>
 		</c:when>
 		<c:when test="${source == 'update'}">
-			<div class="divFixed btn-style1" id="updateInput">一鍵輸入</div>
+			<div class="divFixed btn-style1" id="updateInput">輸入更新資料</div>
 		</c:when>
 	</c:choose>
 
@@ -94,7 +94,7 @@
 						method="POST" modelAttribute="AnimalsList1"
 						enctype="multipart/form-data">
 						<div class="mb-20">
-							<form:label path="animalFiles" class="mb-0">*照片：</form:label>
+							<form:label path="animalFiles" class="mb-0"><font color="red">*</font>照片：</form:label>
 							<form:input path="animalFiles" type="file" id="animalFilesCreate"
 								multiple="multiple" />
 							<br>
@@ -116,7 +116,7 @@
 						</div>
 						<!-- ===================================================================================== -->
 						<div class="mb-20">
-							<form:label path="breedId" class="mb-0">*品種：</form:label>
+							<form:label path="breedId" class="mb-0"><font color="red">*</font>品種：</form:label>
 							<script>
 								// 						$(function() {
 								// 							$("#family").autocomplete({
@@ -145,7 +145,7 @@
 						</div>
 						<!-- ===================================================================================== -->
 						<div class="mb-20">
-							<form:label path="gender" class="mb-0">*性別：</form:label>
+							<form:label path="gender" class="mb-0"><font color="red">*</font>性別：</form:label>
 							<form:select path="gender" id="gender" >
 								<form:option value="1">公</form:option>
 								<form:option value="0">母</form:option>
@@ -154,7 +154,7 @@
 						</div>
 						<!-- ===================================================================================== -->
 						<div class="mb-20">
-							<form:label path="isAdoptionAvailable" class="mb-0">*是否開放領養：</form:label>
+							<form:label path="isAdoptionAvailable" class="mb-0"><font color="red">*</font>是否開放領養：</form:label>
 							<form:select path="isAdoptionAvailable" id="isAdoptionAvailable"
 								>
 								<form:option value="1">開放</form:option>

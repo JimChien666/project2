@@ -1,6 +1,10 @@
 package com.iii.eeit124.adopt.dao;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -9,6 +13,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import com.iii.eeit124.entity.AdoptionRecords;
 import com.iii.eeit124.entity.Animals;
+import com.iii.eeit124.entity.Breeds;
 
 @Repository("adoptionRecordsDao")
 @Lazy
@@ -60,6 +65,42 @@ public class AdoptionRecordsDaoImpl implements AdoptionRecordsDao {
 		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where " + string1 + " and "+ string2 +" order by " + orderBy, AdoptionRecords.class);
 		List<AdoptionRecords> list = query.list();
 		return list;
+	}
+	
+	//顯示領養申請品種map
+	public Map<String, BigDecimal> readVarietyAdoptionAppliesNums(Integer memberId){
+		Session session = sessionFactory.getCurrentSession();
+		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where ownerMemberId=" + memberId, AdoptionRecords.class);// + " order by " + orderBy
+		List<AdoptionRecords> list = query.list();
+		Map<String, BigDecimal> map = new HashMap<String, BigDecimal>();
+		for (AdoptionRecords adoptionRecords : list) {
+			Breeds breed = adoptionRecords.getAnimal().getBreeds();
+			@SuppressWarnings("rawtypes")
+			Query query1 = session.createSQLQuery("select count(ado.adoption_Id) from AdoptionRecords ado, Animals ani where ado.animal_Id = ani.animal_Id and ani.breed_id = " + breed.getBreedId());
+			BigDecimal num = (BigDecimal)query1.uniqueResult();
+			map.put(breed.getBreed(), num);
+		}
+		return map;
+	}
+	
+	//顯示領養成功品種map
+	public Map<String, BigDecimal> readVarietyAdoptionSuccessedAppliesNums(Integer memberId){
+		Session session = sessionFactory.getCurrentSession();
+		Query<AdoptionRecords> query = session.createQuery("from AdoptionRecords where ownerMemberId=" + memberId, AdoptionRecords.class);// + " order by " + orderBy
+		List<AdoptionRecords> list = query.list();
+		Map<String, BigDecimal> map = new HashMap<String, BigDecimal>();
+		for (AdoptionRecords adoptionRecords : list) {
+			Breeds breed = adoptionRecords.getAnimal().getBreeds();
+			@SuppressWarnings("rawtypes")
+			Query query1 = session.createSQLQuery("select count(ado.adoption_Id) from AdoptionRecords ado, Animals ani where ado.animal_Id = ani.animal_Id and ado.review_Status = 3 and ani.breed_id = " + breed.getBreedId());
+			BigDecimal num = (BigDecimal)query1.uniqueResult();
+			BigDecimal num0 = new BigDecimal(0);
+			if (num.compareTo(num0) > 0) {
+				map.put(breed.getBreed(), num);
+			}
+		}
+		System.out.println("readVarietyAdoptionSuccessedAppliesNums"+map);
+		return map;
 	}
 	
 //	public List<AdoptionRecords> readAdoptionRecords1(String string1, String orderBy){

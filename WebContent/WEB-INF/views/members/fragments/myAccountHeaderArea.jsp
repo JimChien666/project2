@@ -19,23 +19,24 @@
 								<li><a href="<c:url value='/order/SellingOrderList' />">販售紀錄</a></li>
 								<li><a href="<c:url value='/order/orderAnalysis' />">交易數據</a></li>
 							</ul></li>
-						<li><a href="#"> 商品管理 <i class="icon-arrow-down"></i></a>
+						<li class="top-hover"><a href="#"> 商品管理 <i class="icon-arrow-down"></i></a>
 							<ul>
 								<li><a href="<c:url value='/product/goLikeProductPage' />">商品最愛</a></li>
 								<li><a href="<c:url value='/product/goMyProductPage' />">我的商品</a></li>		
 							</ul></li>
-						<li><a href="#"> 寵物管理 <i class="icon-arrow-down"></i></a>
+						<li class="top-hover"><a href="#"> 寵物管理 <i class="icon-arrow-down"></i></a>
 							<ul>
 								<li><a href="<c:url value='/MemberCenter/ReadAnimal' />">我的寵物</a></li>
 								<li><a href="<c:url value='/MemberCenter/adoptionRequestList.controller?source=AdoptionRequest' />">領養申請</a></li>
 								<li><a href="<c:url value='/MemberCenter/adoptionRequestList.controller?source=MyAdoptionProgress' />">我的領養進度</a></li>
+								<li><a href="<c:url value='/MemberCenter/animalsAdoptionAnalysis.controller' />">寵物領養統計</a></li>
 							</ul></li>
-						<li><a href="#"> 活動管理 <i class="icon-arrow-down"></i></a>
+						<li class="top-hover"><a href="#"> 活動管理 <i class="icon-arrow-down"></i></a>
 							<ul>
 								<li><a href="<c:url value='/activitys/appliedActivity' />">參加的活動</a></li>
 								<li><a href="<c:url value='/activitys/myActivity' />">舉辦過的活動</a></li>
 							</ul></li>
-						<li><a href="#"> 討論區管理 <i class="icon-arrow-down"></i></a>
+						<li class="top-hover"><a href="#"> 討論區管理 <i class="icon-arrow-down"></i></a>
 							<ul>
 								<li><a href="<c:url value='/member/myArticle' />">追蹤文章</a></li>
 								<li><a href="<c:url value='/member/myPostArticle' />">我的文章</a></li>

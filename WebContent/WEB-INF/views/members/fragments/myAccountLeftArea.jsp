@@ -58,6 +58,9 @@
 			<div class="shop-list-style mt-20">
 				<ul>
 					<li><a href="<c:url value='/MemberCenter/ReadAnimal' />">我的寵物</a></li>
+					<li><a href="<c:url value='/MemberCenter/adoptionRequestList.controller?source=AdoptionRequest' />">領養申請</a></li>
+					<li><a href="<c:url value='/MemberCenter/adoptionRequestList.controller?source=MyAdoptionProgress' />">我的領養進度</a></li>
+								<li><a href="<c:url value='/MemberCenter/animalsAdoptionAnalysis.controller' />">寵物領養統計</a></li>
 				</ul>
 			</div>
 		</div>

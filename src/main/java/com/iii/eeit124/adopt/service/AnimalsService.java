@@ -1,6 +1,9 @@
 package com.iii.eeit124.adopt.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import com.iii.eeit124.entity.Animals;
 
 public interface AnimalsService {
@@ -16,6 +19,8 @@ public interface AnimalsService {
 //	public List<Integer> readMyAnimalId(Integer memberId);
 	
 	public List<Animals> readAnimals1(String factor1);//, String orderBy
+	
+	public Map<String, Long> readVarietyAnimalsNums(Integer memberId);
 	
 	public Animals update(Animals animals);
 	

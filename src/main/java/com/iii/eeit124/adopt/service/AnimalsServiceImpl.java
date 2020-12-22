@@ -1,6 +1,9 @@
 package com.iii.eeit124.adopt.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -37,6 +40,10 @@ public class AnimalsServiceImpl implements AnimalsService{
 	
 	public List<Animals> readAnimals1(String factor1){//, String orderBy
 		return animalsDao.readAnimals1(factor1);//, orderBy
+	}
+	
+	public Map<String, Long> readVarietyAnimalsNums(Integer memberId){
+		return animalsDao.readVarietyAnimalsNums(memberId);
 	}
 	
 	@Transactional

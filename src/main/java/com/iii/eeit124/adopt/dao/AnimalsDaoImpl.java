@@ -1,6 +1,10 @@
 package com.iii.eeit124.adopt.dao;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -62,6 +66,21 @@ public class AnimalsDaoImpl implements AnimalsDao {
 		Query<Animals> query = session.createQuery("from Animals where " + factor1, Animals.class);// + " order by " + orderBy
 		List<Animals> list = query.list();
 		return list;
+	}
+	
+	//動物總數map
+	public Map<String, Long> readVarietyAnimalsNums(Integer memberId){
+		Session session = sessionFactory.getCurrentSession();
+		Query<Animals> query = session.createQuery("from Animals where MEMBER_ID=" + memberId, Animals.class);// + " order by " + orderBy
+		List<Animals> list = query.list();
+		Map<String, Long> map = new HashMap<String, Long>();
+		for (Animals animals : list) {
+			@SuppressWarnings("rawtypes")
+			Query query1 = session.createQuery("select count(animalId) from Animals where breed_id = " + animals.getBreeds().getBreedId());
+			Long num = (Long)query1.uniqueResult();
+			map.put(animals.getBreeds().getBreed(), num);
+		}
+		return map;
 	}
 
 	public Animals update(Animals entity) {// entity為更新的內容

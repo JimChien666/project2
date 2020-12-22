@@ -256,7 +256,7 @@ function goBuyCountPage(){
 	<div class="project-count-area pb-70 pt-100">
 		<div class="container">
 			<div class="row flex-row-reverse">
-				<div class="col-lg-12 col-md-8"">
+				<div class="col-lg-12 col-md-8">
 					<div class="row" style="margin-top: 10px;">
 						<div class="col-lg-3 col-md-12">
 							<jsp:include page="../members/fragments/myAccountLeftArea.jsp" />
@@ -265,10 +265,10 @@ function goBuyCountPage(){
 							<ul class="nav nav-tabs navCustom">
 								<li id="buyCountli" class="activeCustom" onclick="getActive()">購買統計</li>
 								<li onclick="getActive()">販賣統計</li>
-								
+
 
 							</ul>
-							<div class="row" >
+							<div class="row">
 								<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 									<div class="single-count mb-30 text-center">
 										<span>總下單數</span>
@@ -306,16 +306,17 @@ function goBuyCountPage(){
 				</div>
 			</div>
 		</div>
+	</div>
 
 
-		<jsp:include page="../fragments/footerArea.jsp" />
-		<jsp:include page="../fragments/allJs.jsp" />
+	<jsp:include page="../fragments/footerArea.jsp" />
+	<jsp:include page="../fragments/allJs.jsp" />
 
 
 
 
 
-<script>
+	<script>
 function getBuyDount(){
 	var chart1 = c3.generate({
 		bindto: '#c3_chart_1',

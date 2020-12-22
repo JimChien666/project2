@@ -45,7 +45,7 @@
 		</div>
 	</div>
 
-	<div class="divFixed btn-style1" id="noticeInput">一鍵輸入</div>
+	<div class="divFixed btn-style1" id="noticeInput">輸入資料</div>
 
 	<!-- ============================================================================================= -->
 
