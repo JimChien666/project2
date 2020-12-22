@@ -43,7 +43,7 @@ public class WebSocketController {
     public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String username = request.getParameter("username");  //login.jsp的username
         System.out.println(username+"登入");
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         session.setAttribute("SESSION_USERNAME", username); //沒登入，把username設到   "SESSION_USERNAME" ，Interceptor會把他抓出來   	
         return "websocket/send";
     }

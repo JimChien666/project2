@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Marten - Pet Food eCommerce Bootstrap4 Template</title>
+        <title>Pet Me, 陪你</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <jsp:include page="fragments/links.jsp" />
@@ -24,10 +24,10 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-12 col-sm-7">
                                 <div class="slider-content slider-animated-1 pt-114">
-                                    <h3 class="animated">We keep pets for pleasure.</h3>
-                                    <h1 class="animated">Food & Vitamins <br>For all Pets</h1>
+                                    <br><h3 class="animated">Pet Me</h3>
+                                    <h1 class="animated">陪你</h1><br><br><br>
                                     <div class="slider-btn">
-                                        <a class="animated" href="product-details.html">SHOP NOW</a>
+<!--                                         <a class="animated" href="product-details.html"></a> -->
                                     </div>
                                 </div>
                             </div>

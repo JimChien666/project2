@@ -125,7 +125,7 @@ button.btncls:hover {
 <!--商品封面圖===================================================================================== -->
 			<div class="mb-20">	
 				<form:label path="multipartFile" class="mb-20">*商品圖片:</form:label>
-				<form:input path="multipartFile" type="file" id="productFilesUpdate"/>
+				<form:input path="multipartFile" type="file" id="productFilesUpdate" />
 			</div>
 			<span style="color: red;">${errors.multipartFile}</span><br />
 						
@@ -251,7 +251,7 @@ button.btncls:hover {
 <!-- 			</div> -->
 			<span >	
 				<a href="<c:url value='/product/preUpdateProduct' />/${products.id}"
-				 class="btn-style-cancel btn-style-border" style="font-size:13px;height:45px;width:85px; ">回復</a>
+				 class="btn-style-cancel btn-style-border" style="border-radius:10px; padding:5px; size:12px;height:43px;width:78px; ">回復</a>
 			</span>
 		<form:button onclick="myFunction()" value="Send" class="btncls btn-style-border" >送出</form:button>
 		</div>

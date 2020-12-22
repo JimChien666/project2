@@ -112,7 +112,7 @@
 	
 	</div>	
 	<!-- 	抓ProductListController/getProductImage的封面圖 -->
-	<div style='position:absolute; top:425px;  left:400px; '>
+	<div style='position:absolute; top:425px;  left:550px; '>
 		<img id='chgicon' style='border:1px black solid; height:450px; width:450px;' src='${pageContext.request.contextPath}/product/getProductImage/?productId=${ProductsInfo.id}'>
 	</div>
 	<div style='position:absolute; top:875px;  left:100px; '>

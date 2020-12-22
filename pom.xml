@@ -208,18 +208,7 @@
 		</dependency>
 
 		<!-- spring websocket -->
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>7.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-            <groupId>javax.websocket</groupId>
-            <artifactId>javax.websocket-api</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -235,11 +224,6 @@
 		  <groupId>org.springframework</groupId>
 		  <artifactId>spring-messaging</artifactId>
 		  <version>5.2.9.RELEASE</version>
-		</dependency>
-		<dependency>
-		  <groupId>com.alibaba</groupId>
-		  <artifactId>fastjson</artifactId>
-		  <version>1.2.20</version>
 		</dependency>
 		<dependency>
 			<groupId>taglibs</groupId>
@@ -258,7 +242,6 @@
 
 
 	<build>
-	    <finalName>websocket-anotation</finalName>	
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
