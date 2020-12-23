@@ -7,6 +7,26 @@
 <meta charset="UTF-8">
 <title>會員註冊</title>
 <jsp:include page="../fragments/links.jsp" />
+<style>
+.btncls {
+	margin:10px;
+	background-color: #7E4C4F; /* Green */
+	border: none;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	border-radius: 10px;
+	transition-duration: 0.3s;
+	cursor: pointer;
+}
+
+button.btncls:hover {
+	background-color: #000000;
+}
+</style>
 </head>
 <body>
 <jsp:include page="../fragments/headerArea.jsp" />
@@ -49,15 +69,16 @@
           									<form:input path="tel" placeholder="電話"/>${errors.tel}
           									<form:input path="account" placeholder="帳號"/>${errors.account}
 											<form:input type="password" path="password" placeholder="密碼"/>${errors.password}
-											<input type="password" name="checkPassword" placeholder="密碼確認"/>${errors.checkPassword}
+											<input type="password" id="checkPassword" name="checkPassword" placeholder="密碼確認"/>${errors.checkPassword}
 											<form:input path="email" placeholder="Email"/>${errors.email}
 											<form:input path="address" placeholder="住址"/>${errors.address}
 											<input type="file" name="myFiles" placeholder="會員圖片"/>${errors.file}
 											<div class="button-box">
 												<form:button value="Send">Submit</form:button>
-												<form:button value="Send" onclick="pre()" >一鍵</form:button>
+												
 											</div>
 										</form:form>
+										<button class="btncls" onclick="pre()" >一鍵</button>
 									</div>
 								</div>
 							</div>
@@ -77,18 +98,18 @@ function pre(){
     var tel = "023456789";
     var account = "S123456789";
     var password = "a123456789";
-	  var checkPassword = "a123456789";
-	  var email = "xmas20201225";
-	  var address = "中壢區中大路300號";
+	var checkPassword = "a123456789";
+	var email = "xmas20201225@yahoo.com";
+	var address = "中壢區中大路300號";
 	  
 	 
     $("#name").val("耿國城");
-    $("#tel").val("023456789");
+    $("#tel").val("0934567890");
     $("#account").val("S123456789");
     $("#password").val("a123456789");
     $("#checkPassword").val("a123456789");
     $("#email").val("xmas20201225@yahoo.com");
-	  $("#address").val("中壢區中大路300號");
+	$("#address").val("中壢區中大路300號");
    }
 
 
