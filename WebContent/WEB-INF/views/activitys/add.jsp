@@ -45,42 +45,42 @@ table td {
                 <div class="row">
                     <div class="col-12">
                         <div class="contact-message-wrapper">
-                            <h4 class="contact-title">活動報名</h4>
+                            <h4 class="contact-title">活動報名</h4><button class="btn-style" onclick="addInput()">一鍵輸入</button>
                             <div class="contact-message">
                                 <form:form action="saveActivitys" method="post" modelAttribute="activitysVo" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-lg-7">
                                         活動名稱：
                                             <div class="contact-form-style mb-20">
-                                                <form:input path="name" /><br /><form:errors path="name" cssClass="error" />
+                                                <form:input path="name" id="name"/><br /><form:errors path="name" cssClass="error" />
                                             </div>
                                         </div>
                                         
                                         <div class="col-lg-7">
                                         活動主題：
                                             <div class="contact-form-style mb-20">
-                                                <form:input path="topic" /><br /><form:errors path="topic" cssClass="error" />
+                                                <form:input path="topic" id="topic" /><br /><form:errors path="topic" cssClass="error" />
                                             </div>
                                         </div>
                                         
                                         <div class="col-lg-7">
                                         報名截止日期（yyyy/mm/dd hh:mm:ss）：
                                             <div class="contact-form-style mb-20">
-                                                <form:input path="activityDate" /><br /> <form:errors path="activityDate" cssClass="error" />
+                                                <form:input path="activityDate" id="activityDate" /><br /> <form:errors path="activityDate" cssClass="error" />
                                             </div>
                                         </div>
                                         
                                         <div class="col-lg-7">
                                         費用：
                                             <div class="contact-form-style mb-20">
-                                                <input name="amount" type="text" value="${activitysVo.amount}"/><br /><form:errors path="amount" cssClass="error" />
+                                                <input name="amount" type="text" id="amount" value="${activitysVo.amount}"/><br /><form:errors path="amount" cssClass="error" />
                                             </div>
                                         </div>
                                         
                                         <div class="col-lg-7">
                                         活動地點：
                                             <div class="contact-form-style mb-20">
-                                                <form:input path="location" /><br /><form:errors path="location" cssClass="error" />
+                                                <form:input path="location" id="location" /><br /><form:errors path="location" cssClass="error" />
                                             </div>
                                         </div>
                                         
@@ -94,7 +94,7 @@ table td {
                                         <div class="col-lg-7">
                                         活動內容：
                                             <div class="contact-form-style">
-                                                <form:input path="content" /><br /><form:errors path="content" cssClass="error" />
+                                                <form:input path="content" id="content" /><br /><form:errors path="content" cssClass="error" />
                                                 <button class="submit btn-style" type="submit">送出</button>
                                                 <button class="submit btn-style"><a href="<c:url value='/activitys/list' />" style="color: white;">返回活動頁面</a></button>
                                             </div>
@@ -103,6 +103,7 @@ table td {
                                         
                                     </div>
                                 </form:form>
+                                
                             </div>
                         </div>
                     </div>
@@ -125,6 +126,14 @@ table td {
 		  reader.readAsDataURL(file);
 		});
 
+	function addInput(){
+		document.getElementById("name").value="假日建國花市流浪動物認領養活動";
+		document.getElementById("topic").value="養牠 愛牠 別遺棄牠";
+		document.getElementById("activityDate").value="2021/12/26 14:20:46";
+		document.getElementById("amount").value="0";
+		document.getElementById("location").value="台北市大安區建國南路一段";
+		document.getElementById("content").value="免費流浪動物認領養‧文宣品發放‧志工招募等等";
+	}
 </script>
 </body>
 </html>

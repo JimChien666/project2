@@ -6,6 +6,24 @@
 <head>
 <meta charset="UTF-8">
 <title>會員中心</title>
+<style>
+.btncls{
+	background-color: #7E4C4F; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+button.btncls:hover{
+	background-color: #000000;
+}
+</style>
 </head>
 <jsp:include page="../fragments/links.jsp" />
 <body>
@@ -35,40 +53,41 @@
 					</div>
 					<div class="col-lg-9 col-md-12">
                         <div class="contact-message-wrapper">
-                            <h4 class="contact-title">編輯個人資料</h4>
+                            <h4 class="contact-title">會員資料</h4>
                             <div class="contact-message">
                                 <form id="contact-form" action="assets/mail.php" method="post">
                                     <div class="row">
                                     	
                                         <div class="col-lg-9">
                                             <div class="contact-form-style mb-20">
-                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getName()}">
+                                                姓名：<input name="name" placeholder="Full Name" type="text"  disabled="disabled" value="${LoginOK.getName()}">
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="contact-form-style mb-20">
-                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getAccount()}">
+                                                帳號：<input name="name" placeholder="Full Name" type="text"  disabled="disabled" value="${LoginOK.getAccount()}">
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="contact-form-style mb-20">
-                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getTel()}">
+                                                電話：<input name="name" placeholder="Full Name" type="text" disabled="disabled" value="${LoginOK.getTel()}">
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="contact-form-style mb-20">
-                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getAddress()}">
+                                                地址：<input name="name" placeholder="Full Name" type="text" disabled="disabled" value="${LoginOK.getAddress()}">
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="contact-form-style mb-20">
-                                                <input name="name" placeholder="Full Name" type="text" value="${LoginOK.getEmail()}">
+                                                Email：<input name="name" placeholder="Full Name" type="text" disabled="disabled" value="${LoginOK.getEmail()}">
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="contact-form-style">
                                                 
-                                                <button class="submit btn-style" type="submit">修改資料</button>
+                                                <a class="btncls"
+													href="<c:url value='/member/myAccount.controller'/>">修改資料</a>
                                             </div>
                                         </div>
                                     </div>
