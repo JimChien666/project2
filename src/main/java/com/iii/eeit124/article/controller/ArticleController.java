@@ -201,7 +201,9 @@ public class ArticleController {
 		article.getForums().add(forums);
 		article.setMember((Members) session.getAttribute("LoginOK"));
 		System.out.println("................................................................");
-		System.out.println(voteOptions.toString());
+		System.out.println(voteOptions);
+		if (voteOptions!=null) {
+			
 		
 		List<Options> options = new ArrayList<Options>();
 		for(String voteOption:voteOptions) {
@@ -237,9 +239,7 @@ public class ArticleController {
 				    is1.read(b);
 				    is1.close();
 				    Blob blob = new SerialBlob(b);
-				    options.get(index).setOptionBlob(blob);
-				    
-				    
+				    options.get(index).setOptionBlob(blob);				    
 				}
 				index++;
 			}
@@ -250,6 +250,7 @@ public class ArticleController {
 		}catch (IOException e) {
 //			errors.put("errorAccountDup", "�憓迨蝑���炊(RegisterServlet)");
 			return "redirect:/articleList";
+		}
 		}
 		forumsService.saveArticle(article);
 		System.out.println("success");
