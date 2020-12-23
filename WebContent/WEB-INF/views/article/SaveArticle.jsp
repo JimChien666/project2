@@ -185,8 +185,8 @@ h1 {
 <!-- 				<br /> -->
 		加入選項:<div class="btncls" id="addOption">加入</div>					
 				<div id="options">
-				<div class='option'><input name='optionInput' name='voteOption' style='display:inline-block; float:left; width: 95%;'><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><input type='file' name='voteImg' ><br><br></div>		
-				<div class='option'><input name='optionInput' name='voteOption' style='display:inline-block; float:left; width: 95%;'><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><input type='file' name='voteImg' ><br><br></div>		
+				<div class='option'><input name='voteOption' style='display:inline-block; float:left; width: 95%;'><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><input type='file' name='voteImg' ><br><br></div>		
+				<div class='option'><input name='voteOption' style='display:inline-block; float:left; width: 95%;'><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><input type='file' name='voteImg' ><br><br></div>		
 				</div>		
 				</div>				
 			<center><form:button class="btncls" value="submit" type="submit" id="button_submit"><h5 style="color: white;">送出</h5></form:button></center>
@@ -203,38 +203,41 @@ h1 {
 
 			var editorData = myeditor.getData();			
 			var votetopic = $("#votetopic").val();
-// 			var option = $(".option input:first").val();
-// 			var option = $( ".option" ).length;
-			$('#button_submit').click(function (e) {
-			var optionStr = "";
-			$(".option :text").each(function(){
-				optionStr+=$(this).val();
-				})
-// 				if($("#votetopic").val()!=''&& optionStr!=''){
 
-// 					}
-				
-		        e.preventDefault();
-// 		        alert(option);
+			$('#button_submit').click(function (e) {
+			
+			var optionStr = false;
+			$(".option :text").each(function(){
+				if($(this).val()==""){
+				optionStr = true;
+				return false;
+					}				
+				})
+					if(optionStr==true || $("#votetopic").val()==''){
+				        e.preventDefault();
+						swal({
+							  title: "投票選項或主題不完整!",
+							  icon: "error",
+							  button: "確認",
+							});						
+						}
+
 		        console.log("votetopic"+$("#votetopic").val());
 				console.log("option"+$("#options div:first-child").val());
 				console.log("optionStr"+optionStr);
 
-
-// 				    if (editorData.val() != ''&& option.val()!= '') {
-// 			        $('#button_submit').attr('disabled', true);
-// 			    }
-// 			    else {
-// 			        alert('Username/Password不允許為空值!');
-// 			        e.preventDefault();
-// 			    }
 			});
-
-
 			
 				$( "#vote" ).click(function() {
 				  $( "#voteBlock" ).toggle( "slow", function() {
-				    // Animation complete.
+						if($('#votetopic:visible').length==0){
+							$("#votetopic").val('');
+							swal({
+								  title: "已關閉投票功能!",
+								  icon: "error",
+								  button: "確認",
+								});		
+							}
 				  });
 				});
 				$( "#voteInsert" ).click(function() {
@@ -245,7 +248,7 @@ h1 {
 				
 				$( "#addOption" ).on("click",function() {
 					if (($(".option").length)<=4) {						
-				  $( "#options" ).append("<div class='option'><input name='optionInput' name='voteOption' style='display:inline-block; float:left; width: 95%;'><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><input type='file' name='voteImg' ><br><br></div>");
+				  $( "#options" ).append("<div class='option'><input name='voteOption' style='display:inline-block; float:left; width: 95%;'><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><input type='file' name='voteImg' ><br><br></div>");
 					}else {
 // 						alert("選項最多五個")
 						swal({
