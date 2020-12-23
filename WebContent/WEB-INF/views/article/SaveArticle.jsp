@@ -185,8 +185,8 @@ h1 {
 <!-- 				<br /> -->
 		加入選項:<div class="btncls" id="addOption">加入</div>					
 				<div id="options">
-				<div class='option'><input name='optionInput' name='voteOption' style='display:inline-block; float:left; width: 95%;'><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><input type='file' name='voteImg' ><br><br></div>		
-				<div class='option'><input name='optionInput' name='voteOption' style='display:inline-block; float:left; width: 95%;'><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><input type='file' name='voteImg' ><br><br></div>		
+				<div class='option'><input name='voteOption' style='display:inline-block; float:left; width: 95%;'><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><input type='file' name='voteImg' ><br><br></div>		
+				<div class='option'><input name='voteOption' style='display:inline-block; float:left; width: 95%;'><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><input type='file' name='voteImg' ><br><br></div>		
 				</div>		
 				</div>				
 			<center><form:button class="btncls" value="submit" type="submit" id="button_submit"><h5 style="color: white;">送出</h5></form:button></center>
@@ -248,7 +248,7 @@ h1 {
 				
 				$( "#addOption" ).on("click",function() {
 					if (($(".option").length)<=4) {						
-				  $( "#options" ).append("<div class='option'><input name='optionInput' name='voteOption' style='display:inline-block; float:left; width: 95%;'><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><input type='file' name='voteImg' ><br><br></div>");
+				  $( "#options" ).append("<div class='option'><input name='voteOption' style='display:inline-block; float:left; width: 95%;'><div class='remove' style='float:right; cursor: pointer; padding:0; width: 4%;'>x</div><input type='file' name='voteImg' ><br><br></div>");
 					}else {
 // 						alert("選項最多五個")
 						swal({
