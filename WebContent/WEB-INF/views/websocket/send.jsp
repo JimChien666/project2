@@ -74,13 +74,13 @@ button.btncls:hover{
 	</div>
 
 	請輸入訊息：<input type="text" id="inputMsg" name="inputMsg" style="width:75%;">
-	<span>
-		<input type="button" id="sendBtn" style="width:70px;" class="btncls" onclick="doSendUser(${memberId});" value="傳送"/>
+	<span id="sendBtn">
+		<input type="button"  style="width:70px;" class="btncls" onclick="doSendUser(${memberId});" value="傳送"/>
 	</span>
-<!-- 	<input class="btncls" type="button" onclick="message1();" value="1"/> -->
-<!-- 	<input class="btncls" type="button" onclick="message2();" value="2"/> -->
-<!-- 	<input class="btncls" type="button" onclick="message3();" value="3"/> -->
-<!-- 	<input class="btncls" type="button" onclick="message4();" value="4"/> -->
+	<input class="btncls" type="button" onclick="message1();" value="1"/>
+	<input class="btncls" type="button" onclick="message2();" value="2"/>
+	<input class="btncls" type="button" onclick="message3();" value="3"/>
+	<input class="btncls" type="button" onclick="message4();" value="4"/>
 
 <!-- 	<input type="button" onclick="doSendUsers();" value="群發"/> -->
 <!-- 	<input type="button" onclick="websocketClose();" value="關閉連接"/> -->
@@ -105,35 +105,40 @@ button.btncls:hover{
 //             alert(openEvt.Data);
         }
  
+        //收到訊息
         function onMessage(evt) {
-//             alert("發送訊息:" + evt.data);
-            console.log(evt.data);
+//             alert("收到訊息:" + evt.data);
+//             console.log(+evt.data);
+            //解析資料取到memberId，拿到是誰傳訊息過來
             var memberId="'"+(evt.data).split("#燚#")[0]+"'";
             var message=(evt.data).split("#燚#")[1];
-            document.getElementById('sendBtn').innerHTML='<input type="button" value="傳送" onclick="doSendUser('+memberId+');" />';
-            
-            console.log(memberId);
-            console.log(message);
             
             document.getElementById("messageBox").innerHTML+="<div><span  class='msg2'>對方:"+message+"</span></div>" ;
+            
+            console.log('下次傳送會傳誰:'+memberId);
+            console.log('收到的訊息:'+message);
+            document.getElementById('sendBtn').innerHTML='<input type="button" style="width:70px;" class="btncls"  value="傳送" onclick="doSendUser('+memberId+');" />';
+        
         }
-        function onOpen() {
-        	
+        
+        function onOpen() {        	
         }
         function onError() {}
         function onClose() {}
- 
+ 		//發送訊息
         function doSendUser(memberId) {
             if(document.getElementById("inputMsg").value!=''){
 // 	        alert(websocket.readyState + ":" + websocket.OPEN);
 	            if (websocket.readyState == websocket.OPEN) {
 	                var message = document.getElementById("inputMsg").value;
-	                console.log(message);
+	                console.log('我是'+memberId+'，發送了訊息:'+message);
+					//把自己ID塞進訊息裡
 	                websocket.send("#anyone#"+memberId+"#燚#"+message);//调用后台handleTextMessage方法
 	                document.getElementById("messageBox").innerHTML+= "<div align='right'><span  class='msg1'> 我:"+message+"</span></div>" ;
+	                
 // 	                alert("發送成功!");
 
-// 	                document.getElementById("inputMsg").value="";//發送成功把inputBox刪掉
+	                document.getElementById("inputMsg").value="";//發送成功把inputBox刪掉
 	            } else {
 	                alert("連接失敗!");
 	            }
@@ -159,22 +164,22 @@ button.btncls:hover{
         	websocket.close();
         }
         
-//         function message1() { 
-//         	document.getElementById("inputMsg").value="";
-//             document.getElementById("inputMsg").value+="你好，我有問題想請教~" ;
-//         }
-//         function message2() {
-//         	document.getElementById("inputMsg").value="";
-//         	document.getElementById("inputMsg").value+="麻煩請說";
-//         }
-//         function message3() {
-//         	document.getElementById("inputMsg").value="";
-//         	document.getElementById("inputMsg").value+="請問此項商品有現貨嗎?";
-//         }        
-//         function message4() {
-//         	document.getElementById("inputMsg").value="";
-//         	document.getElementById("inputMsg").value+="有的，若有需要請直接下單。感謝您~";
-//         }
+        function message1() { 
+        	document.getElementById("inputMsg").value="";
+            document.getElementById("inputMsg").value+="你好，我有問題想請教~" ;
+        }
+        function message2() {
+        	document.getElementById("inputMsg").value="";
+        	document.getElementById("inputMsg").value+="麻煩請說";
+        }
+        function message3() {
+        	document.getElementById("inputMsg").value="";
+        	document.getElementById("inputMsg").value+="請問此項商品有現貨嗎?";
+        }        
+        function message4() {
+        	document.getElementById("inputMsg").value="";
+        	document.getElementById("inputMsg").value+="有的，若有需要請直接下單。感謝您~";
+        }
     </script>
  <jsp:include page="../fragments/allJs.jsp" />    
 </body>

@@ -144,7 +144,6 @@
 	<script type="text/javascript">
 	function openWindows(){
 	window.open (href="<c:url value='/websocket/loginPage'  />?memberId=${ProductsInfo.memberId}","Sample","fullscreen=no,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no, copyhistory=no,width=600,height=300,left=200,top=300");
-	
 	}
 	</script>
 		</div>
