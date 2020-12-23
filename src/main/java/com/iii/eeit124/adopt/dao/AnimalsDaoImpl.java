@@ -76,7 +76,8 @@ public class AnimalsDaoImpl implements AnimalsDao {
 		Map<String, Long> map = new HashMap<String, Long>();
 		for (Animals animals : list) {
 			@SuppressWarnings("rawtypes")
-			Query query1 = session.createQuery("select count(animalId) from Animals where breed_id = " + animals.getBreeds().getBreedId());
+			Query query1 = session.createQuery("select count(animalId) from Animals where member_id=?0 and breed_id = " + animals.getBreeds().getBreedId());
+			query1.setParameter(0, memberId);
 			Long num = (Long)query1.uniqueResult();
 			map.put(animals.getBreeds().getBreed(), num);
 		}

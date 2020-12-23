@@ -76,7 +76,8 @@ public class AdoptionRecordsDaoImpl implements AdoptionRecordsDao {
 		for (AdoptionRecords adoptionRecords : list) {
 			Breeds breed = adoptionRecords.getAnimal().getBreeds();
 			@SuppressWarnings("rawtypes")
-			Query query1 = session.createSQLQuery("select count(ado.adoption_Id) from AdoptionRecords ado, Animals ani where ado.animal_Id = ani.animal_Id and ani.breed_id = " + breed.getBreedId());
+			Query query1 = session.createSQLQuery("select count(ado.adoption_Id) from AdoptionRecords ado, Animals ani where ado.ownerMemberId=?0 and ado.animal_Id = ani.animal_Id and ani.breed_id = " + breed.getBreedId());
+			query1.setParameter(0, memberId);
 			BigDecimal num = (BigDecimal)query1.uniqueResult();
 			map.put(breed.getBreed(), num);
 		}
@@ -92,7 +93,8 @@ public class AdoptionRecordsDaoImpl implements AdoptionRecordsDao {
 		for (AdoptionRecords adoptionRecords : list) {
 			Breeds breed = adoptionRecords.getAnimal().getBreeds();
 			@SuppressWarnings("rawtypes")
-			Query query1 = session.createSQLQuery("select count(ado.adoption_Id) from AdoptionRecords ado, Animals ani where ado.animal_Id = ani.animal_Id and ado.review_Status = 3 and ani.breed_id = " + breed.getBreedId());
+			Query query1 = session.createSQLQuery("select count(ado.adoption_Id) from AdoptionRecords ado, Animals ani where ado.ownerMemberId=?0 and ado.animal_Id = ani.animal_Id and ado.review_Status = 3 and ani.breed_id = " + breed.getBreedId());
+			query1.setParameter(0, memberId);
 			BigDecimal num = (BigDecimal)query1.uniqueResult();
 			BigDecimal num0 = new BigDecimal(0);
 			if (num.compareTo(num0) > 0) {
