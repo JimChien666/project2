@@ -74,7 +74,7 @@ table th{
 			$artilceListTable.append("<tr><th>文章標題</th></tr>")
 			
 			$.each(articleList, function(i, article) {
-				var urlStringent = "<c:url value='goArticlePage?articleId="	+ article.id + "' />";
+				var urlStringent = "<c:url value='/goArticlePage?articleId="	+ article.id + "' />";
 				
 				$artilceListTable
 // 						.append("<tr><td align='center'  width='100px'>"+popularity+"</td><td><a href="+urlStringent+"><div>"  

@@ -77,7 +77,7 @@ table th{
 			$artilceListTable.append("<tr><th>文章標題</th><th>追蹤</th></tr>")
 			
 			$.each(articleList, function(i, article) {
-				var urlStringent = "<c:url value='goArticlePage?articleId="
+				var urlStringent = "<c:url value='/goArticlePage?articleId="
 						+ article.id + "' />";
 				var checkStatus = false;
 				
