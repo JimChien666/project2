@@ -336,15 +336,7 @@ public class ArticleController {
 		return "redirect:/articleList";
 	}
 
-	// show one article
-//	@GetMapping(value = "article")
-//	public String article(Locale locale, Model model, @RequestParam(value = "articleId") Integer id) {
-//		Article article = articleService.select(id);
-//		List<Forums> forums = forumsService.select(id);
-//		model.addAttribute("article", article);
-//		model.addAttribute("forums", forums);
-//		return "article/Article";
-//	}
+
 	
 	
 	@GetMapping(value = "/article")
