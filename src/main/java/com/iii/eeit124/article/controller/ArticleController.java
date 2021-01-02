@@ -90,26 +90,14 @@ public class ArticleController {
 		return "article/Article";
 	}
 	
-	
-	
-//	@GetMapping(value = "testArticle")
-//	public String testArticle() {
-//		return "article/Article";
-//	}
+
 
 	@GetMapping(value = "/articleList")
 	public String list() {
-//	public String list(Locale locale, Model model, @RequestParam(value = "articletypesId", required = false, defaultValue = "1") Integer id) {
-//		model.addAttribute("allArticleTypes", articleService.getAllArticleTypes());
-//		model.addAttribute("Articles", articleService.getAllArticles(id));
+
 		return "article/ShowAllArticle";
 	}
-//	@GetMapping(value = "articleList")
-//	public String list(Locale locale, Model model, @RequestParam(value = "articletypesId", required = false, defaultValue = "1") Integer id) {
-//		model.addAttribute("allArticleTypes", articleService.getAllArticleTypes());
-//		model.addAttribute("Articles", articleService.getAllArticles(id));
-//		return "article/ShowAllArticle";
-//	}
+
 
 	@GetMapping(value = "/backArticle")
 	public String backArticle() {
@@ -122,7 +110,6 @@ public class ArticleController {
 		Forums forums = new Forums();
 		model.addAttribute(forums);
 		Article article = articleService.select(articleId);
-//		model.addAttribute("forum", forums);
 		model.addAttribute("article", article);
 		return "article/replyArticle";
 	}
@@ -200,10 +187,7 @@ public class ArticleController {
 		forums.setMember((Members) session.getAttribute("LoginOK"));
 		article.getForums().add(forums);
 		article.setMember((Members) session.getAttribute("LoginOK"));
-		System.out.println("................................................................");
-		System.out.println(voteOptions);
-		if (voteOptions!=null) {
-			
+		if (voteOptions!=null) {		
 		
 		List<Options> options = new ArrayList<Options>();
 		for(String voteOption:voteOptions) {
@@ -319,7 +303,6 @@ public class ArticleController {
 		Forums forums = option.getForums();
 		mOption.setForums(forums);		
 		boolean checkMemberVoteStatus = memberOptionService.CheckMemberVoteStatus(((Members) session.getAttribute("LoginOK")).getId(), forums.getId());
-		System.out.println(checkMemberVoteStatus);
 		if (checkMemberVoteStatus) {
 			
 			memberOptionService.save(mOption);
@@ -334,10 +317,7 @@ public class ArticleController {
 	@PostMapping(value = "/updateToDB")
 	public String updateToDB(@ModelAttribute(name = "article") Article article,
 			@RequestParam("content") String forumContent, BindingResult result, Model model) {
-//		System.out.println(article.getTitle());
-//		System.out.println(article.getFirstForum());
-//		article.getFirstForum().setContent(forumContent);
-		
+
 		int id = article.getId();
 		List<Forums> forumList = forumsService.selectForumById(id);
 		Forums forum = forumList.get(0);
